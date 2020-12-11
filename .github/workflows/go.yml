@@ -13,6 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+    - name: MongoDB in GitHub Actions
+      uses: supercharge/mongodb-github-action@1.3.0
+      with:
+        mongodb-version: 4.4
+        
+    - name: check mongo
+      run: mongo localhost:27017 --eval "db.test.update({\"test\": 1}, {\"$set\": {\"test1\": 2}}, {upsert: true})"
+
     - name: Set up Go 1.x
       uses: actions/setup-go@v2
       with:
