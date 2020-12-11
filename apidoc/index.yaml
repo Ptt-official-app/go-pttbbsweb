@@ -1,0 +1,8 @@
+index
+---
+tags:
+  - index
+definitions:
+responses:
+  200:
+    description: index

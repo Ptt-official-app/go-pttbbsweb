@@ -1,0 +1,27 @@
+title:
+  type: string
+flag:
+  type: number
+  description: board attribute (https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/brdattr.go)
+boardType:
+  type: string
+  description: 板的種類 (□, ◎, ...)
+cat:
+  type: string
+  description: 板的類別
+onlineCount:
+  type: number
+  description: 人氣
+moderators:
+  type: array
+  items:
+    '$ref': '#/definitions/UID'
+reason:
+  type: string
+  description: 不給看的原因.
+read:
+  type: boolean
+  description: 已知這個板的最新文章.
+total:
+  type: number
+  description: 文章總數.

@@ -1,0 +1,19 @@
+GetFavoriteBoard
+---
+tags:
+  - user
+  - board
+parameters:
+  - '$ref': '#/definitions/ParamsAuthorization'
+  - name: 'username'
+    in: 'path'
+    required: true
+    type: string
+  - '$ref': '#/definitions/ParamsStartIdx'
+  - '$ref': '#/definitions/ParamsMax'
+responses:
+  200:
+    description:
+    schema:
+      '$id': https://json-schema.org/draft/2019-09/output/schema
+      '$ref': '#/definitions/BoardList'

@@ -1,0 +1,91 @@
+GetBoardDetail
+---
+tags:
+  - board
+parameters:
+  - '$ref': '#/definitions/ParamsAuthorization'
+  - name: 'board'
+    in: 'path'
+    required: true
+    description: 'board-id'
+    type: string
+  - name: 'fields'
+    in: 'query'
+    required: false
+    description: "fields to retrieve, separated by ','' ex: bid,title,boardType,cat "
+    type: string
+    default: ''
+responses:
+  200:
+    description:
+    schema:
+      '$id': https://json-schema.org/draft/2019-09/output/schema
+      type: object
+      properties:
+        bsn:
+          type: string
+        bid:
+          type: string
+        title:
+          type: string
+        flag:
+          type: number
+        boardType:
+          type: number
+          description: board-category-id (gid).
+        cat:
+          type: string
+          description: board category (string).
+        onlineCount:
+          type: number
+        moderators:
+          type: array
+          items:
+            type: object
+            properties:
+              usn:
+                type: string
+              uid:
+                type: string
+
+        voteLimitLogins:
+          type: number
+          description: min-login to vote.
+        bUpdate:
+          type: number
+          description: note update-time (in unix-time).
+        postLimitLogins:
+          type: number
+          description: min-login to post.
+        vote:
+          type: number
+          description: number of votings in this board.
+        vtime:
+          type: number
+          description: vote closing time. (in unix-time).
+        level:
+          type: number
+          description: permission to read the board.
+        lastSetTime:
+          type: number
+          description: last time of setting the baord (in unix-time).
+        postExpire:
+          type: number
+          description: post-expire
+        endGamble:
+          type: number
+          description: time to end the gamble (in unix-time).
+        postType:
+          type: string
+        fastRecommendPause:
+          type: number
+          description: duration between the comments.
+        voteLimitBadpost:
+          type: number
+          description: badpost upper-limit to vote.
+        postLimitBadpost:
+          type: number
+          description: badpost upper-list to post.
+        read:
+          type: boolean
+          description: reached the end of the post-list (or not).

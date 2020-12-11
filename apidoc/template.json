@@ -1,0 +1,182 @@
+{
+    "info": {
+        "version": "0.2.0",
+        "title": "openbbs-middleware"
+    },
+    "definitions": {
+        "AccessToken": {
+            "type": "object",
+            "properties": {
+                "access_token": {
+                    "type": "string"
+                },
+                "token_type": {
+                    "type": "string"
+                }
+            }
+        },
+        "AccountLoginParams": {
+            "type": "object",
+            "properties": {
+                "client_id": {
+                    "type": "string",
+                    "required": true,
+                    "description": "client-id, use \"test_client_id\" in the dev env."
+                },
+                "client_secret": {
+                    "type": "string",
+                    "required": true,
+                    "description": "client-secret, use \"test_client_secret\" in the dev env."
+                },
+                "username": {
+                    "type": "string",
+                    "required": true
+                },
+                "password": {
+                    "type": "string",
+                    "required": true
+                }
+            }
+        },
+        "AccountRegisterParams": {
+            "type": "object",
+            "properties": {
+                "client_id": {
+                    "type": "string",
+                    "required": true,
+                    "description": "client-id, use \"test_client_id\" in the dev env."
+                },
+                "client_secret": {
+                    "type": "string",
+                    "required": true,
+                    "description": "client-secret, use \"test_client_secret\" in the dev env."
+                },
+                "username": {
+                    "type": "string",
+                    "required": true
+                },
+                "password": {
+                    "type": "string",
+                    "required": true
+                },
+                "password_confirm": {
+                    "type": "string",
+                    "required": true
+                },
+                "over18": {
+                    "type": "boolean",
+                    "required": false
+                },
+                "email": {
+                    "type": "string",
+                    "required": false
+                },
+                "nickname": {
+                    "type": "string",
+                    "required": false
+                },
+                "realname": {
+                    "type": "string",
+                    "required": false
+                },
+                "career": {
+                    "type": "string",
+                    "required": false
+                },
+                "address": {
+                    "type": "string",
+                    "required": false
+                }
+            }
+        },
+        "BoardList": {
+            "type": "object",
+            "properties": {
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BoardSummary"
+                    }
+                },
+                "nextIdx": {
+                    "$ref": "#/definitions/RespNextIdx"
+                }
+            }
+        },
+        "BoardSummary": {
+            "type": "object",
+            "properties": {
+                "boardID": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "flag": {
+                    "type": "number",
+                    "description": "board attribute (https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/brdattr.go)"
+                },
+                "boardType": {
+                    "type": "string",
+                    "description": "\u677f\u7684\u7a2e\u985e (\u25a1, \u25ce, ...)"
+                },
+                "cat": {
+                    "type": "string",
+                    "description": "\u677f\u7684\u985e\u5225"
+                },
+                "onlineCount": {
+                    "type": "number",
+                    "description": "\u4eba\u6c23"
+                },
+                "moderators": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/UID"
+                    }
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "\u4e0d\u7d66\u770b\u7684\u539f\u56e0."
+                },
+                "read": {
+                    "type": "boolean",
+                    "description": "\u5df2\u77e5\u9019\u500b\u677f\u7684\u6700\u65b0\u6587\u7ae0."
+                },
+                "total": {
+                    "type": "number",
+                    "description": "\u6587\u7ae0\u7e3d\u6578."
+                }
+            }
+        },
+        "ParamsAuthorization": {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "bearer [token]",
+            "type": "string"
+        },
+        "ParamsMax": {
+            "name": "max",
+            "in": "query",
+            "required": false,
+            "description": "max number of the returned list, requiring <= 300",
+            "type": "number",
+            "default": 300
+        },
+        "ParamsStartIdx": {
+            "name": "startIdx",
+            "in": "query",
+            "required": false,
+            "description": "starting idx, '' if fetch from the beginning.",
+            "type": "string",
+            "default": ""
+        },
+        "RespNextIdx": {
+            "type": "string"
+        },
+        "UID": {
+            "type": "string",
+            "description": "username"
+        }
+    }
+}

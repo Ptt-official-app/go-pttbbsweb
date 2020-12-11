@@ -1,0 +1,7 @@
+ParamsMax:
+  name: 'max'
+  in: 'query'
+  required: false
+  description: "max number of the returned list, requiring <= 300"
+  type: number
+  default: 300
