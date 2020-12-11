@@ -1,0 +1,20 @@
+version: '2'
+services:
+  go-pttbbs:
+    image: pttofficialapps/go-pttbbs:v0.2.2
+    ports:
+      - "127.0.0.1:8888:8888"
+      - "127.0.0.1:48763:48763"
+    restart: always
+    volumes:
+      - ${BBSHOME}:/home/bbs
+  mongo:
+    image: mongo:4.4.2
+    restart: always
+    volumes:
+      - /var/lib/mongo:/data
+  openbbs-middleware:
+    image: pttofficialapps/go-openbbsmiddleware:v0.0.1
+    ports:
+      - "127.0.0.1:3457:3457"
+    restart: always
