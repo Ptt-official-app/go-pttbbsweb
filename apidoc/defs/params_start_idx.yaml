@@ -1,0 +1,7 @@
+ParamsStartIdx:
+  name: 'startIdx'
+  in: 'query'
+  required: false
+  description: "starting idx, '' if fetch from the beginning."
+  type: string
+  default: ''

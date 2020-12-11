@@ -1,0 +1,5 @@
+BoardSummary:
+  type: object
+  properties:
+    !include bid_core.yaml
+    !include board_summary_core.yaml

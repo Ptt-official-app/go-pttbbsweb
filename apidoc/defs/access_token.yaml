@@ -1,0 +1,7 @@
+AccessToken:
+  type: object
+  properties:
+    access_token:
+      type: string
+    token_type:
+      type: string

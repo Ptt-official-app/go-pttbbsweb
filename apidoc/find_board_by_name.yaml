@@ -1,0 +1,20 @@
+FindBoardByName
+---
+tags:
+  - board
+parameters:
+  - '$ref': '#/definitions/ParamsAuthorization'
+  - name: 'name'
+    in: 'query'
+    required: false
+    description: "query string, '' returns all boards"
+    type: string
+    default: ''
+  - '$ref': '#/definitions/ParamsStartIdx'
+  - '$ref': '#/definitions/ParamsMax'
+responses:
+  200:
+    description:
+    schema:
+      '$id': https://json-schema.org/draft/2019-09/output/schema
+      '$ref': '#/definitions/BoardList'

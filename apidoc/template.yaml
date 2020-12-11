@@ -1,0 +1,14 @@
+info:
+  version: '0.2.0'
+  title: openbbs-middleware
+definitions:
+  !include defs/access_token.yaml
+  !include defs/account_login_params.yaml
+  !include defs/account_register_params.yaml
+  !include defs/board_list.yaml
+  !include defs/board_summary.yaml
+  !include defs/params_authorization.yaml
+  !include defs/params_max.yaml
+  !include defs/params_start_idx.yaml
+  !include defs/resp_next_idx.yaml
+  !include defs/uid.yaml

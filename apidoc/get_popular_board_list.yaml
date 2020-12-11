@@ -1,0 +1,15 @@
+GetPopularBoardList
+---
+tags:
+  - board
+definitions:
+parameters:
+  - '$ref': '#/definitions/ParamsAuthorization'
+  - '$ref': '#/definitions/ParamsStartIdx'
+  - '$ref': '#/definitions/ParamsMax'
+responses:
+  200:
+    description:
+    schema:
+      '$id': https://json-schema.org/draft/2019-09/output/schema
+      '$ref': '#/definitions/BoardList'
