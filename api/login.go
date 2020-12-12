@@ -7,11 +7,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const LOGIN_R = "/Account/login"
+
 type LoginParams struct {
 	ClientID     string `json:"client_id"`
 	ClientSecret string `json:"client_secret"`
 	Username     string `json:"username"`
 	Password     string `json:"password"`
+}
+
+func NewLoginParams() *LoginParams {
+	return &LoginParams{}
 }
 
 type LoginResult struct {
@@ -30,11 +36,12 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 	}
 
 	//backend login
-	loginParams_b := &backend.LoginParams{Username: theParams.Username, Password: theParams.Password}
-	result_b := &backend.LoginResults{}
+	theParams_b := &backend.LoginParams{UserID: theParams.Username, Passwd: theParams.Password}
+
+	var result_b *backend.LoginResult
 
 	url := backend.WithPrefix(backend.LOGIN_R)
-	statusCode, err = utils.HttpPost(c, url, loginParams_b, nil, result_b)
+	statusCode, err = utils.HttpPost(c, url, theParams_b, nil, &result_b)
 	if err != nil || statusCode != 200 {
 		return nil, statusCode, err
 	}
@@ -42,7 +49,7 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 	//update db
 	nowNanoTS := utils.GetNowNanoTS()
 	query := &schema.AccessToken{
-		AccessToken:  result_b.AccessToken,
+		AccessToken:  result_b.Jwt,
 		UserID:       theParams.Username,
 		UpdateNanoTS: nowNanoTS,
 	}
@@ -55,7 +62,7 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 
 	//result
 	result = &LoginResult{
-		AccessToken: result_b.AccessToken,
+		AccessToken: result_b.Jwt,
 		TokenType:   result_b.TokenType,
 	}
 

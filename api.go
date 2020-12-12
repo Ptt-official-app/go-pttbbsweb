@@ -62,7 +62,7 @@ func (api *Api) process(c *gin.Context) {
 	processResult(c, result, statusCode, err)
 }
 
-func (api *LoginRequiredApi) LoginRequiredQuery(c *gin.Context) {
+func (api *LoginRequiredApi) Query(c *gin.Context) {
 	err := c.ShouldBindQuery(api.Params)
 	if err != nil {
 		processResult(c, nil, 400, err)
@@ -72,7 +72,7 @@ func (api *LoginRequiredApi) LoginRequiredQuery(c *gin.Context) {
 	api.process(c)
 }
 
-func (api *LoginRequiredApi) LoginRequiredJson(c *gin.Context) {
+func (api *LoginRequiredApi) Json(c *gin.Context) {
 	err := c.ShouldBindJSON(api.Params)
 	if err != nil {
 		processResult(c, nil, 400, err)

@@ -9,13 +9,13 @@ import (
 	"gopkg.in/square/go-jose.v2/jwt"
 )
 
-func Login(params *backend.LoginParams) (ret *backend.LoginResults) {
-	userID := params.Username
+func Login(params *backend.LoginParams) (ret *backend.LoginResult) {
+	userID := params.UserID
 	token, _ := createToken(userID)
 
-	ret = &backend.LoginResults{
-		AccessToken: token,
-		TokenType:   "bearer",
+	ret = &backend.LoginResult{
+		Jwt:       token,
+		TokenType: "bearer",
 	}
 
 	return ret

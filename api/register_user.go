@@ -7,6 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const REGISTER_USER_R = "/Account/register"
+
 type RegisterUserParams struct {
 	ClientID     string `json:"client_id"`
 	ClientSecret string `json:"client_secret"`
@@ -22,6 +24,10 @@ type RegisterUserParams struct {
 	Realname string `json:"realname,omitempty"`
 	Career   string `json:"career,omitempty"`
 	Address  string `json:"address,omitempty"`
+}
+
+func NewRegisterUserParams() *RegisterUserParams {
+	return &RegisterUserParams{}
 }
 
 type RegisterUserResult struct {
@@ -44,17 +50,17 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 	}
 
 	//backend register
-	registerParams_b := &backend.RegisterParams{
-		Username: theParams.Username,
-		Password: theParams.Password,
+	theParams_b := &backend.RegisterParams{
+		UserID:   theParams.Username,
+		Passwd:   theParams.Password,
 		Over18:   theParams.Over18,
 		Email:    theParams.Email,
 		Nickname: theParams.Nickname,
 	}
-	result_b := &backend.RegisterResults{}
+	var result_b *backend.RegisterResult
 
 	url := backend.WithPrefix(backend.REGISTER_R)
-	statusCode, err = utils.HttpPost(c, url, registerParams_b, nil, result_b)
+	statusCode, err = utils.HttpPost(c, url, theParams_b, nil, &result_b)
 	if err != nil || statusCode != 200 {
 		return nil, statusCode, err
 	}
@@ -62,7 +68,7 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 	//update db
 	nowNanoTS := utils.GetNowNanoTS()
 	query := &schema.AccessToken{
-		AccessToken:  result_b.AccessToken,
+		AccessToken:  result_b.Jwt,
 		UserID:       theParams.Username,
 		UpdateNanoTS: nowNanoTS,
 	}
@@ -75,7 +81,7 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 
 	//result
 	result = &RegisterUserResult{
-		AccessToken: result_b.AccessToken,
+		AccessToken: result_b.Jwt,
 		TokenType:   result_b.TokenType,
 	}
 

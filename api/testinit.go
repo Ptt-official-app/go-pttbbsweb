@@ -15,7 +15,7 @@ func setupTest() {
 
 	db.SetIsTest()
 
-	schema.Init()
+	_ = schema.Init()
 
 	params := &RegisterClientParams{ClientID: "default_client_id"}
 	_, _, _ = RegisterClient("localhost", params, nil)

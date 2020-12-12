@@ -12,10 +12,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func HttpPost(c *gin.Context, url string, data interface{}, headers map[string]string, result interface{}) (statusCode int, err error) {
+//HttpPost
+//
+//Params
+//  postData: http-post data
+//  result: resp-data, requires pointer of pointer to malloc.
+//
+//Ex:
+//    url := backend.LOGIN_R
+//    postData := &backend.LoginParams{}
+//    result := &backend.LoginResult{}
+//    HttpPost(c, url, postData, nil, &result)
+func HttpPost(c *gin.Context, url string, postData interface{}, headers map[string]string, result interface{}) (statusCode int, err error) {
 
 	if isTest {
-		return mock_http.HttpPost(url, data, result)
+		return mock_http.HttpPost(url, postData, result)
 	}
 
 	remoteAddr := c.ClientIP()
@@ -33,7 +44,7 @@ func HttpPost(c *gin.Context, url string, data interface{}, headers map[string]s
 		headers["Authorization"] = authorization
 	}
 
-	jsonBytes, err := json.Marshal(data)
+	jsonBytes, err := json.Marshal(postData)
 	if err != nil {
 		return 500, err
 	}
