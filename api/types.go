@@ -1,12 +1,9 @@
 package api
 
-import "gopkg.in/square/go-jose.v2/jwt"
+import (
+	"github.com/gin-gonic/gin"
+)
 
-type ApiFunc func(remoteAddr string, params interface{}) (interface{}, error)
+type ApiFunc func(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error)
 
-type LoginRequiredApiFunc func(remoteAddr string, userID string, params interface{}) (interface{}, error)
-
-type JwtClaim struct {
-	UserID string
-	Expire *jwt.NumericDate
-}
+type LoginRequiredApiFunc func(remoteAddr string, userID string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error)

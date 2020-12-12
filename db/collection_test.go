@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	log "github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -386,7 +386,7 @@ func TestCollection_Find(t *testing.T) {
 				if idx >= len(tt.expectedRet) {
 					t.Errorf("Collection.Find: (%v/%v): %v", idx, len(tt.args.ret), each)
 				}
-				types.TDeepEqual(t, tt.args.ret[idx], tt.expectedRet[idx])
+				utils.TDeepEqual(t, tt.args.ret[idx], tt.expectedRet[idx])
 			}
 		})
 	}
