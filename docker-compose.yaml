@@ -14,7 +14,7 @@ services:
     volumes:
       - /var/lib/mongo:/data
   openbbs-middleware:
-    image: pttofficialapps/go-openbbsmiddleware:v0.0.1
+    image: pttofficialapps/go-openbbsmiddleware:v0.1.0
     ports:
       - "127.0.0.1:3457:3457"
     restart: always
