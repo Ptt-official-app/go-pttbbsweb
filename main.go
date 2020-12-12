@@ -6,6 +6,8 @@ import (
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/backend"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -39,6 +41,9 @@ func initGin() (*gin.Engine, error) {
 	router := gin.Default()
 
 	router.GET(index_r, NewApi(api.Index, &api.IndexParams{}).Query)
+	router.POST(registerClient_r, NewApi(api.RegisterClient, &api.RegisterClientParams{}).Json)
+	router.POST(register_r, NewApi(api.RegisterUser, &api.RegisterUserParams{}).Json)
+	router.POST(login_r, NewApi(api.Login, &api.LoginParams{}).Json)
 
 	return router, nil
 }
@@ -68,17 +73,22 @@ func initAllConfig(filename string) error {
 
 	log.Debugf("viper keys: %v", viper.AllKeys())
 
-	err = api.InitConfig()
-	if err != nil {
-		return err
-	}
-
 	err = types.InitConfig()
 	if err != nil {
 		return err
 	}
 
 	err = backend.InitConfig()
+	if err != nil {
+		return err
+	}
+
+	err = db.InitConfig()
+	if err != nil {
+		return err
+	}
+
+	err = schema.InitConfig()
 	if err != nil {
 		return err
 	}
@@ -96,6 +106,11 @@ func initMain() error {
 	flag.Parse()
 
 	err := initAllConfig(filename)
+	if err != nil {
+		return err
+	}
+
+	err = schema.Init()
 	if err != nil {
 		return err
 	}

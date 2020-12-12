@@ -1,15 +1,22 @@
-package types
+package utils
 
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/mock_http"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/gin-gonic/gin"
 )
 
 func HttpPost(c *gin.Context, url string, data interface{}, headers map[string]string, result interface{}) (statusCode int, err error) {
+
+	if isTest {
+		return mock_http.HttpPost(url, data, result)
+	}
 
 	remoteAddr := c.ClientIP()
 
@@ -17,7 +24,8 @@ func HttpPost(c *gin.Context, url string, data interface{}, headers map[string]s
 		headers = make(map[string]string)
 	}
 
-	headers["Host"] = HTTP_HOST
+	headers["Content-Type"] = "application/json"
+	headers["Host"] = types.HTTP_HOST
 	headers["X-Forwarded-For"] = remoteAddr
 
 	authorization := c.GetHeader("Authorization")
@@ -32,10 +40,21 @@ func HttpPost(c *gin.Context, url string, data interface{}, headers map[string]s
 
 	buf := bytes.NewBuffer(jsonBytes)
 
-	resp, err := http.Post(url, "application/json", buf)
+	// req
+	req, err := http.NewRequest("POST", url, buf)
 	if err != nil {
 		return 500, err
 	}
+	for k, v := range headers {
+		req.Header.Add(k, v)
+	}
+
+	// send http
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return 500, err
+	}
+	defer resp.Body.Close()
 
 	statusCode = resp.StatusCode
 
@@ -44,10 +63,19 @@ func HttpPost(c *gin.Context, url string, data interface{}, headers map[string]s
 		return 501, err
 	}
 
+	if statusCode != 200 {
+		errResult := &httpErrResult{}
+		err = json.Unmarshal(body, errResult)
+		if err != nil {
+			return statusCode, errors.New(string(body))
+		}
+		return statusCode, errors.New(errResult.Msg)
+	}
+
 	err = json.Unmarshal(body, result)
 	if err != nil {
 		return 501, err
 	}
 
-	return statusCode, nil
+	return 200, nil
 }

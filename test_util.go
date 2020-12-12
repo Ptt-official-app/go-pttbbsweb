@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/square/go-jose.v2/jwt"
@@ -36,12 +36,12 @@ func getJwt(router *gin.Engine, userID string, passwd string) string {
 }
 
 func createToken(userID string) (string, error) {
-	sig, err := jose.NewSigner(jose.SigningKey{Algorithm: jose.HS256, Key: api.JWT_SECRET}, (&jose.SignerOptions{}).WithType("JWT"))
+	sig, err := jose.NewSigner(jose.SigningKey{Algorithm: jose.HS256, Key: types.JWT_SECRET}, (&jose.SignerOptions{}).WithType("JWT"))
 	if err != nil {
 		return "", err
 	}
 
-	cl := &api.JwtClaim{
+	cl := &types.JwtClaim{
 		UserID: userID,
 		Expire: jwt.NewNumericDate(time.Now().Add(time.Hour * 72)),
 	}

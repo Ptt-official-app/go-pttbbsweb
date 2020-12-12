@@ -31,7 +31,7 @@ func TestIndex(t *testing.T) {
 			setupTest()
 			defer teardownTest()
 
-			got, err := Index(testIP, tt.args.params)
+			got, _, err := Index(testIP, tt.args.params, nil)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Index() error = %v, wantErr %v", err, tt.wantErr)
 				return
