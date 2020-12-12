@@ -5,6 +5,8 @@ import (
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/backend"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	jww "github.com/spf13/jwalterweatherman"
@@ -71,6 +73,16 @@ func initAllConfig(filename string) error {
 		return err
 	}
 
+	err = types.InitConfig()
+	if err != nil {
+		return err
+	}
+
+	err = backend.InitConfig()
+	if err != nil {
+		return err
+	}
+
 	return InitConfig()
 }
 
@@ -102,5 +114,5 @@ func main() {
 		return
 	}
 
-	_ = router.Run(HTTP_HOST)
+	_ = router.Run(types.HTTP_HOST)
 }

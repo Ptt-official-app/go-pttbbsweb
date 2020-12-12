@@ -3,6 +3,8 @@ package main
 import (
 	"reflect"
 	"testing"
+
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 )
 
 func Test_initAllConfig(t *testing.T) {
@@ -43,8 +45,8 @@ func Test_initAllConfig(t *testing.T) {
 				return
 			}
 
-			if !reflect.DeepEqual(HTTP_HOST, tt.wantHTTP_POST) {
-				t.Errorf("initConfig() HTTP_HOST: %v want :%v", HTTP_HOST, tt.wantHTTP_POST)
+			if !reflect.DeepEqual(types.HTTP_HOST, tt.wantHTTP_POST) {
+				t.Errorf("initConfig() HTTP_HOST: %v want :%v", types.HTTP_HOST, tt.wantHTTP_POST)
 			}
 		})
 	}

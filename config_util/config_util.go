@@ -2,6 +2,7 @@ package config_util
 
 import (
 	"strings"
+	"time"
 
 	"github.com/spf13/viper"
 )
@@ -31,6 +32,14 @@ func SetBoolConfig(configPrefix string, idx string, orig bool) bool {
 	}
 
 	return viper.GetBool(idx)
+}
+
+func SetDurationConfig(configPrefix string, idx string, orig time.Duration) time.Duration {
+	idx = configPrefix + "." + strings.ToLower(idx)
+	if !viper.IsSet(idx) {
+		return orig
+	}
+	return time.Duration(viper.GetInt(idx))
 }
 
 func SetIntConfig(configPrefix string, idx string, orig int) int {
