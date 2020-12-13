@@ -1,0 +1,7 @@
+moderators:
+  type: array
+  items:
+    '$ref': '#/definitions/UID'
+reason:
+  type: string
+  description: 不給看的原因.

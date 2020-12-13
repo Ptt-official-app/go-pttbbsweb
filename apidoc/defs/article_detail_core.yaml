@@ -1,0 +1,25 @@
+ownerID:
+  type: string
+ownerNickname:
+  type: string
+boardID:
+  type: string
+title:
+  type: string
+main:
+  type: array
+  items:
+    '$ref': '#/definitions/Rune'
+host:
+  type: string
+  description: 發信站
+fromHost:
+  type: string
+  description: from 的描述 (國名).
+fromIP:
+  type: string
+  description: from IP.
+comments:
+  type: array
+  items:
+    '$ref': '#/definitions/CommentList'

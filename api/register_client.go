@@ -7,6 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+const REGISTER_CLIENT_R = "/register/client"
+
 type RegisterClientParams struct {
 	ClientID string `json:"client_id"`
 }
@@ -14,6 +16,10 @@ type RegisterClientParams struct {
 type RegisterClientResult struct {
 	ClientSecret string `json:"client_secret"`
 	Success      bool
+}
+
+func NewRegisterClientParams() *RegisterClientParams {
+	return &RegisterClientParams{}
 }
 
 func RegisterClient(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {

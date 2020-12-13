@@ -9,64 +9,10 @@ parameters:
   - name: 'article'
     in: path
     type: string
-  - name: 'fields'
-    in: 'query'
-    required: false
-    description: "fields to retrieve, separated by ',' ex: aid,postTime,updateTime "
-    type: string
-    default: ''
+  - '$ref': '#/definitions/ParamsFields'
 responses:
   200:
     description:
     schema:
       '$id': https://json-schema.org/draft/2019-09/output/schema
-      type: object
-      properties:
-        asn:
-          type: string
-          description: article-sn
-        aid:
-          type: string
-          description: article-id
-        postTime:
-          type: number
-          description: post-time in unix-time
-        updateTime:
-          type: number
-          description: update-time in unix-time
-        date:
-          type: string
-          description: date in CST.
-        title:
-          type: string
-        href:
-          type: string
-        authorsn:
-          type: string
-          description: author-sn (usn)
-        author:
-          type: string
-          description: author (uid)
-        main:
-          type: string
-          description: main-content of the article (not including comments)
-        content:
-          type: array
-          items:
-            type: string
-          description: content of the article (including condensed-comments)
-        read:
-          type: boolean
-          description: already-read or not.
-        flag:
-          type: number
-        cat:
-          type: string
-          description: category
-        money:
-          type: number
-          description: ptt-coin for this article.
-        nReader:
-          type: number
-        nRecommend:
-          type: number
+      '$ref': '#/definitions/ArticleDetail'

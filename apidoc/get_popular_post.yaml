@@ -2,96 +2,14 @@ GetPopularPost
 ---
 tags:
   - article
-description: get popular post list, sorted by time (from newest to oldest.)
+description: get popular post list, sorted by popularity. displaying most popular on the top.
 parameters:
-  - name: 'startTime'
-    in: 'query'
-    required: false
-    description: "the newest-time in the list. -1 will starting from newest post if not specified. required if is a continuing-fetch (not fetching from the beginning)."
-    type: number
-    default: -1
-  - name: 'startBID'
-    in: 'query'
-    required: false
-    description: "starting board-id, '' if not specified. required if is a continuing-fetch (not fetching from the beginning)."
-    type: string
-    default: ''
-  - name: 'startAID'
-    in: 'query'
-    required: false
-    description: "starting article-id, '' if not specified. required if is a continuing-fetch (not fetching from the beginning)."
-    type: string
-    default: ''
-  - name: 'max'
-    in: 'query'
-    required: false
-    description: "max number of the returned posts, require <= 1000"
-    type: number
-    default: 1000
+  - '$ref': '#/definitions/ParamsAuthorization'
+  - '$ref': '#/definitions/ParamsStartIdx'
+  - '$ref': '#/definitions/ParamsMax'
 responses:
   200:
     description:
     schema:
       '$id': https://json-schema.org/draft/2019-09/output/schema
-      type: object
-      properties:
-        list:
-          type: array
-          items:
-            type: object
-            properties:
-              bsn:
-                type: string
-                description: board-sn
-              bid:
-                type: string
-                description: board-id (brdname)
-              asn:
-                type: string
-                description: article-sn
-              aid:
-                type: string
-                description: article-id
-              postTime:
-                type: number
-                description: post-time in unix-time
-              updateTime:
-                type: number
-                description: update-time in unix-time
-              date:
-                type: string
-                description: date in CST.
-              title:
-                type: string
-              href:
-                type: string
-              authorsn:
-                type: string
-                description: author-sn (usn)
-              author:
-                type: string
-                description: author (uid)
-              read:
-                type: boolean
-                description: already-read or not.
-              flag:
-                type: number
-              cat:
-                type: string
-                description: category
-              money:
-                type: number
-                description: ptt-coin for this article.
-              nReader:
-                type: number
-              nRecommend:
-                type: number
-        nextBID:
-          type: string
-          description: next board-id. '' if reached end-of-the-list.
-        nextAID:
-          type: string
-          description: next article-id. '' if reached end-of-the-list.
-        nextTime:
-          type: number
-          description: next searching-time. 0 if reached end-of-the-list.
+      '$ref': '#/definitions/ArticleList'

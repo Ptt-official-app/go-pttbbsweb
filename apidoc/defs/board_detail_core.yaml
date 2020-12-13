@@ -1,0 +1,38 @@
+voteLimitLogins:
+  type: number
+  description: 最少 login 次數才能投票
+updateTime:
+  type: number
+  description: update 時間
+postLimitLogins:
+  type: number
+  description: 最少 login 次數才能 po 文
+vote:
+  type: number
+  description: 正在舉行的投票的人數
+vtime:
+  type: number
+  description: 投票截止時間.
+level:
+  type: number
+  description: 這個板的權限.
+lastSetTime:
+  type: number
+  description: 最新設定時間.
+postExpire:
+  type: number
+  description: post-expire
+endGamble:
+  type: number
+  description: 賭盤結束時間
+postType:
+  type: string
+fastRecommendPause:
+  type: number
+  description: 推文最短間隔時間
+voteLimitBadpost:
+  type: number
+  description: 至多劣文次數才能投票.
+postLimitBadpost:
+  type: number
+  description: 至多劣文次數才能 po 文.

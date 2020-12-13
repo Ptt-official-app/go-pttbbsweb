@@ -1,0 +1,11 @@
+CommentList:
+  description: comments, 跟著文章拿的時候只會拿最新 100 則和最舊 100 則.
+  type: object
+  properties:
+    list:
+      type: array
+      items:
+        '$ref': '#/definitions/Comment'
+    nextIdx:
+      '$ref': '#/definitions/RespNextIdx'
+

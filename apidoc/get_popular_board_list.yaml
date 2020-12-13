@@ -2,7 +2,6 @@ GetPopularBoardList
 ---
 tags:
   - board
-definitions:
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
   - '$ref': '#/definitions/ParamsStartIdx'

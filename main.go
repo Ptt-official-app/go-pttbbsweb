@@ -20,17 +20,10 @@ var (
 )
 
 var (
-	index_r          = "/"
-	registerClient_r = withPrefix("/register/client")
-	register_r       = withPrefix("/Account/register")
-	login_r          = withPrefix("/Account/login")
-
 	getFavoriteBoard_r   = withPrefix("/Board/favorite/:username")
 	getUserPostList_r    = withPrefix("/User/article/:username")
 	getUserCommentList_r = withPrefix("/User/Comment/:username")
 	getUserInfo_r        = withPrefix("/User/Users/:username")
-
-	loadGeneralBoards_r = withPrefix("/board/boards")
 )
 
 func withPrefix(path string) string {
@@ -40,10 +33,53 @@ func withPrefix(path string) string {
 func initGin() (*gin.Engine, error) {
 	router := gin.Default()
 
-	router.GET(index_r, NewApi(api.Index, &api.IndexParams{}).Query)
-	router.POST(registerClient_r, NewApi(api.RegisterClient, &api.RegisterClientParams{}).Json)
-	router.POST(register_r, NewApi(api.RegisterUser, &api.RegisterUserParams{}).Json)
-	router.POST(login_r, NewApi(api.Login, &api.LoginParams{}).Json)
+	//index
+	router.GET(api.INDEX_R,
+		NewApi(
+			api.Index,
+			api.NewIndexParams(),
+		).Query,
+	)
+
+	//user
+	router.POST(
+		withPrefix(api.REGISTER_CLIENT_R),
+		NewApi(
+			api.RegisterClient,
+			api.NewRegisterClientParams(),
+		).Json,
+	)
+	router.POST(
+		withPrefix(api.REGISTER_USER_R),
+		NewApi(
+			api.RegisterUser,
+			api.NewRegisterUserParams(),
+		).Json,
+	)
+	router.POST(
+		withPrefix(api.LOGIN_R),
+		NewApi(
+			api.Login,
+			api.NewLoginParams(),
+		).Json,
+	)
+
+	//board
+	router.GET(
+		withPrefix(api.LOAD_GENERAL_BOARDS_R),
+		NewLoginRequiredApi(
+			api.LoadGeneralBoards,
+			api.NewLoadGeneralBoardsParams(),
+		).Query,
+	)
+	router.GET(
+		withPrefix(api.GET_BOARD_DETAIL_R),
+		NewLoginRequiredPathApi(
+			api.GetBoardDetail,
+			api.NewGetBoardDetailParams(),
+			&api.GetBoardDetailPath{},
+		).Query,
+	)
 
 	return router, nil
 }

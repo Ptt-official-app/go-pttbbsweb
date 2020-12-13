@@ -1,0 +1,12 @@
+BoardDetail:
+  type: object
+  properties:
+    !include bid_core.yaml
+    !include board_summary_core.yaml
+    !include board_detail_core.yaml
+
+BoardDetailFail:
+  type: object
+  properties:
+    !include bid_core.yaml
+    !include board_detail_fail_core.yaml

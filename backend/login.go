@@ -1,13 +1,9 @@
 package backend
 
-const LOGIN_R = "/token"
+import "github.com/Ptt-official-app/go-pttbbs/api"
 
-type LoginParams struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
+const LOGIN_R = api.LOGIN_R
 
-type LoginResults struct {
-	AccessToken string `json:"access_token"`
-	TokenType   string `json:"token_type"`
-}
+type LoginParams api.LoginParams
+
+type LoginResult api.LoginResult

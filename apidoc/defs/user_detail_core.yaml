@@ -1,0 +1,104 @@
+realname:
+  type: string
+nLoginDays:
+  type: number
+nPosts:
+  type: number
+money:
+  type: number
+email:
+  type: string
+address:
+  type: string
+over18:
+  type: boolean
+
+firstLogin:
+  type: number
+  description: first-login in unix-time
+lastLogin:
+  type: number
+  description: last-login in unix-time
+lastSeen:
+  type: number
+  description: last-seen in unix-time
+lastAct:
+  type: number
+  description: last-time user did any activity (in unix-time).
+lastSong:
+  type: number
+  description: last-time the user ordered an song (in unix-time).
+signature:
+  type: number
+
+vlcount:
+  type: number
+  description: violation count
+badpost:
+  type: number
+  description: badpost count
+
+timeRemoveBadPost:
+  type: number
+  description: newest removing badpost in unix-time
+timeViolateLaw:
+  type: number
+  description: newest violating law in unix-time
+
+myAngel:
+  type: string
+timeSetAngel:
+  type: number
+  description: setting angel in unix-time
+timePlayAngel:
+  type: number
+  description: playing with angel in unix-time
+
+from:
+  type: string
+  description: from displaying-on-screen
+fromIp:
+  type: string
+  description: from-ip
+nFriends:
+  type: number
+invisible:
+  type: boolean
+  description: 隱身
+mode:
+  type: number
+  description: mode-flag
+alerts:
+  type: number
+  description: alert-flag
+
+dark:
+  type: array
+  items:
+    type: number
+  description: 暗棋, [win, lose, tie]
+conn6:
+  type: array
+  items:
+    type: number
+  description: 六子棋, [win, lose, tie]
+five:
+  type: array
+  items:
+    type: number
+  description: 五子棋, [win, lose, tie]
+chc:
+  type: array
+  items:
+    type: number
+  description: 小雞對戰, [win, lose, tie]
+chess:
+  type: array
+  items:
+    type: number
+  description: 象棋, [win, lose, tie, rank]
+go:
+  type: array
+  items:
+    type: number
+  description: 圍棋, [win, lose, tie]

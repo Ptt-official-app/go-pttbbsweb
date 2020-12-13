@@ -3,6 +3,8 @@ package api
 import "errors"
 
 var (
-	ErrInvalidParams = errors.New("invalid params")
-	ErrLoginFailed   = errors.New("login failed")
+	ErrInvalidParams  = errors.New("invalid params")
+	ErrLoginFailed    = errors.New("login failed")
+	ErrNotImplemented = errors.New("not implemented")
+	ErrInvalidPath    = errors.New("invalid path")
 )

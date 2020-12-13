@@ -2,8 +2,14 @@ package api
 
 import "github.com/gin-gonic/gin"
 
+const INDEX_R = "/"
+
 type IndexParams struct {
 	In int `form:"in,omitempty"`
+}
+
+func NewIndexParams() *IndexParams {
+	return &IndexParams{}
 }
 
 type IndexResult struct {
