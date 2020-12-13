@@ -1,0 +1,11 @@
+Rune:
+  type: object
+  properties:
+    rune:
+      type: string
+    color0:
+      type: number
+      description: \#rrggbb
+    color1:
+      type: number
+      description: \#rrggbb

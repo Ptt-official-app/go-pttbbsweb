@@ -1,0 +1,9 @@
+ArticleList:
+  type: object
+  properties:
+    list:
+      type: array
+      items:
+        '$ref': '#/definitions/ArticleSummary'
+    nextIdx:
+      '$ref': '#/definitions/RespNextIdx'

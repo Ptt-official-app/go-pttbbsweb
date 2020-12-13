@@ -12,3 +12,11 @@ definitions:
   !include defs/params_start_idx.yaml
   !include defs/resp_next_idx.yaml
   !include defs/uid.yaml
+  !include defs/board_detail.yaml
+  !include defs/article_summary.yaml
+  !include defs/article_list.yaml
+  !include defs/article_detail.yaml
+  !include defs/rune.yaml
+  !include defs/comment_list.yaml
+  !include defs/comment.yaml
+  !include defs/params_fields.yaml

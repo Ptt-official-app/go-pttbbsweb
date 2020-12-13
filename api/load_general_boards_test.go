@@ -18,8 +18,8 @@ func TestLoadGeneralBoards(t *testing.T) {
 
 	defer schema.UserReadBoard_c.Drop()
 
-	update0 := &schema.UserReadBoard{UserID: "SYSOP", BoardID: "test1", UpdateNanoTS: utils.TSToNanoTS(1234567891)}
-	update1 := &schema.UserReadBoard{UserID: "SYSOP", BoardID: "test2", UpdateNanoTS: utils.TSToNanoTS(1234567891)}
+	update0 := &schema.UserReadBoard{UserID: "SYSOP", BoardID: "test1", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
+	update1 := &schema.UserReadBoard{UserID: "SYSOP", BoardID: "test2", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
 
 	_, _ = schema.UserReadBoard_c.Update(update0, update0)
 	_, _ = schema.UserReadBoard_c.Update(update1, update1)
@@ -38,8 +38,8 @@ func TestLoadGeneralBoards(t *testing.T) {
 				Read:      true,
 				Total:     123,
 
-				LastPostTime_d: 1234567890,
-				StatAttr_d:     ptttype.NBRD_BOARD,
+				LastPostTimeTS_d: 1234567890,
+				StatAttr_d:       ptttype.NBRD_BOARD,
 			},
 			{
 				BoardID:   "test2",
@@ -52,8 +52,8 @@ func TestLoadGeneralBoards(t *testing.T) {
 				Read:      false,
 				Total:     124,
 
-				LastPostTime_d: 1300000000,
-				StatAttr_d:     ptttype.NBRD_BOARD,
+				LastPostTimeTS_d: 1300000000,
+				StatAttr_d:       ptttype.NBRD_BOARD,
 			},
 		},
 		NextIdx: "textNextIdx",

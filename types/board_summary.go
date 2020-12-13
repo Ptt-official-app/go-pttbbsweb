@@ -17,8 +17,8 @@ type BoardSummary struct {
 	Read      bool            `json:"read" bson:"-"`
 	Total     int             `json:"total" bson:"total"`
 
-	LastPostTime_d int                   `json:"-" bson:"last_post_time"`
-	StatAttr_d     ptttype.BoardStatAttr `json:"-" bson:"-"`
+	LastPostTimeTS_d Time8                 `json:"-" bson:"last_post_time"`
+	StatAttr_d       ptttype.BoardStatAttr `json:"-" bson:"-"`
 }
 
 func (b *BoardSummary) Deserialize(b_b *bbs.BoardSummary) {
@@ -31,6 +31,6 @@ func (b *BoardSummary) Deserialize(b_b *bbs.BoardSummary) {
 	b.BMs = b_b.BM
 	b.Reason = b_b.Reason
 	b.Total = int(b_b.Total)
-	b.LastPostTime_d = int(b_b.LastPostTime)
+	b.LastPostTimeTS_d = Time8(b_b.LastPostTime)
 	b.StatAttr_d = b_b.StatAttr
 }

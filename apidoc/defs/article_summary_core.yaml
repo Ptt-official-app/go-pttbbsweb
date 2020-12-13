@@ -1,0 +1,31 @@
+boardID:
+  type: string
+title:
+  type: string
+flag:
+  type: number
+  description: article attribute
+articleType:
+  type: string
+  description: 文章的種類 (□, R:, 轉)
+cat:
+  type: string
+  description: 文章的類別 (心情, 討論, 新聞)
+updateTime:
+  type: number
+  description:
+recommend:
+  type: number
+owner:
+  type: string
+date:
+  type: string
+  description: po 文時間 (月/日)
+href:
+  type: string
+reason:
+  type: string
+money:
+  type: number
+read:
+  type: boolean

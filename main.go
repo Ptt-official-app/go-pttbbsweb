@@ -33,24 +33,52 @@ func withPrefix(path string) string {
 func initGin() (*gin.Engine, error) {
 	router := gin.Default()
 
+	//index
 	router.GET(api.INDEX_R,
-		NewApi(api.Index, api.NewIndexParams()).Query,
+		NewApi(
+			api.Index,
+			api.NewIndexParams(),
+		).Query,
 	)
+
+	//user
 	router.POST(
 		withPrefix(api.REGISTER_CLIENT_R),
-		NewApi(api.RegisterClient, api.NewRegisterClientParams()).Json,
+		NewApi(
+			api.RegisterClient,
+			api.NewRegisterClientParams(),
+		).Json,
 	)
 	router.POST(
 		withPrefix(api.REGISTER_USER_R),
-		NewApi(api.RegisterUser, api.NewRegisterUserParams()).Json,
+		NewApi(
+			api.RegisterUser,
+			api.NewRegisterUserParams(),
+		).Json,
 	)
 	router.POST(
 		withPrefix(api.LOGIN_R),
-		NewApi(api.Login, api.NewLoginParams()).Json,
+		NewApi(
+			api.Login,
+			api.NewLoginParams(),
+		).Json,
 	)
+
+	//board
 	router.GET(
 		withPrefix(api.LOAD_GENERAL_BOARDS_R),
-		NewLoginRequiredApi(api.LoadGeneralBoards, api.NewLoadGeneralBoardsParams()).Query,
+		NewLoginRequiredApi(
+			api.LoadGeneralBoards,
+			api.NewLoadGeneralBoardsParams(),
+		).Query,
+	)
+	router.GET(
+		withPrefix(api.GET_BOARD_DETAIL_R),
+		NewLoginRequiredPathApi(
+			api.GetBoardDetail,
+			api.NewGetBoardDetailParams(),
+			&api.GetBoardDetailPath{},
+		).Query,
 	)
 
 	return router, nil

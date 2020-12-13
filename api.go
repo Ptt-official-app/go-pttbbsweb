@@ -21,12 +21,14 @@ type LoginRequiredApi struct {
 	Params interface{}
 }
 
-func NewApi(f api.ApiFunc, params interface{}) *Api {
-	return &Api{Func: f, Params: params}
+type LoginRequiredPathApi struct {
+	Func   api.LoginRequiredPathApiFunc
+	Params interface{}
+	Path   interface{}
 }
 
-func NewLoginRequiredApi(f api.LoginRequiredApiFunc, params interface{}) *LoginRequiredApi {
-	return &LoginRequiredApi{Func: f, Params: params}
+func NewApi(f api.ApiFunc, params interface{}) *Api {
+	return &Api{Func: f, Params: params}
 }
 
 func (api *Api) Query(c *gin.Context) {
@@ -60,6 +62,10 @@ func (api *Api) process(c *gin.Context) {
 
 	result, statusCode, err := api.Func(remoteAddr, api.Params, c)
 	processResult(c, result, statusCode, err)
+}
+
+func NewLoginRequiredApi(f api.LoginRequiredApiFunc, params interface{}) *LoginRequiredApi {
+	return &LoginRequiredApi{Func: f, Params: params}
 }
 
 func (api *LoginRequiredApi) Query(c *gin.Context) {
@@ -105,6 +111,65 @@ func (api *LoginRequiredApi) process(c *gin.Context) {
 	}
 
 	result, statusCode, err := api.Func(remoteAddr, userID, api.Params, c)
+	processResult(c, result, statusCode, err)
+}
+
+func NewLoginRequiredPathApi(f api.LoginRequiredPathApiFunc, params interface{}, path interface{}) *LoginRequiredPathApi {
+	return &LoginRequiredPathApi{Func: f, Params: params, Path: path}
+}
+
+func (api *LoginRequiredPathApi) Query(c *gin.Context) {
+	err := c.ShouldBindQuery(api.Params)
+	if err != nil {
+		processResult(c, nil, 400, err)
+		return
+	}
+	err = c.ShouldBindUri(api.Path)
+	if err != nil {
+		processResult(c, nil, 400, err)
+	}
+
+	api.process(c)
+}
+
+func (api *LoginRequiredPathApi) Json(c *gin.Context) {
+	err := c.ShouldBindJSON(api.Params)
+	if err != nil {
+		processResult(c, nil, 400, err)
+		return
+	}
+
+	err = c.ShouldBindUri(api.Path)
+	if err != nil {
+		processResult(c, nil, 400, err)
+	}
+
+	api.process(c)
+}
+
+func (api *LoginRequiredPathApi) process(c *gin.Context) {
+	//https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For
+	remoteAddr := c.ClientIP()
+	if !isValidRemoteAddr(remoteAddr) {
+		processResult(c, nil, 400, ErrInvalidRemoteAddr)
+		return
+	}
+
+	tokenStr := strings.TrimSpace(c.GetHeader("Authorization"))
+	tokenList := strings.Split(tokenStr, " ")
+	if len(tokenList) != 2 {
+		processResult(c, nil, 400, ErrInvalidToken)
+		return
+	}
+	jwt := tokenList[1]
+
+	userID, err := verifyJwt(jwt)
+	if err != nil {
+		processResult(c, nil, 401, err)
+		return
+	}
+
+	result, statusCode, err := api.Func(remoteAddr, userID, api.Params, api.Path, c)
 	processResult(c, result, statusCode, err)
 }
 

@@ -5,78 +5,14 @@ tags:
   - comment
 description: get user comment list, sorted by time (from newest to oldest.)
 parameters:
+  - '$ref': '#/definitions/ParamsAuthorization'
   - name: 'username'
     in: 'path'
-  - name: 'newestTime'
-    in: 'query'
-    required: false
-    description: "the newest-time in the list. -1 will starting from newest comment. required if is a continuing-fetch (not fetching from the beginning)."
-    type: number
-    default: -1
-  - name: 'startAID'
-    in: 'query'
-    required: false
-    description: "starting postID, '' if not specified. required if is a continuing-fetch (not fetching from the beginning)."
-    type: string
-    default: ''
-  - name: 'startCID'
-    in: 'query'
-    required: false
-    description: "starting commentID, '' if not specified. required if is a continuing-fetch (not fetching from the beginning)."
-    type: string
-    default: ''
-  - name: 'max'
-    in: 'query'
-    required: false
-    description: "max number of the returned posts, require <= 1000"
-    type: number
-    default: 1000
+  - '$ref': '#/definitions/ParamsStartIdx'
+  - '$ref': '#/definitions/ParamsMax'
 responses:
   200:
     description:
     schema:
       '$id': https://json-schema.org/draft/2019-09/output/schema
-      type: object
-      properties:
-        list:
-          type: array
-          items:
-            type: object
-            properties:
-              bsn:
-                type: string
-              bid:
-                type: string
-                description: board-id (brdname)
-              asn:
-                type: string
-              aid:
-                type: string
-                description: article-id
-              csn:
-                type: string
-              cid:
-                type: string
-                description: comment-id
-              postTime:
-                type: number
-                description: post-time in unix-time
-              title:
-                type: string
-                description: title of the article.
-              comment:
-                type: string
-              flag:
-                type: number
-        nextBID:
-          type: string
-          description: next board-id. '' if reached end-of-the-list.
-        nextAID:
-          type: string
-          description: next article-id. '' if reached end-of-the-list.
-        nextCID:
-          type: string
-          description: next comment-id. '' if reached end-of-the-list.
-        nextTime:
-          type: number
-          description: next searching-time. 0 if reached end-of-the-list.
+      '$ref': '#/definitions/CommentList'

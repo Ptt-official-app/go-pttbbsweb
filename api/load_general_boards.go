@@ -116,7 +116,7 @@ func checkNewPost(userID string, theList []*types.BoardSummary) error {
 
 		listIdx := checkBoardIDMap[eachBoardID]
 		eachInTheList := theList[listIdx]
-		eachLastPostNanoTS := utils.TSToNanoTS(int64(eachInTheList.LastPostTime_d))
+		eachLastPostNanoTS := eachInTheList.LastPostTimeTS_d.ToNanoTS()
 		eachInTheList.Read = eachReadNanoTS > eachLastPostNanoTS
 	}
 
