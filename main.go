@@ -36,7 +36,7 @@ func initGin() (*gin.Engine, error) {
 		).Query,
 	)
 
-	//user
+	//register/login
 	router.POST(
 		withPrefix(api.REGISTER_CLIENT_R),
 		NewApi(
@@ -71,16 +71,101 @@ func initGin() (*gin.Engine, error) {
 		withPrefix(api.GET_BOARD_DETAIL_R),
 		NewLoginRequiredPathApi(
 			api.GetBoardDetail,
-			api.NewGetBoardDetailParams(),
+			&api.GetBoardDetailParams{},
 			&api.GetBoardDetailPath{},
 		).Query,
 	)
+	router.GET(
+		withPrefix(api.GET_BOARD_SUMMARY_R),
+		NewLoginRequiredPathApi(
+			api.GetBoardSummary,
+			&api.GetBoardSummaryParams{},
+			&api.GetBoardSummaryPath{},
+		).Query,
+	)
+	router.GET(
+		withPrefix(api.LOAD_POPULAR_BOARDS_R),
+		NewLoginRequiredApi(
+			api.LoadPopularBoards,
+			&api.LoadPopularBoardsParams{},
+		).Query,
+	)
+
+	//article
 	router.GET(
 		withPrefix(api.LOAD_GENERAL_ARTICLES_R),
 		NewLoginRequiredPathApi(
 			api.LoadGeneralArticles,
 			api.NewLoadGeneralArticlesParams(),
 			&api.LoadGeneralArticlesPath{},
+		).Query,
+	)
+	router.GET(
+		withPrefix(api.LOAD_BOTTOM_ARTICLES_R),
+		NewLoginRequiredPathApi(
+			api.LoadBottomArticles,
+			&api.LoadBottomArticlesParams{},
+			&api.LoadBottomArticlesPath{},
+		).Query,
+	)
+	router.GET(
+		withPrefix(api.GET_ARTICLE_R),
+		NewLoginRequiredPathApi(
+			api.GetArticleDetail,
+			&api.GetArticleDetailParams{},
+			&api.GetArticleDetailPath{},
+		).Query,
+	)
+
+	router.GET(
+		withPrefix(api.LOAD_POPULAR_ARTICLES_R),
+		NewLoginRequiredApi(
+			api.LoadPopularArticles,
+			&api.LoadPopularArticlesParams{},
+		).Query,
+	)
+
+	//user
+	router.GET(
+		withPrefix(api.GET_USER_INFO_R),
+		NewLoginRequiredPathApi(
+			api.GetUserInfo,
+			&api.GetUserInfoParams{},
+			&api.GetUserInfoPath{},
+		).Query,
+	)
+	router.GET(
+		withPrefix(api.LOAD_FAVORITE_BOARDS_R),
+		NewLoginRequiredPathApi(
+			api.LoadFavoriteBoards,
+			&api.LoadFavoriteBoardsParams{},
+			&api.LoadFavoriteBoardsPath{},
+		).Query,
+	)
+	router.GET(
+		withPrefix(api.LOAD_USER_ARTICLES_R),
+		NewLoginRequiredPathApi(
+			api.LoadUserArticles,
+			&api.LoadUserArticlesParams{},
+			&api.LoadUserArticlesPath{},
+		).Query,
+	)
+
+	//comments
+	router.GET(
+		withPrefix(api.LOAD_ARTICLE_COMMENTS_R),
+		NewLoginRequiredPathApi(
+			api.LoadArticleComments,
+			&api.LoadArticleCommentsParams{},
+			&api.LoadArticleCommentsPath{},
+		).Query,
+	)
+	router.GET(
+		withPrefix(api.LOAD_USER_COMMENTS_R),
+		NewLoginRequiredPathApi(
+			api.LoadUserComments,
+			&api.LoadUserCommentsParams{},
+			&api.LoadUserCommentsPath{},
 		).Query,
 	)
 

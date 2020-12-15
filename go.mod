@@ -11,6 +11,5 @@ require (
 	github.com/spf13/jwalterweatherman v1.0.0
 	github.com/spf13/viper v1.7.1
 	go.mongodb.org/mongo-driver v1.4.4
-	google.golang.org/appengine v1.6.1
 	gopkg.in/square/go-jose.v2 v2.5.1
 )

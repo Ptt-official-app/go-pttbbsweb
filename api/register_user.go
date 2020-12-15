@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const REGISTER_USER_R = "/Account/register"
+const REGISTER_USER_R = "/account/register"
 
 type RegisterUserParams struct {
 	ClientID     string `json:"client_id"`

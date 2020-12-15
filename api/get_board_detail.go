@@ -7,14 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const GET_BOARD_DETAIL_R = "/boards/:bid"
+const GET_BOARD_DETAIL_R = "/board/:bid"
 
 type GetBoardDetailParams struct {
 	Fields string `json:"fields,omitempty" form:"fields,omitempty" url:"fields,omitempty"`
-}
-
-func NewGetBoardDetailParams() *GetBoardDetailParams {
-	return &GetBoardDetailParams{}
 }
 
 type GetBoardDetailPath struct {
@@ -58,13 +54,35 @@ type GetBoardDetailFailResult struct {
 }
 
 func GetBoardDetail(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-	thePath, ok := path.(*GetBoardDetailPath)
+	_, ok := path.(*GetBoardDetailPath)
 	if !ok {
 		return nil, 400, ErrInvalidParams
 	}
 
 	result = &GetBoardDetailResult{
-		BBoardID: thePath.BBoardID,
+		BBoardID:  bbs.BBoardID("10_WhoAmI"),
+		Brdname:   "WhoAmI",
+		Title:     "我～是～誰？～",
+		BrdAttr:   0,
+		BoardType: "◎",
+		Category:  "嘰哩",
+		NUser:     39,
+		BMs:       []string{"okcool", "teemo"},
+
+		UpdateTimeTS: 1234567890,
+
+		VoteLimitLogins: 10,
+		PostLimitLogins: 10,
+
+		NVote:                120,
+		VoteClosingTimeTS:    1712300000,
+		EndGambleTS:          1712300000,
+		FastRecommendPauseTS: 10,
+		VoteLimitBadpost:     0,
+		PostLimitBadpost:     0,
+
+		Read:  true,
+		Total: 134,
 	}
 
 	return result, 200, nil

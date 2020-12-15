@@ -40,7 +40,7 @@ func TestLoadGeneralArticles(t *testing.T) {
 				Recommend:  8,
 				Owner:      "okcool",
 				Date:       "12/04",
-				Title:      "問題 然後呢？～",
+				Title:      "[問題]然後呢？～",
 				Money:      3,
 				Filemode:   0,
 				URL:        "http://localhost/bbs/test1/M.1234567890.A.324.html",
@@ -56,7 +56,7 @@ func TestLoadGeneralArticles(t *testing.T) {
 				Recommend:  3,
 				Owner:      "teemo",
 				Date:       "12/05",
-				Title:      "問題 再來呢？～",
+				Title:      "[問題]再來呢？～",
 				Money:      12,
 				Filemode:   0,
 				URL:        "http://localhost/bbs/test1/M.1234567890.A.325.html",
@@ -67,7 +67,7 @@ func TestLoadGeneralArticles(t *testing.T) {
 	}
 
 	c := &gin.Context{}
-	c.Request = &http.Request{URL: &url.URL{Path: "/api/boards/1_test/articles"}}
+	c.Request = &http.Request{URL: &url.URL{Path: "/api/board/1_test/articles"}}
 	type args struct {
 		remoteAddr string
 		userID     string

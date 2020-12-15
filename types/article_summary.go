@@ -20,6 +20,8 @@ type ArticleSummary struct {
 	Filemode   ptttype.FileMode `json:"mode"`
 	URL        string           `json:"url"`
 	Read       bool             `json:"read"`
+
+	Class string `json:"class"`
 }
 
 func (a *ArticleSummary) Deserialize(a_b *bbs.ArticleSummary) {
