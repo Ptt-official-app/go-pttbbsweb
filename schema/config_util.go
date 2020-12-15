@@ -4,7 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/config_util"
 )
 
-const configPrefix = "db"
+const configPrefix = "schema"
 
 func InitConfig() error {
 	config()
