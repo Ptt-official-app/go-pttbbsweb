@@ -28,14 +28,16 @@ type GetUserInfoResult struct {
 	Firstlogin   types.Time8   `json:"first_login"`
 	Lastlogin    types.Time8   `json:"last_login"`
 	Lasthost     string        `json:"last_ip"`
-	Money        int           `json:"money"`
+	Country      string        `json:"country"`
 
-	Email       string            `json:"email"`
-	Address     string            `json:"address"`
-	Justify     string            `json:"justify"`
-	Over18      bool              `json:"over18"`
-	PagerUIType uint8             `json:"pager"`      /* 呼叫器界面類別 (was: WATER_*) */
-	Pager       ptttype.PagerMode `json:"pager_mode"` /* 呼叫器狀態 */
+	Money   int    `json:"money"`
+	Email   string `json:"email"`
+	Address string `json:"address"`
+	Justify string `json:"justify"`
+	Over18  bool   `json:"over18"`
+
+	PagerUIType uint8             `json:"pager_ui"` /* 呼叫器界面類別 (was: WATER_*) */
+	Pager       ptttype.PagerMode `json:"pager"`    /* 呼叫器狀態 */
 	Invisible   uint8             `json:"hide"`
 	Exmailbox   uint32            `json:"exmail"`
 
@@ -69,6 +71,13 @@ type GetUserInfoResult struct {
 	BadPost   int    `json:"bad_post"` /* 評價為壞文章數 */
 	DarkTie   int    `json:"dark_tie"` /* 暗棋戰績 和 */
 	MyAngel   string `json:"angel"`    /* 我的小天使 */
+
+	ChessEloRating int `json:"chess_rank"` /* 象棋等級 */
+
+	TimeRemoveBadPost types.Time8 `json:"time_remove_bad_post"`
+	TimeViolateLaw    types.Time8 `json:"time_violate_law"`
+
+	NFriend int `json:"n_friend"`
 }
 
 func GetUserInfo(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {

@@ -1,9 +1,16 @@
-GetPopularBoardList
+列出所有板 (可用英文板名搜尋)
 ---
 tags:
   - board
+description: 列出所有板 (可用英文板名搜尋)
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
+  - name: 'keyword'
+    in: 'query'
+    required: false
+    description: "query string, '' returns all boards"
+    type: string
+    default: ''
   - '$ref': '#/definitions/ParamsStartIdx'
   - '$ref': '#/definitions/ParamsMax'
 responses:

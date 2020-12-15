@@ -6,9 +6,10 @@ client_secret:
   type: string
   required: true
   description: client-secret, use "test_client_secret" in the dev env.
-username:
+user_id:
   type: string
   required: true
+  description: username
 password:
   type: string
   required: true

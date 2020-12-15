@@ -3,7 +3,6 @@ package api
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
 
 	"github.com/Ptt-official-app/go-pttbbs/types/proto"
@@ -21,28 +20,13 @@ type GetArticleDetailPath struct {
 }
 
 type GetArticleDetailResult struct {
-	BBoardID   bbs.BBoardID     `json:"bid"`
-	ArticleID  bbs.ArticleID    `json:"aid"`
-	Brdname    string           `json:"brdname"`
-	IsDeleted  bool             `json:"deleted"`
-	Filename   string           `json:"filename"`
-	CreateTime types.Time8      `json:"create_time"`
-	MTime      types.Time8      `json:"modified"`
-	Recommend  int              `json:"recommend"`
-	Owner      string           `json:"owner"`
-	Date       string           `json:"date"`
-	Title      string           `json:"title"`
-	Money      int              `json:"money"`
-	Filemode   ptttype.FileMode `json:"mode"`
-	URL        string           `json:"url"`
-	Read       bool             `json:"read"`
-	Content    proto.Content    `json:"content"`
+	*types.ArticleSummary
 
-	Class string `json:"class"`
-
-	IP      string `json:"ip"`
-	Country string `json:"country"`
-	BBS     string `json:"bbs"`
+	Brdname string        `json:"brdname"`
+	Content proto.Content `json:"content"`
+	IP      string        `json:"ip"`
+	Country string        `json:"country"`
+	BBS     string        `json:"bbs"`
 }
 
 func GetArticleDetail(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
@@ -52,22 +36,25 @@ func GetArticleDetail(remoteAddr string, userID string, params interface{}, path
 	}
 
 	result = &GetArticleDetailResult{
-		BBoardID:   bbs.BBoardID("1_test1"),
-		ArticleID:  bbs.ArticleID("1_123124"),
-		Brdname:    "test1",
-		IsDeleted:  false,
-		Filename:   "M.1234567890.A.324",
-		CreateTime: types.Time8(1234567890),
-		MTime:      types.Time8(1234567889),
-		Recommend:  8,
-		Owner:      "okcool",
-		Date:       "12/04",
-		Title:      "[問題]然後呢？～",
-		Class:      "問題",
-		Money:      3,
-		Filemode:   0,
-		URL:        "http://localhost/bbs/test1/M.1234567890.A.324.html",
-		Read:       false,
+		ArticleSummary: &types.ArticleSummary{
+			BBoardID:   bbs.BBoardID("1_test1"),
+			ArticleID:  bbs.ArticleID("1_123124"),
+			IsDeleted:  false,
+			Filename:   "M.1234567890.A.324",
+			CreateTime: types.Time8(1234567890),
+			MTime:      types.Time8(1234567889),
+			Recommend:  8,
+			Owner:      "okcool",
+			Date:       "12/04",
+			Title:      "[問題]然後呢？～",
+			Class:      "問題",
+			Money:      3,
+			Filemode:   0,
+			URL:        "http://localhost/bbs/test1/M.1234567890.A.324.html",
+			Read:       false,
+		},
+
+		Brdname: "test1",
 	}
 
 	return result, 200, nil

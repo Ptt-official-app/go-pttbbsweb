@@ -19,7 +19,7 @@ nuser:
 moderators:
   type: array
   items:
-    '$ref': '#/definitions/UID'
+    '$ref': '#/definitions/user_id'
 reason:
   type: string
   description: 不給看的原因.

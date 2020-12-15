@@ -1,16 +1,19 @@
-GetPostList
+讀取文章裡的 comments (從最新開始往以前拉資料. (response 時舊的排在前面.))
 ---
 tags:
-  - board
   - article
-description: get post list by a board, sorted by time (from newest to oldest.)
+  - comment
+description: get user comment list, sorted by time. (from newest to oldest).
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
   - name: 'bid'
     in: 'path'
-    required: true
-    description: "board bid obtained from board-list"
     type: string
+    required: true
+  - name: 'aid'
+    in: 'path'
+    type: string
+    required: true
   - '$ref': '#/definitions/ParamsStartIdx'
   - '$ref': '#/definitions/ParamsMax'
 responses:
@@ -18,4 +21,4 @@ responses:
     description:
     schema:
       '$id': https://json-schema.org/draft/2019-09/output/schema
-      '$ref': '#/definitions/ArticleList'
+      '$ref': '#/definitions/CommentList'

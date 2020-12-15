@@ -1,13 +1,16 @@
-GetUserPostList
+讀取板裡的文章列表
 ---
 tags:
-  - user
+  - board
   - article
-description: get user post list, sorted by time (from newest to oldest.)
+description: 讀取板裡的文章列表 (按照時間排序. 從最新開始往以前拿取. 呈現時舊的排前面.)
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
-  - name: 'username'
+  - name: 'bid'
     in: 'path'
+    required: true
+    description: "board bid obtained from board-list"
+    type: string
   - '$ref': '#/definitions/ParamsStartIdx'
   - '$ref': '#/definitions/ParamsMax'
 responses:

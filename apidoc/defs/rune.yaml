@@ -3,6 +3,7 @@ Rune:
   properties:
     rune:
       type: string
+      descript: string with same color
     color0:
       type: number
       description: \#rrggbb

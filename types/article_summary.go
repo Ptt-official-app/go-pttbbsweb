@@ -17,11 +17,11 @@ type ArticleSummary struct {
 	Date       string           `json:"date"`
 	Title      string           `json:"title"`
 	Money      int              `json:"money"`
+	Type       string           `json:"type"`
+	Class      string           `json:"class"`
 	Filemode   ptttype.FileMode `json:"mode"`
 	URL        string           `json:"url"`
 	Read       bool             `json:"read"`
-
-	Class string `json:"class"`
 }
 
 func (a *ArticleSummary) Deserialize(a_b *bbs.ArticleSummary) {

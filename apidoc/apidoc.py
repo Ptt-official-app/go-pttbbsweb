@@ -35,61 +35,61 @@ def _index():
     return ''
 
 
-@app.route(_with_app_prefix('/Account/login'), methods=['POST'])
+@app.route(_with_app_prefix('/account/login'), methods=['POST'])
 def _login():
     """
-    swagger_from_file: apidoc/account_login.yaml
+    swagger_from_file: apidoc/login.yaml
 
     """
     return ''
 
 
-@app.route(_with_app_prefix('/Account/register'), methods=['POST'])
-def _register():
+@app.route(_with_app_prefix('/account/register'), methods=['POST'])
+def _register_user():
     """
-    swagger_from_file: apidoc/account_register.yaml
-
-    """
-    return ''
-
-
-@app.route(_with_app_prefix('/Article/populars'))
-def _get_popular_post():
-    """
-    swagger_from_file: apidoc/get_popular_post.yaml
+    swagger_from_file: apidoc/register_user.yaml
 
     """
     return ''
 
 
-@app.route(_with_app_prefix('/Board/favorite/<username>'))
-def _get_favorite_board(username):
+@app.route(_with_app_prefix('/articles/popular'))
+def _load_popular_articles():
     """
-    swagger_from_file: apidoc/get_favorite_board.yaml
-
-    """
-    return ''
-
-
-@app.route(_with_app_prefix('/Board/search'))
-def _find_board_by_name():
-    """
-    swagger_from_file: apidoc/find_board_by_name.yaml
-    """
-    return ''
-
-
-@app.route(_with_app_prefix('/Board/populars'))
-def _get_popular_board_list():
-    """
-    swagger_from_file: apidoc/get_popular_board_list.yaml
+    swagger_from_file: apidoc/load_popular_articles.yaml
 
     """
     return ''
 
 
-@app.route(_with_app_prefix('/User/Users/<username>'))
-def _get_user_info(username):
+@app.route(_with_app_prefix('/user/<user_id>/favorites'))
+def _load_favorite_boards(user_id):
+    """
+    swagger_from_file: apidoc/load_favorite_boards.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/boards'))
+def _load_general_boards():
+    """
+    swagger_from_file: apidoc/load_general_boards.yaml
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/boards/popular'))
+def _load_popular_boards():
+    """
+    swagger_from_file: apidoc/load_popular_boards.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/user/<user_id>'))
+def _get_user_info(user_id):
     """
     swagger_from_file: apidoc/get_user_info.yaml
 
@@ -97,10 +97,10 @@ def _get_user_info(username):
     return ''
 
 
-@app.route(_with_app_prefix('/User/Article/<username>'))
-def _get_user_post_list(username):
+@app.route(_with_app_prefix('/user/<user_id>/articles'))
+def _load_user_articles(user_id):
     """
-    swagger_from_file: apidoc/get_user_post_list.yaml
+    swagger_from_file: apidoc/load_user_articles.yaml
 
     Args:
         username (TYPE): Description
@@ -111,35 +111,62 @@ def _get_user_post_list(username):
     return ''
 
 
-@app.route(_with_app_prefix('/User/Comment/<username>'))
-def _get_user_comment_list(username):
+@app.route(_with_app_prefix('/user/<user_id>/comments'))
+def _load_user_comments(user_id):
     """
-    swagger_from_file: apidoc/get_user_comment_list.yaml
-
-    """
-    return ''
-
-
-@app.route(_with_app_prefix('/Article/Articles/<board>'))
-def _get_post_list(board):
-    """
-    swagger_from_file: apidoc/get_post_list.yaml
+    swagger_from_file: apidoc/load_user_comments.yaml
 
     """
     return ''
 
 
-@app.route(_with_app_prefix('/Article/Articles/<board>/<article>'))
-def _get_post(board, article):
+@app.route(_with_app_prefix('/board/<bid>/articles'))
+def _load_general_articles(bid):
     """
-    swagger_from_file: apidoc/get_post.yaml
+    swagger_from_file: apidoc/load_general_articles.yaml
 
     """
     return ''
 
 
-@app.route(_with_app_prefix('/Board/Boards/<board>'))
-def _get_board_detail(board):
+@app.route(_with_app_prefix('/board/<bid>/articles/bottom'))
+def _load_bottom_articles(bid):
+    """
+    swagger_from_file: apidoc/load_bottom_articles.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/board/<bid>/article/<aid>'))
+def _get_article_detail(bid, aid):
+    """
+    swagger_from_file: apidoc/get_article_detail.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/board/<bid>/article/<aid>/comments'))
+def _load_article_comments(bid, aid):
+    """
+    swagger_from_file: apidoc/load_article_comments.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/board/<bid>/article/<aid>/firstcomments'))
+def _load_article_firstcomments(bid, aid):
+    """
+    swagger_from_file: apidoc/load_article_firstcomments.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/board/<bid>'))
+def _get_board_detail(bid):
     """
     swagger_from_file: apidoc/get_board_detail.yaml
 
@@ -147,8 +174,8 @@ def _get_board_detail(board):
     return ''
 
 
-@app.route(_with_app_prefix('/Board/summary/<board>'))
-def _get_board_title(board):
+@app.route(_with_app_prefix('/board/<bid>/summary'))
+def _get_board_summary(bid):
     """
     swagger_from_file: apidoc/get_board_summary.yaml
 

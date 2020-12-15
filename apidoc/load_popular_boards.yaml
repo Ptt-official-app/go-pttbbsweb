@@ -1,13 +1,9 @@
-GetUserCommentList
+列出熱門看板
 ---
 tags:
-  - user
-  - comment
-description: get user comment list, sorted by time (from newest to oldest.)
+  - board
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
-  - name: 'username'
-    in: 'path'
   - '$ref': '#/definitions/ParamsStartIdx'
   - '$ref': '#/definitions/ParamsMax'
 responses:
@@ -15,4 +11,4 @@ responses:
     description:
     schema:
       '$id': https://json-schema.org/draft/2019-09/output/schema
-      '$ref': '#/definitions/CommentList'
+      '$ref': '#/definitions/BoardList'

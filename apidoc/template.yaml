@@ -20,3 +20,6 @@ definitions:
   !include defs/comment_list.yaml
   !include defs/comment.yaml
   !include defs/params_fields.yaml
+  !include defs/uid.yaml
+  !include defs/user_detail.yaml
+  !include defs/content.yaml

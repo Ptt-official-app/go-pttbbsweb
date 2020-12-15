@@ -8,7 +8,11 @@ import (
 
 const LOAD_FAVORITE_BOARDS_R = "/user/:user_id/favorites"
 
-type LoadFavoriteBoardsParams struct{}
+type LoadFavoriteBoardsParams struct {
+	LevelIdx string `json:"level_idx,omitempty" form:"level_idx,omitempty" url:"level_idx,omitempty"`
+	StartIdx string `json:"start_idx,omitempty" form:"start_idx,omitempty" url:"start_idx,omitempty"`
+	Max      int    `json:"max,omitempty" form:"max,omitempty" url:"max,omitempty"`
+}
 
 type LoadFavoriteBoardsPath struct {
 	UserID string `json:"user_id"`

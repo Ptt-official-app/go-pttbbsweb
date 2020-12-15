@@ -1,7 +1,7 @@
 bid:
   type: string
 deleted:
-  type: bool
+  type: boolean
   description: is deleted
 filename:
   type: string

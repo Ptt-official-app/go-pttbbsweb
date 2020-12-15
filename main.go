@@ -153,6 +153,14 @@ func initGin() (*gin.Engine, error) {
 
 	//comments
 	router.GET(
+		withPrefix(api.LOAD_ARTICLE_FIRSTCOMMENTS_R),
+		NewLoginRequiredPathApi(
+			api.LoadArticleFirstComments,
+			&api.LoadArticleFirstCommentsParams{},
+			&api.LoadArticleFirstCommentsPath{},
+		).Query,
+	)
+	router.GET(
 		withPrefix(api.LOAD_ARTICLE_COMMENTS_R),
 		NewLoginRequiredPathApi(
 			api.LoadArticleComments,
