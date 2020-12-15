@@ -1,25 +1,17 @@
-ownerID:
+brdname:
   type: string
-ownerNickname:
+  description: 英文板名
+content:
+  '$ref': '#/definitions/Content'
+  description: 本文
+ip:
   type: string
-boardID:
+  description: 作者 ip.
+country:
   type: string
-title:
+  description: ip 的國家.
+bbs:
   type: string
-main:
-  type: array
-  items:
-    '$ref': '#/definitions/Rune'
-host:
-  type: string
-  description: 發信站
-fromHost:
-  type: string
-  description: from 的描述 (國名).
-fromIP:
-  type: string
-  description: from IP.
-comments:
-  type: array
-  items:
-    '$ref': '#/definitions/CommentList'
+  description: 發信站.
+
+

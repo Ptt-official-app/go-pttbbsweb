@@ -6,12 +6,13 @@ import (
 )
 
 type BoardSummary struct {
-	BoardID   string          `json:"boardID" bson:"board_id"`
+	BBoardID  bbs.BBoardID    `json:"bid" bson:"bid"`
+	Brdname   string          `json:"brdname" bson:"brdname"`
 	Title     string          `json:"title" bson:"title"`
-	BrdAttr   ptttype.BrdAttr `json:"flag" bson:"brd_attr"`
-	BoardType string          `json:"boardType" bson:"the_type"`
-	Category  string          `json:"cat" bson:"category"`
-	NUser     int             `json:"onlineCount" bson:"nuser"`
+	BrdAttr   ptttype.BrdAttr `json:"flag" bson:"flag"`
+	BoardType string          `json:"type" bson:"the_type"`
+	Category  string          `json:"class" bson:"class"`
+	NUser     int             `json:"nuser" bson:"nuser"`
 	BMs       []string        `json:"moderators" bson:"bms"`
 	Reason    string          `json:"reason" bson:"-"`
 	Read      bool            `json:"read" bson:"-"`
@@ -22,7 +23,8 @@ type BoardSummary struct {
 }
 
 func (b *BoardSummary) Deserialize(b_b *bbs.BoardSummary) {
-	b.BoardID = b_b.Brdname
+	b.BBoardID = b_b.BBoardID
+	b.Brdname = b_b.Brdname
 	b.Title = b_b.RealTitle
 	b.BrdAttr = b_b.BrdAttr
 	b.BoardType = b_b.BoardType
@@ -31,6 +33,8 @@ func (b *BoardSummary) Deserialize(b_b *bbs.BoardSummary) {
 	b.BMs = b_b.BM
 	b.Reason = b_b.Reason
 	b.Total = int(b_b.Total)
+	b.Read = b_b.Read
+
 	b.LastPostTimeTS_d = Time8(b_b.LastPostTime)
 	b.StatAttr_d = b_b.StatAttr
 }

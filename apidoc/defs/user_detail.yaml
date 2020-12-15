@@ -4,4 +4,3 @@ UserDetail:
     !include uid.yaml
     !include nickname_core.yaml
     !include user_detail_core.yaml
-

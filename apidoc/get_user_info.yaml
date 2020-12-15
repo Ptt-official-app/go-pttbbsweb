@@ -4,7 +4,7 @@ tags:
   - user
 definitions:
 parameters:
-  - name: 'username'
+  - name: 'user_id'
     in: 'path'
     required: true
     type: string

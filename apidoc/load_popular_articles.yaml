@@ -1,13 +1,10 @@
-GetUserPostList
+列出熱門文章
 ---
 tags:
-  - user
   - article
-description: get user post list, sorted by time (from newest to oldest.)
+description: get popular post list, sorted by popularity. displaying most popular on the top.
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
-  - name: 'username'
-    in: 'path'
   - '$ref': '#/definitions/ParamsStartIdx'
   - '$ref': '#/definitions/ParamsMax'
 responses:

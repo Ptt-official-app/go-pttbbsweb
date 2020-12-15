@@ -1,5 +1,5 @@
 CommentList:
-  description: comments, 跟著文章拿的時候只會拿最新 100 則和最舊 100 則.
+  description: comments.
   type: object
   properties:
     list:

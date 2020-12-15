@@ -1,0 +1,20 @@
+列出使用者的所有 comments.
+---
+tags:
+  - user
+  - comment
+description: 列出使用者的所有 comments. 從最新開始往前拉. 拉回時舊的排在前面.
+parameters:
+  - '$ref': '#/definitions/ParamsAuthorization'
+  - name: 'user_id'
+    in: 'path'
+    type: string
+    required: true
+  - '$ref': '#/definitions/ParamsStartIdx'
+  - '$ref': '#/definitions/ParamsMax'
+responses:
+  200:
+    description:
+    schema:
+      '$id': https://json-schema.org/draft/2019-09/output/schema
+      '$ref': '#/definitions/CommentList'

@@ -1,12 +1,13 @@
-GetPost
+文章的詳細資訊
 ---
 tags:
   - article
 description: get article info.
 parameters:
-  - name: 'board'
+  - name: 'bid'
     in: path
-  - name: 'article'
+    type: string
+  - name: 'aid'
     in: path
     type: string
   - '$ref': '#/definitions/ParamsFields'

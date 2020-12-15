@@ -1,21 +1,25 @@
+brdname:
+  type: string
+  description: user-defined board-name (英文板名)
 title:
   type: string
+  description: 中文板名
 flag:
   type: number
   description: board attribute (https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/brdattr.go)
-boardType:
+type:
   type: string
   description: 板的種類 (□, ◎, ...)
-cat:
+class:
   type: string
   description: 板的類別
-onlineCount:
+nuser:
   type: number
   description: 人氣
 moderators:
   type: array
   items:
-    '$ref': '#/definitions/UID'
+    '$ref': '#/definitions/user_id'
 reason:
   type: string
   description: 不給看的原因.

@@ -1,2 +1,3 @@
-boardID:
+bid:
   type: string
+  description: system-defined board-id

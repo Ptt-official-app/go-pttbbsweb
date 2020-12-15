@@ -1,9 +1,29 @@
 realname:
   type: string
-nLoginDays:
+
+flag:
   type: number
-nPosts:
+  description: https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/uflags.go
+perm:
   type: number
+  description: https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/perm.go
+login_days:
+  type: number
+post:
+  type: number
+first_login:
+  type: number
+  description: first-login in unix-time
+last_login:
+  type: number
+  description: last-login in unix-time
+last_ip:
+  type: string
+  description: from-ip
+country:
+  type: string
+  description: last_ip 的國家.
+
 money:
   type: number
 email:
@@ -13,92 +33,106 @@ address:
 over18:
   type: boolean
 
-firstLogin:
+pager_ui:
   type: number
-  description: first-login in unix-time
-lastLogin:
+pager:
   type: number
-  description: last-login in unix-time
-lastSeen:
+  description: https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/modes.go#L5
+invisible:
+  type: boolean
+  description: 隱身
+exmail:
+  type: number
+  description: 可容納站外信數量.
+
+career:
+  type: string
+role:
+  type: number
+last_seen:
   type: number
   description: last-seen in unix-time
-lastAct:
+time_set_angel:
   type: number
-  description: last-time user did any activity (in unix-time).
-lastSong:
+time_play_angel:
+  type: number
+last_song:
   type: number
   description: last-time the user ordered an song (in unix-time).
-signature:
+login_view:
   type: number
 
-vlcount:
+violation:
   type: number
   description: violation count
+five_win:
+  type: number
+  description: 五子棋(贏)
+five_lose:
+  type: number
+  description: 五子棋(輸)
+five_tie:
+  type: number
+  description: 五子棋(平)
+chc_win:
+  type: number
+  description: 象棋(贏)
+chc_lose:
+  type: number
+  description: 象棋(輸)
+chc_tie:
+  type: number
+  description: 象棋(平)
+conn6_win:
+  type: number
+  description: 六子棋(贏)
+conn6_lose:
+  type: number
+  description: 六子棋(輸)
+conn6_tie:
+  type: number
+  description: 六子棋(平)
+go_win:
+  type: number
+  description: 圍棋(贏)
+go_lose:
+  type: number
+  description: 圍棋(輸)
+go_tie:
+  type: number
+  description: 圍棋(平)
+dark_win:
+  type: number
+  description: 暗棋(贏)
+dark_lose:
+  type: number
+  description: 暗棋(輸)
+dark_tie:
+  type: number
+  description: 暗棋(平)
+chess_rank:
+  type: number
+  description: 象棋等級
+
+ua_version:
+  type: number
+  description: User-agreement 的版本.
+
+signature:
+  type: number
+angel:
+  type: string
+  description: 小天使
 badpost:
   type: number
   description: badpost count
 
-timeRemoveBadPost:
+time_remove_bad_post:
   type: number
   description: newest removing badpost in unix-time
-timeViolateLaw:
+time_violate_law:
   type: number
   description: newest violating law in unix-time
 
-myAngel:
-  type: string
-timeSetAngel:
+n_friend:
   type: number
-  description: setting angel in unix-time
-timePlayAngel:
-  type: number
-  description: playing with angel in unix-time
-
-from:
-  type: string
-  description: from displaying-on-screen
-fromIp:
-  type: string
-  description: from-ip
-nFriends:
-  type: number
-invisible:
-  type: boolean
-  description: 隱身
-mode:
-  type: number
-  description: mode-flag
-alerts:
-  type: number
-  description: alert-flag
-
-dark:
-  type: array
-  items:
-    type: number
-  description: 暗棋, [win, lose, tie]
-conn6:
-  type: array
-  items:
-    type: number
-  description: 六子棋, [win, lose, tie]
-five:
-  type: array
-  items:
-    type: number
-  description: 五子棋, [win, lose, tie]
-chc:
-  type: array
-  items:
-    type: number
-  description: 小雞對戰, [win, lose, tie]
-chess:
-  type: array
-  items:
-    type: number
-  description: 象棋, [win, lose, tie, rank]
-go:
-  type: array
-  items:
-    type: number
-  description: 圍棋, [win, lose, tie]

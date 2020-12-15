@@ -40,6 +40,9 @@ func (c *Collection) CreateOnly(filter interface{}, update interface{}) (r *mong
 	}()
 
 	r, err = c.coll.UpdateMany(ctx, filter, theUpdate, opts)
+	if err != nil {
+		return nil, err
+	}
 	if r.UpsertedCount == 0 && r.ModifiedCount == 0 {
 		return r, ErrNoUpdate
 	}
@@ -68,6 +71,9 @@ func (c *Collection) UpdateOneOnly(filter interface{}, update interface{}) (r *m
 	}()
 
 	r, err = c.coll.UpdateMany(ctx, filter, theUpdate, opts)
+	if err != nil {
+		return nil, err
+	}
 	if r.UpsertedCount == 0 && r.ModifiedCount == 0 {
 		return r, ErrNoUpdate
 	}
@@ -96,6 +102,9 @@ func (c *Collection) Update(filter interface{}, update interface{}) (r *mongo.Up
 	}()
 
 	r, err = c.coll.UpdateMany(ctx, filter, theUpdate, opts)
+	if err != nil {
+		return nil, err
+	}
 	if r.UpsertedCount == 0 && r.ModifiedCount == 0 {
 		return r, ErrNoUpdate
 	}

@@ -1,10 +1,15 @@
-GetPopularPost
+列出使用者的所有文章.
 ---
 tags:
+  - user
   - article
-description: get popular post list, sorted by popularity. displaying most popular on the top.
+description: 列出使用者的所有文章. 從最新開始往前拉. 呈現時舊的排在前面.
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
+  - name: 'user_id'
+    in: 'path'
+    type: string
+    required: true
   - '$ref': '#/definitions/ParamsStartIdx'
   - '$ref': '#/definitions/ParamsMax'
 responses:

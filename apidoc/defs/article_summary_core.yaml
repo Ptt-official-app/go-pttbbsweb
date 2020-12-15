@@ -1,19 +1,14 @@
-boardID:
+bid:
   type: string
-title:
+deleted:
+  type: boolean
+  description: is deleted
+filename:
   type: string
-flag:
+create_time:
   type: number
-  description: article attribute
-articleType:
-  type: string
-  description: 文章的種類 (□, R:, 轉)
-cat:
-  type: string
-  description: 文章的類別 (心情, 討論, 新聞)
-updateTime:
+modified:
   type: number
-  description:
 recommend:
   type: number
 owner:
@@ -21,11 +16,20 @@ owner:
 date:
   type: string
   description: po 文時間 (月/日)
-href:
-  type: string
-reason:
+title:
   type: string
 money:
   type: number
+type:
+  type: string
+  description: 文章的種類 (□, R:, 轉)
+class:
+  type: string
+  description: 文章的類別 (心情, 討論, 新聞)
+mode:
+  type: number
+  description: https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/file_mode.go
+url:
+  type: string
 read:
   type: boolean

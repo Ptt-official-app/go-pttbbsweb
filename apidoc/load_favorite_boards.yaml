@@ -1,9 +1,20 @@
-GetPopularBoardList
+讀取我的最愛 (板)
 ---
 tags:
+  - user
   - board
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
+  - name: 'user_id'
+    in: 'path'
+    required: true
+    type: string
+  - name: 'level_idx'
+    in: 'query'
+    required: false
+    type: string
+    default: ''
+    description: 以 , 隔開指示我的最愛的層數. '' 表示 root 層
   - '$ref': '#/definitions/ParamsStartIdx'
   - '$ref': '#/definitions/ParamsMax'
 responses:

@@ -4,7 +4,7 @@ tags:
   - board
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
-  - name: 'board'
+  - name: 'bid'
     in: 'path'
     required: true
     description: 'board-id'

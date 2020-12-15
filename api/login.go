@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const LOGIN_R = "/Account/login"
+const LOGIN_R = "/account/login"
 
 type LoginParams struct {
 	ClientID     string `json:"client_id"`
