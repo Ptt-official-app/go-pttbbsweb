@@ -10,7 +10,7 @@ WORKDIR /srv/go-openbbsmiddleware
 RUN mkdir -p /etc/go-openbbsmiddleware && cp 01-config.docker.ini /etc/go-openbbsmiddleware/production.ini
 
 WORKDIR /srv/go-openbbsmiddleware
-RUN go build -tags production
+RUN go build
 
 # cmd
 WORKDIR /srv/go-openbbsmiddleware
