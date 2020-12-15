@@ -4,7 +4,7 @@ tags:
   - board
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
-  - name: 'name'
+  - name: 'keyword'
     in: 'query'
     required: false
     description: "query string, '' returns all boards"

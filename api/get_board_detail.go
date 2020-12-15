@@ -28,31 +28,31 @@ type GetBoardDetailResult struct {
 
 	Title     string          `json:"title,omitempty"`
 	BrdAttr   ptttype.BrdAttr `json:"flag,omitempty"`
-	BoardType string          `json:"boardType,omitempty"`
-	Category  string          `json:"cat,omitempty"`
-	NUser     int             `json:"onlineCount,omitempty"`
+	BoardType string          `json:"type,omitempty"`
+	Category  string          `json:"class,omitempty"`
+	NUser     int             `json:"nuser,omitempty"`
 	BMs       []string        `json:"moderators,omitempty"`
 
-	VoteLimitLogins      int          `json:"voteLimitLogins,omitempty"`
-	UpdateTimeTS         types.Time8  `json:"updateTime,omitempty"`
-	PostLimitLogins      int          `json:"postLimitLogins,omitempty"`
+	VoteLimitLogins      int          `json:"vote_limit_logins,omitempty"`
+	UpdateTimeTS         types.Time8  `json:"update_time,omitempty"`
+	PostLimitLogins      int          `json:"post_limit_logins,omitempty"`
 	NVote                int          `json:"vote,omitempty"`
 	VoteClosingTimeTS    types.Time8  `json:"vtime,omitempty"`
 	Level                ptttype.PERM `json:"level,omitempty"`
-	LastSetTimeTS        types.Time8  `json:"lastSetTime,omitempty"`
-	PostExpire           int          `json:"postExpire,omitempty"`
-	EndGambleTS          types.Time8  `json:"endGamble,omitempty"`
-	PostType             string       `json:"postType,omitempty"`
-	FastRecommendPauseTS types.Time8  `json:"fastRecommendPause,omitempty"`
-	VoteLimitBadpost     int          `json:"voteLimitBadpost,omitempty"`
-	PostLimitBadpost     int          `json:"postLimitBadpost,omitempty"`
+	LastSetTimeTS        types.Time8  `json:"last_set_time,omitempty"`
+	PostExpire           int          `json:"post_expire,omitempty"`
+	EndGambleTS          types.Time8  `json:"end_game,omitempty"`
+	PostType             string       `json:"post_type,omitempty"`
+	FastRecommendPauseTS types.Time8  `json:"fast_recommend_pause,omitempty"`
+	VoteLimitBadpost     int          `json:"vote_limit_bad_post,omitempty"`
+	PostLimitBadpost     int          `json:"post_limit_bad_post,omitempty"`
 
 	Read  bool `json:"read,omitempty"`
 	Total int  `json:"total,omitempty"`
 }
 
 type GetBoardDetailFailResult struct {
-	BBoard bbs.BBoardID `json:"boardID"`
+	BBoard bbs.BBoardID `json:"bid"`
 	BMs    []string     `json:"moderators"`
 	Reason string       `json:"reason"`
 }

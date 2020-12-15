@@ -1,10 +1,10 @@
-voteLimitLogins:
+vote_limit_logins:
   type: number
   description: 最少 login 次數才能投票
-updateTime:
+update_time:
   type: number
   description: update 時間
-postLimitLogins:
+post_limit_logins:
   type: number
   description: 最少 login 次數才能 po 文
 vote:
@@ -16,23 +16,23 @@ vtime:
 level:
   type: number
   description: 這個板的權限.
-lastSetTime:
+last_set_time:
   type: number
   description: 最新設定時間.
-postExpire:
+post_expire:
   type: number
   description: post-expire
-endGamble:
+end_gamble:
   type: number
   description: 賭盤結束時間
-postType:
+post_type:
   type: string
-fastRecommendPause:
+fast_recommend_pause:
   type: number
   description: 推文最短間隔時間
-voteLimitBadpost:
+vote_limit_bad_post:
   type: number
   description: 至多劣文次數才能投票.
-postLimitBadpost:
+post_limit_bad_post:
   type: number
   description: 至多劣文次數才能 po 文.

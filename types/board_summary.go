@@ -7,12 +7,12 @@ import (
 
 type BoardSummary struct {
 	BBoardID  bbs.BBoardID    `json:"bid" bson:"bid"`
-	Brdname   string          `json:"brdname" bson:"board_id"`
+	Brdname   string          `json:"brdname" bson:"brdname"`
 	Title     string          `json:"title" bson:"title"`
-	BrdAttr   ptttype.BrdAttr `json:"flag" bson:"brd_attr"`
+	BrdAttr   ptttype.BrdAttr `json:"flag" bson:"flag"`
 	BoardType string          `json:"type" bson:"the_type"`
-	Category  string          `json:"class" bson:"category"`
-	NUser     int             `json:"online_count" bson:"nuser"`
+	Category  string          `json:"class" bson:"class"`
+	NUser     int             `json:"nuser" bson:"nuser"`
 	BMs       []string        `json:"moderators" bson:"bms"`
 	Reason    string          `json:"reason" bson:"-"`
 	Read      bool            `json:"read" bson:"-"`
