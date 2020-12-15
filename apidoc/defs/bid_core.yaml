@@ -1,2 +1,6 @@
+bid:
+  type: string
+  description: system-defined board-id
 boardID:
   type: string
+  description: user-defined board-id (英文板名)

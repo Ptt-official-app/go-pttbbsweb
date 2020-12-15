@@ -11,7 +11,7 @@ func LoadGeneralBoards(params *backend.LoadGeneralBoardsParams) (ret *backend.Lo
 	ret = &backend.LoadGeneralBoardsResult{
 		Boards: []*bbs.BoardSummary{
 			{
-				Bid:          "theIdx2",
+				BBoardID:     "1_test1",
 				BrdAttr:      0,
 				StatAttr:     ptttype.NBRD_BOARD,
 				Brdname:      "test1",
@@ -24,7 +24,7 @@ func LoadGeneralBoards(params *backend.LoadGeneralBoardsParams) (ret *backend.Lo
 				Total:        123,
 			},
 			{
-				Bid:          "theIdx2",
+				BBoardID:     "2_test2",
 				BrdAttr:      0,
 				StatAttr:     ptttype.NBRD_BOARD,
 				Brdname:      "test2",

@@ -19,12 +19,7 @@ var (
 	apiPrefix = "/api"
 )
 
-var (
-	getFavoriteBoard_r   = withPrefix("/Board/favorite/:username")
-	getUserPostList_r    = withPrefix("/User/article/:username")
-	getUserCommentList_r = withPrefix("/User/Comment/:username")
-	getUserInfo_r        = withPrefix("/User/Users/:username")
-)
+var ()
 
 func withPrefix(path string) string {
 	return apiPrefix + path
@@ -78,6 +73,14 @@ func initGin() (*gin.Engine, error) {
 			api.GetBoardDetail,
 			api.NewGetBoardDetailParams(),
 			&api.GetBoardDetailPath{},
+		).Query,
+	)
+	router.GET(
+		withPrefix(api.LOAD_GENERAL_ARTICLES_R),
+		NewLoginRequiredPathApi(
+			api.LoadGeneralArticles,
+			api.NewLoadGeneralArticlesParams(),
+			&api.LoadGeneralArticlesPath{},
 		).Query,
 	)
 

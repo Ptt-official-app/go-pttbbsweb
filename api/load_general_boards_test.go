@@ -1,7 +1,6 @@
 package api
 
 import (
-	"reflect"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -9,7 +8,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
-	log "github.com/sirupsen/logrus"
 )
 
 func TestLoadGeneralBoards(t *testing.T) {
@@ -18,8 +16,8 @@ func TestLoadGeneralBoards(t *testing.T) {
 
 	defer schema.UserReadBoard_c.Drop()
 
-	update0 := &schema.UserReadBoard{UserID: "SYSOP", BoardID: "test1", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
-	update1 := &schema.UserReadBoard{UserID: "SYSOP", BoardID: "test2", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
+	update0 := &schema.UserReadBoard{UserID: "SYSOP", BBoardID: "1_test1", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
+	update1 := &schema.UserReadBoard{UserID: "SYSOP", BBoardID: "2_test2", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
 
 	_, _ = schema.UserReadBoard_c.Update(update0, update0)
 	_, _ = schema.UserReadBoard_c.Update(update1, update1)
@@ -28,7 +26,8 @@ func TestLoadGeneralBoards(t *testing.T) {
 	expectedResult := &LoadGeneralBoardsResult{
 		List: []*types.BoardSummary{
 			{
-				BoardID:   "test1",
+				BBoardID:  "1_test1",
+				Brdname:   "test1",
 				Title:     "測試1",
 				BrdAttr:   0,
 				BoardType: "◎",
@@ -42,7 +41,8 @@ func TestLoadGeneralBoards(t *testing.T) {
 				StatAttr_d:       ptttype.NBRD_BOARD,
 			},
 			{
-				BoardID:   "test2",
+				BBoardID:  "2_test2",
+				Brdname:   "test2",
 				Title:     "測試2",
 				BrdAttr:   0,
 				BoardType: "◎",
@@ -93,8 +93,6 @@ func TestLoadGeneralBoards(t *testing.T) {
 					t.Errorf("LoadGeneralBoards() (%v/%v): %v", idx, len(gotResultVal.List), each)
 
 				}
-
-				log.Infof("LoadGeneralBoards() (%v/%v): (%v/%v) expected: (%v/%v)", idx, len(gotResultVal.List), each, reflect.TypeOf(each), expectedResultVal.List[idx], reflect.TypeOf(expectedResultVal.List[idx]))
 
 				utils.TDeepEqual(t, each, expectedResultVal.List[idx])
 			}

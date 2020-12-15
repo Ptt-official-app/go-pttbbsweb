@@ -5,6 +5,7 @@ tags:
   - article
 description: get post list by a board, sorted by time (from newest to oldest.)
 parameters:
+  - '$ref': '#/definitions/ParamsBid'
   - '$ref': '#/definitions/ParamsAuthorization'
   - '$ref': '#/definitions/ParamsStartIdx'
   - '$ref': '#/definitions/ParamsMax'
