@@ -6,9 +6,11 @@ import (
 )
 
 type User struct {
-	UserID   string `bson:"user_id"`
-	Realname string `bson:"realtime"`
-	Nickname string `bson:"nickname"`
+	UserID   types.UUserID `bson:"user_id"`
+	Username string        `bson:"username"`
+	Realname string        `bson:"realtime"`
+	Nickname string        `bson:"nickname"`
+	Avatar   []byte        `bson:"avatar"`
 
 	Uflag        ptttype.UFlag `bson:"flag"`
 	Userlevel    ptttype.PERM  `bson:"perm"`
@@ -19,11 +21,15 @@ type User struct {
 	Lasthost     string        `bson:"last_ip"`
 	Country      string        `bson:"country"`
 
-	Money   int    `bson:"money"`
-	Email   string `bson:"email"`
-	Address string `bson:"address"`
-	Justify string `bson:"justify"`
-	Over18  bool   `bson:"over18"`
+	Money            int    `bson:"money"`
+	Email            string `bson:"email"`
+	EmailVerified    bool   `bson:"email_verified"`
+	Phone            string `bson:"phone"` /* 真的要有電話資訊嗎？～ */
+	PhoneVerified    bool   `bson:"phone_verified"`
+	TwoFactorEnabled bool   `bson:"twofactor_enabled"`
+	Address          string `bson:"address"`
+	Justify          string `bson:"justify"`
+	Over18           bool   `bson:"over18"`
 
 	PagerUIType uint8             `bson:"pager_ui"` /* 呼叫器界面類別 (was: WATER_*) */
 	Pager       ptttype.PagerMode `bson:"pager"`    /* 呼叫器狀態 */

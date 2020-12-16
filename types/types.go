@@ -2,6 +2,8 @@ package types
 
 import "gopkg.in/square/go-jose.v2/jwt"
 
+type UUserID string
+
 const (
 	TS_TO_NANO_TS = NanoTS(1000000000) //10^9
 )

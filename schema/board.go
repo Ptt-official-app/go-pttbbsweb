@@ -26,6 +26,8 @@ type Board struct {
 	VoteLimitBadpost int `bson:"vote_limit_bad_post"`
 	PostLimitBadpost int `bson:"post_limit_bad_post"`
 
+	Parent bbs.BBoardID `bson:"parent"`
+
 	//NVote             int         `bson:"vote"` /* use db-count to get current #vote */
 	VoteClosingTimeTS types.Time8 `bson:"vtime_ts"`
 
