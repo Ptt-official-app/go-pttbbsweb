@@ -6,6 +6,8 @@ import (
 )
 
 type UserReadBoard struct {
+	//已讀板紀錄
+
 	UserID       string       `bson:"user_id"`
 	BBoardID     bbs.BBoardID `bson:"bid"`
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
