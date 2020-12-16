@@ -78,7 +78,6 @@ You can check coverage with:
 
 * `./scripts/coverage.sh`
 
-
 ## Swagger
 
 You can run swagger with:
@@ -87,3 +86,7 @@ You can run swagger with:
 
 * `./scripts/swagger.sh`
 * go to `http://localhost:5000`
+
+## Schema definition
+
+* `https://github.com/Ptt-official-app/go-openbbsmiddleware/tree/main/schema`
