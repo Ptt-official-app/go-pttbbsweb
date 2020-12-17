@@ -97,6 +97,15 @@ def _get_user_info(user_id):
     return ''
 
 
+@app.route(_with_app_prefix('/user/<user_id>/summary'))
+def _get_user_summary(user_id):
+    """
+    swagger_from_file: apidoc/get_user_summary.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/user/<user_id>/articles'))
 def _load_user_articles(user_id):
     """
@@ -178,6 +187,15 @@ def _get_board_detail(bid):
 def _get_board_summary(bid):
     """
     swagger_from_file: apidoc/get_board_summary.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/board/<bid>/users'))
+def _get_board_users(bid):
+    """
+    swagger_from_file: apidoc/load_board_users.yaml
 
     """
     return ''

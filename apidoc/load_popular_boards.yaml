@@ -5,7 +5,8 @@ tags:
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
   - '$ref': '#/definitions/ParamsStartIdx'
-  - '$ref': '#/definitions/ParamsMax'
+  - '$ref': '#/definitions/ParamsLimit'
+  - '$ref': '#/definitions/ParamsDesc'
 responses:
   200:
     description:

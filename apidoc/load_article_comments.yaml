@@ -3,7 +3,7 @@
 tags:
   - article
   - comment
-description: get user comment list, sorted by time. (from newest to oldest).
+description: get user comment list, sorted by time.
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
   - name: 'bid'
@@ -15,7 +15,8 @@ parameters:
     type: string
     required: true
   - '$ref': '#/definitions/ParamsStartIdx'
-  - '$ref': '#/definitions/ParamsMax'
+  - '$ref': '#/definitions/ParamsLimit'
+  - '$ref': '#/definitions/ParamsDesc'
 responses:
   200:
     description:

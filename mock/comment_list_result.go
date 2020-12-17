@@ -25,7 +25,7 @@ var (
 				Date:       "12/16",
 				Content:    "怎麼了嗎？～",
 				IP:         "localhost",
-				Country:    "我家",
+				Host:       "我家",
 			},
 			{
 				BBoardID:   bbs.BBoardID("10_WhoAmI"),
@@ -39,7 +39,7 @@ var (
 				Date:       "12/16",
 				Content:    "真的嗎？～",
 				IP:         "localhost",
-				Country:    "全家",
+				Host:       "全家",
 			},
 			{
 				BBoardID:   bbs.BBoardID("10_WhoAmI"),
@@ -53,7 +53,7 @@ var (
 				Date:       "12/17",
 				Content:    "真的假的？～",
 				IP:         "localhost",
-				Country:    "妳家",
+				Host:       "妳家",
 			},
 			{
 				BBoardID:   bbs.BBoardID("10_WhoAmI"),
@@ -67,7 +67,7 @@ var (
 				Date:       "12/18",
 				Content:    "然後呢？～",
 				IP:         "localhost",
-				Country:    "大家",
+				Host:       "大家",
 			},
 		},
 		NextIdx: "10",

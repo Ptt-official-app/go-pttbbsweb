@@ -11,7 +11,8 @@ parameters:
     type: string
     required: true
   - '$ref': '#/definitions/ParamsStartIdx'
-  - '$ref': '#/definitions/ParamsMax'
+  - '$ref': '#/definitions/ParamsLimit'
+  - '$ref': '#/definitions/ParamsDesc'
 responses:
   200:
     description:

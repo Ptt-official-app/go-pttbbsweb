@@ -6,7 +6,8 @@ description: get popular post list, sorted by popularity. displaying most popula
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
   - '$ref': '#/definitions/ParamsStartIdx'
-  - '$ref': '#/definitions/ParamsMax'
+  - '$ref': '#/definitions/ParamsLimit'
+  - '$ref': '#/definitions/ParamsDesc'
 responses:
   200:
     description:

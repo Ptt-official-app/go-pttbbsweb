@@ -1,4 +1,4 @@
-拿到本人的所有資訊.
+拿到 user 的 summary 資訊.
 ---
 tags:
   - user
@@ -14,4 +14,4 @@ responses:
     description:
     schema:
       '$id': https://json-schema.org/draft/2019-09/output/schema
-      '$ref': '#/definitions/UserDetail'
+      '$ref': '#/definitions/UserSummary'

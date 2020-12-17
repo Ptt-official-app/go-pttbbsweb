@@ -25,7 +25,7 @@ type GetArticleDetailResult struct {
 	Brdname string        `json:"brdname"`
 	Content proto.Content `json:"content"`
 	IP      string        `json:"ip"`
-	Country string        `json:"country"`
+	Host    string        `json:"host"` //ip 的中文呈現, 外國則為國家.
 	BBS     string        `json:"bbs"`
 }
 

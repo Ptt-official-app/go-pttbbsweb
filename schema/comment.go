@@ -17,7 +17,7 @@ type Comment struct {
 	Date       string          `bson:"date"`
 	Content    string          `bson:"content"` //content in comment is colorless.
 	IP         string          `bson:"ip"`
-	Country    string          `bson:"country"`
+	Host       string          `bson:"host"` //ip 的中文呈現, 外國則為國家.
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }

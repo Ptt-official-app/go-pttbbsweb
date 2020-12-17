@@ -1,9 +1,9 @@
-讀取文章裡一開始的 comments (從最舊往最新拉資料. 舊的排在前面.)
+讀取文章裡置頂 comments
 ---
 tags:
   - article
   - comment
-description: get user comment list, sorted by time. (from newest to oldest).
+description: 讀置頂 comments.
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
   - name: 'bid'
@@ -14,8 +14,6 @@ parameters:
     in: 'path'
     type: string
     required: true
-  - '$ref': '#/definitions/ParamsStartIdx'
-  - '$ref': '#/definitions/ParamsMax'
 responses:
   200:
     description:

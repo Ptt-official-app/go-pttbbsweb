@@ -19,14 +19,14 @@ type User struct {
 	Numposts     int           `bson:"posts"`      /* 考慮透過 db-count, 因為 post 可能會被消失, 但是這個欄位不應該因為被消失的而減少? (poster 主動消失的需要減少)? */
 	Firstlogin   types.Time8   `bson:"first_login_ts"`
 	Lastlogin    types.Time8   `bson:"last_login_ts"` /* 考慮透過 db-max, 但是可能在拉 user-detail 時會花很多時間. */
-	Lasthost     string        `bson:"last_ip"`
-	Country      string        `bson:"country"`
+	LastIP       string        `bson:"last_ip"`
+	LastHost     string        `bson:"last_host"` //last-ip 的中文呈現, 外國則為國家.
 
 	Money            int    `bson:"money"`
 	Email            string `bson:"email"`
-	EmailVerified    bool   `bson:"email_verified"`
+	EmailVerified    string `bson:"email_verified"`
 	Phone            string `bson:"phone"` /* 真的要有電話資訊嗎？～ */
-	PhoneVerified    bool   `bson:"phone_verified"`
+	PhoneVerified    string `bson:"phone_verified"`
 	TwoFactorEnabled bool   `bson:"twofactor_enabled"`
 	Address          string `bson:"address"`
 	Justify          string `bson:"justify"`

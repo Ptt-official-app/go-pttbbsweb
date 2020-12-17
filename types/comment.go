@@ -14,5 +14,5 @@ type Comment struct {
 	Date       string        `json:"date"`
 	Content    string        `json:"content"`
 	IP         string        `json:"ip"`
-	Country    string        `json:"country"`
+	Host       string        `json:"host"` //ip 的中文呈現, 外國則為國家.
 }
