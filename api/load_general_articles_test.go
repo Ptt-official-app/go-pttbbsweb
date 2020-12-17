@@ -70,7 +70,7 @@ func TestLoadGeneralArticles(t *testing.T) {
 	c.Request = &http.Request{URL: &url.URL{Path: "/api/board/1_test/articles"}}
 	type args struct {
 		remoteAddr string
-		userID     string
+		userID     bbs.UUserID
 		params     interface{}
 		path       interface{}
 		c          *gin.Context

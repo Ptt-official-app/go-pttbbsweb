@@ -23,7 +23,7 @@ type LoadArticleFirstCommentsResult struct {
 	List []*types.Comment `json:"list"`
 }
 
-func LoadArticleFirstComments(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadArticleFirstComments(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 
 	result = mock.CommentListResult
 	return result, 200, nil

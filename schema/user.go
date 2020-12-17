@@ -2,15 +2,16 @@ package schema
 
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 type User struct {
-	UserID   types.UUserID `bson:"user_id"`
-	Username string        `bson:"username"`
-	Realname string        `bson:"realtime"`
-	Nickname string        `bson:"nickname"`
-	Avatar   []byte        `bson:"avatar"`
+	UserID   bbs.UUserID `bson:"user_id"`
+	Username string      `bson:"username"`
+	Realname string      `bson:"realtime"`
+	Nickname string      `bson:"nickname"`
+	Avatar   []byte      `bson:"avatar"`
 
 	Uflag        ptttype.UFlag `bson:"flag"`
 	Userlevel    ptttype.PERM  `bson:"perm"`

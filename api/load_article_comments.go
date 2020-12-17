@@ -24,7 +24,7 @@ type LoadArticleCommentsResult struct {
 	NextIdx string           `json:"next_idx"`
 }
 
-func LoadArticleComments(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 
 	result = mock.CommentListResult
 	return result, 200, nil

@@ -8,7 +8,7 @@ import (
 type UserReadArticle struct {
 	//已讀文章紀錄
 
-	UserID       string        `bson:"user_id"`
+	UserID       bbs.UUserID   `bson:"user_id"`
 	ArticleID    bbs.ArticleID `bson:"aid"`
 	UpdateNanoTS types.NanoTS  `bson:"update_nano_ts"`
 }

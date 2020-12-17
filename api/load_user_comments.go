@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/mock"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,7 +15,7 @@ type LoadUserCommentsParams struct {
 }
 
 type LoadUserCommentsPath struct {
-	UserID string `json:"user_id"`
+	UserID bbs.UUserID `json:"user_id"`
 }
 
 type LoadUserCommentsResult struct {
@@ -22,7 +23,7 @@ type LoadUserCommentsResult struct {
 	NextIdx string           `json:"next_idx"`
 }
 
-func LoadUserComments(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadUserComments(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 
 	result = mock.CommentListResult
 	return result, 200, nil

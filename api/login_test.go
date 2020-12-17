@@ -62,6 +62,10 @@ func TestLogin(t *testing.T) {
 			for _, each := range ret {
 				each.UpdateNanoTS = 0
 			}
+			if len(ret) < 1 {
+				t.Errorf("Login(): unable to find access-token")
+				return
+			}
 			expected.AccessToken = ret[0].AccessToken
 
 			if !reflect.DeepEqual(got, tt.expected) {

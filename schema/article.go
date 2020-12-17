@@ -15,7 +15,7 @@ type Article struct {
 	CreateTime types.Time8      `bson:"create_time_ts"`
 	MTime      types.Time8      `bson:"mtime_ts"`
 	Recommend  int              `bson:"recommend"`
-	Owner      string           `bson:"owner"`
+	Owner      bbs.UUserID      `bson:"owner"`
 	Date       string           `bson:"date"`
 	Title      string           `bson:"title"`
 	Money      int              `bson:"money"`

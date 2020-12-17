@@ -1,7 +1,7 @@
 version: '2'
 services:
   go-pttbbs:
-    image: pttofficialapps/go-pttbbs:v0.3.2
+    image: pttofficialapps/go-pttbbs:v0.3.4
     ports:
       - "127.0.0.1:8888:8888"
       - "127.0.0.1:48763:48763"

@@ -65,6 +65,10 @@ func TestRegisterUser(t *testing.T) {
 			for _, each := range ret {
 				each.UpdateNanoTS = 0
 			}
+			if len(ret) < 1 {
+				t.Errorf("RegisterUser(): unable to find access-token.")
+				return
+			}
 			expected.AccessToken = ret[0].AccessToken
 
 			if !reflect.DeepEqual(gotResult, tt.expectedResult) {

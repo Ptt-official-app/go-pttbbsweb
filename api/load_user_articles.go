@@ -3,6 +3,7 @@ package api
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/mock"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,7 +15,7 @@ type LoadUserArticlesParams struct {
 }
 
 type LoadUserArticlesPath struct {
-	UserID string `json:"user_id"`
+	UserID bbs.UUserID `json:"user_id"`
 }
 
 type LoadUserArticlesResult struct {
@@ -22,7 +23,7 @@ type LoadUserArticlesResult struct {
 	NextIdx string                  `json:"next_idx"`
 }
 
-func LoadUserArticles(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadUserArticles(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 
 	result = mock.ArticleListResult
 	return result, 200, nil

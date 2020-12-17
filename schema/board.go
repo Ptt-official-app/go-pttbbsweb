@@ -14,8 +14,8 @@ type Board struct {
 	BoardType string          `bson:"the_type"`
 	Category  string          `bson:"class"`
 	//NUser     int             `bson:"nuser"`  /* use db-count to get current #users */
-	BMs   []string `bson:"bms"`
-	Total int      `bson:"total"` /* 需要即時知道. 因為 read 頻率高. 並且跟 last-post-time-ts 一樣 write 頻率 << read 頻率 */
+	BMs   []bbs.UUserID `bson:"bms"`
+	Total int           `bson:"total"` /* 需要即時知道. 因為 read 頻率高. 並且跟 last-post-time-ts 一樣 write 頻率 << read 頻率 */
 
 	LastPostTimeTS types.Time8 `bson:"last_post_time_ts"` /* 需要即時知道來做板的已讀 */
 

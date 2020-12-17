@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
 )
@@ -13,11 +14,12 @@ type GetUserInfoParams struct {
 }
 
 type GetUserInfoPath struct {
-	UserID string `uri:"user_id"`
+	UserID bbs.UUserID `uri:"user_id"`
 }
 
 type GetUserInfoResult struct {
 	UserID   string `json:"user_id"`
+	Username string `json:"username"`
 	Realname string `json:"realtime"`
 	Nickname string `json:"nickname"`
 
@@ -80,10 +82,11 @@ type GetUserInfoResult struct {
 	NFriend int `json:"n_friend"`
 }
 
-func GetUserInfo(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func GetUserInfo(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 
 	result = &GetUserInfoResult{
-		UserID:   "ckoool",
+		UserID:   "2_ckoool",
+		Username: "ckoool",
 		Realname: "我是西k屋",
 		Nickname: "我是西k屋",
 
