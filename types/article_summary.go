@@ -13,7 +13,7 @@ type ArticleSummary struct {
 	CreateTime Time8            `json:"create_time"`
 	MTime      Time8            `json:"modified"`
 	Recommend  int              `json:"recommend"`
-	Owner      string           `json:"owner"`
+	Owner      bbs.UUserID      `json:"owner"`
 	Date       string           `json:"date"`
 	Title      string           `json:"title"`
 	Money      int              `json:"money"`

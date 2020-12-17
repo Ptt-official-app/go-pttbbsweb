@@ -6,6 +6,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
 )
@@ -33,7 +34,7 @@ func TestLoadGeneralBoards(t *testing.T) {
 				BoardType: "◎",
 				Category:  "測試",
 				NUser:     100,
-				BMs:       []string{"okcool", "teemo"},
+				BMs:       []bbs.UUserID{"okcool", "teemo"},
 				Read:      true,
 				Total:     123,
 
@@ -48,7 +49,7 @@ func TestLoadGeneralBoards(t *testing.T) {
 				BoardType: "◎",
 				Category:  "測試",
 				NUser:     101,
-				BMs:       []string{"okcool2", "teemo2"},
+				BMs:       []bbs.UUserID{"okcool2", "teemo2"},
 				Read:      false,
 				Total:     124,
 
@@ -60,7 +61,7 @@ func TestLoadGeneralBoards(t *testing.T) {
 	}
 	type args struct {
 		remoteAddr string
-		userID     string
+		userID     bbs.UUserID
 		params     interface{}
 		c          *gin.Context
 	}

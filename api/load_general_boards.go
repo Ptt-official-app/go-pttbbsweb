@@ -29,7 +29,7 @@ type LoadGeneralBoardsResult struct {
 	NextIdx string                `json:"next_idx"`
 }
 
-func LoadGeneralBoards(remoteAddr string, userID string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadGeneralBoards(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoadGeneralBoardsParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -74,7 +74,7 @@ func (r *LoadGeneralBoardsResult) Deserialize(r_b *backend.LoadGeneralBoardsResu
 }
 
 //https://github.com/ptt/pttbbs/blob/master/mbbsd/board.c#L953
-func checkReadBoards(userID string, theList []*types.BoardSummary) error {
+func checkReadBoards(userID bbs.UUserID, theList []*types.BoardSummary) error {
 	checkBBoardIDMap := make(map[bbs.BBoardID]int)
 	queryBBoardIDs := make([]bbs.BBoardID, 0, len(theList))
 	for idx, each := range theList {

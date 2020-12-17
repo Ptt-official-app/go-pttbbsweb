@@ -66,10 +66,15 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 	}
 
 	//update db
+	userID, err := VerifyJwt(result_b.Jwt)
+	if err != nil {
+		return nil, 401, err
+	}
+
 	nowNanoTS := utils.GetNowNanoTS()
 	query := &schema.AccessToken{
 		AccessToken:  result_b.Jwt,
-		UserID:       theParams.Username,
+		UserID:       userID,
 		UpdateNanoTS: nowNanoTS,
 	}
 

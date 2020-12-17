@@ -7,6 +7,8 @@ import (
 	"time"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/square/go-jose.v2/jwt"
@@ -41,9 +43,9 @@ func createToken(userID string) (string, error) {
 		return "", err
 	}
 
-	cl := &types.JwtClaim{
-		UserID: userID,
-		Expire: jwt.NewNumericDate(time.Now().Add(time.Hour * 72)),
+	cl := &pttbbsapi.JwtClaim{
+		UUserID: bbs.UUserID(userID),
+		Expire:  jwt.NewNumericDate(time.Now().Add(time.Hour * 72)),
 	}
 
 	raw, err := jwt.Signed(sig).Claims(cl).CompactSerialize()

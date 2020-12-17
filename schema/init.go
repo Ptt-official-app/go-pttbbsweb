@@ -2,10 +2,12 @@ package schema
 
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
-	log "github.com/sirupsen/logrus"
 )
 
 func Init() (err error) {
+	if client != nil {
+		return nil
+	}
 	client, err = db.NewClient(MONGO_PROTOCOL, MONGO_HOST, MONGO_PORT, MONGO_DBNAME)
 	if err != nil {
 		return err
@@ -20,18 +22,24 @@ func Init() (err error) {
 	return nil
 }
 
+//Close
+//
+//XXX do not really close to avoid db connection-error in tests.
 func Close() (err error) {
-	err = client.Close()
-	if err != nil {
-		log.Errorf("schema.Close: unable to close mongo: e: %v", err)
-	}
-
-	client = nil
-	Client_c = nil
-	User_c = nil
-	AccessToken_c = nil
-	UserReadArticle_c = nil
-	UserReadBoard_c = nil
-
 	return nil
+	/*
+		err = client.Close()
+		if err != nil {
+			log.Errorf("schema.Close: unable to close mongo: e: %v", err)
+		}
+
+		client = nil
+		Client_c = nil
+		User_c = nil
+		AccessToken_c = nil
+		UserReadArticle_c = nil
+		UserReadBoard_c = nil
+
+		return nil
+	*/
 }

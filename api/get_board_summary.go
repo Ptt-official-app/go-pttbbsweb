@@ -19,7 +19,7 @@ type GetBoardSummaryResult struct {
 	*types.BoardSummary
 }
 
-func GetBoardSummary(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	_, ok := path.(*GetBoardSummaryPath)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -34,7 +34,7 @@ func GetBoardSummary(remoteAddr string, userID string, params interface{}, path 
 			BoardType: "◎",
 			Category:  "嘰哩",
 			NUser:     39,
-			BMs:       []string{"okcool", "teemo"},
+			BMs:       []bbs.UUserID{"okcool", "teemo"},
 			Reason:    "",
 			Read:      true,
 			Total:     134,

@@ -32,7 +32,7 @@ type LoadGeneralArticlesResult struct {
 	NextIdx string                  `json:"next_idx"`
 }
 
-func LoadGeneralArticles(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoadGeneralArticlesParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -79,7 +79,7 @@ func LoadGeneralArticles(remoteAddr string, userID string, params interface{}, p
 	return r, 200, nil
 }
 
-func checkReadArticles(userID string, theList []*types.ArticleSummary) error {
+func checkReadArticles(userID bbs.UUserID, theList []*types.ArticleSummary) error {
 	checkArticleIDMap := make(map[bbs.ArticleID]int)
 	queryArticleIDs := make([]bbs.ArticleID, 0, len(theList))
 	for idx, each := range theList {
@@ -119,7 +119,7 @@ func checkReadArticles(userID string, theList []*types.ArticleSummary) error {
 	return nil
 }
 
-func updateUserReadBoard(userID string, BBoardID bbs.BBoardID) error {
+func updateUserReadBoard(userID bbs.UUserID, BBoardID bbs.BBoardID) error {
 	nowNanoTS := utils.GetNowNanoTS()
 
 	query := &schema.UserReadBoard{

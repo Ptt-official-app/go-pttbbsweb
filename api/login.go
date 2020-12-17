@@ -5,6 +5,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 const LOGIN_R = "/account/login"
@@ -47,10 +48,16 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 	}
 
 	//update db
+	userID, err := VerifyJwt(result_b.Jwt)
+	logrus.Infof("after VerifyJwt: userID: %v", userID)
+	if err != nil {
+		return nil, 401, err
+	}
+
 	nowNanoTS := utils.GetNowNanoTS()
 	query := &schema.AccessToken{
 		AccessToken:  result_b.Jwt,
-		UserID:       theParams.Username,
+		UserID:       userID,
 		UpdateNanoTS: nowNanoTS,
 	}
 

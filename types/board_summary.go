@@ -13,7 +13,7 @@ type BoardSummary struct {
 	BoardType string          `json:"type" bson:"the_type"`
 	Category  string          `json:"class" bson:"class"`
 	NUser     int             `json:"nuser" bson:"nuser"`
-	BMs       []string        `json:"moderators" bson:"bms"`
+	BMs       []bbs.UUserID   `json:"moderators" bson:"bms"`
 	Reason    string          `json:"reason" bson:"-"`
 	Read      bool            `json:"read" bson:"-"`
 	Total     int             `json:"total" bson:"total"`

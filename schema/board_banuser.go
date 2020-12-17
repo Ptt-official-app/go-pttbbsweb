@@ -8,11 +8,11 @@ import (
 type BoardBanUser struct {
 	//板的水桶名單 (不可 po 文)
 
-	BoardID   bbs.BBoardID  `bson:"bid"`
-	UserID    types.UUserID `bson:"user_id"`
-	EndNanoTS types.NanoTS  `bson:"end_nano_ts"`
-	PosterID  types.UUserID `bson:"poster_id"`
-	Reason    string        `bson:"reason"`
+	BoardID   bbs.BBoardID `bson:"bid"`
+	UserID    bbs.UUserID  `bson:"user_id"`
+	EndNanoTS types.NanoTS `bson:"end_nano_ts"`
+	PosterID  bbs.UUserID  `bson:"poster_id"`
+	Reason    string       `bson:"reason"`
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }

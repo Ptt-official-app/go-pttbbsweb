@@ -20,7 +20,7 @@ type LoadBottomArticlesResult struct {
 	NextIdx string                  `json:"next_idx"`
 }
 
-func LoadBottomArticles(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadBottomArticles(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 
 	result = mock.ArticleListResult
 	return result, 200, nil

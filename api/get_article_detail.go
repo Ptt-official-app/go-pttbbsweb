@@ -29,7 +29,7 @@ type GetArticleDetailResult struct {
 	BBS     string        `json:"bbs"`
 }
 
-func GetArticleDetail(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	_, ok := path.(*GetArticleDetailPath)
 	if !ok {
 		return nil, 400, ErrInvalidParams

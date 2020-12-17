@@ -39,12 +39,12 @@ type GetBoardDetailResult struct {
 }
 
 type GetBoardDetailFailResult struct {
-	BBoard bbs.BBoardID `json:"bid"`
-	BMs    []string     `json:"moderators"`
-	Reason string       `json:"reason"`
+	BBoard bbs.BBoardID  `json:"bid"`
+	BMs    []bbs.UUserID `json:"moderators"`
+	Reason string        `json:"reason"`
 }
 
-func GetBoardDetail(remoteAddr string, userID string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func GetBoardDetail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	_, ok := path.(*GetBoardDetailPath)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -59,7 +59,7 @@ func GetBoardDetail(remoteAddr string, userID string, params interface{}, path i
 			BoardType: "◎",
 			Category:  "嘰哩",
 			NUser:     39,
-			BMs:       []string{"okcool", "teemo"},
+			BMs:       []bbs.UUserID{"okcool", "teemo"},
 
 			Read:  true,
 			Total: 134,

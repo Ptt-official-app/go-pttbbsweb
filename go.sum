@@ -18,6 +18,10 @@ github.com/Ptt-official-app/go-pttbbs v0.3.1 h1:Qn/HB7SM/2Ze7x9XmEO1GwdSV4qby/Ot
 github.com/Ptt-official-app/go-pttbbs v0.3.1/go.mod h1:mpF2OtQV0oya5pji4jvhuYBaqM/NbdRw85Xslhc+7kk=
 github.com/Ptt-official-app/go-pttbbs v0.3.2 h1:HZYXrUaFoipUhkvhDigpxoZTivMJpk9uMFbwUOuihrw=
 github.com/Ptt-official-app/go-pttbbs v0.3.2/go.mod h1:mpF2OtQV0oya5pji4jvhuYBaqM/NbdRw85Xslhc+7kk=
+github.com/Ptt-official-app/go-pttbbs v0.3.3 h1:/SUEiSRRfFrAU2/0LbkRlwh4j/mU+6rN5xvnSWAxKbI=
+github.com/Ptt-official-app/go-pttbbs v0.3.3/go.mod h1:mpF2OtQV0oya5pji4jvhuYBaqM/NbdRw85Xslhc+7kk=
+github.com/Ptt-official-app/go-pttbbs v0.3.4 h1:smfiII6QzqE7EoHYDG5ZZfYzrPR2WLcAYjXxL2AbBiI=
+github.com/Ptt-official-app/go-pttbbs v0.3.4/go.mod h1:mpF2OtQV0oya5pji4jvhuYBaqM/NbdRw85Xslhc+7kk=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=

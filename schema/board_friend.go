@@ -8,8 +8,8 @@ import (
 type BoardFriend struct {
 	//可看見板的名單
 
-	BoardID bbs.BBoardID  `bson:"bid"`
-	UserID  types.UUserID `bson:"user_id"`
+	BoardID bbs.BBoardID `bson:"bid"`
+	UserID  bbs.UUserID  `bson:"user_id"`
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
