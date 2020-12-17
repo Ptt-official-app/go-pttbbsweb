@@ -29,8 +29,8 @@ type GetUserInfoResult struct {
 	Numposts     int           `json:"posts"`
 	Firstlogin   types.Time8   `json:"first_login"`
 	Lastlogin    types.Time8   `json:"last_login"`
-	Lasthost     string        `json:"last_ip"`
-	Country      string        `json:"country"`
+	LastIP       string        `json:"last_ip"`
+	LastHost     string        `json:"last_host"` //ip 的中文呈現, 外國則為國家.
 
 	Money   int    `json:"money"`
 	Email   string `json:"email"`
@@ -95,7 +95,7 @@ func GetUserInfo(remoteAddr string, userID bbs.UUserID, params interface{}, path
 		Numposts:     123124,
 		Firstlogin:   types.Time8(1234567890),
 		Lastlogin:    types.Time8(1800000000),
-		Lasthost:     "127.0.0.1",
+		LastIP:       "127.0.0.1",
 		Money:        2114567890,
 
 		Email:     "test@test.test",

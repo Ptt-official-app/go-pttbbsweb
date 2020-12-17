@@ -3,7 +3,7 @@
 tags:
   - board
   - article
-description: 讀取板裡的文章列表 (按照時間排序. 從最新開始往以前拿取. 呈現時舊的排前面.)
+description: 讀取板裡的文章列表, 呈現時舊的排前面.
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
   - name: 'bid'
@@ -11,8 +11,15 @@ parameters:
     required: true
     description: "board bid obtained from board-list"
     type: string
+  - name: 'title'
+    in: 'query'
+    required: false
+    description: "query string, '' returns all articles"
+    type: string
+    default: ''
   - '$ref': '#/definitions/ParamsStartIdx'
-  - '$ref': '#/definitions/ParamsMax'
+  - '$ref': '#/definitions/ParamsLimit'
+  - '$ref': '#/definitions/ParamsDesc'
 responses:
   200:
     description:

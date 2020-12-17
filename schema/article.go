@@ -27,7 +27,7 @@ type Article struct {
 
 	Content proto.Content `bson:"content"`
 	IP      string        `bson:"ip"`
-	Country string        `bson:"country"`
+	Host    string        `bson:"host"` //ip 的中文呈現, 外國則為國家.
 	BBS     string        `bson:"bbs"`
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`

@@ -23,3 +23,7 @@ definitions:
   !include defs/uid.yaml
   !include defs/user_detail.yaml
   !include defs/content.yaml
+  !include defs/params_desc.yaml
+  !include defs/user_list.yaml
+  !include defs/user_list_summary.yaml
+  !include defs/user_summary.yaml

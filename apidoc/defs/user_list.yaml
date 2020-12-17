@@ -1,10 +1,9 @@
-CommentList:
-  description: comments.
+UserList:
   type: object
   properties:
     list:
       type: array
       items:
-        '$ref': '#/definitions/Comment'
+        '$ref': '#/definitions/UserListSummary'
     nextIdx:
       '$ref': '#/definitions/RespNextIdx'

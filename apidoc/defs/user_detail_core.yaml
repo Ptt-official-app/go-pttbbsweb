@@ -20,13 +20,23 @@ last_login:
 last_ip:
   type: string
   description: from-ip
-country:
+last_host:
   type: string
-  description: last_ip 的國家.
+  description: last_ip 的網域.
 
 money:
   type: number
 email:
+  type: string
+email_verified:
+  type: string
+phone:
+  type: string
+phone_verified:
+  type: string
+twofactor_enabled:
+  type: boolean
+justify:
   type: string
 address:
   type: string
@@ -52,6 +62,10 @@ role:
 last_seen:
   type: number
   description: last-seen in unix-time
+last_action:
+  type: string
+last_action_time:
+  type: number
 time_set_angel:
   type: number
 time_play_angel:
