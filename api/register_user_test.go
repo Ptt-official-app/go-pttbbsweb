@@ -22,7 +22,7 @@ func TestRegisterUser(t *testing.T) {
 		PasswordConfirm: "testpasswd",
 	}
 
-	expected := &RegisterUserResult{TokenType: "bearer"}
+	expected := &RegisterUserResult{TokenType: "bearer", UserID: "testuserid1"}
 	expectedDB := []*schema.AccessToken{{UserID: "testuserid1"}}
 
 	type args struct {

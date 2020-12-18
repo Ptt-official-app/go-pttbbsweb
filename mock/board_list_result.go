@@ -1,19 +1,19 @@
 package mock
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 type BoardListResult_t struct {
-	List    []*types.BoardSummary `json:"list"`
-	NextIdx string                `json:"next_idx"`
+	List    []*apitypes.BoardSummary `json:"list"`
+	NextIdx string                   `json:"next_idx"`
 }
 
 var (
 	BoardListResult = &BoardListResult_t{
-		List: []*types.BoardSummary{
+		List: []*apitypes.BoardSummary{
 			{
 				BBoardID:  bbs.BBoardID("10_WhoAmI"),
 				Brdname:   "WhoAmI",

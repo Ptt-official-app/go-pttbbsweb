@@ -17,7 +17,7 @@ parameters:
     description: 以 , 隔開指示我的最愛的層數. '' 表示 root 層
   - '$ref': '#/definitions/ParamsStartIdx'
   - '$ref': '#/definitions/ParamsLimit'
-  - '$ref': '#/definitions/ParamsDesc'
+  - '$ref': '#/definitions/ParamsAsc'
 responses:
   200:
     description:

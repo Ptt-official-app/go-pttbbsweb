@@ -5,7 +5,8 @@ import (
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/testutil"
 )
 
 func TestRegisterClient(t *testing.T) {
@@ -18,7 +19,7 @@ func TestRegisterClient(t *testing.T) {
 		ClientID: "test_client_id",
 	}
 
-	expected := &RegisterClientResult{ClientSecret: "test_client_secret", Success: true}
+	expected := &RegisterClientResult{ClientSecret: "test_client_secret"}
 
 	expectedDB := []*schema.Client{
 		{
@@ -48,7 +49,7 @@ func TestRegisterClient(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, _, err := RegisterClient(tt.args.remoteAddr, tt.args.params, nil)
+			got, _, err := RegisterClient(tt.args.remoteAddr, bbs.UUserID("SYSOP"), tt.args.params, nil)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("RegisterClient() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -71,12 +72,9 @@ func TestRegisterClient(t *testing.T) {
 			if !reflect.DeepEqual(ret, expectedDB) {
 				t.Errorf("RegisterClient: find: %v expected: %v", ret, expectedDB)
 			}
-			for idx, each := range ret {
-				if idx >= len(expectedDB) {
-					t.Errorf("RegisterClient: (%v/%v) %v", idx, len(ret), each)
-				}
-				utils.TDeepEqual(t, each, expectedDB[idx])
-			}
+
+			testutil.TDeepEqual(t, "ret", ret, expectedDB)
+
 		})
 	}
 }

@@ -1,26 +1,22 @@
 package api
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/backend"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
 const LOAD_GENERAL_ARTICLES_R = "/board/:bid/articles"
 
 type LoadGeneralArticlesParams struct {
-	StartIdx string `json:"start_idx,omitempty" form:"start_idx,omitempty" url:"start_idx,omitempty"`
-	Max      int    `json:"max,omitempty" form:"max,omitempty" url:"max,omitempty"`
-}
-
-func NewLoadGeneralArticlesParams() *LoadGeneralArticlesParams {
-	return &LoadGeneralArticlesParams{
-		Max: DEFAULT_MAX_LIST,
-	}
+	Keyword    string `json:"title,omitempty" form:"title,omitempty" url:"title,omitempty"`
+	StartIdx   string `json:"start_idx,omitempty" form:"start_idx,omitempty" url:"start_idx,omitempty"`
+	Max        int    `json:"limit,omitempty" form:"limit,omitempty" url:"limit,omitempty"`
+	Descending bool   `json:"desc,omitempty"  form:"desc,omitempty" url:"desc,omitempty"`
 }
 
 type LoadGeneralArticlesPath struct {
@@ -28,8 +24,21 @@ type LoadGeneralArticlesPath struct {
 }
 
 type LoadGeneralArticlesResult struct {
-	List    []*types.ArticleSummary `json:"list"`
-	NextIdx string                  `json:"next_idx"`
+	List    []*apitypes.ArticleSummary `json:"list"`
+	NextIdx string                     `json:"next_idx"`
+}
+
+func NewLoadGeneralArticlesParams() *LoadGeneralArticlesParams {
+	return &LoadGeneralArticlesParams{
+		Max:        DEFAULT_MAX_LIST,
+		Descending: DEFAULT_DESCENDING,
+	}
+}
+
+func LoadGeneralArticlesWrapper(c *gin.Context) {
+	params := NewLoadGeneralArticlesParams()
+	path := &LoadGeneralArticlesPath{}
+	LoginRequiredPathQuery(LoadGeneralArticles, params, path, c)
 }
 
 func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
@@ -43,34 +52,46 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 		return nil, 400, ErrInvalidParams
 	}
 
+	//backend accepts only descending order.
+	startIdx := loadArticlesStartIdx(theParams.StartIdx, theParams.Descending, theParams.Max)
 	//backend load-general-articles
-	theParams_b := &backend.LoadGeneralArticlesParams{
-		StartIdx:  theParams.StartIdx,
+	theParams_b := &pttbbsapi.LoadGeneralArticlesParams{
+		StartIdx:  startIdx,
 		NArticles: theParams.Max,
 	}
-	var result_b *backend.LoadGeneralArticlesResult
+	var result_b *pttbbsapi.LoadGeneralArticlesResult
 
 	urlMap := make(map[string]string)
 	urlMap["bid"] = string(thePath.BBoardID)
-	url := backend.WithPrefix(utils.MergeURL(urlMap, backend.LOAD_GENERAL_ARTICLES_R))
-	logrus.Infof("to backend: url: %v theParams_b: %v", url, theParams_b)
-	statusCode, err = utils.HttpGet(c, url, theParams_b, nil, &result_b)
+	url := utils.MergeURL(urlMap, pttbbsapi.LOAD_GENERAL_ARTICLES_R)
+	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
 	if err != nil || statusCode != 200 {
 		return nil, statusCode, err
 	}
 
-	r := &LoadGeneralArticlesResult{}
-	r.Deserialize(result_b)
+	//update to db
+	updateNanoTS := types.NowNanoTS()
+	articleSummaries_db, userReadArticleMap, err := deserializeArticlesAndUpdateDB(userID, result_b.Articles, updateNanoTS)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	r := NewLoadGeneralArticlesResult(articleSummaries_db, result_b.NextIdx)
+
+	//backend always returns in descending order.
+	if !theParams.Descending {
+		reverseArticleSummaryList(r.List)
+	}
 
 	//check isRead
-	err = checkReadArticles(userID, r.List)
+	err = checkReadArticles(userID, userReadArticleMap, r.List)
 	if err != nil {
 		return nil, 500, err
 	}
 
 	//update user_read_board
-	if result_b.IsNewest { //nice to have, but not necessary.
-		err = updateUserReadBoard(userID, thePath.BBoardID)
+	if result_b.IsNewest {
+		err = updateUserReadBoard(userID, thePath.BBoardID, updateNanoTS)
 		if err != nil {
 			return nil, 500, err
 		}
@@ -79,11 +100,13 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 	return r, 200, nil
 }
 
-func checkReadArticles(userID bbs.UUserID, theList []*types.ArticleSummary) error {
-	checkArticleIDMap := make(map[bbs.ArticleID]int)
+func checkReadArticles(userID bbs.UUserID, userReadArticleMap map[bbs.ArticleID]bool, theList []*apitypes.ArticleSummary) error {
 	queryArticleIDs := make([]bbs.ArticleID, 0, len(theList))
+	checkArticleIDMap := make(map[bbs.ArticleID]int)
 	for idx, each := range theList {
-		if each.Read {
+		isRead, ok := userReadArticleMap[each.ArticleID]
+		if ok && isRead {
+			each.Read = true
 			continue
 		}
 
@@ -92,19 +115,14 @@ func checkReadArticles(userID bbs.UUserID, theList []*types.ArticleSummary) erro
 		queryArticleIDs = append(queryArticleIDs, each.ArticleID)
 	}
 
-	//query
-	query := make(map[string]interface{})
-	query[schema.USER_READ_ARTICLE_USER_ID_b] = userID
-	queryArticles := make(map[string]interface{})
-	queryArticles["$in"] = queryArticleIDs
-	query[schema.USER_READ_ARTICLE_ARTICLE_ID_b] = queryArticles
-
-	var dbResults []*schema.UserReadArticle
-	err := schema.UserReadArticle_c.Find(query, 0, &dbResults, nil)
+	dbResults, err := schema.FindUserReadArticles(userID, queryArticleIDs)
 	if err != nil {
 		return err
 	}
 
+	//setup read in the list
+	//no need to update db, because we don't read the article yet.
+	//the Read flag is set based on the existing db.UpdateNanoTS
 	for _, each := range dbResults {
 		eachArticleID := each.ArticleID
 		eachReadNanoTS := each.UpdateNanoTS
@@ -119,16 +137,11 @@ func checkReadArticles(userID bbs.UUserID, theList []*types.ArticleSummary) erro
 	return nil
 }
 
-func updateUserReadBoard(userID bbs.UUserID, BBoardID bbs.BBoardID) error {
-	nowNanoTS := utils.GetNowNanoTS()
+func updateUserReadBoard(userID bbs.UUserID, boardID bbs.BBoardID, updateNanoTS types.NanoTS) (err error) {
 
-	query := &schema.UserReadBoard{
-		UserID:       userID,
-		BBoardID:     BBoardID,
-		UpdateNanoTS: nowNanoTS,
-	}
+	userReadBoard := &schema.UserReadBoard{UserID: userID, BBoardID: boardID, UpdateNanoTS: updateNanoTS}
 
-	_, err := schema.UserReadBoard_c.Update(query, query)
+	err = schema.UpdateUserReadBoard(userReadBoard)
 	if err != nil {
 		return err
 	}
@@ -136,14 +149,14 @@ func updateUserReadBoard(userID bbs.UUserID, BBoardID bbs.BBoardID) error {
 	return nil
 }
 
-func (r *LoadGeneralArticlesResult) Deserialize(r_b *backend.LoadGeneralArticlesResult) {
-
-	r.List = make([]*types.ArticleSummary, len(r_b.Articles))
-	for i := 0; i < len(r.List); i++ {
-		each := &types.ArticleSummary{}
-		each.Deserialize(r_b.Articles[i])
-		r.List[i] = each
+func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummary, nextIdx string) *LoadGeneralArticlesResult {
+	theList := make([]*apitypes.ArticleSummary, len(a_db))
+	for i, each_db := range a_db {
+		theList[i] = apitypes.NewArticleSummary(each_db)
 	}
 
-	r.NextIdx = r_b.NextIdx
+	return &LoadGeneralArticlesResult{
+		List:    theList,
+		NextIdx: nextIdx,
+	}
 }

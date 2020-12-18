@@ -5,6 +5,7 @@ import (
 	"time"
 
 	log "github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -27,24 +28,22 @@ func (c *Collection) CreateOnly(filter interface{}, update interface{}) (r *mong
 	opts := &options.UpdateOptions{}
 	opts.SetUpsert(true)
 
-	theUpdate := make(map[string]interface{})
-	theUpdate["$setOnInsert"] = update
+	theUpdate := bson.M{
+		"$setOnInsert": update,
+	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {
 		ctxErr := ctx.Err()
 		cancel()
-		if ctxErr != nil {
+		if err == nil {
 			err = ctxErr
 		}
 	}()
 
-	r, err = c.coll.UpdateMany(ctx, filter, theUpdate, opts)
+	r, err = c.coll.UpdateOne(ctx, filter, theUpdate, opts)
 	if err != nil {
 		return nil, err
-	}
-	if r.UpsertedCount == 0 && r.ModifiedCount == 0 {
-		return r, ErrNoUpdate
 	}
 
 	return r, err
@@ -58,14 +57,44 @@ func (c *Collection) UpdateOneOnly(filter interface{}, update interface{}) (r *m
 	opts := &options.UpdateOptions{}
 	opts.SetUpsert(false)
 
-	theUpdate := make(map[string]interface{})
-	theUpdate["$set"] = update
+	theUpdate := bson.M{
+		"$set": update,
+	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {
 		ctxErr := ctx.Err()
 		cancel()
-		if ctxErr != nil {
+		if err == nil {
+			err = ctxErr
+		}
+	}()
+
+	r, err = c.coll.UpdateOne(ctx, filter, theUpdate, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	return r, nil
+}
+
+//UpdateManyOnly
+//
+//Mongo update-many with set + no-upsert operation
+func (c *Collection) UpdateManyOnly(filter interface{}, update interface{}) (r *mongo.UpdateResult, err error) {
+
+	opts := &options.UpdateOptions{}
+	opts.SetUpsert(false)
+
+	theUpdate := bson.M{
+		"$set": update,
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
+	defer func() {
+		ctxErr := ctx.Err()
+		cancel()
+		if err == nil {
 			err = ctxErr
 		}
 	}()
@@ -74,9 +103,8 @@ func (c *Collection) UpdateOneOnly(filter interface{}, update interface{}) (r *m
 	if err != nil {
 		return nil, err
 	}
-	if r.UpsertedCount == 0 && r.ModifiedCount == 0 {
-		return r, ErrNoUpdate
-	}
+
+	time.Sleep(1 * time.Millisecond)
 
 	return r, nil
 }
@@ -89,14 +117,15 @@ func (c *Collection) Update(filter interface{}, update interface{}) (r *mongo.Up
 	opts := &options.UpdateOptions{}
 	opts.SetUpsert(true)
 
-	theUpdate := make(map[string]interface{})
-	theUpdate["$set"] = update
+	theUpdate := bson.M{
+		"$set": update,
+	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {
 		ctxErr := ctx.Err()
 		cancel()
-		if ctxErr != nil {
+		if err == nil {
 			err = ctxErr
 		}
 	}()
@@ -105,8 +134,129 @@ func (c *Collection) Update(filter interface{}, update interface{}) (r *mongo.Up
 	if err != nil {
 		return nil, err
 	}
-	if r.UpsertedCount == 0 && r.ModifiedCount == 0 {
-		return r, ErrNoUpdate
+	return r, nil
+}
+
+//BulkCreateOnly
+//
+//Mongo update with setOnInsert + upsert operation
+func (c *Collection) BulkCreateOnly(theList []*UpdatePair) (r *mongo.BulkWriteResult, err error) {
+
+	theList_b := make([]mongo.WriteModel, len(theList))
+	for idx, each := range theList {
+		theUpdate := bson.M{
+			"$setOnInsert": each.Update,
+		}
+		theList_b[idx] = mongo.NewUpdateOneModel().SetFilter(each.Filter).SetUpdate(theUpdate).SetUpsert(true)
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
+	defer func() {
+		ctxErr := ctx.Err()
+		cancel()
+		if err == nil {
+			err = ctxErr
+		}
+	}()
+
+	opts := options.BulkWrite().SetOrdered(true)
+
+	r, err = c.coll.BulkWrite(ctx, theList_b, opts)
+	if err != nil {
+		return nil, err
+	}
+	return r, nil
+}
+
+//BulkUpdateOneOnly
+//
+//Mongo update with set + no-upsert operation
+func (c *Collection) BulkUpdateOneOnly(theList []*UpdatePair) (r *mongo.BulkWriteResult, err error) {
+
+	theList_b := make([]mongo.WriteModel, len(theList))
+	for idx, each := range theList {
+		theUpdate := bson.M{
+			"$set": each.Update,
+		}
+		theList_b[idx] = mongo.NewUpdateOneModel().SetFilter(each.Filter).SetUpdate(theUpdate).SetUpsert(false)
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
+	defer func() {
+		ctxErr := ctx.Err()
+		cancel()
+		if err == nil {
+			err = ctxErr
+		}
+	}()
+
+	opts := options.BulkWrite().SetOrdered(true)
+
+	r, err = c.coll.BulkWrite(ctx, theList_b, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	return r, nil
+}
+
+//BulkUpdateOneOnlyNoSet
+//
+//Mongo update without set and no-upsert operation
+//WARNING!!! Must ensure that the update part is with $set, $unset, $setOnInsert.
+func (c *Collection) BulkUpdateOneOnlyNoSet(theList []*UpdatePair) (r *mongo.BulkWriteResult, err error) {
+
+	theList_b := make([]mongo.WriteModel, len(theList))
+	for idx, each := range theList {
+		theList_b[idx] = mongo.NewUpdateOneModel().SetFilter(each.Filter).SetUpdate(each.Update).SetUpsert(false)
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
+	defer func() {
+		ctxErr := ctx.Err()
+		cancel()
+		if err == nil {
+			err = ctxErr
+		}
+	}()
+
+	opts := options.BulkWrite().SetOrdered(true)
+
+	r, err = c.coll.BulkWrite(ctx, theList_b, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	return r, nil
+}
+
+//BulkUpdate
+//
+//Mongo update with set + upsert operation
+func (c *Collection) BulkUpdate(theList []*UpdatePair) (r *mongo.BulkWriteResult, err error) {
+
+	theList_b := make([]mongo.WriteModel, len(theList))
+	for idx, each := range theList {
+		theUpdate := bson.M{
+			"$set": each.Update,
+		}
+		theList_b[idx] = mongo.NewUpdateOneModel().SetFilter(each.Filter).SetUpdate(theUpdate).SetUpsert(true)
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
+	defer func() {
+		ctxErr := ctx.Err()
+		cancel()
+		if err == nil {
+			err = ctxErr
+		}
+	}()
+
+	opts := options.BulkWrite().SetOrdered(true)
+
+	r, err = c.coll.BulkWrite(ctx, theList_b, opts)
+	if err != nil {
+		return nil, err
 	}
 	return r, nil
 }
@@ -126,18 +276,20 @@ func (c *Collection) Update(filter interface{}, update interface{}) (r *mongo.Up
 //    var ret []*Temp //!!! declare but initiate
 //
 //    Find(query, 4, &ret, &Temp{})
-func (c *Collection) Find(filter interface{}, n int64, ret interface{}, project map[string]bool) (err error) {
+func (c *Collection) Find(filter interface{}, n int64, ret interface{}, project interface{}) (err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {
 		ctxErr := ctx.Err()
 		cancel()
-		if ctxErr != nil {
+		if err == nil {
 			err = ctxErr
 		}
 	}()
 
 	opts := &options.FindOptions{}
-	opts.SetLimit(n)
+	if n > 0 {
+		opts.SetLimit(n)
+	}
 
 	if project != nil {
 		opts.SetProjection(project)
@@ -164,7 +316,7 @@ func (c *Collection) Count(filter interface{}, n int64) (count int64, err error)
 	defer func() {
 		ctxErr := ctx.Err()
 		cancel()
-		if ctxErr != nil {
+		if err == nil {
 			err = ctxErr
 		}
 	}()
@@ -190,12 +342,15 @@ func (c *Collection) Count(filter interface{}, n int64) (count int64, err error)
 //    ret := &Temp{}
 //
 //    FindOne(query, ret, nil)
-func (c *Collection) FindOne(filter interface{}, ret interface{}, project map[string]bool) (err error) {
+//
+//Err:
+//    mongo.ErrNoDocuments if not found.
+func (c *Collection) FindOne(filter interface{}, ret interface{}, project interface{}) (err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {
 		ctxErr := ctx.Err()
 		cancel()
-		if ctxErr != nil {
+		if err == nil {
 			err = ctxErr
 		}
 	}()
@@ -214,10 +369,6 @@ func (c *Collection) FindOne(filter interface{}, ret interface{}, project map[st
 //Params:
 //    filter: filter. Must pass with non-empty map.
 func (c *Collection) Remove(filter map[string]interface{}) (err error) {
-	if filter == nil {
-		return ErrEmptyInRemove
-	}
-
 	if len(filter) == 0 {
 		return ErrEmptyInRemove
 	}
@@ -226,7 +377,7 @@ func (c *Collection) Remove(filter map[string]interface{}) (err error) {
 	defer func() {
 		ctxErr := ctx.Err()
 		cancel()
-		if ctxErr != nil {
+		if err == nil {
 			err = ctxErr
 		}
 	}()
@@ -245,15 +396,34 @@ func (c *Collection) Drop() (err error) {
 	defer func() {
 		ctxErr := ctx.Err()
 		cancel()
-		if ctxErr != nil {
+		if err == nil {
 			err = ctxErr
 		}
 	}()
 
-	err = c.coll.Drop(ctx)
+	_, err = c.coll.DeleteMany(ctx, bson.M{})
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func (c *Collection) CreateIndex(keys *bson.D, opts *options.IndexOptions) (err error) {
+	iv := c.coll.Indexes()
+
+	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
+	defer func() {
+		ctxErr := ctx.Err()
+		cancel()
+		if err == nil {
+			err = ctxErr
+		}
+	}()
+
+	model := mongo.IndexModel{Keys: keys, Options: opts}
+
+	_, err = iv.CreateOne(ctx, model)
+
+	return err
 }

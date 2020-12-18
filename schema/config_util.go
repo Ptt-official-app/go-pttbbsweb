@@ -1,10 +1,12 @@
 package schema
 
 import (
+	"time"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/config_util"
 )
 
-const configPrefix = "schema"
+const configPrefix = "go-openbbsmiddleware:schema"
 
 func InitConfig() error {
 	config()
@@ -17,4 +19,8 @@ func setStringConfig(idx string, orig string) string {
 
 func setIntConfig(idx string, orig int) int {
 	return config_util.SetIntConfig(configPrefix, idx, orig)
+}
+
+func setDurationConfig(idx string, orig time.Duration) time.Duration {
+	return config_util.SetDurationConfig(configPrefix, idx, orig)
 }

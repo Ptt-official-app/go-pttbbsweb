@@ -3,11 +3,12 @@ package api
 import (
 	"testing"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,7 +26,7 @@ func TestLoadGeneralBoards(t *testing.T) {
 
 	params := &LoadGeneralBoardsParams{}
 	expectedResult := &LoadGeneralBoardsResult{
-		List: []*types.BoardSummary{
+		List: []*apitypes.BoardSummary{
 			{
 				BBoardID:  "1_test1",
 				Brdname:   "test1",
@@ -38,8 +39,8 @@ func TestLoadGeneralBoards(t *testing.T) {
 				Read:      true,
 				Total:     123,
 
-				LastPostTimeTS_d: 1234567890,
-				StatAttr_d:       ptttype.NBRD_BOARD,
+				LastPostTime: 1234567890,
+				StatAttr:     ptttype.NBRD_BOARD,
 			},
 			{
 				BBoardID:  "2_test2",
@@ -53,11 +54,11 @@ func TestLoadGeneralBoards(t *testing.T) {
 				Read:      false,
 				Total:     124,
 
-				LastPostTimeTS_d: 1300000000,
-				StatAttr_d:       ptttype.NBRD_BOARD,
+				LastPostTime: 1300000000,
+				StatAttr:     ptttype.NBRD_BOARD,
 			},
 		},
-		NextIdx: "textNextIdx",
+		NextIdx: "3",
 	}
 	type args struct {
 		remoteAddr string
@@ -87,16 +88,7 @@ func TestLoadGeneralBoards(t *testing.T) {
 				return
 			}
 
-			gotResultVal := gotResult.(*LoadGeneralBoardsResult)
-			expectedResultVal := tt.expectedResult.(*LoadGeneralBoardsResult)
-			for idx, each := range gotResultVal.List {
-				if idx >= len(expectedResultVal.List) {
-					t.Errorf("LoadGeneralBoards() (%v/%v): %v", idx, len(gotResultVal.List), each)
-
-				}
-
-				utils.TDeepEqual(t, each, expectedResultVal.List[idx])
-			}
+			testutil.TDeepEqual(t, "result", gotResult, expectedResult)
 			if gotStatusCode != tt.expectedStatusCode {
 				t.Errorf("LoadGeneralBoards() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}

@@ -16,6 +16,11 @@ type IndexResult struct {
 	Data interface{}
 }
 
+func IndexWrapper(c *gin.Context) {
+	params := NewIndexParams()
+	Query(Index, params, c)
+}
+
 func Index(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	result = &IndexResult{Data: params}
 	return result, 200, nil

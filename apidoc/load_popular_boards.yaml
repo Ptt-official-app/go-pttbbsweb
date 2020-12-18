@@ -6,7 +6,7 @@ parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
   - '$ref': '#/definitions/ParamsStartIdx'
   - '$ref': '#/definitions/ParamsLimit'
-  - '$ref': '#/definitions/ParamsDesc'
+  - '$ref': '#/definitions/ParamsAsc'
 responses:
   200:
     description:

@@ -5,5 +5,5 @@ UserList:
       type: array
       items:
         '$ref': '#/definitions/UserListSummary'
-    nextIdx:
+    next_idx:
       '$ref': '#/definitions/RespNextIdx'

@@ -1,18 +1,19 @@
 package mock
 
 import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
 type CommentListResult_t struct {
-	List    []*types.Comment `json:"list"`
-	NextIdx string           `json:"next_idx"`
+	List    []*apitypes.Comment `json:"list"`
+	NextIdx string              `json:"next_idx"`
 }
 
 var (
 	CommentListResult = &CommentListResult_t{
-		List: []*types.Comment{
+		List: []*apitypes.Comment{
 			{
 				BBoardID:   bbs.BBoardID("10_WhoAmI"),
 				ArticleID:  bbs.ArticleID("WEFSDHASD"),

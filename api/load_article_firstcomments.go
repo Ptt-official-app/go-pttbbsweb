@@ -1,17 +1,15 @@
 package api
 
 import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/mock"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
 
-const LOAD_ARTICLE_FIRSTCOMMENTS_R = "/board/:bid/article/:aid/firstcomments"
+const LOAD_ARTICLE_FIRSTCOMMENTS_R = "/board/:bid/article/:aid/comments/first"
 
 type LoadArticleFirstCommentsParams struct {
-	StartIdx string `json:"start_idx,omitempty" form:"start_idx,omitempty" url:"start_idx,omitempty"`
-	Max      int    `json:"max,omitempty" form:"max,omitempty" url:"max,omitempty"`
 }
 
 type LoadArticleFirstCommentsPath struct {
@@ -20,7 +18,17 @@ type LoadArticleFirstCommentsPath struct {
 }
 
 type LoadArticleFirstCommentsResult struct {
-	List []*types.Comment `json:"list"`
+	List []*apitypes.Comment `json:"list"`
+}
+
+func NewLoadArticleFirstCommentsParams() *LoadArticleFirstCommentsParams {
+	return &LoadArticleFirstCommentsParams{}
+}
+
+func LoadArticleFirstCommentsWrapper(c *gin.Context) {
+	params := NewLoadArticleFirstCommentsParams()
+	path := &LoadArticleFirstCommentsPath{}
+	LoginRequiredPathQuery(LoadArticleFirstComments, params, path, c)
 }
 
 func LoadArticleFirstComments(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {

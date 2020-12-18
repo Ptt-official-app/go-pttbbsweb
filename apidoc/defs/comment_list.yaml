@@ -6,5 +6,5 @@ CommentList:
       type: array
       items:
         '$ref': '#/definitions/Comment'
-    nextIdx:
+    next_idx:
       '$ref': '#/definitions/RespNextIdx'

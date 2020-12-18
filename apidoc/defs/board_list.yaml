@@ -5,5 +5,5 @@ BoardList:
       type: array
       items:
         '$ref': '#/definitions/BoardSummary'
-    nextIdx:
+    next_idx:
       '$ref': '#/definitions/RespNextIdx'
