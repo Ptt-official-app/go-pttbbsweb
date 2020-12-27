@@ -45,8 +45,14 @@ jobs:
     - name: Build
       run: go build -v ./...
 
+    - name: TestQueueCommentDBCS
+      run: go test -v ./... -run TestQueueCommentDBCS
+
     - name: Test
-      run: go test -v ./... -cover
+      run: go test -v ./... -tags noqueue
+
+    - name: Coverage-queue
+      run: go test ./... -run TestQueueCommentDBCS -cover
 
     - name: Coverage
-      run: go test ./... -cover
+      run: go test ./... -tags noqueue -cover
