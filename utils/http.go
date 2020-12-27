@@ -14,7 +14,7 @@ import (
 	"github.com/google/go-querystring/query"
 )
 
-//HttpPost
+//BackendPost
 //
 //Params
 //  postData: http-post data
@@ -24,12 +24,14 @@ import (
 //    url := backend.LOGIN_R
 //    postData := &backend.LoginParams{}
 //    result := &backend.LoginResult{}
-//    HttpPost(c, url, postData, nil, &result)
-func HttpPost(c *gin.Context, url string, postData interface{}, headers map[string]string, result interface{}) (statusCode int, err error) {
+//    BackendPost(c, url, postData, nil, &result)
+func BackendPost(c *gin.Context, url string, postData interface{}, headers map[string]string, result interface{}) (statusCode int, err error) {
 
 	if isTest {
 		return mock_http.HttpPost(url, postData, result)
 	}
+
+	url = withBackendPrefix(url)
 
 	if headers == nil {
 		headers = make(map[string]string)
@@ -53,11 +55,13 @@ func HttpPost(c *gin.Context, url string, postData interface{}, headers map[stri
 	return httpProcess(req, headers, result)
 }
 
-func HttpGet(c *gin.Context, url string, params interface{}, headers map[string]string, result interface{}) (statusCode int, err error) {
+func BackendGet(c *gin.Context, url string, params interface{}, headers map[string]string, result interface{}) (statusCode int, err error) {
 
 	if isTest {
 		return mock_http.HttpPost(url, params, result)
 	}
+
+	url = withBackendPrefix(url)
 
 	if headers == nil {
 		headers = make(map[string]string)
@@ -124,6 +128,10 @@ func httpProcess(req *http.Request, headers map[string]string, result interface{
 	}
 
 	return 200, nil
+}
+
+func withBackendPrefix(url string) string {
+	return types.BACKEND_PREFIX + url
 }
 
 func MergeURL(urlMap map[string]string, url string) string {

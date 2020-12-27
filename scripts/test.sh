@@ -1,4 +1,5 @@
 #!/bin/bash
 
 go build ./...
-gotest -v ./... -cover
+gotest -v ./... -run TestQueueCommentDBCS
+gotest -v ./... -cover -tags noqueue

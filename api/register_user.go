@@ -1,9 +1,11 @@
 package api
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/backend"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
 
@@ -31,8 +33,14 @@ func NewRegisterUserParams() *RegisterUserParams {
 }
 
 type RegisterUserResult struct {
-	AccessToken string `json:"access_token"`
-	TokenType   string `json:"token_type"`
+	UserID      bbs.UUserID `json:"user_id"`
+	AccessToken string      `json:"access_token"`
+	TokenType   string      `json:"token_type"`
+}
+
+func RegisterUserWrapper(c *gin.Context) {
+	params := NewRegisterUserParams()
+	JSON(RegisterUser, params, c)
 }
 
 func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
@@ -50,45 +58,41 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 	}
 
 	//backend register
-	theParams_b := &backend.RegisterParams{
-		UserID:   theParams.Username,
+	theParams_b := &pttbbsapi.RegisterParams{
+		Username: theParams.Username,
 		Passwd:   theParams.Password,
 		Over18:   theParams.Over18,
-		Email:    theParams.Email,
-		Nickname: theParams.Nickname,
-	}
-	var result_b *backend.RegisterResult
 
-	url := backend.WithPrefix(backend.REGISTER_R)
-	statusCode, err = utils.HttpPost(c, url, theParams_b, nil, &result_b)
+		Email:    theParams.Email,
+		Nickname: types.Utf8ToBig5(theParams.Nickname),
+		Realname: types.Utf8ToBig5(theParams.Realname),
+		Career:   types.Utf8ToBig5(theParams.Career),
+		Address:  types.Utf8ToBig5(theParams.Address),
+	}
+	var result_b *pttbbsapi.RegisterResult
+
+	url := pttbbsapi.REGISTER_R
+	statusCode, err = utils.BackendPost(c, url, theParams_b, nil, &result_b)
 	if err != nil || statusCode != 200 {
 		return nil, statusCode, err
 	}
 
 	//update db
-	userID, err := VerifyJwt(result_b.Jwt)
-	if err != nil {
-		return nil, 401, err
-	}
-
-	nowNanoTS := utils.GetNowNanoTS()
-	query := &schema.AccessToken{
-		AccessToken:  result_b.Jwt,
-		UserID:       userID,
-		UpdateNanoTS: nowNanoTS,
-	}
-
-	//TODO: possibly change to insert？～
-	_, err = schema.AccessToken_c.Update(query, query)
+	accessToken, err := serializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt)
 	if err != nil {
 		return nil, 500, err
 	}
 
 	//result
-	result = &RegisterUserResult{
-		AccessToken: result_b.Jwt,
-		TokenType:   result_b.TokenType,
-	}
+	result = NewRegisterUserResult(accessToken)
 
 	return result, 200, nil
+}
+
+func NewRegisterUserResult(accessToken_db *schema.AccessToken) *RegisterUserResult {
+	return &RegisterUserResult{
+		UserID:      accessToken_db.UserID,
+		AccessToken: accessToken_db.AccessToken,
+		TokenType:   "bearer",
+	}
 }

@@ -82,6 +82,12 @@ type GetUserInfoResult struct {
 	NFriend int `json:"n_friend"`
 }
 
+func GetUserInfoWrapper(c *gin.Context) {
+	params := &GetUserInfoParams{}
+	path := &GetUserInfoPath{}
+	LoginRequiredPathQuery(GetUserInfo, params, path, c)
+}
+
 func GetUserInfo(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 
 	result = &GetUserInfoResult{

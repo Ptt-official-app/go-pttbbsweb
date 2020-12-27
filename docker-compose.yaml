@@ -13,6 +13,9 @@ services:
     restart: always
     volumes:
       - /var/lib/mongo:/data
+  redis:
+    image: redis:6.0.9-alpine
+    restart: always
   openbbs-middleware:
     image: pttofficialapps/go-openbbsmiddleware:v0.3.2
     ports:

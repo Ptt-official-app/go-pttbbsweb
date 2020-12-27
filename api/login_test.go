@@ -6,6 +6,7 @@ import (
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func TestLogin(t *testing.T) {
@@ -21,7 +22,7 @@ func TestLogin(t *testing.T) {
 		Password:     "testpasswd",
 	}
 
-	expected := &LoginResult{TokenType: "bearer"}
+	expected := &LoginResult{TokenType: "bearer", UserID: "testuserid1"}
 	expectedDB := []*schema.AccessToken{{UserID: "testuserid1"}}
 
 	type args struct {
@@ -51,11 +52,12 @@ func TestLogin(t *testing.T) {
 				return
 			}
 
-			query := make(map[string]string)
-			query["user_id"] = "testuserid1"
+			query := make(map[string]interface{})
+			query[schema.ACCESS_TOKEN_USER_ID_b] = "testuserid1"
 
 			var ret []*schema.AccessToken
 			err = schema.AccessToken_c.Find(query, 0, &ret, nil)
+			logrus.Infof("api.TestLogin: after Find: query: %v ret: %v e: %v", query, ret, err)
 			if err != nil {
 				t.Errorf("Login(): unable to find: e: %v", err)
 			}

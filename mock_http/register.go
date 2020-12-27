@@ -1,12 +1,16 @@
 package mock_http
 
-import "github.com/Ptt-official-app/go-openbbsmiddleware/backend"
+import (
+	"github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
+)
 
-func Register(params *backend.RegisterParams) (ret *backend.RegisterResult) {
-	userID := params.UserID
+func Register(params *api.RegisterParams) (ret *api.RegisterResult) {
+	userID := params.Username
 	token, _ := createToken(userID)
 
-	ret = &backend.RegisterResult{
+	ret = &api.RegisterResult{
+		UserID:    bbs.UUserID(userID),
 		Jwt:       token,
 		TokenType: "bearer",
 	}

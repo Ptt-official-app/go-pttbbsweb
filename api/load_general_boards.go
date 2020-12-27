@@ -1,10 +1,11 @@
 package api
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/backend"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
@@ -13,20 +14,27 @@ import (
 const LOAD_GENERAL_BOARDS_R = "/boards"
 
 type LoadGeneralBoardsParams struct {
-	Keyword  string `json:"keyword,omitempty" form:"keyword,omitempty" url:"keyword,omitempty"`
-	StartIdx string `json:"start_idx,omitempty" form:"start_idx,omitempty" url:"start_idx,omitempty"`
-	Max      int    `json:"max,omitempty" form:"max,omitempty" url:"max,omitempty"`
+	Keyword   string `json:"title,omitempty" form:"title,omitempty" url:"title,omitempty"`
+	StartIdx  string `json:"start_idx,omitempty" form:"start_idx,omitempty" url:"start_idx,omitempty"`
+	Ascending bool   `json:"asc,omitempty"  form:"asc,omitempty" url:"asc,omitempty"`
+	Max       int    `json:"limit,omitempty" form:"limit,omitempty" url:"limit,omitempty"`
+}
+
+type LoadGeneralBoardsResult struct {
+	List    []*apitypes.BoardSummary `json:"list"`
+	NextIdx string                   `json:"next_idx"`
 }
 
 func NewLoadGeneralBoardsParams() *LoadGeneralBoardsParams {
 	return &LoadGeneralBoardsParams{
-		Max: DEFAULT_MAX_LIST,
+		Ascending: DEFAULT_ASCENDING,
+		Max:       DEFAULT_MAX_LIST,
 	}
 }
 
-type LoadGeneralBoardsResult struct {
-	List    []*types.BoardSummary `json:"list"`
-	NextIdx string                `json:"next_idx"`
+func LoadGeneralBoardsWrapper(c *gin.Context) {
+	params := NewLoadGeneralBoardsParams()
+	LoginRequiredQuery(LoadGeneralBoards, params, c)
 }
 
 func LoadGeneralBoards(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
@@ -36,24 +44,27 @@ func LoadGeneralBoards(remoteAddr string, userID bbs.UUserID, params interface{}
 	}
 
 	//backend load-general-baords
-	theParams_b := &backend.LoadGeneralBoardsParams{
+	theParams_b := &pttbbsapi.LoadGeneralBoardsParams{
 		StartIdx: theParams.StartIdx,
-		Keyword:  theParams.Keyword,
+		Keyword:  types.Utf8ToBig5(theParams.Keyword),
 		NBoards:  theParams.Max,
 	}
-	var result_b *backend.LoadGeneralBoardsResult
+	var result_b *pttbbsapi.LoadGeneralBoardsResult
 
-	url := backend.WithPrefix(backend.LOAD_GENERAL_BOARDS_R)
-	statusCode, err = utils.HttpGet(c, url, theParams_b, nil, &result_b)
+	url := pttbbsapi.LOAD_GENERAL_BOARDS_R
+	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
 	if err != nil || statusCode != 200 {
 		return nil, statusCode, err
 	}
 
-	r := &LoadGeneralBoardsResult{}
-	r.Deserialize(result_b)
+	//update to db
+	updateNanoTS := types.NowNanoTS()
+	boardSummaries_db, userBoardInfoMap, err := deserializeBoardsAndUpdateDB(userID, result_b.Boards, updateNanoTS)
+
+	r := NewLoadGeneralBoardsResult(boardSummaries_db, result_b.NextIdx)
 
 	//check isRead
-	err = checkReadBoards(userID, r.List)
+	err = checkBoardInfo(userID, userBoardInfoMap, r.List)
 	if err != nil {
 		return nil, 500, err
 	}
@@ -61,30 +72,38 @@ func LoadGeneralBoards(remoteAddr string, userID bbs.UUserID, params interface{}
 	return r, 200, nil
 }
 
-func (r *LoadGeneralBoardsResult) Deserialize(r_b *backend.LoadGeneralBoardsResult) {
+func NewLoadGeneralBoardsResult(boardSummaries_db []*schema.BoardSummary, nextIdx string) *LoadGeneralBoardsResult {
 
-	r.List = make([]*types.BoardSummary, len(r_b.Boards))
-	for i := 0; i < len(r.List); i++ {
-		each := &types.BoardSummary{}
-		each.Deserialize(r_b.Boards[i])
-		r.List[i] = each
+	theList := make([]*apitypes.BoardSummary, len(boardSummaries_db))
+	for i, each_db := range boardSummaries_db {
+		theList[i] = apitypes.NewBoardSummary(each_db)
 	}
 
-	r.NextIdx = r_b.NextIdx
+	return &LoadGeneralBoardsResult{
+		List:    theList,
+		NextIdx: nextIdx,
+	}
 }
 
 //https://github.com/ptt/pttbbs/blob/master/mbbsd/board.c#L953
-func checkReadBoards(userID bbs.UUserID, theList []*types.BoardSummary) error {
+func checkBoardInfo(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*userBoardInfo, theList []*apitypes.BoardSummary) error {
 	checkBBoardIDMap := make(map[bbs.BBoardID]int)
 	queryBBoardIDs := make([]bbs.BBoardID, 0, len(theList))
 	for idx, each := range theList {
-		if each.Read {
+		eachBoardInfo, ok := userBoardInfoMap[each.BBoardID]
+		if ok {
+			each.StatAttr = eachBoardInfo.Stat
+			each.NUser = eachBoardInfo.NUser
+		}
+
+		if ok && eachBoardInfo.Read {
 			continue
 		}
 		if each.BrdAttr&(ptttype.BRD_GROUPBOARD|ptttype.BRD_SYMBOLIC) != 0 {
 			continue
 		}
-		if each.StatAttr_d&(ptttype.NBRD_LINE|ptttype.NBRD_FOLDER) != 0 {
+
+		if each.StatAttr&(ptttype.NBRD_LINE|ptttype.NBRD_FOLDER) != 0 {
 			continue
 		}
 		if each.Total == 0 {
@@ -96,26 +115,22 @@ func checkReadBoards(userID bbs.UUserID, theList []*types.BoardSummary) error {
 		queryBBoardIDs = append(queryBBoardIDs, each.BBoardID)
 	}
 
-	//query
-	query := make(map[string]interface{})
-	query[schema.USER_READ_BOARD_USER_ID_b] = userID
-	queryBoards := make(map[string]interface{})
-	queryBoards["$in"] = queryBBoardIDs
-	query[schema.USER_READ_BOARD_BBOARD_ID_b] = queryBoards
-
-	var dbResults []*schema.UserReadBoard
-	err := schema.UserReadBoard_c.Find(query, 0, &dbResults, nil)
+	dbResults, err := schema.FindUserReadBoards(userID, queryBBoardIDs)
 	if err != nil {
 		return err
 	}
 
+	//setup read in the list
+	//no need to update db, because we don't read the newest yet.
+	//the Read flag is set based on the existing db.UpdateNanoTS
 	for _, each := range dbResults {
 		eachBoardID := each.BBoardID
 		eachReadNanoTS := each.UpdateNanoTS
 
 		listIdx := checkBBoardIDMap[eachBoardID]
 		eachInTheList := theList[listIdx]
-		eachLastPostNanoTS := eachInTheList.LastPostTimeTS_d.ToNanoTS()
+
+		eachLastPostNanoTS := eachInTheList.LastPostTime.ToNanoTS()
 		eachInTheList.Read = eachReadNanoTS > eachLastPostNanoTS
 	}
 

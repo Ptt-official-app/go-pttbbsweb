@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
@@ -18,7 +19,7 @@ type GetBoardDetailPath struct {
 }
 
 type GetBoardDetailResult struct {
-	*types.BoardSummary
+	*apitypes.BoardSummary
 
 	UpdateTimeTS types.Time8 `json:"update_time"`
 
@@ -44,6 +45,12 @@ type GetBoardDetailFailResult struct {
 	Reason string        `json:"reason"`
 }
 
+func GetBoardDetailWrapper(c *gin.Context) {
+	params := &GetBoardDetailParams{}
+	path := &GetBoardDetailPath{}
+	LoginRequiredPathQuery(GetBoardDetail, params, path, c)
+}
+
 func GetBoardDetail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	_, ok := path.(*GetBoardDetailPath)
 	if !ok {
@@ -51,7 +58,7 @@ func GetBoardDetail(remoteAddr string, userID bbs.UUserID, params interface{}, p
 	}
 
 	result = &GetBoardDetailResult{
-		BoardSummary: &types.BoardSummary{
+		BoardSummary: &apitypes.BoardSummary{
 			BBoardID:  bbs.BBoardID("10_WhoAmI"),
 			Brdname:   "WhoAmI",
 			Title:     "我～是～誰？～",

@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
@@ -16,7 +16,13 @@ type GetBoardSummaryPath struct {
 }
 
 type GetBoardSummaryResult struct {
-	*types.BoardSummary
+	*apitypes.BoardSummary
+}
+
+func GetBoardSummaryWrapper(c *gin.Context) {
+	params := &GetBoardSummaryParams{}
+	path := &GetBoardSummaryPath{}
+	LoginRequiredPathQuery(GetBoardSummary, params, path, c)
 }
 
 func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
@@ -26,7 +32,7 @@ func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, 
 	}
 
 	result = &GetBoardSummaryResult{
-		BoardSummary: &types.BoardSummary{
+		BoardSummary: &apitypes.BoardSummary{
 			BBoardID:  bbs.BBoardID("10_WhoAmI"),
 			Brdname:   "WhoAmI",
 			Title:     "我～是～誰？～",

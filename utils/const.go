@@ -1,7 +1,10 @@
 package utils
 
-import "net/http"
+import (
+	"net/http"
+	"time"
+)
 
 var (
-	httpClient = &http.Client{}
+	httpClient = &http.Client{Timeout: 3 * time.Second}
 )

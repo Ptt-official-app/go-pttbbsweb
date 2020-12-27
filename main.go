@@ -5,10 +5,12 @@ import (
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/backend"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	jww "github.com/spf13/jwalterweatherman"
@@ -29,153 +31,34 @@ func initGin() (*gin.Engine, error) {
 	router := gin.Default()
 
 	//index
-	router.GET(api.INDEX_R,
-		NewApi(
-			api.Index,
-			api.NewIndexParams(),
-		).Query,
-	)
+	router.GET(api.INDEX_R, api.IndexWrapper)
 
 	//register/login
-	router.POST(
-		withPrefix(api.REGISTER_CLIENT_R),
-		NewApi(
-			api.RegisterClient,
-			api.NewRegisterClientParams(),
-		).Json,
-	)
-	router.POST(
-		withPrefix(api.REGISTER_USER_R),
-		NewApi(
-			api.RegisterUser,
-			api.NewRegisterUserParams(),
-		).Json,
-	)
-	router.POST(
-		withPrefix(api.LOGIN_R),
-		NewApi(
-			api.Login,
-			api.NewLoginParams(),
-		).Json,
-	)
+	router.POST(withPrefix(api.REGISTER_CLIENT_R), api.RegisterClientWrapper)
+	router.POST(withPrefix(api.REGISTER_USER_R), api.RegisterUserWrapper)
+	router.POST(withPrefix(api.LOGIN_R), api.LoginWrapper)
 
 	//board
-	router.GET(
-		withPrefix(api.LOAD_GENERAL_BOARDS_R),
-		NewLoginRequiredApi(
-			api.LoadGeneralBoards,
-			api.NewLoadGeneralBoardsParams(),
-		).Query,
-	)
-	router.GET(
-		withPrefix(api.GET_BOARD_DETAIL_R),
-		NewLoginRequiredPathApi(
-			api.GetBoardDetail,
-			&api.GetBoardDetailParams{},
-			&api.GetBoardDetailPath{},
-		).Query,
-	)
-	router.GET(
-		withPrefix(api.GET_BOARD_SUMMARY_R),
-		NewLoginRequiredPathApi(
-			api.GetBoardSummary,
-			&api.GetBoardSummaryParams{},
-			&api.GetBoardSummaryPath{},
-		).Query,
-	)
-	router.GET(
-		withPrefix(api.LOAD_POPULAR_BOARDS_R),
-		NewLoginRequiredApi(
-			api.LoadPopularBoards,
-			&api.LoadPopularBoardsParams{},
-		).Query,
-	)
+	router.GET(withPrefix(api.LOAD_GENERAL_BOARDS_R), api.LoadGeneralBoardsWrapper)
+	router.GET(withPrefix(api.GET_BOARD_DETAIL_R), api.GetBoardDetailWrapper)
+	router.GET(withPrefix(api.GET_BOARD_SUMMARY_R), api.GetBoardSummaryWrapper)
+	router.GET(withPrefix(api.LOAD_POPULAR_BOARDS_R), api.LoadPopularBoardsWrapper)
 
 	//article
-	router.GET(
-		withPrefix(api.LOAD_GENERAL_ARTICLES_R),
-		NewLoginRequiredPathApi(
-			api.LoadGeneralArticles,
-			api.NewLoadGeneralArticlesParams(),
-			&api.LoadGeneralArticlesPath{},
-		).Query,
-	)
-	router.GET(
-		withPrefix(api.LOAD_BOTTOM_ARTICLES_R),
-		NewLoginRequiredPathApi(
-			api.LoadBottomArticles,
-			&api.LoadBottomArticlesParams{},
-			&api.LoadBottomArticlesPath{},
-		).Query,
-	)
-	router.GET(
-		withPrefix(api.GET_ARTICLE_R),
-		NewLoginRequiredPathApi(
-			api.GetArticleDetail,
-			&api.GetArticleDetailParams{},
-			&api.GetArticleDetailPath{},
-		).Query,
-	)
-
-	router.GET(
-		withPrefix(api.LOAD_POPULAR_ARTICLES_R),
-		NewLoginRequiredApi(
-			api.LoadPopularArticles,
-			&api.LoadPopularArticlesParams{},
-		).Query,
-	)
+	router.GET(withPrefix(api.LOAD_GENERAL_ARTICLES_R), api.LoadGeneralArticlesWrapper)
+	router.GET(withPrefix(api.LOAD_BOTTOM_ARTICLES_R), api.LoadBottomArticlesWrapper)
+	router.GET(withPrefix(api.GET_ARTICLE_R), api.GetArticleDetailWrapper)
+	router.GET(withPrefix(api.LOAD_POPULAR_ARTICLES_R), api.LoadPopularArticlesWrapper)
 
 	//user
-	router.GET(
-		withPrefix(api.GET_USER_INFO_R),
-		NewLoginRequiredPathApi(
-			api.GetUserInfo,
-			&api.GetUserInfoParams{},
-			&api.GetUserInfoPath{},
-		).Query,
-	)
-	router.GET(
-		withPrefix(api.LOAD_FAVORITE_BOARDS_R),
-		NewLoginRequiredPathApi(
-			api.LoadFavoriteBoards,
-			&api.LoadFavoriteBoardsParams{},
-			&api.LoadFavoriteBoardsPath{},
-		).Query,
-	)
-	router.GET(
-		withPrefix(api.LOAD_USER_ARTICLES_R),
-		NewLoginRequiredPathApi(
-			api.LoadUserArticles,
-			&api.LoadUserArticlesParams{},
-			&api.LoadUserArticlesPath{},
-		).Query,
-	)
+	router.GET(withPrefix(api.GET_USER_INFO_R), api.GetUserInfoWrapper)
+	router.GET(withPrefix(api.LOAD_FAVORITE_BOARDS_R), api.LoadFavoriteBoardsWrapper)
+	router.GET(withPrefix(api.LOAD_USER_ARTICLES_R), api.LoadUserArticlesWrapper)
 
 	//comments
-	router.GET(
-		withPrefix(api.LOAD_ARTICLE_FIRSTCOMMENTS_R),
-		NewLoginRequiredPathApi(
-			api.LoadArticleFirstComments,
-			&api.LoadArticleFirstCommentsParams{},
-			&api.LoadArticleFirstCommentsPath{},
-		).Query,
-	)
-	router.GET(
-		withPrefix(api.LOAD_ARTICLE_COMMENTS_R),
-		NewLoginRequiredPathApi(
-			api.LoadArticleComments,
-			&api.LoadArticleCommentsParams{},
-			&api.LoadArticleCommentsPath{},
-		).Query,
-	)
-	router.GET(
-		withPrefix(api.LOAD_USER_COMMENTS_R),
-		NewLoginRequiredPathApi(
-			api.LoadUserComments,
-			&api.LoadUserCommentsParams{},
-			&api.LoadUserCommentsPath{},
-		).Query,
-	)
+	router.GET(withPrefix(api.LOAD_ARTICLE_FIRSTCOMMENTS_R), api.LoadArticleFirstCommentsWrapper)
+	router.GET(withPrefix(api.LOAD_ARTICLE_COMMENTS_R), api.LoadArticleCommentsWrapper)
+	router.GET(withPrefix(api.LOAD_USER_COMMENTS_R), api.LoadUserCommentsWrapper)
 
 	return router, nil
 }
@@ -210,17 +93,22 @@ func initAllConfig(filename string) error {
 		return err
 	}
 
-	err = backend.InitConfig()
-	if err != nil {
-		return err
-	}
-
 	err = db.InitConfig()
 	if err != nil {
 		return err
 	}
 
 	err = schema.InitConfig()
+	if err != nil {
+		return err
+	}
+
+	err = pttbbsapi.InitConfig()
+	if err != nil {
+		return err
+	}
+
+	err = pttbbstypes.InitConfig()
 	if err != nil {
 		return err
 	}
@@ -246,6 +134,8 @@ func initMain() error {
 	if err != nil {
 		return err
 	}
+
+	queue.Init()
 
 	return nil
 }

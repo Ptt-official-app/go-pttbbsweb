@@ -13,5 +13,3 @@ host:
 bbs:
   type: string
   description: 發信站.
-
-

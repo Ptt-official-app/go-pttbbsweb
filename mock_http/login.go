@@ -3,19 +3,18 @@ package mock_http
 import (
 	"time"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/backend"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/square/go-jose.v2/jwt"
 )
 
-func Login(params *backend.LoginParams) (ret *backend.LoginResult) {
-	userID := params.UserID
+func Login(params *api.LoginParams) (ret *api.LoginResult) {
+	userID := params.Username
 	token, _ := createToken(userID)
 
-	ret = &backend.LoginResult{
+	ret = &api.LoginResult{
+		UserID:    bbs.UUserID(userID),
 		Jwt:       token,
 		TokenType: "bearer",
 	}
@@ -26,12 +25,12 @@ func Login(params *backend.LoginParams) (ret *backend.LoginResult) {
 func createToken(userID string) (string, error) {
 	var err error
 
-	sig, err := jose.NewSigner(jose.SigningKey{Algorithm: jose.HS256, Key: types.JWT_SECRET}, (&jose.SignerOptions{}).WithType("JWT"))
+	sig, err := jose.NewSigner(jose.SigningKey{Algorithm: jose.HS256, Key: api.JWT_SECRET}, (&jose.SignerOptions{}).WithType("JWT"))
 	if err != nil {
 		return "", err
 	}
 
-	cl := &pttbbsapi.JwtClaim{
+	cl := &api.JwtClaim{
 		UUserID: bbs.UUserID(userID),
 		Expire:  jwt.NewNumericDate(time.Now().Add(time.Hour * 72)),
 	}

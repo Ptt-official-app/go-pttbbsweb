@@ -7,6 +7,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/writeconcern"
 )
 
 type Client struct {
@@ -19,7 +20,8 @@ type Client struct {
 func NewClient(protocol string, host string, port int, dbname string) (*Client, error) {
 	uri := fmt.Sprintf("%v://%v:%v", protocol, host, port)
 
-	mongoClient, err := mongo.NewClient(options.Client().ApplyURI(uri))
+	writeConcern := writeconcern.New(writeconcern.WMajority())
+	mongoClient, err := mongo.NewClient(options.Client().ApplyURI(uri), options.Client().SetWriteConcern(writeConcern))
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +53,7 @@ func (c *Client) Ping() (err error) {
 	defer func() {
 		ctxErr := ctx.Err()
 		cancel()
-		if ctxErr != nil {
+		if ctxErr == nil {
 			err = ctxErr
 		}
 	}()

@@ -2,8 +2,7 @@ package api
 
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,48 +14,51 @@ type RegisterClientParams struct {
 
 type RegisterClientResult struct {
 	ClientSecret string `json:"client_secret"`
-	Success      bool
 }
 
 func NewRegisterClientParams() *RegisterClientParams {
 	return &RegisterClientParams{}
 }
 
-func RegisterClient(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func RegisterClientWrapper(c *gin.Context) {
+	params := NewRegisterClientParams()
+	LoginRequiredJSON(RegisterClient, params, c)
+}
+
+func RegisterClient(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	RegisterClientParams, ok := params.(*RegisterClientParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
 	}
 
-	clientSecret := genClientSecret()
-
-	//update db
-	nowNanoTS := utils.GetNowNanoTS()
-	query := &schema.RegisterClientQuery{ClientID: RegisterClientParams.ClientID}
-	update := &schema.Client{
-		ClientID:     RegisterClientParams.ClientID,
-		ClientSecret: clientSecret,
-		RemoteAddr:   remoteAddr,
-		UpdateNanoTS: nowNanoTS,
+	if userID != SYSOP {
+		return nil, 401, ErrInvalidToken
 	}
 
-	_, err = schema.Client_c.Update(query, update)
+	client, err := deserializeClientAndUpdateDB(RegisterClientParams.ClientID, remoteAddr)
 	if err != nil {
 		return nil, 500, err
 	}
 
 	//result
-	result = &RegisterClientResult{
-		ClientSecret: clientSecret,
-		Success:      true,
-	}
+	result = NewRegisterClientResult(client)
 	return result, 200, nil
 }
 
-func genClientSecret() string {
-	if types.SERVICE_MODE == types.DEV {
-		return "test_client_secret"
+func deserializeClientAndUpdateDB(clientID string, remoteAddr string) (client *schema.Client, err error) {
+
+	client = schema.NewClient(clientID, remoteAddr)
+
+	err = schema.UpdateClient(client)
+	if err != nil {
+		return nil, err
 	}
 
-	return utils.GenRandomString()
+	return client, nil
+}
+
+func NewRegisterClientResult(client *schema.Client) *RegisterClientResult {
+	return &RegisterClientResult{
+		ClientSecret: client.ClientSecret,
+	}
 }

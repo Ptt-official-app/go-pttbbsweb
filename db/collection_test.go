@@ -1,12 +1,15 @@
 package db
 
 import (
+	"context"
 	"reflect"
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
+	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	log "github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func TestCollection_CreateOnly(t *testing.T) {
@@ -67,7 +70,7 @@ func TestCollection_CreateOnly(t *testing.T) {
 			fields:    fields{coll: coll},
 			args:      args{filter: filter1, update: update1},
 			expectedR: expected2,
-			wantErr:   true,
+			wantErr:   false,
 		},
 	}
 	for _, tt := range tests {
@@ -154,7 +157,6 @@ func TestCollection_UpdateOneOnly(t *testing.T) {
 			fields:    fields{coll: coll},
 			args:      args{filter: filter1, update: update1},
 			expectedR: expected1,
-			wantErr:   true,
 		},
 		{
 			fields:    fields{coll: coll},
@@ -338,6 +340,7 @@ func TestCollection_Find(t *testing.T) {
 		fields      fields
 		args        args
 		expectedRet []*testFind1
+		expectedErr error
 		wantErr     bool
 	}{
 		// TODO: Add test cases.
@@ -364,7 +367,6 @@ func TestCollection_Find(t *testing.T) {
 			fields:      fields{coll: coll},
 			args:        args{filter: find4, ret: ret4, n: 4, project: project},
 			expectedRet: nil,
-			wantErr:     false,
 		},
 	}
 	for _, tt := range tests {
@@ -382,12 +384,7 @@ func TestCollection_Find(t *testing.T) {
 			}
 			log.Infof("collection.Find: ret1: %v ret: %v expected: %v", len(ret1), len(tt.args.ret), len(tt.expectedRet))
 
-			for idx, each := range tt.args.ret {
-				if idx >= len(tt.expectedRet) {
-					t.Errorf("Collection.Find: (%v/%v): %v", idx, len(tt.args.ret), each)
-				}
-				utils.TDeepEqual(t, tt.args.ret[idx], tt.expectedRet[idx])
-			}
+			testutil.TDeepEqual(t, "ret", tt.args.ret, tt.expectedRet)
 		})
 	}
 }
@@ -544,10 +541,22 @@ func TestCollection_FindOne(t *testing.T) {
 	filter1 := make(map[string]interface{})
 	filter1["test"] = 1
 	ret1 := &testFind1{}
+	expected1 := &testFind1{
+		Find1: 1,
+		Find2: []byte("14"),
+		Find3: "",
+		Find4: true,
+	}
 
 	filter2 := make(map[string]interface{})
 	filter2["test2"] = "12"
 	ret2 := &testFind1{}
+	expected2 := &testFind1{
+		Find1: 0,
+		Find2: []byte("14"),
+		Find3: "",
+		Find4: true,
+	}
 
 	filter3 := make(map[string]interface{})
 	filter3["test"] = 5
@@ -562,35 +571,45 @@ func TestCollection_FindOne(t *testing.T) {
 		project map[string]bool
 	}
 	tests := []struct {
-		name    string
-		fields  fields
-		args    args
-		wantErr bool
+		name        string
+		fields      fields
+		args        args
+		wantErr     bool
+		expectedErr error
+		expected    *testFind1
 	}{
 		// TODO: Add test cases.
 		{
-			name:   "find test",
-			fields: fields{coll},
-			args:   args{filter: filter1, ret: ret1},
+			name:     "find test",
+			fields:   fields{coll},
+			args:     args{filter: filter1, ret: ret1},
+			expected: expected1,
 		},
 		{
-			name:   "find multiple",
-			fields: fields{coll},
-			args:   args{filter: filter2, ret: ret2},
+			name:     "find multiple",
+			fields:   fields{coll},
+			args:     args{filter: filter2, ret: ret2},
+			expected: expected2,
 		},
 		{
-			name:    "find none",
-			fields:  fields{coll},
-			args:    args{filter: filter3, ret: ret3},
-			wantErr: true,
+			name:        "find none",
+			fields:      fields{coll},
+			args:        args{filter: filter3, ret: ret3},
+			wantErr:     true,
+			expectedErr: mongo.ErrNoDocuments,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := tt.fields.coll
 
-			if err := c.FindOne(tt.args.filter, tt.args.ret, tt.args.project); (err != nil) != tt.wantErr {
+			err := c.FindOne(tt.args.filter, tt.args.ret, tt.args.project)
+			if (err != nil) != tt.wantErr {
 				t.Errorf("Collection.FindOne() error = %v, wantErr %v", err, tt.wantErr)
+			}
+
+			if err != tt.expectedErr {
+				t.Errorf("Collection.FindOne() e: (%v/%v) expected: (%v/%v)", err, reflect.TypeOf(err), tt.expectedErr, reflect.TypeOf(tt.expectedErr))
 			}
 		})
 	}
@@ -690,6 +709,532 @@ func TestCollection_Count(t *testing.T) {
 			}
 			if gotCount != tt.expectedCount {
 				t.Errorf("Collection.Count() = %v, want %v", gotCount, tt.expectedCount)
+			}
+		})
+	}
+}
+
+func TestCollection_BulkCreateOnly(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	client, err := NewClient("mongodb", "localhost", 27017, "test")
+	if err != nil {
+		return
+	}
+	defer client.Close()
+
+	coll := client.Collection("test")
+	defer coll.Drop()
+
+	filter1 := make(map[string]interface{})
+	filter1["test1"] = "2"
+
+	filter2 := make(map[string]interface{})
+	filter2["test1"] = "3"
+
+	type testUpdate struct {
+		Test1 string `json:"test1"`
+		Test3 bool   `json:"test3"`
+	}
+	update1 := &testUpdate{Test1: "2", Test3: true}
+	update2 := &testUpdate{Test1: "3", Test3: false}
+
+	theList := []*UpdatePair{
+		{Filter: filter1, Update: update1},
+		{Filter: filter2, Update: update2},
+	}
+
+	expected1 := &mongo.BulkWriteResult{}
+	expected1.UpsertedCount = 2
+
+	expected2 := &mongo.BulkWriteResult{}
+	expected2.MatchedCount = 2
+	expected2.UpsertedCount = 0
+
+	type fields struct {
+		coll *mongo.Collection
+	}
+	type args struct {
+		theList []*UpdatePair
+	}
+	tests := []struct {
+		name      string
+		fields    fields
+		args      args
+		expectedR *mongo.BulkWriteResult
+		wantErr   bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:      args{theList: theList},
+			expectedR: expected1,
+		},
+		{
+			args:      args{theList: theList},
+			expectedR: expected2,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := coll
+			gotR, err := c.BulkCreateOnly(tt.args.theList)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Collection.BulkCreateOnly() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			tt.expectedR.UpsertedIDs = gotR.UpsertedIDs
+			if !reflect.DeepEqual(gotR, tt.expectedR) {
+				t.Errorf("Collection.BulkCreateOnly() = %v, want %v", gotR, tt.expectedR)
+			}
+		})
+	}
+}
+
+func TestCollection_BulkUpdateOneOnly(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	client, err := NewClient("mongodb", "localhost", 27017, "test")
+	if err != nil {
+		return
+	}
+	defer client.Close()
+
+	coll := client.Collection("test")
+	defer coll.Drop()
+
+	filter1 := make(map[string]interface{})
+	filter1["test1"] = "2"
+
+	filter2 := make(map[string]interface{})
+	filter2["test1"] = "3"
+
+	type testUpdate struct {
+		Test1 string `json:"test1"`
+		Test3 bool   `json:"test3"`
+	}
+	update1 := &testUpdate{Test1: "2", Test3: true}
+	update2 := &testUpdate{Test1: "3", Test3: false}
+	update3 := &testUpdate{Test1: "3", Test3: true}
+
+	_, _ = coll.Update(filter2, update2)
+
+	theList1 := []*UpdatePair{
+		{Filter: filter1, Update: update1},
+		{Filter: filter2, Update: update2},
+	}
+
+	theList2 := []*UpdatePair{
+		{Filter: filter1, Update: update1},
+		{Filter: filter2, Update: update3},
+	}
+
+	expected1 := &mongo.BulkWriteResult{}
+	expected1.MatchedCount = 1
+	expected1.UpsertedCount = 0
+	expected1.ModifiedCount = 0
+	expected1.UpsertedIDs = map[int64]interface{}{}
+
+	expected2 := &mongo.BulkWriteResult{}
+	expected2.MatchedCount = 1
+	expected2.UpsertedCount = 0
+	expected2.ModifiedCount = 1
+	expected2.UpsertedIDs = map[int64]interface{}{}
+
+	expected3 := &mongo.BulkWriteResult{}
+	expected3.MatchedCount = 1
+	expected3.UpsertedCount = 0
+	expected3.ModifiedCount = 0
+	expected3.UpsertedIDs = map[int64]interface{}{}
+
+	type fields struct {
+		coll *mongo.Collection
+	}
+	type args struct {
+		theList []*UpdatePair
+	}
+	tests := []struct {
+		name      string
+		fields    fields
+		args      args
+		expectedR *mongo.BulkWriteResult
+		wantErr   bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:      args{theList: theList1},
+			expectedR: expected1,
+		},
+		{
+			args:      args{theList: theList2},
+			expectedR: expected2,
+		},
+		{
+			args:      args{theList: theList2},
+			expectedR: expected3,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := coll
+			gotR, err := c.BulkUpdateOneOnly(tt.args.theList)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Collection.BulkUpdateOneOnly() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			testutil.TDeepEqual(t, "got", gotR, tt.expectedR)
+		})
+	}
+}
+
+func TestCollection_BulkUpdate(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	client, err := NewClient("mongodb", "localhost", 27017, "test")
+	if err != nil {
+		return
+	}
+	defer client.Close()
+
+	coll := client.Collection("test")
+	defer coll.Drop()
+
+	filter1 := make(map[string]interface{})
+	filter1["test1"] = "2"
+
+	filter2 := make(map[string]interface{})
+	filter2["test1"] = "3"
+
+	type testUpdate struct {
+		Test1 string `json:"test1"`
+		Test3 bool   `json:"test3"`
+	}
+	update1 := &testUpdate{Test1: "2", Test3: true}
+	update2 := &testUpdate{Test1: "3", Test3: false}
+	update3 := &testUpdate{Test1: "3", Test3: true}
+
+	_, _ = coll.Update(filter2, update2)
+
+	theList1 := []*UpdatePair{
+		{Filter: filter1, Update: update1},
+		{Filter: filter2, Update: update2},
+	}
+
+	theList2 := []*UpdatePair{
+		{Filter: filter1, Update: update1},
+		{Filter: filter2, Update: update3},
+	}
+
+	expected1 := &mongo.BulkWriteResult{}
+	expected1.MatchedCount = 1
+	expected1.UpsertedCount = 1
+	expected1.ModifiedCount = 0
+
+	expected2 := &mongo.BulkWriteResult{}
+	expected2.MatchedCount = 2
+	expected2.UpsertedCount = 0
+	expected2.ModifiedCount = 1
+
+	expected3 := &mongo.BulkWriteResult{}
+	expected3.MatchedCount = 2
+	expected3.UpsertedCount = 0
+	expected3.ModifiedCount = 0
+
+	type fields struct {
+		coll *mongo.Collection
+	}
+	type args struct {
+		theList []*UpdatePair
+	}
+	tests := []struct {
+		name      string
+		fields    fields
+		args      args
+		expectedR *mongo.BulkWriteResult
+		wantErr   bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:      args{theList: theList1},
+			expectedR: expected1,
+		},
+		{
+			args:      args{theList: theList2},
+			expectedR: expected2,
+		},
+		{
+			args:      args{theList: theList2},
+			expectedR: expected3,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := coll
+			gotR, err := c.BulkUpdate(tt.args.theList)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Collection.BulkUpdate() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			tt.expectedR.UpsertedIDs = gotR.UpsertedIDs
+			if !reflect.DeepEqual(gotR, tt.expectedR) {
+				t.Errorf("Collection.BulkUpdate() = %v, want %v", gotR, tt.expectedR)
+			}
+		})
+	}
+}
+
+func TestCollection_CreateIndex(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	client, err := NewClient("mongodb", "localhost", 27017, "test")
+	if err != nil {
+		return
+	}
+	defer client.Close()
+
+	coll := client.Collection("test")
+	defer coll.Drop()
+
+	keys1 := bson.D{{Key: "test1", Value: 1}}
+	opts1 := options.Index().SetExpireAfterSeconds(30)
+
+	type fields struct {
+		coll *mongo.Collection
+	}
+	type args struct {
+		keys *bson.D
+		opts *options.IndexOptions
+	}
+	tests := []struct {
+		name     string
+		fields   fields
+		args     args
+		wantErr  bool
+		expected int
+	}{
+		// TODO: Add test cases.
+		{
+			args:     args{keys: &keys1, opts: opts1},
+			expected: 2,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := coll
+			if err := c.CreateIndex(tt.args.keys, tt.args.opts); (err != nil) != tt.wantErr {
+				t.Errorf("Collection.CreateIndex() error = %v, wantErr %v", err, tt.wantErr)
+			}
+			if err != nil {
+				return
+			}
+
+			var ret []bson.M
+			iv := c.coll.Indexes()
+			cur, _ := iv.List(context.TODO(), nil)
+			cur.All(context.TODO(), &ret)
+
+			testutil.TDeepEqual(t, "ret", len(ret), tt.expected)
+		})
+	}
+}
+
+func TestCollection_BulkUpdateOneOnlyNoSet(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	client, err := NewClient("mongodb", "localhost", 27017, "test")
+	if err != nil {
+		return
+	}
+	defer client.Close()
+
+	coll := client.Collection("test")
+	defer coll.Drop()
+
+	filter1 := make(map[string]interface{})
+	filter1["test1"] = "2"
+
+	filter2 := make(map[string]interface{})
+	filter2["test1"] = "3"
+
+	type testUpdate struct {
+		Test1 string `json:"test1"`
+		Test3 bool   `json:"test3"`
+	}
+	update1 := bson.M{
+		"$set": &testUpdate{Test1: "2", Test3: true},
+	}
+	update2 := bson.M{
+		"$set": &testUpdate{Test1: "3", Test3: false},
+	}
+	update3 := bson.M{
+		"$set": &testUpdate{Test1: "3", Test3: true},
+	}
+
+	update2Pure := &testUpdate{Test1: "3", Test3: false}
+
+	_, _ = coll.Update(filter2, update2Pure)
+
+	theList1 := []*UpdatePair{
+		{Filter: filter1, Update: update1},
+		{Filter: filter2, Update: update2},
+	}
+
+	theList2 := []*UpdatePair{
+		{Filter: filter1, Update: update1},
+		{Filter: filter2, Update: update3},
+	}
+
+	expected1 := &mongo.BulkWriteResult{}
+	expected1.MatchedCount = 1
+	expected1.UpsertedCount = 0
+	expected1.ModifiedCount = 0
+	expected1.UpsertedIDs = map[int64]interface{}{}
+
+	expected2 := &mongo.BulkWriteResult{}
+	expected2.MatchedCount = 1
+	expected2.UpsertedCount = 0
+	expected2.ModifiedCount = 1
+	expected2.UpsertedIDs = map[int64]interface{}{}
+
+	expected3 := &mongo.BulkWriteResult{}
+	expected3.MatchedCount = 1
+	expected3.UpsertedCount = 0
+	expected3.ModifiedCount = 0
+	expected3.UpsertedIDs = map[int64]interface{}{}
+	type fields struct {
+		coll *Collection
+	}
+	type args struct {
+		theList []*UpdatePair
+	}
+	tests := []struct {
+		name      string
+		fields    fields
+		args      args
+		expectedR *mongo.BulkWriteResult
+		wantErr   bool
+	}{
+		// TODO: Add test cases.
+		{
+			fields:    fields{coll: coll},
+			args:      args{theList: theList1},
+			expectedR: expected1,
+		},
+		{
+			fields:    fields{coll: coll},
+			args:      args{theList: theList2},
+			expectedR: expected2,
+		},
+		{
+			fields:    fields{coll: coll},
+			args:      args{theList: theList2},
+			expectedR: expected3,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := tt.fields.coll
+			gotR, err := c.BulkUpdateOneOnlyNoSet(tt.args.theList)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Collection.BulkUpdateOneOnlyNoSet() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotR, tt.expectedR) {
+				t.Errorf("Collection.BulkUpdateOneOnlyNoSet() = %v, want %v", gotR, tt.expectedR)
+			}
+		})
+	}
+}
+
+func TestCollection_UpdateManyOnly(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	client, err := NewClient("mongodb", "localhost", 27017, "test")
+	if err != nil {
+		return
+	}
+	defer client.Close()
+
+	coll := client.Collection("test")
+	defer coll.Drop()
+
+	type testUpdate struct {
+		Test1 string `json:"test1"`
+		Test3 bool   `json:"test3"`
+	}
+
+	filter0 := make(map[string]interface{})
+	filter0["test"] = 1
+	filter0["test1"] = "4"
+
+	update0 := &testUpdate{Test1: "4"}
+
+	_, _ = coll.Update(filter0, update0)
+
+	filter1 := make(map[string]interface{})
+	filter1["test"] = 1
+	filter1["test1"] = "3"
+
+	update1 := &testUpdate{Test1: "2", Test3: true}
+
+	expected1 := &mongo.UpdateResult{}
+	expected1.MatchedCount = 0
+	expected1.ModifiedCount = 0
+	expected1.UpsertedCount = 0
+
+	filter2 := make(map[string]interface{})
+	filter2["test"] = 1
+
+	update2 := &testUpdate{Test1: "2", Test3: true}
+
+	expected2 := &mongo.UpdateResult{}
+	expected2.MatchedCount = 1
+	expected2.ModifiedCount = 1
+	expected2.UpsertedCount = 0
+
+	type fields struct {
+		coll *Collection
+	}
+	type args struct {
+		filter interface{}
+		update interface{}
+	}
+	tests := []struct {
+		name      string
+		fields    fields
+		args      args
+		expectedR *mongo.UpdateResult
+		wantErr   bool
+	}{
+		// TODO: Add test cases.
+		{
+			fields:    fields{coll: coll},
+			args:      args{filter: filter1, update: update1},
+			expectedR: expected1,
+		},
+		{
+			fields:    fields{coll: coll},
+			args:      args{filter: filter2, update: update2},
+			expectedR: expected2,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := tt.fields.coll
+
+			gotR, err := c.UpdateManyOnly(tt.args.filter, tt.args.update)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Collection.UpdateManyOnly() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotR, tt.expectedR) {
+				t.Errorf("Collection.UpdateManyOnly() = %v, want %v", gotR, tt.expectedR)
 			}
 		})
 	}
