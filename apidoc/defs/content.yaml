@@ -1,4 +1,6 @@
 Content:
   type: array
   items:
-    '$ref': '#/definitions/Rune'
+    type: array
+    items:
+      '$ref': '#/definitions/Rune'
