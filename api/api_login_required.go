@@ -36,13 +36,7 @@ func loginRequiredProcess(theFunc LoginRequiredApiFunc, params interface{}, c *g
 		return
 	}
 
-	tokenStr := strings.TrimSpace(c.GetHeader("Authorization"))
-	tokenList := strings.Split(tokenStr, " ")
-	if len(tokenList) != 2 {
-		processResult(c, nil, 400, ErrInvalidToken)
-		return
-	}
-	jwt := tokenList[1]
+	jwt := pttbbsapi.GetJwt(c)
 
 	userID, err := pttbbsapi.VerifyJwt(jwt)
 	if err != nil {
