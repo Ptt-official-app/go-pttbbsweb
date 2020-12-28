@@ -13,6 +13,8 @@ services:
     restart: always
     volumes:
       - /var/lib/mongo:/data
+      - /var/lib/mongo/db:/data/db
+      - /var/lib/mongo/configdb:/data/configdb
   redis:
     image: redis:6.0.9-alpine
     restart: always
