@@ -1,11 +1,11 @@
 package types
 
 type Color struct {
-	Foreground ColorMap `bson:"f"`
-	Background ColorMap `bson:"b"`
-	Blink      bool     `bson:"k"`
-	Highlight  bool     `bson:"h"`
-	IsReset    bool     `bson:"-"`
+	Foreground ColorMap `json:"foreground" bson:"f"`
+	Background ColorMap `json:"background" bson:"b"`
+	Blink      bool     `json:"blink" bson:"k"`
+	Highlight  bool     `json:"highlight" bson:"h"`
+	IsReset    bool     `json:"-" bson:"-"`
 }
 
 type ColorMap int8

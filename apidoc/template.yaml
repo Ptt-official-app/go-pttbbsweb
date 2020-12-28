@@ -17,6 +17,7 @@ definitions:
   !include defs/article_list.yaml
   !include defs/article_detail.yaml
   !include defs/rune.yaml
+  !include defs/color.yaml
   !include defs/comment_list.yaml
   !include defs/comment.yaml
   !include defs/params_fields.yaml
