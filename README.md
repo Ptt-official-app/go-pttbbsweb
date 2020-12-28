@@ -11,9 +11,7 @@ and try the api.
 You can copy the curl command from the link if you encounter
 CORS issue.
 
-You can check how the api affects the existing pttbbs (in api.devptt.site) with:
-
-    `telnet api.devptt.site 8888`
+You can `telnet api.devptt.site 8888` and check how the api affects the existing pttbbs (in api.devptt.site)
 
 您可以到 [swagger api](https://api.devptt.site:5000/)
 並且試著使用 api.
@@ -21,9 +19,7 @@ You can check how the api affects the existing pttbbs (in api.devptt.site) with:
 如果您在 swagger 網頁裡遇到 CORS 的問題. 你可以在網頁裡 copy
 curl 指令測試.
 
-您可以使用以下的方式確認 api 如何影響既有的 pttbbs (在 api.devptt.site 裡):
-
-    `telnet api.devptt.site 8888`
+您可以使用 `telnet api.devptt.site 8888` 確認 api 如何影響既有的 pttbbs (在 api.devptt.site 裡)
 
 ## Docker-compose
 
