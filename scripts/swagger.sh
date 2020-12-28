@@ -12,4 +12,4 @@ flaskswagger apidoc:app --host ${host} --base-path / --out-dir swagger --from-fi
 
 docker container stop swagger-go-openbbsmiddleware
 docker container rm swagger-go-openbbsmiddleware
-docker run -itd --restart always --name swagger-go-openbbsmiddleware -p 5000:8080 -e SWAGGER_JSON=/foo/swagger.json -v ${PWD}/swagger:/foo swaggerapi/swagger-ui
+docker run -itd --restart always --name swagger-go-openbbsmiddleware -p 127.0.0.1:5000:8080 -e SWAGGER_JSON=/foo/swagger.json -v ${PWD}/swagger:/foo swaggerapi/swagger-ui
