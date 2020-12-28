@@ -19,7 +19,7 @@ services:
     image: redis:6.0.9-alpine
     restart: always
   openbbs-middleware:
-    image: pttofficialapps/go-openbbsmiddleware:v0.4.0
+    image: pttofficialapps/go-openbbsmiddleware:v0.4.1
     ports:
       - "127.0.0.1:3457:3457"
     restart: always
