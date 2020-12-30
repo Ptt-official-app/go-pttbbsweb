@@ -15,10 +15,11 @@ var (
 type Client struct {
 	//可信任的 app-client
 
-	ClientID     string       `bson:"client_id"`
-	ClientSecret string       `bson:"client_secret"`
-	RemoteAddr   string       `bson:"remote_addr"`
-	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
+	ClientID     string           `bson:"client_id"`
+	ClientSecret string           `bson:"client_secret"`
+	ClientType   types.ClientType `bson:"client_type"`
+	RemoteAddr   string           `bson:"remote_addr"`
+	UpdateNanoTS types.NanoTS     `bson:"update_nano_ts"`
 }
 
 var (
@@ -32,13 +33,14 @@ var (
 	CLIENT_UPDATE_NANO_TS_b = getBSONName(EMPTY_CLIENT, "UpdateNanoTS")
 )
 
-func NewClient(clientID string, remoteAddr string) *Client {
+func NewClient(clientID string, clientType types.ClientType, remoteAddr string) *Client {
 
 	clientSecret := genClientSecret()
 	nowNanoTS := types.NowNanoTS()
 
 	return &Client{
 		ClientID:     clientID,
+		ClientType:   clientType,
 		ClientSecret: clientSecret,
 		RemoteAddr:   remoteAddr,
 		UpdateNanoTS: nowNanoTS,

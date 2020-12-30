@@ -1,6 +1,8 @@
 package api
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
 const INDEX_R = "/"
 
@@ -22,6 +24,7 @@ func IndexWrapper(c *gin.Context) {
 }
 
 func Index(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+
 	result = &IndexResult{Data: params}
 	return result, 200, nil
 }

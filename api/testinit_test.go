@@ -1,13 +1,18 @@
 package api
 
 import (
+	"bytes"
+	"encoding/json"
+	"net/http/httptest"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/sirupsen/logrus"
+	"github.com/gin-gonic/gin"
+	"github.com/google/go-querystring/query"
 )
 
 var (
@@ -25,12 +30,16 @@ func setupTest() {
 
 	queue.SetIsTest()
 
-	params := &RegisterClientParams{ClientID: "default_client_id"}
-	_, statusCode, err := RegisterClient("localhost", bbs.UUserID("SYSOP"), params, nil)
-	logrus.Infof("api.setupTest: after RegisterClient: status: %v e: %v", statusCode, err)
+	SetIsTest()
+
+	params := &RegisterClientParams{ClientID: "default_client_id", ClientType: types.CLIENT_TYPE_APP}
+	_, _, _ = RegisterClient("localhost", bbs.UUserID("SYSOP"), params, nil)
+	//logrus.Infof("api.setupTest: after RegisterClient: status: %v e: %v", statusCode, err)
 }
 
 func teardownTest() {
+	UnsetIsTest()
+
 	queue.UnsetIsTest()
 
 	schema.UnsetIsTest()
@@ -40,4 +49,43 @@ func teardownTest() {
 	db.UnsetIsTest()
 
 	utils.UnsetIsTest()
+}
+
+func testSetRequest(reqPath string, path string, params interface{}, jwt string, csrfToken string, headers map[string]string, method string, f gin.HandlerFunc) (*httptest.ResponseRecorder, *gin.Context, *gin.Engine) {
+	var jsonBytes []byte
+
+	if method == "GET" {
+		v, _ := query.Values(params)
+		path = path + "?" + v.Encode()
+	} else {
+		jsonBytes, _ = json.Marshal(params)
+	}
+
+	w := httptest.NewRecorder()
+	c, r := gin.CreateTestContext(w)
+	switch method {
+	case "POST":
+		r.POST(path, f)
+	case "GET":
+		r.GET(path, f)
+	}
+
+	req := httptest.NewRequest(method, reqPath, bytes.NewBuffer(jsonBytes))
+
+	req.Header.Set("Host", "localhost:5678")
+	if jwt != "" {
+		req.Header.Set("Authorization", "bearer "+jwt)
+	}
+
+	if csrfToken != "" {
+		req.Header.Set("X-CSRFToken", csrfToken)
+	}
+
+	for key, val := range headers {
+		req.Header.Set(key, val)
+	}
+
+	c.Request = req
+
+	return w, c, r
 }

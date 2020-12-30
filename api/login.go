@@ -39,14 +39,19 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 		return nil, 400, ErrInvalidParams
 	}
 
-	if !isValidClient(theParams.ClientID, theParams.ClientSecret) {
+	isValidClient, client := checkClient(theParams.ClientID, theParams.ClientSecret)
+
+	if !isValidClient {
 		return nil, 400, ErrInvalidParams
 	}
 
+	clientInfo := getClientInfo(client)
+
 	//backend login
 	theParams_b := &pttbbsapi.LoginParams{
-		Username: theParams.Username,
-		Passwd:   theParams.Password,
+		ClientInfo: clientInfo,
+		Username:   theParams.Username,
+		Passwd:     theParams.Password,
 	}
 
 	var result_b *pttbbsapi.LoginResult
@@ -65,6 +70,8 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 
 	//result
 	result = NewLoginResult(accessToken)
+
+	setTokenToCookie(c, accessToken.AccessToken)
 
 	return result, 200, nil
 }

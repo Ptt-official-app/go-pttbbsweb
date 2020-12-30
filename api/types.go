@@ -14,3 +14,15 @@ type LoginRequiredPathApiFunc func(remoteAddr string, userID bbs.UUserID, params
 type errResult struct {
 	Msg string
 }
+
+type ClientInfo struct {
+	ClientID   string     `json:"c"`
+	ClientType ClientType `json:"t"`
+}
+
+type ClientType int
+
+const (
+	CLIENT_TYPE_APP ClientType = iota
+	CLIENT_TYPE_WEB
+)

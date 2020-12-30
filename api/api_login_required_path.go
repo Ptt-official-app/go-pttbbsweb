@@ -3,7 +3,6 @@ package api
 import (
 	"strings"
 
-	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/gin-gonic/gin"
 )
 
@@ -41,9 +40,7 @@ func loginRequiredPathProcess(theFunc LoginRequiredPathApiFunc, params interface
 		return
 	}
 
-	jwt := pttbbsapi.GetJwt(c)
-
-	userID, err := pttbbsapi.VerifyJwt(jwt)
+	userID, err := verifyJwt(c)
 	if err != nil {
 		processResult(c, nil, 401, err)
 		return

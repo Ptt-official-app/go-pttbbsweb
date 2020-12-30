@@ -12,6 +12,8 @@ RUN mkdir -p /etc/go-openbbsmiddleware && cp 01-config.docker.ini /etc/go-openbb
 WORKDIR /srv/go-openbbsmiddleware
 RUN go build
 
+RUN mkdir -p /static
+
 # cmd
 WORKDIR /srv/go-openbbsmiddleware
 CMD ["/srv/go-openbbsmiddleware/go-openbbsmiddleware", "-ini", "production.ini"]

@@ -1,13 +1,45 @@
 package api
 
 import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/gin-gonic/gin"
 )
 
 func processResult(c *gin.Context, result interface{}, statusCode int, err error) {
+	setHeader(c)
+
 	if statusCode == 200 {
 		c.JSON(200, result)
 	} else {
 		c.JSON(statusCode, &errResult{err.Error()})
+	}
+}
+
+func processStringResult(c *gin.Context, content string, contentType string) {
+	setHeader(c)
+
+	c.Header("Content-Type", contentType)
+	c.String(200, "%v", content)
+}
+
+func setHeader(c *gin.Context) {
+	if !types.IS_ALLOW_CROSSDOMAIN {
+		return
+	}
+
+	origin := c.GetHeader("Origin")
+
+	if origin == "" {
+		return
+	}
+
+	requestHeaders := c.GetHeader("Access-Control-Request-Headers")
+
+	c.Header("X-Frame-Options", "SAMEORIGIN")
+	c.Header("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
+	c.Header("Access-Control-Allow-Credentials", "true")
+	c.Header("Access-Control-Allow-Origin", origin)
+	if requestHeaders != "" {
+		c.Header("Access-Control-Allow-Headers", requestHeaders)
 	}
 }

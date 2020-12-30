@@ -4,14 +4,22 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 )
 
-func isValidClient(clientID string, clientSecret string) bool {
+func checkClient(clientID string, clientSecret string) (isValid bool, client *schema.Client) {
 	client, err := schema.GetClient(clientID)
 	if err != nil {
-		return false
+		return false, nil
 	}
 	if client == nil {
-		return false
+		return false, nil
 	}
 
-	return client.ClientSecret == clientSecret
+	if client.ClientSecret != clientSecret {
+		return false, nil
+	}
+
+	return true, client
+}
+
+func getClientInfo(client *schema.Client) string {
+	return string(client.ClientType)
 }

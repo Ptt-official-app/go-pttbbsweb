@@ -1,6 +1,7 @@
 package api
 
 import (
+	"net/http"
 	"reflect"
 	"testing"
 
@@ -73,6 +74,53 @@ func TestLogin(t *testing.T) {
 			if !reflect.DeepEqual(got, tt.expected) {
 				t.Errorf("Login() = %v, want %v", got, tt.expected)
 			}
+		})
+	}
+}
+
+func TestLoginWrapper(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	params0 := &LoginParams{
+		ClientID:     "default_client_id",
+		ClientSecret: "test_client_secret",
+		Username:     "SYSOP",
+		Password:     "123123",
+	}
+	type args struct {
+		params *LoginParams
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		// TODO: Add test cases.
+		{
+			args: args{params: params0},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			w, c, r := testSetRequest(
+				LOGIN_R,
+				LOGIN_R,
+				tt.args.params,
+				"",
+				"",
+				nil,
+				"POST",
+				LoginWrapper,
+			)
+
+			r.ServeHTTP(w, c.Request)
+
+			if w.Code != http.StatusOK {
+				t.Errorf("code: %v", w.Code)
+			}
+
+			setCookie := w.Header().Get("Set-Cookie")
+			logrus.Infof("setCookie: %v", setCookie)
 		})
 	}
 }

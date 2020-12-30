@@ -22,4 +22,6 @@ services:
     image: pttofficialapps/go-openbbsmiddleware:v0.4.2
     ports:
       - "127.0.0.1:3457:3457"
+    volumes:
+      - static:/static
     restart: always
