@@ -23,5 +23,5 @@ services:
     ports:
       - "127.0.0.1:3457:3457"
     volumes:
-      - static:/static
+      - ${STATIC_DIR}:/static
     restart: always

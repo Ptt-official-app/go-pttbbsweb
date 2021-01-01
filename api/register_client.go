@@ -33,8 +33,8 @@ func RegisterClient(remoteAddr string, userID bbs.UUserID, params interface{}, c
 		return nil, 400, ErrInvalidParams
 	}
 
-	if userID != types.PTTSYSOP {
-		return nil, 401, ErrInvalidToken
+	if !isRegisterClientValidRemoteAddr(remoteAddr) {
+		return nil, 401, ErrInvalidRemoteAddr
 	}
 
 	client, err := deserializeClientAndUpdateDB(registerClientParams, remoteAddr)
@@ -63,4 +63,12 @@ func NewRegisterClientResult(client *schema.Client) *RegisterClientResult {
 	return &RegisterClientResult{
 		ClientSecret: client.ClientSecret,
 	}
+}
+
+func isRegisterClientValidRemoteAddr(remoteAddr string) bool {
+	if IsTest {
+		return true
+	}
+
+	return remoteAddr == "127.0.0.1" || remoteAddr == "localhost"
 }
