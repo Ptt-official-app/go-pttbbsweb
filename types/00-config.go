@@ -24,7 +24,7 @@ var (
 	ALLOW_ORIGINS_MAP      = map[string]bool{}
 	IS_ALLOW_CROSSDOMAIN   = true
 
-	ACCESS_TOKEN_COOKIE_SUFFIX = "SECURE;"
+	ACCESS_TOKEN_COOKIE_SUFFIX = "Secure;"
 	ACCESS_TOKEN_EXPIRE_TS     = 1 * 86400
 
 	//big5

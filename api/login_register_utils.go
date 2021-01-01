@@ -14,6 +14,6 @@ func setTokenToCookie(c *gin.Context, accessToken string) {
 
 	expires := time.Now().Add(3 * 86400 * time.Second)
 
-	expiresStr := expires.Format("")
-	c.Header("Set-Cookie", "token="+accessToken+";Expires="+expiresStr+";SameSite=strict;"+types.ACCESS_TOKEN_COOKIE_SUFFIX)
+	expiresStr := expires.Format("Mon, Jan 2 2006 15:04:05 MST")
+	c.Header("Set-Cookie", "token="+accessToken+";Expires="+expiresStr+";SameSite=Strict;"+types.ACCESS_TOKEN_COOKIE_SUFFIX)
 }
