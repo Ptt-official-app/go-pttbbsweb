@@ -53,15 +53,20 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 		return nil, 400, ErrInvalidParams
 	}
 
-	if !isValidClient(theParams.ClientID, theParams.ClientSecret) {
+	isValidClient, client := checkClient(theParams.ClientID, theParams.ClientSecret)
+
+	if !isValidClient {
 		return nil, 400, ErrInvalidParams
 	}
 
+	clientInfo := getClientInfo(client)
+
 	//backend register
 	theParams_b := &pttbbsapi.RegisterParams{
-		Username: theParams.Username,
-		Passwd:   theParams.Password,
-		Over18:   theParams.Over18,
+		ClientInfo: clientInfo,
+		Username:   theParams.Username,
+		Passwd:     theParams.Password,
+		Over18:     theParams.Over18,
 
 		Email:    theParams.Email,
 		Nickname: types.Utf8ToBig5(theParams.Nickname),
@@ -85,6 +90,8 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 
 	//result
 	result = NewRegisterUserResult(accessToken)
+
+	setTokenToCookie(c, accessToken.AccessToken)
 
 	return result, 200, nil
 }

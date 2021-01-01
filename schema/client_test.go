@@ -3,6 +3,7 @@ package schema
 import (
 	"testing"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/sirupsen/logrus"
 )
@@ -13,7 +14,7 @@ func TestUpdateClient(t *testing.T) {
 
 	defer Client_c.Drop()
 
-	client := NewClient("test_client_id2", "localhost")
+	client := NewClient("test_client_id2", types.CLIENT_TYPE_APP, "localhost")
 
 	type args struct {
 		c *Client

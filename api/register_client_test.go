@@ -1,12 +1,15 @@
 package api
 
 import (
+	"net/http"
 	"reflect"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
+	"github.com/sirupsen/logrus"
 )
 
 func TestRegisterClient(t *testing.T) {
@@ -75,6 +78,60 @@ func TestRegisterClient(t *testing.T) {
 
 			testutil.TDeepEqual(t, "ret", ret, expectedDB)
 
+		})
+	}
+}
+
+func TestRegisterClientWrapper(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	params0 := &RegisterClientParams{
+		ClientID:   "test_client_id_app",
+		ClientType: "app",
+	}
+	params1 := &RegisterClientParams{
+		ClientID:   "test_client_id_web",
+		ClientType: "web",
+	}
+
+	accessTokenSYSOP := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGkiOiJ0ZXN0X2NsaWVudF9pZCIsImV4cCI6MTYwOTY0MTc1Nywic3ViIjoiU1lTT1AifQ.QJl8jZGdsnpl-xjik8_8Wzk0OnOHTZdueUokMtckxSM"
+	type args struct {
+		params *RegisterClientParams
+	}
+	tests := []struct {
+		name     string
+		args     args
+		expected types.ClientType
+	}{
+		// TODO: Add test cases.
+		{
+			args:     args{params: params0},
+			expected: types.CLIENT_TYPE_APP,
+		},
+		{
+			args:     args{params: params1},
+			expected: types.CLIENT_TYPE_WEB,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+
+			w, c, r := testSetRequest(REGISTER_CLIENT_R, REGISTER_CLIENT_R, tt.args.params, accessTokenSYSOP, "", nil, "POST", RegisterClientWrapper)
+			logrus.Infof("RegisterClientWrapper: remote-addr: %v", c.Request.RemoteAddr)
+			r.ServeHTTP(w, c.Request)
+
+			if w.Code != http.StatusOK {
+				t.Errorf("code: %v", w.Code)
+			}
+
+			client, _ := schema.GetClient(tt.args.params.ClientID)
+			if client == nil {
+				t.Errorf("RegisterClientWrapper: unable to find client: %v", tt.args.params)
+			}
+			if !reflect.DeepEqual(client.ClientType, tt.expected) {
+				t.Errorf("RegisterClientWrapper: clientType: %v expected: %v", client.ClientType, tt.expected)
+			}
 		})
 	}
 }

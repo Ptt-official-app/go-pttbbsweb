@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"path/filepath"
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
@@ -21,8 +22,6 @@ var (
 	apiPrefix = "/api"
 )
 
-var ()
-
 func withPrefix(path string) string {
 	return apiPrefix + path
 }
@@ -30,8 +29,11 @@ func withPrefix(path string) string {
 func initGin() (*gin.Engine, error) {
 	router := gin.Default()
 
+	//options
+	router.OPTIONS("/*path", api.OptionsWrapper)
+
 	//index
-	router.GET(api.INDEX_R, api.IndexWrapper)
+	router.GET(withPrefix(api.INDEX_R), api.IndexWrapper)
 
 	//register/login
 	router.POST(withPrefix(api.REGISTER_CLIENT_R), api.RegisterClientWrapper)
@@ -59,6 +61,24 @@ func initGin() (*gin.Engine, error) {
 	router.GET(withPrefix(api.LOAD_ARTICLE_FIRSTCOMMENTS_R), api.LoadArticleFirstCommentsWrapper)
 	router.GET(withPrefix(api.LOAD_ARTICLE_COMMENTS_R), api.LoadArticleCommentsWrapper)
 	router.GET(withPrefix(api.LOAD_USER_COMMENTS_R), api.LoadUserCommentsWrapper)
+
+	router.GET("/static/js/*path", api.JSWrapper)
+	router.GET("/", api.IndexHtmlWrapper)
+	router.GET("/index.html", api.IndexHtmlWrapper)
+
+	router.Static("/static/css", filepath.Join(types.STATIC_DIR, "static", "css"))
+	staticFiles := []string{
+		"asset-manifest.json",
+		"favicon.ico",
+		"logo192.png",
+		"logo512.png",
+		"manifest.json",
+		"robots.txt",
+	}
+
+	for _, each := range staticFiles {
+		router.StaticFile("/"+each, filepath.Join(types.STATIC_DIR, each))
+	}
 
 	return router, nil
 }
@@ -113,7 +133,7 @@ func initAllConfig(filename string) error {
 		return err
 	}
 
-	return InitConfig()
+	return nil
 }
 
 func initMain() error {

@@ -16,6 +16,15 @@ func SetStringConfig(configPrefix string, idx string, orig string) string {
 	return viper.GetString(idx)
 }
 
+func SetListStringConfig(configPrefix string, idx string, orig []string) []string {
+	idx = configPrefix + "." + strings.ToLower(idx)
+	if !viper.IsSet(idx) {
+		return orig
+	}
+
+	return strings.Split(viper.GetString(idx), ",")
+}
+
 func SetBytesConfig(configPrefix string, idx string, orig []byte) []byte {
 	idx = configPrefix + "." + strings.ToLower(idx)
 	if !viper.IsSet(idx) {
