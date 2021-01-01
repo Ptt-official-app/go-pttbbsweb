@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 
@@ -117,7 +118,7 @@ func processCSRFContent(filename string, c *gin.Context) {
 	csrfToken, err := createCSRFToken()
 	content = strings.Replace(content, "__CSRFTOKEN__", csrfToken, 1)
 
-	c.Header("Cache-Control", "max-age=")
+	c.Header("Cache-Control", "max-age="+strconv.Itoa(types.CSRF_TOKEN_TS))
 
 	processStringResult(c, content, mimeType)
 }
