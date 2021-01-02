@@ -34,6 +34,11 @@ func process(theFunc ApiFunc, params interface{}, c *gin.Context) {
 		return
 	}
 
+	if !isValidOriginReferer(c) {
+		processResult(c, nil, 403, ErrInvalidOrigin)
+		return
+	}
+
 	result, statusCode, err := theFunc(remoteAddr, params, c)
 	processResult(c, result, statusCode, err)
 }

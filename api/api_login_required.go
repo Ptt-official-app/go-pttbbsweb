@@ -30,7 +30,12 @@ func loginRequiredProcess(theFunc LoginRequiredApiFunc, params interface{}, c *g
 
 	remoteAddr := strings.TrimSpace(c.ClientIP())
 	if !isValidRemoteAddr(remoteAddr) {
-		processResult(c, nil, 400, ErrInvalidRemoteAddr)
+		processResult(c, nil, 403, ErrInvalidRemoteAddr)
+		return
+	}
+
+	if !isValidOriginReferer(c) {
+		processResult(c, nil, 403, ErrInvalidOrigin)
 		return
 	}
 

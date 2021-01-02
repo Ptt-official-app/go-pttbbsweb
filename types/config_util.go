@@ -39,6 +39,7 @@ func setBoolConfig(idx string, orig bool) bool {
 func postConfig() {
 	setTimeLocation(TIME_LOCATION)
 	setAllowOrigins(ALLOW_ORIGINS)
+	setBlockedReferers(BLOCKED_REFERERS)
 }
 
 //setTimeLocation
@@ -67,4 +68,19 @@ func setAllowOrigins(allowOrigins []string) (origAllowOrigins []string, err erro
 	ALLOW_ORIGINS_MAP = newAllowOriginsMap
 
 	return origAllowOrigins, nil
+}
+
+func setBlockedReferers(blockedReferers []string) (origBlockedReferers []string, err error) {
+	origBlockedReferers = BLOCKED_REFERERS
+
+	BLOCKED_REFERERS = blockedReferers
+	newBlockedReferersMap := map[string]bool{}
+
+	for _, each := range blockedReferers {
+		newBlockedReferersMap[each] = true
+	}
+
+	BLOCKED_REFERERS_MAP = newBlockedReferersMap
+
+	return origBlockedReferers, nil
 }

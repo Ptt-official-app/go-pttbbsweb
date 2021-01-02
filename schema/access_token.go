@@ -27,8 +27,7 @@ var (
 	ACCESS_TOKEN_UPDATE_NANO_TS_b = getBSONName(EMPTY_ACCESS_TOKEN, "UpdateNanoTS")
 )
 
-func NewAccessToken(userID bbs.UUserID, jwt string) *AccessToken {
-	nowNanoTS := types.NowNanoTS()
+func NewAccessToken(userID bbs.UUserID, jwt string, nowNanoTS types.NanoTS) *AccessToken {
 	return &AccessToken{
 		AccessToken:  jwt,
 		UserID:       userID,

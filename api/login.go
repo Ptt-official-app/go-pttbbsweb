@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -63,7 +64,8 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 	}
 
 	//update db
-	accessToken, err := serializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt)
+	updateNanoTS := types.NowNanoTS()
+	accessToken, err := serializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}
