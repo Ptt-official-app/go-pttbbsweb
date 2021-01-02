@@ -3,6 +3,7 @@ package schema
 import (
 	"testing"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"go.mongodb.org/mongo-driver/bson"
@@ -14,7 +15,7 @@ func TestUpdateAccessToken(t *testing.T) {
 
 	defer AccessToken_c.Drop()
 
-	accessToken0 := NewAccessToken(bbs.UUserID("SYSOP"), "test_jwt")
+	accessToken0 := NewAccessToken(bbs.UUserID("SYSOP"), "test_jwt", types.NanoTS(1234567890000000000))
 	expected0 := &AccessToken{
 		AccessToken: "test_jwt",
 		UserID:      bbs.UUserID("SYSOP"),

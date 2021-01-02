@@ -22,6 +22,8 @@ var (
 	CSRF_TOKEN_TS_DURATION = time.Duration(CSRF_TOKEN_TS) * time.Second
 	ALLOW_ORIGINS          = []string{}
 	ALLOW_ORIGINS_MAP      = map[string]bool{}
+	BLOCKED_REFERERS       = []string{}
+	BLOCKED_REFERERS_MAP   = map[string]bool{}
 	IS_ALLOW_CROSSDOMAIN   = true
 
 	ACCESS_TOKEN_COOKIE_SUFFIX = "Secure;"

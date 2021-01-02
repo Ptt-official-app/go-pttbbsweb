@@ -90,7 +90,7 @@ func isValidCSRFToken(raw string) bool {
 }
 
 func processCSRFContent(filename string, c *gin.Context) {
-	if !isValidOrigin(c) {
+	if !isValidOriginReferer(c) {
 		processResult(c, nil, 403, ErrInvalidOrigin)
 		return
 	}
