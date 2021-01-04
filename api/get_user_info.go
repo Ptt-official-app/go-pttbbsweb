@@ -1,7 +1,10 @@
 package api
 
 import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
@@ -18,10 +21,10 @@ type GetUserInfoPath struct {
 }
 
 type GetUserInfoResult struct {
-	UserID   string `json:"user_id"`
-	Username string `json:"username"`
-	Realname string `json:"realtime"`
-	Nickname string `json:"nickname"`
+	UserID   bbs.UUserID `json:"user_id"`
+	Username string      `json:"username"`
+	Realname string      `json:"realtime"`
+	Nickname string      `json:"nickname"`
 
 	Uflag        ptttype.UFlag `json:"flag"`
 	Userlevel    ptttype.PERM  `json:"perm"`
@@ -32,15 +35,14 @@ type GetUserInfoResult struct {
 	LastIP       string        `json:"last_ip"`
 	LastHost     string        `json:"last_host"` //ip 的中文呈現, 外國則為國家.
 
-	Money   int    `json:"money"`
-	Email   string `json:"email"`
-	Address string `json:"address"`
-	Justify string `json:"justify"`
-	Over18  bool   `json:"over18"`
+	Money    int    `json:"money"`
+	PttEmail string `json:"pttemail"`
+	Justify  string `json:"justify"`
+	Over18   bool   `json:"over18"`
 
 	PagerUIType uint8             `json:"pager_ui"` /* 呼叫器界面類別 (was: WATER_*) */
 	Pager       ptttype.PagerMode `json:"pager"`    /* 呼叫器狀態 */
-	Invisible   uint8             `json:"hide"`
+	Invisible   bool              `json:"hide"`
 	Exmailbox   uint32            `json:"exmail"`
 
 	Career        string      `json:"career"`
@@ -52,34 +54,45 @@ type GetUserInfoResult struct {
 	LastSong  types.Time8 `json:"last_song"`
 	LoginView uint32      `json:"login_view"`
 
-	Vlcount   int   `json:"violation"`
-	FiveWin   int   `json:"five_win"`
-	FiveLose  int   `json:"five_lose"`
-	FiveTie   int   `json:"five_tie"`
-	ChcWin    int   `json:"chc_win"`
-	ChcLose   int   `json:"chc_lose"`
-	ChcTie    int   `json:"chc_tie"`
-	Conn6Win  int   `json:"conn6_win"`
-	Conn6Lose int   `json:"conn6_lose"`
-	Conn6Tie  int   `json:"conn6_tie"`
-	GoWin     int   `json:"go_win"`
-	GoLose    int   `json:"go_lose"`
-	GoTie     int   `json:"go_tie"`
-	DarkWin   int   `json:"dark_win"`
-	DarkLose  int   `json:"dark_lose"`
+	Vlcount        int `json:"violation"`
+	FiveWin        int `json:"five_win"`
+	FiveLose       int `json:"five_lose"`
+	FiveTie        int `json:"five_tie"`
+	ChcWin         int `json:"chc_win"`
+	ChcLose        int `json:"chc_lose"`
+	ChcTie         int `json:"chc_tie"`
+	Conn6Win       int `json:"conn6_win"`
+	Conn6Lose      int `json:"conn6_lose"`
+	Conn6Tie       int `json:"conn6_tie"`
+	GoWin          int `json:"go_win"`
+	GoLose         int `json:"go_lose"`
+	GoTie          int `json:"go_tie"`
+	DarkWin        int `json:"dark_win"`
+	DarkLose       int `json:"dark_lose"`
+	DarkTie        int `json:"dark_tie"`   /* 暗棋戰績 和 */
+	ChessEloRating int `json:"chess_rank"` /* 象棋等級 */
+
 	UaVersion uint8 `json:"ua_version"`
 
-	Signature uint8  `json:"signaure"` /* 慣用簽名檔 */
-	BadPost   int    `json:"bad_post"` /* 評價為壞文章數 */
-	DarkTie   int    `json:"dark_tie"` /* 暗棋戰績 和 */
-	MyAngel   string `json:"angel"`    /* 我的小天使 */
-
-	ChessEloRating int `json:"chess_rank"` /* 象棋等級 */
+	Signature uint8       `json:"signaure"` /* 慣用簽名檔 */
+	BadPost   int         `json:"bad_post"` /* 評價為壞文章數 */
+	MyAngel   bbs.UUserID `json:"angel"`    /* 我的小天使 */
 
 	TimeRemoveBadPost types.Time8 `json:"time_remove_bad_post"`
 	TimeViolateLaw    types.Time8 `json:"time_violate_law"`
 
-	NFriend int `json:"n_friend"`
+	IsDeleted bool        `json:"deleted"`
+	UpdateTS  types.Time8 `json:"update_ts"`
+
+	Avatar   []byte      `json:"avatar"`
+	AvatarTS types.Time8 `json:"avatar_ts"`
+
+	Email              string      `json:"email"`
+	EmailTS            types.Time8 `json:"email_ts"`
+	EmailVerified      string      `json:"email_verified"`
+	EmailVerifiedTS    types.Time8 `json:"email_verified_ts"`
+	TwoFactorEnabled   bool        `json:"twofactor_enabled"`
+	TwoFactorEnabledTS types.Time8 `json:"twofactor_enabled_ts"`
 }
 
 func GetUserInfoWrapper(c *gin.Context) {
@@ -90,53 +103,136 @@ func GetUserInfoWrapper(c *gin.Context) {
 
 func GetUserInfo(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 
-	result = &GetUserInfoResult{
-		UserID:   "2_ckoool",
-		Username: "ckoool",
-		Realname: "我是西k屋",
-		Nickname: "我是西k屋",
-
-		Userlevel:    ptttype.PERM_BASIC | ptttype.PERM_ANGEL,
-		Numlogindays: 12345,
-		Numposts:     123124,
-		Firstlogin:   types.Time8(1234567890),
-		Lastlogin:    types.Time8(1800000000),
-		LastIP:       "127.0.0.1",
-		Money:        2114567890,
-
-		Email:     "test@test.test",
-		Address:   "台北市天龍區天龍路 87 號",
-		Justify:   "[Email] test@test.test",
-		Over18:    true,
-		Invisible: 1,
-		Exmailbox: 123,
-
-		Career:        "某大學",
-		LastSeen:      types.Time8(1800000010),
-		TimeSetAngel:  types.Time8(1234568890),
-		TimePlayAngel: types.Time8(123458900),
-
-		Vlcount:   5,
-		FiveWin:   1203,
-		FiveLose:  312,
-		FiveTie:   120,
-		ChcWin:    1234,
-		ChcLose:   312,
-		ChcTie:    12,
-		Conn6Win:  12,
-		Conn6Lose: 4,
-		Conn6Tie:  5,
-		GoWin:     123,
-		GoLose:    43,
-		GoTie:     15,
-		DarkWin:   1234,
-		DarkLose:  12,
-		DarkTie:   312,
-		UaVersion: 16,
-
-		BadPost: 123,
-		MyAngel: "teamore",
+	thePath, ok := path.(*GetUserInfoPath)
+	if !ok {
+		return nil, 400, ErrInvalidPath
 	}
 
+	return tryGetUserInfo(userID, thePath.UserID, c)
+}
+
+func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context) (result *GetUserInfoResult, statusCode int, err error) {
+	updateNanoTS := types.NowNanoTS()
+
+	userInfoSummary_db, err := schema.GetUserInfoSummary(queryUserID)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	if userInfoSummary_db != nil {
+		if userInfoSummary_db.IsDeleted {
+			return nil, 404, ErrAlreadyDeleted
+		}
+	}
+
+	//get backend data
+
+	var result_b pttbbsapi.GetUserResult
+
+	urlMap := make(map[string]string)
+	urlMap["uid"] = string(userID)
+	url := utils.MergeURL(urlMap, pttbbsapi.GET_USER_R)
+
+	statusCode, err = utils.BackendGet(c, url, nil, nil, &result_b)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	userDetail, err := deserializeUserDetailAndUpdateDB(result_b, updateNanoTS)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	userNewInfo, err := schema.GetUserNewInfo(userID)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	result = NewUserInfoResult(userDetail, userNewInfo)
+
 	return result, 200, nil
+}
+
+func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.UserNewInfo) (result *GetUserInfoResult) {
+
+	if userNewInfo_db == nil {
+		userNewInfo_db = &schema.UserNewInfo{}
+	}
+
+	result = &GetUserInfoResult{
+		UserID:   userDetail_db.UserID,
+		Username: userDetail_db.Username,
+		Realname: userDetail_db.Realname,
+		Nickname: userDetail_db.Nickname,
+
+		Uflag:        userDetail_db.Uflag,
+		Userlevel:    userDetail_db.Userlevel,
+		Numlogindays: userDetail_db.Numlogindays,
+		Numposts:     userDetail_db.Numposts,
+		Firstlogin:   userDetail_db.Firstlogin.ToTime8(),
+		Lastlogin:    userDetail_db.Lastlogin.ToTime8(),
+		LastIP:       userDetail_db.LastIP,
+		LastHost:     userDetail_db.LastHost,
+
+		Money:    userDetail_db.Money,
+		PttEmail: userDetail_db.PttEmail,
+		Justify:  userDetail_db.Justify,
+		Over18:   userDetail_db.Over18,
+
+		PagerUIType: userDetail_db.PagerUIType,
+		Pager:       userDetail_db.Pager,
+		Invisible:   userDetail_db.Invisible,
+		Exmailbox:   userDetail_db.Exmailbox,
+
+		Career:        userDetail_db.Career,
+		Role:          userDetail_db.Role,
+		LastSeen:      userDetail_db.LastSeen.ToTime8(),
+		TimeSetAngel:  userDetail_db.TimeSetAngel.ToTime8(),
+		TimePlayAngel: userDetail_db.TimePlayAngel.ToTime8(),
+
+		LastSong:  userDetail_db.LastSong.ToTime8(),
+		LoginView: userDetail_db.LoginView,
+
+		Vlcount:   userDetail_db.Vlcount,
+		FiveWin:   userDetail_db.FiveWin,
+		FiveLose:  userDetail_db.FiveLose,
+		FiveTie:   userDetail_db.FiveTie,
+		ChcWin:    userDetail_db.ChcWin,
+		ChcLose:   userDetail_db.ChcLose,
+		ChcTie:    userDetail_db.ChcTie,
+		Conn6Win:  userDetail_db.Conn6Win,
+		Conn6Lose: userDetail_db.Conn6Lose,
+		Conn6Tie:  userDetail_db.Conn6Tie,
+		GoWin:     userDetail_db.GoWin,
+		GoLose:    userDetail_db.GoLose,
+		GoTie:     userDetail_db.GoTie,
+		DarkWin:   userDetail_db.DarkWin,
+		DarkLose:  userDetail_db.DarkLose,
+		DarkTie:   userDetail_db.DarkTie,
+		UaVersion: userDetail_db.UaVersion,
+
+		Signature: userDetail_db.Signature,
+		BadPost:   userDetail_db.BadPost,
+		MyAngel:   userDetail_db.MyAngel,
+
+		ChessEloRating: userDetail_db.ChessEloRating,
+
+		TimeRemoveBadPost: userDetail_db.TimeRemoveBadPost.ToTime8(),
+		TimeViolateLaw:    userDetail_db.TimeViolateLaw.ToTime8(),
+
+		IsDeleted: userDetail_db.IsDeleted,
+		UpdateTS:  userDetail_db.UpdateNanoTS.ToTime8(),
+
+		Avatar:   userNewInfo_db.Avatar,
+		AvatarTS: userNewInfo_db.AvatarNanoTS.ToTime8(),
+
+		Email:              userNewInfo_db.Email,
+		EmailTS:            userNewInfo_db.EmailNanoTS.ToTime8(),
+		EmailVerified:      userNewInfo_db.EmailVerified,
+		EmailVerifiedTS:    userNewInfo_db.EmailVerifiedNanoTS.ToTime8(),
+		TwoFactorEnabled:   userNewInfo_db.TwoFactorEnabled,
+		TwoFactorEnabledTS: userNewInfo_db.TwoFactorEnabledNanoTS.ToTime8(),
+	}
+
+	return result
 }

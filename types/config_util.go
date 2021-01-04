@@ -36,10 +36,16 @@ func setBoolConfig(idx string, orig bool) bool {
 	return config_util.SetBoolConfig(configPrefix, idx, orig)
 }
 
+func setIntConfig(idx string, orig int) int {
+	return config_util.SetIntConfig(configPrefix, idx, orig)
+}
+
 func postConfig() {
 	setTimeLocation(TIME_LOCATION)
 	setAllowOrigins(ALLOW_ORIGINS)
 	setBlockedReferers(BLOCKED_REFERERS)
+	setCSRFTokenTS(CSRF_TOKEN_TS)
+	setAccessTokenExpireTS(ACCESS_TOKEN_EXPIRE_TS)
 }
 
 //setTimeLocation
@@ -83,4 +89,26 @@ func setBlockedReferers(blockedReferers []string) (origBlockedReferers []string,
 	BLOCKED_REFERERS_MAP = newBlockedReferersMap
 
 	return origBlockedReferers, nil
+}
+
+func setCSRFTokenTS(csrfTokenTS int) (origCSRFTokenTS int, err error) {
+	origCSRFTokenTS = CSRF_TOKEN_TS
+
+	CSRF_TOKEN_TS = csrfTokenTS
+
+	CSRF_TOKEN_TS_DURATION = time.Duration(CSRF_TOKEN_TS) * time.Second
+
+	return origCSRFTokenTS, nil
+}
+
+func setAccessTokenExpireTS(accessTokenExpireTS int) (origAccessTokenExpireTS int, err error) {
+
+	origAccessTokenExpireTS = ACCESS_TOKEN_EXPIRE_TS
+
+	ACCESS_TOKEN_EXPIRE_TS = accessTokenExpireTS
+
+	ACCESS_TOKEN_EXPIRE_TS_DURATION = time.Duration(ACCESS_TOKEN_EXPIRE_TS) * time.Second
+
+	return origAccessTokenExpireTS, nil
+
 }

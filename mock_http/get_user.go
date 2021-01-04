@@ -1,11 +1,16 @@
-package api
+package mock_http
 
-var (
-	testUserInfoResult0 = &GetUserInfoResult{
-		UserID:   "SYSOP",
+import (
+	"github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
+)
+
+func GetUser() (ret api.GetUserResult) {
+	return api.GetUserResult(&bbs.Userec{
+		UUserID:  "SYSOP",
 		Username: "SYSOP",
-		Realname: "test_sysop",
-		Nickname: "test_nickname",
+		Realname: []byte("test_sysop"),
+		Nickname: []byte("test_nickname"),
 
 		Uflag:        1,
 		Userlevel:    7,
@@ -13,20 +18,18 @@ var (
 		Numposts:     2,
 		Firstlogin:   1234567890,
 		Lastlogin:    1234567891,
-		LastIP:       "127.0.0.1",
-		LastHost:     "127.0.0.1",
+		Lasthost:     "127.0.0.1",
 
-		Money:    11,
-		PttEmail: "test@ptt.test",
-		Justify:  "email: test@ptt.test",
-		Over18:   true,
+		Money:   11,
+		Email:   "test@ptt.test",
+		Justify: []byte("email: test@ptt.test"),
+		Over18:  true,
 
 		PagerUIType: 1,
 		Pager:       10,
-		Invisible:   false,
 		Exmailbox:   120,
 
-		Career:        "test-career",
+		Career:        []byte("test-career"),
 		Role:          12,
 		LastSeen:      1234567893,
 		TimeSetAngel:  1234567894,
@@ -45,5 +48,5 @@ var (
 		MyAngel: "myangel",
 
 		ChessEloRating: 126,
-	}
-)
+	})
+}

@@ -343,4 +343,114 @@ var (
 			UpdateNanoTS: types.NanoTS(1334567890000000000),
 		},
 	}
+
+	testUser0 = &bbs.Userec{
+		UUserID:  "test_userid",
+		Username: "test_username",
+		Realname: []byte("test_realname"),
+		Nickname: []byte("test_nickname"),
+
+		Uflag:        1,
+		Userlevel:    2,
+		Numlogindays: 11,
+		Numposts:     12,
+		Firstlogin:   1234567890,
+		Lastlogin:    1234567891,
+		Lasthost:     "localhost",
+
+		Money:   13,
+		Email:   "test@ptt.test",
+		Justify: []byte("Email: test@ptt.test 12/23/2008 12:13:20"),
+		Over18:  true,
+
+		PagerUIType: 1,
+		Pager:       12,
+		Invisible:   false,
+		Exmailbox:   10,
+
+		Career:        []byte("test_career"),
+		Role:          1,
+		LastSeen:      1234567892,
+		TimeSetAngel:  1234567893,
+		TimePlayAngel: 1234567894,
+
+		LastSong:  1234567895,
+		LoginView: 1,
+
+		Vlcount:  12,
+		FiveWin:  13,
+		FiveLose: 14,
+		FiveTie:  15,
+
+		UaVersion: 3,
+
+		Signature: 3,
+		BadPost:   12,
+		MyAngel:   "test_myangel",
+
+		ChessEloRating: 1,
+
+		TimeRemoveBadPost: 1234567895,
+		TimeViolateLaw:    1234567897,
+	}
+
+	testUserDetail0 = &UserDetail{
+		UserID:   "test_userid",
+		Username: "test_username",
+		Realname: "test_realname",
+		Nickname: "test_nickname",
+
+		Uflag:        1,
+		Userlevel:    2,
+		Numlogindays: 11,
+		Numposts:     12,
+		Firstlogin:   1234567890000000000,
+		Lastlogin:    1234567891000000000,
+		LastIP:       "localhost",
+		LastHost:     "localhost",
+
+		Money:    13,
+		PttEmail: "test@ptt.test",
+		Justify:  "Email: test@ptt.test 12/23/2008 12:13:20",
+		Over18:   true,
+
+		PagerUIType: 1,
+		Pager:       12,
+		Invisible:   false,
+		Exmailbox:   10,
+
+		Career:        "test_career",
+		Role:          1,
+		LastSeen:      1234567892000000000,
+		TimeSetAngel:  1234567893000000000,
+		TimePlayAngel: 1234567894000000000,
+
+		LastSong:  1234567895000000000,
+		LoginView: 1,
+
+		Vlcount:  12,
+		FiveWin:  13,
+		FiveLose: 14,
+		FiveTie:  15,
+
+		UaVersion: 3,
+
+		Signature: 3,
+		BadPost:   12,
+		MyAngel:   "test_myangel",
+
+		ChessEloRating: 1,
+
+		TimeRemoveBadPost: 1234567895000000000,
+		TimeViolateLaw:    1234567897000000000,
+
+		UpdateNanoTS: 123456790000000000,
+	}
+
+	testUserInfoSummary0 = &UserInfoSummary{
+		UserID:       "test_userid",
+		UpdateNanoTS: 1234567890000000003,
+	}
+
+	testUserNewInfo0 = &UserNewInfo{}
 )

@@ -10,6 +10,8 @@ import (
 //ContentMTime
 type ArticleContentMTime struct {
 	ContentMTime types.NanoTS `bson:"content_mtime_nano_ts"`
+
+	IsDeleted bool `bson:"deleted,omitempty"` //
 }
 
 var (
@@ -24,7 +26,6 @@ func GetArticleContentMTime(bboardID bbs.BBoardID, articleID bbs.ArticleID) (ret
 	query := &ArticleQuery{
 		BBoardID:  bboardID,
 		ArticleID: articleID,
-		IsDeleted: bson.M{"$exists": false},
 	}
 
 	ret = &ArticleContentMTime{}

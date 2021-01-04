@@ -16,6 +16,8 @@ const (
 	ARTICLE_LOCK_NANO_TS                      = types.NanoTS(ARTICLE_LOCK_TS) * types.TS_TO_NANO_TS
 	GET_ARTICLE_CONTENT_INFO_TOO_SOON_NANO_TS = ARTICLE_LOCK_NANO_TS + types.NanoTS(1)*types.TS_TO_NANO_TS //10 + 1 seconds.
 
+	HTML_CACHE_CONTROL_TS = 86400
+	JS_CACHE_CONTROL_TS   = 86400 * 365
 )
 
 var (

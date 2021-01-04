@@ -89,6 +89,13 @@ func httpUpdateHeaders(headers map[string]string, c *gin.Context) {
 	headers["X-Forwarded-For"] = remoteAddr
 
 	authorization := c.GetHeader("Authorization")
+	if authorization == "" {
+		access_token := GetCookie(c, types.ACCESS_TOKEN)
+		if access_token != "" {
+			authorization = "Bearer " + access_token
+		}
+	}
+
 	if authorization != "" {
 		headers["Authorization"] = authorization
 	}
@@ -151,4 +158,16 @@ func MergeURL(urlMap map[string]string, url string) string {
 	}
 
 	return strings.Join(newURLList, "/")
+}
+
+func GetCookie(c *gin.Context, name string) string {
+	cookie, err := c.Request.Cookie(name)
+	if err != nil {
+		return ""
+	}
+	if cookie == nil {
+		return ""
+	}
+
+	return cookie.Value
 }

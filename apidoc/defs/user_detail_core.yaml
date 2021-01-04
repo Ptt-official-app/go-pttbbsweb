@@ -9,7 +9,7 @@ perm:
   description: https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/perm.go
 login_days:
   type: number
-post:
+posts:
   type: number
 first_login:
   type: number
@@ -26,19 +26,10 @@ last_host:
 
 money:
   type: number
-email:
+pttemail:
   type: string
-email_verified:
-  type: string
-phone:
-  type: string
-phone_verified:
-  type: string
-twofactor_enabled:
-  type: boolean
+  description: 在 ptt 上的 email
 justify:
-  type: string
-address:
   type: string
 over18:
   type: boolean
@@ -62,14 +53,11 @@ role:
 last_seen:
   type: number
   description: last-seen in unix-time
-last_action:
-  type: string
-last_action_time:
-  type: number
 time_set_angel:
   type: number
 time_play_angel:
   type: number
+
 last_song:
   type: number
   description: last-time the user ordered an song (in unix-time).
@@ -134,12 +122,12 @@ ua_version:
 
 signature:
   type: number
-angel:
-  type: string
-  description: 小天使
 badpost:
   type: number
   description: badpost count
+angel:
+  type: string
+  description: 小天使
 
 time_remove_bad_post:
   type: number
@@ -148,5 +136,24 @@ time_violate_law:
   type: number
   description: newest violating law in unix-time
 
-n_friend:
+deleted:
+  type: boolean
+
+email:
+  type: string
+  description: 認證的 email
+email_ts:
   type: number
+  description: 設定認證 email 的時間
+email_verified:
+  type: string
+  description: email 認證的資訊
+email_verified_ts:
+  type number
+  description: email 認證資訊的時間
+twofactor_enabled:
+  type: boolean
+  description: 是否使用 2FA 機制
+twofactor_enabled_ts:
+  type: number
+  description: 設定 2FA 機制的時間

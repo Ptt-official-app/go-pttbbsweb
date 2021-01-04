@@ -176,7 +176,7 @@ func diffCommentsCore(
 		}
 
 		//2. requires update updateNanoTS: to-update-comment-summaries
-		if eachSummary.UpdateNanoTS < each.UpdateNanoTS {
+		if eachSummary.IsDeleted || eachSummary.UpdateNanoTS < each.UpdateNanoTS {
 			eachSummary.UpdateNanoTS = each.UpdateNanoTS
 			toUpdateCommentSummaries = append(toUpdateCommentSummaries, eachSummary)
 		}
@@ -186,7 +186,7 @@ func diffCommentsCore(
 	toRemoveCommentIDs = make([]types.CommentID, 0, len(commentSummaries_db))
 	for _, each := range commentSummaries_db {
 		//3. the comment-summary is newer: do nothing.
-		if each.UpdateNanoTS >= updateNanoTS {
+		if each.IsDeleted || each.UpdateNanoTS >= updateNanoTS {
 			continue
 		}
 		//4. the comment-summary is not in the comments: to remove.

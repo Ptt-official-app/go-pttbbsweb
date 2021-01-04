@@ -35,7 +35,7 @@ func TestIndexHtmlWrapper(t *testing.T) {
 				"",
 				"",
 				tt.header,
-				"POST",
+				"GET",
 				IndexHtmlWrapper,
 			)
 
@@ -51,14 +51,14 @@ func TestIndexHtmlWrapper(t *testing.T) {
 			result = re.ReplaceAllString(result, "return \"\";")
 
 			if result != tt.expected {
-				t.Errorf("JSWrapper: %v expected: %v", result, tt.expected)
+				t.Errorf("IndexHtmlWrapper: %v expected: %v", result, tt.expected)
 				for idx := 0; idx < len(result); idx++ {
 					if idx >= len(tt.expected) {
-						t.Errorf("(%v/%v) js: %v", idx, len(result), result[idx])
+						t.Errorf("(%v/%v) html: %v", idx, len(result), result[idx])
 						continue
 					}
 					if result[idx] != tt.expected[idx] {
-						t.Errorf("(%v/%v) js: %v expected: %v", idx, len(result), result[idx], tt.expected[idx])
+						t.Errorf("(%v/%v) html: %v expected: %v", idx, len(result), result[idx], tt.expected[idx])
 					}
 				}
 			}

@@ -4,7 +4,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -43,7 +42,6 @@ func GetArticleDetailSummary(bboardID bbs.BBoardID, articleID bbs.ArticleID) (re
 	query := &ArticleQuery{
 		BBoardID:  bboardID,
 		ArticleID: articleID,
-		IsDeleted: bson.M{"$exists": false},
 	}
 
 	result = &ArticleDetailSummary{}

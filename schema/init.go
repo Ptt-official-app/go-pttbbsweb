@@ -206,5 +206,9 @@ func assertAllFields() error {
 		return err
 	}
 
+	if err := assertUserFields(); err != nil {
+		return err
+	}
+
 	return nil
 }

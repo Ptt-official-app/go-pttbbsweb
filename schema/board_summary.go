@@ -23,6 +23,8 @@ type BoardSummary struct {
 
 	LastPostTime types.NanoTS `bson:"last_post_time_nano_ts"` /* 需要即時知道來做板的已讀 */
 
+	IsDeleted bool `bson:"deleted,omitempty"`
+
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
 
@@ -57,8 +59,7 @@ func UpdateBoardSummaries(boardSummaries []*BoardSummary, updateNanoTS types.Nan
 	theList := make([]*db.UpdatePair, len(boardSummaries))
 	for idx, each := range boardSummaries {
 		query := &BoardQuery{
-			BBoardID:  each.BBoardID,
-			IsDeleted: bson.M{"$exists": false},
+			BBoardID: each.BBoardID,
 		}
 
 		theList[idx] = &db.UpdatePair{
@@ -116,8 +117,7 @@ func UpdateBoardSummaries(boardSummaries []*BoardSummary, updateNanoTS types.Nan
 
 func GetBoardSummary(bboardID bbs.BBoardID) (result *BoardSummary, err error) {
 	query := &BoardQuery{
-		BBoardID:  bboardID,
-		IsDeleted: bson.M{"$exists": false},
+		BBoardID: bboardID,
 	}
 
 	result = &BoardSummary{}

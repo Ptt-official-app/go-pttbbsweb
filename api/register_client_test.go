@@ -95,7 +95,7 @@ func TestRegisterClientWrapper(t *testing.T) {
 		ClientType: "web",
 	}
 
-	accessTokenSYSOP := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGkiOiJ0ZXN0X2NsaWVudF9pZCIsImV4cCI6MTYwOTY0MTc1Nywic3ViIjoiU1lTT1AifQ.QJl8jZGdsnpl-xjik8_8Wzk0OnOHTZdueUokMtckxSM"
+	accessTokenSYSOP2 := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGkiOiIiLCJleHAiOjk0OTM0MjI4MTIsInN1YiI6IlNZU09QMiJ9.VbixNBxg4h5FCyTmvhtVzBJ4HsE5_va-MPZzR8TLaY8"
 	type args struct {
 		params *RegisterClientParams
 	}
@@ -117,7 +117,7 @@ func TestRegisterClientWrapper(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 
-			w, c, r := testSetRequest(REGISTER_CLIENT_R, REGISTER_CLIENT_R, tt.args.params, accessTokenSYSOP, "", nil, "POST", RegisterClientWrapper)
+			w, c, r := testSetRequest(REGISTER_CLIENT_R, REGISTER_CLIENT_R, tt.args.params, accessTokenSYSOP2, "", nil, "POST", RegisterClientWrapper)
 			logrus.Infof("RegisterClientWrapper: remote-addr: %v", c.Request.RemoteAddr)
 			r.ServeHTTP(w, c.Request)
 
