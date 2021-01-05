@@ -15,4 +15,6 @@ var (
 	ErrNoArticle                = errors.New("no article")
 	ErrAlreadyDeleted           = errors.New("already deleted")
 	ErrFileNotFound             = errors.New("file not found")
+
+	ErrInvalidUser = errors.New("invalid user")
 )

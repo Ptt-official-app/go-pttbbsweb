@@ -11,6 +11,9 @@ type ArticleComments struct {
 	ArticleID bbs.ArticleID `bson:"aid"` //
 
 	CommentsUpdateNanoTS types.NanoTS `bson:"comments_update_nano_ts"`
+
+	IsDeleted bool `bson:"deleted,omitempty"` //
+
 }
 
 var (

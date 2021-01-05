@@ -16,18 +16,24 @@ var (
 	PTTSYSOP = bbs.UUserID("SYSOP")
 
 	//web
-	STATIC_DIR             = "static"
-	CSRF_SECRET            = []byte("test_csrf_secret")
-	CSRF_TOKEN_TS          = 86400
-	CSRF_TOKEN_TS_DURATION = time.Duration(CSRF_TOKEN_TS) * time.Second
-	ALLOW_ORIGINS          = []string{}
-	ALLOW_ORIGINS_MAP      = map[string]bool{}
-	BLOCKED_REFERERS       = []string{}
-	BLOCKED_REFERERS_MAP   = map[string]bool{}
-	IS_ALLOW_CROSSDOMAIN   = true
+	STATIC_DIR           = "static"
+	ALLOW_ORIGINS        = []string{}
+	ALLOW_ORIGINS_MAP    = map[string]bool{}
+	BLOCKED_REFERERS     = []string{}
+	BLOCKED_REFERERS_MAP = map[string]bool{}
+	IS_ALLOW_CROSSDOMAIN = true
 
-	ACCESS_TOKEN_COOKIE_SUFFIX = "Secure;"
-	ACCESS_TOKEN_EXPIRE_TS     = 1 * 86400
+	COOKIE_DOMAIN       = "localhost"
+	TOKEN_COOKIE_SUFFIX = "Secure;"
+
+	CSRF_SECRET            = []byte("test_csrf_secret")
+	CSRF_TOKEN             = "csrftoken"
+	CSRF_TOKEN_TS          = 0
+	CSRF_TOKEN_TS_DURATION = time.Duration(CSRF_TOKEN_TS) * time.Second
+
+	ACCESS_TOKEN                    = "token"
+	ACCESS_TOKEN_EXPIRE_TS          = 86400
+	ACCESS_TOKEN_EXPIRE_TS_DURATION = time.Duration(ACCESS_TOKEN_EXPIRE_TS) * time.Second
 
 	//big5
 	BIG5_TO_UTF8 = "types/uao250-b2u.big5.txt"

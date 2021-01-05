@@ -3,6 +3,7 @@ package schema
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
@@ -16,7 +17,6 @@ type User struct {
 	Username string      `bson:"username"`
 	Realname string      `bson:"realtime"`
 	Nickname string      `bson:"nickname"`
-	Avatar   []byte      `bson:"avatar"`
 
 	Uflag        ptttype.UFlag `bson:"flag"`
 	Userlevel    ptttype.PERM  `bson:"perm"`
@@ -27,19 +27,14 @@ type User struct {
 	LastIP       string        `bson:"last_ip"`
 	LastHost     string        `bson:"last_host"` //last-ip 的中文呈現, 外國則為國家.
 
-	Money            int    `bson:"money"`
-	Email            string `bson:"email"`
-	EmailVerified    string `bson:"email_verified"`
-	Phone            string `bson:"phone"` /* 真的要有電話資訊嗎？～ */
-	PhoneVerified    string `bson:"phone_verified"`
-	TwoFactorEnabled bool   `bson:"twofactor_enabled"`
-	Address          string `bson:"address"`
-	Justify          string `bson:"justify"`
-	Over18           bool   `bson:"over18"`
+	Money    int    `bson:"money"`
+	PttEmail string `bson:"pttemail"`
+	Justify  string `bson:"justify"`
+	Over18   bool   `bson:"over18"`
 
 	PagerUIType uint8             `bson:"pager_ui"` /* 呼叫器界面類別 (was: WATER_*) */
 	Pager       ptttype.PagerMode `bson:"pager"`    /* 呼叫器狀態 */
-	Invisible   uint8             `bson:"hide"`
+	Invisible   bool              `bson:"hide"`
 	Exmailbox   uint32            `bson:"exmail"`
 
 	Career        string       `bson:"career"`
@@ -66,12 +61,12 @@ type User struct {
 	GoTie     int   `bson:"go_tie"`
 	DarkWin   int   `bson:"dark_win"`
 	DarkLose  int   `bson:"dark_lose"`
+	DarkTie   int   `bson:"dark_tie"` /* 暗棋戰績 和 */
 	UaVersion uint8 `bson:"ua_version"`
 
-	Signature uint8  `bson:"signaure"` /* 慣用簽名檔 */
-	BadPost   int    `bson:"bad_post"` /* 評價為壞文章數 */
-	DarkTie   int    `bson:"dark_tie"` /* 暗棋戰績 和 */
-	MyAngel   string `bson:"angel"`    /* 我的小天使 */
+	Signature uint8       `bson:"signaure"` /* 慣用簽名檔 */
+	BadPost   int         `bson:"bad_post"` /* 評價為壞文章數 */
+	MyAngel   bbs.UUserID `bson:"angel"`    /* 我的小天使 */
 
 	ChessEloRating int `bson:"chess_rank"` /* 象棋等級 */
 
@@ -82,4 +77,121 @@ type User struct {
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 
 	//NFriend int `bson:"n_friend"` /* 需要透過 db-count */
+	Avatar       []byte       `bson:"avatar"`
+	AvatarNanoTS types.NanoTS `bson:"avatar_nano_ts"`
+
+	Email               string       `bson:"email"`
+	EmailNanoTS         types.NanoTS `bson:"email_naon_ts"`
+	EmailVerified       string       `bson:"email_verified"`
+	EmailVerifiedNanoTS types.NanoTS `bson:"email_verified_nano_ts"`
+	//Phone            string `bson:"phone"` /* 真的要有電話資訊嗎？～ */
+	//PhoneVerified    string `bson:"phone_verified"`
+	TwoFactorEnabled       bool         `bson:"twofactor_enabled"`
+	TwoFactorEnabledNanoTS types.NanoTS `bson:"twofactor_enabled_nano_ts"`
 }
+
+var (
+	EMPTY_USER = &User{}
+)
+
+var (
+	USER_USER_ID_b  = getBSONName(EMPTY_USER, "UserID")
+	USER_USERNAME_b = getBSONName(EMPTY_USER, "Username")
+	USER_REALNAME_b = getBSONName(EMPTY_USER, "Realname")
+	USER_NICKNAME_b = getBSONName(EMPTY_USER, "Nickname")
+
+	USER_UFLAG_b           = getBSONName(EMPTY_USER, "Uflag")
+	USER_USER_LEVEL_b      = getBSONName(EMPTY_USER, "Userlevel")
+	USER_NUMLOGINDAYS_b    = getBSONName(EMPTY_USER, "Numlogindays")
+	USER_NUMPOSTS_b        = getBSONName(EMPTY_USER, "Numposts")
+	USER_FIRSTLOGIN_b      = getBSONName(EMPTY_USER, "Firstlogin")
+	USER_LASTLOGIN_b       = getBSONName(EMPTY_USER, "Lastlogin")
+	USER_LAST_IP_b         = getBSONName(EMPTY_USER, "LastIP")
+	USER_LAST_HOST_b       = getBSONName(EMPTY_USER, "LastHost")
+	USER_MONEY_b           = getBSONName(EMPTY_USER, "Money")
+	USER_PTTEMAIL_b        = getBSONName(EMPTY_USER, "PttEmail")
+	USER_JUSTIFY_b         = getBSONName(EMPTY_USER, "Justify")
+	USER_OVER18_b          = getBSONName(EMPTY_USER, "Over18")
+	USER_PAGER_UI_TYPE_b   = getBSONName(EMPTY_USER, "PagerUIType")
+	USER_PAGER_b           = getBSONName(EMPTY_USER, "Pager")
+	USER_INVISIBLE_b       = getBSONName(EMPTY_USER, "Invisible")
+	USER_EXMAILBOX_b       = getBSONName(EMPTY_USER, "Exmailbox")
+	USER_CAREER_b          = getBSONName(EMPTY_USER, "Career")
+	USER_ROLE_b            = getBSONName(EMPTY_USER, "Role")
+	USER_LAST_SEEN_b       = getBSONName(EMPTY_USER, "LastSeen")
+	USER_TIME_SET_ANGEL_b  = getBSONName(EMPTY_USER, "TimeSetAngel")
+	USER_TIME_PLAY_ANGEL_b = getBSONName(EMPTY_USER, "TimePlayAngel")
+	USER_LAST_SONG_b       = getBSONName(EMPTY_USER, "LastSong")
+	USER_LOGIN_VIEW_b      = getBSONName(EMPTY_USER, "LoginView")
+
+	USER_VLCOUNT_b    = getBSONName(EMPTY_USER, "Vlcount")
+	USER_FIVE_WIN_b   = getBSONName(EMPTY_USER, "FiveWin")
+	USER_FIVE_LOSE_b  = getBSONName(EMPTY_USER, "FiveLose")
+	USER_FIVE_TIE_b   = getBSONName(EMPTY_USER, "FiveTie")
+	USER_CHC_WIN_b    = getBSONName(EMPTY_USER, "ChcWin")
+	USER_CHC_LOSE_b   = getBSONName(EMPTY_USER, "ChcLose")
+	USER_CHC_TIE_b    = getBSONName(EMPTY_USER, "ChcTie")
+	USER_CONN6_WIN_b  = getBSONName(EMPTY_USER, "Conn6Win")
+	USER_CONN6_LOSE_b = getBSONName(EMPTY_USER, "Conn6Lose")
+	USER_CONN6_TIE_b  = getBSONName(EMPTY_USER, "Conn6Tie")
+	USER_GO_WIN_b     = getBSONName(EMPTY_USER, "GoWin")
+	USER_GO_LOSE_b    = getBSONName(EMPTY_USER, "GoLose")
+	USER_GO_TIE_b     = getBSONName(EMPTY_USER, "GoTie")
+	USER_DARK_WIN_b   = getBSONName(EMPTY_USER, "DarkWin")
+	USER_DARK_LOSE_b  = getBSONName(EMPTY_USER, "DarkLose")
+	USER_DARK_TIE_b   = getBSONName(EMPTY_USER, "DarkTie")
+	USER_UA_VERSION_b = getBSONName(EMPTY_USER, "UaVersion")
+
+	USER_SIGNATURE_b = getBSONName(EMPTY_USER, "Signature")
+	USER_BAD_POST_b  = getBSONName(EMPTY_USER, "BadPost")
+	USER_MY_ANGEL_b  = getBSONName(EMPTY_USER, "MyAngel")
+
+	USER_CHESS_ELO_RATING_b = getBSONName(EMPTY_USER, "ChessEloRating")
+
+	USER_TIME_REMOVE_BAD_POST_b = getBSONName(EMPTY_USER, "TimeRemoveBadPost")
+	USER_TIME_VIOLATE_LAW_b     = getBSONName(EMPTY_USER, "TimeViolateLaw")
+
+	USER_IS_DELETED_b     = getBSONName(EMPTY_USER, "IsDeleted")
+	USER_UPDATE_NANO_TS_b = getBSONName(EMPTY_USER, "UpdateNanoTS")
+
+	USER_AVATAR_b         = getBSONName(EMPTY_USER, "Avatar")
+	USER_AVATAR_NANO_TS_b = getBSONName(EMPTY_USER, "AvatorNanoTS")
+
+	USER_EMAIL_b                  = getBSONName(EMPTY_USER, "Email")
+	USER_EMAIL_NANO_TS_b          = getBSONName(EMPTY_USER, "EmailNanoTS")
+	USER_EMAIL_VERIFIED_b         = getBSONName(EMPTY_USER, "EmailVerified")
+	USER_EMAIL_VERIFIED_NANO_TS_b = getBSONName(EMPTY_USER, "EmailVerifiedNanoTS")
+	//USER_PHONE_b            = getBSONName(EMPTY_USER, "Phone")
+	//USER_PHONE_VERIFIED_b   = getBSONName(EMPTY_USER, "PhoneVerified")
+	USER_TWO_FACTOR_ENABLED_b         = getBSONName(EMPTY_USER, "TwoFactorEnabled")
+	USER_TWO_FACTOR_ENABLED_NANO_TS_b = getBSONName(EMPTY_USER, "TwoFactorEnabledNanoTS")
+)
+
+func assertUserFields() error {
+	if err := assertFields(EMPTY_USER, EMPTY_USER_QUERY); err != nil {
+		return err
+	}
+
+	if err := assertFields(EMPTY_USER, EMPTY_USER_INFO_SUMMARY); err != nil {
+		return err
+	}
+
+	if err := assertFields(EMPTY_USER, EMPTY_USER_DETAIL); err != nil {
+		return err
+	}
+
+	if err := assertFields(EMPTY_USER, EMPTY_USER_NEW_INFO); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+type UserQuery struct {
+	UserID    bbs.UUserID `bson:"user_id"`
+	IsDeleted interface{} `bson:"deleted,omitempty"`
+}
+
+var (
+	EMPTY_USER_QUERY = &UserQuery{}
+)

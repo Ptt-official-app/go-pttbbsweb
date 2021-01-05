@@ -12,11 +12,11 @@ import (
 const LOGIN_R = "/account/login"
 
 type LoginParams struct {
-	ClientID     string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
+	ClientID     string `json:"client_id" form:"client_id"`
+	ClientSecret string `json:"client_secret" form:"client_secret"`
 
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Username string `json:"username" form:"username"`
+	Password string `json:"password" form:"password"`
 }
 
 func NewLoginParams() *LoginParams {
@@ -31,7 +31,7 @@ type LoginResult struct {
 
 func LoginWrapper(c *gin.Context) {
 	params := NewLoginParams()
-	JSON(Login, params, c)
+	FormJSON(Login, params, c)
 }
 
 func Login(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {

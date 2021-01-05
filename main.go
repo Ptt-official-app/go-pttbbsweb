@@ -62,11 +62,12 @@ func initGin() (*gin.Engine, error) {
 	router.GET(withPrefix(api.LOAD_ARTICLE_COMMENTS_R), api.LoadArticleCommentsWrapper)
 	router.GET(withPrefix(api.LOAD_USER_COMMENTS_R), api.LoadUserCommentsWrapper)
 
-	router.GET("/static/js/*path", api.JSWrapper)
 	router.GET("/", api.IndexHtmlWrapper)
 	router.GET("/index.html", api.IndexHtmlWrapper)
+	router.GET("/user/:userID", api.UserHtmlWrapper)
 
-	router.Static("/static/css", filepath.Join(types.STATIC_DIR, "static", "css"))
+	router.Static("/static", filepath.Join(types.STATIC_DIR, "static"))
+
 	staticFiles := []string{
 		"asset-manifest.json",
 		"favicon.ico",

@@ -33,6 +33,7 @@ func Test_getBSONName(t *testing.T) {
 func Test_getFields(t *testing.T) {
 	expected := make(map[string]bool)
 	expected[ARTICLE_CONTENT_MTIME_b] = true
+	expected[ARTICLE_IS_DELETED_b] = true
 	type args struct {
 		empty    interface{}
 		fields_i interface{}

@@ -55,7 +55,7 @@ func GetArticleDetailWrapper(c *gin.Context) {
 func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	thePath, ok := path.(*GetArticleDetailPath)
 	if !ok {
-		return nil, 400, ErrInvalidParams
+		return nil, 400, ErrInvalidPath
 	}
 
 	// ensure that we do have the article.

@@ -13,6 +13,8 @@ type ArticleFirstComments struct {
 	FirstCommentsMD5          string       `bson:"first_comments_md5"`
 	FirstCommentsLastTime     types.NanoTS `bson:"first_comments_last_time_nano_ts"`
 	FirstCommentsUpdateNanoTS types.NanoTS `bson:"first_comments_update_nano_ts"`
+
+	IsDeleted bool `bson:"deleted,omitempty"` //
 }
 
 var (

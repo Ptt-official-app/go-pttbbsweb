@@ -13,6 +13,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 	"github.com/google/go-querystring/query"
+	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -51,12 +52,12 @@ func teardownTest() {
 	utils.UnsetIsTest()
 }
 
-func testSetRequest(reqPath string, path string, params interface{}, jwt string, csrfToken string, headers map[string]string, method string, f gin.HandlerFunc) (*httptest.ResponseRecorder, *gin.Context, *gin.Engine) {
+func testSetRequest(reqPath string, pathPattern string, params interface{}, jwt string, csrfToken string, headers map[string]string, method string, f gin.HandlerFunc) (*httptest.ResponseRecorder, *gin.Context, *gin.Engine) {
 	var jsonBytes []byte
 
 	if method == "GET" {
 		v, _ := query.Values(params)
-		path = path + "?" + v.Encode()
+		reqPath = reqPath + "?" + v.Encode()
 	} else {
 		jsonBytes, _ = json.Marshal(params)
 	}
@@ -65,12 +66,14 @@ func testSetRequest(reqPath string, path string, params interface{}, jwt string,
 	c, r := gin.CreateTestContext(w)
 	switch method {
 	case "POST":
-		r.POST(path, f)
+		r.POST(pathPattern, f)
 	case "GET":
-		r.GET(path, f)
+		r.GET(pathPattern, f)
 	}
 
 	req := httptest.NewRequest(method, reqPath, bytes.NewBuffer(jsonBytes))
+
+	logrus.Infof("testSetRequest: method: %v reqPath: %v pathPattern: %v f: %v", method, reqPath, pathPattern, f)
 
 	req.Header.Set("Host", "localhost:5678")
 	if jwt != "" {

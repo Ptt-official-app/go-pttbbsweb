@@ -11,16 +11,20 @@ import (
 	"time"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 	"gopkg.in/square/go-jose.v2"
 	"gopkg.in/square/go-jose.v2/jwt"
 )
 
 func verifyJwt(c *gin.Context) (userID bbs.UUserID, err error) {
-	jwt := pttbbsapi.GetJwt(c)
+	jwt := pttbbsapi.GetJwt(c) //get jwt from access-token
+
+	if jwt == "" {
+		jwt = utils.GetCookie(c, types.ACCESS_TOKEN)
+	}
 
 	userID, clientInfoStr, err := pttbbsapi.VerifyJwt(jwt)
 	if err != nil {
@@ -36,6 +40,15 @@ func verifyJwt(c *gin.Context) (userID bbs.UUserID, err error) {
 
 	csrfToken := c.GetHeader("X-CSRFToken")
 	if len(csrfToken) == 0 {
+		return "", ErrInvalidToken
+	}
+
+	cookieCSRFToken := utils.GetCookie(c, types.CSRF_TOKEN)
+	if cookieCSRFToken == "" {
+		return "", ErrInvalidToken
+	}
+
+	if csrfToken != cookieCSRFToken {
 		return "", ErrInvalidToken
 	}
 
@@ -67,6 +80,7 @@ func createCSRFToken() (string, error) {
 }
 
 func isValidCSRFToken(raw string) bool {
+
 	tok, err := jwt.ParseSigned(raw)
 	if err != nil {
 		return false
@@ -74,10 +88,6 @@ func isValidCSRFToken(raw string) bool {
 
 	cl := &pttbbsapi.JwtClaim{}
 	if err := tok.Claims(types.CSRF_SECRET, cl); err != nil {
-		return false
-	}
-
-	if cl.Expire == nil {
 		return false
 	}
 
@@ -89,7 +99,7 @@ func isValidCSRFToken(raw string) bool {
 	return true
 }
 
-func processCSRFContent(filename string, c *gin.Context) {
+func processCSRFContent(filename string, cacheControlMaxAge int, c *gin.Context) {
 	if !isValidOriginReferer(c) {
 		processResult(c, nil, 403, ErrInvalidOrigin)
 		return
@@ -97,7 +107,6 @@ func processCSRFContent(filename string, c *gin.Context) {
 
 	file, err := os.Open(filename)
 	if err != nil {
-		logrus.Errorf("processCSRFContent: unable to open file: filename: %v", filename)
 		processResult(c, nil, 404, ErrFileNotFound)
 		return
 	}
@@ -111,14 +120,36 @@ func processCSRFContent(filename string, c *gin.Context) {
 
 	ext := filepath.Ext(filename)
 	mimeType, _ := MIME_TYPE_MAP[ext]
-	logrus.Infof("processCSRFContent: filename: %v ext: %v mimeType: %v", filename, ext, mimeType)
 
 	content := string(contentBytes)
 
-	csrfToken, err := createCSRFToken()
+	csrfToken := utils.GetCookie(c, types.CSRF_TOKEN)
+	if csrfToken == "" {
+		csrfToken, _ = createCSRFToken()
+		setCookie(c, types.CSRF_TOKEN, csrfToken, types.CSRF_TOKEN_TS_DURATION, true)
+	}
 	content = strings.Replace(content, "__CSRFTOKEN__", csrfToken, 1)
 
-	c.Header("Cache-Control", "max-age="+strconv.Itoa(types.CSRF_TOKEN_TS))
+	c.Header("Cache-Control", "max-age="+strconv.Itoa(cacheControlMaxAge))
 
 	processStringResult(c, content, mimeType)
+}
+
+func setCookie(c *gin.Context, name string, value string, expireDuration time.Duration, isHttpOnly bool) {
+	if c == nil {
+		return
+	}
+	setCookie := name + "=" + value + ";Domain=" + types.COOKIE_DOMAIN + ";Path=/;"
+	if expireDuration != 0 {
+		expires := time.Now().Add(expireDuration)
+		expiresStr := expires.Format("Mon, Jan 2 2006 15:04:05 MST")
+		setCookie += "Expires=" + expiresStr + ";"
+	}
+	if isHttpOnly {
+		setCookie += "HttpOnly;"
+	}
+
+	setCookie += "SameSite=Lax;" + types.TOKEN_COOKIE_SUFFIX
+	c.Header("Set-Cookie", setCookie)
+
 }

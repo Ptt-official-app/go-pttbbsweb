@@ -1,19 +1,15 @@
 package api
 
 import (
-	"time"
-
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
 
 func setTokenToCookie(c *gin.Context, accessToken string) {
-	if c == nil {
-		return
-	}
+	setCookie(c, types.ACCESS_TOKEN, accessToken, types.ACCESS_TOKEN_EXPIRE_TS_DURATION, true)
+}
 
-	expires := time.Now().Add(3 * 86400 * time.Second)
-
-	expiresStr := expires.Format("Mon, Jan 2 2006 15:04:05 MST")
-	c.Header("Set-Cookie", "token="+accessToken+";Expires="+expiresStr+";SameSite=Strict;"+types.ACCESS_TOKEN_COOKIE_SUFFIX)
+func loginRegisterRedirectUrl(userID bbs.UUserID, c *gin.Context) string {
+	return "/user/" + string(userID)
 }

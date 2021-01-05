@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"reflect"
+	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
@@ -30,8 +31,8 @@ func TestCollection_CreateOnly(t *testing.T) {
 	filter1["test1"] = "2"
 
 	type testUpdate struct {
-		Test1 string `json:"test1"`
-		Test3 bool   `json:"test3"`
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3"`
 	}
 	update1 := &testUpdate{Test1: "2", Test3: true}
 
@@ -105,8 +106,8 @@ func TestCollection_UpdateOneOnly(t *testing.T) {
 	defer coll.Drop()
 
 	type testUpdate struct {
-		Test1 string `json:"test1"`
-		Test3 bool   `json:"test3"`
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3"`
 	}
 
 	filter0 := make(map[string]interface{})
@@ -194,8 +195,8 @@ func TestCollection_Update(t *testing.T) {
 	defer coll.Drop()
 
 	type testUpdate struct {
-		Test1 string `json:"test1"`
-		Test3 bool   `json:"test3"`
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3"`
 	}
 
 	filter1 := make(map[string]interface{})
@@ -260,6 +261,102 @@ func TestCollection_Update(t *testing.T) {
 				t.Errorf("Collection.Update() = %v, want %v", gotR, tt.expectedR)
 			}
 		})
+	}
+}
+
+func TestCollection_Update_OmitEmpty(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	client, err := NewClient("mongodb", "localhost", 27017, "test")
+	if err != nil {
+		return
+	}
+	defer client.Close()
+
+	coll := client.Collection("test")
+	defer coll.Drop()
+
+	type testUpdate struct {
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3,omitempty"`
+	}
+
+	filter1 := make(map[string]interface{})
+	filter1["test1"] = "3"
+
+	update1 := &testUpdate{Test1: "3", Test3: true}
+
+	expected1 := &mongo.UpdateResult{}
+	expected1.MatchedCount = 0
+	expected1.ModifiedCount = 0
+	expected1.UpsertedCount = 1
+
+	filter2 := make(map[string]interface{})
+	filter2["test1"] = "3"
+
+	update2 := &testUpdate{Test1: "3"}
+
+	expected2 := &mongo.UpdateResult{}
+	expected2.MatchedCount = 1
+	expected2.ModifiedCount = 0
+	expected2.UpsertedCount = 0
+
+	type fields struct {
+		coll *Collection
+	}
+	type args struct {
+		filter interface{}
+		update interface{}
+	}
+	tests := []struct {
+		name      string
+		fields    fields
+		args      args
+		expectedR *mongo.UpdateResult
+		expected  *testUpdate
+		wantErr   bool
+	}{
+		// TODO: Add test cases.
+		{
+			fields:    fields{coll: coll},
+			args:      args{filter: filter1, update: update1},
+			expectedR: expected1,
+			expected:  update1,
+		},
+		{
+			fields:    fields{coll: coll},
+			args:      args{filter: filter2, update: update2},
+			expectedR: expected2,
+			expected:  update1,
+		},
+	}
+
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			c := tt.fields.coll
+
+			gotR, err := c.Update(tt.args.filter, tt.args.update)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Collection.Update() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			tt.expectedR.UpsertedID = gotR.UpsertedID
+			if !reflect.DeepEqual(gotR, tt.expectedR) {
+				t.Errorf("Collection.Update() = %v, want %v", gotR, tt.expectedR)
+			}
+
+			ret := &testUpdate{}
+
+			_ = c.FindOne(tt.args.filter, ret, nil)
+
+			testutil.TDeepEqual(t, "ret", ret, tt.expected)
+		})
+		wg.Wait()
 	}
 }
 
@@ -734,8 +831,8 @@ func TestCollection_BulkCreateOnly(t *testing.T) {
 	filter2["test1"] = "3"
 
 	type testUpdate struct {
-		Test1 string `json:"test1"`
-		Test3 bool   `json:"test3"`
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3"`
 	}
 	update1 := &testUpdate{Test1: "2", Test3: true}
 	update2 := &testUpdate{Test1: "3", Test3: false}
@@ -811,8 +908,8 @@ func TestCollection_BulkUpdateOneOnly(t *testing.T) {
 	filter2["test1"] = "3"
 
 	type testUpdate struct {
-		Test1 string `json:"test1"`
-		Test3 bool   `json:"test3"`
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3"`
 	}
 	update1 := &testUpdate{Test1: "2", Test3: true}
 	update2 := &testUpdate{Test1: "3", Test3: false}
@@ -908,8 +1005,8 @@ func TestCollection_BulkUpdate(t *testing.T) {
 	filter2["test1"] = "3"
 
 	type testUpdate struct {
-		Test1 string `json:"test1"`
-		Test3 bool   `json:"test3"`
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3"`
 	}
 	update1 := &testUpdate{Test1: "2", Test3: true}
 	update2 := &testUpdate{Test1: "3", Test3: false}
@@ -1062,8 +1159,8 @@ func TestCollection_BulkUpdateOneOnlyNoSet(t *testing.T) {
 	filter2["test1"] = "3"
 
 	type testUpdate struct {
-		Test1 string `json:"test1"`
-		Test3 bool   `json:"test3"`
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3"`
 	}
 	update1 := bson.M{
 		"$set": &testUpdate{Test1: "2", Test3: true},
@@ -1165,8 +1262,8 @@ func TestCollection_UpdateManyOnly(t *testing.T) {
 	defer coll.Drop()
 
 	type testUpdate struct {
-		Test1 string `json:"test1"`
-		Test3 bool   `json:"test3"`
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3"`
 	}
 
 	filter0 := make(map[string]interface{})

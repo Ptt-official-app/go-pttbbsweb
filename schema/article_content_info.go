@@ -16,6 +16,8 @@ type ArticleContentInfo struct {
 	Host                string          `bson:"host"` //ip 的中文呈現, 外國則為國家.
 	BBS                 string          `bson:"bbs"`
 	ContentUpdateNanoTS types.NanoTS    `bson:"content_update_nano_ts"`
+
+	IsDeleted bool `bson:"deleted,omitempty"` //
 }
 
 var (
@@ -28,7 +30,6 @@ func GetArticleContentInfo(bboardID bbs.BBoardID, articleID bbs.ArticleID) (cont
 	query := &ArticleQuery{
 		BBoardID:  bboardID,
 		ArticleID: articleID,
-		IsDeleted: bson.M{"$exists": false},
 	}
 
 	contentInfo = &ArticleContentInfo{}
@@ -48,7 +49,6 @@ func UpdateArticleContentInfo(bboardID bbs.BBoardID, articleID bbs.ArticleID, co
 	query := bson.M{
 		ARTICLE_BBOARD_ID_b:  bboardID,
 		ARTICLE_ARTICLE_ID_b: articleID,
-		ARTICLE_IS_DELETED_b: bson.M{"$exists": false},
 	}
 
 	r, err := Article_c.CreateOnly(query, contentInfo)

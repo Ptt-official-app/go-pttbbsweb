@@ -29,7 +29,7 @@ type Comment struct {
 	TheType      types.CommentType `bson:"type"`
 	RefIDs       []types.CommentID `bson:"refids"`
 	IsDeleted    bool              `bson:"deleted,omitempty"`
-	DeleteReason string            `bson:"delete_reason"`
+	DeleteReason string            `bson:"delete_reason,omitempty"`
 	CreateTime   types.NanoTS      `bson:"create_time_ts"`
 	Owner        bbs.UUserID       `bson:"owner"`
 	Content      [][]*types.Rune   `bson:"content"` //content in comment is colorless.
@@ -110,6 +110,10 @@ var (
 	EMPTY_COMMENT_ARTICLE_QUERY = &CommentArticleQuery{}
 )
 
+//UpdateComments
+//
+//XXX hack in updateCommentsCore:
+//    treat all the comments as non-deleted and unset IsDeleted.
 func UpdateComments(comments []*Comment, updateNanoTS types.NanoTS) (err error) {
 	if len(comments) == 0 {
 		return nil
@@ -138,8 +142,6 @@ func updateCommentsCore(comments []*Comment, updateNanoTS types.NanoTS) (err err
 			BBoardID:  each.BBoardID,
 			ArticleID: each.ArticleID,
 			CommentID: each.CommentID,
-
-			IsDeleted: bson.M{"$exists": false},
 		}
 
 		theList[idx] = &db.UpdatePair{
@@ -174,8 +176,6 @@ func updateCommentsCore(comments []*Comment, updateNanoTS types.NanoTS) (err err
 					COMMENT_UPDATE_NANO_TS_b: bson.M{
 						"$exists": false,
 					},
-
-					COMMENT_IS_DELETED_b: bson.M{"$exists": false},
 				},
 				bson.M{
 					COMMENT_BBOARD_ID_b:  origFilter.BBoardID,
@@ -184,16 +184,22 @@ func updateCommentsCore(comments []*Comment, updateNanoTS types.NanoTS) (err err
 					COMMENT_UPDATE_NANO_TS_b: bson.M{
 						"$lt": updateNanoTS,
 					},
-
-					COMMENT_IS_DELETED_b: bson.M{"$exists": false},
 				},
 			},
 		}
 
 		each.Filter = filter
+		origUpdate := each.Update
+		each.Update = bson.M{
+			"$set": origUpdate,
+			"$unset": bson.M{
+				COMMENT_IS_DELETED_b:    true,
+				COMMENT_DELETE_REASON_b: true,
+			},
+		}
 		updateComments = append(updateComments, each)
 	}
-	r, err = Comment_c.BulkUpdateOneOnly(updateComments)
+	r, err = Comment_c.BulkUpdateOneOnlyNoSet(updateComments)
 	//logrus.Infof("updateCommentsCore: after BulkUpdateOneOnly: len: %v r: %v e: %v", len(theList), r, err)
 
 	return err

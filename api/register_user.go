@@ -12,20 +12,19 @@ import (
 const REGISTER_USER_R = "/account/register"
 
 type RegisterUserParams struct {
-	ClientID     string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
+	ClientID     string `json:"client_id" form:"client_id"`
+	ClientSecret string `json:"client_secret" form:"client_secret"`
 
-	Username        string `json:"username"`
-	Password        string `json:"password"`
-	PasswordConfirm string `json:"password_confirm"`
+	Username        string `json:"username" form:"username"`
+	Password        string `json:"password" form:"password"`
+	PasswordConfirm string `json:"password_confirm" form:"password_confirm"`
 
-	Over18 bool `json:"over18,omitempty"`
+	Over18 bool `json:"over18,omitempty" form:"over18,omitempty"`
 
-	Email    string `json:"email,omitempty"`
-	Nickname string `json:"nickname,omitempty"`
-	Realname string `json:"realname,omitempty"`
-	Career   string `json:"career,omitempty"`
-	Address  string `json:"address,omitempty"`
+	Email    string `json:"email,omitempty" form:"email,omitempty"`
+	Nickname string `json:"nickname,omitempty" form:"nickname,omitempty"`
+	Realname string `json:"realname,omitempty" form:"realname,omitempty"`
+	Career   string `json:"career,omitempty" form:"career,omitempty"`
 }
 
 func NewRegisterUserParams() *RegisterUserParams {
@@ -40,7 +39,7 @@ type RegisterUserResult struct {
 
 func RegisterUserWrapper(c *gin.Context) {
 	params := NewRegisterUserParams()
-	JSON(RegisterUser, params, c)
+	FormJSON(RegisterUser, params, c)
 }
 
 func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
@@ -72,7 +71,6 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 		Nickname: types.Utf8ToBig5(theParams.Nickname),
 		Realname: types.Utf8ToBig5(theParams.Realname),
 		Career:   types.Utf8ToBig5(theParams.Career),
-		Address:  types.Utf8ToBig5(theParams.Address),
 	}
 	var result_b *pttbbsapi.RegisterResult
 

@@ -37,7 +37,6 @@ func GetArticleSummary(bboardID bbs.BBoardID, articleID bbs.ArticleID) (result *
 	query := &ArticleQuery{
 		BBoardID:  bboardID,
 		ArticleID: articleID,
-		IsDeleted: bson.M{"$exists": false},
 	}
 
 	result = &ArticleSummary{}
@@ -86,7 +85,6 @@ func UpdateArticleSummaries(articleSummaries []*ArticleSummary, updateNanoTS typ
 		query := &ArticleQuery{
 			BBoardID:  each.BBoardID,
 			ArticleID: each.ArticleID,
-			IsDeleted: bson.M{"$exists": false},
 		}
 
 		theList[idx] = &db.UpdatePair{

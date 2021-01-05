@@ -11,6 +11,8 @@ type CommentSummary struct {
 	CommentID    types.CommentID `bson:"cid"`
 	CreateTime   types.NanoTS    `bson:"create_time_ts"`
 	UpdateNanoTS types.NanoTS    `bson:"update_nano_ts"`
+
+	IsDeleted bool `bson:"deleted,omitempty"`
 }
 
 var (
@@ -28,10 +30,6 @@ func GetCommentSummaries(bboardID bbs.BBoardID, articleID bbs.ArticleID, startNa
 		COMMENT_CREATE_TIME_b: bson.M{
 			"$gte": startNanoTS,
 			"$lt":  endNanoTS,
-		},
-
-		COMMENT_IS_DELETED_b: bson.M{
-			"$exists": false,
 		},
 	}
 
@@ -75,16 +73,20 @@ func updateCommentSummariesCore(bboardID bbs.BBoardID, articleID bbs.ArticleID, 
 			COMMENT_UPDATE_NANO_TS_b: bson.M{
 				"$lt": updateNanoTS,
 			},
-
-			COMMENT_IS_DELETED_b: bson.M{"$exists": false},
 		}
 		theList[idx] = &db.UpdatePair{
 			Filter: query,
-			Update: each,
+			Update: bson.M{
+				"$set": each,
+				"$unset": bson.M{
+					COMMENT_IS_DELETED_b:    true,
+					COMMENT_DELETE_REASON_b: true,
+				},
+			},
 		}
 	}
 
-	_, err = Comment_c.BulkUpdateOneOnly(theList)
+	_, err = Comment_c.BulkUpdateOneOnlyNoSet(theList)
 
 	return err
 }
