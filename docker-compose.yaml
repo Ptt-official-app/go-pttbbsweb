@@ -24,4 +24,5 @@ services:
       - "127.0.0.1:3457:3457"
     volumes:
       - ${STATIC_DIR}:/static
+      - ${ETC}:/etc/go-openbbsmiddleware
     restart: always
