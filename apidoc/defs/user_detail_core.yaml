@@ -149,7 +149,7 @@ email_verified:
   type: string
   description: email 認證的資訊
 email_verified_ts:
-  type number
+  type: number
   description: email 認證資訊的時間
 twofactor_enabled:
   type: boolean
