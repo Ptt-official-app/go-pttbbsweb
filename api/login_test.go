@@ -16,15 +16,15 @@ func TestLogin(t *testing.T) {
 
 	defer schema.AccessToken_c.Drop()
 
-	params := &LoginParams{
+	params0 := &LoginParams{
 		ClientID:     "default_client_id",
 		ClientSecret: "test_client_secret",
 		Username:     "testuserid1",
 		Password:     "testpasswd",
 	}
 
-	expected := &LoginResult{TokenType: "bearer", UserID: "testuserid1"}
-	expectedDB := []*schema.AccessToken{{UserID: "testuserid1"}}
+	expected0 := &LoginResult{TokenType: "bearer", UserID: "testuserid1"}
+	expectedDB0 := []*schema.AccessToken{{UserID: "testuserid1"}}
 
 	type args struct {
 		remoteAddr string
@@ -34,15 +34,15 @@ func TestLogin(t *testing.T) {
 	tests := []struct {
 		name       string
 		args       args
-		expected   interface{}
+		expected   *LoginResult
 		expectedDB []*schema.AccessToken
 		wantErr    bool
 	}{
 		// TODO: Add test cases.
 		{
-			args:       args{remoteAddr: "localhost", params: params},
-			expected:   expected,
-			expectedDB: expectedDB,
+			args:       args{remoteAddr: "localhost", params: params0},
+			expected:   expected0,
+			expectedDB: expectedDB0,
 		},
 	}
 	for _, tt := range tests {
@@ -53,25 +53,29 @@ func TestLogin(t *testing.T) {
 				return
 			}
 
-			query := make(map[string]interface{})
-			query[schema.ACCESS_TOKEN_USER_ID_b] = "testuserid1"
+			/*
+				query := make(map[string]interface{})
+				query[schema.ACCESS_TOKEN_USER_ID_b] = "testuserid1"
 
-			var ret []*schema.AccessToken
-			err = schema.AccessToken_c.Find(query, 0, &ret, nil)
-			logrus.Infof("api.TestLogin: after Find: query: %v ret: %v e: %v", query, ret, err)
-			if err != nil {
-				t.Errorf("Login(): unable to find: e: %v", err)
-			}
-			for _, each := range ret {
-				each.UpdateNanoTS = 0
-			}
-			if len(ret) < 1 {
-				t.Errorf("Login(): unable to find access-token")
-				return
-			}
-			expected.AccessToken = ret[0].AccessToken
+				var ret []*schema.AccessToken
+				err = schema.AccessToken_c.Find(query, 0, &ret, nil)
+				logrus.Infof("api.TestLogin: after Find: query: %v ret: %v e: %v", query, ret, err)
+				if err != nil {
+					t.Errorf("Login(): unable to find: e: %v", err)
+				}
+				for _, each := range ret {
+					each.UpdateNanoTS = 0
+				}
+				if len(ret) < 1 {
+					t.Errorf("Login(): unable to find access-token")
+					return
+				}
+				expected.AccessToken = ret[0].AccessToken
+			*/
+			result := got.(*LoginResult)
+			tt.expected.AccessToken = result.AccessToken
 
-			if !reflect.DeepEqual(got, tt.expected) {
+			if !reflect.DeepEqual(result, tt.expected) {
 				t.Errorf("Login() = %v, want %v", got, tt.expected)
 			}
 		})

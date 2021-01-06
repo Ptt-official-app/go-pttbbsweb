@@ -15,10 +15,13 @@ func serializeAccessTokenAndUpdateDB(userID bbs.UUserID, jwt string, updateNanoT
 		return accessToken, nil
 	}
 
-	err = schema.UpdateAccessToken(accessToken)
-	if err != nil {
-		return nil, err
-	}
+	//skip update-access-token for now.
+	/*
+		err = schema.UpdateAccessToken(accessToken)
+		if err != nil {
+			return nil, err
+		}
+	*/
 
 	return accessToken, nil
 }
