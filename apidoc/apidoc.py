@@ -106,6 +106,15 @@ def _get_user_summary(user_id):
     return ''
 
 
+@app.route(_with_app_prefix('/user/<user_id>/updatepasswd'), methods=['POST'])
+def _change_passwd(user_id):
+    """
+    swagger_from_file: apidoc/change_passwd.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/user/<user_id>/articles'))
 def _load_user_articles(user_id):
     """
