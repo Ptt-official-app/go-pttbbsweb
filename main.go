@@ -56,6 +56,7 @@ func initGin() (*gin.Engine, error) {
 	router.GET(withPrefix(api.GET_USER_INFO_R), api.GetUserInfoWrapper)
 	router.GET(withPrefix(api.LOAD_FAVORITE_BOARDS_R), api.LoadFavoriteBoardsWrapper)
 	router.GET(withPrefix(api.LOAD_USER_ARTICLES_R), api.LoadUserArticlesWrapper)
+	router.POST(withPrefix(api.CHANGE_PASSWD_R), api.ChangePasswdWrapper)
 
 	//comments
 	router.GET(withPrefix(api.LOAD_ARTICLE_FIRSTCOMMENTS_R), api.LoadArticleFirstCommentsWrapper)
@@ -65,6 +66,7 @@ func initGin() (*gin.Engine, error) {
 	router.GET("/", api.IndexHtmlWrapper)
 	router.GET("/index.html", api.IndexHtmlWrapper)
 	router.GET("/user/:userID", api.UserHtmlWrapper)
+	router.GET("/user/:userID/resetpassword", api.UserChangePasswdHtmlWrapper)
 
 	router.Static("/static", filepath.Join(types.STATIC_DIR, "static"))
 

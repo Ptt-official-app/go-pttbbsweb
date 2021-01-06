@@ -25,6 +25,13 @@ func UserHtmlWrapper(c *gin.Context) {
 	processCSRFContent(filename, maxAge, c)
 }
 
+func UserChangePasswdHtmlWrapper(c *gin.Context) {
+	filename := filepath.Join(types.STATIC_DIR, "change-passwd.html")
+
+	maxAge := htmlMaxAge()
+	processCSRFContent(filename, maxAge, c)
+}
+
 func htmlMaxAge() (maxAge int) {
 	maxAge = HTML_CACHE_CONTROL_TS
 	if maxAge < types.CSRF_TOKEN_TS/4 {

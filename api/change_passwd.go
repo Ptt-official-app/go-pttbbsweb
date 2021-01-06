@@ -15,7 +15,7 @@ type ChangePasswdParams struct {
 	ClientID     string `json:"client_id" form:"client_id"`
 	ClientSecret string `json:"client_secret" form:"client_secret"`
 
-	OrigPassword    string `json:"orig_password"`
+	OrigPassword    string `json:"orig_password" form:"orig_password"`
 	Password        string `json:"password" form:"password"`
 	PasswordConfirm string `json:"password_confirm" form:"password_confirm"`
 }
@@ -77,7 +77,7 @@ func ChangePasswd(remoteAddr string, userID bbs.UUserID, params interface{}, pat
 	urlMap["uid"] = string(thePath.UserID)
 	url := utils.MergeURL(urlMap, pttbbsapi.CHANGE_PASSWD_R)
 
-	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
+	statusCode, err = utils.BackendPost(c, url, theParams_b, nil, &result_b)
 	if err != nil {
 		return nil, statusCode, err
 	}
