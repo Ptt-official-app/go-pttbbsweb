@@ -1,5 +1,5 @@
 info:
-  version: '0.6.1'
+  version: '0.7.0'
   title: openbbs-middleware
 definitions:
   !include defs/access_token.yaml
@@ -29,3 +29,4 @@ definitions:
   !include defs/user_list.yaml
   !include defs/user_list_summary.yaml
   !include defs/user_summary.yaml
+  !include defs/change_passwd_params.yaml
