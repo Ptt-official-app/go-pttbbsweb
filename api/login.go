@@ -65,15 +65,15 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 
 	//update db
 	updateNanoTS := types.NowNanoTS()
-	accessToken, err := serializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt, updateNanoTS)
+	accessToken_db, err := serializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}
 
 	//result
-	result = NewLoginResult(accessToken)
+	result = NewLoginResult(accessToken_db)
 
-	setTokenToCookie(c, accessToken.AccessToken)
+	setTokenToCookie(c, accessToken_db.AccessToken)
 
 	return result, 200, nil
 }

@@ -14,7 +14,7 @@ func TestRegisterUser(t *testing.T) {
 
 	defer schema.AccessToken_c.Drop()
 
-	params := &RegisterUserParams{
+	params0 := &RegisterUserParams{
 		ClientID:        "default_client_id",
 		ClientSecret:    "test_client_secret",
 		Username:        "testuserid1",
@@ -22,8 +22,8 @@ func TestRegisterUser(t *testing.T) {
 		PasswordConfirm: "testpasswd",
 	}
 
-	expected := &RegisterUserResult{TokenType: "bearer", UserID: "testuserid1"}
-	expectedDB := []*schema.AccessToken{{UserID: "testuserid1"}}
+	expected0 := &RegisterUserResult{TokenType: "bearer", UserID: "testuserid1"}
+	expectedDB0 := []*schema.AccessToken{{UserID: "testuserid1"}}
 
 	type args struct {
 		remoteAddr string
@@ -33,17 +33,17 @@ func TestRegisterUser(t *testing.T) {
 	tests := []struct {
 		name               string
 		args               args
-		expectedResult     interface{}
+		expectedResult     *RegisterUserResult
 		expectedStatusCode int
 		expectedDB         []*schema.AccessToken
 		wantErr            bool
 	}{
 		// TODO: Add test cases.
 		{
-			args:               args{remoteAddr: "localhost", params: params},
-			expectedResult:     expected,
+			args:               args{remoteAddr: "localhost", params: params0},
+			expectedResult:     expected0,
 			expectedStatusCode: 200,
-			expectedDB:         expectedDB,
+			expectedDB:         expectedDB0,
 		},
 	}
 	for _, tt := range tests {
@@ -52,26 +52,32 @@ func TestRegisterUser(t *testing.T) {
 			if (err != nil) != tt.wantErr {
 				t.Errorf("RegisterUser() error = %v, wantErr %v", err, tt.wantErr)
 				return
+
 			}
 
-			query := make(map[string]string)
-			query["user_id"] = "testuserid1"
+			/*
+				query := make(map[string]string)
+				query["user_id"] = "testuserid1"
 
-			var ret []*schema.AccessToken
-			err = schema.AccessToken_c.Find(query, 0, &ret, nil)
-			if err != nil {
-				t.Errorf("Login(): unable to find: e: %v", err)
-			}
-			for _, each := range ret {
-				each.UpdateNanoTS = 0
-			}
-			if len(ret) < 1 {
-				t.Errorf("RegisterUser(): unable to find access-token.")
-				return
-			}
-			expected.AccessToken = ret[0].AccessToken
+				var ret []*schema.AccessToken
+				err = schema.AccessToken_c.Find(query, 0, &ret, nil)
+				if err != nil {
+					t.Errorf("Login(): unable to find: e: %v", err)
+				}
+				for _, each := range ret {
+					each.UpdateNanoTS = 0
+				}
+				if len(ret) < 1 {
+					t.Errorf("RegisterUser(): unable to find access-token.")
+					return
+				}
+				expected.AccessToken = ret[0].AccessToken
+			*/
 
-			if !reflect.DeepEqual(gotResult, tt.expectedResult) {
+			result := gotResult.(*RegisterUserResult)
+			tt.expectedResult.AccessToken = result.AccessToken
+
+			if !reflect.DeepEqual(result, tt.expectedResult) {
 				t.Errorf("RegisterUser() gotResult = %v, want %v", gotResult, tt.expectedResult)
 			}
 			if gotStatusCode != tt.expectedStatusCode {

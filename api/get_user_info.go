@@ -114,23 +114,11 @@ func GetUserInfo(remoteAddr string, userID bbs.UUserID, params interface{}, path
 func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context) (result *GetUserInfoResult, statusCode int, err error) {
 	updateNanoTS := types.NowNanoTS()
 
-	userInfoSummary_db, err := schema.GetUserInfoSummary(queryUserID)
-	if err != nil {
-		return nil, 500, err
-	}
-
-	if userInfoSummary_db != nil {
-		if userInfoSummary_db.IsDeleted {
-			return nil, 404, ErrAlreadyDeleted
-		}
-	}
-
 	//get backend data
-
 	var result_b pttbbsapi.GetUserResult
 
 	urlMap := make(map[string]string)
-	urlMap["uid"] = string(userID)
+	urlMap["uid"] = string(queryUserID)
 	url := utils.MergeURL(urlMap, pttbbsapi.GET_USER_R)
 
 	statusCode, err = utils.BackendGet(c, url, nil, nil, &result_b)
@@ -143,7 +131,7 @@ func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context)
 		return nil, 500, err
 	}
 
-	userNewInfo, err := schema.GetUserNewInfo(userID)
+	userNewInfo, err := schema.GetUserNewInfo(queryUserID)
 	if err != nil {
 		return nil, 500, err
 	}

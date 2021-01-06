@@ -9,43 +9,47 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const REGISTER_USER_R = "/account/register"
+const CHANGE_PASSWD_R = "/user/:user_id/updatepasswd"
 
-type RegisterUserParams struct {
+type ChangePasswdParams struct {
 	ClientID     string `json:"client_id" form:"client_id"`
 	ClientSecret string `json:"client_secret" form:"client_secret"`
 
-	Username        string `json:"username" form:"username"`
+	OrigPassword    string `json:"orig_password"`
 	Password        string `json:"password" form:"password"`
 	PasswordConfirm string `json:"password_confirm" form:"password_confirm"`
-
-	Over18 bool `json:"over18,omitempty" form:"over18,omitempty"`
-
-	Email    string `json:"email,omitempty" form:"email,omitempty"`
-	Nickname string `json:"nickname,omitempty" form:"nickname,omitempty"`
-	Realname string `json:"realname,omitempty" form:"realname,omitempty"`
-	Career   string `json:"career,omitempty" form:"career,omitempty"`
 }
 
-func NewRegisterUserParams() *RegisterUserParams {
-	return &RegisterUserParams{}
+type ChangePasswdPath struct {
+	UserID bbs.UUserID `uri:"user_id"`
 }
 
-type RegisterUserResult struct {
+type ChangePasswdResult struct {
 	UserID      bbs.UUserID `json:"user_id"`
 	AccessToken string      `json:"access_token"`
 	TokenType   string      `json:"token_type"`
 }
 
-func RegisterUserWrapper(c *gin.Context) {
-	params := NewRegisterUserParams()
-	FormJSON(RegisterUser, params, c)
+func ChangePasswdWrapper(c *gin.Context) {
+	params := &ChangePasswdParams{}
+	path := &ChangePasswdPath{}
+	LoginRequiredPathJSON(ChangePasswd, params, path, c)
 }
 
-func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-	theParams, ok := params.(*RegisterUserParams)
+func ChangePasswd(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+
+	theParams, ok := params.(*ChangePasswdParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
+	}
+
+	thePath, ok := path.(*ChangePasswdPath)
+	if !ok {
+		return nil, 400, ErrInvalidPath
+	}
+
+	if thePath.UserID != userID {
+		return nil, 403, ErrInvalidUser
 	}
 
 	if theParams.Password != theParams.PasswordConfirm {
@@ -60,23 +64,21 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 
 	clientInfo := getClientInfo(client)
 
-	//backend register
-	theParams_b := &pttbbsapi.RegisterParams{
+	// get backend data
+	theParams_b := &pttbbsapi.ChangePasswdParams{
 		ClientInfo: clientInfo,
-		Username:   theParams.Username,
+		OrigPasswd: theParams.OrigPassword,
 		Passwd:     theParams.Password,
-		Over18:     theParams.Over18,
-
-		Email:    theParams.Email,
-		Nickname: types.Utf8ToBig5(theParams.Nickname),
-		Realname: types.Utf8ToBig5(theParams.Realname),
-		Career:   types.Utf8ToBig5(theParams.Career),
 	}
-	var result_b *pttbbsapi.RegisterResult
 
-	url := pttbbsapi.REGISTER_R
-	statusCode, err = utils.BackendPost(c, url, theParams_b, nil, &result_b)
-	if err != nil || statusCode != 200 {
+	var result_b *pttbbsapi.ChangePasswdResult
+
+	urlMap := make(map[string]string)
+	urlMap["uid"] = string(thePath.UserID)
+	url := utils.MergeURL(urlMap, pttbbsapi.CHANGE_PASSWD_R)
+
+	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
+	if err != nil {
 		return nil, statusCode, err
 	}
 
@@ -86,17 +88,16 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 	if err != nil {
 		return nil, 500, err
 	}
-
 	//result
-	result = NewRegisterUserResult(accessToken_db)
+	result = NewChangePasswdResult(accessToken_db)
 
 	setTokenToCookie(c, accessToken_db.AccessToken)
 
 	return result, 200, nil
 }
 
-func NewRegisterUserResult(accessToken_db *schema.AccessToken) *RegisterUserResult {
-	return &RegisterUserResult{
+func NewChangePasswdResult(accessToken_db *schema.AccessToken) *ChangePasswdResult {
+	return &ChangePasswdResult{
 		UserID:      accessToken_db.UserID,
 		AccessToken: accessToken_db.AccessToken,
 		TokenType:   "bearer",

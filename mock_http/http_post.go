@@ -24,6 +24,8 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(GetArticleDetail2(data.(*api.GetArticleParams)), result)
 	case "/users/SYSOP/information":
 		return parseResult(GetUser(), result)
+	case "/users/SYSOP/updatepasswd":
+		return parseResult(ChangePasswd(data.(*api.ChangePasswdParams)), result)
 	default:
 		return 500, ErrURL
 	}
