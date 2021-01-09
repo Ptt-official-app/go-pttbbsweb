@@ -7,7 +7,7 @@ import (
 )
 
 func setTokenToCookie(c *gin.Context, accessToken string) {
-	setCookie(c, types.ACCESS_TOKEN, accessToken, types.ACCESS_TOKEN_EXPIRE_TS_DURATION, true)
+	setCookie(c, types.ACCESS_TOKEN_NAME, accessToken, types.ACCESS_TOKEN_EXPIRE_TS_DURATION, true)
 }
 
 func loginRegisterRedirectUrl(userID bbs.UUserID, c *gin.Context) string {

@@ -1,29 +1,16 @@
 package main
 
 import (
-	"flag"
 	"path/filepath"
-	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
-	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-	jww "github.com/spf13/jwalterweatherman"
-	"github.com/spf13/viper"
-)
-
-var (
-	apiPrefix = "/api"
 )
 
 func withPrefix(path string) string {
-	return apiPrefix + path
+	return types.API_PREFIX + path
 }
 
 func initGin() (*gin.Engine, error) {
@@ -57,16 +44,23 @@ func initGin() (*gin.Engine, error) {
 	router.GET(withPrefix(api.LOAD_FAVORITE_BOARDS_R), api.LoadFavoriteBoardsWrapper)
 	router.GET(withPrefix(api.LOAD_USER_ARTICLES_R), api.LoadUserArticlesWrapper)
 	router.POST(withPrefix(api.CHANGE_PASSWD_R), api.ChangePasswdWrapper)
+	router.POST(withPrefix(api.ATTEMPT_CHANGE_EMAIL_R), api.AttemptChangeEmailWrapper)
+	router.POST(withPrefix(api.CHANGE_EMAIL_R), api.ChangeEmailWrapper)
+	router.POST(withPrefix(api.ATTEMPT_SET_ID_EMAIL_R), api.AttemptSetIDEmailWrapper)
+	router.POST(withPrefix(api.SET_ID_EMAIL_R), api.SetIDEmailWrapper)
 
 	//comments
 	router.GET(withPrefix(api.LOAD_ARTICLE_FIRSTCOMMENTS_R), api.LoadArticleFirstCommentsWrapper)
 	router.GET(withPrefix(api.LOAD_ARTICLE_COMMENTS_R), api.LoadArticleCommentsWrapper)
 	router.GET(withPrefix(api.LOAD_USER_COMMENTS_R), api.LoadUserCommentsWrapper)
 
+	//html
 	router.GET("/", api.IndexHtmlWrapper)
-	router.GET("/index.html", api.IndexHtmlWrapper)
-	router.GET("/user/:userID", api.UserHtmlWrapper)
-	router.GET("/user/:userID/resetpassword", api.UserChangePasswdHtmlWrapper)
+	router.GET(api.INDEX_HTML_R, api.IndexHtmlWrapper)
+	router.GET(api.USER_HTML_R, api.UserHtmlWrapper)
+	router.GET(api.USER_CHANGE_PASSWD_HTML_R, api.UserChangePasswdHtmlWrapper)
+	router.GET(api.USER_CHANGE_EMAIL_HTML_R, api.UserChangeEmailHtmlWrapper)
+	router.GET(api.USER_SET_ID_EMAIL_HTML_R, api.UserSetIDEmailHtmlWrapper)
 
 	router.Static("/static", filepath.Join(types.STATIC_DIR, "static"))
 
@@ -84,83 +78,6 @@ func initGin() (*gin.Engine, error) {
 	}
 
 	return router, nil
-}
-
-//Params
-//      filename: ini filename
-//
-//Return
-//      error: err
-func initAllConfig(filename string) error {
-
-	filenameList := strings.Split(filename, ".")
-	if len(filenameList) == 1 {
-		return ErrInvalidIni
-	}
-
-	filenamePrefix := strings.Join(filenameList[:len(filenameList)-1], ".")
-	filenamePostfix := filenameList[len(filenameList)-1]
-	viper.SetConfigName(filenamePrefix)
-	viper.SetConfigType(filenamePostfix)
-	viper.AddConfigPath("/etc/go-openbbsmiddleware")
-	viper.AddConfigPath(".")
-	err := viper.ReadInConfig()
-	if err != nil {
-		return err
-	}
-
-	log.Debugf("viper keys: %v", viper.AllKeys())
-
-	err = types.InitConfig()
-	if err != nil {
-		return err
-	}
-
-	err = db.InitConfig()
-	if err != nil {
-		return err
-	}
-
-	err = schema.InitConfig()
-	if err != nil {
-		return err
-	}
-
-	err = pttbbsapi.InitConfig()
-	if err != nil {
-		return err
-	}
-
-	err = pttbbstypes.InitConfig()
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func initMain() error {
-	jww.SetLogThreshold(jww.LevelDebug)
-	jww.SetStdoutThreshold(jww.LevelDebug)
-	log.SetLevel(log.InfoLevel)
-
-	filename := ""
-	flag.StringVar(&filename, "ini", "config.ini", "ini filename")
-	flag.Parse()
-
-	err := initAllConfig(filename)
-	if err != nil {
-		return err
-	}
-
-	err = schema.Init()
-	if err != nil {
-		return err
-	}
-
-	queue.Init()
-
-	return nil
 }
 
 func main() {

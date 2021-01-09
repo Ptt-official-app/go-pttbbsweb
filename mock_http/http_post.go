@@ -24,8 +24,18 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(GetArticleDetail2(data.(*api.GetArticleParams)), result)
 	case "/users/SYSOP/information":
 		return parseResult(GetUser(), result)
-	case "/users/SYSOP/updatepasswd":
+	case "/users/SYSOP/changepasswd":
 		return parseResult(ChangePasswd(data.(*api.ChangePasswdParams)), result)
+	case "/users/SYSOP/attemptchangeemail":
+		return parseResult(AttemptChangeEmail(data.(*api.AttemptChangeEmailParams)), result)
+	case "/users/SYSOP/changeemail":
+		return parseResult(ChangeEmail(data.(*api.ChangeEmailParams)), result)
+	case "/users/SYSOP/attemptsetidemail":
+		return parseResult(AttemptSetIDEmail(data.(*api.AttemptSetIDEmailParams)), result)
+	case "/users/SYSOP/setidemail":
+		return parseResult(SetIDEmail(data.(*api.SetIDEmailParams)), result)
+	case "/emailtoken/info":
+		return parseResult(GetEmailTokenInfo(data.(*api.GetEmailTokenInfoParams)), result)
 	default:
 		return 500, ErrURL
 	}

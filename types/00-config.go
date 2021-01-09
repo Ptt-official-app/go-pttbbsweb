@@ -9,11 +9,16 @@ import (
 var (
 	SERVICE_MODE = DEV //can be DEV, PRODUCTION, INFO, DEBUG
 
-	HTTP_HOST      = "localhost:3457"            //serving http-host
-	URL_PREFIX     = "http://localhost:3457/bbs" //advertising url-prefix
-	BACKEND_PREFIX = "http://localhost:3456/v1"  //backend url-prefix
+	HTTP_HOST       = "localhost:3457"            //serving http-host
+	URL_PREFIX      = "http://localhost:3457/bbs" //advertising url-prefix
+	BACKEND_PREFIX  = "http://localhost:3456/v1"  //backend url-prefix
+	FRONTEND_PREFIX = "http://localhost:3457"     //frontend-prefix, email
+	API_PREFIX      = "/api"                      //api-prefix
 
 	PTTSYSOP = bbs.UUserID("SYSOP")
+
+	BBSNAME  = "新批踢踢" /* 中文站名 */
+	BBSENAME = "PTT2" /* 英文站名 */
 
 	//web
 	STATIC_DIR           = "static"
@@ -31,9 +36,21 @@ var (
 	CSRF_TOKEN_TS          = 0
 	CSRF_TOKEN_TS_DURATION = time.Duration(CSRF_TOKEN_TS) * time.Second
 
-	ACCESS_TOKEN                    = "token"
+	ACCESS_TOKEN_NAME               = "token" //access-token-name in cookie
 	ACCESS_TOKEN_EXPIRE_TS          = 86400
 	ACCESS_TOKEN_EXPIRE_TS_DURATION = time.Duration(ACCESS_TOKEN_EXPIRE_TS) * time.Second
+
+	//email
+	EMAIL_TOKEN_NAME = "token" //email-token in email-url
+
+	EMAIL_FROM   = "noreply@localhost"
+	EMAIL_SERVER = "localhost:587"
+
+	EMAILTOKEN_TEMPLATE   = "/etc/go-openbbsmiddleware/emailtoken.template"
+	IDEMAILTOKEN_TEMPLATE = "/etc/go-openbbsmiddleware/idemailtoken.template"
+
+	EMAILTOKEN_TEMPLATE_CONTENT   = "__USER__, __URL__"
+	IDEMAILTOKEN_TEMPLATE_CONTENT = "__USER__, __URL__"
 
 	//big5
 	BIG5_TO_UTF8 = "types/uao250-b2u.big5.txt"

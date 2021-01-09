@@ -5,6 +5,7 @@ import (
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -71,6 +72,9 @@ type UserDetail struct {
 
 	IsDeleted    bool         `bson:"deleted,omitempty"`
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
+
+	UserLevel2    ptttype.PERM2 `bson:"perm2"`
+	UpdateNanoTS2 types.NanoTS  `bson:"update_nano_ts2"`
 }
 
 var (
@@ -79,6 +83,8 @@ var (
 )
 
 func NewUserDetail(user_b pttbbsapi.GetUserResult, updateNanoTS types.NanoTS) (user *UserDetail) {
+
+	logrus.Infof("NewUserDetail: user_b: %v userlevel2: %v updateTS2: %v", user_b, user_b.UserLevel2, user_b.UpdateTS2)
 
 	return &UserDetail{
 		UserID:   user_b.UUserID,
@@ -142,6 +148,9 @@ func NewUserDetail(user_b pttbbsapi.GetUserResult, updateNanoTS types.NanoTS) (u
 		TimeViolateLaw:    types.Time4ToNanoTS(user_b.TimeViolateLaw),
 
 		UpdateNanoTS: updateNanoTS,
+
+		UserLevel2:    user_b.UserLevel2,
+		UpdateNanoTS2: types.Time4ToNanoTS(user_b.UpdateTS2),
 	}
 }
 

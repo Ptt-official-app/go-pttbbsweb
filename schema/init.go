@@ -101,6 +101,24 @@ func Init() (err error) {
 	//UserReject
 	UserReject_c = client.Collection("user_reject")
 
+	//userIDEmail
+	UserIDEmail_c = client.Collection("user_id_email")
+	keys = &bson.D{
+		{Key: USER_ID_EMAIL_USER_ID_b, Value: 1},
+	}
+	err = UserIDEmail_c.CreateUniqueIndex(keys)
+	if err != nil {
+		return err
+	}
+
+	keys = &bson.D{
+		{Key: USER_ID_EMAIL_ID_EMAIL_b, Value: 1},
+	}
+	err = UserIDEmail_c.CreateUniqueIndex(keys)
+	if err != nil {
+		return err
+	}
+
 	//assert-all-fields
 	err = assertAllFields()
 	if err != nil {

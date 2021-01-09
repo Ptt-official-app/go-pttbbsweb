@@ -1,6 +1,8 @@
 package types
 
 import (
+	"io/ioutil"
+	"strings"
 	"time"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/config_util"
@@ -11,7 +13,10 @@ const configPrefix = "go-openbbsmiddleware:types"
 func InitConfig() (err error) {
 	config()
 
-	postConfig()
+	err = postConfig()
+	if err != nil {
+		return err
+	}
 
 	err = initBig5()
 	if err != nil {
@@ -40,12 +45,31 @@ func setIntConfig(idx string, orig int) int {
 	return config_util.SetIntConfig(configPrefix, idx, orig)
 }
 
-func postConfig() {
-	setTimeLocation(TIME_LOCATION)
-	setAllowOrigins(ALLOW_ORIGINS)
-	setBlockedReferers(BLOCKED_REFERERS)
-	setCSRFTokenTS(CSRF_TOKEN_TS)
-	setAccessTokenExpireTS(ACCESS_TOKEN_EXPIRE_TS)
+func postConfig() (err error) {
+	if _, err = setTimeLocation(TIME_LOCATION); err != nil {
+		return err
+	}
+	if _, err = setAllowOrigins(ALLOW_ORIGINS); err != nil {
+		return err
+	}
+	if _, err = setBlockedReferers(BLOCKED_REFERERS); err != nil {
+		return err
+	}
+	if _, err = setCSRFTokenTS(CSRF_TOKEN_TS); err != nil {
+		return err
+	}
+	if _, err = setAccessTokenExpireTS(ACCESS_TOKEN_EXPIRE_TS); err != nil {
+		return err
+	}
+
+	if _, err = setEmailTokenTemplate(EMAILTOKEN_TEMPLATE); err != nil {
+		return err
+	}
+	if _, err = setIDEmailTokenTemplate(IDEMAILTOKEN_TEMPLATE); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 //setTimeLocation
@@ -111,4 +135,33 @@ func setAccessTokenExpireTS(accessTokenExpireTS int) (origAccessTokenExpireTS in
 
 	return origAccessTokenExpireTS, nil
 
+}
+
+func setEmailTokenTemplate(emailTokenTemplate string) (origEmailTokenTemplate string, err error) {
+
+	origEmailTokenTemplate = EMAILTOKEN_TEMPLATE
+	EMAILTOKEN_TEMPLATE = emailTokenTemplate
+
+	contentBytes, err := ioutil.ReadFile(EMAILTOKEN_TEMPLATE)
+	if err != nil {
+		return "", err
+	}
+
+	EMAILTOKEN_TEMPLATE_CONTENT = strings.Replace(strings.Replace(string(contentBytes), "__BBSNAME__", BBSNAME, -1), "__BBSENAME__", BBSENAME, -1)
+
+	return EMAILTOKEN_TEMPLATE, nil
+}
+
+func setIDEmailTokenTemplate(idEmailTokenTemplate string) (origIDEmailTokenTemplate string, err error) {
+	origIDEmailTokenTemplate = IDEMAILTOKEN_TEMPLATE
+	IDEMAILTOKEN_TEMPLATE = idEmailTokenTemplate
+
+	contentBytes, err := ioutil.ReadFile(IDEMAILTOKEN_TEMPLATE)
+	if err != nil {
+		return "", err
+	}
+
+	IDEMAILTOKEN_TEMPLATE_CONTENT = strings.Replace(strings.Replace(string(contentBytes), "__BBSNAME__", BBSNAME, -1), "__BBSENAME__", BBSENAME, -1)
+
+	return IDEMAILTOKEN_TEMPLATE, nil
 }

@@ -138,22 +138,36 @@ time_violate_law:
 
 deleted:
   type: boolean
+update_ts:
+  type: number
+
+perm2:
+  type: number
+  description: https://github.com/Ptt-official-app/go-pttbbs/blob/v0.8.2/ptttype/perm2.go
+update_ts2:
+  type: number
+  description: update-time of perm2
 
 email:
   type: string
-  description: 認證的 email
+  description: 聯絡的 email
 email_ts:
   type: number
-  description: 設定認證 email 的時間
-email_verified:
-  type: string
-  description: email 認證的資訊
-email_verified_ts:
-  type: number
-  description: email 認證資訊的時間
+  description: 設定聯絡 email 的時間
+
 twofactor_enabled:
   type: boolean
   description: 是否使用 2FA 機制
 twofactor_enabled_ts:
   type: number
   description: 設定 2FA 機制的時間
+
+idemail:
+  type: string
+  description: 認證 email
+idemail_set:
+  type: boolean
+  description: 是否已經設定完成認證 email
+idemail_ts:
+  type: number
+  description: update 認證 email 的時間.

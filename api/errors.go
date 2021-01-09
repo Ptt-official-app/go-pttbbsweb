@@ -16,5 +16,8 @@ var (
 	ErrAlreadyDeleted           = errors.New("already deleted")
 	ErrFileNotFound             = errors.New("file not found")
 
-	ErrInvalidUser = errors.New("invalid user")
+	ErrInvalidUser   = errors.New("invalid user")
+	ErrInvalidClient = errors.New("invalid client")
+
+	ErrAlreadyExists = errors.New("already exists")
 )

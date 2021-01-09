@@ -8,6 +8,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 const GET_USER_INFO_R = "/user/:user_id"
@@ -84,15 +85,21 @@ type GetUserInfoResult struct {
 	IsDeleted bool        `json:"deleted"`
 	UpdateTS  types.Time8 `json:"update_ts"`
 
+	UserLevel2 ptttype.PERM2 `bson:"perm2"`
+	UpdateTS2  types.Time8   `bson:"update_ts2"`
+
 	Avatar   []byte      `json:"avatar"`
 	AvatarTS types.Time8 `json:"avatar_ts"`
 
-	Email              string      `json:"email"`
-	EmailTS            types.Time8 `json:"email_ts"`
-	EmailVerified      string      `json:"email_verified"`
-	EmailVerifiedTS    types.Time8 `json:"email_verified_ts"`
+	Email   string      `json:"email"`
+	EmailTS types.Time8 `json:"email_ts"`
+
 	TwoFactorEnabled   bool        `json:"twofactor_enabled"`
 	TwoFactorEnabledTS types.Time8 `json:"twofactor_enabled_ts"`
+
+	IDEmail    string      `json:"idemail"`
+	IDEmailSet bool        `json:"idemail_set"`
+	IDEmailTS  types.Time8 `json:"idemail_ts"`
 }
 
 func GetUserInfoWrapper(c *gin.Context) {
@@ -136,16 +143,27 @@ func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context)
 		return nil, 500, err
 	}
 
-	result = NewUserInfoResult(userDetail, userNewInfo)
+	userIDEmail, err := schema.GetUserIDEmailByUserID(queryUserID, updateNanoTS)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	result = NewUserInfoResult(userDetail, userNewInfo, userIDEmail)
 
 	return result, 200, nil
 }
 
-func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.UserNewInfo) (result *GetUserInfoResult) {
+func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.UserNewInfo, userIDEmail_db *schema.UserIDEmail) (result *GetUserInfoResult) {
 
 	if userNewInfo_db == nil {
 		userNewInfo_db = &schema.UserNewInfo{}
 	}
+
+	if userIDEmail_db == nil {
+		userIDEmail_db = &schema.UserIDEmail{}
+	}
+
+	logrus.Infof("NewUserInfoResult: userDetail_db: %v userNewInfo_db: %v userIDEmail_db: %v", userDetail_db, userNewInfo_db, userIDEmail_db)
 
 	result = &GetUserInfoResult{
 		UserID:   userDetail_db.UserID,
@@ -211,15 +229,21 @@ func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.
 		IsDeleted: userDetail_db.IsDeleted,
 		UpdateTS:  userDetail_db.UpdateNanoTS.ToTime8(),
 
+		UserLevel2: userDetail_db.UserLevel2,
+		UpdateTS2:  userDetail_db.UpdateNanoTS2.ToTime8(),
+
 		Avatar:   userNewInfo_db.Avatar,
 		AvatarTS: userNewInfo_db.AvatarNanoTS.ToTime8(),
 
-		Email:              userNewInfo_db.Email,
-		EmailTS:            userNewInfo_db.EmailNanoTS.ToTime8(),
-		EmailVerified:      userNewInfo_db.EmailVerified,
-		EmailVerifiedTS:    userNewInfo_db.EmailVerifiedNanoTS.ToTime8(),
+		Email:   userNewInfo_db.Email,
+		EmailTS: userNewInfo_db.EmailNanoTS.ToTime8(),
+
 		TwoFactorEnabled:   userNewInfo_db.TwoFactorEnabled,
 		TwoFactorEnabledTS: userNewInfo_db.TwoFactorEnabledNanoTS.ToTime8(),
+
+		IDEmail:    userIDEmail_db.IDEmail,
+		IDEmailTS:  userIDEmail_db.UpdateNanoTS.ToTime8(),
+		IDEmailSet: userIDEmail_db.IsSet,
 	}
 
 	return result

@@ -82,7 +82,7 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 
 	//update db
 	updateNanoTS := types.NowNanoTS()
-	accessToken_db, err := serializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt, updateNanoTS)
+	accessToken_db, err := deserializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}

@@ -22,6 +22,12 @@ func processStringResult(c *gin.Context, content string, contentType string) {
 	c.String(200, "%v", content)
 }
 
+func processRedirectResult(c *gin.Context, redirectPath string, statusCode int) {
+	setHeader(c)
+
+	c.Redirect(statusCode, redirectPath)
+}
+
 func setHeader(c *gin.Context) {
 	if !types.IS_ALLOW_CROSSDOMAIN {
 		return

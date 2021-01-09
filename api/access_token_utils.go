@@ -7,7 +7,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
-func serializeAccessTokenAndUpdateDB(userID bbs.UUserID, jwt string, updateNanoTS types.NanoTS) (accessToken *schema.AccessToken, err error) {
+func deserializeAccessTokenAndUpdateDB(userID bbs.UUserID, jwt string, updateNanoTS types.NanoTS) (accessToken *schema.AccessToken, err error) {
 
 	accessToken = schema.NewAccessToken(userID, jwt, updateNanoTS)
 

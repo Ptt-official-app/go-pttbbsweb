@@ -412,6 +412,11 @@ func (c *Collection) Drop() (err error) {
 func (c *Collection) CreateIndex(keys *bson.D, opts *options.IndexOptions) (err error) {
 	iv := c.coll.Indexes()
 
+	if opts == nil {
+		opts = options.Index()
+	}
+	opts = opts.SetBackground(true)
+
 	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {
 		ctxErr := ctx.Err()
@@ -426,4 +431,9 @@ func (c *Collection) CreateIndex(keys *bson.D, opts *options.IndexOptions) (err 
 	_, err = iv.CreateOne(ctx, model)
 
 	return err
+}
+
+func (c *Collection) CreateUniqueIndex(keys *bson.D) (err error) {
+	opts := options.Index().SetUnique(true)
+	return c.CreateIndex(keys, opts)
 }

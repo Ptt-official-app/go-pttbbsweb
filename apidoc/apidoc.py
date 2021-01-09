@@ -138,6 +138,42 @@ def _load_user_comments(user_id):
     return ''
 
 
+@app.route(_with_app_prefix('/user/<user_id>/attemptchangeemail'), methods=['POST'])
+def _attempt_change_email(user_id):
+    """
+    swagger_from_file: apidoc/attempt_change_email.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/user/<user_id>/changeemail'), methods=['POST'])
+def _change_email(user_id):
+    """
+    swagger_from_file: apidoc/change_email.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/user/<user_id>/attemptsetidemail'), methods=['POST'])
+def _attempt_set_id_email(user_id):
+    """
+    swagger_from_file: apidoc/attempt_set_id_email.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/user/<user_id>/setidemail'), methods=['POST'])
+def _set_id_email(user_id):
+    """
+    swagger_from_file: apidoc/set_id_email.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/board/<bid>/articles'))
 def _load_general_articles(bid):
     """

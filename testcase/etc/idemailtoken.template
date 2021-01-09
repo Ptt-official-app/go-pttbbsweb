@@ -1,0 +1,30 @@
+__USER__ 您好,
+
+我們收到您要求更改 __BBSNAME__
+的 "認證 email" 為 __EMAIL__.
+
+如果您並沒有如此要求, 您可以忽略這封信件.
+
+如果您的確有如此要求. 您可以點以下 link
+來完成確認.
+
+<a href="__URL__">__URL__</a>
+
+__BBSNAME__ 站長群.
+
+
+
+Dear __USER__,
+
+We received your request to change
+__BBSENAME__ "Identity Email" to __EMAIL__.
+
+You can ignore this email if actually you didn't
+do the request.
+
+Or you can click on the following link for verification:
+
+<a href="__URL__">__URL__</a>
+
+Best regards,
+__BBSENAME__ administrators.

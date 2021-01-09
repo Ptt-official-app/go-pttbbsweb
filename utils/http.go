@@ -90,7 +90,7 @@ func httpUpdateHeaders(headers map[string]string, c *gin.Context) {
 
 	authorization := c.GetHeader("Authorization")
 	if authorization == "" {
-		access_token := GetCookie(c, types.ACCESS_TOKEN)
+		access_token := GetCookie(c, types.ACCESS_TOKEN_NAME)
 		if access_token != "" {
 			authorization = "Bearer " + access_token
 		}
