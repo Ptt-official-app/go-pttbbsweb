@@ -1,0 +1,21 @@
+Attempt Change Email
+---
+tags:
+  - user
+parameters:
+  - name: 'user_id'
+    in: 'path'
+    required: true
+    type: string
+  - name: params
+    in: body
+    required: true
+    schema:
+      '$id': https://json-schema.org/draft/2019-09/output/schema
+      '$ref': '#/definitions/AttemptChangeEmailParams'
+responses:
+  200:
+    description: success
+    schema:
+      '$id': https://json-schema.org/draft/2019-09/output/schema
+      '$ref': '#/definitions/AttemptChangeEmailResult'

@@ -48,10 +48,6 @@ func ChangePasswd(remoteAddr string, userID bbs.UUserID, params interface{}, pat
 		return nil, 400, ErrInvalidPath
 	}
 
-	if thePath.UserID != userID {
-		return nil, 403, ErrInvalidUser
-	}
-
 	if theParams.Password != theParams.PasswordConfirm {
 		return nil, 400, ErrInvalidParams
 	}
@@ -84,7 +80,7 @@ func ChangePasswd(remoteAddr string, userID bbs.UUserID, params interface{}, pat
 
 	//update db
 	updateNanoTS := types.NowNanoTS()
-	accessToken_db, err := serializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt, updateNanoTS)
+	accessToken_db, err := deserializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}

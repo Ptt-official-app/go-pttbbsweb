@@ -76,16 +76,16 @@ type User struct {
 	IsDeleted    bool         `bson:"deleted,omitempty"`
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 
+	UserLevel2    ptttype.PERM2 `bson:"perm2"`
+	UpdateNanoTS2 types.NanoTS  `bson:"update_nano_ts2"`
+
 	//NFriend int `bson:"n_friend"` /* 需要透過 db-count */
 	Avatar       []byte       `bson:"avatar"`
 	AvatarNanoTS types.NanoTS `bson:"avatar_nano_ts"`
 
-	Email               string       `bson:"email"`
-	EmailNanoTS         types.NanoTS `bson:"email_naon_ts"`
-	EmailVerified       string       `bson:"email_verified"`
-	EmailVerifiedNanoTS types.NanoTS `bson:"email_verified_nano_ts"`
-	//Phone            string `bson:"phone"` /* 真的要有電話資訊嗎？～ */
-	//PhoneVerified    string `bson:"phone_verified"`
+	Email       string       `bson:"email"`
+	EmailNanoTS types.NanoTS `bson:"email_naon_ts"`
+
 	TwoFactorEnabled       bool         `bson:"twofactor_enabled"`
 	TwoFactorEnabledNanoTS types.NanoTS `bson:"twofactor_enabled_nano_ts"`
 }
@@ -154,15 +154,15 @@ var (
 	USER_IS_DELETED_b     = getBSONName(EMPTY_USER, "IsDeleted")
 	USER_UPDATE_NANO_TS_b = getBSONName(EMPTY_USER, "UpdateNanoTS")
 
+	USER_USER_LEVEL2_b     = getBSONName(EMPTY_USER, "UserLevel2")
+	USER_UPDATE_NANO_TS2_b = getBSONName(EMPTY_USER, "UpdateNanoTS2")
+
 	USER_AVATAR_b         = getBSONName(EMPTY_USER, "Avatar")
 	USER_AVATAR_NANO_TS_b = getBSONName(EMPTY_USER, "AvatorNanoTS")
 
-	USER_EMAIL_b                  = getBSONName(EMPTY_USER, "Email")
-	USER_EMAIL_NANO_TS_b          = getBSONName(EMPTY_USER, "EmailNanoTS")
-	USER_EMAIL_VERIFIED_b         = getBSONName(EMPTY_USER, "EmailVerified")
-	USER_EMAIL_VERIFIED_NANO_TS_b = getBSONName(EMPTY_USER, "EmailVerifiedNanoTS")
-	//USER_PHONE_b            = getBSONName(EMPTY_USER, "Phone")
-	//USER_PHONE_VERIFIED_b   = getBSONName(EMPTY_USER, "PhoneVerified")
+	USER_EMAIL_b         = getBSONName(EMPTY_USER, "Email")
+	USER_EMAIL_NANO_TS_b = getBSONName(EMPTY_USER, "EmailNanoTS")
+
 	USER_TWO_FACTOR_ENABLED_b         = getBSONName(EMPTY_USER, "TwoFactorEnabled")
 	USER_TWO_FACTOR_ENABLED_NANO_TS_b = getBSONName(EMPTY_USER, "TwoFactorEnabledNanoTS")
 )

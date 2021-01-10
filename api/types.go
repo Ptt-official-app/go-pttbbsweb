@@ -11,6 +11,8 @@ type LoginRequiredApiFunc func(remoteAddr string, userID bbs.UUserID, params int
 
 type LoginRequiredPathApiFunc func(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error)
 
+type RedirectPathApiFunc func(remoteAddr string, params interface{}, path interface{}, c *gin.Context) (redirectPath string, statusCode int)
+
 type errResult struct {
 	Msg string
 }

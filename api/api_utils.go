@@ -23,7 +23,7 @@ func verifyJwt(c *gin.Context) (userID bbs.UUserID, err error) {
 	jwt := pttbbsapi.GetJwt(c) //get jwt from access-token
 
 	if jwt == "" {
-		jwt = utils.GetCookie(c, types.ACCESS_TOKEN)
+		jwt = utils.GetCookie(c, types.ACCESS_TOKEN_NAME)
 	}
 
 	userID, clientInfoStr, err := pttbbsapi.VerifyJwt(jwt)
