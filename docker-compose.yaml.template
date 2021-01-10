@@ -5,9 +5,11 @@ services:
     ports:
       - "127.0.0.1:8888:8888"
       - "127.0.0.1:48763:48763"
+      - "127.0.0.1:[local-port]:[docker-port]"
     restart: always
     volumes:
       - ${BBSHOME}:/home/bbs
+      - [local absolute directory]:/home/[username]/go-pttbbs
   mongo:
     image: mongo:4.4.2
     restart: always
@@ -24,7 +26,9 @@ services:
     image: pttofficialapps/go-openbbsmiddleware:v0.8.0
     ports:
       - "127.0.0.1:3457:3457"
+      - "127.0.0.1:[local-port]:[docker-port]"
     volumes:
       - ${STATIC_DIR}:/static
       - ${ETC}:/etc/go-openbbsmiddleware
+      - [local absolute directory]:/home/[username]/go-openbbsmiddleware
     restart: always
