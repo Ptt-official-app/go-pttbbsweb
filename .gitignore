@@ -17,3 +17,4 @@
 /swagger/swagger.json
 /apidoc/template.json
 /static
+/docker_compose.env

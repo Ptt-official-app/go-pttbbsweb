@@ -70,5 +70,9 @@ func isRegisterClientValidRemoteAddr(remoteAddr string) bool {
 		return true
 	}
 
+	if types.SERVICE_MODE == types.DEV {
+		return true
+	}
+
 	return remoteAddr == "127.0.0.1" || remoteAddr == "localhost"
 }
