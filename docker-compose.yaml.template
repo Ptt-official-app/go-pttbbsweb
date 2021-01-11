@@ -26,7 +26,7 @@ services:
       - ${POSTFIX_MAIN_CF}:/etc/postfix/main.cf
       - ${POSTFIX_MASTER_CF}:/etc/postfix/master.cf
   openbbs-middleware:
-    image: pttofficialapps/go-openbbsmiddleware:v0.8.0
+    image: pttofficialapps/go-openbbsmiddleware:v0.8.1
     ports:
       - "127.0.0.1:3457:3457"
       - "127.0.0.1:[local-port]:[docker-port]"
