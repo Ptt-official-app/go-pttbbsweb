@@ -59,7 +59,9 @@ func initGin() (*gin.Engine, error) {
 	router.GET(api.INDEX_HTML_R, api.IndexHtmlWrapper)
 	router.GET(api.USER_HTML_R, api.UserHtmlWrapper)
 	router.GET(api.USER_CHANGE_PASSWD_HTML_R, api.UserChangePasswdHtmlWrapper)
+	router.GET(api.USER_ATTEMPT_CHANGE_EMAIL_HTML_R, api.UserAttemptChangeEmailHtmlWrapper)
 	router.GET(api.USER_CHANGE_EMAIL_HTML_R, api.UserChangeEmailHtmlWrapper)
+	router.GET(api.USER_ATTEMPT_SET_ID_EMAIL_HTML_R, api.UserAttemptSetIDEmailHtmlWrapper)
 	router.GET(api.USER_SET_ID_EMAIL_HTML_R, api.UserSetIDEmailHtmlWrapper)
 
 	router.Static("/static", filepath.Join(types.STATIC_DIR, "static"))
