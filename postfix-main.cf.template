@@ -37,6 +37,6 @@ maillog_file = /dev/stdout
 # TLS parameters
 # smtpd_tls_cert_file=/etc/ssl/tls.crt
 # smtpd_tls_key_file=/etc/ssl/tls.key
-smtpd_use_tls=false
+smtpd_use_tls=no
 # smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
 # smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
