@@ -1,0 +1,42 @@
+# https://github.com/chhsiao1981/docker-postfix/blob/master/example.yaml
+mynetworks = [MYNETWORKS IN CIDR, separated by ,]
+compatibility_level = 2
+queue_directory = /var/spool/postfix
+command_directory = /usr/sbin
+daemon_directory = /usr/libexec/postfix
+data_directory = /var/lib/postfix
+mail_owner = postfix
+myhostname = [MYHOSTNAME]
+mydomain = [MYDOMAIN]
+myorigin = $mydomain
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+unknown_local_recipient_reject_code = 550
+inet_protocols = ipv4
+inet_interfaces = all
+mailbox_size_limit = 0
+recipient_delimiter = +
+sendmail_path = /usr/sbin/sendmail
+newaliases_path = /usr/bin/newaliases
+mailq_path = /usr/bin/mailq
+setgid_group = postdrop
+html_directory = no
+readme_directory = no
+biff = no
+append_dot_mydomain = no
+meta_directory = /etc/postfix
+shlib_directory = /usr/lib/postfix
+alias_maps = hash:/etc/postfix/aliases
+alias_database = hash:/etc/postfix/aliases
+# relay-restriction
+# smtpd_relay_restrictions = permit_mynetworks, permit_sasl_authenticated, reject_unauth_destination
+smtpd_relay_restrictions = permit_mynetworks, reject
+# banner
+smtpd_banner = $myhostname ESMTP $mail_name ($mail_version)
+# stdout
+maillog_file = /dev/stdout
+# TLS parameters
+# smtpd_tls_cert_file=/etc/ssl/tls.crt
+# smtpd_tls_key_file=/etc/ssl/tls.key
+smtpd_use_tls=false
+# smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+# smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache

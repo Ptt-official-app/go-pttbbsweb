@@ -20,6 +20,9 @@ services:
     restart: always
   postfix:
     image: chhsiao1981/docker-postfix
+    volumes:
+      - ${POSTFIX_MAIN_CF}:/etc/postfix/main.cf
+      - ${POSTFIX_MASTER_CF}:/etc/postfix/master.cf
   openbbs-middleware:
     image: pttofficialapps/go-openbbsmiddleware:v0.8.0
     ports:

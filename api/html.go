@@ -38,10 +38,28 @@ func UserChangePasswdHtmlWrapper(c *gin.Context) {
 	processCSRFContent(filename, maxAge, c)
 }
 
+const USER_ATTEMPT_CHANGE_EMAIL_HTML_R = "/user/:user_id/attemptchangeemail"
+
+func UserAttemptChangeEmailHtmlWrapper(c *gin.Context) {
+	filename := filepath.Join(types.STATIC_DIR, "attempt-change-email.html")
+
+	maxAge := htmlMaxAge()
+	processCSRFContent(filename, maxAge, c)
+}
+
 const USER_CHANGE_EMAIL_HTML_R = "/user/:user_id/changeemail"
 
 func UserChangeEmailHtmlWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "change-email.html")
+
+	maxAge := htmlMaxAge()
+	processCSRFContent(filename, maxAge, c)
+}
+
+const USER_ATTEMPT_SET_ID_EMAIL_HTML_R = "/user/:user_id/attemptsetidemail"
+
+func UserAttemptSetIDEmailHtmlWrapper(c *gin.Context) {
+	filename := filepath.Join(types.STATIC_DIR, "attempt-set-id-email.html")
 
 	maxAge := htmlMaxAge()
 	processCSRFContent(filename, maxAge, c)
