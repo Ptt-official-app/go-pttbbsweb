@@ -78,7 +78,7 @@ func AttemptSetIDEmail(remoteAddr string, userID bbs.UUserID, params interface{}
 		return nil, statusCode, err
 	}
 
-	err = deserializeEmailTokenAndEmail(theParams.Email, result_b.UserID, result_b.Jwt, USER_SET_ID_EMAIL_HTML_R, types.IDEMAILTOKEN_TEMPLATE_CONTENT)
+	err = deserializeEmailTokenAndEmail(theParams.Email, types.IDEMAILTOKEN_TITLE, result_b.UserID, result_b.Jwt, USER_SET_ID_EMAIL_HTML_R, types.IDEMAILTOKEN_TEMPLATE_CONTENT)
 	if err != nil {
 		return nil, 500, err
 	}

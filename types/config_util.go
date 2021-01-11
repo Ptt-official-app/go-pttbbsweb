@@ -45,6 +45,10 @@ func setIntConfig(idx string, orig int) int {
 	return config_util.SetIntConfig(configPrefix, idx, orig)
 }
 
+func setInt64Config(idx string, orig int64) int64 {
+	return config_util.SetInt64Config(configPrefix, idx, orig)
+}
+
 func postConfig() (err error) {
 	if _, err = setTimeLocation(TIME_LOCATION); err != nil {
 		return err
@@ -59,6 +63,14 @@ func postConfig() (err error) {
 		return err
 	}
 	if _, err = setAccessTokenExpireTS(ACCESS_TOKEN_EXPIRE_TS); err != nil {
+		return err
+	}
+
+	if _, err = setBBSName(BBSNAME); err != nil {
+		return err
+	}
+
+	if _, err = setBBSEName(BBSENAME); err != nil {
 		return err
 	}
 
@@ -164,4 +176,46 @@ func setIDEmailTokenTemplate(idEmailTokenTemplate string) (origIDEmailTokenTempl
 	IDEMAILTOKEN_TEMPLATE_CONTENT = strings.Replace(strings.Replace(string(contentBytes), "__BBSNAME__", BBSNAME, -1), "__BBSENAME__", BBSENAME, -1)
 
 	return IDEMAILTOKEN_TEMPLATE, nil
+}
+
+func setBBSName(bbsname string) (origBBSName string, err error) {
+	origBBSName = BBSNAME
+	BBSNAME = bbsname
+
+	EMAILTOKEN_TITLE = "更換 " + BBSNAME + " 的聯絡信箱 (Update " + BBSENAME + " Contact Email)"
+
+	IDEMAILTOKEN_TITLE = "更換 " + BBSNAME + " 的認證信箱 (Update " + BBSENAME + " Identity Email)"
+
+	_, err = setEmailTokenTemplate(EMAILTOKEN_TEMPLATE)
+	if err != nil {
+		return "", err
+	}
+
+	_, err = setIDEmailTokenTemplate(IDEMAILTOKEN_TEMPLATE)
+	if err != nil {
+		return "", err
+	}
+
+	return origBBSName, nil
+}
+
+func setBBSEName(bbsename string) (origBBSEName string, err error) {
+	origBBSEName = BBSENAME
+	BBSENAME = bbsename
+
+	EMAILTOKEN_TITLE = "更換 " + BBSNAME + " 的聯絡信箱 (Update " + BBSENAME + " Contact Email)"
+
+	IDEMAILTOKEN_TITLE = "更換 " + BBSNAME + " 的認證信箱 (Update " + BBSENAME + " Identity Email)"
+
+	_, err = setEmailTokenTemplate(EMAILTOKEN_TEMPLATE)
+	if err != nil {
+		return "", err
+	}
+
+	_, err = setIDEmailTokenTemplate(IDEMAILTOKEN_TEMPLATE)
+	if err != nil {
+		return "", err
+	}
+
+	return origBBSEName, nil
 }

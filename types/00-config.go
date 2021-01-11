@@ -44,13 +44,21 @@ var (
 	EMAIL_TOKEN_NAME = "token" //email-token in email-url
 
 	EMAIL_FROM   = "noreply@localhost"
-	EMAIL_SERVER = "localhost:587"
+	EMAIL_SERVER = "localhost:25"
 
+	EMAILTOKEN_TITLE      = "更換 " + BBSNAME + " 的聯絡信箱 (Update " + BBSENAME + " Contact Email)"
+	IDEMAILTOKEN_TITLE    = "更換 " + BBSNAME + " 的認證信箱 (Update " + BBSENAME + " Identity Email)"
 	EMAILTOKEN_TEMPLATE   = "/etc/go-openbbsmiddleware/emailtoken.template"
 	IDEMAILTOKEN_TEMPLATE = "/etc/go-openbbsmiddleware/idemailtoken.template"
 
-	EMAILTOKEN_TEMPLATE_CONTENT   = "__USER__, __URL__"
-	IDEMAILTOKEN_TEMPLATE_CONTENT = "__USER__, __URL__"
+	EMAILTOKEN_TEMPLATE_CONTENT   = "__EMAIL__, __USER__, __URL__"
+	IDEMAILTOKEN_TEMPLATE_CONTENT = "__EMAIL__, __USER__, __URL__"
+
+	EXPIRE_USER_ID_EMAIL_IS_SET_NANO_TS = NanoTS(100 * 86400 * 1000000000) //100 days
+	EXPIRE_USER_EMAIL_IS_SET_NANO_TS    = NanoTS(1 * 86400 * 1000000000)   //1 day
+
+	EXPIRE_USER_ID_EMAIL_IS_NOT_SET_NANO_TS = NanoTS(900 * 1000000000) //15 mins
+	EXPIRE_USER_EMAIL_IS_NOT_SET_NANO_TS    = NanoTS(900 * 1000000000) //15 mins
 
 	//big5
 	BIG5_TO_UTF8 = "types/uao250-b2u.big5.txt"

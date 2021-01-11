@@ -1,6 +1,8 @@
 package types
 
-import "github.com/Ptt-official-app/go-pttbbs/bbs"
+import (
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
+)
 
 func config() {
 	SERVICE_MODE = ServiceMode(setStringConfig("SERVICE_MODE", string(SERVICE_MODE)))
@@ -42,6 +44,12 @@ func config() {
 	EMAILTOKEN_TEMPLATE = setStringConfig("EMAILTOKEN_TEMPLATE", EMAILTOKEN_TEMPLATE)
 	IDEMAILTOKEN_TEMPLATE = setStringConfig("IDEMAILTOKEN_TEMPLATE", IDEMAILTOKEN_TEMPLATE)
 
+	EXPIRE_USER_ID_EMAIL_IS_SET_NANO_TS = NanoTS(setInt64Config("EXPIRE_USER_ID_EMAIL_IS_SET_NANO_TS", int64(EXPIRE_USER_ID_EMAIL_IS_SET_NANO_TS)))
+	EXPIRE_USER_EMAIL_IS_SET_NANO_TS = NanoTS(setInt64Config("EXPIRE_USER_EMAIL_IS_SET_NANO_TS", int64(EXPIRE_USER_EMAIL_IS_SET_NANO_TS)))
+
+	EXPIRE_USER_ID_EMAIL_IS_NOT_SET_NANO_TS = NanoTS(setInt64Config("EXPIRE_USER_ID_EMAIL_IS_NOT_SET_NANO_TS", int64(EXPIRE_USER_ID_EMAIL_IS_NOT_SET_NANO_TS)))
+	EXPIRE_USER_EMAIL_IS_NOT_SET_NANO_TS = NanoTS(setInt64Config("EXPIRE_USER_EMAIL_IS_NOT_SET_NANO_TS", int64(EXPIRE_USER_EMAIL_IS_NOT_SET_NANO_TS)))
+
 	//big5
 	BIG5_TO_UTF8 = setStringConfig("BIG5_TO_UTF8", BIG5_TO_UTF8)
 	UTF8_TO_BIG5 = setStringConfig("UTF8_TO_BIG5", UTF8_TO_BIG5)
@@ -49,4 +57,5 @@ func config() {
 
 	//time-location
 	TIME_LOCATION = setStringConfig("TIME_LOCATION", TIME_LOCATION)
+
 }

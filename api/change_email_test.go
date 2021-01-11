@@ -4,6 +4,7 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	pttbbsai "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
@@ -13,7 +14,9 @@ func TestChangeEmail(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	jwt0, _ := pttbbsai.CreateEmailToken("SYSOP", "", "test@ptt.test", pttbbsai.CONTEXT_CHANGE_EMAIL)
+	defer schema.UserEmail_c.Drop()
+
+	jwt0, _ := pttbbsai.CreateEmailToken("SYSOP", "app", "test@ptt.test", pttbbsai.CONTEXT_CHANGE_EMAIL)
 
 	params0 := &ChangeEmailParams{
 		ClientID:     "default_client_id",
