@@ -11,36 +11,36 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func TestCreateUserIDEmail(t *testing.T) {
+func TestCreateUserEmail(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer UserIDEmail_c.Drop()
+	defer UserEmail_c.Drop()
 
-	expected0 := &UserIDEmail{
-		UserID:  "SYSOP",
-		IDEmail: "test@ptt.test",
-
-		UpdateNanoTS: 1234567890000000000,
-	}
-
-	expected1 := &UserIDEmail{
-		UserID:  "SYSOP2",
-		IDEmail: "test@ptt2.test",
+	expected0 := &UserEmail{
+		UserID: "SYSOP",
+		Email:  "test@ptt.test",
 
 		UpdateNanoTS: 1234567890000000000,
 	}
 
-	expected2 := &UserIDEmail{
-		UserID:  "SYSOP",
-		IDEmail: "test@ptt3.test",
+	expected1 := &UserEmail{
+		UserID: "SYSOP2",
+		Email:  "test@ptt2.test",
+
+		UpdateNanoTS: 1234567890000000000,
+	}
+
+	expected2 := &UserEmail{
+		UserID: "SYSOP",
+		Email:  "test@ptt3.test",
 
 		UpdateNanoTS: 1234589890000000000,
 	}
 
 	errUnique := mongo.WriteException{
 		WriteErrors: mongo.WriteErrors([]mongo.WriteError{
-			{Code: 11000, Message: "E11000 duplicate key error collection: devptt.user_id_email index: email_1 dup key: { email: \"test@ptt2.test\" }"},
+			{Code: 11000, Message: "E11000 duplicate key error collection: devptt.user_email index: email_1 dup key: { email: \"test@ptt2.test\" }"},
 		}),
 	}
 	type args struct {
@@ -53,8 +53,8 @@ func TestCreateUserIDEmail(t *testing.T) {
 		args             args
 		wantErr          bool
 		expectedErr      error
-		expected         *UserIDEmail
-		expectedByUserID *UserIDEmail
+		expected         *UserEmail
+		expectedByUserID *UserEmail
 	}{
 		// TODO: Add test cases.
 		{
@@ -106,31 +106,31 @@ func TestCreateUserIDEmail(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			err := CreateUserIDEmail(tt.args.userID, tt.args.email, tt.args.updateNanoTS)
+			err := CreateUserEmail(tt.args.userID, tt.args.email, tt.args.updateNanoTS)
+
 			if (err != nil) != tt.wantErr {
-				t.Errorf("CreateUserIDEmail() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("CreateUserEmail() error = %v, wantErr %v", err, tt.wantErr)
 			}
 
 			assert.Equal(t, err, tt.expectedErr)
 
-			got, _ := GetUserIDEmailByEmail(tt.args.email, tt.args.updateNanoTS)
+			got, _ := GetUserEmailByEmail(tt.args.email, tt.args.updateNanoTS)
 			testutil.TDeepEqual(t, "got", got, tt.expected)
 
-			got, _ = GetUserIDEmailByUserID(tt.args.userID, tt.args.updateNanoTS)
+			got, _ = GetUserEmailByUserID(tt.args.userID, tt.args.updateNanoTS)
 			testutil.TDeepEqual(t, "gotByUserID", got, tt.expectedByUserID)
 		})
 		wg.Wait()
 	}
 }
 
-func TestUpdateUserIDEmailIsSet(t *testing.T) {
+func TestUpdateUserEmailIsSet(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer UserIDEmail_c.Drop()
+	defer UserEmail_c.Drop()
 
-	_ = CreateUserIDEmail("SYSOP", "test@ptt.test", 1234567890000000)
-
+	_ = CreateUserEmail("SYSOP", "test@ptt.test", 1234567890000000)
 	type args struct {
 		userID       bbs.UUserID
 		email        string
@@ -160,8 +160,8 @@ func TestUpdateUserIDEmailIsSet(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			if err := UpdateUserIDEmailIsSet(tt.args.userID, tt.args.email, tt.args.isSet, tt.args.updateNanoTS); (err != nil) != tt.wantErr {
-				t.Errorf("UpdateUserIDEmailIsSet() error = %v, wantErr %v", err, tt.wantErr)
+			if err := UpdateUserEmailIsSet(tt.args.userID, tt.args.email, tt.args.isSet, tt.args.updateNanoTS); (err != nil) != tt.wantErr {
+				t.Errorf("UpdateUserEmailIsSet() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 		wg.Wait()

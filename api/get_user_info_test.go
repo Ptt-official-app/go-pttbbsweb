@@ -45,6 +45,7 @@ func TestGetUserInfo(t *testing.T) {
 
 			result := gotResult.(*GetUserInfoResult)
 			result.UpdateTS = 0
+			result.EmailTS = 0
 			testutil.TDeepEqual(t, "result", result, tt.expectedResult)
 
 			if gotStatusCode != tt.expectedStatusCode {

@@ -8,7 +8,6 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
 const GET_USER_INFO_R = "/user/:user_id"
@@ -91,8 +90,9 @@ type GetUserInfoResult struct {
 	Avatar   []byte      `json:"avatar"`
 	AvatarTS types.Time8 `json:"avatar_ts"`
 
-	Email   string      `json:"email"`
-	EmailTS types.Time8 `json:"email_ts"`
+	Email    string      `json:"email"`
+	EmailSet bool        `json:"email_set"`
+	EmailTS  types.Time8 `json:"email_ts"`
 
 	TwoFactorEnabled   bool        `json:"twofactor_enabled"`
 	TwoFactorEnabledTS types.Time8 `json:"twofactor_enabled_ts"`
@@ -148,12 +148,17 @@ func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context)
 		return nil, 500, err
 	}
 
-	result = NewUserInfoResult(userDetail, userNewInfo, userIDEmail)
+	userEmail, err := schema.GetUserEmailByUserID(queryUserID, updateNanoTS)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	result = NewUserInfoResult(userDetail, userNewInfo, userIDEmail, userEmail)
 
 	return result, 200, nil
 }
 
-func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.UserNewInfo, userIDEmail_db *schema.UserIDEmail) (result *GetUserInfoResult) {
+func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.UserNewInfo, userIDEmail_db *schema.UserIDEmail, userEmail_db *schema.UserEmail) (result *GetUserInfoResult) {
 
 	if userNewInfo_db == nil {
 		userNewInfo_db = &schema.UserNewInfo{}
@@ -162,8 +167,9 @@ func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.
 	if userIDEmail_db == nil {
 		userIDEmail_db = &schema.UserIDEmail{}
 	}
-
-	logrus.Infof("NewUserInfoResult: userDetail_db: %v userNewInfo_db: %v userIDEmail_db: %v", userDetail_db, userNewInfo_db, userIDEmail_db)
+	if userEmail_db == nil {
+		userEmail_db = &schema.UserEmail{}
+	}
 
 	result = &GetUserInfoResult{
 		UserID:   userDetail_db.UserID,
@@ -235,11 +241,9 @@ func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.
 		Avatar:   userNewInfo_db.Avatar,
 		AvatarTS: userNewInfo_db.AvatarNanoTS.ToTime8(),
 
-		Email:   userNewInfo_db.Email,
-		EmailTS: userNewInfo_db.EmailNanoTS.ToTime8(),
-
-		TwoFactorEnabled:   userNewInfo_db.TwoFactorEnabled,
-		TwoFactorEnabledTS: userNewInfo_db.TwoFactorEnabledNanoTS.ToTime8(),
+		Email:    userEmail_db.Email,
+		EmailTS:  userEmail_db.UpdateNanoTS.ToTime8(),
+		EmailSet: userEmail_db.IsSet,
 
 		IDEmail:    userIDEmail_db.IDEmail,
 		IDEmailTS:  userIDEmail_db.UpdateNanoTS.ToTime8(),

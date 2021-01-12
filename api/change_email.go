@@ -3,6 +3,8 @@ package api
 import (
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
@@ -42,6 +44,35 @@ func ChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path
 		return nil, 400, ErrInvalidPath
 	}
 
+	isValidClient, client := checkClient(theParams.ClientID, theParams.ClientSecret)
+
+	if !isValidClient {
+		return nil, 400, ErrInvalidParams
+	}
+
+	clientInfo := getClientInfo(client)
+
+	//get email token info
+	queryUserID, email, queryClientInfo, statusCode, err := getEmailTokenInfo(theParams.Jwt, pttbbsapi.CONTEXT_CHANGE_EMAIL, c)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	if clientInfo != queryClientInfo {
+		return nil, 403, ErrInvalidClient
+	}
+
+	if thePath.UserID != queryUserID {
+		return nil, 403, ErrInvalidUser
+	}
+
+	//create db-record first to avoid race-condition
+	updateNanoTS := types.NowNanoTS()
+	err = schema.CreateUserEmail(queryUserID, email, updateNanoTS)
+	if err != nil {
+		return nil, 403, err
+	}
+
 	//get backend data
 	theParams_b := &pttbbsapi.ChangeEmailParams{
 		Jwt: theParams.Jwt,
@@ -59,13 +90,15 @@ func ChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path
 		return nil, statusCode, err
 	}
 
+	//update db-record to complete the record.
+	updateNanoTS = types.NowNanoTS()
+	err = schema.UpdateUserEmailIsSet(queryUserID, result_b.Email, true, updateNanoTS)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	//update user-info
+
 	return &ChangeEmailResult{Email: result_b.Email}, 200, nil
 
-}
-
-func changeEmailRedirectURL(userID bbs.UUserID) (url string) {
-	urlMap := map[string]string{
-		"user_id": string(userID),
-	}
-	return utils.MergeURL(urlMap, GET_USER_INFO_R)
 }

@@ -45,6 +45,11 @@ func AttemptChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{
 		return nil, 400, ErrInvalidPath
 	}
 
+	err = checkUniqueEmail(theParams.Email)
+	if err != nil {
+		return nil, 403, err
+	}
+
 	isValidClient, client := checkClient(theParams.ClientID, theParams.ClientSecret)
 
 	if !isValidClient {
@@ -72,7 +77,7 @@ func AttemptChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{
 		return nil, statusCode, err
 	}
 
-	err = deserializeEmailTokenAndEmail(theParams.Email, result_b.UserID, result_b.Jwt, USER_CHANGE_EMAIL_HTML_R, types.EMAILTOKEN_TEMPLATE_CONTENT)
+	err = deserializeEmailTokenAndEmail(theParams.Email, types.EMAILTOKEN_TITLE, result_b.UserID, result_b.Jwt, USER_CHANGE_EMAIL_HTML_R, types.EMAILTOKEN_TEMPLATE_CONTENT)
 	if err != nil {
 		return nil, 500, err
 	}

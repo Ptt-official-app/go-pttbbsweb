@@ -10,12 +10,6 @@ type UserNewInfo struct {
 	Avatar       []byte       `bson:"avatar"`
 	AvatarNanoTS types.NanoTS `bson:"avatar_nano_ts"`
 
-	Email       string       `bson:"email"`
-	EmailNanoTS types.NanoTS `bson:"email_naon_ts"`
-
-	TwoFactorEnabled       bool         `bson:"twofactor_enabled"`
-	TwoFactorEnabledNanoTS types.NanoTS `bson:"twofactor_enabled_nano_ts"`
-
 	IsDeleted bool `bson:"deleted,omitempty"`
 }
 

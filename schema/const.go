@@ -11,6 +11,4 @@ var (
 	rdb *redis.Client
 )
 
-const (
-	EXPIRE_USER_ID_EMAIL_SET_NANO_TS = 10 * 1000000000 //5 seconds
-)
+const ()

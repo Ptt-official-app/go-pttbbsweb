@@ -59,6 +59,14 @@ func SetIntConfig(configPrefix string, idx string, orig int) int {
 	return viper.GetInt(idx)
 }
 
+func SetInt64Config(configPrefix string, idx string, orig int64) int64 {
+	idx = configPrefix + "." + strings.ToLower(idx)
+	if !viper.IsSet(idx) {
+		return orig
+	}
+	return viper.GetInt64(idx)
+}
+
 func SetDoubleConfig(configPrefix string, idx string, orig float64) float64 {
 	idx = configPrefix + "." + strings.ToLower(idx)
 	if !viper.IsSet(idx) {

@@ -5,7 +5,6 @@ import (
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
-	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -83,8 +82,6 @@ var (
 )
 
 func NewUserDetail(user_b pttbbsapi.GetUserResult, updateNanoTS types.NanoTS) (user *UserDetail) {
-
-	logrus.Infof("NewUserDetail: user_b: %v userlevel2: %v updateTS2: %v", user_b, user_b.UserLevel2, user_b.UpdateTS2)
 
 	return &UserDetail{
 		UserID:   user_b.UUserID,

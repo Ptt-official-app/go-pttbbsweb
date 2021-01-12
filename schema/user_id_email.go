@@ -64,7 +64,7 @@ func getUserIDEmailCore(query bson.M, updateNanoTS types.NanoTS) (userIDEmail *U
 		return userIDEmail, nil
 	}
 
-	if updateNanoTS-userIDEmail.UpdateNanoTS < EXPIRE_USER_ID_EMAIL_SET_NANO_TS {
+	if updateNanoTS-userIDEmail.UpdateNanoTS < types.EXPIRE_USER_ID_EMAIL_IS_NOT_SET_NANO_TS {
 		return userIDEmail, nil
 	}
 
@@ -96,8 +96,6 @@ func CreateUserIDEmail(userID bbs.UUserID, email string, updateNanoTS types.Nano
 	//check duplicate
 	if createErr != nil {
 		return createErr
-	} else {
-		createErr = ErrNoCreate
 	}
 
 	gotUserIDEmail := &UserIDEmail{}
@@ -106,12 +104,12 @@ func CreateUserIDEmail(userID bbs.UUserID, email string, updateNanoTS types.Nano
 		return err
 	}
 
-	if gotUserIDEmail.IsSet {
-		return createErr
+	if gotUserIDEmail.IsSet && updateNanoTS-gotUserIDEmail.UpdateNanoTS < types.EXPIRE_USER_ID_EMAIL_IS_SET_NANO_TS {
+		return ErrNoCreate
 	}
 
-	if updateNanoTS-gotUserIDEmail.UpdateNanoTS < EXPIRE_USER_ID_EMAIL_SET_NANO_TS {
-		return createErr
+	if updateNanoTS-gotUserIDEmail.UpdateNanoTS < types.EXPIRE_USER_ID_EMAIL_IS_NOT_SET_NANO_TS {
+		return ErrNoCreate
 	}
 
 	query[USER_ID_EMAIL_UPDATE_NANO_TS_b] = bson.M{

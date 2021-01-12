@@ -4,6 +4,7 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
@@ -11,6 +12,8 @@ import (
 func TestAttemptSetIDEmail(t *testing.T) {
 	setupTest()
 	defer teardownTest()
+
+	defer schema.UserIDEmail_c.Drop()
 
 	params0 := &AttemptSetIDEmailParams{
 		ClientID:     "default_client_id",

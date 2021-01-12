@@ -16,9 +16,10 @@ func Test_deserializeEmailToken(t *testing.T) {
 
 	jwt0, _ := pttbbsapi.CreateEmailToken("SYSOP", "", "test@ptt.test", pttbbsapi.CONTEXT_CHANGE_EMAIL)
 
-	content0 := fmt.Sprintf("SYSOP, http://localhost:3457/user/SYSOP/changeemail?%v=%v", types.EMAIL_TOKEN_NAME, jwt0)
+	content0 := fmt.Sprintf("test@ptt.test, SYSOP, http://localhost:3457/user/SYSOP/changeemail?%v=%v", types.EMAIL_TOKEN_NAME, jwt0)
 
 	type args struct {
+		email           string
 		userID          bbs.UUserID
 		token           string
 		urlTemplate     string
@@ -31,13 +32,13 @@ func Test_deserializeEmailToken(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{
-			args:            args{userID: "SYSOP", token: jwt0, urlTemplate: CHANGE_EMAIL_R, contentTemplate: types.EMAILTOKEN_TEMPLATE_CONTENT},
+			args:            args{email: "test@ptt.test", userID: "SYSOP", token: jwt0, urlTemplate: CHANGE_EMAIL_R, contentTemplate: types.EMAILTOKEN_TEMPLATE_CONTENT},
 			expectedContent: content0,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotContent := deserializeEmailToken(tt.args.userID, tt.args.token, tt.args.urlTemplate, tt.args.contentTemplate); gotContent != tt.expectedContent {
+			if gotContent := deserializeEmailToken(tt.args.email, tt.args.userID, tt.args.token, tt.args.urlTemplate, tt.args.contentTemplate); gotContent != tt.expectedContent {
 				t.Errorf("deserializeEmailToken() = %v, want %v", gotContent, tt.expectedContent)
 			}
 		})

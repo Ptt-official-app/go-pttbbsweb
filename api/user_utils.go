@@ -24,13 +24,13 @@ func deserializeUserDetailAndUpdateDB(user_b pttbbsapi.GetUserResult, updateNano
 	return userDetail, nil
 }
 
-func deserializeEmailTokenAndEmail(email string, userID bbs.UUserID, jwt string, urlTemplate string, contentTemplate string) (err error) {
-	content := deserializeEmailToken(userID, jwt, urlTemplate, contentTemplate)
+func deserializeEmailTokenAndEmail(email string, title string, userID bbs.UUserID, jwt string, urlTemplate string, contentTemplate string) (err error) {
+	content := deserializeEmailToken(email, userID, jwt, urlTemplate, contentTemplate)
 
-	return utils.SendEmail([]string{email}, content)
+	return utils.SendEmail([]string{email}, title, content)
 }
 
-func deserializeEmailToken(userID bbs.UUserID, token string, urlTemplate string, contentTemplate string) (content string) {
+func deserializeEmailToken(email string, userID bbs.UUserID, token string, urlTemplate string, contentTemplate string) (content string) {
 
 	userIDStr := string(userID)
 
@@ -41,7 +41,7 @@ func deserializeEmailToken(userID bbs.UUserID, token string, urlTemplate string,
 
 	url += fmt.Sprintf("?%v=%v", types.EMAIL_TOKEN_NAME, token)
 
-	content = strings.Replace(strings.Replace(contentTemplate, "__USER__", userIDStr, -1), "__URL__", url, -1)
+	content = strings.Replace(strings.Replace(strings.Replace(contentTemplate, "__USER__", userIDStr, -1), "__URL__", url, -1), "__EMAIL__", email, -1)
 
 	return content
 }
@@ -54,6 +54,20 @@ func checkUniqueIDEmail(email string) (err error) {
 	}
 
 	if userIDEmail != nil {
+		return ErrAlreadyExists
+	}
+
+	return nil
+}
+
+func checkUniqueEmail(email string) (err error) {
+	nowNanoTS := types.NowNanoTS()
+	userEmail, err := schema.GetUserEmailByEmail(email, nowNanoTS)
+	if err != nil {
+		return err
+	}
+
+	if userEmail != nil {
 		return ErrAlreadyExists
 	}
 
