@@ -36,6 +36,8 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(SetIDEmail(data.(*api.SetIDEmailParams)), result)
 	case "/emailtoken/info":
 		return parseResult(GetEmailTokenInfo(data.(*api.GetEmailTokenInfoParams)), result)
+	case "/boards/1_test1/summary":
+		return parseResult(GetBoardSummary(data.(*api.LoadBoardSummaryParams)), result)
 	default:
 		return 500, ErrURL
 	}

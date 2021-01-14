@@ -61,8 +61,9 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 	}
 	var result_b *pttbbsapi.LoadGeneralArticlesResult
 
-	urlMap := make(map[string]string)
-	urlMap["bid"] = string(thePath.BBoardID)
+	urlMap := map[string]string{
+		"bid": string(thePath.BBoardID),
+	}
 	url := utils.MergeURL(urlMap, pttbbsapi.LOAD_GENERAL_ARTICLES_R)
 	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
 	if err != nil || statusCode != 200 {
