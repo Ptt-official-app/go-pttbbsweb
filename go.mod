@@ -3,7 +3,7 @@ module github.com/Ptt-official-app/go-openbbsmiddleware
 go 1.14
 
 require (
-	github.com/Ptt-official-app/go-pttbbs v0.8.3
+	github.com/Ptt-official-app/go-pttbbs v0.8.4
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-redis/redis/v8 v8.4.4
 	github.com/google/go-querystring v1.0.0
