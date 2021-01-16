@@ -1,8 +1,10 @@
 package schema
 
 import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/fav"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	pttbbsfav "github.com/Ptt-official-app/go-pttbbs/ptt/fav"
 )
 
 var (
@@ -453,4 +455,396 @@ var (
 	}
 
 	testUserNewInfo0 = &UserNewInfo{}
+)
+
+var (
+	testTitle0  = "新的目錄"
+	testSubFav0 = &fav.Fav{
+		FavNum:   1,
+		Depth:    1,
+		NBoards:  1,
+		NLines:   0,
+		NFolders: 0,
+		LineID:   0,
+		FolderID: 0,
+		Favh: []*fav.FavType{
+			{
+				FavIdx:  6,
+				TheType: pttbbsfav.FAVT_BOARD,
+				Attr:    1,
+				Fp:      &fav.FavBoard{Bid: 1, LastVisit: 0, Attr: 0},
+			},
+		},
+	}
+
+	testFav0 = &fav.Fav{
+		NBoards:  3,
+		NLines:   2,
+		NFolders: 1,
+		LineID:   2,
+		FolderID: 1,
+		FavNum:   7,
+		Favh: []*fav.FavType{
+			{
+				FavIdx:  0,
+				TheType: pttbbsfav.FAVT_BOARD,
+				Attr:    1,
+				Fp:      &fav.FavBoard{Bid: 1, LastVisit: 0, Attr: 0},
+			},
+			{
+				FavIdx:  1,
+				TheType: pttbbsfav.FAVT_LINE,
+				Attr:    1,
+				Fp:      &fav.FavLine{Lid: 1},
+			},
+			{
+				FavIdx:  2,
+				TheType: pttbbsfav.FAVT_FOLDER,
+				Attr:    1,
+				Fp:      &fav.FavFolder{Fid: 1, Title: testTitle0, ThisFolder: testSubFav0},
+			},
+			{
+				FavIdx:  3,
+				TheType: pttbbsfav.FAVT_LINE,
+				Attr:    1,
+				Fp:      &fav.FavLine{Lid: 2},
+			},
+			{
+				FavIdx:  4,
+				TheType: pttbbsfav.FAVT_BOARD,
+				Attr:    1,
+				Fp:      &fav.FavBoard{Bid: 9, LastVisit: 0, Attr: 0},
+			},
+			{
+				FavIdx:  5,
+				TheType: pttbbsfav.FAVT_BOARD,
+				Attr:    1,
+				Fp:      &fav.FavBoard{Bid: 8, LastVisit: 0, Attr: 0},
+			},
+		},
+	}
+
+	testFavMeta0 = &UserFavoritesMeta{
+		UserID:       "SYSOP",
+		UpdateNanoTS: 1234567890000000000,
+		MTime:        1234567890000000000,
+		FolderMeta: FolderMeta{
+			FavNum:   7,
+			NBoards:  3,
+			NLines:   2,
+			NFolders: 1,
+		},
+	}
+
+	testUserFavorites0 = []*UserFavorites{
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          0,
+			LevelIdx:        "",
+			Idx:             0,
+			UpdateNanoTS:    1234567890000000000,
+			MTime:           1234567890000000000,
+
+			TheType: pttbbsfav.FAVT_BOARD,
+			Attr:    1,
+			TheID:   1,
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          1,
+			LevelIdx:        "",
+			Idx:             1,
+			UpdateNanoTS:    1234567890000000000,
+			MTime:           1234567890000000000,
+
+			TheType: pttbbsfav.FAVT_LINE,
+			Attr:    1,
+			TheID:   1,
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          2,
+			LevelIdx:        "",
+			Idx:             2,
+			UpdateNanoTS:    1234567890000000000,
+			MTime:           1234567890000000000,
+
+			TheType: pttbbsfav.FAVT_FOLDER,
+			Attr:    1,
+			TheID:   1,
+
+			FolderTitle: testTitle0,
+			FolderMeta: &FolderMeta{
+				FavNum:  1,
+				NBoards: 1,
+			},
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          3,
+			LevelIdx:        "",
+			Idx:             3,
+			UpdateNanoTS:    1234567890000000000,
+			MTime:           1234567890000000000,
+
+			TheType: pttbbsfav.FAVT_LINE,
+			Attr:    1,
+			TheID:   2,
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          4,
+			LevelIdx:        "",
+			Idx:             4,
+			UpdateNanoTS:    1234567890000000000,
+			MTime:           1234567890000000000,
+
+			TheType: pttbbsfav.FAVT_BOARD,
+			Attr:    1,
+			TheID:   9,
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          5,
+			LevelIdx:        "",
+			Idx:             5,
+			UpdateNanoTS:    1234567890000000000,
+			MTime:           1234567890000000000,
+
+			TheType: pttbbsfav.FAVT_BOARD,
+			Attr:    1,
+			TheID:   8,
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          6,
+			LevelIdx:        ":2",
+			Idx:             0,
+			UpdateNanoTS:    1234567890000000000,
+			MTime:           1234567890000000000,
+
+			TheType: pttbbsfav.FAVT_BOARD,
+			Attr:    1,
+			TheID:   1,
+		},
+	}
+
+	testSubFav1 = &fav.Fav{
+		FavNum:   1,
+		Depth:    1,
+		NBoards:  1,
+		NLines:   0,
+		NFolders: 0,
+		LineID:   0,
+		FolderID: 0,
+		Favh: []*fav.FavType{
+			{
+				FavIdx:  6,
+				TheType: pttbbsfav.FAVT_BOARD,
+				Attr:    1,
+				Fp:      &fav.FavBoard{Bid: 1, LastVisit: 0, Attr: 0},
+			},
+		},
+	}
+
+	testSubFav2 = &fav.Fav{
+		FavNum:   1,
+		Depth:    1,
+		NBoards:  1,
+		NLines:   0,
+		NFolders: 0,
+		LineID:   0,
+		FolderID: 0,
+		Favh: []*fav.FavType{
+			{
+				FavIdx:  7,
+				TheType: pttbbsfav.FAVT_BOARD,
+				Attr:    1,
+				Fp:      &fav.FavBoard{Bid: 1, LastVisit: 0, Attr: 0},
+			},
+		},
+	}
+
+	testFav1 = &fav.Fav{
+		FavNum:   8,
+		NBoards:  2,
+		NLines:   2,
+		NFolders: 2,
+		LineID:   2,
+		FolderID: 2,
+		Favh: []*fav.FavType{
+			{
+				FavIdx:  0,
+				TheType: pttbbsfav.FAVT_LINE,
+				Attr:    1,
+				Fp:      &fav.FavLine{Lid: 1},
+			},
+			{
+				FavIdx:  1,
+				TheType: pttbbsfav.FAVT_FOLDER,
+				Attr:    1,
+				Fp:      &fav.FavFolder{Fid: 1, Title: testTitle0, ThisFolder: testSubFav1},
+			},
+			{
+				FavIdx:  2,
+				TheType: pttbbsfav.FAVT_LINE,
+				Attr:    1,
+				Fp:      &fav.FavLine{Lid: 2},
+			},
+			{
+				FavIdx:  3,
+				TheType: pttbbsfav.FAVT_BOARD,
+				Attr:    1,
+				Fp:      &fav.FavBoard{Bid: 9, LastVisit: 0, Attr: 0},
+			},
+			{
+				FavIdx:  4,
+				TheType: pttbbsfav.FAVT_FOLDER,
+				Attr:    1,
+				Fp:      &fav.FavFolder{Fid: 2, Title: testTitle0, ThisFolder: testSubFav2},
+			},
+			{
+				FavIdx:  5,
+				TheType: pttbbsfav.FAVT_BOARD,
+				Attr:    1,
+				Fp:      &fav.FavBoard{Bid: 8, LastVisit: 0, Attr: 0},
+			},
+		},
+	}
+
+	testFavMeta1 = &UserFavoritesMeta{
+		UserID:       "SYSOP",
+		UpdateNanoTS: 1234567890000000001,
+		MTime:        1234567890000000001,
+		FolderMeta: FolderMeta{
+			FavNum:   8,
+			NBoards:  2,
+			NLines:   2,
+			NFolders: 2,
+		},
+	}
+
+	testUserFavorites1 = []*UserFavorites{
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          0,
+			LevelIdx:        "",
+			Idx:             0,
+			UpdateNanoTS:    1234567890000000001,
+			MTime:           1234567890000000001,
+
+			TheType: pttbbsfav.FAVT_LINE,
+			Attr:    1,
+			TheID:   1,
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          1,
+			LevelIdx:        "",
+			Idx:             1,
+			UpdateNanoTS:    1234567890000000001,
+			MTime:           1234567890000000001,
+
+			TheType:     pttbbsfav.FAVT_FOLDER,
+			Attr:        1,
+			TheID:       1,
+			FolderTitle: testTitle0,
+			FolderMeta: &FolderMeta{
+				FavNum:  1,
+				NBoards: 1,
+			},
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          2,
+			LevelIdx:        "",
+			Idx:             2,
+			UpdateNanoTS:    1234567890000000001,
+			MTime:           1234567890000000001,
+
+			TheType: pttbbsfav.FAVT_LINE,
+			Attr:    1,
+			TheID:   2,
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          3,
+			LevelIdx:        "",
+			Idx:             3,
+			UpdateNanoTS:    1234567890000000001,
+			MTime:           1234567890000000001,
+
+			TheType: pttbbsfav.FAVT_BOARD,
+			Attr:    1,
+			TheID:   9,
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          4,
+			LevelIdx:        "",
+			Idx:             4,
+			UpdateNanoTS:    1234567890000000001,
+			MTime:           1234567890000000001,
+
+			TheType:     pttbbsfav.FAVT_FOLDER,
+			Attr:        1,
+			TheID:       2,
+			FolderTitle: testTitle0,
+			FolderMeta: &FolderMeta{
+				FavNum:  1,
+				NBoards: 1,
+			},
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          5,
+			LevelIdx:        "",
+			Idx:             5,
+			UpdateNanoTS:    1234567890000000001,
+			MTime:           1234567890000000001,
+
+			TheType: pttbbsfav.FAVT_BOARD,
+			Attr:    1,
+			TheID:   8,
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          6,
+			LevelIdx:        ":1",
+			Idx:             0,
+			UpdateNanoTS:    1234567890000000001,
+			MTime:           1234567890000000001,
+
+			TheType: pttbbsfav.FAVT_BOARD,
+			Attr:    1,
+			TheID:   1,
+		},
+		{
+			UserID:          "SYSOP",
+			DoubleBufferIdx: 0,
+			FavIdx:          7,
+			LevelIdx:        ":4",
+			Idx:             0,
+			UpdateNanoTS:    1234567890000000001,
+			MTime:           1234567890000000001,
+
+			TheType: pttbbsfav.FAVT_BOARD,
+			Attr:    1,
+			TheID:   1,
+		},
+	}
 )

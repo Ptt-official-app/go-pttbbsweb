@@ -14,7 +14,7 @@ parameters:
     required: false
     type: string
     default: ''
-    description: 以 , 隔開指示我的最愛的層數. '' 表示 root 層
+    description: 從 folder 的 info 裡拿到的 level_idx
   - '$ref': '#/definitions/ParamsStartIdx'
   - '$ref': '#/definitions/ParamsLimit'
   - '$ref': '#/definitions/ParamsAsc'

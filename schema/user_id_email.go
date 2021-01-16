@@ -14,7 +14,7 @@ var (
 
 type UserIDEmail struct {
 	UserID  bbs.UUserID `bson:"user_id"`
-	IDEmail string      `bson:"email"`
+	IDEmail string      `bson:"idemail"`
 
 	IsSet bool `bson:"is_set,omitempty"`
 

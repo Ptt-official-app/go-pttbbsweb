@@ -20,4 +20,6 @@ var (
 	ErrInvalidClient = errors.New("invalid client")
 
 	ErrAlreadyExists = errors.New("already exists")
+
+	ErrInvalidFav = errors.New("invalid fav")
 )

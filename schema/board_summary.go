@@ -121,7 +121,7 @@ func GetBoardSummary(bboardID bbs.BBoardID) (result *BoardSummary, err error) {
 	}
 
 	result = &BoardSummary{}
-	err = Board_c.FindOne(query, &result, boardSummaryFields)
+	err = Board_c.FindOne(query, result, boardSummaryFields)
 	if err == mongo.ErrNoDocuments {
 		return nil, nil
 	}

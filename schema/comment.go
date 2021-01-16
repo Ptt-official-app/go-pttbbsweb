@@ -30,7 +30,7 @@ type Comment struct {
 	RefIDs       []types.CommentID `bson:"refids"`
 	IsDeleted    bool              `bson:"deleted,omitempty"`
 	DeleteReason string            `bson:"delete_reason,omitempty"`
-	CreateTime   types.NanoTS      `bson:"create_time_ts"`
+	CreateTime   types.NanoTS      `bson:"create_time_nano_ts"`
 	Owner        bbs.UUserID       `bson:"owner"`
 	Content      [][]*types.Rune   `bson:"content"` //content in comment is colorless.
 	IP           string            `bson:"ip"`
@@ -150,7 +150,6 @@ func updateCommentsCore(comments []*Comment, updateNanoTS types.NanoTS) (err err
 		}
 	}
 	r, err := Comment_c.BulkCreateOnly(theList)
-	//logrus.Infof("updateCommentsCore: after BulkCreateOnly: len: %v r: %v e: %v", len(theList), r, err)
 	if err != nil {
 		return err
 	}
@@ -199,8 +198,7 @@ func updateCommentsCore(comments []*Comment, updateNanoTS types.NanoTS) (err err
 		}
 		updateComments = append(updateComments, each)
 	}
-	r, err = Comment_c.BulkUpdateOneOnlyNoSet(updateComments)
-	//logrus.Infof("updateCommentsCore: after BulkUpdateOneOnly: len: %v r: %v e: %v", len(theList), r, err)
+	_, err = Comment_c.BulkUpdateOneOnlyNoSet(updateComments)
 
 	return err
 }

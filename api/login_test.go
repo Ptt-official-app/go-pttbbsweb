@@ -58,7 +58,7 @@ func TestLogin(t *testing.T) {
 				query[schema.ACCESS_TOKEN_USER_ID_b] = "testuserid1"
 
 				var ret []*schema.AccessToken
-				err = schema.AccessToken_c.Find(query, 0, &ret, nil)
+				err = schema.AccessToken_c.Find(query, 0, &ret, nil, nil)
 				logrus.Infof("api.TestLogin: after Find: query: %v ret: %v e: %v", query, ret, err)
 				if err != nil {
 					t.Errorf("Login(): unable to find: e: %v", err)

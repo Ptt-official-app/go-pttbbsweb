@@ -29,3 +29,14 @@ read:
 total:
   type: number
   description: 文章總數.
+
+last_post_time:
+  type: number
+  description: 上次 post 的時間.
+
+stat_attr:
+  type: number
+  description: bord-stat atttribute (folder/line/board) (https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/board_stat.go)
+level_idx:
+  type: string
+  description: folder 的 level-idx

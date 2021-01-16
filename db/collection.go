@@ -276,7 +276,7 @@ func (c *Collection) BulkUpdate(theList []*UpdatePair) (r *mongo.BulkWriteResult
 //    var ret []*Temp //!!! declare but initiate
 //
 //    Find(query, 4, &ret, &Temp{})
-func (c *Collection) Find(filter interface{}, n int64, ret interface{}, project interface{}) (err error) {
+func (c *Collection) Find(filter interface{}, n int64, ret interface{}, project interface{}, sort interface{}) (err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {
 		ctxErr := ctx.Err()
@@ -293,6 +293,10 @@ func (c *Collection) Find(filter interface{}, n int64, ret interface{}, project 
 
 	if project != nil {
 		opts.SetProjection(project)
+	}
+
+	if sort != nil {
+		opts.SetSort(sort)
 	}
 
 	cur, err := c.coll.Find(ctx, filter, opts)

@@ -65,7 +65,7 @@ func TestRegisterClient(t *testing.T) {
 			query["client_id"] = "test_client_id"
 
 			var ret []*schema.Client
-			err = schema.Client_c.Find(query, 0, &ret, nil)
+			err = schema.Client_c.Find(query, 0, &ret, nil, nil)
 			if err != nil {
 				t.Errorf("RegisterClient(): unable to find: e: %v", err)
 			}

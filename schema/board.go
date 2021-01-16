@@ -12,6 +12,7 @@ var (
 )
 
 type Board struct {
+	Version   int             `bson:"version"`
 	BBoardID  bbs.BBoardID    `bson:"bid"`
 	Brdname   string          `bson:"brdname"`
 	Title     string          `bson:"title"`

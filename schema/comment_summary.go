@@ -9,7 +9,7 @@ import (
 
 type CommentSummary struct {
 	CommentID    types.CommentID `bson:"cid"`
-	CreateTime   types.NanoTS    `bson:"create_time_ts"`
+	CreateTime   types.NanoTS    `bson:"create_time_nano_ts"`
 	UpdateNanoTS types.NanoTS    `bson:"update_nano_ts"`
 
 	IsDeleted bool `bson:"deleted,omitempty"`
@@ -33,7 +33,7 @@ func GetCommentSummaries(bboardID bbs.BBoardID, articleID bbs.ArticleID, startNa
 		},
 	}
 
-	err = Comment_c.Find(query, 0, &commentSummaries, commentSummaryFields)
+	err = Comment_c.Find(query, 0, &commentSummaries, commentSummaryFields, nil)
 	if err != nil {
 		return nil, err
 	}

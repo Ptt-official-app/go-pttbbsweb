@@ -16,28 +16,36 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(Register(data.(*api.RegisterParams)), result)
 	case api.LOAD_GENERAL_BOARDS_R:
 		return parseResult(LoadGeneralBoards(data.(*api.LoadGeneralBoardsParams)), result)
-	case "/boards/1_test1/articles":
+	case api.LOAD_GENERAL_BOARDS_BY_CLASS_R:
+		return parseResult(LoadGeneralBoards(data.(*api.LoadGeneralBoardsParams)), result)
+	case api.LOAD_HOT_BOARDS_R:
+		return parseResult(LoadHotBoards(), result)
+	case "/board/1_test1/articles":
 		return parseResult(LoadGeneralArticles(data.(*api.LoadGeneralArticlesParams)), result)
-	case "/boards/10_WhoAmI/articles/19bWBI4ZSYSOP":
+	case "/board/10_WhoAmI/article/19bWBI4ZSYSOP":
 		return parseResult(GetArticleDetail(data.(*api.GetArticleParams)), result)
-	case "/boards/10_WhoAmI/articles/1VrooM21SYSOP":
+	case "/board/10_WhoAmI/article/1VrooM21SYSOP":
 		return parseResult(GetArticleDetail2(data.(*api.GetArticleParams)), result)
-	case "/users/SYSOP/information":
+	case "/user/SYSOP/information":
 		return parseResult(GetUser(), result)
-	case "/users/SYSOP/changepasswd":
+	case "/user/SYSOP/changepasswd":
 		return parseResult(ChangePasswd(data.(*api.ChangePasswdParams)), result)
-	case "/users/SYSOP/attemptchangeemail":
+	case "/user/SYSOP/attemptchangeemail":
 		return parseResult(AttemptChangeEmail(data.(*api.AttemptChangeEmailParams)), result)
-	case "/users/SYSOP/changeemail":
+	case "/user/SYSOP/changeemail":
 		return parseResult(ChangeEmail(data.(*api.ChangeEmailParams)), result)
-	case "/users/SYSOP/attemptsetidemail":
+	case "/user/SYSOP/attemptsetidemail":
 		return parseResult(AttemptSetIDEmail(data.(*api.AttemptSetIDEmailParams)), result)
-	case "/users/SYSOP/setidemail":
+	case "/user/SYSOP/setidemail":
 		return parseResult(SetIDEmail(data.(*api.SetIDEmailParams)), result)
 	case "/emailtoken/info":
 		return parseResult(GetEmailTokenInfo(data.(*api.GetEmailTokenInfoParams)), result)
-	case "/boards/1_test1/summary":
+	case "/board/1_test1/summary":
 		return parseResult(GetBoardSummary(data.(*api.LoadBoardSummaryParams)), result)
+	case "/user/SYSOP/favorites":
+		return parseResult(GetFavorites(data.(*api.GetFavoritesParams)), result)
+	case api.LOAD_BOARDS_BY_BIDS_R:
+		return parseResult(LoadBoardsByBids(data.(*api.LoadBoardsByBidsParams)), result)
 	default:
 		return 500, ErrURL
 	}

@@ -193,7 +193,7 @@ func TestGetArticleDetail(t *testing.T) {
 			schema.COMMENT_ARTICLE_ID_b: tt.args.articleID,
 		}
 		var gotComments []*schema.Comment
-		_ = schema.Comment_c.Find(query, 0, &gotComments, nil)
+		_ = schema.Comment_c.Find(query, 0, &gotComments, nil, nil)
 
 		for _, each := range gotComments {
 			each.UpdateNanoTS = 0
