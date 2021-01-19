@@ -4,9 +4,6 @@ tags:
   - board
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
-  - '$ref': '#/definitions/ParamsStartIdx'
-  - '$ref': '#/definitions/ParamsLimit'
-  - '$ref': '#/definitions/ParamsAsc'
 responses:
   200:
     description:
