@@ -80,7 +80,7 @@ def _load_general_boards():
 
 
 @app.route(_with_app_prefix('/boards/byclass'))
-def _load_general_boards():
+def _load_general_boards_by_class():
     """
     swagger_from_file: apidoc/load_general_boards_by_class.yaml
     """
