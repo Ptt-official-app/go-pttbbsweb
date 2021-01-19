@@ -128,7 +128,7 @@ func FindUserReadBoards(userID bbs.UUserID, boardIDs []bbs.BBoardID) ([]*UserRea
 	}
 
 	var dbResults []*UserReadBoard
-	err := UserReadBoard_c.Find(query, 0, &dbResults, nil)
+	err := UserReadBoard_c.Find(query, 0, &dbResults, nil, nil)
 	if err != nil {
 		return nil, err
 	}

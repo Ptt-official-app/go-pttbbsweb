@@ -53,9 +53,6 @@ func Init() (err error) {
 	//BoardBanuser
 	BoardBanuser_c = client.Collection("board_banuser")
 
-	//BoardChildren
-	BoardChildren_c = client.Collection("board_children")
-
 	//BoardFriend
 	BoardFriend_c = client.Collection("board_friend")
 
@@ -88,6 +85,12 @@ func Init() (err error) {
 
 	//UserAloha
 	UserAloha_c = client.Collection("user_aloha")
+
+	//UserFavorites
+	UserFavorites_c = client.Collection("user_favorites")
+
+	//UserFavoritesMeta
+	UserFavoritesMeta_c = client.Collection("user_favorites_meta")
 
 	//UserFriend
 	UserFriend_c = client.Collection("user_friend")
@@ -243,6 +246,14 @@ func assertAllFields() error {
 	}
 
 	if err := assertUserFields(); err != nil {
+		return err
+	}
+
+	if err := assertUserFavoritesMeta(); err != nil {
+		return err
+	}
+
+	if err := assertUserFavorites(); err != nil {
 		return err
 	}
 

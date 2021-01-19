@@ -190,6 +190,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	}
 
 	//parse content
+	updateNanoTS = types.NowNanoTS()
 
 	content, contentMD5, ip, host, bbs, commentsDBCS := dbcs.ParseContent(result_b.Content, articleDetailSummary_db.ContentMD5)
 
@@ -211,7 +212,6 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	err = schema.UpdateArticleContentInfo(bboardID, articleID, contentInfo)
 
 	//parse comments
-	updateNanoTS = types.NowNanoTS()
 
 	firstComments, firstCommentsMD5, firstCommentsLastTime, theRestComments := dbcs.ParseFirstComments(
 		bboardID,

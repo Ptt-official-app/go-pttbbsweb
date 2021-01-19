@@ -1,5 +1,11 @@
 package api
 
+import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+)
+
 var (
 	testUserInfoResult0 = &GetUserInfoResult{
 		UserID:   "SYSOP",
@@ -45,5 +51,46 @@ var (
 		MyAngel: "myangel",
 
 		ChessEloRating: 126,
+	}
+
+	testTitle0 = "新的目錄"
+
+	testBoardSummary9 = &apitypes.BoardSummary{
+		BBoardID:  "9_test9",
+		Brdname:   "test9",
+		Title:     "測試9",
+		BrdAttr:   0,
+		BoardType: "◎",
+		Category:  "測試",
+		NUser:     100,
+		BMs:       []bbs.UUserID{"okcool", "teemo"},
+		Total:     123,
+
+		LastPostTime: 1234567890,
+		StatAttr:     ptttype.NBRD_BOARD,
+	}
+
+	testBoardSummary8 = &apitypes.BoardSummary{
+		BBoardID:  "8_test8",
+		Brdname:   "test8",
+		Title:     "測試8",
+		BrdAttr:   0,
+		BoardType: "◎",
+		Category:  "測試",
+		NUser:     101,
+		BMs:       []bbs.UUserID{"okcool2", "teemo2"},
+		Total:     124,
+
+		LastPostTime: 1300000000,
+		StatAttr:     ptttype.NBRD_BOARD,
+	}
+
+	testFavoriteBoards0 = []*apitypes.BoardSummary{
+		{StatAttr: ptttype.NBRD_LINE},
+		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":1"},
+		{StatAttr: ptttype.NBRD_LINE},
+		testBoardSummary9,
+		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":4"},
+		testBoardSummary8,
 	}
 )

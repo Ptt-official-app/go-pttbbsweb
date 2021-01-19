@@ -60,7 +60,7 @@ func TestRegisterUser(t *testing.T) {
 				query["user_id"] = "testuserid1"
 
 				var ret []*schema.AccessToken
-				err = schema.AccessToken_c.Find(query, 0, &ret, nil)
+				err = schema.AccessToken_c.Find(query, 0, &ret, nil, nil)
 				if err != nil {
 					t.Errorf("Login(): unable to find: e: %v", err)
 				}

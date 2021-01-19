@@ -85,7 +85,7 @@ func TestQueueCommentDBCS(t *testing.T) {
 				schema.COMMENT_ARTICLE_ID_b: "test",
 			}
 			var got []*schema.Comment
-			_ = schema.Comment_c.Find(query, 0, &got, nil)
+			_ = schema.Comment_c.Find(query, 0, &got, nil, nil)
 
 			sort.SliceStable(got, func(i, j int) bool {
 				return got[i].CreateTime <= got[j].CreateTime

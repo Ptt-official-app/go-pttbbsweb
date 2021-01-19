@@ -124,8 +124,9 @@ func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context)
 	//get backend data
 	var result_b pttbbsapi.GetUserResult
 
-	urlMap := make(map[string]string)
-	urlMap["uid"] = string(queryUserID)
+	urlMap := map[string]string{
+		"uid": string(queryUserID),
+	}
 	url := utils.MergeURL(urlMap, pttbbsapi.GET_USER_R)
 
 	statusCode, err = utils.BackendGet(c, url, nil, nil, &result_b)

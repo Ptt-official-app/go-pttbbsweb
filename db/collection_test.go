@@ -431,6 +431,7 @@ func TestCollection_Find(t *testing.T) {
 		ret     []*testFind1
 		n       int64
 		project map[string]bool
+		sort    map[string]bool
 	}
 	tests := []struct {
 		name        string
@@ -444,25 +445,25 @@ func TestCollection_Find(t *testing.T) {
 		{
 			name:        "find specific with map[string]interface{}",
 			fields:      fields{coll: coll},
-			args:        args{filter: find1, ret: ret1, n: 4, project: project},
+			args:        args{filter: find1, ret: ret1, n: 4, project: project, sort: nil},
 			expectedRet: expected1,
 		},
 		{
 			name:        "find all, but limit 1",
 			fields:      fields{coll: coll},
-			args:        args{filter: find2, ret: ret2, n: 1, project: project},
+			args:        args{filter: find2, ret: ret2, n: 1, project: project, sort: nil},
 			expectedRet: expected2,
 		},
 		{
 			name:        "use struct for query",
 			fields:      fields{coll: coll},
-			args:        args{filter: find3, ret: ret3, n: 4, project: project},
+			args:        args{filter: find3, ret: ret3, n: 4, project: project, sort: nil},
 			expectedRet: expected1,
 		},
 		{
 			name:        "not found",
 			fields:      fields{coll: coll},
-			args:        args{filter: find4, ret: ret4, n: 4, project: project},
+			args:        args{filter: find4, ret: ret4, n: 4, project: project, sort: nil},
 			expectedRet: nil,
 		},
 	}
@@ -470,7 +471,7 @@ func TestCollection_Find(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			c := tt.fields.coll
 
-			err := c.Find(tt.args.filter, tt.args.n, &tt.args.ret, tt.args.project)
+			err := c.Find(tt.args.filter, tt.args.n, &tt.args.ret, tt.args.project, tt.args.sort)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Collection.Find() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -585,7 +586,7 @@ func TestCollection_Remove(t *testing.T) {
 
 			var ret []*testFind1
 			find := struct{}{}
-			err := c.Find(find, 4, &ret, nil)
+			err := c.Find(find, 4, &ret, nil, nil)
 			if err != nil {
 				t.Errorf("Collection.Remove(): unable find: e: %v", err)
 				return

@@ -109,7 +109,7 @@ func UpdateArticleSummaries(articleSummaries []*ArticleSummary, updateNanoTS typ
 			continue
 		}
 
-		origFilter, ok := each.Filter.(*ArticleQuery)
+		origFilter := each.Filter.(*ArticleQuery)
 		filter := bson.M{
 			"$or": bson.A{
 				bson.M{

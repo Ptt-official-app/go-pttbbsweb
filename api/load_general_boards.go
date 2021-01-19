@@ -60,6 +60,9 @@ func LoadGeneralBoards(remoteAddr string, userID bbs.UUserID, params interface{}
 	//update to db
 	updateNanoTS := types.NowNanoTS()
 	boardSummaries_db, userBoardInfoMap, err := deserializeBoardsAndUpdateDB(userID, result_b.Boards, updateNanoTS)
+	if err != nil {
+		return nil, 500, err
+	}
 
 	r := NewLoadGeneralBoardsResult(boardSummaries_db, result_b.NextIdx)
 
@@ -90,6 +93,10 @@ func checkBoardInfo(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*userB
 	checkBBoardIDMap := make(map[bbs.BBoardID]int)
 	queryBBoardIDs := make([]bbs.BBoardID, 0, len(theList))
 	for idx, each := range theList {
+		if (each.StatAttr&ptttype.NBRD_LINE != 0) || (each.StatAttr&ptttype.NBRD_FOLDER != 0) {
+			continue
+		}
+
 		eachBoardInfo, ok := userBoardInfoMap[each.BBoardID]
 		if ok {
 			each.StatAttr = eachBoardInfo.Stat

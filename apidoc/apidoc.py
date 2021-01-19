@@ -79,6 +79,14 @@ def _load_general_boards():
     return ''
 
 
+@app.route(_with_app_prefix('/boards/byclass'))
+def _load_general_boards():
+    """
+    swagger_from_file: apidoc/load_general_boards_by_class.yaml
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/boards/popular'))
 def _load_popular_boards():
     """

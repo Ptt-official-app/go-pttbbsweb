@@ -18,7 +18,7 @@ type Client struct {
 	ClientID     string           `bson:"client_id"`
 	ClientSecret string           `bson:"client_secret"`
 	ClientType   types.ClientType `bson:"client_type"`
-	RemoteAddr   string           `bson:"remote_addr"`
+	RemoteAddr   string           `bson:"ip"`
 	UpdateNanoTS types.NanoTS     `bson:"update_nano_ts"`
 }
 

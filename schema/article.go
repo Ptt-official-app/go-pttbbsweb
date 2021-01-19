@@ -12,6 +12,7 @@ var (
 )
 
 type Article struct {
+	Version    int              `bson:"version"`
 	BBoardID   bbs.BBoardID     `bson:"bid"`                 //
 	ArticleID  bbs.ArticleID    `bson:"aid"`                 //
 	IsDeleted  bool             `bson:"deleted,omitempty"`   //

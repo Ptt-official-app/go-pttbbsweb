@@ -25,6 +25,6 @@ type ClientInfo struct {
 type ClientType int
 
 const (
-	CLIENT_TYPE_APP ClientType = iota
-	CLIENT_TYPE_WEB
+	CLIENT_TYPE_APP ClientType = 0
+	CLIENT_TYPE_WEB ClientType = 1
 )

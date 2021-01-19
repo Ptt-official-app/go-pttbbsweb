@@ -128,7 +128,7 @@ func FindUserReadArticles(userID bbs.UUserID, articleIDs []bbs.ArticleID) ([]*Us
 	}
 
 	var dbResults []*UserReadArticle
-	err := UserReadArticle_c.Find(query, 0, &dbResults, nil)
+	err := UserReadArticle_c.Find(query, 0, &dbResults, nil, nil)
 	if err != nil {
 		return nil, err
 	}
