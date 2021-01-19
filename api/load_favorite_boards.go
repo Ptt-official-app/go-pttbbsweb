@@ -18,7 +18,7 @@ type LoadFavoriteBoardsParams struct {
 }
 
 type LoadFavoriteBoardsPath struct {
-	UserID bbs.UUserID `json:"user_id"`
+	UserID bbs.UUserID `uri:"user_id"`
 }
 
 type LoadFavoriteBoardsResult struct {

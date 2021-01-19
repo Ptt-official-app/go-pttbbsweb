@@ -13,6 +13,7 @@ import (
 	pttbbsfav "github.com/Ptt-official-app/go-pttbbs/ptt/fav"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func tryGetUserFavorites(
@@ -126,6 +127,9 @@ func deserializeUserFavoritesAndUpdateDB(userID bbs.UUserID, mTime types.NanoTS,
 func getUserFavoritesFromDB(userID bbs.UUserID, levelIdx schema.LevelIdx, startIdx int, ascending bool, limit int) (userFavorites []*schema.UserFavorites, nextIdx int, err error) {
 
 	metaSumamry, err := schema.GetUserFavoritesMetaSummary(userID)
+	if err == mongo.ErrNoDocuments {
+		return nil, -1, nil
+	}
 	if err != nil {
 		return nil, 0, err
 	}
