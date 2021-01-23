@@ -34,6 +34,17 @@ func AttemptRegisterUser(remoteAddr string, params interface{}, c *gin.Context) 
 		return nil, 400, ErrInvalidParams
 	}
 
+	err = checkUniqueEmail(theParams.Email)
+	if err != nil {
+		return nil, 403, err
+	}
+
+	isValidClient, _ := checkClient(theParams.ClientID, theParams.ClientSecret)
+
+	if !isValidClient {
+		return nil, 400, ErrInvalidParams
+	}
+
 	//check existing user
 	theParams_b := &pttbbsapi.CheckExistsUserParams{
 		Username: theParams.Username,
