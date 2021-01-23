@@ -53,6 +53,15 @@ def _register_user():
     return ''
 
 
+@app.route(_with_app_prefix('/account/attemptregister'), methods=['POST'])
+def _attempt_register_user():
+    """
+    swagger_from_file: apidoc/attempt_register_user.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/articles/popular'))
 def _load_popular_articles():
     """
