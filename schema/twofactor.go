@@ -4,11 +4,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
-//TryLock
-func TryLock(key string, expireTSDuration time.Duration) (err error) {
+func Set2FA(userID bbs.UUserID, token string, expireTSDuration time.Duration) (err error) {
+
 	ctx, cancel := context.WithTimeout(context.Background(), REDIS_TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {
 		ctxErr := ctx.Err()
@@ -18,9 +18,7 @@ func TryLock(key string, expireTSDuration time.Duration) (err error) {
 		}
 	}()
 
-	updateNanoTS := int64(types.NowNanoTS())
-
-	val, err := rdb.SetNX(ctx, "lock:"+key, updateNanoTS, expireTSDuration).Result()
+	val, err := rdb.SetNX(ctx, "2fa:"+string(userID), token, expireTSDuration).Result()
 	if err != nil {
 		return err
 	}
@@ -29,10 +27,10 @@ func TryLock(key string, expireTSDuration time.Duration) (err error) {
 	}
 
 	return nil
+
 }
 
-//Unlock
-func Unlock(key string) (err error) {
+func Get2FA(userID bbs.UUserID) (token string, err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), REDIS_TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {
 		ctxErr := ctx.Err()
@@ -42,10 +40,10 @@ func Unlock(key string) (err error) {
 		}
 	}()
 
-	_, err = rdb.Del(ctx, "lock:"+key).Result()
+	token, err = rdb.Get(ctx, "2fa:"+string(userID)).Result()
 	if err != nil {
-		return err
+		return "", err
 	}
 
-	return nil
+	return token, nil
 }

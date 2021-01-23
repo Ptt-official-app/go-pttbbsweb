@@ -3,6 +3,7 @@ package api
 import (
 	"reflect"
 	"testing"
+	"time"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/gin-gonic/gin"
@@ -20,10 +21,13 @@ func TestRegisterUser(t *testing.T) {
 		Username:        "testuserid1",
 		Password:        "testpasswd",
 		PasswordConfirm: "testpasswd",
+		TwoFactorToken:  "123123",
 	}
 
 	expected0 := &RegisterUserResult{TokenType: "bearer", UserID: "testuserid1"}
 	expectedDB0 := []*schema.AccessToken{{UserID: "testuserid1"}}
+
+	_ = schema.Set2FA("testuserid1", "123123", time.Duration(1)*time.Second)
 
 	type args struct {
 		remoteAddr string

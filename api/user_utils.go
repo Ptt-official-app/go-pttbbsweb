@@ -41,7 +41,13 @@ func deserializeEmailToken(email string, userID bbs.UUserID, token string, urlTe
 
 	url += fmt.Sprintf("?%v=%v", types.EMAIL_TOKEN_NAME, token)
 
-	content = strings.Replace(strings.Replace(strings.Replace(contentTemplate, "__USER__", userIDStr, -1), "__URL__", url, -1), "__EMAIL__", email, -1)
+	content = strings.Replace(
+		strings.Replace(
+			strings.Replace(
+				contentTemplate, "__USER__", userIDStr, -1,
+			), "__URL__", url, -1,
+		), "__EMAIL__", email, -1,
+	)
 
 	return content
 }

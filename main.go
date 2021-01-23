@@ -26,6 +26,7 @@ func initGin() (*gin.Engine, error) {
 	router.POST(withPrefix(api.REGISTER_CLIENT_R), api.RegisterClientWrapper)
 	router.POST(withPrefix(api.REGISTER_USER_R), api.RegisterUserWrapper)
 	router.POST(withPrefix(api.LOGIN_R), api.LoginWrapper)
+	router.POST(withPrefix(api.ATTEMPT_REGISTER_USER_R), api.AttemptRegisterUserWrapper)
 
 	//board
 	router.GET(withPrefix(api.LOAD_GENERAL_BOARDS_R), api.LoadGeneralBoardsWrapper)

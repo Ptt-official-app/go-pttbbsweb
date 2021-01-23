@@ -19,6 +19,8 @@ type RegisterUserParams struct {
 	Password        string `json:"password" form:"password"`
 	PasswordConfirm string `json:"password_confirm" form:"password_confirm"`
 
+	TwoFactorToken string `json:"token" form:"token"`
+
 	Over18 bool `json:"over18,omitempty" form:"over18,omitempty"`
 
 	Email    string `json:"email,omitempty" form:"email,omitempty"`
@@ -59,6 +61,11 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 	}
 
 	clientInfo := getClientInfo(client)
+
+	err = check2FAToken(bbs.UUserID(theParams.Username), theParams.TwoFactorToken)
+	if err != nil {
+		return nil, 403, err
+	}
 
 	//backend register
 	theParams_b := &pttbbsapi.RegisterParams{

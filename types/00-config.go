@@ -46,10 +46,14 @@ var (
 	EMAIL_FROM   = "noreply@localhost"
 	EMAIL_SERVER = "localhost:25"
 
-	EMAILTOKEN_TITLE      = "更換 " + BBSNAME + " 的聯絡信箱 (Update " + BBSENAME + " Contact Email)"
-	IDEMAILTOKEN_TITLE    = "更換 " + BBSNAME + " 的認證信箱 (Update " + BBSENAME + " Identity Email)"
-	EMAILTOKEN_TEMPLATE   = "/etc/go-openbbsmiddleware/emailtoken.template"
-	IDEMAILTOKEN_TEMPLATE = "/etc/go-openbbsmiddleware/idemailtoken.template"
+	EMAILTOKEN_TITLE            = "更換 " + BBSNAME + " 的聯絡信箱 (Updating " + BBSENAME + " Contact Email)"
+	IDEMAILTOKEN_TITLE          = "更換 " + BBSNAME + " 的認證信箱 (Updating " + BBSENAME + " Identity Email)"
+	ATTEMPT_REGISTER_USER_TITLE = "註冊 " + BBSNAME + " 的確認碼 (Registering " + BBSENAME + " Confirmation Code)"
+
+	EMAILTOKEN_TEMPLATE                    = "/etc/go-openbbsmiddleware/emailtoken.template"
+	IDEMAILTOKEN_TEMPLATE                  = "/etc/go-openbbsmiddleware/idemailtoken.template"
+	ATTEMPT_REGISTER_USER_TEMPLATE         = "/etc/go-openbbsmiddleware/attemptregister.template"
+	ATTEMPT_REGISTER_USER_TEMPLATE_CONTENT = "__USER__, __TOKEN__"
 
 	EMAILTOKEN_TEMPLATE_CONTENT   = "__EMAIL__, __USER__, __URL__"
 	IDEMAILTOKEN_TEMPLATE_CONTENT = "__EMAIL__, __USER__, __URL__"
@@ -57,8 +61,13 @@ var (
 	EXPIRE_USER_ID_EMAIL_IS_SET_NANO_TS = NanoTS(100 * 86400 * 1000000000) //100 days
 	EXPIRE_USER_EMAIL_IS_SET_NANO_TS    = NanoTS(1 * 86400 * 1000000000)   //1 day
 
-	EXPIRE_USER_ID_EMAIL_IS_NOT_SET_NANO_TS = NanoTS(900 * 1000000000) //15 mins
-	EXPIRE_USER_EMAIL_IS_NOT_SET_NANO_TS    = NanoTS(900 * 1000000000) //15 mins
+	EXPIRE_USER_ID_EMAIL_IS_NOT_SET_NANO_TS = NanoTS(300 * 1000000000) //5 mins
+	EXPIRE_USER_EMAIL_IS_NOT_SET_NANO_TS    = NanoTS(300 * 1000000000) //5 mins
+
+	EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS          = 300
+	EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS_DURATION = time.Duration(EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS) * time.Second //5 mins
+
+	MAX_2FA_TOKEN = 1000000
 
 	//big5
 	BIG5_TO_UTF8 = "types/uao250-b2u.big5.txt"

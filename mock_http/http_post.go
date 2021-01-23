@@ -46,6 +46,8 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(GetFavorites(data.(*api.GetFavoritesParams)), result)
 	case api.LOAD_BOARDS_BY_BIDS_R:
 		return parseResult(LoadBoardsByBids(data.(*api.LoadBoardsByBidsParams)), result)
+	case api.CHECK_EXISTS_USER_R:
+		return parseResult(CheckExistsUser(data.(*api.CheckExistsUserParams)), result)
 	default:
 		return 500, ErrURL
 	}
