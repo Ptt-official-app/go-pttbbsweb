@@ -81,6 +81,10 @@ func postConfig() (err error) {
 		return err
 	}
 
+	if _, err = setAttemptRegisterUserEmailTS(EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -149,6 +153,15 @@ func setAccessTokenExpireTS(accessTokenExpireTS int) (origAccessTokenExpireTS in
 
 }
 
+func setAttemptRegisterUserEmailTS(expireAttemptRegisterUserEmailTS int) (origExpireAttemptRegisterUserEmailTS int, err error) {
+	origExpireAttemptRegisterUserEmailTS = EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS
+	EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS = expireAttemptRegisterUserEmailTS
+
+	EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS_DURATION = time.Duration(EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS) * time.Second
+
+	return origExpireAttemptRegisterUserEmailTS, nil
+}
+
 func setEmailTokenTemplate(emailTokenTemplate string) (origEmailTokenTemplate string, err error) {
 
 	origEmailTokenTemplate = EMAILTOKEN_TEMPLATE
@@ -159,9 +172,13 @@ func setEmailTokenTemplate(emailTokenTemplate string) (origEmailTokenTemplate st
 		return "", err
 	}
 
-	EMAILTOKEN_TEMPLATE_CONTENT = strings.Replace(strings.Replace(string(contentBytes), "__BBSNAME__", BBSNAME, -1), "__BBSENAME__", BBSENAME, -1)
+	EMAILTOKEN_TEMPLATE_CONTENT = strings.Replace(
+		strings.Replace(
+			string(contentBytes), "__BBSNAME__", BBSNAME, -1,
+		), "__BBSENAME__", BBSENAME, -1,
+	)
 
-	return EMAILTOKEN_TEMPLATE, nil
+	return origEmailTokenTemplate, nil
 }
 
 func setIDEmailTokenTemplate(idEmailTokenTemplate string) (origIDEmailTokenTemplate string, err error) {
@@ -173,18 +190,42 @@ func setIDEmailTokenTemplate(idEmailTokenTemplate string) (origIDEmailTokenTempl
 		return "", err
 	}
 
-	IDEMAILTOKEN_TEMPLATE_CONTENT = strings.Replace(strings.Replace(string(contentBytes), "__BBSNAME__", BBSNAME, -1), "__BBSENAME__", BBSENAME, -1)
+	IDEMAILTOKEN_TEMPLATE_CONTENT = strings.Replace(
+		strings.Replace(
+			string(contentBytes), "__BBSNAME__", BBSNAME, -1,
+		), "__BBSENAME__", BBSENAME, -1,
+	)
 
-	return IDEMAILTOKEN_TEMPLATE, nil
+	return origIDEmailTokenTemplate, nil
+}
+
+func setAttemptRegisterUserTemplate(attemptRegisterUserTemplate string) (origAttemptRegisterUserTemplate string, err error) {
+	origAttemptRegisterUserTemplate = ATTEMPT_REGISTER_USER_TEMPLATE
+	ATTEMPT_REGISTER_USER_TEMPLATE = attemptRegisterUserTemplate
+
+	contentBytes, err := ioutil.ReadFile(ATTEMPT_REGISTER_USER_TEMPLATE)
+	if err != nil {
+		return "", err
+	}
+
+	ATTEMPT_REGISTER_USER_TEMPLATE_CONTENT = strings.Replace(
+		strings.Replace(
+			string(contentBytes), "__BBSNAME__", BBSNAME, -1,
+		), "__BBSENAME__", BBSENAME, -1,
+	)
+
+	return origAttemptRegisterUserTemplate, nil
 }
 
 func setBBSName(bbsname string) (origBBSName string, err error) {
 	origBBSName = BBSNAME
 	BBSNAME = bbsname
 
-	EMAILTOKEN_TITLE = "更換 " + BBSNAME + " 的聯絡信箱 (Update " + BBSENAME + " Contact Email)"
+	EMAILTOKEN_TITLE = "更換 " + BBSNAME + " 的聯絡信箱 (Updating " + BBSENAME + " Contact Email)"
 
-	IDEMAILTOKEN_TITLE = "更換 " + BBSNAME + " 的認證信箱 (Update " + BBSENAME + " Identity Email)"
+	IDEMAILTOKEN_TITLE = "更換 " + BBSNAME + " 的認證信箱 (Updating " + BBSENAME + " Identity Email)"
+
+	ATTEMPT_REGISTER_USER_TITLE = "註冊 " + BBSNAME + " 的確認碼 (Registering " + BBSENAME + " Confirmation Code)"
 
 	_, err = setEmailTokenTemplate(EMAILTOKEN_TEMPLATE)
 	if err != nil {
@@ -192,6 +233,11 @@ func setBBSName(bbsname string) (origBBSName string, err error) {
 	}
 
 	_, err = setIDEmailTokenTemplate(IDEMAILTOKEN_TEMPLATE)
+	if err != nil {
+		return "", err
+	}
+
+	_, err = setAttemptRegisterUserTemplate(ATTEMPT_REGISTER_USER_TEMPLATE)
 	if err != nil {
 		return "", err
 	}
