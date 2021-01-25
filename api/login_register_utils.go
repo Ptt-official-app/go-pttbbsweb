@@ -2,7 +2,6 @@ package api
 
 import (
 	"fmt"
-	"math/rand"
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -34,7 +33,7 @@ func gen2FATokenAndSendEmail(userID bbs.UUserID, email string, title string, tem
 }
 
 func gen2FAToken() string {
-	randInt := rand.Intn(types.MAX_2FA_TOKEN)
+	randInt := utils.GenRandomInt64(types.MAX_2FA_TOKEN)
 	return fmt.Sprintf("%06d", randInt)
 }
 

@@ -1,7 +1,10 @@
 package utils
 
 import (
+	"crypto/rand"
 	"encoding/base64"
+	"log"
+	"math/big"
 
 	"github.com/google/uuid"
 )
@@ -17,4 +20,14 @@ func GenRandomString() string {
 		}
 		return str[:22]
 	}
+}
+
+//GenRandomInt64
+//https://stackoverflow.com/questions/32349807/how-can-i-generate-a-random-int-using-the-crypto-rand-package/32350135
+func GenRandomInt64(max int64) int64 {
+	nBig, err := rand.Int(rand.Reader, big.NewInt(max))
+	if err != nil {
+		log.Println(err)
+	}
+	return nBig.Int64()
 }
