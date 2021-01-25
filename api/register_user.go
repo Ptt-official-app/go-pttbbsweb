@@ -67,6 +67,14 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 		return nil, 403, err
 	}
 
+	//create db-record first to avoid race-condition
+	updateNanoTS := types.NowNanoTS()
+	userID := bbs.UUserID(theParams.Username)
+	err = schema.CreateUserEmail(userID, theParams.Email, updateNanoTS)
+	if err != nil {
+		return nil, 403, err
+	}
+
 	//backend register
 	theParams_b := &pttbbsapi.RegisterParams{
 		ClientInfo: clientInfo,
@@ -88,7 +96,12 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 	}
 
 	//update db
-	updateNanoTS := types.NowNanoTS()
+	updateNanoTS = types.NowNanoTS()
+	err = schema.UpdateUserEmailIsSet(userID, theParams.Email, true, updateNanoTS)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
 	accessToken_db, err := deserializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
