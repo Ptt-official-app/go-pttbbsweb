@@ -20,6 +20,15 @@ func IndexHtmlWrapper(c *gin.Context) {
 	processCSRFContent(filename, maxAge, c)
 }
 
+const REGISTER_HTML_R = "/register"
+
+func RegisterHtmlWrapper(c *gin.Context) {
+	filename := filepath.Join(types.STATIC_DIR, "register.html")
+
+	maxAge := htmlMaxAge()
+	processCSRFContent(filename, maxAge, c)
+}
+
 const USER_HTML_R = "/user/:user_id"
 
 func UserHtmlWrapper(c *gin.Context) {

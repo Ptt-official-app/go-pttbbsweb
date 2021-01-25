@@ -59,6 +59,7 @@ func initGin() (*gin.Engine, error) {
 	//html
 	router.GET("/", api.IndexHtmlWrapper)
 	router.GET(api.INDEX_HTML_R, api.IndexHtmlWrapper)
+	router.GET(api.REGISTER_HTML_R, api.RegisterHtmlWrapper)
 	router.GET(api.USER_HTML_R, api.UserHtmlWrapper)
 	router.GET(api.USER_CHANGE_PASSWD_HTML_R, api.UserChangePasswdHtmlWrapper)
 	router.GET(api.USER_ATTEMPT_CHANGE_EMAIL_HTML_R, api.UserAttemptChangeEmailHtmlWrapper)

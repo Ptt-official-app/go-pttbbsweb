@@ -23,7 +23,7 @@ type RegisterUserParams struct {
 
 	Over18 bool `json:"over18,omitempty" form:"over18,omitempty"`
 
-	Email    string `json:"email,omitempty" form:"email,omitempty"`
+	Email    string `json:"email" form:"email"`
 	Nickname string `json:"nickname,omitempty" form:"nickname,omitempty"`
 	Realname string `json:"realname,omitempty" form:"realname,omitempty"`
 	Career   string `json:"career,omitempty" form:"career,omitempty"`
@@ -62,7 +62,7 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 
 	clientInfo := getClientInfo(client)
 
-	err = check2FAToken(bbs.UUserID(theParams.Username), theParams.TwoFactorToken)
+	err = check2FAToken(bbs.UUserID(theParams.Username), theParams.Email, theParams.TwoFactorToken)
 	if err != nil {
 		return nil, 403, err
 	}

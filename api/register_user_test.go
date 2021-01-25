@@ -21,13 +21,14 @@ func TestRegisterUser(t *testing.T) {
 		Username:        "testuserid1",
 		Password:        "testpasswd",
 		PasswordConfirm: "testpasswd",
+		Email:           "test@ptt.test",
 		TwoFactorToken:  "123123",
 	}
 
 	expected0 := &RegisterUserResult{TokenType: "bearer", UserID: "testuserid1"}
 	expectedDB0 := []*schema.AccessToken{{UserID: "testuserid1"}}
 
-	_ = schema.Set2FA("testuserid1", "123123", time.Duration(1)*time.Second)
+	_ = schema.Set2FA("testuserid1", "test@ptt.test", "123123", time.Duration(1)*time.Second)
 
 	type args struct {
 		remoteAddr string
