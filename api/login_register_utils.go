@@ -19,7 +19,7 @@ func setTokenToCookie(c *gin.Context, accessToken string) {
 func gen2FATokenAndSendEmail(userID bbs.UUserID, email string, title string, template string) (err error) {
 	token := gen2FAToken()
 
-	err = schema.Set2FA(userID, token, types.EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS_DURATION)
+	err = schema.Set2FA(userID, email, token, types.EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS_DURATION)
 	if err != nil {
 		return err
 	}
@@ -38,13 +38,15 @@ func gen2FAToken() string {
 	return fmt.Sprintf("%06d", randInt)
 }
 
-func check2FAToken(userID bbs.UUserID, token string) (err error) {
-	token_db, err := schema.Get2FA(userID)
+func check2FAToken(userID bbs.UUserID, email string, token string) (err error) {
+	emailtoken_db, err := schema.Get2FA(userID)
 	if err != nil {
 		return err
 	}
 
-	if token != token_db {
+	emailtoken := schema.TwoFactorSerializeValue(email, token)
+
+	if emailtoken != emailtoken_db {
 		return ErrInvalidToken
 	}
 

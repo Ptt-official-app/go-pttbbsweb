@@ -14,6 +14,7 @@ func TestSet2FA(t *testing.T) {
 
 	type args struct {
 		userID           bbs.UUserID
+		email            string
 		token            string
 		expireTSDuration time.Duration
 	}
@@ -43,7 +44,7 @@ func TestSet2FA(t *testing.T) {
 			defer wg.Done()
 
 			time.Sleep(tt.sleep)
-			if err := Set2FA(tt.args.userID, tt.args.token, tt.args.expireTSDuration); (err != nil) != tt.wantErr {
+			if err := Set2FA(tt.args.userID, tt.args.token, tt.args.email, tt.args.expireTSDuration); (err != nil) != tt.wantErr {
 				t.Errorf("Set2FA() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -55,7 +56,7 @@ func TestGet2FA(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	_ = Set2FA("SYSOP", "123456", time.Duration(1)*time.Second)
+	_ = Set2FA("SYSOP", "test@ptt.test", "123456", time.Duration(1)*time.Second)
 
 	type args struct {
 		userID bbs.UUserID
@@ -69,7 +70,7 @@ func TestGet2FA(t *testing.T) {
 		// TODO: Add test cases.
 		{
 			args:          args{userID: "SYSOP"},
-			expectedToken: "123456",
+			expectedToken: "123456:test@ptt.test",
 		},
 		{
 			args:    args{userID: "SYSOP2"},
