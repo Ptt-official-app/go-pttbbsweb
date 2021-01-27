@@ -24,20 +24,21 @@ type GetArticleDetailPath struct {
 }
 
 type GetArticleDetailResult struct {
-	BBoardID   bbs.BBoardID     `json:"bid"`         //0
-	ArticleID  bbs.ArticleID    `json:"aid"`         //1
-	IsDeleted  bool             `json:"deleted"`     //2
-	CreateTime types.Time8      `json:"create_time"` //3
-	MTime      types.Time8      `json:"modified"`    //4
-	Recommend  int              `json:"recommend"`   //5
-	Owner      bbs.UUserID      `json:"owner"`       //6
-	Title      string           `json:"title"`       //7
-	Money      int              `json:"money"`       //8
+	BBoardID   bbs.BBoardID     `json:"bid"`         //
+	ArticleID  bbs.ArticleID    `json:"aid"`         //
+	IsDeleted  bool             `json:"deleted"`     //
+	CreateTime types.Time8      `json:"create_time"` //
+	MTime      types.Time8      `json:"modified"`    //
+	Recommend  int              `json:"recommend"`   //
+	NComments  int              `json:"n_comments"`  //
+	Owner      bbs.UUserID      `json:"owner"`       //
+	Title      string           `json:"title"`       //
+	Money      int              `json:"money"`       //
 	Class      string           `json:"class"`       //can be: R: 轉, [class]
-	Filemode   ptttype.FileMode `json:"mode"`        //10
+	Filemode   ptttype.FileMode `json:"mode"`        //
 
-	URL  string `json:"url"`  //11
-	Read bool   `json:"read"` //12
+	URL  string `json:"url"`  //
+	Read bool   `json:"read"` //
 
 	Brdname string          `json:"brdname"`
 	Content [][]*types.Rune `json:"content"`
@@ -72,6 +73,7 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 		CreateTime: articleDetailSummary.CreateTime.ToTime8(),
 		MTime:      articleDetailSummary.MTime.ToTime8(),
 		Recommend:  articleDetailSummary.Recommend,
+		NComments:  articleDetailSummary.NComments,
 		Owner:      articleDetailSummary.Owner,
 		Title:      articleDetailSummary.Title,
 		Money:      articleDetailSummary.Money,
@@ -161,9 +163,10 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	}
 	var result_b *pttbbsapi.GetArticleResult
 
-	urlMap := make(map[string]string)
-	urlMap["bid"] = string(bboardID)
-	urlMap["aid"] = string(articleID)
+	urlMap := map[string]string{
+		"bid": string(bboardID),
+		"aid": string(articleID),
+	}
 	url := utils.MergeURL(urlMap, pttbbsapi.GET_ARTICLE_R)
 
 	statusCode, err := utils.BackendGet(c, url, theParams_b, nil, &result_b)

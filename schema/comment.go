@@ -110,6 +110,20 @@ var (
 	EMPTY_COMMENT_ARTICLE_QUERY = &CommentArticleQuery{}
 )
 
+func CountComments(boardID bbs.BBoardID, articleID bbs.ArticleID) (nComments int, err error) {
+	query := &CommentArticleQuery{
+		BBoardID:  boardID,
+		ArticleID: articleID,
+	}
+
+	count, err := Comment_c.Count(query, 0)
+	if err != nil {
+		return 0, err
+	}
+
+	return int(count), nil
+}
+
 //UpdateComments
 //
 //XXX hack in updateCommentsCore:
@@ -253,8 +267,6 @@ func (c *Comment) CleanReply() {
 	}
 
 	c.Content = newContent
-
-	return
 }
 
 func isEditReplyPerLine(line []*types.Rune) bool {
