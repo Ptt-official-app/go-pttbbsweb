@@ -10,6 +10,8 @@ type ArticleComments struct {
 	BBoardID  bbs.BBoardID  `bson:"bid"` //
 	ArticleID bbs.ArticleID `bson:"aid"` //
 
+	NComments int `bson:"n_comments"`
+
 	CommentsUpdateNanoTS types.NanoTS `bson:"comments_update_nano_ts"`
 
 	IsDeleted bool `bson:"deleted,omitempty"` //
@@ -21,6 +23,9 @@ var (
 	articleCommentsFields  = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_COMMENTS)
 )
 
+//UpdateArticleComments
+//
+//We've already have article-content-info, we don't do create UpdateArticleComments
 func UpdateArticleComments(articleComments *ArticleComments) (err error) {
 
 	query := bson.M{

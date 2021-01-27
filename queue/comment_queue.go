@@ -100,9 +100,12 @@ func processCommentQueue(q *CommentQueue) {
 		return
 	}
 
+	nComments, _ := schema.CountComments(q.BBoardID, q.ArticleID)
+
 	articleComments := &schema.ArticleComments{
 		BBoardID:             q.BBoardID,
 		ArticleID:            q.ArticleID,
+		NComments:            nComments,
 		CommentsUpdateNanoTS: q.UpdateNanoTS,
 	}
 

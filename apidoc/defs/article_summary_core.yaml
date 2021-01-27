@@ -11,6 +11,8 @@ modified:
   type: number
 recommend:
   type: number
+n_comments:
+  type: number
 owner:
   type: string
 date:

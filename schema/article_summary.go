@@ -26,6 +26,8 @@ type ArticleSummary struct {
 	Filemode  ptttype.FileMode `bson:"mode"`
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
+
+	NComments int `bson:"n_comments,omitempty"` //n_comments is read-only in article-summary.
 }
 
 var (
@@ -51,6 +53,9 @@ func GetArticleSummary(bboardID bbs.BBoardID, articleID bbs.ArticleID) (result *
 	return result, nil
 }
 
+//NewARticleSummary
+//
+//no n_comments in bbs.ArticleSummary from backend.
 func NewArticleSummary(a_b *bbs.ArticleSummary, updateNanoTS types.NanoTS) *ArticleSummary {
 
 	title := a_b.Title
