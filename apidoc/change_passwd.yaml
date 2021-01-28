@@ -3,7 +3,8 @@ ChangePasswd
 tags:
   - user
 parameters:
-  - name: 'user_id'
+  - '$ref': '#/definitions/ParamsAuthorization'
+    - name: 'user_id'
     in: 'path'
     required: true
     type: string

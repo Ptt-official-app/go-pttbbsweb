@@ -72,7 +72,7 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 
 	//update to db
 	updateNanoTS := types.NowNanoTS()
-	articleSummaries_db, userReadArticleMap, err := deserializeArticlesAndUpdateDB(userID, result_b.Articles, updateNanoTS)
+	articleSummaries_db, userReadArticleMap, err := deserializeArticlesAndUpdateDB(userID, thePath.BBoardID, result_b.Articles, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}
