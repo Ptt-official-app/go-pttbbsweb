@@ -242,12 +242,18 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		return content, ip, host, bbs, articleDetailSummary_db, nil
 	}
 
-	//enqueue.
+	//enqueue and n_comments
 	if theRestComments != nil {
 		err = queue.QueueCommentDBCS(bboardID, articleID, ownerID, theRestComments, firstCommentsLastTime, updateNanoTS)
 		if err != nil {
 			return content, ip, host, bbs, articleDetailSummary_db, nil
 		}
+	} else {
+		schema.UpdateArticleCommentsByArticleID(bboardID, articleID, updateNanoTS)
+	}
+
+	if articleDetailSummary_db.NComments == 0 {
+		articleDetailSummary_db.NComments = len(firstComments)
 	}
 
 	//everything is good, update content-mtime

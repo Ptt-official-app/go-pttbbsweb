@@ -23,6 +23,20 @@ var (
 	articleCommentsFields  = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_COMMENTS)
 )
 
+func UpdateArticleCommentsByArticleID(boardID bbs.BBoardID, articleID bbs.ArticleID, updateNanoTS types.NanoTS) {
+
+	nComments, _ := CountComments(boardID, articleID)
+
+	articleComments := &ArticleComments{
+		BBoardID:             boardID,
+		ArticleID:            articleID,
+		NComments:            nComments,
+		CommentsUpdateNanoTS: updateNanoTS,
+	}
+
+	_ = UpdateArticleComments(articleComments)
+}
+
 //UpdateArticleComments
 //
 //We've already have article-content-info, we don't do create UpdateArticleComments
