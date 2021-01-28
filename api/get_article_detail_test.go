@@ -71,11 +71,12 @@ func TestGetArticleDetail(t *testing.T) {
 		URL:  "http://localhost:3457/bbs/10_WhoAmI/M.1607937174.A.081.html",
 		Read: true,
 
-		Brdname: "WhoAmI",
-		Content: testContent4Utf8,
-		IP:      "172.22.0.1",
-		Host:    "",
-		BBS:     "批踢踢 docker(pttdocker.test)",
+		Brdname:   "WhoAmI",
+		Content:   testContent4Utf8,
+		IP:        "172.22.0.1",
+		Host:      "",
+		BBS:       "批踢踢 docker(pttdocker.test)",
+		NComments: 3,
 	}
 
 	expectedArticleDetailSummary1 := &schema.ArticleDetailSummary{
@@ -86,6 +87,7 @@ func TestGetArticleDetail(t *testing.T) {
 
 		FirstCommentsMD5:      "3fjMk__1yvzpuEgq8jfdmg",
 		FirstCommentsLastTime: types.NanoTS(1608388620000000000),
+		NComments:             3,
 	}
 
 	c := &gin.Context{}
@@ -200,10 +202,11 @@ func TestGetArticleDetail(t *testing.T) {
 		}
 		testutil.TDeepEqual(t, "comments", gotComments, tt.expectedFirstComments)
 
-		gotArticleDetailSummary, err := schema.GetArticleDetailSummary(tt.args.boardID, tt.args.articleID)
+		gotArticleDetailSummary, _ := schema.GetArticleDetailSummary(tt.args.boardID, tt.args.articleID)
 		if gotArticleDetailSummary != nil {
 			gotArticleDetailSummary.ContentUpdateNanoTS = 0
 			gotArticleDetailSummary.FirstCommentsUpdateNanoTS = 0
+			gotArticleDetailSummary.CommentsUpdateNanoTS = 0
 		}
 
 		testutil.TDeepEqual(t, "article-detail-summary", gotArticleDetailSummary, tt.expectedArticleDetailSummary)
