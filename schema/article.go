@@ -111,6 +111,10 @@ func assertArticleFields() error {
 		return err
 	}
 
+	if err := assertFields(EMPTY_ARTICLE, EMPTY_ARTICLE_N_COMMENTS); err != nil {
+		return err
+	}
+
 	return nil
 }
 

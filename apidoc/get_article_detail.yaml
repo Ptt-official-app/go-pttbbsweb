@@ -4,6 +4,7 @@ tags:
   - article
 description: get article info.
 parameters:
+  - '$ref': '#/definitions/ParamsAuthorization'
   - name: 'bid'
     in: path
     type: string

@@ -4,6 +4,7 @@ tags:
   - user
 definitions:
 parameters:
+  - '$ref': '#/definitions/ParamsAuthorization'
   - name: 'user_id'
     in: 'path'
     required: true
