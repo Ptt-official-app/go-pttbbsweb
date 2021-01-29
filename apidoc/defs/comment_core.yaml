@@ -1,22 +1,23 @@
-commentType:
+type:
   type: string
   description: "推/噓/→"
-userID:
+refid:
   type: string
   description: 發推文的 user
-content:
-  type: array
-  items:
-    '$ref': '#/definitions/Rune'
-replyCommentID:
+deleted:
+  type: boolean
+  description: is deleted
+refid:
   type: string
   description: 是在回應哪個 comment. 第 0 層是 ''
-postDateTime:
-  type: string
-  description: 推文 date-time (MM/DD hh:mm)
-fromHost:
-  type: string
-  description: from 的描述 (國名)
-fromIP:
+create_time:
+  type: number
+  description: 留言時間
+content:
+  '$ref': '#/definitions/Content'
+ip:
   type: string
   description: from IP
+host:
+  type: string
+  description: from 的描述 (國名)

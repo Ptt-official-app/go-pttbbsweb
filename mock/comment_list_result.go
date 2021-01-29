@@ -23,10 +23,13 @@ var (
 				IsDeleted:  false,
 				CreateTime: types.Time8(1345678901),
 				Owner:      "ckoool",
-				Date:       "12/16",
-				Content:    "怎麼了嗎？～",
-				IP:         "localhost",
-				Host:       "我家",
+				Content: [][]*types.Rune{
+					{
+						{Utf8: "怎麼了嗎？～"},
+					},
+				},
+				IP:   "localhost",
+				Host: "我家",
 			},
 			{
 				BBoardID:   bbs.BBoardID("10_WhoAmI"),
@@ -37,10 +40,13 @@ var (
 				IsDeleted:  false,
 				CreateTime: types.Time8(1345678902),
 				Owner:      "teamore",
-				Date:       "12/16",
-				Content:    "真的嗎？～",
-				IP:         "localhost",
-				Host:       "全家",
+				Content: [][]*types.Rune{
+					{
+						{Utf8: "真的嗎？～"},
+					},
+				},
+				IP:   "localhost",
+				Host: "全家",
 			},
 			{
 				BBoardID:   bbs.BBoardID("10_WhoAmI"),
@@ -51,10 +57,13 @@ var (
 				IsDeleted:  true,
 				CreateTime: types.Time8(1345688902),
 				Owner:      "tealess",
-				Date:       "12/17",
-				Content:    "真的假的？～",
-				IP:         "localhost",
-				Host:       "妳家",
+				Content: [][]*types.Rune{
+					{
+						{Utf8: "真的假的？～"},
+					},
+				},
+				IP:   "localhost",
+				Host: "妳家",
 			},
 			{
 				BBoardID:   bbs.BBoardID("10_WhoAmI"),
@@ -65,10 +74,13 @@ var (
 				IsDeleted:  true,
 				CreateTime: types.Time8(1345700902),
 				Owner:      "ok2",
-				Date:       "12/18",
-				Content:    "然後呢？～",
-				IP:         "localhost",
-				Host:       "大家",
+				Content: [][]*types.Rune{
+					{
+						{Utf8: "然後呢？～"},
+					},
+				},
+				IP:   "localhost",
+				Host: "大家",
 			},
 		},
 		NextIdx: "10",

@@ -1,8 +1,13 @@
 package api
 
 import (
+	"fmt"
+	"strconv"
+	"strings"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/mock"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
@@ -16,8 +21,8 @@ type LoadArticleCommentsParams struct {
 }
 
 type LoadArticleCommentsPath struct {
-	BBoardID  bbs.BBoardID  `json:"bid"`
-	ArticleID bbs.ArticleID `json:"aid"`
+	BBoardID  bbs.BBoardID  `uri:"bid"`
+	ArticleID bbs.ArticleID `uri:"aid"`
 }
 
 type LoadArticleCommentsResult struct {
@@ -39,7 +44,73 @@ func LoadArticleCommentsWrapper(c *gin.Context) {
 }
 
 func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+	theParams, ok := params.(*LoadArticleCommentsParams)
+	if !ok {
+		return nil, 400, ErrInvalidParams
+	}
 
-	result = mock.CommentListResult
+	thePath, ok := path.(*LoadArticleCommentsPath)
+	if !ok {
+		return nil, 400, ErrInvalidPath
+	}
+
+	//is board-valid-user
+	_, statusCode, err = isBoardValidUser(thePath.BBoardID, c)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	//get comments
+	queryCreateNanoTS, queryCommentID := loadArticleCommentsDeserializeIdx(theParams.StartIdx)
+
+	comments_db, err := schema.GetComments(thePath.BBoardID, thePath.ArticleID, queryCreateNanoTS, queryCommentID, theParams.Descending, theParams.Max+1)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	var nextComment *schema.Comment
+	if len(comments_db) == theParams.Max+1 {
+		nextComment = comments_db[theParams.Max]
+		comments_db = comments_db[:theParams.Max]
+	}
+
+	result = NewLoadArticleCommentsResult(comments_db, nextComment)
 	return result, 200, nil
+}
+
+func loadArticleCommentsDeserializeIdx(startIdx string) (createNanoTS types.NanoTS, commentID types.CommentID) {
+	theList := strings.Split(startIdx, "@")
+	if len(theList) != 2 {
+		return 0, ""
+	}
+
+	nanoTSInt, err := strconv.Atoi(theList[0])
+	if err != nil {
+		return 0, ""
+	}
+
+	return types.NanoTS(nanoTSInt), types.CommentID(theList[1])
+}
+
+func loadArticleCommentsSerializeIdx(createNanoTS types.NanoTS, commentID types.CommentID) string {
+
+	return fmt.Sprintf("%v@%v", createNanoTS, commentID)
+}
+
+func NewLoadArticleCommentsResult(comments_db []*schema.Comment, nextComment *schema.Comment) (result *LoadArticleCommentsResult) {
+	nextIdx := ""
+	if nextComment != nil {
+		nextIdx = loadArticleCommentsSerializeIdx(nextComment.CreateTime, nextComment.CommentID)
+	}
+
+	comments := make([]*apitypes.Comment, len(comments_db))
+	for idx, each := range comments_db {
+		comments[idx] = apitypes.NewComment(each)
+	}
+
+	result = &LoadArticleCommentsResult{
+		List:    comments,
+		NextIdx: nextIdx,
+	}
+	return result
 }

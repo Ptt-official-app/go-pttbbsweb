@@ -227,15 +227,6 @@ def _load_article_comments(bid, aid):
     return ''
 
 
-@app.route(_with_app_prefix('/board/<bid>/article/<aid>/comments/first'))
-def _load_article_firstcomments(bid, aid):
-    """
-    swagger_from_file: apidoc/load_article_firstcomments.yaml
-
-    """
-    return ''
-
-
 @app.route(_with_app_prefix('/board/<bid>'))
 def _get_board_detail(bid):
     """
