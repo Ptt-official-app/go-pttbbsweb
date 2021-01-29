@@ -48,6 +48,8 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(LoadBoardsByBids(data.(*api.LoadBoardsByBidsParams)), result)
 	case api.CHECK_EXISTS_USER_R:
 		return parseResult(CheckExistsUser(data.(*api.CheckExistsUserParams)), result)
+	case "/board/10_WhoAmI/isvalid":
+		return parseResult(IsBoardValidUser(), result)
 	default:
 		return 500, ErrURL
 	}

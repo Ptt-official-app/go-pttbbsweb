@@ -1,6 +1,7 @@
 package schema
 
 import (
+	"sort"
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
@@ -109,6 +110,96 @@ type CommentArticleQuery struct {
 var (
 	EMPTY_COMMENT_ARTICLE_QUERY = &CommentArticleQuery{}
 )
+
+//GetComments
+func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, createNanoTS types.NanoTS, commentID types.CommentID, descending bool, limit int) (comments []*Comment, err error) {
+	//setup query
+	var query bson.M
+	if createNanoTS == 0 {
+		query = bson.M{
+			COMMENT_BBOARD_ID_b:  boardID,
+			COMMENT_ARTICLE_ID_b: articleID,
+		}
+	} else {
+		theDirCommentID := "$gte"
+		theDirCreateNanoTS := "$gt"
+		if descending {
+			theDirCommentID = "$lte"
+			theDirCreateNanoTS = "$lt"
+		}
+
+		query = bson.M{
+			"$or": bson.A{
+				bson.M{
+					COMMENT_BBOARD_ID_b:   boardID,
+					COMMENT_ARTICLE_ID_b:  articleID,
+					COMMENT_CREATE_TIME_b: createNanoTS,
+					COMMENT_COMMENT_ID_b: bson.M{
+						theDirCommentID: commentID,
+					},
+					COMMENT_IS_DELETED_b: bson.M{
+						"$exists": false,
+					},
+				},
+				bson.M{
+					COMMENT_BBOARD_ID_b:  boardID,
+					COMMENT_ARTICLE_ID_b: articleID,
+					COMMENT_CREATE_TIME_b: bson.M{
+						theDirCreateNanoTS: createNanoTS,
+					},
+					COMMENT_IS_DELETED_b: bson.M{
+						"$exists": false,
+					},
+				},
+			},
+		}
+	}
+	//sort opts
+	var sortOpts bson.D
+	if descending {
+		sortOpts = bson.D{
+			{Key: COMMENT_CREATE_TIME_b, Value: -1},
+			{Key: COMMENT_COMMENT_ID_b, Value: -1},
+		}
+	} else {
+		sortOpts = bson.D{
+			{Key: COMMENT_CREATE_TIME_b, Value: 1},
+			{Key: COMMENT_COMMENT_ID_b, Value: 1},
+		}
+	}
+
+	//find
+	err = Comment_c.Find(query, int64(limit), &comments, nil, sortOpts)
+	if err != nil {
+		return nil, err
+	}
+
+	comments = SortCommentsByCreateNanoTS(comments, descending)
+
+	return comments, nil
+}
+
+func SortCommentsByCreateNanoTS(comments []*Comment, descending bool) (newComments []*Comment) {
+	if descending {
+		sort.SliceStable(comments, func(i, j int) bool {
+			if comments[i].CreateTime == comments[j].CreateTime {
+				return strings.Compare(string(comments[i].CommentID), string(comments[j].CommentID)) > 0
+			} else {
+				return comments[i].CreateTime-comments[j].CreateTime > 0
+			}
+		})
+	} else {
+		sort.SliceStable(comments, func(i, j int) bool {
+			if comments[i].CreateTime == comments[j].CreateTime {
+				return strings.Compare(string(comments[i].CommentID), string(comments[j].CommentID)) < 0
+			} else {
+				return comments[i].CreateTime-comments[j].CreateTime < 0
+			}
+		})
+	}
+
+	return comments
+}
 
 func CountComments(boardID bbs.BBoardID, articleID bbs.ArticleID) (nComments int, err error) {
 	query := &CommentArticleQuery{

@@ -79,7 +79,7 @@ func TestCountComments(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	_ = UpdateComments(testComments0, types.NanoTS(1234567890000000000))
+	_ = UpdateComments(testComments0, types.NanoTS(1334567890000000000))
 
 	type args struct {
 		boardID   bbs.BBoardID
@@ -107,6 +107,84 @@ func TestCountComments(t *testing.T) {
 			if gotNComments != tt.expectedNComments {
 				t.Errorf("CountComments() = %v, want %v", gotNComments, tt.expectedNComments)
 			}
+		})
+	}
+}
+
+func TestGetComments(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	_ = UpdateComments(testComments0, types.NanoTS(1334567890000000000))
+
+	expectedComments0 := []*Comment{testComments0[4], testComments0[3]}
+	expectedComments1 := []*Comment{testComments0[3], testComments0[2]}
+	expectedComments2 := []*Comment{testComments0[0], testComments0[1]}
+	expectedComments3 := []*Comment{testComments0[1], testComments0[2]}
+
+	type args struct {
+		boardID      bbs.BBoardID
+		articleID    bbs.ArticleID
+		createNanoTS types.NanoTS
+		commentID    types.CommentID
+		descending   bool
+		limit        int
+	}
+	tests := []struct {
+		name             string
+		args             args
+		expectedComments []*Comment
+		wantErr          bool
+	}{
+		// TODO: Add test cases.
+		{
+			args: args{
+				boardID:    "test",
+				articleID:  "test",
+				limit:      2,
+				descending: true,
+			},
+			expectedComments: expectedComments0,
+		},
+		{
+			args: args{
+				boardID:      "test",
+				articleID:    "test",
+				limit:        2,
+				createNanoTS: types.NanoTS(1261396680003100000),
+				commentID:    types.CommentID("EYFhmOhvlsA:cpqbGyLoF_jIyITF4bv-rQ:R"),
+				descending:   true,
+			},
+			expectedComments: expectedComments1,
+		},
+		{
+			args: args{
+				boardID:   "test",
+				articleID: "test",
+				limit:     2,
+			},
+			expectedComments: expectedComments2,
+		},
+		{
+			args: args{
+				boardID:      "test",
+				articleID:    "test",
+				limit:        2,
+				createNanoTS: types.NanoTS(1261396680002000000),
+				commentID:    "EYFhmOhgVIA:gmrKWXE7BjV-1U89GcPqHg",
+			},
+			expectedComments: expectedComments3,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotComments, err := GetComments(tt.args.boardID, tt.args.articleID, tt.args.createNanoTS, tt.args.commentID, tt.args.descending, tt.args.limit)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetComments() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			testutil.TDeepEqual(t, "got", gotComments, tt.expectedComments)
 		})
 	}
 }

@@ -95,20 +95,20 @@ func assertUserFavorites() error {
 func GetUserFavorites(userID bbs.UUserID, doubleBufferIdx int, levelIdx LevelIdx, startIdx int, ascending bool, limit int, mTime types.NanoTS) (userFavorites []*UserFavorites, err error) {
 
 	var queryIdx bson.M
-	var sortOpts bson.M
+	var sortOpts bson.D
 	if ascending {
 		queryIdx = bson.M{
 			"$gte": startIdx,
 		}
-		sortOpts = bson.M{
-			USER_FAVORITES_IDX_b: 1,
+		sortOpts = bson.D{
+			{Key: USER_FAVORITES_IDX_b, Value: 1},
 		}
 	} else {
 		queryIdx = bson.M{
 			"$lte": startIdx,
 		}
-		sortOpts = bson.M{
-			USER_FAVORITES_IDX_b: -1,
+		sortOpts = bson.D{
+			{Key: USER_FAVORITES_IDX_b, Value: -1},
 		}
 	}
 

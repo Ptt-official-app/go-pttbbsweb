@@ -3,8 +3,12 @@ package api
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/gin-gonic/gin"
+
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 )
 
 type userBoardInfo struct {
@@ -54,4 +58,24 @@ func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.Bo
 	}
 
 	return boardSummaries, userBoardInfoMap, err
+}
+
+func isBoardValidUser(boardID bbs.BBoardID, c *gin.Context) (isValid bool, statusCode int, err error) {
+
+	var result_b *pttbbsapi.IsBoardValidUserResult
+
+	urlMap := map[string]string{
+		"bid": string(boardID),
+	}
+	url := utils.MergeURL(urlMap, pttbbsapi.IS_BOARD_VALID_USER_R)
+	statusCode, err = utils.BackendGet(c, url, nil, nil, &result_b)
+	if err != nil || statusCode != 200 {
+		return false, statusCode, err
+	}
+	if !result_b.IsValid {
+		return false, 403, ErrInvalidUser
+	}
+
+	return true, 200, nil
+
 }

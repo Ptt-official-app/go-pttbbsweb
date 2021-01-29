@@ -49,7 +49,7 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 
 	thePath, ok := path.(*LoadGeneralArticlesPath)
 	if !ok {
-		return nil, 400, ErrInvalidParams
+		return nil, 400, ErrInvalidPath
 	}
 
 	//backend accepts only descending order.

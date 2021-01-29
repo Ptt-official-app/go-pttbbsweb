@@ -59,6 +59,11 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 		return nil, 400, ErrInvalidPath
 	}
 
+	_, statusCode, err = isBoardValidUser(thePath.BBoardID, c)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
 	// ensure that we do have the article.
 	content, ip, host, bbs, articleDetailSummary, err := tryGetArticleContentInfo(userID, thePath.BBoardID, thePath.ArticleID, c)
 	if err != nil {
@@ -100,7 +105,9 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 
 	// set user-read-article-id
 	defer func() {
-		setUserReadArticle(content, userID, articleID, updateNanoTS)
+		if err == nil {
+			setUserReadArticle(content, userID, articleID, updateNanoTS)
+		}
 	}()
 
 	//get article-info (ensuring valid article-id)
@@ -129,6 +136,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		}
 
 		if tryGetArticleContentInfoTooSoon(articleDetailSummary_db.ContentUpdateNanoTS) {
+
 			contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID)
 			if err != nil {
 				return nil, "", "", "", nil, err

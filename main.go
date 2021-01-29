@@ -52,7 +52,6 @@ func initGin() (*gin.Engine, error) {
 	router.POST(withPrefix(api.SET_ID_EMAIL_R), api.SetIDEmailWrapper)
 
 	//comments
-	router.GET(withPrefix(api.LOAD_ARTICLE_FIRSTCOMMENTS_R), api.LoadArticleFirstCommentsWrapper)
 	router.GET(withPrefix(api.LOAD_ARTICLE_COMMENTS_R), api.LoadArticleCommentsWrapper)
 	router.GET(withPrefix(api.LOAD_USER_COMMENTS_R), api.LoadUserCommentsWrapper)
 
