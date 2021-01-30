@@ -16,4 +16,8 @@ apidoc/addsecurity.py swagger/v3/openapi.yaml
 
 docker container stop swagger-go-openbbsmiddleware
 docker container rm swagger-go-openbbsmiddleware
-docker run -itd --restart always --name swagger-go-openbbsmiddleware -p 127.0.0.1:5000:8080 -e SWAGGER_JSON=/foo/v3/openapi.security.json -v ${PWD}/swagger:/foo swaggerapi/swagger-ui
+docker run -itd --restart always --name swagger-go-openbbsmiddleware -p 127.0.0.1:5000:8080 -e SWAGGER_JSON=/foo/swagger.json -v ${PWD}/swagger:/foo swaggerapi/swagger-ui
+
+docker container stop swagger-go-openbbsmiddleware-v3
+docker container rm swagger-go-openbbsmiddleware-v3
+docker run -itd --restart always --name swagger-go-openbbsmiddleware-v3 -p 127.0.0.1:5001:8080 -e SWAGGER_JSON=/foo/v3/openapi.security.json -v ${PWD}/swagger:/foo swaggerapi/swagger-ui
