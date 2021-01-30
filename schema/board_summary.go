@@ -17,9 +17,9 @@ type BoardSummary struct {
 	BrdAttr   ptttype.BrdAttr `bson:"flag"`
 	BoardType string          `bson:"the_type"`
 	Category  string          `bson:"class"`
-	//NUser     int             `bson:"nuser"`  /* use db-count to get current #users */
-	BMs   []bbs.UUserID `bson:"bms"`
-	Total int           `bson:"total"` /* total articles, 需要即時知道. 因為 read 頻率高. 並且跟 last-post-time-ts 一樣 write 頻率 << read 頻率 */
+	NUser     int             `bson:"nuser"`
+	BMs       []bbs.UUserID   `bson:"bms"`
+	Total     int             `bson:"total"` /* total articles, 需要即時知道. 因為 read 頻率高. 並且跟 last-post-time-ts 一樣 write 頻率 << read 頻率 */
 
 	LastPostTime types.NanoTS `bson:"last_post_time_nano_ts"` /* 需要即時知道來做板的已讀 */
 
@@ -43,6 +43,7 @@ func NewBoardSummary(b_b *bbs.BoardSummary, updateNanoTS types.NanoTS) *BoardSum
 		Category:  types.Big5ToUtf8(b_b.BoardClass),
 		BMs:       b_b.BM,
 		Total:     int(b_b.Total),
+		NUser:     int(b_b.NUser),
 
 		LastPostTime: types.Time4ToNanoTS(b_b.LastPostTime),
 
@@ -85,7 +86,7 @@ func UpdateBoardSummaries(boardSummaries []*BoardSummary, updateNanoTS types.Nan
 			continue
 		}
 
-		origFilter, ok := each.Filter.(*BoardQuery)
+		origFilter := each.Filter.(*BoardQuery)
 		filter := bson.M{
 			"$or": bson.A{
 				bson.M{

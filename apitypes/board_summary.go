@@ -40,6 +40,7 @@ func NewBoardSummary(b_db *schema.BoardSummary) *BoardSummary {
 		BMs:          b_db.BMs,
 		Total:        b_db.Total,
 		LastPostTime: b_db.LastPostTime.ToTime8(),
+		NUser:        b_db.NUser,
 
 		StatAttr: ptttype.NBRD_BOARD,
 	}
