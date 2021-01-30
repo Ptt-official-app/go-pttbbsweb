@@ -11,10 +11,20 @@ type HTMLPath struct {
 	Path string `uri:"path"`
 }
 
+const ROOT_HTML_R = "/"
 const INDEX_HTML_R = "/index.html"
 
 func IndexHtmlWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "home.html")
+
+	maxAge := htmlMaxAge()
+	processCSRFContent(filename, maxAge, c)
+}
+
+const BOARDS_POPULAR_HTML_R = "/boards/popular"
+
+func AllHtmlWrapper(c *gin.Context) {
+	filename := filepath.Join(types.STATIC_DIR, "all.html")
 
 	maxAge := htmlMaxAge()
 	processCSRFContent(filename, maxAge, c)

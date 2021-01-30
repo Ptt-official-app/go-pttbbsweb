@@ -56,8 +56,10 @@ func initGin() (*gin.Engine, error) {
 	router.GET(withPrefix(api.LOAD_USER_COMMENTS_R), api.LoadUserCommentsWrapper)
 
 	//html
-	router.GET("/", api.IndexHtmlWrapper)
-	router.GET(api.INDEX_HTML_R, api.IndexHtmlWrapper)
+	router.GET(api.ROOT_HTML_R, api.AllHtmlWrapper)
+	router.GET(api.INDEX_HTML_R, api.AllHtmlWrapper)
+	router.GET(api.BOARDS_POPULAR_HTML_R, api.AllHtmlWrapper)
+
 	router.GET(api.REGISTER_HTML_R, api.RegisterHtmlWrapper)
 	router.GET(api.USER_HTML_R, api.UserHtmlWrapper)
 	router.GET(api.USER_CHANGE_PASSWD_HTML_R, api.UserChangePasswdHtmlWrapper)
