@@ -34,6 +34,7 @@ func TestUpdateBoardSummaries(t *testing.T) {
 		Category:  "測試",
 		BMs:       []bbs.UUserID{"okcool", "teemo"},
 		Total:     123,
+		NUser:     100,
 
 		LastPostTime: types.NanoTS(1234567890000000000),
 
@@ -50,6 +51,7 @@ func TestUpdateBoardSummaries(t *testing.T) {
 		Category:  "測試",
 		BMs:       []bbs.UUserID{"okcool2", "teemo2"},
 		Total:     124,
+		NUser:     101,
 
 		LastPostTime: types.NanoTS(1300000000000000000),
 
