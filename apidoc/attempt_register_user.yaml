@@ -2,7 +2,7 @@ AttemptRegisterUser
 ---
 tags:
   - user
-params:
+parameters:
   - name: params
     in: body
     required: true
