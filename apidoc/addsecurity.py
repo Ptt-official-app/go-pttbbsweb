@@ -21,9 +21,11 @@ components['securitySchemes'] = {
 
 to_update = {
     'components': components,
-    'security': {
-        'default': [],
-    },
+    'security': [
+        {
+            'default': [],
+        },
+    ]
 }
 
 the_struct.update(to_update)
