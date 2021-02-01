@@ -27,6 +27,7 @@ def _is_not_authorization(x):
     return x['name'] != 'Authorization'
 
 
+# params
 for path, data_by_path in paths3.items():
     for method, data_by_method in data_by_path.items():
         request_body = data_by_method.get('requestBody', None)
@@ -44,11 +45,21 @@ for path, data_by_path in paths3.items():
                 each['$ref'] = val
         data_by_method['parameters'] = params2
 
+# definitions
 definitions2 = the_struct2.get('definitions', {})
 schemas3 = the_struct3.get('components', {}).get('schemas', {})
 for key, val in definitions2.items():
     if 'name' in val:
         schemas3[key] = val
+
+# servers
+the_host = the_struct2.get('host', '')
+the_host3 = ''
+if the_host.startswith('localhost'):
+    the_host3 = 'http://' + the_host
+else:
+    the_host3 = 'https://' + the_host
+the_struct3['servers'] = [{'url': the_host3}]
 
 out_filename3 = re.sub(r'\.json', '.params.json', filename3)
 with open(out_filename3, 'w') as f:
