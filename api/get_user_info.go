@@ -42,7 +42,7 @@ type GetUserInfoResult struct {
 
 	PagerUIType uint8             `json:"pager_ui"` /* 呼叫器界面類別 (was: WATER_*) */
 	Pager       ptttype.PagerMode `json:"pager"`    /* 呼叫器狀態 */
-	Invisible   bool              `json:"hide"`
+	Invisible   bool              `json:"invisible"`
 	Exmailbox   uint32            `json:"exmail"`
 
 	Career        string      `json:"career"`
