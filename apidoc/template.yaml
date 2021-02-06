@@ -26,6 +26,8 @@ definitions:
   !include defs/content.yaml
   !include defs/params_asc.yaml
   !include defs/params_desc.yaml
+  !include defs/params_title.yaml
+  !include defs/params_keyword.yaml
   !include defs/user_list.yaml
   !include defs/user_list_summary.yaml
   !include defs/user_summary.yaml

@@ -1,7 +1,6 @@
 package api
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -46,12 +45,6 @@ func deserializeArticlesAndUpdateDB(userID bbs.UUserID, bboardID bbs.BBoardID, a
 	updateArticleNComments(bboardID, articleSummaries)
 
 	return articleSummaries, userReadArticleMap, err
-}
-
-func reverseArticleSummaryList(s []*apitypes.ArticleSummary) {
-	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
-		s[i], s[j] = s[j], s[i]
-	}
 }
 
 func updateArticleNComments(bboardID bbs.BBoardID, articleSummaries []*schema.ArticleSummary) {

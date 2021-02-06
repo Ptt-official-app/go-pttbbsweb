@@ -55,7 +55,7 @@ func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, 
 	}
 
 	boardSummary_db := boardSummaries_db[0]
-	boardSummary := apitypes.NewBoardSummary(boardSummary_db)
+	boardSummary := apitypes.NewBoardSummary(boardSummary_db, "")
 	theList := []*apitypes.BoardSummary{boardSummary}
 
 	//check isRead

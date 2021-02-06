@@ -26,6 +26,11 @@ type BoardSummary struct {
 	IsDeleted bool `bson:"deleted,omitempty"`
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
+
+	Gid        ptttype.Bid `bson:"pttgid"`
+	Bid        ptttype.Bid `bson:"pttbid"`
+	IdxByName  string      `bson:"pttidxname"`
+	IdxByClass string      `bson:"pttidxclass"`
 }
 
 var (
@@ -48,6 +53,11 @@ func NewBoardSummary(b_b *bbs.BoardSummary, updateNanoTS types.NanoTS) *BoardSum
 		LastPostTime: types.Time4ToNanoTS(b_b.LastPostTime),
 
 		UpdateNanoTS: updateNanoTS,
+
+		Gid:        b_b.Gid,
+		Bid:        b_b.Bid,
+		IdxByName:  b_b.IdxByName,
+		IdxByClass: b_b.IdxByClass,
 	}
 }
 

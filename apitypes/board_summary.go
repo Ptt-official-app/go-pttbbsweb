@@ -1,6 +1,8 @@
 package apitypes
 
 import (
+	"strconv"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -24,9 +26,13 @@ type BoardSummary struct {
 
 	StatAttr ptttype.BoardStatAttr `json:"stat_attr,omitempty"`
 	LevelIdx schema.LevelIdx       `json:"level_idx,omitempty"`
+
+	Gid ptttype.Bid `json:"gid"`
+
+	Idx string `json:"idx"`
 }
 
-func NewBoardSummary(b_db *schema.BoardSummary) *BoardSummary {
+func NewBoardSummary(b_db *schema.BoardSummary, idx string) *BoardSummary {
 	if b_db == nil {
 		return nil
 	}
@@ -43,6 +49,10 @@ func NewBoardSummary(b_db *schema.BoardSummary) *BoardSummary {
 		NUser:        b_db.NUser,
 
 		StatAttr: ptttype.NBRD_BOARD,
+
+		Gid: b_db.Gid,
+
+		Idx: idx,
 	}
 }
 
@@ -52,7 +62,6 @@ func NewBoardSummaryFromUserFavorites(uf_db *schema.UserFavorites, b_db *schema.
 		return &BoardSummary{
 			StatAttr: ptttype.NBRD_LINE,
 		}
-
 	case pttbbsfav.FAVT_FOLDER:
 		return &BoardSummary{
 			Title: uf_db.FolderTitle,
@@ -62,7 +71,8 @@ func NewBoardSummaryFromUserFavorites(uf_db *schema.UserFavorites, b_db *schema.
 		}
 
 	case pttbbsfav.FAVT_BOARD:
-		return NewBoardSummary(b_db)
+		idxStr := strconv.Itoa(uf_db.Idx)
+		return NewBoardSummary(b_db, idxStr)
 	}
 
 	return nil

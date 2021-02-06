@@ -47,6 +47,11 @@ type Board struct {
 	IsDeleted bool `bson:"deleted,omitempty"`
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
+
+	Gid        ptttype.Bid `bson:"pttgid"`
+	Bid        ptttype.Bid `bson:"pttbid"`
+	IdxByName  string      `bson:"pttidxname"`
+	IdxByClass string      `bson:"pttidxclass"`
 }
 
 var (

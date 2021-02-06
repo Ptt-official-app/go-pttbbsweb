@@ -79,12 +79,7 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 		return nil, 500, err
 	}
 
-	r := NewLoadGeneralArticlesResult(articleSummaries_db, result_b.NextIdx)
-
-	//backend always returns in descending order.
-	if !theParams.Descending {
-		reverseArticleSummaryList(r.List)
-	}
+	r := NewLoadGeneralArticlesResult(articleSummaries_db, result_b)
 
 	//check isRead
 	err = checkReadArticles(userID, userReadArticleMap, r.List)
@@ -152,14 +147,16 @@ func updateUserReadBoard(userID bbs.UUserID, boardID bbs.BBoardID, updateNanoTS 
 	return nil
 }
 
-func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummary, nextIdx string) *LoadGeneralArticlesResult {
+func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummary, result_b *pttbbsapi.LoadGeneralArticlesResult) *LoadGeneralArticlesResult {
 	theList := make([]*apitypes.ArticleSummary, len(a_db))
 	for i, each_db := range a_db {
 		theList[i] = apitypes.NewArticleSummary(each_db)
 	}
 
 	return &LoadGeneralArticlesResult{
-		List:    theList,
-		NextIdx: nextIdx,
+		List:           theList,
+		NextIdx:        result_b.NextIdx,
+		NextCreateTime: types.Time8(result_b.NextCreateTime),
+		StartNumIdx:    result_b.StartNumIdx,
 	}
 }

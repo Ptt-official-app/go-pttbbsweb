@@ -17,7 +17,7 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 	case api.LOAD_GENERAL_BOARDS_R:
 		return parseResult(LoadGeneralBoards(data.(*api.LoadGeneralBoardsParams)), result)
 	case api.LOAD_GENERAL_BOARDS_BY_CLASS_R:
-		return parseResult(LoadGeneralBoards(data.(*api.LoadGeneralBoardsParams)), result)
+		return parseResult(LoadGeneralBoardsByClass(data.(*api.LoadGeneralBoardsParams)), result)
 	case api.LOAD_HOT_BOARDS_R:
 		return parseResult(LoadHotBoards(), result)
 	case "/board/1_test1/articles":

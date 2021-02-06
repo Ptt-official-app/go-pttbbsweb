@@ -5,12 +5,8 @@ tags:
 description: 列出所有板 (可用英文板名搜尋)
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
-  - name: 'title'
-    in: 'query'
-    required: false
-    description: "query string, '' returns all boards"
-    type: string
-    default: ''
+  - '$ref': '#/definitions/ParamsTitle'
+  - '$ref': '#/definitions/ParamsKeyword'
   - '$ref': '#/definitions/ParamsStartIdx'
   - '$ref': '#/definitions/ParamsLimit'
   - '$ref': '#/definitions/ParamsAsc'

@@ -23,9 +23,14 @@ func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.Bo
 		return nil, nil, nil
 	}
 
-	boardSummaries = make([]*schema.BoardSummary, len(boardSummaries_b))
-	for idx, each_b := range boardSummaries_b {
-		boardSummaries[idx] = schema.NewBoardSummary(each_b, updateNanoTS)
+	boardSummaries = make([]*schema.BoardSummary, 0, len(boardSummaries_b))
+	for _, each_b := range boardSummaries_b {
+		if each_b.Reason != 0 {
+			continue
+		}
+		each := schema.NewBoardSummary(each_b, updateNanoTS)
+
+		boardSummaries = append(boardSummaries, each)
 	}
 
 	err = schema.UpdateBoardSummaries(boardSummaries, updateNanoTS)
@@ -36,6 +41,10 @@ func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.Bo
 	userReadBoards := make([]*schema.UserReadBoard, 0, len(boardSummaries_b))
 	userBoardInfoMap = make(map[bbs.BBoardID]*userBoardInfo)
 	for _, each_b := range boardSummaries_b {
+		if each_b.Reason != 0 {
+			continue
+		}
+
 		userBoardInfoMap[each_b.BBoardID] = &userBoardInfo{
 			Read:  each_b.Read,
 			Stat:  each_b.StatAttr,

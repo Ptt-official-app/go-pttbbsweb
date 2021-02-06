@@ -58,7 +58,7 @@ func TestLoadGeneralBoardsByClass(t *testing.T) {
 				StatAttr:     ptttype.NBRD_BOARD,
 			},
 		},
-		NextIdx: "3",
+		NextIdx: "vFSt-Q@test3",
 	}
 
 	type args struct {

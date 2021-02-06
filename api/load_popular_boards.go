@@ -1,6 +1,8 @@
 package api
 
 import (
+	"strconv"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
@@ -54,7 +56,8 @@ func NewLoadPopularBoardsResult(boardSummaries_db []*schema.BoardSummary) *LoadP
 
 	theList := make([]*apitypes.BoardSummary, len(boardSummaries_db))
 	for i, each_db := range boardSummaries_db {
-		theList[i] = apitypes.NewBoardSummary(each_db)
+		idxStr := strconv.Itoa(i)
+		theList[i] = apitypes.NewBoardSummary(each_db, idxStr)
 	}
 
 	return &LoadPopularBoardsResult{
