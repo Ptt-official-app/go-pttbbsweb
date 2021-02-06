@@ -25,6 +25,8 @@ type ArticleSummary struct {
 	Class     string           `bson:"class"`
 	Filemode  ptttype.FileMode `bson:"mode"`
 
+	Idx string `bson:"pttidx"`
+
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 
 	NComments int `bson:"n_comments,omitempty"` //n_comments is read-only in article-summary.
@@ -76,6 +78,8 @@ func NewArticleSummary(a_b *bbs.ArticleSummary, updateNanoTS types.NanoTS) *Arti
 		Filemode:   a_b.Filemode,
 
 		UpdateNanoTS: updateNanoTS,
+
+		Idx: a_b.Idx,
 	}
 }
 

@@ -26,6 +26,8 @@ type Article struct {
 	Class      string           `bson:"class"`               //
 	Filemode   ptttype.FileMode `bson:"mode"`                //
 
+	Idx string `bson:"pttidx"`
+
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"` //used by article-summary
 
 	ContentMTime        types.NanoTS    `bson:"content_mtime_nano_ts"` //

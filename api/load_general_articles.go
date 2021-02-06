@@ -7,6 +7,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,8 +25,10 @@ type LoadGeneralArticlesPath struct {
 }
 
 type LoadGeneralArticlesResult struct {
-	List    []*apitypes.ArticleSummary `json:"list"`
-	NextIdx string                     `json:"next_idx"`
+	List           []*apitypes.ArticleSummary `json:"list"`
+	NextIdx        string                     `json:"next_idx"`
+	NextCreateTime types.Time8                `json:"next_create_time"`
+	StartNumIdx    ptttype.SortIdx            `json:"start_num_idx"`
 }
 
 func NewLoadGeneralArticlesParams() *LoadGeneralArticlesParams {
@@ -52,12 +55,11 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 		return nil, 400, ErrInvalidPath
 	}
 
-	//backend accepts only descending order.
-	startIdx := loadArticlesStartIdx(theParams.StartIdx, theParams.Descending, theParams.Max)
 	//backend load-general-articles
 	theParams_b := &pttbbsapi.LoadGeneralArticlesParams{
-		StartIdx:  startIdx,
+		StartIdx:  theParams.StartIdx,
 		NArticles: theParams.Max,
+		Desc:      theParams.Descending,
 	}
 	var result_b *pttbbsapi.LoadGeneralArticlesResult
 
@@ -77,12 +79,7 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 		return nil, 500, err
 	}
 
-	r := NewLoadGeneralArticlesResult(articleSummaries_db, result_b.NextIdx)
-
-	//backend always returns in descending order.
-	if !theParams.Descending {
-		reverseArticleSummaryList(r.List)
-	}
+	r := NewLoadGeneralArticlesResult(articleSummaries_db, result_b)
 
 	//check isRead
 	err = checkReadArticles(userID, userReadArticleMap, r.List)
@@ -150,14 +147,16 @@ func updateUserReadBoard(userID bbs.UUserID, boardID bbs.BBoardID, updateNanoTS 
 	return nil
 }
 
-func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummary, nextIdx string) *LoadGeneralArticlesResult {
+func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummary, result_b *pttbbsapi.LoadGeneralArticlesResult) *LoadGeneralArticlesResult {
 	theList := make([]*apitypes.ArticleSummary, len(a_db))
 	for i, each_db := range a_db {
 		theList[i] = apitypes.NewArticleSummary(each_db)
 	}
 
 	return &LoadGeneralArticlesResult{
-		List:    theList,
-		NextIdx: nextIdx,
+		List:           theList,
+		NextIdx:        result_b.NextIdx,
+		NextCreateTime: types.Time8(result_b.NextCreateTime),
+		StartNumIdx:    result_b.StartNumIdx,
 	}
 }

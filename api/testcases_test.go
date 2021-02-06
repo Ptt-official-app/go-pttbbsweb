@@ -68,6 +68,7 @@ var (
 
 		LastPostTime: 1234567890,
 		StatAttr:     ptttype.NBRD_BOARD,
+		Idx:          "3",
 	}
 
 	testBoardSummary8 = &apitypes.BoardSummary{
@@ -83,14 +84,15 @@ var (
 
 		LastPostTime: 1300000000,
 		StatAttr:     ptttype.NBRD_BOARD,
+		Idx:          "5",
 	}
 
 	testFavoriteBoards0 = []*apitypes.BoardSummary{
-		{StatAttr: ptttype.NBRD_LINE},
-		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":1"},
-		{StatAttr: ptttype.NBRD_LINE},
+		{StatAttr: ptttype.NBRD_LINE, Idx: "0"},
+		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":1", Idx: "1"},
+		{StatAttr: ptttype.NBRD_LINE, Idx: "2"},
 		testBoardSummary9,
-		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":4"},
+		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":4", Idx: "4"},
 		testBoardSummary8,
 	}
 )

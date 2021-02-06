@@ -7,3 +7,7 @@ ArticleList:
         '$ref': '#/definitions/ArticleSummary'
     next_idx:
       '$ref': '#/definitions/RespNextIdx'
+    next_create_time:
+      type: number
+    start_num_idx:
+      type: number

@@ -29,7 +29,7 @@ func TestLoadGeneralArticles(t *testing.T) {
 	_, _ = schema.UserReadArticle_c.Update(update0, update0)
 	_, _ = schema.UserReadArticle_c.Update(update1, update1)
 
-	params := &LoadGeneralArticlesParams{}
+	params := NewLoadGeneralArticlesParams()
 	path := &LoadGeneralArticlesPath{BBoardID: "1_test1"}
 	expectedResult := &LoadGeneralArticlesResult{
 		List: []*apitypes.ArticleSummary{
@@ -64,7 +64,8 @@ func TestLoadGeneralArticles(t *testing.T) {
 				Read:       true,
 			},
 		},
-		NextIdx: "1",
+		NextIdx:        "1234560000@19bUG021okcool",
+		NextCreateTime: 1234560000,
 	}
 
 	c := &gin.Context{}

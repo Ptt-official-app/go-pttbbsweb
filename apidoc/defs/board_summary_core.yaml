@@ -40,3 +40,7 @@ stat_attr:
 level_idx:
   type: string
   description: folder 的 level-idx
+
+gid:
+  type: number
+  description: group-id in pttbbs

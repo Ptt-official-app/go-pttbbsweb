@@ -24,7 +24,7 @@ func TestLoadGeneralBoards(t *testing.T) {
 	_, _ = schema.UserReadBoard_c.Update(update0, update0)
 	_, _ = schema.UserReadBoard_c.Update(update1, update1)
 
-	params := &LoadGeneralBoardsParams{}
+	params := NewLoadGeneralBoardsParams()
 	expectedResult := &LoadGeneralBoardsResult{
 		List: []*apitypes.BoardSummary{
 			{
@@ -58,7 +58,7 @@ func TestLoadGeneralBoards(t *testing.T) {
 				StatAttr:     ptttype.NBRD_BOARD,
 			},
 		},
-		NextIdx: "3",
+		NextIdx: "test3",
 	}
 	type args struct {
 		remoteAddr string

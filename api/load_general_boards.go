@@ -14,7 +14,8 @@ import (
 const LOAD_GENERAL_BOARDS_R = "/boards"
 
 type LoadGeneralBoardsParams struct {
-	Keyword   string `json:"title,omitempty" form:"title,omitempty" url:"title,omitempty"`
+	Title     string `json:"title,omitempty" form:"title,omitempty" url:"title,omitempty"`
+	Keyword   string `json:"keyword,omitempty" form:"keyword,omitempty" url:"keyword,omitempty"`
 	StartIdx  string `json:"start_idx,omitempty" form:"start_idx,omitempty" url:"start_idx,omitempty"`
 	Ascending bool   `json:"asc,omitempty"  form:"asc,omitempty" url:"asc,omitempty"`
 	Max       int    `json:"limit,omitempty" form:"limit,omitempty" url:"limit,omitempty"`
@@ -38,6 +39,12 @@ func LoadGeneralBoardsWrapper(c *gin.Context) {
 }
 
 func LoadGeneralBoards(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+
+	return loadGeneralBoardsCore(remoteAddr, userID, params, c, pttbbsapi.LOAD_GENERAL_BOARDS_R)
+}
+
+func loadGeneralBoardsCore(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context, url string) (result interface{}, statusCode int, err error) {
+
 	theParams, ok := params.(*LoadGeneralBoardsParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -46,16 +53,22 @@ func LoadGeneralBoards(remoteAddr string, userID bbs.UUserID, params interface{}
 	//backend load-general-baords
 	theParams_b := &pttbbsapi.LoadGeneralBoardsParams{
 		StartIdx: theParams.StartIdx,
+		Title:    types.Utf8ToBig5(theParams.Title),
 		Keyword:  types.Utf8ToBig5(theParams.Keyword),
 		NBoards:  theParams.Max,
+		Asc:      theParams.Ascending,
 	}
 	var result_b *pttbbsapi.LoadGeneralBoardsResult
 
-	url := pttbbsapi.LOAD_GENERAL_BOARDS_R
 	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
 	if err != nil || statusCode != 200 {
 		return nil, statusCode, err
 	}
+
+	return postLoadBoards(userID, result_b, url)
+}
+
+func postLoadBoards(userID bbs.UUserID, result_b *pttbbsapi.LoadGeneralBoardsResult, url string) (result *LoadGeneralBoardsResult, statusCode int, err error) {
 
 	//update to db
 	updateNanoTS := types.NowNanoTS()
@@ -64,7 +77,7 @@ func LoadGeneralBoards(remoteAddr string, userID bbs.UUserID, params interface{}
 		return nil, 500, err
 	}
 
-	r := NewLoadGeneralBoardsResult(boardSummaries_db, result_b.NextIdx)
+	r := NewLoadGeneralBoardsResult(boardSummaries_db, result_b.NextIdx, url)
 
 	//check isRead
 	err = checkBoardInfo(userID, userBoardInfoMap, r.List)
@@ -73,13 +86,20 @@ func LoadGeneralBoards(remoteAddr string, userID bbs.UUserID, params interface{}
 	}
 
 	return r, 200, nil
+
 }
 
-func NewLoadGeneralBoardsResult(boardSummaries_db []*schema.BoardSummary, nextIdx string) *LoadGeneralBoardsResult {
+func NewLoadGeneralBoardsResult(boardSummaries_db []*schema.BoardSummary, nextIdx string, url string) *LoadGeneralBoardsResult {
 
 	theList := make([]*apitypes.BoardSummary, len(boardSummaries_db))
+
+	isByClass := url == pttbbsapi.LOAD_GENERAL_BOARDS_BY_CLASS_R
 	for i, each_db := range boardSummaries_db {
-		theList[i] = apitypes.NewBoardSummary(each_db)
+		idx := each_db.IdxByName
+		if isByClass {
+			idx = each_db.IdxByClass
+		}
+		theList[i] = apitypes.NewBoardSummary(each_db, idx)
 	}
 
 	return &LoadGeneralBoardsResult{

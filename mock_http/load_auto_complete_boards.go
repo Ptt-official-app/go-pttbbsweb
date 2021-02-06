@@ -7,7 +7,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/types"
 )
 
-func LoadGeneralBoards(params *api.LoadGeneralBoardsParams) (ret *api.LoadGeneralBoardsResult) {
+func LoadAutoCompleteBoards(params *api.LoadAutoCompleteBoardsParams) (ret *api.LoadGeneralBoardsResult) {
 	ret = &api.LoadGeneralBoardsResult{
 		Boards: []*bbs.BoardSummary{
 			{

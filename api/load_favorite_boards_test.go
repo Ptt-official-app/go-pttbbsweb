@@ -5,8 +5,8 @@ import (
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/gin-gonic/gin"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestLoadFavoriteBoards(t *testing.T) {
@@ -87,7 +87,7 @@ func TestLoadFavoriteBoards(t *testing.T) {
 				t.Errorf("LoadFavoriteBoards() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			assert.Equal(t, gotResult, tt.expectedResult)
+			testutil.TDeepEqual(t, "result", gotResult, tt.expectedResult)
 			if gotStatusCode != tt.expectedStatusCode {
 				t.Errorf("LoadFavoriteBoards() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}

@@ -7,7 +7,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/types"
 )
 
-func LoadGeneralBoards(params *api.LoadGeneralBoardsParams) (ret *api.LoadGeneralBoardsResult) {
+func LoadGeneralBoardsByClass(params *api.LoadGeneralBoardsParams) (ret *api.LoadGeneralBoardsResult) {
 	ret = &api.LoadGeneralBoardsResult{
 		Boards: []*bbs.BoardSummary{
 			{
@@ -37,7 +37,7 @@ func LoadGeneralBoards(params *api.LoadGeneralBoardsParams) (ret *api.LoadGenera
 				Total:        124,
 			},
 		},
-		NextIdx: "test3",
+		NextIdx: "vFSt-Q@test3",
 	}
 
 	return ret

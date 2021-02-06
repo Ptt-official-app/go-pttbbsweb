@@ -11,21 +11,6 @@ func LoadGeneralArticles(params *api.LoadGeneralArticlesParams) (ret *api.LoadGe
 		Articles: []*bbs.ArticleSummary{
 			{
 				BBoardID:   bbs.BBoardID("1_test1"),
-				ArticleID:  bbs.ArticleID("19bWBI4Zokcool"),
-				IsDeleted:  false,
-				Filename:   "M.1234567890.A.123",
-				CreateTime: types.Time4(1234567890),
-				MTime:      types.Time4(1234567889),
-				Recommend:  8,
-				Owner:      bbs.UUserID("okcool"),
-				Class:      []byte{0xb0, 0xdd, 0xc3, 0x44},
-				Title:      []byte{0x5b, 0xb0, 0xdd, 0xc3, 0x44, 0x5d, 0xb5, 0x4d, 0xab, 0xe1, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3}, //[問題]然後呢？～
-				Money:      3,
-				Filemode:   0,
-				Read:       false,
-			},
-			{
-				BBoardID:   bbs.BBoardID("1_test1"),
 				ArticleID:  bbs.ArticleID("1VrooM21teemo"),
 				IsDeleted:  false,
 				Filename:   "M.1607937174.A.081",
@@ -39,9 +24,25 @@ func LoadGeneralArticles(params *api.LoadGeneralArticlesParams) (ret *api.LoadGe
 				Filemode:   0,
 				Read:       false,
 			},
+			{
+				BBoardID:   bbs.BBoardID("1_test1"),
+				ArticleID:  bbs.ArticleID("19bWBI4Zokcool"),
+				IsDeleted:  false,
+				Filename:   "M.1234567890.A.123",
+				CreateTime: types.Time4(1234567890),
+				MTime:      types.Time4(1234567889),
+				Recommend:  8,
+				Owner:      bbs.UUserID("okcool"),
+				Class:      []byte{0xb0, 0xdd, 0xc3, 0x44},
+				Title:      []byte{0x5b, 0xb0, 0xdd, 0xc3, 0x44, 0x5d, 0xb5, 0x4d, 0xab, 0xe1, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3}, //[問題]然後呢？～
+				Money:      3,
+				Filemode:   0,
+				Read:       false,
+			},
 		},
-		IsNewest: true,
-		NextIdx:  "1",
+		IsNewest:       true,
+		NextIdx:        "1234560000@19bUG021okcool",
+		NextCreateTime: 1234560000,
 	}
 
 	return ret
