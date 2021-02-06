@@ -96,6 +96,14 @@ def _load_general_boards_by_class():
     return ''
 
 
+@app.route(_with_app_prefix('/boards/autocomplete'))
+def _load_auto_complete_boards():
+    """
+    swagger_from_file: apidoc/load_auto_complete_boards.yaml
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/boards/popular'))
 def _load_popular_boards():
     """

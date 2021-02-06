@@ -57,10 +57,13 @@ func NewBoardSummary(b_db *schema.BoardSummary, idx string) *BoardSummary {
 }
 
 func NewBoardSummaryFromUserFavorites(uf_db *schema.UserFavorites, b_db *schema.BoardSummary) *BoardSummary {
+	idxStr := strconv.Itoa(uf_db.Idx)
+
 	switch uf_db.TheType {
 	case pttbbsfav.FAVT_LINE:
 		return &BoardSummary{
 			StatAttr: ptttype.NBRD_LINE,
+			Idx:      idxStr,
 		}
 	case pttbbsfav.FAVT_FOLDER:
 		return &BoardSummary{
@@ -68,10 +71,10 @@ func NewBoardSummaryFromUserFavorites(uf_db *schema.UserFavorites, b_db *schema.
 
 			StatAttr: ptttype.NBRD_FOLDER,
 			LevelIdx: schema.SetLevelIdx(uf_db.LevelIdx, uf_db.Idx),
+			Idx:      idxStr,
 		}
 
 	case pttbbsfav.FAVT_BOARD:
-		idxStr := strconv.Itoa(uf_db.Idx)
 		return NewBoardSummary(b_db, idxStr)
 	}
 

@@ -1,0 +1,17 @@
+列出所有板 (可用英文板名搜尋)
+---
+tags:
+  - board
+description: 列出所有板 (可用英文板名搜尋)
+parameters:
+  - '$ref': '#/definitions/ParamsAuthorization'
+  - '$ref': '#/definitions/ParamsBrdname'
+  - '$ref': '#/definitions/ParamsStartIdx'
+  - '$ref': '#/definitions/ParamsLimit'
+  - '$ref': '#/definitions/ParamsAsc'
+responses:
+  200:
+    description:
+    schema:
+      '$id': https://json-schema.org/draft/2019-09/output/schema
+      '$ref': '#/definitions/BoardList'

@@ -65,6 +65,11 @@ func loadGeneralBoardsCore(remoteAddr string, userID bbs.UUserID, params interfa
 		return nil, statusCode, err
 	}
 
+	return postLoadBoards(userID, result_b, url)
+}
+
+func postLoadBoards(userID bbs.UUserID, result_b *pttbbsapi.LoadGeneralBoardsResult, url string) (result *LoadGeneralBoardsResult, statusCode int, err error) {
+
 	//update to db
 	updateNanoTS := types.NowNanoTS()
 	boardSummaries_db, userBoardInfoMap, err := deserializeBoardsAndUpdateDB(userID, result_b.Boards, updateNanoTS)
@@ -88,10 +93,10 @@ func NewLoadGeneralBoardsResult(boardSummaries_db []*schema.BoardSummary, nextId
 
 	theList := make([]*apitypes.BoardSummary, len(boardSummaries_db))
 
-	isByName := url == pttbbsapi.LOAD_GENERAL_BOARDS_R
+	isByClass := url == pttbbsapi.LOAD_GENERAL_BOARDS_BY_CLASS_R
 	for i, each_db := range boardSummaries_db {
 		idx := each_db.IdxByName
-		if !isByName {
+		if isByClass {
 			idx = each_db.IdxByClass
 		}
 		theList[i] = apitypes.NewBoardSummary(each_db, idx)
