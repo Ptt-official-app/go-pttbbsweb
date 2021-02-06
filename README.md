@@ -3,6 +3,11 @@ go implementation of [openbbs-middleware](https://hackmd.io/@twbbs/Root#%E6%9E%B
 
 這裡是使用 golang 來達成 [openbbs-middleware](https://hackmd.io/@twbbs/Root#%E6%9E%B6%E6%A7%8B%E5%9C%96).
 
+## Demo Site
+
+[dev](https://www.devptt.site)
+[term (PttChrome)](https://term.devptt.site)
+
 ## Getting Started
 
 You can start with the [swagger api](https://api.devptt.site:5000)
@@ -11,7 +16,7 @@ and try the api.
 You can copy the curl command from the link if you encounter
 CORS issue.
 
-You can `telnet api.devptt.site 8888` and check how the api affects the existing pttbbs (in api.devptt.site)
+You can go to [https://term.devptt.site](https://term.devptt.site) and check how the api affects the existing pttbbs (in api.devptt.site)
 
 您可以到 [swagger api](https://api.devptt.site:5000/)
 並且試著使用 api.
@@ -19,7 +24,7 @@ You can `telnet api.devptt.site 8888` and check how the api affects the existing
 如果您在 swagger 網頁裡遇到 CORS 的問題. 你可以在網頁裡 copy
 curl 指令測試.
 
-您可以使用 `telnet api.devptt.site 8888` 確認 api 如何影響既有的 pttbbs (在 api.devptt.site 裡)
+您可以到 [https://term.devptt.site](https://term.devptt.site) 確認 api 如何影響在 www.devptt.site 裡既有的 pttbbs
 
 ## Docker-compose
 
