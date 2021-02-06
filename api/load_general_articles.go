@@ -7,6 +7,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,8 +25,10 @@ type LoadGeneralArticlesPath struct {
 }
 
 type LoadGeneralArticlesResult struct {
-	List    []*apitypes.ArticleSummary `json:"list"`
-	NextIdx string                     `json:"next_idx"`
+	List           []*apitypes.ArticleSummary `json:"list"`
+	NextIdx        string                     `json:"next_idx"`
+	NextCreateTime types.Time8                `json:"next_create_time"`
+	StartNumIdx    ptttype.SortIdx            `json:"start_num_idx"`
 }
 
 func NewLoadGeneralArticlesParams() *LoadGeneralArticlesParams {
@@ -52,12 +55,11 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 		return nil, 400, ErrInvalidPath
 	}
 
-	//backend accepts only descending order.
-	startIdx := loadArticlesStartIdx(theParams.StartIdx, theParams.Descending, theParams.Max)
 	//backend load-general-articles
 	theParams_b := &pttbbsapi.LoadGeneralArticlesParams{
-		StartIdx:  startIdx,
+		StartIdx:  theParams.StartIdx,
 		NArticles: theParams.Max,
+		Desc:      theParams.Descending,
 	}
 	var result_b *pttbbsapi.LoadGeneralArticlesResult
 

@@ -35,3 +35,5 @@ url:
   type: string
 read:
   type: boolean
+idx:
+  type: string
