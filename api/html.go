@@ -21,10 +21,27 @@ func IndexHtmlWrapper(c *gin.Context) {
 	processCSRFContent(filename, maxAge, c)
 }
 
+const BOARDS_HTML_R = "/boards"
+
 const BOARDS_POPULAR_HTML_R = "/boards/popular"
+
+const BOARDS_FAVORITES_HTML_R = "/user/:user_id/favorites"
+
+const ARTICLES_HTML_R = "/board/:bid/articles"
+
+const ARTICLE_HTML_R = "/board/:bid/articles/:aid"
 
 func AllHtmlWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "all.html")
+
+	maxAge := htmlMaxAge()
+	processCSRFContent(filename, maxAge, c)
+}
+
+const LOGIN_HTML_R = "/login"
+
+func LoginHtmlWrapper(c *gin.Context) {
+	filename := filepath.Join(types.STATIC_DIR, "login.html")
 
 	maxAge := htmlMaxAge()
 	processCSRFContent(filename, maxAge, c)
