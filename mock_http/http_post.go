@@ -42,8 +42,6 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(SetIDEmail(data.(*api.SetIDEmailParams)), result)
 	case "/emailtoken/info":
 		return parseResult(GetEmailTokenInfo(data.(*api.GetEmailTokenInfoParams)), result)
-	case "/board/1_test1/summary":
-		return parseResult(GetBoardSummary(data.(*api.LoadBoardSummaryParams)), result)
 	case "/user/SYSOP/favorites":
 		return parseResult(GetFavorites(data.(*api.GetFavoritesParams)), result)
 	case api.LOAD_BOARDS_BY_BIDS_R:
@@ -52,6 +50,10 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(CheckExistsUser(data.(*api.CheckExistsUserParams)), result)
 	case "/board/10_WhoAmI/isvalid":
 		return parseResult(IsBoardValidUser(), result)
+	case "/board/1_test1/summary":
+		return parseResult(GetBoardSummary(data.(*api.LoadBoardSummaryParams)), result)
+	case "/class/2/board":
+		return parseResult(CreateBoard(data.(*api.CreateBoardParams)), result)
 	default:
 		return 500, ErrURL
 	}
