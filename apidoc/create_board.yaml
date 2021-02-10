@@ -16,9 +16,9 @@ parameters:
     schema:
       '$id': https://json-schema.org/draft/2019-09/output/schema
       '$ref': '#/definitions/CreateBoardParams'
-  - name: params
-    in: body
-    required: true
+responses:
+  200:
+    description:
     schema:
       '$id': https://json-schema.org/draft/2019-09/output/schema
       '$ref': '#/definitions/BoardSummary'

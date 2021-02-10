@@ -260,3 +260,11 @@ def _get_board_users(bid):
 
     """
     return ''
+
+@app.route(_with_app_prefix('/class/<cls>/board'), methods=['POST'])
+def _create_board(bid):
+    """
+    swagger_from_file: apidoc/create_board.yaml
+
+    """
+    return ''
