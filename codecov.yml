@@ -1,0 +1,8 @@
+ignore:
+  - mock
+  - mock_http
+  - apidoc
+  - etc
+  - scripts
+  - testcase
+  
