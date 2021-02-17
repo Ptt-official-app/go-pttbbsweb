@@ -7,6 +7,58 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 )
 
+func Utf8ToBig5(utf8 [][]*types.Rune) (big5 [][]byte) {
+	big5 = make([][]byte, len(utf8))
+	color := &types.Color{}
+	*color = types.DefaultColor
+	for idx, eachLine := range utf8 {
+		big5[idx], color = utf8ToBig5ByLine(eachLine, color)
+	}
+
+	return big5
+}
+
+func utf8ToBig5ByLine(line []*types.Rune, color *types.Color) (lineBig5 []byte, newColor *types.Color) {
+	lineBig5 = make([]byte, 0, DEFAULT_LINE_BYTES)
+	newColor = color
+	var eachBig5 []byte
+	for _, each := range line {
+		eachBig5, newColor = utf8ToBig5ByRune(each, newColor)
+		lineBig5 = append(lineBig5, eachBig5...)
+	}
+
+	return lineBig5, newColor
+}
+
+func utf8ToBig5ByRune(theRune *types.Rune, color *types.Color) (theBig5 []byte, newColor *types.Color) {
+	theBig5 = make([]byte, 0, DEFAULT_LINE_BYTES)
+	colorBytes := theRune.Color0.BytesWithPreColor(color, true)
+	if len(colorBytes) > 0 {
+		theBig5 = append(theBig5, colorBytes...)
+	}
+	colorBytes = theRune.Color1.BytesWithPreColor(&theRune.Color0, false)
+	big5 := types.Utf8ToBig5(theRune.Utf8)
+	if len(big5) > 0 {
+		if len(colorBytes) > 0 {
+			lastBig5 := big5[len(big5)-1]
+			big5 = big5[:len(big5)-1]
+			theBig5 = append(theBig5, big5...)
+			theBig5 = append(theBig5, colorBytes...)
+			theBig5 = append(theBig5, lastBig5)
+		} else {
+			theBig5 = append(theBig5, big5...)
+		}
+	} else {
+		if len(colorBytes) > 0 {
+			theBig5 = append(theBig5, colorBytes...)
+		}
+	}
+
+	newColor = &theRune.Color1
+
+	return theBig5, newColor
+}
+
 func dbcsToBig5(dbcs []byte) (big5 [][]*types.Rune) {
 	if len(dbcs) == 0 {
 		return nil

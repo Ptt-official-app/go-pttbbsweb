@@ -11,3 +11,6 @@ Color:
       type: boolean
     highlight:
       type: boolean
+    reset:
+      type: boolean
+      description: '是否是 reset (^[m)'

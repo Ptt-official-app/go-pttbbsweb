@@ -5,7 +5,7 @@ type Color struct {
 	Background ColorMap `json:"background" bson:"b"`
 	Blink      bool     `json:"blink" bson:"k"`
 	Highlight  bool     `json:"highlight" bson:"h"`
-	IsReset    bool     `json:"-" bson:"-"`
+	IsReset    bool     `json:"reset" bson:"r"`
 }
 
 type ColorMap int8
@@ -35,3 +35,95 @@ const (
 	COLOR_BACKGROUND_WHITE   ColorMap = 47
 	COLOR_INVALID            ColorMap = -1
 )
+
+var (
+	colorBytesMap = map[ColorMap][]byte{
+		COLOR_FOREGROUND_BLACK:   {'3', '0'},
+		COLOR_FOREGROUND_RED:     {'3', '1'},
+		COLOR_FOREGROUND_GREEN:   {'3', '2'},
+		COLOR_FOREGROUND_YELLOW:  {'3', '3'},
+		COLOR_FOREGROUND_BLUE:    {'3', '4'},
+		COLOR_FOREGROUND_MAGENTA: {'3', '5'},
+		COLOR_FOREGROUND_CYAN:    {'3', '6'},
+		COLOR_FOREGROUND_WHITE:   {'3', '7'},
+		COLOR_BACKGROUND_BLACK:   {'4', '0'},
+		COLOR_BACKGROUND_RED:     {'4', '1'},
+		COLOR_BACKGROUND_GREEN:   {'4', '2'},
+		COLOR_BACKGROUND_YELLOW:  {'4', '3'},
+		COLOR_BACKGROUND_BLUE:    {'4', '4'},
+		COLOR_BACKGROUND_MAGENTA: {'4', '5'},
+		COLOR_BACKGROUND_CYAN:    {'4', '6'},
+		COLOR_BACKGROUND_WHITE:   {'4', '7'},
+	}
+)
+
+const (
+	DEFAULT_LEN_COLOR_BYTES = 20 //\x1b[0;1;5;37;40m
+)
+
+func (c *Color) BytesWithPreColor(color *Color, isForceReset bool) (theBytes []byte) {
+	if c.IsReset {
+		if color.IsReset && !isForceReset {
+			return nil
+		}
+		return []byte("\x1b[m")
+	}
+
+	if color.IsReset {
+		color = &DefaultColor
+	}
+
+	if *c == *color {
+		return nil
+	}
+
+	theBytes = make([]byte, 0, DEFAULT_LEN_COLOR_BYTES)
+	theBytes = append(theBytes, []byte{'\x1b', '['}...)
+
+	isFirst := true
+	isReset := false
+	if c.Highlight != color.Highlight && !c.Highlight ||
+		c.Blink != color.Blink && !c.Blink {
+		theBytes = append(theBytes, '0')
+		isReset = true
+		isFirst = false
+	}
+
+	if c.Highlight != color.Highlight && c.Highlight {
+		if !isFirst {
+			theBytes = append(theBytes, ';')
+		} else {
+			isFirst = false
+		}
+		theBytes = append(theBytes, '1')
+	}
+
+	if c.Blink != color.Blink && c.Blink {
+		if !isFirst {
+			theBytes = append(theBytes, ';')
+		} else {
+			isFirst = false
+		}
+		theBytes = append(theBytes, '5')
+	}
+
+	if c.Foreground != color.Foreground || isReset && c.Foreground != DefaultColor.Foreground {
+		if !isFirst {
+			theBytes = append(theBytes, ';')
+		} else {
+			isFirst = false
+		}
+		theBytes = append(theBytes, colorBytesMap[c.Foreground]...)
+	}
+
+	if c.Background != color.Background || isReset && c.Background != DefaultColor.Background {
+		if !isFirst {
+			theBytes = append(theBytes, ';')
+		}
+		theBytes = append(theBytes, colorBytesMap[c.Background]...)
+	}
+
+	theBytes = append(theBytes, 'm')
+
+	return theBytes
+}

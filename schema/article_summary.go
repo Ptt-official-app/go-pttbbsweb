@@ -5,6 +5,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	ptttypes "github.com/Ptt-official-app/go-pttbbs/types"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -20,6 +21,7 @@ type ArticleSummary struct {
 
 	Recommend int              `bson:"recommend"`
 	Owner     bbs.UUserID      `bson:"owner"`
+	FullTitle string           `bson:"full_title"`
 	Title     string           `bson:"title"`
 	Money     int              `bson:"money"`
 	Class     string           `bson:"class"`
@@ -60,9 +62,12 @@ func GetArticleSummary(bboardID bbs.BBoardID, articleID bbs.ArticleID) (result *
 //no n_comments in bbs.ArticleSummary from backend.
 func NewArticleSummary(a_b *bbs.ArticleSummary, updateNanoTS types.NanoTS) *ArticleSummary {
 
-	title := a_b.Title
+	//XXX we use Title[6:] for now.
+	//TODO: rely on go-pttbbs Title.ToRealTitle()
+	fullTitle := ptttypes.CstrToBytes(a_b.Title)
+	title := fullTitle
 	if len(a_b.Class) > 0 {
-		title = a_b.Title[6:]
+		title = title[6:]
 	}
 	return &ArticleSummary{
 		BBoardID:   a_b.BBoardID,
@@ -72,6 +77,7 @@ func NewArticleSummary(a_b *bbs.ArticleSummary, updateNanoTS types.NanoTS) *Arti
 		MTime:      types.Time4ToNanoTS(a_b.MTime),
 		Recommend:  int(a_b.Recommend),
 		Owner:      a_b.Owner,
+		FullTitle:  types.Big5ToUtf8(fullTitle),
 		Title:      types.Big5ToUtf8(title),
 		Money:      int(a_b.Money),
 		Class:      types.Big5ToUtf8(a_b.Class),

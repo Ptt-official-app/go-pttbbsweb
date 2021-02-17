@@ -21,10 +21,11 @@ type Article struct {
 	MTime      types.NanoTS     `bson:"mtime_nano_ts"`       //
 	Recommend  int              `bson:"recommend"`           //
 	Owner      bbs.UUserID      `bson:"owner"`               //
-	Title      string           `bson:"title"`               //
-	Money      int              `bson:"money"`               //
-	Class      string           `bson:"class"`               //
-	Filemode   ptttype.FileMode `bson:"mode"`                //
+	FullTitle  string           `bson:"full_title"`
+	Title      string           `bson:"title"` //
+	Money      int              `bson:"money"` //
+	Class      string           `bson:"class"` //
+	Filemode   ptttype.FileMode `bson:"mode"`  //
 
 	Idx string `bson:"pttidx"`
 
@@ -59,6 +60,7 @@ var ( //bson-name
 	ARTICLE_MTIME_b       = getBSONName(EMPTY_ARTICLE, "MTime")
 	ARTICLE_RECOMMEND_b   = getBSONName(EMPTY_ARTICLE, "Recommend")
 	ARTICLE_OWNER_b       = getBSONName(EMPTY_ARTICLE, "Owner")
+	ARTICLE_FULL_TITLE_b  = getBSONName(EMPTY_ARTICLE, "FullTitle")
 	ARTICLE_TITLE_b       = getBSONName(EMPTY_ARTICLE, "Title")
 	ARTICLE_MONEY_b       = getBSONName(EMPTY_ARTICLE, "Money")
 	ARTICLE_CLASS_b       = getBSONName(EMPTY_ARTICLE, "Class")
