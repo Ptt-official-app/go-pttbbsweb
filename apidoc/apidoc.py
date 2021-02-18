@@ -122,6 +122,15 @@ def _get_user_info(user_id):
     return ''
 
 
+@app.route(_with_app_prefix('/userid'))
+def _get_user_id():
+    """
+    swagger_from_file: apidoc/get_user_id.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/user/<user_id>/summary'))
 def _get_user_summary(user_id):
     """
