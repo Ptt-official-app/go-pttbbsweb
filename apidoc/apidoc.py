@@ -226,6 +226,15 @@ def _get_article_detail(bid, aid):
     return ''
 
 
+@app.route(_with_app_prefix('/board/<bid>/article'), methods=['POST'])
+def _create_article(bid):
+    """
+    swagger_from_file: apidoc/create_article.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/board/<bid>/article/<aid>/comments'))
 def _load_article_comments(bid, aid):
     """

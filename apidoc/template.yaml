@@ -42,3 +42,4 @@ definitions:
   !include defs/set_id_email_params.yaml
   !include defs/set_id_email_result.yaml
   !include defs/create_board_params.yaml
+  !include defs/create_article_params.yaml

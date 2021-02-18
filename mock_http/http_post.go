@@ -28,6 +28,8 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(GetArticleDetail(data.(*api.GetArticleParams)), result)
 	case "/board/10_WhoAmI/article/1VrooM21SYSOP":
 		return parseResult(GetArticleDetail2(data.(*api.GetArticleParams)), result)
+	case "/board/10_WhoAmI/article":
+		return parseResult(CreateArticle(data.(*api.CreateArticleParams)), result)
 	case "/user/SYSOP/information":
 		return parseResult(GetUser(), result)
 	case "/user/SYSOP/changepasswd":

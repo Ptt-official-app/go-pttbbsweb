@@ -5,6 +5,8 @@ import (
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/testutil"
+	"github.com/sirupsen/logrus"
 )
 
 func Test_dbcsToBig5(t *testing.T) {
@@ -214,6 +216,279 @@ func Test_big5ToUtf8(t *testing.T) {
 				}
 			}
 
+		})
+	}
+}
+
+func Test_utf8ToBig5ByRune(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	rune0 := &types.Rune{
+		Utf8:   "測試0",
+		Color0: types.DefaultColor,
+		Color1: types.DefaultColor,
+	}
+	color0 := &types.DefaultColor
+	expected0 := []byte("\xb4\xfa\xb8\xd50")
+
+	rune1 := &types.Rune{
+		Utf8: "測試0",
+		Color0: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLUE,
+		},
+		Color1: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLUE,
+		},
+	}
+	color1 := &types.DefaultColor
+	expected1 := []byte("\x1b[33;44m\xb4\xfa\xb8\xd50")
+	expectedColor1 := &rune1.Color1
+
+	rune2 := &types.Rune{
+		Utf8: "測試0",
+		Color0: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLACK,
+		},
+		Color1: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLACK,
+		},
+	}
+	color2 := &types.DefaultColor
+	expected2 := []byte("\x1b[33m\xb4\xfa\xb8\xd50")
+	expectedColor2 := &rune2.Color1
+
+	rune3 := &types.Rune{
+		Utf8: "測試0",
+		Color0: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLACK,
+		},
+		Color1: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLUE,
+		},
+	}
+	color3 := &types.DefaultColor
+	expected3 := []byte("\x1b[33m\xb4\xfa\xb8\xd5\x1b[44m0")
+	expectedColor3 := &rune3.Color1
+
+	rune4 := &types.Rune{
+		Utf8: "",
+		Color0: types.Color{
+			Foreground: types.COLOR_FOREGROUND_WHITE,
+			Background: types.COLOR_BACKGROUND_BLACK,
+			IsReset:    true,
+		},
+		Color1: types.Color{
+			Foreground: types.COLOR_FOREGROUND_WHITE,
+			Background: types.COLOR_BACKGROUND_BLACK,
+			IsReset:    true,
+		},
+	}
+	color4 := &types.DefaultColor
+	expected4 := []byte("\x1b[m")
+	expectedColor4 := &rune4.Color1
+
+	rune5 := &types.Rune{
+		Utf8: "",
+		Color0: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLUE,
+		},
+		Color1: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_GREEN,
+		},
+	}
+	color5 := &types.DefaultColor
+	expected5 := []byte("\x1b[33;44m\x1b[42m")
+	expectedColor5 := &rune5.Color1
+
+	type args struct {
+		theRune *types.Rune
+		color   *types.Color
+	}
+	tests := []struct {
+		name             string
+		args             args
+		expectedTheBig5  []byte
+		expectedNewColor *types.Color
+	}{
+		// TODO: Add test cases.
+		{
+			args:             args{theRune: rune0, color: color0},
+			expectedNewColor: &types.DefaultColor,
+			expectedTheBig5:  expected0,
+		},
+		{
+			args:             args{theRune: rune1, color: color1},
+			expectedNewColor: expectedColor1,
+			expectedTheBig5:  expected1,
+		},
+		{
+			args:             args{theRune: rune2, color: color2},
+			expectedNewColor: expectedColor2,
+			expectedTheBig5:  expected2,
+		},
+		{
+			args:             args{theRune: rune3, color: color3},
+			expectedNewColor: expectedColor3,
+			expectedTheBig5:  expected3,
+		},
+		{
+			args:             args{theRune: rune4, color: color4},
+			expectedNewColor: expectedColor4,
+			expectedTheBig5:  expected4,
+		},
+		{
+			args:             args{theRune: rune5, color: color5},
+			expectedNewColor: expectedColor5,
+			expectedTheBig5:  expected5,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotTheBig5, gotNewColor := utf8ToBig5ByRune(tt.args.theRune, tt.args.color)
+			logrus.Infof("gotTheBig5: %x", gotTheBig5)
+			testutil.TDeepEqual(t, "got", gotTheBig5, tt.expectedTheBig5)
+
+			if !reflect.DeepEqual(gotNewColor, tt.expectedNewColor) {
+				t.Errorf("utf8ToBig5ByRune() gotNewColor = %v, want %v", gotNewColor, tt.expectedNewColor)
+			}
+		})
+	}
+}
+
+func Test_utf8ToBig5ByLine(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	rune0 := &types.Rune{
+		Utf8:   "測試0",
+		Color0: types.DefaultColor,
+		Color1: types.DefaultColor,
+	}
+
+	rune1 := &types.Rune{
+		Utf8: "測試1",
+		Color0: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLUE,
+		},
+		Color1: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLUE,
+		},
+	}
+
+	line0 := []*types.Rune{rune0, rune1}
+	color0 := &types.DefaultColor
+	expected0 := []byte("\xb4\xfa\xb8\xd50\x1b[33;44m\xb4\xfa\xb8\xd51")
+	expectedColor0 := &rune1.Color1
+
+	type args struct {
+		line  []*types.Rune
+		color *types.Color
+	}
+	tests := []struct {
+		name             string
+		args             args
+		expectedLineBig5 []byte
+		expectedNewColor *types.Color
+	}{
+		// TODO: Add test cases.
+		{
+			args:             args{line: line0, color: color0},
+			expectedLineBig5: expected0,
+			expectedNewColor: expectedColor0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotLineBig5, gotNewColor := utf8ToBig5ByLine(tt.args.line, tt.args.color)
+			if !reflect.DeepEqual(gotLineBig5, tt.expectedLineBig5) {
+				t.Errorf("utf8ToBig5ByLine() gotLineBig5 = %v, want %v", gotLineBig5, tt.expectedLineBig5)
+			}
+			if !reflect.DeepEqual(gotNewColor, tt.expectedNewColor) {
+				t.Errorf("utf8ToBig5ByLine() gotNewColor = %v, want %v", gotNewColor, tt.expectedNewColor)
+			}
+		})
+	}
+}
+
+func TestUtf8ToBig5(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	rune0 := &types.Rune{
+		Utf8:   "測試0",
+		Color0: types.DefaultColor,
+		Color1: types.DefaultColor,
+	}
+
+	rune1 := &types.Rune{
+		Utf8: "測試1",
+		Color0: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLUE,
+		},
+		Color1: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLUE,
+		},
+	}
+
+	rune2 := &types.Rune{
+		Utf8:   "測試2",
+		Color0: types.DefaultColor,
+		Color1: types.DefaultColor,
+	}
+
+	rune3 := &types.Rune{
+		Utf8: "測試3",
+		Color0: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLUE,
+		},
+		Color1: types.Color{
+			Foreground: types.COLOR_FOREGROUND_YELLOW,
+			Background: types.COLOR_BACKGROUND_BLUE,
+		},
+	}
+
+	utf80 := [][]*types.Rune{
+		{rune0, rune1},
+		{rune2, rune3},
+	}
+	expected0 := [][]byte{
+		[]byte("\xb4\xfa\xb8\xd50\x1b[33;44m\xb4\xfa\xb8\xd51"),
+		[]byte("\x1b[37;40m\xb4\xfa\xb8\xd52\x1b[33;44m\xb4\xfa\xb8\xd53"),
+	}
+
+	type args struct {
+		utf8 [][]*types.Rune
+	}
+	tests := []struct {
+		name         string
+		args         args
+		expectedBig5 [][]byte
+	}{
+		// TODO: Add test cases.
+		{
+			args:         args{utf8: utf80},
+			expectedBig5: expected0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotBig5 := Utf8ToBig5(tt.args.utf8); !reflect.DeepEqual(gotBig5, tt.expectedBig5) {
+				t.Errorf("Utf8ToBig5() = %v, want %v", gotBig5, tt.expectedBig5)
+			}
 		})
 	}
 }

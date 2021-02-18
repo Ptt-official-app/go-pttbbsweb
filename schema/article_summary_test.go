@@ -34,6 +34,7 @@ func TestUpdateArticleSummaries(t *testing.T) {
 
 		Recommend:    8,
 		Owner:        bbs.UUserID("okcool"),
+		FullTitle:    "[問題]然後呢？～",
 		Title:        "然後呢？～",
 		Money:        3,
 		Class:        "問題",
@@ -50,6 +51,7 @@ func TestUpdateArticleSummaries(t *testing.T) {
 
 		Recommend:    3,
 		Owner:        bbs.UUserID("teemo"),
+		FullTitle:    "[問題]再來呢？～",
 		Title:        "再來呢？～",
 		Money:        12,
 		Class:        "問題",
@@ -66,6 +68,7 @@ func TestUpdateArticleSummaries(t *testing.T) {
 
 		Recommend:    4,
 		Owner:        bbs.UUserID("teem2"),
+		FullTitle:    "[問題]再來呢2？～",
 		Title:        "再來呢2？～",
 		Money:        15,
 		Class:        "問題",
@@ -76,12 +79,12 @@ func TestUpdateArticleSummaries(t *testing.T) {
 	updateNanoTS1 := types.NowNanoTS()
 
 	articleSummary3 := &ArticleSummary{
-		BBoardID:   bbs.BBoardID("1_test1"),
-		ArticleID:  bbs.ArticleID("1VrooM21teemo"),
-		IsDeleted:  false,
-		CreateTime: types.NanoTS(1607937174000000000),
-		MTime:      types.NanoTS(1607937100000000000),
-
+		BBoardID:     bbs.BBoardID("1_test1"),
+		ArticleID:    bbs.ArticleID("1VrooM21teemo"),
+		IsDeleted:    false,
+		CreateTime:   types.NanoTS(1607937174000000000),
+		MTime:        types.NanoTS(1607937100000000000),
+		FullTitle:    "[問題]再來呢3？～",
 		Recommend:    12,
 		Owner:        bbs.UUserID("teemo"),
 		Title:        "再來呢3？～",
