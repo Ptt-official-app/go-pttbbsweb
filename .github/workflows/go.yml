@@ -45,9 +45,6 @@ jobs:
     - name: Build
       run: go build -v ./...
 
-    - name: etc
-      run: mkdir -p /etc/go-openbbsmiddleware && cp etc/* /etc/go-openbbsmiddleware
-
     - name: TestQueueCommentDBCS
       run: go test -v ./... -run TestQueueCommentDBCS
 
