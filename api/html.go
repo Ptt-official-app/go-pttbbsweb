@@ -29,7 +29,7 @@ const BOARDS_FAVORITES_HTML_R = "/user/:user_id/favorites"
 
 const ARTICLES_HTML_R = "/board/:bid/articles"
 
-const ARTICLE_HTML_R = "/board/:bid/articles/:aid"
+const ARTICLE_HTML_R = "/board/:bid/article/:aid"
 
 func AllHtmlWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "all.html")
