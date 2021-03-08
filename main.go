@@ -79,6 +79,7 @@ func initGin() (*gin.Engine, error) {
 
 	router.GET(api.ARTICLES_HTML_R, api.AllHtmlWrapper)
 	router.GET(api.ARTICLE_HTML_R, api.AllHtmlWrapper)
+	router.GET(api.CREATE_ARTICLE_HTML_R, api.AllHtmlWrapper)
 
 	router.Static("/static", filepath.Join(types.STATIC_DIR, "static"))
 
