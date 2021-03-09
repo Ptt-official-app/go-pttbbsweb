@@ -1,5 +1,5 @@
 info:
-  version: '0.13.4'
+  version: '0.13.5'
   title: openbbs-middleware
 definitions:
   !include defs/access_token.yaml
