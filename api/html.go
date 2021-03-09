@@ -31,6 +31,8 @@ const ARTICLES_HTML_R = "/board/:bid/articles"
 
 const ARTICLE_HTML_R = "/board/:bid/article/:aid"
 
+const CREATE_ARTICLE_HTML_R = "/board/:bid/post"
+
 func AllHtmlWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "all.html")
 
