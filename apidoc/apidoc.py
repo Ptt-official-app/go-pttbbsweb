@@ -295,3 +295,12 @@ def _create_board(bid):
 
     """
     return ''
+
+
+@app.route(_with_app_prefix('/version'), methods=['POST'])
+def _get_verion():
+    """
+    swagger_from_file: apidoc/get_version.yaml
+
+    """
+    return ''
