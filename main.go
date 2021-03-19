@@ -22,6 +22,8 @@ func initGin() (*gin.Engine, error) {
 	//index
 	router.GET(withPrefix(api.INDEX_R), api.IndexWrapper)
 
+	router.GET(withPrefix(api.GET_VERSION_R), api.GetVersionWrapper)
+
 	//register/login
 	router.POST(withPrefix(api.REGISTER_CLIENT_R), api.RegisterClientWrapper)
 	router.POST(withPrefix(api.REGISTER_USER_R), api.RegisterUserWrapper)
