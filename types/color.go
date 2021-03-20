@@ -36,6 +36,47 @@ const (
 	COLOR_INVALID            ColorMap = -1
 )
 
+func (c ColorMap) String() string {
+	switch c {
+	case COLOR_FOREGROUND_BLACK:
+		return "f-black"
+	case COLOR_FOREGROUND_RED:
+		return "f-red"
+	case COLOR_FOREGROUND_GREEN:
+		return "f-green"
+	case COLOR_FOREGROUND_YELLOW:
+		return "f-yellow"
+	case COLOR_FOREGROUND_BLUE:
+		return "f-blue"
+	case COLOR_FOREGROUND_MAGENTA:
+		return "f-magenta"
+	case COLOR_FOREGROUND_CYAN:
+		return "f-cyan"
+	case COLOR_FOREGROUND_WHITE:
+		return "f-white"
+	case COLOR_BACKGROUND_BLACK:
+		return "b-black"
+	case COLOR_BACKGROUND_RED:
+		return "b-red"
+	case COLOR_BACKGROUND_GREEN:
+		return "b-green"
+	case COLOR_BACKGROUND_YELLOW:
+		return "b-yellow"
+	case COLOR_BACKGROUND_BLUE:
+		return "b-blue"
+	case COLOR_BACKGROUND_MAGENTA:
+		return "b-magenta"
+	case COLOR_BACKGROUND_CYAN:
+		return "b-cyan"
+	case COLOR_BACKGROUND_WHITE:
+		return "b-white"
+	case COLOR_INVALID:
+		return "invalid"
+	default:
+		return "unknown"
+	}
+}
+
 var (
 	colorBytesMap = map[ColorMap][]byte{
 		COLOR_FOREGROUND_BLACK:   {'3', '0'},

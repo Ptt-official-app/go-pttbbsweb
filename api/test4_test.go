@@ -14,6 +14,7 @@ var (
 				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 			},
 		},
 		{
@@ -22,6 +23,7 @@ var (
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb6\xa2\xb2\xe1] \xa9\xd2\xa5H\xafS\xae\xed\xa6r\xafu\xaa\xba\xacO\xa6\xb3\xba\xf1\xa6\xe2\xaa\xba\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xb6\xa2\xb2\xe1] \xa9\xd2\xa5H\xafS\xae\xed\xa6r\xafu\xaa\xba\xacO\xa6\xb3\xba\xf1\xa6\xe2\xaa\xba\xa1\xe3"),
 			},
 		},
 		{
@@ -30,6 +32,7 @@ var (
 				Big5:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 22:35:04 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte(""),
 			},
 		},
 		{},
@@ -78,8 +81,7 @@ var (
 					},
 				},
 			},
-			MD5:             "3dK46zmOe5zmna12AC1gnQ",
-			IsFirstComments: true,
+			MD5: "3dK46zmOe5zmna12AC1gnQ",
 		},
 		{
 			BBoardID:   bbs.BBoardID("10_WhoAmI"),
@@ -98,8 +100,7 @@ var (
 					},
 				},
 			},
-			MD5:             "FQaNH8WkdAbEGD7yp2Zkvg",
-			IsFirstComments: true,
+			MD5: "FQaNH8WkdAbEGD7yp2Zkvg",
 		},
 		{
 			BBoardID:   bbs.BBoardID("10_WhoAmI"),
@@ -118,8 +119,7 @@ var (
 					},
 				},
 			},
-			MD5:             "cLGi8fC4fapuiBkTXHU2OA",
-			IsFirstComments: true,
+			MD5: "cLGi8fC4fapuiBkTXHU2OA",
 		},
 	}
 )
