@@ -30,20 +30,20 @@ func TestParseComments(t *testing.T) {
 		expectedComments []*schema.Comment
 	}{
 		// TODO: Add test cases.
-		/*
-			{
-				name: "0_" + testFilename0,
-				args: args{
-					bboardID:        "test",
-					articleID:       "test",
-					ownerID:         "testOwner",
-					commentsDBCS:    testFirstCommentsDBCS0,
-					allCommentsDBCS: testComment0,
-					lastTimeNanoTS:  types.NanoTS(1234567890000000000),
-					updateNanoTS:    types.NanoTS(1334567890000000000),
-				},
-				expectedComments: testFirstComments0,
+		{
+			name: "0_" + testFilename0,
+			args: args{
+				bboardID:        "test",
+				articleID:       "test",
+				ownerID:         "testOwner",
+				commentsDBCS:    testFirstCommentsDBCS0,
+				allCommentsDBCS: testComment0,
+				lastTimeNanoTS:  types.NanoTS(1234567890000000000),
+				updateNanoTS:    types.NanoTS(1334567890000000000),
 			},
+			expectedComments: testFirstComments0,
+		},
+		/*
 			{
 				name: "1_" + testFilename1,
 				args: args{
