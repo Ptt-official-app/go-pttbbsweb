@@ -54,6 +54,19 @@ func ParseComments(
 	lastTime := lastTimeNanoTS.ToTime()
 
 	var comment *schema.Comment
+
+	nextCommentIdx := MatchComment(p_commentsDBCS)
+	if nextCommentIdx > 0 {
+		replyDBCS := p_commentsDBCS[:nextCommentIdx]
+		reply := parseReply(replyDBCS, p_allCommentsDBCS)
+		if reply != nil {
+			comments = append(comments, reply)
+		}
+
+		p_allCommentsDBCS = p_allCommentsDBCS[len(replyDBCS):]
+		p_commentsDBCS = p_commentsDBCS[len(replyDBCS):]
+	}
+
 	for idxNewLine := bytes.Index(p_commentsDBCS, []byte{'\n'}); len(p_commentsDBCS) > 0 && idxNewLine != -1; idxNewLine = bytes.Index(p_commentsDBCS, []byte{'\n'}) {
 		commentDBCS := p_commentsDBCS[:idxNewLine]
 		comment, lastTime = parseComment(bboardID, articleID, lastTime, commentDBCS, updateNanoTS, isFirstComments)
@@ -93,7 +106,7 @@ func ParseComments(
 		p_allCommentsDBCS = p_allCommentsDBCS[nextCommentIdx:]
 	}
 
-	if len(p_commentsDBCS) > 0 { // last comment without reply.
+	if len(p_commentsDBCS) > 0 { // last comment without '\n'
 		comment, lastTime = parseComment(bboardID, articleID, lastTime, p_commentsDBCS, updateNanoTS, isFirstComments)
 		comments = append(comments, comment)
 	}
