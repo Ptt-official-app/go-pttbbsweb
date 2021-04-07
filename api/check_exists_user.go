@@ -48,9 +48,6 @@ func CheckExistsUser(remoteAddr string, params interface{}, c *gin.Context) (res
 	if err != nil || statusCode != 200 {
 		return nil, statusCode, err
 	}
-	if result_b.IsExists {
-		return nil, 400, ErrAlreadyExists
-	}
 
-	return &CheckExistsUserResult{IsExists: false}, 200, nil
+	return &CheckExistsUserResult{IsExists: result_b.IsExists}, 200, nil
 }
