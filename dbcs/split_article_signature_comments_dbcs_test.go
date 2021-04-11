@@ -139,6 +139,13 @@ func Test_splitArticleSignatureCommentsDBCS(t *testing.T) {
 			expectedSignatureDBCS: testSignature16,
 			expectedComments:      testComment16,
 		},
+		{
+			name:                  "17_" + testFilename17,
+			args:                  args{content: testContentAll17},
+			expectedArticleDBCS:   testContent17,
+			expectedSignatureDBCS: testSignature17,
+			expectedComments:      testComment17,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -253,6 +260,11 @@ func Test_tryGetSimpleSignatureIdxes(t *testing.T) {
 			name:     "16_" + testFilename16,
 			args:     args{content: testContentAll16},
 			expected: []int{315},
+		},
+		{
+			name:     "17_" + testFilename17,
+			args:     args{content: testContentAll17},
+			expected: []int{453},
 		},
 	}
 	for _, tt := range tests {

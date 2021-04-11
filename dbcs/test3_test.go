@@ -17,6 +17,8 @@ var (
 	testContent3Utf8         [][]*types.Rune
 
 	testFirstComments3 []*schema.Comment
+
+	testFullFirstComments3 []*schema.Comment
 )
 
 func initTest3() {

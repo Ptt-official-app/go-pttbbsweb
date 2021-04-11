@@ -3,7 +3,6 @@ package dbcs
 import (
 	"bytes"
 	"strings"
-	"time"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
@@ -26,24 +25,21 @@ import (
 //1. 根據 '\n' 估計 nComments
 //2. 找出 pre-comment reply.
 //3. 對於每個 comment-leading newline for-loop:
+//   3.0. parse comment
+//   3.1. 找下一個 comment
+//   3.1.1. 如果沒有更多 comment: 假設剩下 text 的都是 reply.
+//   3.2. 假設下一個 comment 之前的 text 都是 reply.
+//4. (outside for-loop): 處理最後一個沒有 '\n' 的 comment.
 func ParseComments(
-	bboardID bbs.BBoardID,
-	articleID bbs.ArticleID,
 	ownerID bbs.UUserID,
-	lastTimeNanoTS types.NanoTS,
 	commentsDBCS []byte,
 	allCommentsDBCS []byte,
-	updateNanoTS types.NanoTS,
-	isFirstComments bool,
-) (
-
-	comments []*schema.Comment,
-	newLastTimeNanoTS types.NanoTS) {
+) (comments []*schema.Comment) {
 	if len(commentsDBCS) == 0 {
-		return nil, lastTimeNanoTS
+		return nil
 	}
 
-	// estimate nComments
+	//1. estimate nComments
 	nEstimatedComments := bytes.Count(commentsDBCS, []byte{'\n'})
 
 	comments = make([]*schema.Comment, 0, nEstimatedComments)
@@ -51,14 +47,16 @@ func ParseComments(
 	p_commentsDBCS := commentsDBCS
 	p_allCommentsDBCS := allCommentsDBCS
 
-	lastTime := lastTimeNanoTS.ToTime()
-
 	var comment *schema.Comment
 
+	//2. reply
 	nextCommentIdx := MatchComment(p_commentsDBCS)
-	if nextCommentIdx > 0 {
-		replyDBCS := p_commentsDBCS[:nextCommentIdx]
-		reply := parseReply(replyDBCS, p_allCommentsDBCS)
+	if nextCommentIdx > 0 || nextCommentIdx == -1 {
+		replyDBCS := p_commentsDBCS
+		if nextCommentIdx > 0 {
+			replyDBCS = p_commentsDBCS[:nextCommentIdx]
+		}
+		reply := parseReply(replyDBCS, p_allCommentsDBCS, ownerID)
 		if reply != nil {
 			comments = append(comments, reply)
 		}
@@ -67,22 +65,27 @@ func ParseComments(
 		p_commentsDBCS = p_commentsDBCS[len(replyDBCS):]
 	}
 
+	//3. for each comment-leading
 	for idxNewLine := bytes.Index(p_commentsDBCS, []byte{'\n'}); len(p_commentsDBCS) > 0 && idxNewLine != -1; idxNewLine = bytes.Index(p_commentsDBCS, []byte{'\n'}) {
+
+		//3.0 parse comment
 		commentDBCS := p_commentsDBCS[:idxNewLine]
-		comment, lastTime = parseComment(bboardID, articleID, lastTime, commentDBCS, updateNanoTS, isFirstComments)
+		comment = parseComment(commentDBCS)
 		comments = append(comments, comment)
 
 		p_commentsDBCS = p_commentsDBCS[idxNewLine:] // with '\n'
 		p_allCommentsDBCS = p_allCommentsDBCS[idxNewLine:]
 
+		//3.1 find next comment
 		nextCommentIdx := MatchComment(p_commentsDBCS)
 
 		if nextCommentIdx == -1 { // no more comments
+			//3.1.1 assume the rest are reply.
 			p_commentsDBCS = p_commentsDBCS[1:] //step forward '\n'
 			p_allCommentsDBCS = p_allCommentsDBCS[1:]
 			if len(p_commentsDBCS) > 0 {
 				replyDBCS := p_commentsDBCS
-				reply := parseReply(replyDBCS, p_allCommentsDBCS)
+				reply := parseReply(replyDBCS, p_allCommentsDBCS, ownerID)
 				if reply != nil {
 					comments = append(comments, reply)
 				}
@@ -93,10 +96,11 @@ func ParseComments(
 			break
 		}
 
+		//3.2 assume the context before the next comment is reply.
 		if nextCommentIdx > 1 { // p_commentsDBCS[0] is '\n', get reply from p_commentsDBCS[1:]
 			replyDBCS := p_commentsDBCS[1:nextCommentIdx]
 
-			reply := parseReply(replyDBCS, p_allCommentsDBCS[1:])
+			reply := parseReply(replyDBCS, p_allCommentsDBCS[1:], ownerID)
 			if reply != nil {
 				comments = append(comments, reply)
 			}
@@ -104,54 +108,266 @@ func ParseComments(
 
 		p_commentsDBCS = p_commentsDBCS[nextCommentIdx:]
 		p_allCommentsDBCS = p_allCommentsDBCS[nextCommentIdx:]
+
 	}
 
-	if len(p_commentsDBCS) > 0 { // last comment without '\n'
-		comment, lastTime = parseComment(bboardID, articleID, lastTime, p_commentsDBCS, updateNanoTS, isFirstComments)
+	//4. last comment without '\n'
+	if len(p_commentsDBCS) > 0 {
+		comment = parseComment(p_commentsDBCS)
 		comments = append(comments, comment)
 	}
 
-	return comments, types.TimeToNanoTS(lastTime)
+	if len(comments) == 0 {
+		comments = nil
+	}
+
+	return comments
 }
 
-func parseComment(
-	bboardID bbs.BBoardID,
-	articleID bbs.ArticleID,
-	lastTime time.Time,
-	commentDBCS []byte,
-	updateNanoTS types.NanoTS,
-	isFirstComments bool) (
+func parseComment(commentDBCS []byte) (comment *schema.Comment) {
 
-	comment *schema.Comment,
-	newTime time.Time) {
+	theType, p_commentDBCS := MatchCommentType(commentDBCS)
 
-	theType, p_commentDBCS := parseCommentType(commentDBCS)
-	ownerID, p_commentDBCS := parseCommentOwnerID(p_commentDBCS)
-	contentDBCS, p_commentDBCS := parseCommentContent(p_commentDBCS)
-	contentBig5 := dbcsToBig5(contentDBCS) //the last 11 chars are the dates
-	contentUtf8 := big5ToUtf8(contentBig5)
-	ip, createTime := parseCommentIPCreateTime(lastTime, p_commentDBCS)
-	commentMD5 := md5sum(commentDBCS)
+	switch theType {
+	case types.COMMENT_TYPE_EDIT:
+		return parseCommentEdit(p_commentDBCS, commentDBCS)
+	case types.COMMENT_TYPE_FORWARD:
+		return parseCommentForward(p_commentDBCS, commentDBCS)
+	case types.COMMENT_TYPE_DELETED:
+		return parseCommentDeleted(p_commentDBCS, commentDBCS)
+	default:
+		return parseCommentDefault(theType, p_commentDBCS, commentDBCS)
+	}
+}
 
-	createNanoTS := types.TimeToNanoTS(createTime)
-	commentID := types.ToCommentID(createNanoTS, commentMD5)
+func parseCommentEdit(commentDBCS []byte, origCommentDBCS []byte) (comment *schema.Comment) {
+
+	ownerID, commentDBCS := parseCommentEditOwnerID(commentDBCS)
+	ip, host, theDateStr := parseCommentEditIPCreateTime(commentDBCS)
+	commentMD5 := md5sum(origCommentDBCS)
 
 	comment = &schema.Comment{
-		BBoardID:     bboardID,
-		ArticleID:    articleID,
-		CommentID:    commentID,
-		TheType:      theType,
-		CreateTime:   createNanoTS,
-		Owner:        ownerID,
-		Content:      contentUtf8,
-		IP:           ip,
-		MD5:          commentMD5,
-		UpdateNanoTS: updateNanoTS,
-		DBCS:         commentDBCS,
+		TheType: types.COMMENT_TYPE_EDIT,
+		Owner:   ownerID,
+		IP:      ip,
+		Host:    host,
+		MD5:     commentMD5,
+		DBCS:    origCommentDBCS,
+		TheDate: theDateStr,
+	}
+
+	return comment
+}
+
+func parseCommentEditOwnerID(commentDBCS []byte) (ownerID bbs.UUserID, newCommentDBCS []byte) {
+	p_commentDBCS := commentDBCS
+
+	theIdx := bytes.Index(p_commentDBCS, []byte(" "))
+	if theIdx == -1 {
+		return "", commentDBCS[len(MATCH_COMMENT_EDIT_BYTES):]
+	}
+
+	ownerID = bbs.UUserID(string(p_commentDBCS[:theIdx]))
+
+	return ownerID, p_commentDBCS[theIdx+1:]
+}
+
+func parseCommentEditIPCreateTime(commentDBCS []byte) (ip string, host string, theDate string) {
+	if commentDBCS[0] != '(' { //old
+		theIdx := bytes.Index(commentDBCS, MATCH_COMMENT_EDIT_FROM_BYTES)
+		if theIdx == -1 {
+			return "", "", ""
+		}
+
+		commentDBCS = commentDBCS[theIdx+len(MATCH_COMMENT_EDIT_FROM_BYTES):]
+
+		//ip
+		for idx, each := range commentDBCS {
+			if each == ' ' || each == '(' {
+				ip = string(commentDBCS[:idx])
+				commentDBCS = commentDBCS[idx:]
+				break
+			}
+		}
+
+		//create-time
+		theIdx = bytes.Index(commentDBCS, []byte("("))
+		if theIdx == -1 {
+			return ip, "", ""
+		}
+
+		commentDBCS = commentDBCS[theIdx+1:]
+
+		theIdx = bytes.Index(commentDBCS, []byte(")"))
+		theDate = string(commentDBCS[:theIdx])
+
+		return ip, "", theDate
+	}
+
+	//ip
+	theIdx := bytes.Index(commentDBCS, []byte(")"))
+	ipList := bytes.Split(commentDBCS[1:theIdx], []byte(" "))
+	ip = string(ipList[0])
+	if len(ipList) == 2 {
+		host = types.Big5ToUtf8(ipList[1])
+	}
+
+	theDate = strings.TrimSpace(string(commentDBCS[theIdx+3:])) //"), "
+
+	return ip, host, theDate
+}
+
+func parseCommentForward(commentDBCS []byte, origCommentDBCS []byte) (comment *schema.Comment) {
+	ownerID, commentDBCS := parseCommentForwardOwnerID(commentDBCS)
+	contentDBCS, commentDBCS := parseCommentForwardContent(commentDBCS)
+	contentBig5 := dbcsToBig5(contentDBCS) //the last 11 chars are the dates
+	contentUtf8 := big5ToUtf8(contentBig5)
+	ip, theDateStr := parseCommentForwardIPCreateTime(commentDBCS)
+	commentMD5 := md5sum(origCommentDBCS)
+
+	comment = &schema.Comment{
+		TheType: types.COMMENT_TYPE_FORWARD,
+		Owner:   ownerID,
+		Content: contentUtf8,
+		IP:      ip,
+		MD5:     commentMD5,
+		DBCS:    origCommentDBCS,
+		TheDate: theDateStr,
 	}
 	comment.CleanComment()
 
-	return comment, createTime
+	return comment
+}
+
+func parseCommentForwardOwnerID(commentDBCS []byte) (ownerID bbs.UUserID, newCommentDBCS []byte) {
+
+	p_commentDBCS := commentDBCS
+	idx := bytes.Index(p_commentDBCS, []byte{'\x1b'})
+	if idx == -1 {
+		return "", nil
+	}
+
+	ownerID = bbs.UUserID(strings.TrimSpace(string(p_commentDBCS[:idx])))
+
+	return ownerID, p_commentDBCS[idx:]
+
+}
+
+func parseCommentForwardContent(commentDBCS []byte) (contentDBCS []byte, newCommentDBCS []byte) {
+	if !bytes.HasPrefix(commentDBCS, MATCH_COMMENT_FORWARD_BYTES) {
+		return nil, nil
+	}
+
+	p_commentDBCS := commentDBCS[len(MATCH_COMMENT_FORWARD_BYTES):]
+	idx := bytes.Index(p_commentDBCS, []byte{'\x1b'})
+	if idx == -1 {
+		return nil, nil
+	}
+
+	contentDBCS = p_commentDBCS[:idx]
+	newCommentDBCS = p_commentDBCS[idx:]
+
+	return contentDBCS, newCommentDBCS
+}
+
+func parseCommentForwardIPCreateTime(commentDBCS []byte) (ip string, dateStr string) {
+	theIdx := -1
+	for idx, each := range commentDBCS {
+		if each >= '0' && each <= '9' {
+			theIdx = idx
+			break
+		}
+	}
+	if theIdx == -1 {
+		return "", ""
+	}
+
+	return "", strings.TrimSpace(string(commentDBCS[theIdx:]))
+}
+
+//parseCommentDeleted
+//
+//(teemocogs 刪除 teemocogs 的推文: 誤植)
+//\x1b[1;30m(teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3)\x1b[m
+func parseCommentDeleted(commentDBCS []byte, origCommentDBCS []byte) (comment *schema.Comment) {
+	ownerID, commentDBCS := parseCommentDeletedOwnerID(commentDBCS)
+	contentDBCS, commentDBCS := parseCommentDeletedContent(commentDBCS)
+	contentBig5 := dbcsToBig5(contentDBCS) //the last 11 chars are the dates
+	contentUtf8 := big5ToUtf8(contentBig5)
+	commentMD5 := md5sum(origCommentDBCS)
+
+	comment = &schema.Comment{
+		TheType: types.COMMENT_TYPE_DELETED,
+		Owner:   ownerID,
+		Content: contentUtf8,
+		MD5:     commentMD5,
+		DBCS:    origCommentDBCS,
+	}
+	comment.CleanComment()
+
+	return comment
+}
+
+func parseCommentDeletedOwnerID(commentDBCS []byte) (ownerID bbs.UUserID, newCommentDBCS []byte) {
+	idx := bytes.Index(commentDBCS, []byte{' '})
+	if idx == -1 {
+		return "", commentDBCS
+	}
+
+	ownerID = bbs.UUserID(string(commentDBCS[:idx]))
+	newCommentDBCS = commentDBCS[idx+len(MATCH_COMMENT_DELETED_INFIX0):]
+
+	return ownerID, newCommentDBCS
+}
+
+func parseCommentDeletedContent(commentDBCS []byte) (contentDBCS []byte, newCommentDBCS []byte) {
+	idx := bytes.Index(commentDBCS, MATCH_COMMENT_DELETED_POSTFIX)
+	if idx == -1 {
+		return nil, commentDBCS
+	}
+
+	return commentDBCS[:idx], commentDBCS[idx:]
+}
+
+func parseCommentDefault(theType types.CommentType, commentDBCS []byte, origCommentDBCS []byte) (comment *schema.Comment) {
+	ownerID, commentDBCS := parseCommentDefaultOwnerID(commentDBCS)
+
+	contentDBCS, commentDBCS := parseCommentContent(commentDBCS)
+	contentBig5 := dbcsToBig5(contentDBCS) //the last 11 chars are the dates
+	contentUtf8 := big5ToUtf8(contentBig5)
+	ip, theDateStr := parseCommentDefaultIPCreateTime(commentDBCS)
+	commentMD5 := md5sum(origCommentDBCS)
+
+	comment = &schema.Comment{
+		TheType: theType,
+		Owner:   ownerID,
+		Content: contentUtf8,
+		IP:      ip,
+		MD5:     commentMD5,
+		DBCS:    origCommentDBCS,
+		TheDate: theDateStr,
+	}
+	comment.CleanComment()
+
+	return comment
+}
+
+func parseCommentDefaultOwnerID(p_commmentDBCS []byte) (ownerID bbs.UUserID, nextCommentDBCS []byte) {
+	if len(p_commmentDBCS) == 0 {
+		return "", nil
+	}
+	theIdx := bytes.Index(p_commmentDBCS, []byte{'\x1b'})
+	if theIdx == -1 {
+		return bbs.UUserID(""), nil
+	}
+
+	ownerID = bbs.UUserID(strings.TrimSpace(string(p_commmentDBCS[:theIdx])))
+	if len(p_commmentDBCS) <= theIdx+8 {
+		return ownerID, nil
+	}
+	nextCommentDBCS = p_commmentDBCS[theIdx+8:]
+
+	return ownerID, nextCommentDBCS
 }
 
 func parseCommentContent(p_commmentDBCS []byte) (contentDBCS []byte, nextCommentDBCS []byte) {
@@ -186,118 +402,58 @@ func parseCommentContent(p_commmentDBCS []byte) (contentDBCS []byte, nextComment
 	return contentDBCS, nextCommentDBCS
 }
 
-func parseCommentType(p_commmentDBCS []byte) (theType types.CommentType, nextCommentDBCS []byte) {
-	if len(p_commmentDBCS) < 15 {
-		return types.COMMENT_TYPE_COMMENT, nil
-	}
-	nextCommentDBCS = p_commmentDBCS[15:]
-	if len(nextCommentDBCS) == 0 {
-		nextCommentDBCS = nil
-	}
-
-	if bytes.HasPrefix(p_commmentDBCS, MATCH_COMMENT_RECOMMEND_BYTES[1:]) {
-		return types.COMMENT_TYPE_RECOMMEND, nextCommentDBCS
-	} else if bytes.HasPrefix(p_commmentDBCS, MATCH_COMMENT_BOO_BYTES[1:]) {
-		return types.COMMENT_TYPE_BOO, nextCommentDBCS
-	} else if bytes.HasPrefix(p_commmentDBCS, MATCH_COMMENT_ARROW_BYTES[1:]) {
-		return types.COMMENT_TYPE_COMMENT, nextCommentDBCS
-	} else {
-		return types.COMMENT_TYPE_COMMENT, nextCommentDBCS
-	}
-}
-
-func parseCommentOwnerID(p_commmentDBCS []byte) (ownerID bbs.UUserID, nextCommentDBCS []byte) {
-	if len(p_commmentDBCS) == 0 {
-		return "", nil
-	}
-	theIdx := bytes.Index(p_commmentDBCS, []byte{'\x1b'})
-	if theIdx == -1 {
-		return bbs.UUserID(""), nil
-	}
-
-	ownerID = bbs.UUserID(string(p_commmentDBCS[:theIdx]))
-	if len(p_commmentDBCS) <= theIdx+8 {
-		return ownerID, nil
-	}
-	nextCommentDBCS = p_commmentDBCS[theIdx+8:]
-
-	return ownerID, nextCommentDBCS
-}
-
-//parseCommentIPCreateTime
+//parseCommentDefaultIPCreateTime
 //
 //Already separate the data by color.
 //There are only ip/create-time information in p_commentDBCS.
-func parseCommentIPCreateTime(lastTime time.Time, p_commentDBCS []byte) (ip string, createTime time.Time) {
+func parseCommentDefaultIPCreateTime(p_commentDBCS []byte) (ip string, dateStr string) {
 	if len(p_commentDBCS) == 0 {
-		return "", lastTime.Add(COMMENT_STEP_DURATION)
+		return "", ""
 	}
 	theIdx := bytes.Index(p_commentDBCS, []byte("\xb1\xc0")) //推
 	if theIdx != -1 {                                        //old
 		postfix := strings.TrimSpace(types.Big5ToUtf8(p_commentDBCS[theIdx+2:]))
 		postfixList := strings.Split(postfix, " ")
 		if len(postfixList) != 2 { //unable to parse. return createTime + 10-millisecond
-			return "", lastTime.Add(COMMENT_STEP_DURATION)
+			return "", ""
 		}
 		ip = postfixList[0]
-		dateStr := postfixList[1]
-		theTime, err := types.DateStrToTime(dateStr)
-		if err != nil {
-			return ip, lastTime.Add(COMMENT_STEP_DURATION)
+		dateStr = postfixList[1]
+		if len(dateStr) > LEN_OLD_RECOMMEND_DATE {
+			dateStr = dateStr[:LEN_OLD_RECOMMEND_DATE]
 		}
 
-		if theTime.Month() == createTime.Month() && theTime.Day() == createTime.Day() {
-			return ip, lastTime.Add(COMMENT_STEP_DURATION)
-		} else {
-			newTime := types.NewDateTime(lastTime.Year(), theTime.Month(), theTime.Day(), 0, 0, 0)
-			if newTime.Before(lastTime) {
-				newTime = types.NewDateTime(lastTime.Year()+1, theTime.Month(), theTime.Day(), 0, 0, 0)
-			}
-
-			return ip, newTime
-		}
+		return ip, dateStr
 	}
 
 	//new: MM/DD HH:mm
 	dateTimeStr := strings.TrimSpace(string(p_commentDBCS))
-	theTime, err := types.DateTimeStrToTime(dateTimeStr)
-	if err != nil {
-		return "", lastTime.Add(COMMENT_STEP_DURATION)
+	if len(dateTimeStr) > LEN_RECOMMEND_DATE {
+		dateTimeStr = dateTimeStr[:LEN_RECOMMEND_DATE]
 	}
-
-	if theTime.Month() == lastTime.Month() && theTime.Day() == lastTime.Day() && theTime.Hour() == lastTime.Hour() && theTime.Minute() == lastTime.Minute() {
-		return "", lastTime.Add(COMMENT_STEP_DURATION)
-	}
-
-	newDateTime := types.NewDateTime(lastTime.Year(), theTime.Month(), theTime.Day(), theTime.Hour(), theTime.Minute(), 0)
-	if newDateTime.Before(lastTime) {
-		newDateTime = types.NewDateTime(lastTime.Year()+1, theTime.Month(), theTime.Day(), theTime.Hour(), theTime.Minute(), 0)
-
-	}
-
-	return "", newDateTime
+	return "", dateTimeStr
 }
 
 //parseReply
 //
 //只考慮parse
-func parseReply(
-	replyDBCS []byte,
-	editDBCS []byte) (
-
-	reply *schema.Comment) {
+func parseReply(replyDBCS []byte, editDBCS []byte, ownerID bbs.UUserID) (reply *schema.Comment) {
 
 	if len(replyDBCS) == 0 {
 		return nil
 	}
 
-	origReplyDBCS := replyDBCS
 	if replyDBCS[len(replyDBCS)-1] == '\n' {
 		replyDBCS = replyDBCS[:len(replyDBCS)-1]
 	}
 	if len(replyDBCS) == 0 {
 		return nil
 	}
+
+	//origReplyDBCS should exclude the last '\n'
+	origReplyDBCS := replyDBCS
+
+	//remove '\r'
 	if replyDBCS[len(replyDBCS)-1] == '\r' {
 		replyDBCS = replyDBCS[:len(replyDBCS)-1]
 	}
@@ -309,7 +465,11 @@ func parseReply(
 	replyBig5 := dbcsToBig5(replyDBCS)
 	replyUtf8 := big5ToUtf8(replyBig5)
 
-	editUserID, editNanoTS, editIP, editHost := parseReplyUserIPHost(editDBCS)
+	editUserID, editNanoTS, editDateTimeStr, editIP, editHost := parseReplyUserIPHost(editDBCS)
+
+	if editUserID == "" {
+		editUserID = ownerID
+	}
 
 	reply = &schema.Comment{
 		TheType: types.COMMENT_TYPE_REPLY,
@@ -321,7 +481,8 @@ func parseReply(
 
 		EditNanoTS: editNanoTS,
 
-		DBCS: origReplyDBCS,
+		DBCS:    origReplyDBCS,
+		TheDate: editDateTimeStr,
 	}
 
 	reply.CleanReply()
@@ -339,13 +500,13 @@ func parseReply(
 //2. 找到 (, 設定 userID
 //3. 找到 ), 設定 ip/host
 //4. 設定時間.
-func parseReplyUserIPHost(editDBCS []byte) (editUserID bbs.UUserID, editNanoTS types.NanoTS, editIP string, editHost string) {
+func parseReplyUserIPHost(editDBCS []byte) (editUserID bbs.UUserID, editNanoTS types.NanoTS, editDateTimeStr string, editIP string, editHost string) {
 
 	//1.  get EDIT_PREFIX
 	p_editDBCS := editDBCS
 	theIdx := bytes.Index(p_editDBCS, MATCH_COMMENT_EDIT_BYTES[1:])
 	if theIdx == -1 {
-		return "", 0, "", ""
+		return "", 0, "", "", ""
 	}
 
 	//2. get (
@@ -353,7 +514,7 @@ func parseReplyUserIPHost(editDBCS []byte) (editUserID bbs.UUserID, editNanoTS t
 
 	theIdx = bytes.Index(p_editDBCS, []byte{'('})
 	if theIdx == -1 {
-		return "", 0, "", ""
+		return "", 0, "", "", ""
 	}
 	editUserID = bbs.UUserID(p_editDBCS[:theIdx-1])
 
@@ -362,7 +523,7 @@ func parseReplyUserIPHost(editDBCS []byte) (editUserID bbs.UUserID, editNanoTS t
 
 	theIdx = bytes.Index(p_editDBCS, []byte{')'})
 	if theIdx == -1 {
-		return "", 0, "", ""
+		return "", 0, "", "", ""
 	}
 	ipHost := types.Big5ToUtf8(p_editDBCS[:theIdx])
 
@@ -380,10 +541,11 @@ func parseReplyUserIPHost(editDBCS []byte) (editUserID bbs.UUserID, editNanoTS t
 	theIdx = bytes.Index(p_editDBCS, []byte(", "))
 	p_editDBCS = p_editDBCS[theIdx+2:]
 
-	theTime, err := types.DateYearTimeStrToTime(string(p_editDBCS[:19]))
+	editDateTimeStr = string(p_editDBCS[:19])
+	theTime, err := types.DateYearTimeStrToTime(editDateTimeStr)
 	if err != nil {
-		return "", 0, "", ""
+		return "", 0, "", "", ""
 	}
 
-	return editUserID, types.TimeToNanoTS(theTime), editIP, editHost
+	return editUserID, types.TimeToNanoTS(theTime), editDateTimeStr, editIP, editHost
 }

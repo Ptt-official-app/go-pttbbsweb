@@ -17,7 +17,8 @@ var (
 	testContent6Big5         [][]*types.Rune
 	testContent6Utf8         [][]*types.Rune
 
-	testFirstComments6 []*schema.Comment
+	testFirstComments6     []*schema.Comment
+	testFullFirstComments6 []*schema.Comment
 )
 
 func initTest6() {
@@ -1420,6 +1421,189 @@ func initTest6() {
 
 	testFirstComments6 = []*schema.Comment{
 		{
+			TheType: types.COMMENT_TYPE_RECOMMEND,
+			Owner:   bbs.UUserID("try107799"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   ".....,.",
+						Big5:   []byte(".....,.                                             "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte(".....,.                                             "),
+					},
+				},
+			},
+			MD5:     "6T-ZR97m1lqVecQZAmlMuA",
+			TheDate: "02/13 03:01",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mtry107799\x1b[m\x1b[33m: .....,.                                             \x1b[m 02/13 03:01\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_RECOMMEND,
+			Owner:   bbs.UUserID("hahabis"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "..............",
+						Big5:   []byte("..............                                        "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("..............                                        "),
+					},
+				},
+			},
+			MD5:     "ivEDjzbs9GQE0tA2qP9PVQ",
+			TheDate: "02/13 03:04",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mhahabis\x1b[m\x1b[33m: ..............                                        \x1b[m 02/13 03:04\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_RECOMMEND,
+			Owner:   bbs.UUserID("Unleashed"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "哪招...",
+						Big5:   []byte("\xad\xfe\xa9\xdb...                                             "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xad\xfe\xa9\xdb...                                             "),
+					},
+				},
+			},
+			MD5:     "p5dkEHAzRTSQL4gzP6GvNg",
+			TheDate: "02/13 03:14",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mUnleashed\x1b[m\x1b[33m: \xad\xfe\xa9\xdb...                                             \x1b[m 02/13 03:14\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_RECOMMEND,
+			Owner:   bbs.UUserID("piconeko"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "不是拉肚子就是肺炎,明年清出這些人Sale,Elvo,JD買Betts",
+						Big5:   []byte("\xa4\xa3\xacO\xa9\xd4\xa8{\xa4l\xb4N\xacO\xaa\xcd\xaa\xa2,\xa9\xfa\xa6~\xb2M\xa5X\xb3o\xa8\xc7\xa4HSale,Elvo,JD\xb6RBetts "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4\xa3\xacO\xa9\xd4\xa8{\xa4l\xb4N\xacO\xaa\xcd\xaa\xa2,\xa9\xfa\xa6~\xb2M\xa5X\xb3o\xa8\xc7\xa4HSale,Elvo,JD\xb6RBetts "),
+					},
+				},
+			},
+			MD5:     "PKyW17rlcp07gdY_wBC4sw",
+			TheDate: "02/13 03:29",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mpiconeko\x1b[m\x1b[33m: \xa4\xa3\xacO\xa9\xd4\xa8{\xa4l\xb4N\xacO\xaa\xcd\xaa\xa2,\xa9\xfa\xa6~\xb2M\xa5X\xb3o\xa8\xc7\xa4HSale,Elvo,JD\xb6RBetts \x1b[m 02/13 03:29\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_RECOMMEND,
+			Owner:   bbs.UUserID("DavFlow"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "....",
+						Big5:   []byte("....                                                  "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("....                                                  "),
+					},
+				},
+			},
+			MD5:     "py4oWIA-ee0qAUqWJ4WO5A",
+			TheDate: "02/13 03:41",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mDavFlow\x1b[m\x1b[33m: ....                                                  \x1b[m 02/13 03:41\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_RECOMMEND,
+			Owner:   bbs.UUserID("ekpum135"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "希望沒事.....",
+						Big5:   []byte("\xa7\xc6\xb1\xe6\xa8S\xa8\xc6.....                                        "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa7\xc6\xb1\xe6\xa8S\xa8\xc6.....                                        "),
+					},
+				},
+			},
+			MD5:     "ag_pH6PvnPs4D5Guezh9kQ",
+			TheDate: "02/13 04:09",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mekpum135\x1b[m\x1b[33m: \xa7\xc6\xb1\xe6\xa8S\xa8\xc6.....                                        \x1b[m 02/13 04:09\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_RECOMMEND,
+			Owner:   bbs.UUserID("seekforever"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "他還在正常訓練，應該還好",
+						Big5:   []byte("\xa5L\xc1\xd9\xa6b\xa5\xbf\xb1`\xb0V\xbdm\xa1A\xc0\xb3\xb8\xd3\xc1\xd9\xa6n                          "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa5L\xc1\xd9\xa6b\xa5\xbf\xb1`\xb0V\xbdm\xa1A\xc0\xb3\xb8\xd3\xc1\xd9\xa6n                          "),
+					},
+				},
+			},
+			MD5:     "WB3pkDhBHnLC-eJYMdIeEQ",
+			TheDate: "02/13 04:52",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mseekforever\x1b[m\x1b[33m: \xa5L\xc1\xd9\xa6b\xa5\xbf\xb1`\xb0V\xbdm\xa1A\xc0\xb3\xb8\xd3\xc1\xd9\xa6n                          \x1b[m 02/13 04:52\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_RECOMMEND,
+			Owner:   bbs.UUserID("tortoise2006"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "早日康復啊",
+						Big5:   []byte("\xa6\xad\xa4\xe9\xb1d\xb4_\xb0\xda                                       "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa6\xad\xa4\xe9\xb1d\xb4_\xb0\xda                                       "),
+					},
+				},
+			},
+			MD5:     "lxWkMcBKgzfkQU58S75mDw",
+			TheDate: "02/13 07:43",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mtortoise2006\x1b[m\x1b[33m: \xa6\xad\xa4\xe9\xb1d\xb4_\xb0\xda                                       \x1b[m 02/13 07:43\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_RECOMMEND,
+			Owner:   bbs.UUserID("triff"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "這個時間點得肺炎...",
+						Big5:   []byte("\xb3o\xad\xd3\xae\xc9\xb6\xa1\xc2I\xb1o\xaa\xcd\xaa\xa2...                                     "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb3o\xad\xd3\xae\xc9\xb6\xa1\xc2I\xb1o\xaa\xcd\xaa\xa2...                                     "),
+					},
+				},
+			},
+			MD5:     "VsL5xJ9ukmfB5g3kITeCNQ",
+			TheDate: "02/13 08:02",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mtriff\x1b[m\x1b[33m: \xb3o\xad\xd3\xae\xc9\xb6\xa1\xc2I\xb1o\xaa\xcd\xaa\xa2...                                     \x1b[m 02/13 08:02\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_COMMENT,
+			Owner:   bbs.UUserID("LBJKO"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "........=.=lll 傻眼 早日康復阿",
+						Big5:   []byte("........=.=lll \xb6\xcc\xb2\xb4 \xa6\xad\xa4\xe9\xb1d\xb4_\xaa\xfc                          "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("........=.=lll \xb6\xcc\xb2\xb4 \xa6\xad\xa4\xe9\xb1d\xb4_\xaa\xfc                          "),
+					},
+				},
+			},
+			MD5:     "9JBlv1b11fR1u5J1QDEHRQ",
+			TheDate: "02/13 08:44",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mLBJKO\x1b[m\x1b[33m: ........=.=lll \xb6\xcc\xb2\xb4 \xa6\xad\xa4\xe9\xb1d\xb4_\xaa\xfc                          \x1b[m 02/13 08:44\r"),
+		},
+	}
+
+	testFullFirstComments6 = []*schema.Comment{
+		{
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),
 			CommentID:  types.CommentID("EZG9cDt_OAA:6T-ZR97m1lqVecQZAmlMuA"),
@@ -1610,4 +1794,5 @@ func initTest6() {
 			MD5: "9JBlv1b11fR1u5J1QDEHRQ",
 		},
 	}
+
 }

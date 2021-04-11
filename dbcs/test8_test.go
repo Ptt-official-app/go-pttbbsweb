@@ -3,6 +3,7 @@ package dbcs
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
 var (
@@ -746,6 +747,90 @@ func initTest8() {
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\x1b[m:\xabB\xb4\xad\xa9R\xb2z\xba\xf4\xaf\xb8-\xb6}\xa4\xdf\xb4N\xacO\xb6}\xb9B\r"),
 			},
+		},
+	}
+
+	testFirstComments8 = []*schema.Comment{
+		{
+			TheType: types.COMMENT_TYPE_EDIT,
+			Owner:   bbs.UUserID("shiou7788"),
+			Content: nil,
+			MD5:     "KxkHBwyiFnfhZJ6u-ayFFA",
+			TheDate: "12/22 06:53",
+			IP:      "140.112.92.137",
+			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 06:53)\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_EDIT,
+			Owner:   bbs.UUserID("shiou7788"),
+			Content: nil,
+			MD5:     "HbrbjPybbW4AtITcFsZM2A",
+			TheDate: "12/22 07:00",
+			IP:      "140.112.92.137",
+			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_EDIT,
+			Owner:   bbs.UUserID("shiou7788"),
+			Content: nil,
+			MD5:     "HbrbjPybbW4AtITcFsZM2A",
+			TheDate: "12/22 07:00",
+			IP:      "140.112.92.137",
+			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_EDIT,
+			Owner:   bbs.UUserID("shiou7788"),
+			Content: nil,
+			MD5:     "HbrbjPybbW4AtITcFsZM2A",
+			TheDate: "12/22 07:00",
+			IP:      "140.112.92.137",
+			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_EDIT,
+			Owner:   bbs.UUserID("shiou7788"),
+			Content: nil,
+			MD5:     "HbrbjPybbW4AtITcFsZM2A",
+			TheDate: "12/22 07:00",
+			IP:      "140.112.92.137",
+			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_EDIT,
+			Owner:   bbs.UUserID("shiou7788"),
+			Content: nil,
+			MD5:     "HbrbjPybbW4AtITcFsZM2A",
+			TheDate: "12/22 07:00",
+			IP:      "140.112.92.137",
+			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_EDIT,
+			Owner:   bbs.UUserID("shiou7788"),
+			Content: nil,
+			MD5:     "HbrbjPybbW4AtITcFsZM2A",
+			TheDate: "12/22 07:00",
+			IP:      "140.112.92.137",
+			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_EDIT,
+			Owner:   bbs.UUserID("shiou7788"),
+			Content: nil,
+			MD5:     "HbrbjPybbW4AtITcFsZM2A",
+			TheDate: "12/22 07:00",
+			IP:      "140.112.92.137",
+			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_EDIT,
+			Owner:   bbs.UUserID("shiou7788"),
+			Content: nil,
+			MD5:     "HbrbjPybbW4AtITcFsZM2A",
+			TheDate: "12/22 07:00",
+			IP:      "140.112.92.137",
+			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
 		},
 	}
 }

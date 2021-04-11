@@ -444,12 +444,18 @@ func initTest10() {
 
 	testFirstComments10 = []*schema.Comment{
 		{
-			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EX4VyUrtaAA:QTzPa_CHE5xLUEUF_A0aZw"),
-			TheType:    types.COMMENT_TYPE_COMMENT,
-			Owner:      bbs.UUserID("rareone"),
-			CreateTime: types.NanoTS(1260468900000000000),
+			TheType: types.COMMENT_TYPE_EDIT,
+			Owner:   bbs.UUserID("rareone"),
+			Content: nil,
+			MD5:     "WH30ZZA2DpAv_WfoE-hcBA",
+			TheDate: "12/09/2020 16:53:01",
+			IP:      "140.112.217.57",
+			Host:    "臺灣",
+			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: rareone (140.112.217.57 \xbbO\xc6W), 12/09/2020 16:53:01\r"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_COMMENT,
+			Owner:   bbs.UUserID("rareone"),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -457,10 +463,13 @@ func initTest10() {
 						Big5:   []byte("Closed \xbcx\xa8\xec\xa4F                                         "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("Closed \xbcx\xa8\xec\xa4F                                         "),
 					},
 				},
 			},
-			MD5: "QTzPa_CHE5xLUEUF_A0aZw",
+			MD5:     "QTzPa_CHE5xLUEUF_A0aZw",
+			TheDate: "12/11 02:15",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mrareone\x1b[m\x1b[33m: Closed \xbcx\xa8\xec\xa4F                                         \x1b[m 12/11 02:15\r"),
 		},
 	}
 }

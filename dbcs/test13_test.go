@@ -3,6 +3,7 @@ package dbcs
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
 var (
@@ -17,6 +18,8 @@ var (
 	testContent13Utf8         [][]*types.Rune
 
 	testFirstComments13 []*schema.Comment
+
+	testTheRestComments13 []*schema.Comment
 )
 
 func initTest13() {
@@ -283,6 +286,47 @@ func initTest13() {
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
+		},
+	}
+
+	testFirstComments13 = []*schema.Comment{
+		{ //0
+			TheType: types.COMMENT_TYPE_COMMENT,
+			Owner:   bbs.UUserID("easy1"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "下學期 一次修兩個專題?",
+						Big5:   []byte("\xa4U\xbe\xc7\xb4\xc1 \xa4@\xa6\xb8\xad\xd7\xa8\xe2\xad\xd3\xb1M\xc3D?"),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4U\xbe\xc7\xb4\xc1 \xa4@\xa6\xb8\xad\xd7\xa8\xe2\xad\xd3\xb1M\xc3D?"),
+					},
+				},
+			},
+			MD5:     "5m3AB1JdQSO8lw6ygnPVNg",
+			TheDate: "11/19",
+			IP:      "140.112.28.31",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33measy1\x1b[m\x1b[33m:\xa4U\xbe\xc7\xb4\xc1 \xa4@\xa6\xb8\xad\xd7\xa8\xe2\xad\xd3\xb1M\xc3D?\x1b[m                        \xb1\xc0  140.112.28.31 11/19\r"),
+		},
+		{ //1
+			TheType: types.COMMENT_TYPE_COMMENT,
+			Owner:   bbs.UUserID("Foxwall"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "學校沒有開...除非有教授要開專題一..",
+						Big5:   []byte("\xbe\xc7\xae\xd5\xa8S\xa6\xb3\xb6}...\xb0\xa3\xabD\xa6\xb3\xb1\xd0\xb1\xc2\xadn\xb6}\xb1M\xc3D\xa4@.."),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xbe\xc7\xae\xd5\xa8S\xa6\xb3\xb6}...\xb0\xa3\xabD\xa6\xb3\xb1\xd0\xb1\xc2\xadn\xb6}\xb1M\xc3D\xa4@.."),
+					},
+				},
+			},
+			MD5:     "POPKa8tQwVnBsvb31Zjtnw",
+			TheDate: "11/19",
+			IP:      "ntucst",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mFoxwall\x1b[m\x1b[33m:\xbe\xc7\xae\xd5\xa8S\xa6\xb3\xb6}...\xb0\xa3\xabD\xa6\xb3\xb1\xd0\xb1\xc2\xadn\xb6}\xb1M\xc3D\xa4@..\x1b[m         \xb1\xc0         ntucst 11/19\r"),
 		},
 	}
 }
