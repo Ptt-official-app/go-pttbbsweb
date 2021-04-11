@@ -2,6 +2,9 @@ package dbcs
 
 import (
 	"bytes"
+
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -27,11 +30,24 @@ var (
 	//\xa1\xb0 \xbds\xbf\xe8: abcd (1.2.3.4 \xbbO\xc6W), 03/18/2021 12:07:22
 	MATCH_COMMENT_EDIT_BYTES = []byte("\xa1\xb0 \xbds\xbf\xe8: ")
 
+	MATCH_COMMENT_EDIT_FROM_BYTES = []byte("\xa8\xd3\xa6\xdb: ")
+
 	//※ abcde:轉錄至看板 SYSOP
 	//\xa1\xb0 \x1b[1;32mabcd\x1b[0;32m:\xc2\xe0\xbf\xfd\xa6\xdc\xac\xdd\xaaO Mavericks\x1b[m                               03/18 12:07
 	MATCH_COMMENT_FORWARD_BYTES = []byte{ //\x1b[0;32m:\xc2
 		0x1b, 0x5b, 0x30, 0x3b, 0x33, 0x32, 0x6d, 0x3a, 0xc2, 0xe0, 0xbf, 0xfd, 0xa6, 0xdc, 0xac, 0xdd, 0xaa, 0x4f, 0x20,
 	}
+
+	MATCH_COMMENT_FORWARD_PREFIX = []byte("\xa1\xb0 \x1b[1;32m")
+
+	//(teemocogs 刪除 teemocogs 的推文: 誤植)
+	//\x1b[1;30m(teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3)\x1b[m
+	MATCH_COMMENT_DELETED_PREFIX  = []byte("\x1b[1;30m(")
+	MATCH_COMMENT_DELETED_INFIX0  = []byte(" \xa7R\xb0\xa3 ")
+	MATCH_COMMENT_DELETED_INFIX1  = []byte(" \xaa\xba\xb1\xc0\xa4\xe5: ")
+	MATCH_COMMENT_DELETED_POSTFIX = []byte(")\x1b[m")
+
+	MATCH_COMMENT_GREEN_PREFIX = []byte("\xa1\xb0 ") //※
 )
 
 //MatchComment
@@ -61,12 +77,44 @@ func MatchComment(content []byte) int {
 	if idxForward != -1 {
 		theIdx = matchCommentIntegratedIdx(theIdx, idxForward)
 	}
+	idxDeleted := matchCommentDeleted(content)
+	if idxDeleted != -1 {
+		theIdx = matchCommentIntegratedIdx(theIdx, idxDeleted)
+	}
 
 	if theIdx == -1 {
 		return theIdx
 	}
 
 	return theIdx //do not include the leading \n
+}
+
+func MatchCommentType(commentDBCS []byte) (theType types.CommentType, nextCommentDBCS []byte) {
+	if bytes.HasPrefix(commentDBCS, MATCH_COMMENT_GREEN_PREFIX) {
+		logrus.Infof("MatchCommentType: green-prefix: commentDBCS: %v", string(commentDBCS[:30]))
+		if bytes.HasPrefix(commentDBCS, MATCH_COMMENT_EDIT_BYTES) {
+			return types.COMMENT_TYPE_EDIT, commentDBCS[len(MATCH_COMMENT_EDIT_BYTES):]
+		}
+
+		isForward, newCommentDBCS := hasPrefixCommentForward(commentDBCS)
+		logrus.Infof("MatchCommentType: isForward: %v", isForward)
+		if isForward {
+			return types.COMMENT_TYPE_FORWARD, newCommentDBCS
+		}
+	} else if bytes.HasPrefix(commentDBCS, MATCH_COMMENT_RECOMMEND_BYTES) {
+		return types.COMMENT_TYPE_RECOMMEND, commentDBCS[len(MATCH_COMMENT_RECOMMEND_BYTES):]
+	} else if bytes.HasPrefix(commentDBCS, MATCH_COMMENT_BOO_BYTES) {
+		return types.COMMENT_TYPE_BOO, commentDBCS[len(MATCH_COMMENT_BOO_BYTES):]
+	} else if bytes.HasPrefix(commentDBCS, MATCH_COMMENT_ARROW_BYTES) {
+		return types.COMMENT_TYPE_COMMENT, commentDBCS[len(MATCH_COMMENT_ARROW_BYTES):]
+	} else {
+		isDeleted, newCommentDBCS := hasPrefixCommentDeleted(commentDBCS)
+		if isDeleted {
+			return types.COMMENT_TYPE_DELETED, newCommentDBCS
+		}
+	}
+
+	return types.COMMENT_TYPE_UNKNOWN, commentDBCS
 }
 
 func matchCommentIntegratedIdx(theIdx int, idx int) int {
@@ -106,4 +154,71 @@ func matchCommentForward(content []byte) (idx int) {
 	}
 
 	return -1
+}
+
+func hasPrefixCommentForward(content []byte) (isForward bool, nextCommentDBCS []byte) {
+	idx := bytes.Index(content, MATCH_COMMENT_FORWARD_BYTES)
+	if idx == -1 {
+		return false, nil
+	}
+
+	if idx < 3 {
+		return false, nil
+	}
+	idx--
+	for ; idx >= 2 && content[idx] != ' '; idx-- {
+	}
+	if idx == 2 && content[idx-2] == '\xa1' && content[idx-1] == '\xb0' && content[idx] == ' ' {
+		return true, content[len(MATCH_COMMENT_FORWARD_PREFIX):]
+	}
+
+	return false, nil
+}
+
+func matchCommentDeleted(content []byte) (idx int) {
+	for len(content) > 0 {
+		idx = bytes.Index(content, MATCH_COMMENT_DELETED_PREFIX)
+		if idx == -1 {
+			return -1
+		}
+		startIdx := idx
+		for ; idx < len(content) && content[idx] != ' '; idx++ {
+		}
+		if !bytes.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX0) {
+			content = content[idx:]
+			continue
+		}
+		idx += len(MATCH_COMMENT_DELETED_INFIX0)
+		for ; idx < len(content) && content[idx] != ' '; idx++ {
+		}
+		if !bytes.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX1) {
+			content = content[idx:]
+			continue
+		}
+
+		return startIdx
+	}
+
+	return -1
+}
+
+func hasPrefixCommentDeleted(content []byte) (isDeleted bool, nextCommentDBCS []byte) {
+	if !bytes.HasPrefix(content, MATCH_COMMENT_DELETED_PREFIX) {
+		return false, nil
+	}
+	idx := len(MATCH_COMMENT_DELETED_PREFIX)
+	for ; idx < len(content) && content[idx] != ' '; idx++ {
+	}
+	if !bytes.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX0) {
+		return false, nil
+
+	}
+	idx += len(MATCH_COMMENT_DELETED_INFIX0)
+	for ; idx < len(content) && content[idx] != ' '; idx++ {
+	}
+	if !bytes.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX1) {
+		return false, nil
+	}
+
+	return true, content[len(MATCH_COMMENT_DELETED_PREFIX):]
 }

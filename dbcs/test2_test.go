@@ -16,7 +16,8 @@ var (
 	testContent2Big5         [][]*types.Rune
 	testContent2Utf8         [][]*types.Rune
 
-	testFirstComments2 []*schema.Comment
+	testFirstComments2     []*schema.Comment
+	testFullFirstComments2 []*schema.Comment
 )
 
 func initTest2() {

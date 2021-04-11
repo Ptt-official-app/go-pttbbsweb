@@ -168,7 +168,6 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 	color1 := types.InvalidColor
 	dbcs0Pos := -1
 	//3. for-loop
-	logrus.Infof("dbcsToBig5PerLine: to for loop")
 	for idx := 0; idx < len(dbcs); {
 		ch := dbcs[idx]
 		if ch != '\x1b' { //not the color-code.
@@ -190,7 +189,6 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 						Color1: color1,
 						DBCS:   eachDBCS,
 					}
-					logrus.Infof("dbcstoBig5PerLine: to add big5: r: %v stat: %v", r, dbcsStat)
 					big5 = append(big5, r)
 
 					startIdx = idx
@@ -223,7 +221,6 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 						Color1: color1,
 						DBCS:   eachDBCS,
 					}
-					logrus.Infof("dbcstoBig5PerLine: to add big5: r: %v stat: %v startIdx: %v dbcs0Pos: %v", r, dbcsStat, startIdx, dbcs0Pos)
 					big5 = append(big5, r)
 				}
 				startIdx = dbcs0Pos
@@ -236,7 +233,6 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 						Color1: color0,
 						DBCS:   eachDBCS,
 					}
-					logrus.Infof("dbcstoBig5PerLine: to add big5: r: %v stat: %v startIdx: %v idx: %v", r, dbcsStat, startIdx, idx)
 					big5 = append(big5, r)
 				}
 				startIdx = idx
@@ -251,7 +247,6 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 					Color1: color1,
 					DBCS:   eachDBCS,
 				}
-				logrus.Infof("dbcstoBig5PerLine: to add big5: r: %v stat: %v startIdx: %v idx: %v", r, dbcsStat, startIdx, idx)
 				big5 = append(big5, r)
 				startIdx = idx
 
@@ -260,7 +255,6 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 			}
 
 			color, nBytes := dbcsParseColor(dbcs[idx:])
-			logrus.Infof("dbcsToBig5PerLine: idx: %v color: %v nBytes: %v dbcsStat: %v", idx, color, nBytes, dbcsStat)
 			if dbcsStat != DBCS_STATE_LEAD {
 				color0 = dbcsIntegrateColor(color0, color)
 			} else {
@@ -271,7 +265,6 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 	}
 
 	//the last rune
-	logrus.Infof("dbcsToBig5PerLine: dbcsStat: %v startIdx: %v dbcs: %v", dbcsStat, startIdx, len(dbcs))
 	switch dbcsStat {
 	case DBCS_STATE_NONE:
 		eachDBCS := dbcs[startIdx:]
@@ -282,7 +275,6 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 				Color1: color0,
 				DBCS:   eachDBCS,
 			}
-			logrus.Infof("dbcstoBig5PerLine (end): to add big5: r: %v stat: %v", r, dbcsStat)
 			big5 = append(big5, r)
 		}
 		startIdx = len(dbcs)
@@ -296,7 +288,6 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 					Color1: color1,
 					DBCS:   eachDBCS,
 				}
-				logrus.Infof("dbcstoBig5PerLine (end): to add big5: r: %v stat: %v", r, dbcsStat)
 				big5 = append(big5, r)
 			}
 
@@ -311,7 +302,6 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 					Color1: color0,
 					DBCS:   eachDBCS,
 				}
-				logrus.Infof("dbcstoBig5PerLine (end): to add big5: r: %v stat: %v", r, dbcsStat)
 				big5 = append(big5, r)
 			}
 			startIdx = len(dbcs)
@@ -327,7 +317,6 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 			Color1: color0,
 			DBCS:   eachDBCS,
 		}
-		logrus.Infof("dbcstoBig5PerLine (def): to add big5: r: %v stat: %v", r, dbcsStat)
 		big5 = append(big5, r)
 		startIdx = len(dbcs)
 	}

@@ -35,7 +35,7 @@ func ParseFirstComments(
 		return nil, origFirstCommentsMD5, origFirstCommentsLastTime, theRestCommentsDBCS
 	}
 
-	firstComments, firstCommentsLastTime = ParseComments(bboardID, articleID, ownerID, articleCreateTime, firstCommentsDBCS, commentsDBCS, updateNanoTS, true)
+	firstComments = ParseComments(ownerID, firstCommentsDBCS, commentsDBCS)
 
 	return firstComments, firstCommentsMD5, firstCommentsLastTime, theRestCommentsDBCS
 }

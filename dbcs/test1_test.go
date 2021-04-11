@@ -17,7 +17,8 @@ var (
 	testContent1Big5         [][]*types.Rune
 	testContent1Utf8         [][]*types.Rune
 
-	testFirstComments1 []*schema.Comment
+	testFirstComments1     []*schema.Comment
+	testFullFirstComments1 []*schema.Comment
 )
 
 func initTest1() {
@@ -102,6 +103,63 @@ func initTest1() {
 	}
 
 	testFirstComments1 = []*schema.Comment{
+		{
+			TheType: types.COMMENT_TYPE_COMMENT,
+			Owner:   bbs.UUserID("SYSOP"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "推推～",
+						Big5:   []byte("\xb1\xc0\xb1\xc0\xa1\xe3                                                   "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0\xb1\xc0\xa1\xe3                                                   "),
+					},
+				},
+			},
+			MD5:     "uzQhiFhT_R5HGcpcXa10Fg",
+			TheDate: "12/13 03:50",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0\xa1\xe3                                                   \x1b[m 12/13 03:50"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_COMMENT,
+			Owner:   bbs.UUserID("SYSOP"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "推推",
+						Big5:   []byte("\xb1\xc0\xb1\xc0                                                     "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0\xb1\xc0                                                     "),
+					},
+				},
+			},
+			MD5:     "t24G1aV7UjVPoUv-6_T93A",
+			TheDate: "12/13 03:51",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0                                                     \x1b[m 12/13 03:51"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_COMMENT,
+			Owner:   bbs.UUserID("SYSOP"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "推推",
+						Big5:   []byte("\xb1\xc0\xb1\xc0                                                     "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0\xb1\xc0                                                     "),
+					},
+				},
+			},
+			MD5:     "HWj0bTiKkHE3DnJEz3TO0A",
+			TheDate: "12/13 03:52",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0                                                     \x1b[m 12/13 03:52"),
+		},
+	}
+
+	testFullFirstComments1 = []*schema.Comment{
 		{
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),

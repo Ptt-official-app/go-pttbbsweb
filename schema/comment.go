@@ -42,6 +42,8 @@ type Comment struct {
 	InferredCreateTime types.NanoTS `bson:"inferred_create_time_nano_ts,omitempty"` //create-time from inferred.
 	NewCreateTime      types.NanoTS `bson:"new_create_time_nano_ts,omitempty"`      //create-time from new comment.
 
+	SortTime types.NanoTS `bson:"sort_time_nano_ts"`
+
 	TheDate string `bson:"the_date"`
 	DBCS    []byte `bson:"dbcs"`
 

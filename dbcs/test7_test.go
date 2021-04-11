@@ -3,6 +3,7 @@ package dbcs
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
 var (
@@ -225,6 +226,18 @@ func initTest7() {
 				Color1: types.DefaultColor,
 				DBCS:   []byte("http://reg.aca.ntu.edu.tw/win911.htm\r"),
 			},
+		},
+	}
+
+	testFirstComments7 = []*schema.Comment{
+		{
+			TheType: types.COMMENT_TYPE_EDIT,
+			Owner:   bbs.UUserID("Psycap"),
+			Content: nil,
+			MD5:     "K3Ebmg6YJggrKPhd5QkAvA",
+			TheDate: "03/31 14:30",
+			IP:      "140.112.29.66",
+			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: Psycap          \xa8\xd3\xa6\xdb: 140.112.29.66        (03/31 14:30)\r"),
 		},
 	}
 }
