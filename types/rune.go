@@ -12,7 +12,8 @@ import (
 
 type Rune struct {
 	Utf8   string `json:"text" bson:"utf8"` //utf8-string
-	Big5   []byte `json:"-" bson:"big5"`    //big5-bytes, store in db for debugging.
+	Big5   []byte `json:"-" bson:"big5"`    //big5-bytes, stored in db for debugging.
+	DBCS   []byte `json:"-" bson:"dbcs"`    //dbcs-bytes, stored in db for concat and debugging.
 	Color0 Color  `json:"color0" bson:"color0"`
 	Color1 Color  `json:"color1" bson:"color1"`
 }

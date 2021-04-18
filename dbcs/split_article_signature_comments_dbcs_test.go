@@ -104,6 +104,48 @@ func Test_splitArticleSignatureCommentsDBCS(t *testing.T) {
 			expectedSignatureDBCS: testSignature11,
 			expectedComments:      testComment11,
 		},
+		{
+			name:                  "12_" + testFilename12,
+			args:                  args{content: testContentAll12},
+			expectedArticleDBCS:   testContent12,
+			expectedSignatureDBCS: testSignature12,
+			expectedComments:      testComment12,
+		},
+		{
+			name:                  "13_" + testFilename13,
+			args:                  args{content: testContentAll13},
+			expectedArticleDBCS:   testContent13,
+			expectedSignatureDBCS: testSignature13,
+			expectedComments:      testComment13,
+		},
+		{
+			name:                  "14_" + testFilename14,
+			args:                  args{content: testContentAll14},
+			expectedArticleDBCS:   testContent14,
+			expectedSignatureDBCS: testSignature14,
+			expectedComments:      testComment14,
+		},
+		{
+			name:                  "15_" + testFilename15,
+			args:                  args{content: testContentAll15},
+			expectedArticleDBCS:   testContent15,
+			expectedSignatureDBCS: testSignature15,
+			expectedComments:      testComment15,
+		},
+		{
+			name:                  "16_" + testFilename16,
+			args:                  args{content: testContentAll16},
+			expectedArticleDBCS:   testContent16,
+			expectedSignatureDBCS: testSignature16,
+			expectedComments:      testComment16,
+		},
+		{
+			name:                  "17_" + testFilename17,
+			args:                  args{content: testContentAll17},
+			expectedArticleDBCS:   testContent17,
+			expectedSignatureDBCS: testSignature17,
+			expectedComments:      testComment17,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -116,6 +158,119 @@ func Test_splitArticleSignatureCommentsDBCS(t *testing.T) {
 			}
 			if !reflect.DeepEqual(gotComments, tt.expectedComments) {
 				t.Errorf("splitArticleSignatureCommentsDBCS() gotComments = %v, want %v", gotComments, tt.expectedComments)
+			}
+		})
+	}
+}
+
+func Test_tryGetSimpleSignatureIdxes(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	type args struct {
+		content []byte
+	}
+	tests := []struct {
+		name     string
+		args     args
+		expected []int
+	}{
+		// TODO: Add test cases.
+		{
+			name:     "0_" + testFilename0,
+			args:     args{content: testContentAll0},
+			expected: []int{133},
+		},
+		{
+			name:     "1_" + testFilename1,
+			args:     args{content: testContentAll1},
+			expected: []int{96},
+		},
+		{
+			name:     "2_" + testFilename2,
+			args:     args{content: testContentAll2},
+			expected: []int{260},
+		},
+		{
+			name:     "3_" + testFilename3,
+			args:     args{content: testContentAll3},
+			expected: []int{121},
+		},
+		{
+			name:     "4_" + testFilename4,
+			args:     args{content: testContentAll4},
+			expected: []int{161},
+		},
+		{
+			name:     "5_" + testFilename5,
+			args:     args{content: testContentAll5},
+			expected: []int{286},
+		},
+		{
+			name:     "6_" + testFilename6,
+			args:     args{content: testContentAll6},
+			expected: []int{894, 1439},
+		},
+		{
+			name:     "7_" + testFilename7,
+			args:     args{content: testContentAll7},
+			expected: []int{186},
+		},
+		{
+			name:     "8_" + testFilename8,
+			args:     args{content: testContentAll8},
+			expected: []int{},
+		},
+		{
+			name:     "9_" + testFilename9,
+			args:     args{content: testContentAll9},
+			expected: []int{1660},
+		},
+		{
+			name:     "10_" + testFilename10,
+			args:     args{content: testContentAll10},
+			expected: []int{635},
+		},
+		{
+			name:     "11_" + testFilename11,
+			args:     args{content: testContentAll11},
+			expected: []int{1514},
+		},
+		{
+			name:     "12_" + testFilename12,
+			args:     args{content: testContentAll12},
+			expected: []int{752},
+		},
+		{
+			name:     "13_" + testFilename13,
+			args:     args{content: testContentAll13},
+			expected: []int{335},
+		},
+		{
+			name:     "14_" + testFilename14,
+			args:     args{content: testContentAll14},
+			expected: []int{3950},
+		},
+		{
+			name:     "15_" + testFilename15,
+			args:     args{content: testContentAll15},
+			expected: []int{3228, 8988, 9980},
+		},
+		{
+			name:     "16_" + testFilename16,
+			args:     args{content: testContentAll16},
+			expected: []int{315},
+		},
+		{
+			name:     "17_" + testFilename17,
+			args:     args{content: testContentAll17},
+			expected: []int{453},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tryGetSimpleSignatureIdxes(tt.args.content); !reflect.DeepEqual(got, tt.expected) {
+				t.Errorf("tryGetSimpleSignatureIdxes() = %v, want %v", got, tt.expected)
 			}
 		})
 	}

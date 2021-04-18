@@ -44,13 +44,13 @@ func CreateArticle(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 
 	theType := types.Utf8ToBig5(theParams.PostType)
 	theTitle := types.Utf8ToBig5(theParams.Title)
-	content := dbcs.Utf8ToBig5(theParams.Content)
+	contentDBCS := dbcs.Utf8ToDBCS(theParams.Content)
 
 	//backend
 	theParams_b := &pttbbsapi.CreateArticleParams{
 		PostType: theType,
 		Title:    theTitle,
-		Content:  content,
+		Content:  contentDBCS,
 	}
 	var result_b pttbbsapi.CreateArticleResult
 

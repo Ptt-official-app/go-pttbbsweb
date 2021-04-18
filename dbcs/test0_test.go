@@ -17,7 +17,8 @@ var (
 	testContent0Big5         [][]*types.Rune
 	testContent0Utf8         [][]*types.Rune
 
-	testFirstComments0 []*schema.Comment
+	testFirstComments0     []*schema.Comment
+	testFullFirstComments0 []*schema.Comment
 )
 
 func initTest0() {
@@ -29,6 +30,7 @@ func initTest0() {
 				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 			},
 		},
 		{
@@ -36,6 +38,7 @@ func initTest0() {
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb0\xdd\xc3D] \xa7\xda\xacO\xbd\xd6\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xb0\xdd\xc3D] \xa7\xda\xacO\xbd\xd6\xa1H\xa1\xe3"),
 			},
 		},
 		{
@@ -43,6 +46,7 @@ func initTest0() {
 				Big5:   []byte("\xae\xc9\xb6\xa1: Sun Dec  6 05:03:57 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Sun Dec  6 05:03:57 2020"),
 			},
 		},
 		{},
@@ -51,6 +55,7 @@ func initTest0() {
 				Big5:   []byte("\xa7\xda\xacO\xbd\xd6\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7\xda\xacO\xbd\xd6\xa1H\xa1\xe3"),
 			},
 		},
 		{},
@@ -59,6 +64,7 @@ func initTest0() {
 				Big5:   []byte("\xa7\xda\xa6b\xad\xfe\xb8\xcc\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7\xda\xa6b\xad\xfe\xb8\xcc\xa1H\xa1\xe3"),
 			},
 		},
 		{},
@@ -67,14 +73,7 @@ func initTest0() {
 				Big5:   []byte("\xa7\xda\xac\xb0\xa4\xb0\xbb\xf2\xb7|\xa6b\xb3o\xb8\xcc\xa9O\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
-			},
-		},
-		{},
-		{
-			{
-				Big5:   []byte("--"),
-				Color0: types.DefaultColor,
-				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7\xda\xac\xb0\xa4\xb0\xbb\xf2\xb7|\xa6b\xb3o\xb8\xcc\xa9O\xa1H\xa1\xe3"),
 			},
 		},
 	}
@@ -86,6 +85,7 @@ func initTest0() {
 				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 			},
 		},
 		{
@@ -94,6 +94,7 @@ func initTest0() {
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb0\xdd\xc3D] \xa7\xda\xacO\xbd\xd6\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xb0\xdd\xc3D] \xa7\xda\xacO\xbd\xd6\xa1H\xa1\xe3"),
 			},
 		},
 		{
@@ -102,6 +103,7 @@ func initTest0() {
 				Big5:   []byte("\xae\xc9\xb6\xa1: Sun Dec  6 05:03:57 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Sun Dec  6 05:03:57 2020"),
 			},
 		},
 		{},
@@ -111,6 +113,7 @@ func initTest0() {
 				Big5:   []byte("\xa7\xda\xacO\xbd\xd6\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7\xda\xacO\xbd\xd6\xa1H\xa1\xe3"),
 			},
 		},
 		{},
@@ -120,6 +123,7 @@ func initTest0() {
 				Big5:   []byte("\xa7\xda\xa6b\xad\xfe\xb8\xcc\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7\xda\xa6b\xad\xfe\xb8\xcc\xa1H\xa1\xe3"),
 			},
 		},
 		{},
@@ -129,20 +133,33 @@ func initTest0() {
 				Big5:   []byte("\xa7\xda\xac\xb0\xa4\xb0\xbb\xf2\xb7|\xa6b\xb3o\xb8\xcc\xa9O\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
-			},
-		},
-		{},
-		{
-			{
-				Utf8:   "--",
-				Big5:   []byte("--"),
-				Color0: types.DefaultColor,
-				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7\xda\xac\xb0\xa4\xb0\xbb\xf2\xb7|\xa6b\xb3o\xb8\xcc\xa9O\xa1H\xa1\xe3"),
 			},
 		},
 	}
 
 	testFirstComments0 = []*schema.Comment{
+		{
+			TheType: types.COMMENT_TYPE_COMMENT,
+			Owner:   bbs.UUserID("SYSOP"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "推推",
+						Big5:   []byte("\xb1\xc0\xb1\xc0                                                     "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0\xb1\xc0                                                     "),
+					},
+				},
+			},
+			MD5:     "t24G1aV7UjVPoUv-6_T93A",
+			TheDate: "12/13 03:51",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0                                                     \x1b[m 12/13 03:51"),
+		},
+	}
+
+	testFullFirstComments0 = []*schema.Comment{
 		{
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),
@@ -157,10 +174,13 @@ func initTest0() {
 						Big5:   []byte("\xb1\xc0\xb1\xc0                                                     "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0\xb1\xc0                                                     "),
 					},
 				},
 			},
-			MD5: "t24G1aV7UjVPoUv-6_T93A",
+			MD5:     "t24G1aV7UjVPoUv-6_T93A",
+			TheDate: "12/13 03:51",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0                                                     \x1b[m 12/13 03:51"),
 		},
 	}
 }

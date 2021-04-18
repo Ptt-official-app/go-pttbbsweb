@@ -38,7 +38,14 @@ type Comment struct {
 	Host         string            `bson:"host"` //ip 的中文呈現, 外國則為國家.
 	MD5          string            `bson:"md5"`
 
-	IsFirstComments bool `bson:"is_first_comments"`
+	FirstCreateTime    types.NanoTS `bson:"first_create_time_nano_ts,omitempty"`    //create-time from first-comments.
+	InferredCreateTime types.NanoTS `bson:"inferred_create_time_nano_ts,omitempty"` //create-time from inferred.
+	NewCreateTime      types.NanoTS `bson:"new_create_time_nano_ts,omitempty"`      //create-time from new comment.
+
+	SortTime types.NanoTS `bson:"sort_time_nano_ts"`
+
+	TheDate string `bson:"the_date"`
+	DBCS    []byte `bson:"dbcs"`
 
 	EditNanoTS types.NanoTS `bson:"edit_nano_ts"` //for reply.
 
@@ -64,7 +71,13 @@ var (
 	COMMENT_HOST_b          = getBSONName(EMPTY_COMMENT, "Host")
 	COMMENT_MD5_b           = getBSONName(EMPTY_COMMENT, "MD5")
 
-	COMMENT_IS_FIRST_COMMENTS_b = getBSONName(EMPTY_COMMENT, "IsFirstComments")
+	COMMENT_FIRST_CREATE_TIME    = getBSONName(EMPTY_COMMENT, "FirstCreateTime")
+	COMMENT_INFERRED_CREATE_TIME = getBSONName(EMPTY_COMMENT, "InferredCreateTime")
+	COMMENT_NEW_CREATE_TIME      = getBSONName(EMPTY_COMMENT, "NewCreateTime")
+
+	COMMENT_IS_INFERRED_b = getBSONName(EMPTY_COMMENT, "IsInferred")
+	COMMENT_THE_DATE_b    = getBSONName(EMPTY_COMMENT, "TheDate")
+	COMMENT_DBCS_b        = getBSONName(EMPTY_COMMENT, "DBCS")
 
 	COMMENT_EDIT_NANO_TS_b = getBSONName(EMPTY_COMMENT, "EditNanoTS")
 
@@ -349,25 +362,6 @@ func (c *Comment) CleanReply() {
 	}
 
 	c.Content = c.Content[idxFirstGoodContent:idxLastGoodContent]
-
-	newContent := make([][]*types.Rune, 0, len(c.Content))
-	for _, each := range c.Content {
-		if !isEditReplyPerLine(each) {
-			newContent = append(newContent, each)
-		}
-	}
-
-	c.Content = newContent
-}
-
-func isEditReplyPerLine(line []*types.Rune) bool {
-	if len(line) == 0 { //we don't want to remove nil line this time
-		return false
-	}
-
-	zerothStr := line[0].Utf8
-
-	return strings.HasPrefix(zerothStr, "※ 編輯:")
 }
 
 func cleanReplyPerLine(origLine []*types.Rune) (newLine []*types.Rune) {
@@ -377,12 +371,6 @@ func cleanReplyPerLine(origLine []*types.Rune) (newLine []*types.Rune) {
 		count += len(each.Utf8)
 	}
 	if count == 0 {
-		return nil
-	}
-
-	zerothStr := origLine[0].Utf8 // with count, len(origLine) must >= 1
-
-	if strings.HasPrefix(zerothStr, "※ 編輯:") {
 		return nil
 	}
 

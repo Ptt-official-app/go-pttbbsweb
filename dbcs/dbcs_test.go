@@ -82,6 +82,31 @@ func Test_dbcsToBig5(t *testing.T) {
 			args:         args{dbcs: testContent11},
 			expectedBig5: testContent11Big5,
 		},
+		{
+			name:         "12_" + testFilename12 + "_content",
+			args:         args{dbcs: testContent12},
+			expectedBig5: testContent12Big5,
+		},
+		{
+			name:         "13_" + testFilename13 + "_content",
+			args:         args{dbcs: testContent13},
+			expectedBig5: testContent13Big5,
+		},
+		{
+			name:         "14_" + testFilename14 + "_content",
+			args:         args{dbcs: testContent14},
+			expectedBig5: testContent14Big5,
+		},
+		{
+			name:         "15_" + testFilename15 + "_content",
+			args:         args{dbcs: testContent15},
+			expectedBig5: testContent15Big5,
+		},
+		{
+			name:         "16_" + testFilename16 + "_content",
+			args:         args{dbcs: testContent16},
+			expectedBig5: testContent16Big5,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -353,7 +378,7 @@ func Test_utf8ToBig5ByRune(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotTheBig5, gotNewColor := utf8ToBig5ByRune(tt.args.theRune, tt.args.color)
+			gotTheBig5, gotNewColor := utf8ToDBCSByRune(tt.args.theRune, tt.args.color)
 			logrus.Infof("gotTheBig5: %x", gotTheBig5)
 			testutil.TDeepEqual(t, "got", gotTheBig5, tt.expectedTheBig5)
 
@@ -410,7 +435,7 @@ func Test_utf8ToBig5ByLine(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotLineBig5, gotNewColor := utf8ToBig5ByLine(tt.args.line, tt.args.color)
+			gotLineBig5, gotNewColor := utf8ToDBCSByLine(tt.args.line, tt.args.color)
 			if !reflect.DeepEqual(gotLineBig5, tt.expectedLineBig5) {
 				t.Errorf("utf8ToBig5ByLine() gotLineBig5 = %v, want %v", gotLineBig5, tt.expectedLineBig5)
 			}
@@ -421,7 +446,7 @@ func Test_utf8ToBig5ByLine(t *testing.T) {
 	}
 }
 
-func TestUtf8ToBig5(t *testing.T) {
+func TestUtf8ToDBCS(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
@@ -486,7 +511,7 @@ func TestUtf8ToBig5(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotBig5 := Utf8ToBig5(tt.args.utf8); !reflect.DeepEqual(gotBig5, tt.expectedBig5) {
+			if gotBig5 := Utf8ToDBCS(tt.args.utf8); !reflect.DeepEqual(gotBig5, tt.expectedBig5) {
 				t.Errorf("Utf8ToBig5() = %v, want %v", gotBig5, tt.expectedBig5)
 			}
 		})

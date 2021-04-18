@@ -5,60 +5,79 @@ import (
 	"strconv"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/sirupsen/logrus"
 )
 
-func Utf8ToBig5(utf8 [][]*types.Rune) (big5 [][]byte) {
-	big5 = make([][]byte, len(utf8))
+func Utf8ToDBCS(utf8 [][]*types.Rune) (dbcs [][]byte) {
+	dbcs = make([][]byte, len(utf8))
 	color := &types.Color{}
 	*color = types.DefaultColor
 	for idx, eachLine := range utf8 {
-		big5[idx], color = utf8ToBig5ByLine(eachLine, color)
+		dbcs[idx], color = utf8ToDBCSByLine(eachLine, color)
 	}
 
-	return big5
+	return dbcs
 }
 
-func utf8ToBig5ByLine(line []*types.Rune, color *types.Color) (lineBig5 []byte, newColor *types.Color) {
-	lineBig5 = make([]byte, 0, DEFAULT_LINE_BYTES)
+//utf8ToDBCSByLine
+//
+//We can directly concat the DBCS within line
+func utf8ToDBCSByLine(line []*types.Rune, color *types.Color) (lineDBCS []byte, newColor *types.Color) {
+	lineDBCS = make([]byte, 0, DEFAULT_LINE_BYTES)
 	newColor = color
-	var eachBig5 []byte
+	var eachDBCS []byte
 	for _, each := range line {
-		eachBig5, newColor = utf8ToBig5ByRune(each, newColor)
-		lineBig5 = append(lineBig5, eachBig5...)
+		eachDBCS, newColor = utf8ToDBCSByRune(each, newColor)
+		lineDBCS = append(lineDBCS, eachDBCS...)
 	}
 
-	return lineBig5, newColor
+	return lineDBCS, newColor
 }
 
-func utf8ToBig5ByRune(theRune *types.Rune, color *types.Color) (theBig5 []byte, newColor *types.Color) {
-	theBig5 = make([]byte, 0, DEFAULT_LINE_BYTES)
-	colorBytes := theRune.Color0.BytesWithPreColor(color, true)
-	if len(colorBytes) > 0 {
-		theBig5 = append(theBig5, colorBytes...)
+//utf8ToDBCSByRune
+//
+//1. check whether we've already have the DBCS (already parsed)
+func utf8ToDBCSByRune(theRune *types.Rune, color *types.Color) (theDBCS []byte, newColor *types.Color) {
+	if len(theRune.DBCS) > 0 {
+		return theRune.DBCS, &theRune.Color1
 	}
-	colorBytes = theRune.Color1.BytesWithPreColor(&theRune.Color0, false)
+
+	theDBCS = make([]byte, 0, DEFAULT_LINE_BYTES)
+	color0Bytes := theRune.Color0.BytesWithPreColor(color, true)
+	if len(color0Bytes) > 0 {
+		theDBCS = append(theDBCS, color0Bytes...)
+	}
+	color1Bytes := theRune.Color1.BytesWithPreColor(&theRune.Color0, false)
 	big5 := types.Utf8ToBig5(theRune.Utf8)
 	if len(big5) > 0 {
-		if len(colorBytes) > 0 {
+		//Need to deal with color1Bytes
+		if len(color1Bytes) > 0 {
 			lastBig5 := big5[len(big5)-1]
 			big5 = big5[:len(big5)-1]
-			theBig5 = append(theBig5, big5...)
-			theBig5 = append(theBig5, colorBytes...)
-			theBig5 = append(theBig5, lastBig5)
+			theDBCS = append(theDBCS, big5...)
+			theDBCS = append(theDBCS, color1Bytes...)
+			theDBCS = append(theDBCS, lastBig5)
 		} else {
-			theBig5 = append(theBig5, big5...)
+			theDBCS = append(theDBCS, big5...)
 		}
 	} else {
-		if len(colorBytes) > 0 {
-			theBig5 = append(theBig5, colorBytes...)
+		if len(color1Bytes) > 0 {
+			theDBCS = append(theDBCS, color1Bytes...)
 		}
 	}
+	theRune.DBCS = theDBCS
 
 	newColor = &theRune.Color1
 
-	return theBig5, newColor
+	return theDBCS, newColor
 }
 
+//dbcsToBig5
+//
+//dbcs: with '\n' ending.
+//
+//1. split by '\n'
+//2. parse dbcs to big5 per line.
 func dbcsToBig5(dbcs []byte) (big5 [][]*types.Rune) {
 	if len(dbcs) == 0 {
 		return nil
@@ -116,14 +135,29 @@ func big5ToUtf8(a [][]*types.Rune) [][]*types.Rune {
 //       ended with endIdx, start a new rune with currentIdx.
 //    if in DBCS_COLOR (the previous char is color):
 //       continue parse the color.
+//
+//
+//
+//Implementation:
+//1. check isCarriage.
+//2. estimate len big5
+//3. for-loop
+//4. check the last rune.
+//5. defensive programming for the last rune.
+//6. add carriage back if isCarriage.
 func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Color) {
 	if len(dbcs) == 0 {
 		return []*types.Rune{}, color0
 	}
+
+	//1. check isCarriage
+	isCarriage := false
 	if dbcs[len(dbcs)-1] == '\r' { //remove '\r' in the end
+		isCarriage = true
 		dbcs = dbcs[:len(dbcs)-1]
 	}
 
+	//2. estimate len big5
 	lenDBCS := len(dbcs)
 	expectedLenBig5 := lenDBCS / 2
 
@@ -133,7 +167,7 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 	startIdx := 0
 	color1 := types.InvalidColor
 	dbcs0Pos := -1
-	//for-loop
+	//3. for-loop
 	for idx := 0; idx < len(dbcs); {
 		ch := dbcs[idx]
 		if ch != '\x1b' { //not the color-code.
@@ -148,12 +182,13 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 				}
 			case DBCS_STATE_TAIL: //previous ch is tail.
 				if color1.Foreground != types.COLOR_INVALID { //dbcs. need to set a new rune.
+					eachDBCS := dbcs[startIdx:idx]
 					r := &types.Rune{
-						Big5:   dbcsToBig5PurifyColor(dbcs[startIdx:idx]),
+						Big5:   dbcsToBig5PurifyColor(eachDBCS),
 						Color0: color0,
 						Color1: color1,
+						DBCS:   eachDBCS,
 					}
-
 					big5 = append(big5, r)
 
 					startIdx = idx
@@ -177,24 +212,27 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 				if color1.Foreground == types.COLOR_INVALID {
 					color1 = color0
 				}
-				purifiedBig5 := dbcsToBig5PurifyColor(dbcs[startIdx:dbcs0Pos])
-				r := &types.Rune{
-					Big5:   purifiedBig5,
-					Color0: color0,
-					Color1: color1,
-				}
-				if len(purifiedBig5) > 0 {
+
+				eachDBCS := dbcs[startIdx:dbcs0Pos]
+				if len(eachDBCS) > 0 {
+					r := &types.Rune{
+						Big5:   dbcsToBig5PurifyColor(eachDBCS),
+						Color0: color0,
+						Color1: color1,
+						DBCS:   eachDBCS,
+					}
 					big5 = append(big5, r)
 				}
 				startIdx = dbcs0Pos
 			case DBCS_STATE_NONE:
-				purifiedBig5 := dbcsToBig5PurifyColor(dbcs[startIdx:idx])
-				r := &types.Rune{
-					Big5:   purifiedBig5,
-					Color0: color0,
-					Color1: color0,
-				}
-				if len(purifiedBig5) > 0 {
+				eachDBCS := dbcs[startIdx:idx]
+				if len(eachDBCS) > 0 {
+					r := &types.Rune{
+						Big5:   dbcsToBig5PurifyColor(eachDBCS),
+						Color0: color0,
+						Color1: color0,
+						DBCS:   eachDBCS,
+					}
 					big5 = append(big5, r)
 				}
 				startIdx = idx
@@ -202,10 +240,12 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 				if color1.Foreground == types.COLOR_INVALID {
 					color1 = color0
 				}
+				eachDBCS := dbcs[startIdx:idx]
 				r := &types.Rune{
-					Big5:   dbcsToBig5PurifyColor(dbcs[startIdx:idx]),
+					Big5:   dbcsToBig5PurifyColor(eachDBCS),
 					Color0: color0,
 					Color1: color1,
+					DBCS:   eachDBCS,
 				}
 				big5 = append(big5, r)
 				startIdx = idx
@@ -224,42 +264,75 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 		}
 	}
 
+	//the last rune
 	switch dbcsStat {
 	case DBCS_STATE_NONE:
-		purifiedBig5 := dbcsToBig5PurifyColor(dbcs[startIdx:])
-		r := &types.Rune{
-			Big5:   purifiedBig5,
-			Color0: color0,
-			Color1: color0,
-		}
-		if len(purifiedBig5) > 0 {
+		eachDBCS := dbcs[startIdx:]
+		if len(eachDBCS) > 0 {
+			r := &types.Rune{
+				Big5:   dbcsToBig5PurifyColor(eachDBCS),
+				Color0: color0,
+				Color1: color0,
+				DBCS:   eachDBCS,
+			}
 			big5 = append(big5, r)
 		}
+		startIdx = len(dbcs)
 	case DBCS_STATE_TAIL: //previous ch is tail.
 		if color1.Foreground != types.COLOR_INVALID { //dbcs. need to set a new rune.
-			purifiedBig5 := dbcsToBig5PurifyColor(dbcs[startIdx:])
-			r := &types.Rune{
-				Big5:   purifiedBig5,
-				Color0: color0,
-				Color1: color1,
-			}
-			if len(purifiedBig5) > 0 {
+			eachDBCS := dbcs[startIdx:]
+			if len(eachDBCS) > 0 {
+				r := &types.Rune{
+					Big5:   dbcsToBig5PurifyColor(eachDBCS),
+					Color0: color0,
+					Color1: color1,
+					DBCS:   eachDBCS,
+				}
 				big5 = append(big5, r)
 			}
 
 			color0 = color1 //color0 becomes color1 now.
+			startIdx = len(dbcs)
 		} else {
-			purifiedBig5 := dbcsToBig5PurifyColor(dbcs[startIdx:])
-			r := &types.Rune{
-				Big5:   purifiedBig5,
-				Color0: color0,
-				Color1: color0,
-			}
-
-			if len(purifiedBig5) > 0 {
+			eachDBCS := dbcs[startIdx:]
+			if len(eachDBCS) > 0 {
+				r := &types.Rune{
+					Big5:   dbcsToBig5PurifyColor(eachDBCS),
+					Color0: color0,
+					Color1: color0,
+					DBCS:   eachDBCS,
+				}
 				big5 = append(big5, r)
 			}
+			startIdx = len(dbcs)
 		}
+	}
+	//defensive programming
+	if startIdx < len(dbcs) {
+		logrus.Warnf("dbcs.dbcsToBig5PerLine: still with some dbcs: startIdx: %v dbcs: %v dbcsStat: %v", startIdx, len(dbcs), dbcsStat)
+		eachDBCS := dbcs[startIdx:]
+		r := &types.Rune{
+			Big5:   dbcsToBig5PurifyColor(eachDBCS),
+			Color0: color0,
+			Color1: color0,
+			DBCS:   eachDBCS,
+		}
+		big5 = append(big5, r)
+		startIdx = len(dbcs)
+	}
+
+	if isCarriage {
+		if len(big5) == 0 {
+			r := &types.Rune{
+				Big5:   nil,
+				Color0: color0,
+				Color1: color0,
+				DBCS:   []byte{},
+			}
+			big5 = append(big5, r)
+		}
+		theDBCS := big5[len(big5)-1].DBCS
+		big5[len(big5)-1].DBCS = append(theDBCS, '\r')
 	}
 
 	return big5, color0
@@ -291,6 +364,10 @@ func dbcsToBig5PurifyColor(dbcs []byte) []byte {
 
 	if len(p_dbcs) > 0 {
 		purified = append(purified, p_dbcs...)
+	}
+
+	if len(purified) == 0 {
+		return nil
 	}
 
 	return purified

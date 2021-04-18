@@ -23,7 +23,12 @@ func initTest() {
 	initTest9()
 	initTest10()
 	initTest11()
-
+	initTest12()
+	initTest13()
+	initTest14()
+	initTest15()
+	initTest16()
+	initTest17()
 }
 
 func loadTest(filename string) (contentAll []byte, content []byte, signature []byte, recommend []byte, firstComments []byte, theRestComments []byte) {

@@ -16,7 +16,8 @@ var (
 	testContent2Big5         [][]*types.Rune
 	testContent2Utf8         [][]*types.Rune
 
-	testFirstComments2 []*schema.Comment
+	testFirstComments2     []*schema.Comment
+	testFullFirstComments2 []*schema.Comment
 )
 
 func initTest2() {
@@ -28,6 +29,7 @@ func initTest2() {
 				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 			},
 		},
 		{
@@ -35,6 +37,7 @@ func initTest2() {
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb0Q\xbd\xd7] \xab\xe7\xbc\xcb\xa4l\xa4~\xa5i\xa5H\xc1\xc8 p \xb9\xf4\xa9O\xa1\xe3\xa1H"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xb0Q\xbd\xd7] \xab\xe7\xbc\xcb\xa4l\xa4~\xa5i\xa5H\xc1\xc8 p \xb9\xf4\xa9O\xa1\xe3\xa1H"),
 			},
 		},
 		{
@@ -42,6 +45,7 @@ func initTest2() {
 				Big5:   []byte("\xae\xc9\xb6\xa1: Mon Dec 14 17:12:52 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Mon Dec 14 17:12:52 2020"),
 			},
 		},
 		{},
@@ -50,6 +54,7 @@ func initTest2() {
 				Big5:   []byte("\xb4\xaa\xa1\xe3\xb9\xd2\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb4\xaa\xa1\xe3\xb9\xd2\xa1\xe3"),
 			},
 		},
 		{},
@@ -59,6 +64,7 @@ func initTest2() {
 				Big5:   []byte("\xadn\xab\xe7\xbc\xcb\xa4l\xa4~\xa5i\xa5H\xc1\xc8 p \xb9\xf4\xa9O\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xadn\xab\xe7\xbc\xcb\xa4l\xa4~\xa5i\xa5H\xc1\xc8 p \xb9\xf4\xa9O\xa1H\xa1\xe3"),
 			},
 		},
 		{},
@@ -67,6 +73,7 @@ func initTest2() {
 				Big5:   []byte("\xacO\xa4\xa3\xacO\xadn\xb5\xa5\xab\xdd 1 min \xa9O\xa1\xe3\xa1H"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xacO\xa4\xa3\xacO\xadn\xb5\xa5\xab\xdd 1 min \xa9O\xa1\xe3\xa1H"),
 			},
 		},
 		{},
@@ -75,6 +82,7 @@ func initTest2() {
 				Big5:   []byte("p \xb9\xf4\xc3\xf8\xc1\xc8\xb0\xda\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("p \xb9\xf4\xc3\xf8\xc1\xc8\xb0\xda\xa1\xe3"),
 			},
 		},
 		{},
@@ -83,6 +91,7 @@ func initTest2() {
 				Big5:   []byte("\xacO\xa4\xa3\xacO\xa9O\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xacO\xa4\xa3\xacO\xa9O\xa1H\xa1\xe3"),
 			},
 		},
 		{},
@@ -91,6 +100,7 @@ func initTest2() {
 				Big5:   []byte("\xa7\xda\xa5u\xacO\xb7Q\xadn\xb4\xfa\xb8\xd5\xa4@\xa4U p \xb9\xf4\xacO\xab\xe7\xbc\xcb\xa4l\xb3Q\xa6s\xa6b .DIR \xb8\xcc\xa6\xd3\xa4w XD."),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7\xda\xa5u\xacO\xb7Q\xadn\xb4\xfa\xb8\xd5\xa4@\xa4U p \xb9\xf4\xacO\xab\xe7\xbc\xcb\xa4l\xb3Q\xa6s\xa6b .DIR \xb8\xcc\xa6\xd3\xa4w XD."),
 			},
 		},
 		{},
@@ -99,14 +109,7 @@ func initTest2() {
 				Big5:   []byte("\xb5M\xab\xe1\xa9O\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
-			},
-		},
-		{},
-		{
-			{
-				Big5:   []byte("--"),
-				Color0: types.DefaultColor,
-				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb5M\xab\xe1\xa9O\xa1H\xa1\xe3"),
 			},
 		},
 	}
@@ -118,6 +121,7 @@ func initTest2() {
 				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 			},
 		},
 		{
@@ -126,6 +130,7 @@ func initTest2() {
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb0Q\xbd\xd7] \xab\xe7\xbc\xcb\xa4l\xa4~\xa5i\xa5H\xc1\xc8 p \xb9\xf4\xa9O\xa1\xe3\xa1H"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xb0Q\xbd\xd7] \xab\xe7\xbc\xcb\xa4l\xa4~\xa5i\xa5H\xc1\xc8 p \xb9\xf4\xa9O\xa1\xe3\xa1H"),
 			},
 		},
 		{
@@ -134,6 +139,7 @@ func initTest2() {
 				Big5:   []byte("\xae\xc9\xb6\xa1: Mon Dec 14 17:12:52 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Mon Dec 14 17:12:52 2020"),
 			},
 		},
 		{},
@@ -143,6 +149,7 @@ func initTest2() {
 				Big5:   []byte("\xb4\xaa\xa1\xe3\xb9\xd2\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb4\xaa\xa1\xe3\xb9\xd2\xa1\xe3"),
 			},
 		},
 		{},
@@ -153,6 +160,7 @@ func initTest2() {
 				Big5:   []byte("\xadn\xab\xe7\xbc\xcb\xa4l\xa4~\xa5i\xa5H\xc1\xc8 p \xb9\xf4\xa9O\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xadn\xab\xe7\xbc\xcb\xa4l\xa4~\xa5i\xa5H\xc1\xc8 p \xb9\xf4\xa9O\xa1H\xa1\xe3"),
 			},
 		},
 		{},
@@ -162,6 +170,7 @@ func initTest2() {
 				Big5:   []byte("\xacO\xa4\xa3\xacO\xadn\xb5\xa5\xab\xdd 1 min \xa9O\xa1\xe3\xa1H"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xacO\xa4\xa3\xacO\xadn\xb5\xa5\xab\xdd 1 min \xa9O\xa1\xe3\xa1H"),
 			},
 		},
 		{},
@@ -171,6 +180,7 @@ func initTest2() {
 				Big5:   []byte("p \xb9\xf4\xc3\xf8\xc1\xc8\xb0\xda\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("p \xb9\xf4\xc3\xf8\xc1\xc8\xb0\xda\xa1\xe3"),
 			},
 		},
 		{},
@@ -180,6 +190,7 @@ func initTest2() {
 				Big5:   []byte("\xacO\xa4\xa3\xacO\xa9O\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xacO\xa4\xa3\xacO\xa9O\xa1H\xa1\xe3"),
 			},
 		},
 		{},
@@ -189,6 +200,7 @@ func initTest2() {
 				Big5:   []byte("\xa7\xda\xa5u\xacO\xb7Q\xadn\xb4\xfa\xb8\xd5\xa4@\xa4U p \xb9\xf4\xacO\xab\xe7\xbc\xcb\xa4l\xb3Q\xa6s\xa6b .DIR \xb8\xcc\xa6\xd3\xa4w XD."),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7\xda\xa5u\xacO\xb7Q\xadn\xb4\xfa\xb8\xd5\xa4@\xa4U p \xb9\xf4\xacO\xab\xe7\xbc\xcb\xa4l\xb3Q\xa6s\xa6b .DIR \xb8\xcc\xa6\xd3\xa4w XD."),
 			},
 		},
 		{},
@@ -198,17 +210,8 @@ func initTest2() {
 				Big5:   []byte("\xb5M\xab\xe1\xa9O\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
-			},
-		},
-		{},
-		{
-			{
-				Utf8:   "--",
-				Big5:   []byte("--"),
-				Color0: types.DefaultColor,
-				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb5M\xab\xe1\xa9O\xa1H\xa1\xe3"),
 			},
 		},
 	}
-
 }
