@@ -1,7 +1,7 @@
 version: '2'
 services:
   go-pttbbs:
-    image: pttofficialapps/go-pttbbs:v0.12.4
+    image: pttofficialapps/go-pttbbs:v0.12.8
     ports:
       - "127.0.0.1:8888:8888"
       - "127.0.0.1:48763:48763"
@@ -26,7 +26,7 @@ services:
       - ${POSTFIX_MAIN_CF}:/etc/postfix/main.cf
       - ${POSTFIX_MASTER_CF}:/etc/postfix/master.cf
   openbbs-middleware:
-    image: pttofficialapps/go-openbbsmiddleware:v0.13.7
+    image: pttofficialapps/go-openbbsmiddleware:v0.13.8
     ports:
       - "127.0.0.1:3457:3457"
       - "127.0.0.1:[local-port]:[docker-port]"
