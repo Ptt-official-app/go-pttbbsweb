@@ -62,9 +62,11 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 
 	clientInfo := getClientInfo(client)
 
-	err = check2FAToken(bbs.UUserID(theParams.Username), theParams.Email, theParams.TwoFactorToken)
-	if err != nil {
-		return nil, 403, err
+	if types.IS_2FA {
+		err = check2FAToken(bbs.UUserID(theParams.Username), theParams.Email, theParams.TwoFactorToken)
+		if err != nil {
+			return nil, 403, err
+		}
 	}
 
 	//create db-record first to avoid race-condition
