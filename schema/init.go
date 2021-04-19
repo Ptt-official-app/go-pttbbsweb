@@ -132,14 +132,6 @@ func Init() (err error) {
 		return err
 	}
 
-	keys = &bson.D{
-		{Key: USER_EMAIL_EMAIL_b, Value: 1},
-	}
-	err = UserEmail_c.CreateUniqueIndex(keys)
-	if err != nil {
-		return err
-	}
-
 	//assert-all-fields
 	err = assertAllFields()
 	if err != nil {

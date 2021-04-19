@@ -8,7 +8,6 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/stretchr/testify/assert"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func TestCreateUserEmail(t *testing.T) {
@@ -38,11 +37,13 @@ func TestCreateUserEmail(t *testing.T) {
 		UpdateNanoTS: 1234589890000000000,
 	}
 
-	errUnique := mongo.WriteException{
-		WriteErrors: mongo.WriteErrors([]mongo.WriteError{
-			{Code: 11000, Message: "E11000 duplicate key error collection: devptt.user_email index: email_1 dup key: { email: \"test@ptt2.test\" }"},
-		}),
+	expected3 := &UserEmail{
+		UserID: "SYSOP",
+		Email:  "test@ptt2.test",
+
+		UpdateNanoTS: 1234587890000000000,
 	}
+
 	type args struct {
 		userID       bbs.UUserID
 		email        string
@@ -88,10 +89,9 @@ func TestCreateUserEmail(t *testing.T) {
 		{
 			name:             "SYSOP-ptt2-expired, not unique",
 			args:             args{userID: "SYSOP", email: "test@ptt2.test", updateNanoTS: 1234587890000000000},
-			wantErr:          true,
-			expectedErr:      errUnique,
-			expected:         nil,
-			expectedByUserID: nil,
+			wantErr:          false,
+			expected:         expected3,
+			expectedByUserID: expected3,
 		},
 		{
 			name:             "SYSOP-ptt3: expired",
