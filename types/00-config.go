@@ -67,7 +67,9 @@ var (
 	EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS          = 300
 	EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS_DURATION = time.Duration(EXPIRE_ATTEMPT_REGISTER_USER_EMAIL_TS) * time.Second //5 mins
 
-	MAX_2FA_TOKEN int64 = 1000000
+	//2fa
+	IS_2FA              = true
+	MAX_2FA_TOKEN int64 = 10000
 
 	//big5
 	BIG5_TO_UTF8 = "types/uao250-b2u.big5.txt"
