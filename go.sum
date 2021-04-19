@@ -25,6 +25,8 @@ github.com/Ptt-official-app/go-pttbbs v0.12.2 h1:v1syfh918Ul310FT3x+cH46TpQ59q0v
 github.com/Ptt-official-app/go-pttbbs v0.12.2/go.mod h1:mpF2OtQV0oya5pji4jvhuYBaqM/NbdRw85Xslhc+7kk=
 github.com/Ptt-official-app/go-pttbbs v0.12.4 h1:FLJzszJsPyC96R7cIAese+AV3C/uq1tmJtRswXosIWI=
 github.com/Ptt-official-app/go-pttbbs v0.12.4/go.mod h1:yVMIyEZvh6yJ57+dNLTanH9rChXFOVPHB8a881p7yd0=
+github.com/Ptt-official-app/go-pttbbs v0.12.8 h1:TcgJYio5u6Nje8Tpx2ILaYeTO8d6AurCrqE59HqWMXo=
+github.com/Ptt-official-app/go-pttbbs v0.12.8/go.mod h1:yVMIyEZvh6yJ57+dNLTanH9rChXFOVPHB8a881p7yd0=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=
