@@ -21,6 +21,13 @@ CORS issue.
 
 You can go to [https://term.devptt.site](https://term.devptt.site) and check how the api affects the existing pttbbs (in api.devptt.site)
 
+The test data (/home/bbs, adopted from [OCF PttID Data](https://ocf.tw/p/pttid/)) can be accessed [here](https://drive.google.com/file/d/1lHuqOYpPDmKayYAaf3UIiLRV1wCjF6bc/view?usp=sharing).
+Please setup the following config in pttbbs.conf to use the test data:
+```
+    MAX_USERS = 200000 /* 最高註冊人數 */
+    MAX_BOARD = 8192 /* 最大開板個數 */
+```
+
 您可以到 [swagger api](https://api.devptt.site:5000/)
 並且試著使用 api.
 
@@ -28,6 +35,13 @@ You can go to [https://term.devptt.site](https://term.devptt.site) and check how
 curl 指令測試.
 
 您可以到 [https://term.devptt.site](https://term.devptt.site) 確認 api 如何影響在 www.devptt.site 裡既有的 pttbbs
+
+使用的測試資料 (/home/bbs, 從 [OCF PttID Data](https://ocf.tw/p/pttid/) 更改而來) 在[這裡](https://drive.google.com/file/d/1lHuqOYpPDmKayYAaf3UIiLRV1wCjF6bc/view?usp=sharing).
+當使用測試資料時, 請在 pttbbs.conf 做以下的設定:
+```
+    MAX_USERS = 200000 /* 最高註冊人數 */
+    MAX_BOARD = 8192 /* 最大開板個數 */
+```
 
 ## Docker-compose
 
