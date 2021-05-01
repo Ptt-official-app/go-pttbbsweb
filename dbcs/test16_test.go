@@ -351,11 +351,15 @@ func initTest16() {
 			TheType: types.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("mapinkie"),
 
-			MD5:     "iNGAzCTcEvC5J-jBrqW9bQ",
-			TheDate: "03/07/2020 00:24:18",
-			IP:      "58.152.169.221",
-			Host:    "香港",
-			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: mapinkie (58.152.169.221 \xad\xbb\xb4\xe4), 03/07/2020 00:24:18\r"),
+			MD5:                "iNGAzCTcEvC5J-jBrqW9bQ",
+			TheDate:            "03/07/2020 00:24:18",
+			IP:                 "58.152.169.221",
+			Host:               "香港",
+			DBCS:               []byte("\xa1\xb0 \xbds\xbf\xe8: mapinkie (58.152.169.221 \xad\xbb\xb4\xe4), 03/07/2020 00:24:18\r"),
+			CreateTime:         1583511858000000000,
+			InferredCreateTime: 1583511858000000000,
+			SortTime:           1583511858000000000,
+			CommentID:          "FfnDpSG1dAA:iNGAzCTcEvC5J-jBrqW9bQ",
 		},
 		{ //6
 			TheType: types.COMMENT_TYPE_COMMENT,
@@ -459,6 +463,11 @@ func initTest16() {
 			IP:      "58.152.169.221",
 			Host:    "香港",
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: mapinkie (58.152.169.221 \xad\xbb\xb4\xe4), 03/07/2020 00:29:50\r"),
+
+			CreateTime:         1583512190000000000,
+			InferredCreateTime: 1583512190000000000,
+			SortTime:           1583512190000000000,
+			CommentID:          "FfnD8m5zbAA:uwhVbscF_QPOOoOVTuWfQg",
 		},
 	}
 
