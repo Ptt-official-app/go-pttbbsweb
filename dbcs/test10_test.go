@@ -452,6 +452,11 @@ func initTest10() {
 			IP:      "140.112.217.57",
 			Host:    "臺灣",
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: rareone (140.112.217.57 \xbbO\xc6W), 12/09/2020 16:53:01\r"),
+
+			CreateTime:         1607503981000000000,
+			InferredCreateTime: 1607503981000000000,
+			SortTime:           1607503981000000000,
+			CommentID:          "Fk8AWpKIAgA:WH30ZZA2DpAv_WfoE-hcBA",
 		},
 		{
 			TheType: types.COMMENT_TYPE_COMMENT,

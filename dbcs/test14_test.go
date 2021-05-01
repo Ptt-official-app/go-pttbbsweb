@@ -2711,6 +2711,11 @@ func initTest14() {
 			IP:      "111.249.44.44",
 			Host:    "臺灣",
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: guardyo (111.249.44.44 \xbbO\xc6W), 03/18/2021 12:07:22\r"),
+
+			CreateTime:         1616040442000000000,
+			InferredCreateTime: 1616040442000000000,
+			SortTime:           1616040442000000000,
+			CommentID:          "Fm1UOEgTRAA:3VevXQUX8i9UiFETWDrcTQ",
 		},
 		{ //1
 			TheType: types.COMMENT_TYPE_RECOMMEND,
