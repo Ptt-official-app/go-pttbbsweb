@@ -1023,6 +1023,11 @@ func initTest9() {
 			IP:      "150.117.235.183",
 			Host:    "臺灣",
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: xxFrency (150.117.235.183 \xbbO\xc6W), 12/19/2020 14:47:01\r"),
+
+			CreateTime:         1608360421000000000,
+			InferredCreateTime: 1608360421000000000,
+			SortTime:           1608360421000000000,
+			CommentID:          "FlILSAyAsgA:2dn14lVR7wDw3BC6XOEizw",
 		},
 		{
 			TheType: types.COMMENT_TYPE_EDIT,
@@ -1033,6 +1038,11 @@ func initTest9() {
 			IP:      "150.117.235.183",
 			Host:    "臺灣",
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: xxFrency (150.117.235.183 \xbbO\xc6W), 12/19/2020 14:47:46\r"),
+
+			CreateTime:         1608360466000000000,
+			InferredCreateTime: 1608360466000000000,
+			SortTime:           1608360466000000000,
+			CommentID:          "FlILUoa2NAA:L1kywzRrQ3nO1w4NU_C3ig",
 		},
 		{
 			TheType: types.COMMENT_TYPE_COMMENT,

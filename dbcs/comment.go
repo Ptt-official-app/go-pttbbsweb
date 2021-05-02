@@ -146,6 +146,14 @@ func parseCommentEdit(commentDBCS []byte, origCommentDBCS []byte) (comment *sche
 	ip, host, theDateStr := parseCommentEditIPCreateTime(commentDBCS)
 	commentMD5 := md5sum(origCommentDBCS)
 
+	createNanoTS := types.NanoTS(0)
+	commentID := types.CommentID("")
+	theTime, err := types.DateYearTimeStrToTime(theDateStr)
+	if err == nil {
+		createNanoTS = types.TimeToNanoTS(theTime)
+		commentID = types.ToCommentID(createNanoTS, commentMD5)
+	}
+
 	comment = &schema.Comment{
 		TheType: types.COMMENT_TYPE_EDIT,
 		Owner:   ownerID,
@@ -154,6 +162,12 @@ func parseCommentEdit(commentDBCS []byte, origCommentDBCS []byte) (comment *sche
 		MD5:     commentMD5,
 		DBCS:    origCommentDBCS,
 		TheDate: theDateStr,
+
+		CreateTime:         createNanoTS,
+		InferredCreateTime: createNanoTS,
+		SortTime:           createNanoTS,
+
+		CommentID: commentID,
 	}
 
 	return comment
@@ -427,11 +441,16 @@ func parseCommentDefaultIPCreateTime(p_commentDBCS []byte) (ip string, dateStr s
 	}
 
 	//new: MM/DD HH:mm
-	dateTimeStr := strings.TrimSpace(string(p_commentDBCS))
-	if len(dateTimeStr) > LEN_RECOMMEND_DATE {
-		dateTimeStr = dateTimeStr[:LEN_RECOMMEND_DATE]
+	ip = ""
+	dateStr = strings.TrimSpace(string(dbcsToBig5PurifyColor(p_commentDBCS)))
+	if len(dateStr) > LEN_RECOMMEND_DATE { // with ip
+		theIdx := strings.Index(dateStr, " ")
+		if theIdx != -1 {
+			ip = dateStr[:theIdx]
+			dateStr = dateStr[(theIdx + 1):]
+		}
 	}
-	return "", dateTimeStr
+	return ip, dateStr
 }
 
 //parseReply
@@ -542,10 +561,11 @@ func parseReplyUserIPHost(editDBCS []byte) (editUserID bbs.UUserID, editNanoTS t
 	p_editDBCS = p_editDBCS[theIdx+2:]
 
 	editDateTimeStr = string(p_editDBCS[:19])
+	editNanoTS = types.NanoTS(0)
 	theTime, err := types.DateYearTimeStrToTime(editDateTimeStr)
-	if err != nil {
-		return "", 0, "", "", ""
+	if err == nil {
+		editNanoTS = types.TimeToNanoTS(theTime)
 	}
 
-	return editUserID, types.TimeToNanoTS(theTime), editDateTimeStr, editIP, editHost
+	return editUserID, editNanoTS, editDateTimeStr, editIP, editHost
 }

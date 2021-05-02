@@ -211,14 +211,6 @@ var (
 					Color1: types.DefaultColor,
 				},
 			},
-			{
-				{
-					Utf8:   "※ 編輯: cheinshin (49.216.65.39 臺灣), 12/21/2020 19:52:54        ",
-					Big5:   []byte(""),
-					Color0: types.DefaultColor,
-					Color1: types.DefaultColor,
-				},
-			},
 			{},
 			{},
 			{},
@@ -285,10 +277,11 @@ var (
 			{},
 			{
 				{
-					Utf8:   "※ 編輯: cheinshin (49.216.65.39 臺灣), 12/21/2020 19:52:54        ",
+					Utf8:   "",
 					Big5:   []byte(""),
 					Color0: types.DefaultColor,
 					Color1: types.DefaultColor,
+					DBCS:   []byte("\r"),
 				},
 			},
 			{},

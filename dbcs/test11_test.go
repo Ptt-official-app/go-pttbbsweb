@@ -2008,6 +2008,11 @@ func initTest11() {
 			IP:      "49.216.65.39",
 			Host:    "臺灣",
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: cheinshin (49.216.65.39 \xbbO\xc6W), 12/21/2020 19:52:54\r"),
+
+			CreateTime:         1608551574000000000,
+			InferredCreateTime: 1608551574000000000,
+			SortTime:           1608551574000000000,
+			CommentID:          "FlK5IlMqXAA:ifWDyeuSbUBW6XDNV_FUVg",
 		},
 		{ //38 (39)
 			BBoardID:   bbs.BBoardID("test"),
@@ -2176,6 +2181,12 @@ func initTest11() {
 			IP:      "49.216.65.39",
 			Host:    "臺灣",
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: cheinshin (49.216.65.39 \xbbO\xc6W), 12/21/2020 19:55:02\r"),
+
+			CreateTime:         1608551702000000000,
+			InferredCreateTime: 1608551702000000000,
+			SortTime:           1608551702000000000,
+
+			CommentID: "FlK5QCCPXAA:mYEXHou7QvmhJIJlvIFEAw",
 		},
 		{ //46 (48)
 			BBoardID:   bbs.BBoardID("test"),
@@ -2771,8 +2782,11 @@ func initTest11() {
 		testTheRestComments11[idx] = each
 		testTheRestComments11[idx].BBoardID = ""
 		testTheRestComments11[idx].ArticleID = ""
-		testTheRestComments11[idx].CommentID = ""
-		testTheRestComments11[idx].CreateTime = 0
 		testTheRestComments11[idx].RefIDs = nil
+
+		if testTheRestComments11[idx].TheType != types.COMMENT_TYPE_EDIT {
+			testTheRestComments11[idx].CommentID = ""
+			testTheRestComments11[idx].CreateTime = 0
+		}
 	}
 }
