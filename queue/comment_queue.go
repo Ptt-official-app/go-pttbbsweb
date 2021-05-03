@@ -71,7 +71,7 @@ func ProcessCommentQueue(idx int, quit chan struct{}) {
 //(lastTime is from firstComments, assuming not change a lot.)
 //(mtime changes frequently and may result in unstable timestamp.)
 func processCommentQueue(q *CommentQueue) {
-	comments, _ := dbcs.ParseComments(q.BBoardID, q.ArticleID, q.OwnerID, q.LastTime, q.CommentDBCS, q.CommentDBCS, q.UpdateNanoTS, false)
+	comments := dbcs.ParseComments(q.OwnerID, q.CommentDBCS, q.CommentDBCS)
 	//log.Infof("processCommentQueue: after parseComments: comments: %v", len(comments))
 	if len(comments) == 0 {
 		return

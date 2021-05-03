@@ -373,7 +373,7 @@ func TestDateYearTimeStrToTime(t *testing.T) {
 	}
 }
 
-func TestDateTimeStrToTime(t *testing.T) {
+func TestDateMinStrToTime(t *testing.T) {
 	type args struct {
 		dateTimeStr string
 	}
@@ -391,7 +391,7 @@ func TestDateTimeStrToTime(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := DateTimeStrToTime(tt.args.dateTimeStr)
+			got, err := DateMinStrToTime(tt.args.dateTimeStr)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("DateTimeStrToTime() error = %v, wantErr %v", err, tt.wantErr)
 				return

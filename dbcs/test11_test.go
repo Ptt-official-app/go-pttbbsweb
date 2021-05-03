@@ -1580,10 +1580,10 @@ func initTest11() {
 		{ //18
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhGy3O-kA:qvaVu3REh0fJL7ZBH7m6PQ:R"),
+			CommentID:  types.CommentID("FlK5IlMqXAA:ARcE42l2555xJ93dwcK0YQ"),
 			TheType:    types.COMMENT_TYPE_REPLY,
 			Owner:      bbs.UUserID("cheinshin"),
-			CreateTime: types.NanoTS(1261396140001100000),
+			CreateTime: types.NanoTS(1608551574000000000),
 			RefIDs:     []types.CommentID{"EYFhGy3O-kA:qvaVu3REh0fJL7ZBH7m6PQ"},
 			Content: [][]*types.Rune{
 				{
@@ -2105,11 +2105,11 @@ func initTest11() {
 		{ //42 (43)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ:R"),
+			CommentID:  types.CommentID("FlK5QCCPXAA:x2xXuH2bvsoQ_2wOzdcr6A"),
 			RefIDs:     []types.CommentID{"EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ"},
 			TheType:    types.COMMENT_TYPE_REPLY,
 			Owner:      bbs.UUserID("cheinshin"),
-			CreateTime: types.NanoTS(1261396380000100000),
+			CreateTime: types.NanoTS(1608551702000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -2653,11 +2653,11 @@ func initTest11() {
 		{ //67 (69)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhmOhvlsA:cpqbGyLoF_jIyITF4bv-rQ:R"),
+			CommentID:  types.CommentID("AAAAAAAAAAA:VMu8YlVFJ4k06pYnUILy4w"),
 			RefIDs:     []types.CommentID{"EYFhmOhvlsA:cpqbGyLoF_jIyITF4bv-rQ"},
 			TheType:    types.COMMENT_TYPE_REPLY,
 			Owner:      bbs.UUserID("cheinshin"),
-			CreateTime: types.NanoTS(1261396680003100000),
+			CreateTime: types.NanoTS(0),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -2784,7 +2784,7 @@ func initTest11() {
 		testTheRestComments11[idx].ArticleID = ""
 		testTheRestComments11[idx].RefIDs = nil
 
-		if testTheRestComments11[idx].TheType != types.COMMENT_TYPE_EDIT {
+		if testTheRestComments11[idx].TheType != types.COMMENT_TYPE_EDIT && testTheRestComments11[idx].TheType != types.COMMENT_TYPE_REPLY {
 			testTheRestComments11[idx].CommentID = ""
 			testTheRestComments11[idx].CreateTime = 0
 		}
