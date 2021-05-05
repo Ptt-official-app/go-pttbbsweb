@@ -262,6 +262,15 @@ def _load_article_comments(bid, aid):
     return ''
 
 
+@app.route(_with_app_prefix('/board/<bid>/article/<aid>/rank'), methods=['POST'])
+def _create_rank(bid, aid):
+    """
+    swagger_from_file: apidoc/create_rank.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/board/<bid>'))
 def _get_board_detail(bid):
     """

@@ -34,6 +34,9 @@ type ArticleDetailSummary struct {
 
 	NComments            int          `bson:"n_comments"`
 	CommentsUpdateNanoTS types.NanoTS `bson:"comments_update_nano_ts"`
+
+	Rank             int          `bson:"rank"` //評價
+	RankUpdateNanoTS types.NanoTS `bson:"rank_update_nano_ts"`
 }
 
 var (

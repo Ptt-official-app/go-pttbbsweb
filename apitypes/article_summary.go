@@ -25,6 +25,8 @@ type ArticleSummary struct {
 	Read bool   `json:"read"` //
 
 	Idx string `json:"idx"`
+
+	Rank int `json:"rank"`
 }
 
 func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
@@ -47,5 +49,7 @@ func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
 		URL: url, //
 
 		Idx: a_db.Idx,
+
+		Rank: a_db.Rank,
 	}
 }

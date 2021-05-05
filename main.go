@@ -62,6 +62,9 @@ func initGin() (*gin.Engine, error) {
 	router.GET(withPrefix(api.LOAD_ARTICLE_COMMENTS_R), api.LoadArticleCommentsWrapper)
 	router.GET(withPrefix(api.LOAD_USER_COMMENTS_R), api.LoadUserCommentsWrapper)
 
+	//ranks
+	router.POST(withPrefix(api.CREATE_RANK_R), api.CreateRankWrapper)
+
 	//html
 	router.GET(api.ROOT_HTML_R, api.IndexHtmlWrapper)
 	router.GET(api.INDEX_HTML_R, api.IndexHtmlWrapper)
