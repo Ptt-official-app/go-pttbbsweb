@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"reflect"
+	"sort"
 	"sync"
 	"testing"
 
@@ -1335,5 +1336,450 @@ func TestCollection_UpdateManyOnly(t *testing.T) {
 				t.Errorf("Collection.UpdateManyOnly() = %v, want %v", gotR, tt.expectedR)
 			}
 		})
+	}
+}
+
+func TestCollection_Aggregate(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	client, err := NewClient("mongodb", "localhost", 27017, "test")
+	if err != nil {
+		return
+	}
+	defer client.Close()
+
+	coll := client.Collection("test")
+	defer coll.Drop()
+
+	filter := make(map[string]interface{})
+	type testUpdate struct {
+		Test1 int  `bson:"test1"`
+		Test3 bool `bson:"test3"`
+	}
+
+	filter["bid"] = "test_bid0"
+	filter["aid"] = "test_aid0"
+	filter["owner"] = "test_owner0"
+
+	update := &testUpdate{Test1: 4}
+
+	_, _ = coll.Update(filter, update)
+
+	filter["bid"] = "test_bid0"
+	filter["aid"] = "test_aid0"
+	filter["owner"] = "test_owner1"
+
+	update = &testUpdate{Test1: 5}
+
+	_, _ = coll.Update(filter, update)
+
+	filter["bid"] = "test_bid0"
+	filter["aid"] = "test_aid0"
+	filter["owner"] = "test_owner2"
+
+	update = &testUpdate{Test1: 3}
+
+	_, _ = coll.Update(filter, update)
+
+	filter["bid"] = "test_bid0"
+	filter["aid"] = "test_aid1"
+	filter["owner"] = "test_owner3"
+
+	update = &testUpdate{Test1: 4}
+
+	_, _ = coll.Update(filter, update)
+
+	filter["bid"] = "test_bid0"
+	filter["aid"] = "test_aid1"
+	filter["owner"] = "test_owner4"
+
+	update = &testUpdate{Test1: 2}
+
+	_, _ = coll.Update(filter, update)
+
+	filter0 := bson.M{
+		"bid": "test_bid0",
+		"aid": "test_aid0",
+	}
+
+	group0 := bson.M{
+		"_id": nil,
+		"sum": bson.M{
+			"$sum": "$test1",
+		},
+	}
+
+	filter1 := bson.M{
+		"bid": "test_bid0",
+	}
+
+	group1 := bson.M{
+		"_id": bson.M{
+			"bid": "$bid",
+			"aid": "$aid",
+		},
+		"sum": bson.M{
+			"$sum": "$test1",
+		},
+	}
+
+	filter2 := bson.M{
+		"bid": "test_bid1",
+	}
+
+	group2 := bson.M{
+		"_id": nil,
+		"sum": bson.M{
+			"$sum": "$test1",
+		},
+	}
+
+	type fields struct {
+		coll *mongo.Collection
+	}
+	type args struct {
+		filter interface{}
+		group  interface{}
+	}
+
+	type ret struct {
+		Bid string
+		Aid string
+		Sum int32
+	}
+
+	tests := []struct {
+		name        string
+		fields      fields
+		args        args
+		expectedRet []*ret
+		wantErr     bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:        args{filter: filter0, group: group0},
+			expectedRet: []*ret{{Sum: 12}},
+		},
+		{
+			args: args{filter: filter1, group: group1},
+			expectedRet: []*ret{
+				{Bid: "test_bid0", Aid: "test_aid1", Sum: 6},
+				{Bid: "test_bid0", Aid: "test_aid0", Sum: 12},
+			},
+		},
+		{
+			args:        args{filter: filter2, group: group2},
+			expectedRet: nil,
+		},
+	}
+
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			c := coll
+			gotRet, err := c.Aggregate(tt.args.filter, tt.args.group)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Collection.Aggregate() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			if gotRet != nil {
+				sort.SliceStable(gotRet, func(i, j int) bool {
+					retI := gotRet[i]["sum"].(int32)
+					retJ := gotRet[j]["sum"].(int32)
+					return retI < retJ
+				})
+			}
+
+			var rets []*ret
+			if gotRet != nil {
+				rets = make([]*ret, len(gotRet))
+				for idx, each := range gotRet {
+					sum := each["sum"].(int32)
+					eachRet := &ret{Sum: sum}
+					if each["_id"] != nil {
+						theID := each["_id"].(bson.M)
+						eachRet.Bid = theID["bid"].(string)
+						eachRet.Aid = theID["aid"].(string)
+					}
+					rets[idx] = eachRet
+				}
+			}
+
+			testutil.TDeepEqual(t, "got", rets, tt.expectedRet)
+		})
+		wg.Wait()
+	}
+}
+
+func TestCollection_UpdateOneOnlyNoSet(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	client, err := NewClient("mongodb", "localhost", 27017, "test")
+	if err != nil {
+		return
+	}
+	defer client.Close()
+
+	coll := client.Collection("test")
+	defer coll.Drop()
+
+	type testUpdate struct {
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3"`
+	}
+
+	filter0 := make(map[string]interface{})
+	filter0["test"] = 1
+	filter0["test1"] = "4"
+
+	update0 := &testUpdate{Test1: "4"}
+
+	_, _ = coll.Update(filter0, update0)
+
+	filter1 := make(map[string]interface{})
+	filter1["test"] = 1
+	filter1["test1"] = "3"
+
+	update1 := bson.M{
+		"$set": &testUpdate{Test1: "2", Test3: true},
+	}
+
+	expected1 := &mongo.UpdateResult{}
+	expected1.MatchedCount = 0
+	expected1.ModifiedCount = 0
+	expected1.UpsertedCount = 0
+
+	filter2 := make(map[string]interface{})
+	filter2["test"] = 1
+
+	update2 := bson.M{
+		"$set": &testUpdate{Test1: "2", Test3: true},
+	}
+
+	expected2 := &mongo.UpdateResult{}
+	expected2.MatchedCount = 1
+	expected2.ModifiedCount = 1
+	expected2.UpsertedCount = 0
+
+	type fields struct {
+		coll *mongo.Collection
+	}
+	type args struct {
+		filter interface{}
+		update interface{}
+	}
+	tests := []struct {
+		name      string
+		fields    fields
+		args      args
+		expectedR *mongo.UpdateResult
+		wantErr   bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:      args{filter: filter1, update: update1},
+			expectedR: expected1,
+		},
+		{
+			args:      args{filter: filter2, update: update2},
+			expectedR: expected2,
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			c := coll
+			gotR, err := c.UpdateOneOnlyNoSet(tt.args.filter, tt.args.update)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Collection.UpdateOneOnlyNoSet() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotR, tt.expectedR) {
+				t.Errorf("Collection.UpdateOneOnlyNoSet() = %v, want %v", gotR, tt.expectedR)
+			}
+		})
+		wg.Wait()
+	}
+}
+
+func TestCollection_FindOneAndUpdateNoSet(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	client, err := NewClient("mongodb", "localhost", 27017, "test")
+	if err != nil {
+		return
+	}
+	defer client.Close()
+
+	coll := client.Collection("test")
+	defer coll.Drop()
+
+	type testUpdate struct {
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3"`
+	}
+
+	filter0 := make(map[string]interface{})
+	filter0["test"] = 1
+	filter0["test1"] = "4"
+
+	update0 := &testUpdate{Test1: "4"}
+
+	_, _ = coll.Update(filter0, update0)
+
+	filter1 := make(map[string]interface{})
+	filter1["test"] = 1
+
+	update1 := bson.M{
+		"$set": &testUpdate{Test1: "2", Test3: true},
+	}
+
+	expected1 := &testUpdate{Test1: "4", Test3: false}
+
+	filter2 := make(map[string]interface{})
+	filter2["test"] = 1
+
+	update2 := bson.M{
+		"$set": &testUpdate{Test1: "3", Test3: false},
+	}
+
+	expected2 := &testUpdate{Test1: "2", Test3: true}
+
+	type fields struct {
+		coll *mongo.Collection
+	}
+	type args struct {
+		filter interface{}
+		update interface{}
+		isNew  bool
+	}
+	tests := []struct {
+		name      string
+		fields    fields
+		args      args
+		expectedR *testUpdate
+		wantErr   bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:      args{filter: filter1, update: update1},
+			expectedR: expected1,
+		},
+		{
+			args:      args{filter: filter2, update: update2},
+			expectedR: expected2,
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			c := coll
+			gotR, err := c.FindOneAndUpdateNoSet(tt.args.filter, tt.args.update, tt.args.isNew)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Collection.FindOneAndUpdateNoSet() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			got := &testUpdate{}
+			_ = gotR.Decode(got)
+			if !reflect.DeepEqual(got, tt.expectedR) {
+				t.Errorf("Collection.FindOneAndUpdateNoSet() = %v, want %v", got, tt.expectedR)
+			}
+		})
+		wg.Wait()
+	}
+}
+
+func TestCollection_FindOneAndUpdate(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	client, err := NewClient("mongodb", "localhost", 27017, "test")
+	if err != nil {
+		return
+	}
+	defer client.Close()
+
+	coll := client.Collection("test")
+	defer coll.Drop()
+
+	type testUpdate struct {
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3"`
+	}
+
+	filter0 := make(map[string]interface{})
+	filter0["test"] = 1
+	filter0["test1"] = "4"
+
+	update0 := &testUpdate{Test1: "4"}
+
+	_, _ = coll.Update(filter0, update0)
+
+	filter1 := make(map[string]interface{})
+	filter1["test"] = 1
+
+	update1 := &testUpdate{Test1: "2", Test3: true}
+
+	expected1 := &testUpdate{Test1: "4", Test3: false}
+
+	filter2 := make(map[string]interface{})
+	filter2["test"] = 1
+
+	update2 := &testUpdate{Test1: "3", Test3: false}
+
+	expected2 := &testUpdate{Test1: "2", Test3: true}
+
+	type fields struct {
+		coll *mongo.Collection
+	}
+	type args struct {
+		filter interface{}
+		update interface{}
+	}
+	tests := []struct {
+		name      string
+		fields    fields
+		args      args
+		expectedR *testUpdate
+		wantErr   bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:      args{filter: filter1, update: update1},
+			expectedR: expected1,
+		},
+		{
+			args:      args{filter: filter2, update: update2},
+			expectedR: expected2,
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			c := coll
+			gotR, err := c.FindOneAndUpdate(tt.args.filter, tt.args.update, false)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Collection.FindOneAndUpdate() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			got := &testUpdate{}
+			_ = gotR.Decode(got)
+			if !reflect.DeepEqual(got, tt.expectedR) {
+				t.Errorf("Collection.FindOneAndUpdate() = %v, want %v", got, tt.expectedR)
+			}
+		})
+		wg.Wait()
 	}
 }

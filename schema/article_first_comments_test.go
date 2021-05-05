@@ -1,6 +1,7 @@
 package schema
 
 import (
+	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
@@ -77,8 +78,11 @@ func TestUpdateArticleFirstComments(t *testing.T) {
 			args: args{articleFirstComments: firstComments2},
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			err := UpdateArticleFirstComments(tt.args.articleFirstComments)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("UpdateArticleFirstComments() error = %v, wantErr %v", err, tt.wantErr)
@@ -87,5 +91,6 @@ func TestUpdateArticleFirstComments(t *testing.T) {
 				t.Errorf("UpdateArticleFirstComments: e: %v expeted: %v", err, tt.err)
 			}
 		})
+		wg.Wait()
 	}
 }

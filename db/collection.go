@@ -78,6 +78,97 @@ func (c *Collection) UpdateOneOnly(filter interface{}, update interface{}) (r *m
 	return r, nil
 }
 
+//UpdateOneOnlyNoSet
+//
+//Mongo update-one with no-upsert operation
+func (c *Collection) UpdateOneOnlyNoSet(filter interface{}, update interface{}) (r *mongo.UpdateResult, err error) {
+
+	opts := &options.UpdateOptions{}
+	opts.SetUpsert(false)
+
+	theUpdate := update
+
+	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
+	defer func() {
+		ctxErr := ctx.Err()
+		cancel()
+		if err == nil {
+			err = ctxErr
+		}
+	}()
+
+	r, err = c.coll.UpdateOne(ctx, filter, theUpdate, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	return r, nil
+}
+
+//FindOneAndUpdate
+//
+//Mongo update-one with set + no-upsert operation
+func (c *Collection) FindOneAndUpdate(filter interface{}, update interface{}, isNew bool) (r *mongo.SingleResult, err error) {
+
+	opts := &options.FindOneAndUpdateOptions{}
+	opts.SetUpsert(false)
+	if isNew {
+		opts.SetReturnDocument(options.After)
+	}
+
+	theUpdate := bson.M{
+		"$set": update,
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
+	defer func() {
+		ctxErr := ctx.Err()
+		cancel()
+		if err == nil {
+			err = ctxErr
+		}
+	}()
+
+	r = c.coll.FindOneAndUpdate(ctx, filter, theUpdate, opts)
+	err = r.Err()
+	if err != nil {
+		return nil, err
+	}
+
+	return r, nil
+}
+
+//FindOneAndUpdate
+//
+//Mongo update-one with set + no-upsert operation
+func (c *Collection) FindOneAndUpdateNoSet(filter interface{}, update interface{}, isNew bool) (r *mongo.SingleResult, err error) {
+
+	opts := &options.FindOneAndUpdateOptions{}
+	opts.SetUpsert(false)
+	if isNew {
+		opts.SetReturnDocument(options.After)
+	}
+
+	theUpdate := update
+
+	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
+	defer func() {
+		ctxErr := ctx.Err()
+		cancel()
+		if err == nil {
+			err = ctxErr
+		}
+	}()
+
+	r = c.coll.FindOneAndUpdate(ctx, filter, theUpdate, opts)
+	err = r.Err()
+	if err != nil {
+		return nil, err
+	}
+
+	return r, nil
+}
+
 //UpdateManyOnly
 //
 //Mongo update-many with set + no-upsert operation
@@ -440,4 +531,26 @@ func (c *Collection) CreateIndex(keys *bson.D, opts *options.IndexOptions) (err 
 func (c *Collection) CreateUniqueIndex(keys *bson.D) (err error) {
 	opts := options.Index().SetUnique(true)
 	return c.CreateIndex(keys, opts)
+}
+
+func (c *Collection) Aggregate(filter interface{}, group interface{}) (ret []bson.M, err error) {
+
+	pipeline := mongo.Pipeline{
+		{{"$match", filter}},
+		{{"$group", group}},
+	}
+
+	opts := options.Aggregate().SetMaxTime(TIMEOUT_MILLI_TS * time.Millisecond)
+
+	cursor, err := c.coll.Aggregate(context.TODO(), pipeline, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	err = cursor.All(context.TODO(), &ret)
+	if err != nil {
+		return nil, err
+	}
+
+	return ret, nil
 }

@@ -32,6 +32,8 @@ type ArticleSummary struct {
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 
 	NComments int `bson:"n_comments,omitempty"` //n_comments is read-only in article-summary.
+
+	Rank int `bson:"rank,omitempty"` //評價, read-only
 }
 
 var (

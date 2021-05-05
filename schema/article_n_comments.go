@@ -11,6 +11,8 @@ type ArticleNComments struct {
 	ArticleID bbs.ArticleID `bson:"aid"`
 
 	NComments int `bson:"n_comments,omitempty"` //n_comments is read-only in article-summary.
+
+	Rank int `bson:"rank,omitempty"` //評價
 }
 
 var (
