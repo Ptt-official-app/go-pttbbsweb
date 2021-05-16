@@ -237,8 +237,10 @@ func initTest16() {
 
 	testFirstComments16 = []*schema.Comment{
 		{ //0
-			TheType: types.COMMENT_TYPE_REPLY,
-			Owner:   bbs.UUserID("mapinkie"),
+			TheType:    types.COMMENT_TYPE_REPLY,
+			Owner:      bbs.UUserID("mapinkie"),
+			CommentID:  types.CommentID("FfnDpSG1dAA:MlwwZY4bzjaIUZAotWmOPw"),
+			CreateTime: 1583511858000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -434,8 +436,10 @@ func initTest16() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33msounan\x1b[m\x1b[33m: \xa6\xd3\xc4\xb1\xb1oAndrew\xb8\xf2Maggie\xb0t\xb9\xef\xaa\xba\xa4\xc6\xbe\xc7\xa4\xcf\xc0\xb3\xacO\xb3\xcc\xa6n\xaa\xba             \x1b[m 03/07 00:27\r"),
 		},
 		{ //10
-			TheType: types.COMMENT_TYPE_REPLY,
-			Owner:   bbs.UUserID("mapinkie"),
+			TheType:    types.COMMENT_TYPE_REPLY,
+			Owner:      bbs.UUserID("mapinkie"),
+			CommentID:  "FfnD8m5zbAA:7tkvXPK6iHO5IzFBfJCOwA",
+			CreateTime: 1583512190000000000,
 			Content: [][]*types.Rune{
 				{
 					{

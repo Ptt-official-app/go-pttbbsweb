@@ -71,13 +71,14 @@ var (
 	COMMENT_HOST_b          = getBSONName(EMPTY_COMMENT, "Host")
 	COMMENT_MD5_b           = getBSONName(EMPTY_COMMENT, "MD5")
 
-	COMMENT_FIRST_CREATE_TIME    = getBSONName(EMPTY_COMMENT, "FirstCreateTime")
-	COMMENT_INFERRED_CREATE_TIME = getBSONName(EMPTY_COMMENT, "InferredCreateTime")
-	COMMENT_NEW_CREATE_TIME      = getBSONName(EMPTY_COMMENT, "NewCreateTime")
+	COMMENT_FIRST_CREATE_TIME_b    = getBSONName(EMPTY_COMMENT, "FirstCreateTime")
+	COMMENT_INFERRED_CREATE_TIME_b = getBSONName(EMPTY_COMMENT, "InferredCreateTime")
+	COMMENT_NEW_CREATE_TIME_b      = getBSONName(EMPTY_COMMENT, "NewCreateTime")
 
-	COMMENT_IS_INFERRED_b = getBSONName(EMPTY_COMMENT, "IsInferred")
-	COMMENT_THE_DATE_b    = getBSONName(EMPTY_COMMENT, "TheDate")
-	COMMENT_DBCS_b        = getBSONName(EMPTY_COMMENT, "DBCS")
+	COMMENT_SORT_TIME_b = getBSONName(EMPTY_COMMENT, "SortTime")
+
+	COMMENT_THE_DATE_b = getBSONName(EMPTY_COMMENT, "TheDate")
+	COMMENT_DBCS_b     = getBSONName(EMPTY_COMMENT, "DBCS")
 
 	COMMENT_EDIT_NANO_TS_b = getBSONName(EMPTY_COMMENT, "EditNanoTS")
 
@@ -98,6 +99,10 @@ func assertCommentFields() error {
 	}
 
 	if err := assertFields(EMPTY_COMMENT, EMPTY_COMMENT_IS_DELETED); err != nil {
+		return err
+	}
+
+	if err := assertFields(EMPTY_COMMENT, EMPTY_COMMENT_MD5); err != nil {
 		return err
 	}
 
@@ -187,26 +192,26 @@ func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, createNanoTS typ
 		return nil, err
 	}
 
-	comments = SortCommentsByCreateNanoTS(comments, descending)
+	comments = SortCommentsBySortTime(comments, descending)
 
 	return comments, nil
 }
 
-func SortCommentsByCreateNanoTS(comments []*Comment, descending bool) (newComments []*Comment) {
+func SortCommentsBySortTime(comments []*Comment, descending bool) (newComments []*Comment) {
 	if descending {
 		sort.SliceStable(comments, func(i, j int) bool {
-			if comments[i].CreateTime == comments[j].CreateTime {
+			if comments[i].SortTime == comments[j].SortTime {
 				return strings.Compare(string(comments[i].CommentID), string(comments[j].CommentID)) > 0
 			} else {
-				return comments[i].CreateTime-comments[j].CreateTime > 0
+				return comments[i].SortTime-comments[j].SortTime > 0
 			}
 		})
 	} else {
 		sort.SliceStable(comments, func(i, j int) bool {
-			if comments[i].CreateTime == comments[j].CreateTime {
+			if comments[i].SortTime == comments[j].SortTime {
 				return strings.Compare(string(comments[i].CommentID), string(comments[j].CommentID)) < 0
 			} else {
-				return comments[i].CreateTime-comments[j].CreateTime < 0
+				return comments[i].SortTime-comments[j].SortTime < 0
 			}
 		})
 	}
@@ -375,4 +380,9 @@ func cleanReplyPerLine(origLine []*types.Rune) (newLine []*types.Rune) {
 	}
 
 	return origLine
+}
+
+func (c *Comment) SetCreateTime(createTime types.NanoTS) {
+	c.CreateTime = createTime
+	c.CommentID = types.ToCommentID(createTime, c.MD5)
 }
