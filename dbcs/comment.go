@@ -503,7 +503,7 @@ func parseReply(replyDBCS []byte, editDBCS []byte, ownerID bbs.UUserID) (reply *
 		DBCS:    origReplyDBCS,
 		TheDate: editDateTimeStr,
 	}
-	reply.SetCreateTime(editNanoTS)
+	reply.CreateTime = editNanoTS
 
 	reply.CleanReply()
 	if len(reply.Content) == 0 {

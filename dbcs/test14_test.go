@@ -17,7 +17,8 @@ var (
 	testContent14Big5         [][]*types.Rune
 	testContent14Utf8         [][]*types.Rune
 
-	testFirstComments14 []*schema.Comment
+	testFirstComments14     []*schema.Comment
+	testFullFirstComments14 []*schema.Comment
 
 	testTheRestComments14 []*schema.Comment
 )
@@ -2880,6 +2881,235 @@ func initTest14() {
 			MD5:     "GszoIqT5LvkbJoniDsn8nA",
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mdoooooooooog\x1b[m\x1b[33m: 7777777                                          \x1b[m 03/18 12:08\r"),
+		},
+	}
+
+	testFullFirstComments14 = []*schema.Comment{
+		{ //0
+			BBoardID:  "test",
+			ArticleID: "test14",
+			TheType:   types.COMMENT_TYPE_EDIT,
+			Owner:     bbs.UUserID("guardyo"),
+
+			MD5:     "3VevXQUX8i9UiFETWDrcTQ",
+			TheDate: "03/18/2021 12:07:22",
+			IP:      "111.249.44.44",
+			Host:    "臺灣",
+			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: guardyo (111.249.44.44 \xbbO\xc6W), 03/18/2021 12:07:22\r"),
+
+			CreateTime:         1616040442000000000,
+			InferredCreateTime: 1616040442000000000,
+			SortTime:           1616040442000000000,
+			CommentID:          "Fm1UOEgTRAA:3VevXQUX8i9UiFETWDrcTQ",
+		},
+		{ //1
+			BBoardID:  "test",
+			ArticleID: "test14",
+			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			Owner:     bbs.UUserID("yasan1029"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "77777777",
+						Big5:   []byte("77777777                                         "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("77777777                                         "),
+					},
+				},
+			},
+			MD5:        "-HAQCmGXnoN2PhhEhZk4zg",
+			TheDate:    "03/18 12:07",
+			DBCS:       []byte("\x1b[1;37m\xb1\xc0 \x1b[33myasan1029   \x1b[m\x1b[33m: 77777777                                         \x1b[m 03/18 12:07\r"),
+			CommentID:  "Fm1UOEgihkA:-HAQCmGXnoN2PhhEhZk4zg",
+			CreateTime: 1616040420000000000,
+			SortTime:   1616040442001000000,
+		},
+		{ //2
+			BBoardID:  "test",
+			ArticleID: "test14",
+			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			Owner:     bbs.UUserID("yue1013"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "777",
+						Big5:   []byte("777                                              "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("777                                              "),
+					},
+				},
+			},
+			MD5:        "wZ64mftwKYpfdP5rodU4Nw",
+			TheDate:    "03/18 12:07",
+			DBCS:       []byte("\x1b[1;37m\xb1\xc0 \x1b[33myue1013     \x1b[m\x1b[33m: 777                                              \x1b[m 03/18 12:07\r"),
+			CommentID:  "Fm1UOEgxyIA:wZ64mftwKYpfdP5rodU4Nw",
+			CreateTime: 1616040420000000000,
+			SortTime:   1616040442002000000,
+		},
+		{ //3
+			BBoardID:  "test",
+			ArticleID: "test14",
+			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			Owner:     bbs.UUserID("Dorae5566"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "這季打完大概又要上演人生了...",
+						Big5:   []byte("\xb3o\xa9u\xa5\xb4\xa7\xb9\xa4j\xb7\xa7\xa4S\xadn\xa4W\xbat\xa4H\xa5\xcd\xa4F...                    "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb3o\xa9u\xa5\xb4\xa7\xb9\xa4j\xb7\xa7\xa4S\xadn\xa4W\xbat\xa4H\xa5\xcd\xa4F...                    "),
+					},
+				},
+			},
+			MD5:        "fN3AbmStA9XU50hqTnr2wQ",
+			TheDate:    "03/18 12:07",
+			DBCS:       []byte("\x1b[1;37m\xb1\xc0 \x1b[33mDorae5566   \x1b[m\x1b[33m: \xb3o\xa9u\xa5\xb4\xa7\xb9\xa4j\xb7\xa7\xa4S\xadn\xa4W\xbat\xa4H\xa5\xcd\xa4F...                    \x1b[m 03/18 12:07\r"),
+			CommentID:  "Fm1UOEhBCsA:fN3AbmStA9XU50hqTnr2wQ",
+			CreateTime: 1616040420000000000,
+			SortTime:   1616040442003000000,
+		},
+
+		{ //4
+			BBoardID:  "test",
+			ArticleID: "test14",
+			TheType:   types.COMMENT_TYPE_FORWARD,
+			Owner:     bbs.UUserID("doooooooooog"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "Mavericks",
+						Big5:   []byte("Mavericks"),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("Mavericks"),
+					},
+				},
+			},
+			MD5:        "px43SMg0XuAbpHEULwG-Hw",
+			TheDate:    "03/18 12:07",
+			DBCS:       []byte("\xa1\xb0 \x1b[1;32mdoooooooooog\x1b[0;32m:\xc2\xe0\xbf\xfd\xa6\xdc\xac\xdd\xaaO Mavericks\x1b[m                               03/18 12:07\r"),
+			CommentID:  "Fm1UOEhQTQA:px43SMg0XuAbpHEULwG-Hw",
+			CreateTime: 1616040420000000000,
+			SortTime:   1616040442004000000,
+		},
+
+		{ //5
+			BBoardID:  "test",
+			ArticleID: "test14",
+			TheType:   types.COMMENT_TYPE_COMMENT,
+			Owner:     bbs.UUserID("luck945"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "7777777777",
+						Big5:   []byte("7777777777                                       "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("7777777777                                       "),
+					},
+				},
+			},
+			MD5:        "UvSl9EqCLckOYXsUfwbMow",
+			TheDate:    "03/18 12:07",
+			DBCS:       []byte("\x1b[1;31m\xa1\xf7 \x1b[33mluck945     \x1b[m\x1b[33m: 7777777777                                       \x1b[m 03/18 12:07\r"),
+			CommentID:  "Fm1UOEhfj0A:UvSl9EqCLckOYXsUfwbMow",
+			CreateTime: 1616040420000000000,
+			SortTime:   1616040442005000000,
+		},
+		{ //6
+			BBoardID:  "test",
+			ArticleID: "test14",
+			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			Owner:     bbs.UUserID("Eddward"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "快艇電梯向下？",
+						Big5:   []byte("\xa7\xd6\xb8\xa5\xb9q\xb1\xe8\xa6V\xa4U\xa1H                                   "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa7\xd6\xb8\xa5\xb9q\xb1\xe8\xa6V\xa4U\xa1H                                   "),
+					},
+				},
+			},
+			MD5:        "E9p3SESmurRvPhaRGzQ0rA",
+			TheDate:    "03/18 12:07",
+			DBCS:       []byte("\x1b[1;37m\xb1\xc0 \x1b[33mEddward     \x1b[m\x1b[33m: \xa7\xd6\xb8\xa5\xb9q\xb1\xe8\xa6V\xa4U\xa1H                                   \x1b[m 03/18 12:07\r"),
+			CommentID:  "Fm1UOEhu0YA:E9p3SESmurRvPhaRGzQ0rA",
+			CreateTime: 1616040420000000000,
+			SortTime:   1616040442006000000,
+		},
+		{ //7
+			BBoardID:  "test",
+			ArticleID: "test14",
+			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			Owner:     bbs.UUserID("kkxf336g037"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "77777777",
+						Big5:   []byte("77777777                                         "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("77777777                                         "),
+					},
+				},
+			},
+			MD5:        "Ra9SNKTFV7_KV7XGtEIDEQ",
+			TheDate:    "03/18 12:08",
+			DBCS:       []byte("\x1b[1;37m\xb1\xc0 \x1b[33mkkxf336g037 \x1b[m\x1b[33m: 77777777                                         \x1b[m 03/18 12:08\r"),
+			CommentID:  "Fm1UQSENQAA:Ra9SNKTFV7_KV7XGtEIDEQ",
+			CreateTime: 1616040480000000000,
+			SortTime:   1616040480000000000,
+		},
+		{ //8
+			BBoardID:  "test",
+			ArticleID: "test14",
+			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			Owner:     bbs.UUserID("outnow5566"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "這三分我還以為是P.league呢",
+						Big5:   []byte("\xb3o\xa4T\xa4\xc0\xa7\xda\xc1\xd9\xa5H\xac\xb0\xacOP.league\xa9O                       "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb3o\xa4T\xa4\xc0\xa7\xda\xc1\xd9\xa5H\xac\xb0\xacOP.league\xa9O                       "),
+					},
+				},
+			},
+			MD5:        "XPC8m63E6iHQTXQoif9Tgw",
+			TheDate:    "03/18 12:08",
+			DBCS:       []byte("\x1b[1;37m\xb1\xc0 \x1b[33moutnow5566  \x1b[m\x1b[33m: \xb3o\xa4T\xa4\xc0\xa7\xda\xc1\xd9\xa5H\xac\xb0\xacOP.league\xa9O                       \x1b[m 03/18 12:08\r"),
+			CommentID:  "Fm1UQSEcgkA:XPC8m63E6iHQTXQoif9Tgw",
+			CreateTime: 1616040480000000000,
+			SortTime:   1616040480001000000,
+		},
+		{ //9
+			BBoardID:  "test",
+			ArticleID: "test14",
+			TheType:   types.COMMENT_TYPE_COMMENT,
+			Owner:     bbs.UUserID("doooooooooog"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "7777777",
+						Big5:   []byte("7777777                                          "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("7777777                                          "),
+					},
+				},
+			},
+			MD5:        "GszoIqT5LvkbJoniDsn8nA",
+			TheDate:    "03/18 12:08",
+			DBCS:       []byte("\x1b[1;31m\xa1\xf7 \x1b[33mdoooooooooog\x1b[m\x1b[33m: 7777777                                          \x1b[m 03/18 12:08\r"),
+			CommentID:  "Fm1UQSErxIA:GszoIqT5LvkbJoniDsn8nA",
+			CreateTime: 1616040480000000000,
+			SortTime:   1616040480002000000,
 		},
 	}
 

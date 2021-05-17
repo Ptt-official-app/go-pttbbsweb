@@ -325,8 +325,8 @@ func TestDateStrToTime(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{
-			args:     args{"02/14"},
-			expected: NanoTS(3772800000000000), //1970-02-14 00:00:00 CST
+			args:     args{"2009/02/14"},
+			expected: NanoTS(1234540800000000000), //2009-02-14 00:00:00 CST
 		},
 	}
 	for _, tt := range tests {
@@ -385,8 +385,8 @@ func TestDateMinStrToTime(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{
-			args:     args{dateTimeStr: "02/14 07:31"},
-			expected: NanoTS(3799860000000000), //1970-02-14 07:31:00 CST
+			args:     args{dateTimeStr: "2009/02/14 07:31"},
+			expected: NanoTS(1234567860000000000), //1970-02-14 07:31:00 CST
 		},
 	}
 	for _, tt := range tests {

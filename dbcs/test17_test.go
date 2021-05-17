@@ -17,7 +17,8 @@ var (
 	testContent17Big5         [][]*types.Rune
 	testContent17Utf8         [][]*types.Rune
 
-	testFirstComments17 []*schema.Comment
+	testFirstComments17     []*schema.Comment
+	testFullFirstComments17 []*schema.Comment
 )
 
 func initTest17() {
@@ -306,6 +307,31 @@ func initTest17() {
 			},
 			MD5:  "k1p8LprlcctQ5v2JmITfsA",
 			DBCS: []byte("\x1b[1;30m(teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3)\x1b[m\r"),
+		},
+	}
+
+	testFullFirstComments17 = []*schema.Comment{
+		{ //0
+			BBoardID:  "test",
+			ArticleID: "test17",
+			TheType:   types.COMMENT_TYPE_DELETED,
+			Owner:     bbs.UUserID("teemocogs"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "teemocogs 的推文: 誤植",
+						Big5:   []byte("teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3"),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3"),
+					},
+				},
+			},
+			MD5:        "k1p8LprlcctQ5v2JmITfsA",
+			DBCS:       []byte("\x1b[1;30m(teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3)\x1b[m\r"),
+			CommentID:  "FnSE8UpG9kA:k1p8LprlcctQ5v2JmITfsA",
+			CreateTime: 1618064338001000000,
+			SortTime:   1618064338001000000,
 		},
 	}
 }

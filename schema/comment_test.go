@@ -189,7 +189,7 @@ func TestGetComments(t *testing.T) {
 	}
 }
 
-func TestComment_SetCreateTime(t *testing.T) {
+func TestComment_SetSortTime(t *testing.T) {
 	type fields struct {
 		BBoardID           bbs.BBoardID
 		ArticleID          bbs.ArticleID
@@ -248,7 +248,7 @@ func TestComment_SetCreateTime(t *testing.T) {
 				EditNanoTS:         tt.fields.EditNanoTS,
 				UpdateNanoTS:       tt.fields.UpdateNanoTS,
 			}
-			c.SetCreateTime(tt.args.nanoTS)
+			c.SetSortTime(tt.args.nanoTS)
 		})
 	}
 }

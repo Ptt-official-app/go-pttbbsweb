@@ -655,226 +655,6 @@ func TestCalcEDBlocks(t *testing.T) {
 	}
 }
 
-func TestEDBlock_MapDeletedMessages(t *testing.T) {
-	setupTest()
-	defer teardownTest()
-
-	edBlock0 := &EDBlock{
-		NewComments: []*EDInfo{
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
-					MD5:     "m0",
-					TheDate: "02/14 10:30",
-				},
-			},
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
-					MD5:     "m1",
-					TheDate: "02/14 10:31",
-				},
-			},
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
-					MD5:     "m2",
-					TheDate: "02/14 10:32",
-				},
-			},
-		},
-		OrigComments: []*EDInfo{
-			{
-				Op: ED_OP_DELETE,
-				OrigComment: &schema.CommentMD5{
-					MD5:      "m3",
-					TheDate:  "02/14 10:01",
-					SortTime: 1234576900000000000,
-				},
-			},
-		},
-		StartNanoTS: 1234567890000000000,
-		EndNanoTS:   1234578720000000000,
-	}
-
-	expected0 := &EDBlock{
-		NewComments: []*EDInfo{
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
-					MD5:     "m0",
-					TheDate: "02/14 10:30",
-				},
-			},
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
-					MD5:     "m1",
-					TheDate: "02/14 10:31",
-				},
-			},
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
-					MD5:     "m2",
-					TheDate: "02/14 10:32",
-				},
-			},
-		},
-		OrigComments: []*EDInfo{
-			{
-				Op: ED_OP_DELETE,
-				OrigComment: &schema.CommentMD5{
-					MD5:      "m3",
-					TheDate:  "02/14 10:01",
-					SortTime: 1234576900000000000,
-				},
-			},
-		},
-		StartNanoTS: 1234567890000000000,
-		EndNanoTS:   1234578720000000000,
-	}
-
-	edBlock1 := &EDBlock{
-		NewComments: []*EDInfo{
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_DELETED,
-					MD5:     "m4",
-				},
-			},
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
-					MD5:     "m0",
-					TheDate: "02/14 10:30",
-				},
-			},
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
-					MD5:     "m1",
-					TheDate: "02/14 10:31",
-				},
-			},
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
-					MD5:     "m2",
-					TheDate: "02/14 10:32",
-				},
-			},
-		},
-		OrigComments: []*EDInfo{
-			{
-				Op: ED_OP_DELETE,
-				OrigComment: &schema.CommentMD5{
-					MD5:       "m3",
-					TheDate:   "02/14 10:01",
-					SortTime:  1234576900000000000,
-					CommentID: "temp:m3",
-				},
-			},
-		},
-		StartNanoTS: 1234567890000000000,
-		EndNanoTS:   1234578720000000000,
-	}
-
-	expected1 := &EDBlock{
-		NewComments: []*EDInfo{
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_DELETED,
-					MD5:        "m4",
-					SortTime:   1234576900000010000,
-					CreateTime: 1234576900000010000,
-					RefIDs:     []types.CommentID{"temp:m3"},
-					CommentID:  "ESIZJkRnTxA:m4",
-				},
-			},
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
-					MD5:     "m0",
-					TheDate: "02/14 10:30",
-				},
-			},
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
-					MD5:     "m1",
-					TheDate: "02/14 10:31",
-				},
-			},
-			{
-				Op: ED_OP_ADD,
-				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
-					MD5:     "m2",
-					TheDate: "02/14 10:32",
-				},
-			},
-		},
-		OrigComments: []*EDInfo{
-			{
-				Op: ED_OP_DELETE,
-				OrigComment: &schema.CommentMD5{
-					MD5:       "m3",
-					TheDate:   "02/14 10:01",
-					CommentID: "temp:m3",
-					SortTime:  1234576900000000000,
-				},
-			},
-		},
-		StartNanoTS: 1234567890000000000,
-		EndNanoTS:   1234578720000000000,
-	}
-
-	type fields struct {
-		NewComments  []*EDInfo
-		OrigComments []*EDInfo
-		StartNanoTS  types.NanoTS
-		EndNanoTS    types.NanoTS
-	}
-	tests := []struct {
-		name     string
-		edBlock  *EDBlock
-		expected *EDBlock
-	}{
-		// TODO: Add test cases.
-		{
-			name:     "no new deleted messages",
-			edBlock:  edBlock0,
-			expected: expected0,
-		},
-		{
-			name:     "with new deleted messages",
-			edBlock:  edBlock1,
-			expected: expected1,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			ed := tt.edBlock
-			ed.MapDeletedMessages()
-			testutil.TDeepEqual(t, "got", ed, tt.expected)
-		})
-	}
-}
-
 func TestEDBlock_AlignEndNanoTS(t *testing.T) {
 	setupTest()
 	defer teardownTest()
@@ -1292,7 +1072,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "02/14 10:30",
-					CommentID:  "ESIashRMkAA:m1",
+					CommentID:  "ESIashRb0kA:m1",
 					CreateTime: 1234578600000000000,
 					SortTime:   1234578600001000000,
 				},
@@ -1397,7 +1177,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m2",
 					TheDate:    "05/14 10:32",
-					CommentID:  "ET1sdIlSQAA:m2",
+					CommentID:  "ETVdbiF7_Bg:m2",
 					CreateTime: 1242268320000000000,
 					SortTime:   1239999999999999000,
 				},
@@ -1475,7 +1255,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 					TheDate:    "04/14/2009 10:30",
 					CreateTime: 1239676320000000000,
 					SortTime:   1234567890000100000,
-					CommentID:  "temp:m0",
+					CommentID:  "ESIQ9HaPOqA:m0",
 				},
 			},
 			{
@@ -1495,7 +1275,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_REPLY,
 					MD5:        "m2",
 					TheDate:    "04/14/2009 10:30",
-					CommentID:  "temp:m2",
+					CommentID:  "ESqy8fjyFqA:m2",
 					CreateTime: 1239676320000000000,
 					SortTime:   1236997800000100000,
 				},
@@ -1655,7 +1435,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "02/14 10:30",
 					CreateTime: 1234578600000000000,
 					SortTime:   1234578600900000000,
-					CommentID:  "ESIashRMkAA:m0",
+					CommentID:  "ESIasknxeQA:m0",
 				},
 			},
 			{
@@ -1664,7 +1444,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
-					CommentID:  "ESqy__E36AA:m1",
+					CommentID:  "ESqzACbc0QA:m1",
 					CreateTime: 1236997860000000000,
 					SortTime:   1236997860900000000,
 				},
@@ -1675,7 +1455,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/14 10:32",
-					CommentID:  "ETQ3C4IQQAA:m2",
+					CommentID:  "ETQ3C7e1KQA:m2",
 					CreateTime: 1239676320000000000,
 					SortTime:   1239676320900000000,
 				},
@@ -1767,7 +1547,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "02/14 10:30",
 					CreateTime: 1266114600000000000,
 					SortTime:   1266114600900000000,
-					CommentID:  "EZIkhUHvkAA:m0",
+					CommentID:  "EZIkhXeUeQA:m0",
 				},
 			},
 			{
@@ -1776,7 +1556,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
-					CommentID:  "EZq80x7a6AA:m1",
+					CommentID:  "EZq801R_0QA:m1",
 					CreateTime: 1268533860000000000,
 					SortTime:   1268533860900000000,
 				},
@@ -1787,7 +1567,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/14 10:32",
-					CommentID:  "EaRA3q-zQAA:m2",
+					CommentID:  "EaRA3uVYKQA:m2",
 					CreateTime: 1271212320000000000,
 					SortTime:   1271212320900000000,
 				},
@@ -1868,7 +1648,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "05/14 10:30",
 					CreateTime: 1242268200000000000,
 					SortTime:   1242268200900000000,
-					CommentID:  "ET1sWJjDkAA:m4",
+					CommentID:  "ET1sWM5oeQA:m4",
 				},
 			},
 			{
@@ -1879,7 +1659,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "02/14 10:30",
 					CreateTime: 1266114600000000000,
 					SortTime:   1266114600900000000,
-					CommentID:  "EZIkhUHvkAA:m0",
+					CommentID:  "EZIkhXeUeQA:m0",
 				},
 			},
 			{
@@ -1888,7 +1668,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
-					CommentID:  "EZq80x7a6AA:m1",
+					CommentID:  "EZq801R_0QA:m1",
 					CreateTime: 1268533860000000000,
 					SortTime:   1268533860900000000,
 				},
@@ -1899,7 +1679,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/14 10:32",
-					CommentID:  "EaRA3q-zQAA:m2",
+					CommentID:  "EaRA3uVYKQA:m2",
 					CreateTime: 1271212320000000000,
 					SortTime:   1271212320900000000,
 				},
@@ -1980,7 +1760,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "05/14 10:30",
 					CreateTime: 1242268200000000000,
 					SortTime:   1242268200900000000,
-					CommentID:  "ET1sWJjDkAA:m4",
+					CommentID:  "ET1sWM5oeQA:m4",
 				},
 			},
 			{
@@ -1991,7 +1771,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "02/14 10:30",
 					CreateTime: 1266114600000000000,
 					SortTime:   1266114600900000000,
-					CommentID:  "EZIkhUHvkAA:m0",
+					CommentID:  "EZIkhXeUeQA:m0",
 				},
 			},
 			{
@@ -2000,7 +1780,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
-					CommentID:  "EZq80x7a6AA:m1",
+					CommentID:  "EZq801R_0QA:m1",
 					CreateTime: 1268533860000000000,
 					SortTime:   1268533860900000000,
 				},
@@ -2011,7 +1791,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/17 12:00",
-					CommentID:  "EaUxabwmgAA:m2",
+					CommentID:  "EaUxabwXPcA:m2",
 					CreateTime: 1271476800000000000,
 					SortTime:   1271476799999000000,
 				},
@@ -2092,7 +1872,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "05/14 10:30",
 					CreateTime: 1242268200000000000,
 					SortTime:   1242268200900000000,
-					CommentID:  "ET1sWJjDkAA:m4",
+					CommentID:  "ET1sWM5oeQA:m4",
 				},
 			},
 			{
@@ -2103,7 +1883,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "02/14 10:30",
 					CreateTime: 1266114600000000000,
 					SortTime:   1266114600900000000,
-					CommentID:  "EZIkhUHvkAA:m0",
+					CommentID:  "EZIkhXeUeQA:m0",
 				},
 			},
 			{
@@ -2112,7 +1892,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
-					CommentID:  "EZq80x7a6AA:m1",
+					CommentID:  "EZq801R_0QA:m1",
 					CreateTime: 1268533860000000000,
 					SortTime:   1268533860900000000,
 				},
@@ -2123,7 +1903,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/17 12:00",
-					CommentID:  "EaUxabwmgAA:m2",
+					CommentID:  "EaUxafHLaQA:m2",
 					CreateTime: 1271476800000000000,
 					SortTime:   1271476800900000000,
 				},
@@ -2204,7 +1984,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "05/14 10:30",
 					CreateTime: 1242268200000000000,
 					SortTime:   1242268200900000000,
-					CommentID:  "ET1sWJjDkAA:m4",
+					CommentID:  "ET1sWM5oeQA:m4",
 				},
 			},
 			{
@@ -2215,7 +1995,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "02/14 10:30",
 					CreateTime: 1266114600000000000,
 					SortTime:   1266114600900000000,
-					CommentID:  "EZIkhUHvkAA:m0",
+					CommentID:  "EZIkhXeUeQA:m0",
 				},
 			},
 			{
@@ -2224,7 +2004,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
-					CommentID:  "EZq80x7a6AA:m1",
+					CommentID:  "EZq801R_0QA:m1",
 					CreateTime: 1268533860000000000,
 					SortTime:   1268533860900000000,
 				},
@@ -2316,7 +2096,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "01/14 10:30",
 					CreateTime: 1231900200000000000,
 					SortTime:   1234567890000001000,
-					CommentID:  "ERiWtHu7kAA:m4",
+					CommentID:  "ESIQ9HaNt-g:m4",
 				},
 			},
 			{
@@ -2327,7 +2107,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "02/14 10:30",
 					CreateTime: 1234578600000000000,
 					SortTime:   1234578600900000000,
-					CommentID:  "ESIashRMkAA:m0",
+					CommentID:  "ESIasknxeQA:m0",
 				},
 			},
 			{
@@ -2336,7 +2116,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
-					CommentID:  "ESqy__E36AA:m1",
+					CommentID:  "ESqzACbc0QA:m1",
 					CreateTime: 1236997860000000000,
 					SortTime:   1236997860900000000,
 				},
@@ -2347,7 +2127,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/14 10:32",
-					CommentID:  "ETQ3C4IQQAA:m2",
+					CommentID:  "ETQ3C7e1KQA:m2",
 					CreateTime: 1239676320000000000,
 					SortTime:   1239676320900000000,
 				},
@@ -2444,7 +2224,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheDate:    "02/14 10:30",
 					CreateTime: 1266114600000000000,
 					SortTime:   1266114600900000000,
-					CommentID:  "EZIkhUHvkAA:m0",
+					CommentID:  "EZIkhXeUeQA:m0",
 				},
 			},
 			{
@@ -2453,7 +2233,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
-					CommentID:  "EZq80x7a6AA:m1",
+					CommentID:  "EZq801R_0QA:m1",
 					CreateTime: 1268533860000000000,
 					SortTime:   1268533860900000000,
 				},
@@ -2474,7 +2254,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/14 10:32",
-					CommentID:  "EaRA3q-zQAA:m2",
+					CommentID:  "EaRA3uVYKQA:m2",
 					CreateTime: 1271212320000000000,
 					SortTime:   1271212320900000000,
 				},
@@ -2644,7 +2424,7 @@ func TestInferTimestamp(t *testing.T) {
 					TheDate:    "02/14 10:30",
 					CreateTime: 1297650600000000000,
 					SortTime:   1297650600900000000,
-					CommentID:  "EgIuWG-SkAA:m0",
+					CommentID:  "EgIuWKU3eQA:m0",
 				},
 			},
 			{
@@ -2653,7 +2433,7 @@ func TestInferTimestamp(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
-					CommentID:  "EgrGpkx96AA:m1",
+					CommentID:  "EgrGpoIi0QA:m1",
 					CreateTime: 1300069860000000000,
 					SortTime:   1300069860900000000,
 				},
@@ -2664,7 +2444,7 @@ func TestInferTimestamp(t *testing.T) {
 					TheType:    types.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/17 12:00",
-					CommentID:  "EhU7POnJgAA:m2",
+					CommentID:  "EhU7PR9uaQA:m2",
 					CreateTime: 1303012800000000000,
 					SortTime:   1303012800900000000,
 				},
