@@ -1,11 +1,9 @@
 package dbcs
 
 import (
-	"reflect"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/sirupsen/logrus"
@@ -234,64 +232,6 @@ func TestParseComments(t *testing.T) {
 
 			testutil.TDeepEqual(t, "comments", gotComments, tt.expectedComments)
 
-		})
-	}
-}
-
-func TestParseFirstComments(t *testing.T) {
-	setupTest()
-	defer teardownTest()
-
-	type args struct {
-		bboardID                  bbs.BBoardID
-		articleID                 bbs.ArticleID
-		ownerID                   bbs.UUserID
-		articleCreateTime         types.NanoTS
-		commentsDBCS              []byte
-		origFirstCommentsMD5      string
-		origFirstCommentsLastTime types.NanoTS
-		updateNanoTS              types.NanoTS
-	}
-	tests := []struct {
-		name                          string
-		args                          args
-		expectedFirstComments         []*schema.Comment
-		expectedFirstCommentsMD5      string
-		expectedFirstCommentsLastTime types.NanoTS
-		expectedTheRestComments       []byte
-	}{
-		// TODO: Add test cases.
-		/*
-			{
-				name: "0_" + testFilename0,
-				args: args{
-					bboardID:          "test",
-					articleID:         "test",
-					ownerID:           "testOwner",
-					articleCreateTime: types.NanoTS(1234567890000000000),
-					commentsDBCS:      testComment0,
-					updateNanoTS:      types.NanoTS(1334567890000000000),
-				},
-				expectedFirstComments:         testFirstComments0,
-				expectedFirstCommentsMD5:      "lUNLzf4Qpeos8HBS676eWg",
-				expectedFirstCommentsLastTime: types.NanoTS(1260647460000000000),
-			},
-		*/
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			gotFirstComments, gotFirstCommentsMD5, gotFirstCommentsLastTime, gotTheRestComments := ParseFirstComments(tt.args.bboardID, tt.args.articleID, tt.args.ownerID, tt.args.articleCreateTime, tt.args.commentsDBCS, tt.args.origFirstCommentsMD5, tt.args.origFirstCommentsLastTime, tt.args.updateNanoTS)
-			testutil.TDeepEqual(t, "firstComments", gotFirstComments, tt.expectedFirstComments)
-
-			if gotFirstCommentsMD5 != tt.expectedFirstCommentsMD5 {
-				t.Errorf("ParseFirstComments() gotFirstCommentsMD5 = %v, want %v", gotFirstCommentsMD5, tt.expectedFirstCommentsMD5)
-			}
-			if !reflect.DeepEqual(gotFirstCommentsLastTime, tt.expectedFirstCommentsLastTime) {
-				t.Errorf("ParseFirstComments() gotFirstCommentsLastTime = %v, want %v", gotFirstCommentsLastTime, tt.expectedFirstCommentsLastTime)
-			}
-			if !reflect.DeepEqual(gotTheRestComments, tt.expectedTheRestComments) {
-				t.Errorf("ParseFirstComments() gotTheRestComments = %v, want %v", gotTheRestComments, tt.expectedTheRestComments)
-			}
 		})
 	}
 }

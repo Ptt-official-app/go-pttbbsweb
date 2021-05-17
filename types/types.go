@@ -100,7 +100,7 @@ func TimeToNanoTS(t time.Time) NanoTS {
 //https://github.com/golang/go/issues/34101
 func DateStrToTime(dateStr string) (time.Time, error) {
 	layout := "2006/01/02"
-	t, err := time.ParseInLocation(layout, "1970 "+dateStr, TIMEZONE)
+	t, err := time.ParseInLocation(layout, dateStr, TIMEZONE)
 	if err != nil {
 		return t, err
 	}

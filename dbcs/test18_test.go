@@ -17,8 +17,9 @@ var (
 	testContent18Big5         [][]*types.Rune
 	testContent18Utf8         [][]*types.Rune
 
-	testFirstComments18   []*schema.Comment
-	testTheRestComments18 []*schema.Comment
+	testFirstComments18     []*schema.Comment
+	testFullFirstComments18 []*schema.Comment
+	testTheRestComments18   []*schema.Comment
 )
 
 func initTest18() {
@@ -496,6 +497,249 @@ func initTest18() {
 			IP:      "125.227.40.62",
 			TheDate: "03/20 09:50",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mvowpool\x1b[m\x1b[33m: \xc1\xc9\xb0\xa8\xacO\xbd\xe4\xb3\xd5 \xaa\xd1\xa5\xab\xacO\xaa\xf7\xbf\xc4                  \x1b[m  125.227.40.62 03/20 09:50\r"),
+		},
+	}
+
+	testFullFirstComments18 = []*schema.Comment{
+		{ //0
+			BBoardID:  "test",
+			ArticleID: "test18",
+			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			Owner:     bbs.UUserID("lats"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "政府抽到的稅叫投資，政府抽不到稅叫賭博",
+						Big5:   []byte("\xacF\xa9\xb2\xa9\xe2\xa8\xec\xaa\xba\xb5|\xa5s\xa7\xeb\xb8\xea\xa1A\xacF\xa9\xb2\xa9\xe2\xa4\xa3\xa8\xec\xb5|\xa5s\xbd\xe4\xb3\xd5    "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xacF\xa9\xb2\xa9\xe2\xa8\xec\xaa\xba\xb5|\xa5s\xa7\xeb\xb8\xea\xa1A\xacF\xa9\xb2\xa9\xe2\xa4\xa3\xa8\xec\xb5|\xa5s\xbd\xe4\xb3\xd5    "),
+					},
+				},
+			},
+			MD5:        "re1zjGmRX94EC6xhYp4stQ",
+			IP:         "118.160.112.18",
+			TheDate:    "03/20 09:44",
+			DBCS:       []byte("\x1b[1;37m\xb1\xc0 \x1b[33mlats\x1b[m\x1b[33m: \xacF\xa9\xb2\xa9\xe2\xa8\xec\xaa\xba\xb5|\xa5s\xa7\xeb\xb8\xea\xa1A\xacF\xa9\xb2\xa9\xe2\xa4\xa3\xa8\xec\xb5|\xa5s\xbd\xe4\xb3\xd5    \x1b[m 118.160.112.18 03/20 09:44\r"),
+			CommentID:  "Ff3fu23mwAA:re1zjGmRX94EC6xhYp4stQ",
+			CreateTime: 1584668640000000000,
+			SortTime:   1584668640000000000,
+		},
+		{ //1
+			BBoardID:  "test",
+			ArticleID: "test18",
+			TheType:   types.COMMENT_TYPE_COMMENT,
+			Owner:     bbs.UUserID("lats"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "不然你認為大樂透不算賭博嗎？",
+						Big5:   []byte("\xa4\xa3\xb5M\xa7A\xbb{\xac\xb0\xa4j\xbc\xd6\xb3z\xa4\xa3\xba\xe2\xbd\xe4\xb3\xd5\xb6\xdc\xa1H              "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4\xa3\xb5M\xa7A\xbb{\xac\xb0\xa4j\xbc\xd6\xb3z\xa4\xa3\xba\xe2\xbd\xe4\xb3\xd5\xb6\xdc\xa1H              "),
+					},
+				},
+			},
+			IP:         "118.160.112.18",
+			TheDate:    "03/20 09:45",
+			MD5:        "u5v6PWoN_O3ri9oBsiOqFw",
+			DBCS:       []byte("\x1b[1;31m\xa1\xf7 \x1b[33mlats\x1b[m\x1b[33m: \xa4\xa3\xb5M\xa7A\xbb{\xac\xb0\xa4j\xbc\xd6\xb3z\xa4\xa3\xba\xe2\xbd\xe4\xb3\xd5\xb6\xdc\xa1H              \x1b[m 118.160.112.18 03/20 09:45\r"),
+			CommentID:  "Ff3fyWYuGAA:u5v6PWoN_O3ri9oBsiOqFw",
+			CreateTime: 1584668700000000000,
+			SortTime:   1584668700000000000,
+		},
+		{ //2
+			BBoardID:  "test",
+			ArticleID: "test18",
+			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			Owner:     bbs.UUserID("D1"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "打麻將有股利嗎？",
+						Big5:   []byte("\xa5\xb4\xb3\xc2\xb1N\xa6\xb3\xaa\xd1\xa7Q\xb6\xdc\xa1H                            "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa5\xb4\xb3\xc2\xb1N\xa6\xb3\xaa\xd1\xa7Q\xb6\xdc\xa1H                            "),
+					},
+				},
+			},
+			MD5:        "nAnF91Ukrs9IefrybKz_HQ",
+			IP:         "101.137.108.233",
+			TheDate:    "03/20 09:45",
+			DBCS:       []byte("\x1b[1;37m\xb1\xc0 \x1b[33mD1\x1b[m\x1b[33m: \xa5\xb4\xb3\xc2\xb1N\xa6\xb3\xaa\xd1\xa7Q\xb6\xdc\xa1H                            \x1b[m101.137.108.233 03/20 09:45\r"),
+			CommentID:  "Ff3fyWY9WkA:nAnF91Ukrs9IefrybKz_HQ",
+			CreateTime: 1584668700000000000,
+			SortTime:   1584668700001000000,
+		},
+		{ //3
+			BBoardID:  "test",
+			ArticleID: "test18",
+			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			Owner:     bbs.UUserID("ss1130"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "股票不賣就不賠啊，賭博輸了就是沒了",
+						Big5:   []byte("\xaa\xd1\xb2\xbc\xa4\xa3\xbd\xe6\xb4N\xa4\xa3\xbd\xdf\xb0\xda\xa1A\xbd\xe4\xb3\xd5\xbf\xe9\xa4F\xb4N\xacO\xa8S\xa4F      "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xaa\xd1\xb2\xbc\xa4\xa3\xbd\xe6\xb4N\xa4\xa3\xbd\xdf\xb0\xda\xa1A\xbd\xe4\xb3\xd5\xbf\xe9\xa4F\xb4N\xacO\xa8S\xa4F      "),
+					},
+				},
+			},
+			MD5:        "ZxvPgcGyIk2nVe7ZzxdzoA",
+			IP:         "114.37.83.201",
+			TheDate:    "03/20 09:45",
+			DBCS:       []byte("\x1b[1;37m\xb1\xc0 \x1b[33mss1130\x1b[m\x1b[33m: \xaa\xd1\xb2\xbc\xa4\xa3\xbd\xe6\xb4N\xa4\xa3\xbd\xdf\xb0\xda\xa1A\xbd\xe4\xb3\xd5\xbf\xe9\xa4F\xb4N\xacO\xa8S\xa4F      \x1b[m  114.37.83.201 03/20 09:45\r"),
+			CommentID:  "Ff3fyWZMnIA:ZxvPgcGyIk2nVe7ZzxdzoA",
+			CreateTime: 1584668700000000000,
+			SortTime:   1584668700002000000,
+		},
+		{ //4
+			BBoardID:  "test",
+			ArticleID: "test18",
+			TheType:   types.COMMENT_TYPE_COMMENT,
+			Owner:     bbs.UUserID("jin956"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "開公司做生意有賺有賠 是賭博還是投資?",
+						Big5:   []byte("\xb6}\xa4\xbd\xa5q\xb0\xb5\xa5\xcd\xb7N\xa6\xb3\xc1\xc8\xa6\xb3\xbd\xdf \xacO\xbd\xe4\xb3\xd5\xc1\xd9\xacO\xa7\xeb\xb8\xea?    "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb6}\xa4\xbd\xa5q\xb0\xb5\xa5\xcd\xb7N\xa6\xb3\xc1\xc8\xa6\xb3\xbd\xdf \xacO\xbd\xe4\xb3\xd5\xc1\xd9\xacO\xa7\xeb\xb8\xea?    "),
+					},
+				},
+			},
+			MD5:        "v7aPdDoGIeABPHYvkfe2TA",
+			IP:         "110.26.190.156",
+			TheDate:    "03/20 09:45",
+			DBCS:       []byte("\x1b[1;31m\xa1\xf7 \x1b[33mjin956\x1b[m\x1b[33m: \xb6}\xa4\xbd\xa5q\xb0\xb5\xa5\xcd\xb7N\xa6\xb3\xc1\xc8\xa6\xb3\xbd\xdf \xacO\xbd\xe4\xb3\xd5\xc1\xd9\xacO\xa7\xeb\xb8\xea?    \x1b[m 110.26.190.156 03/20 09:45\r"),
+			CommentID:  "Ff3fyWZb3sA:v7aPdDoGIeABPHYvkfe2TA",
+			CreateTime: 1584668700000000000,
+			SortTime:   1584668700003000000,
+		},
+		{ //5
+			BBoardID:  "test",
+			ArticleID: "test18",
+			TheType:   types.COMMENT_TYPE_COMMENT,
+			Owner:     bbs.UUserID("kumori"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "股票的意義是 一間公司想生產東西現在沒錢",
+						Big5:   []byte("\xaa\xd1\xb2\xbc\xaa\xba\xb7N\xb8q\xacO \xa4@\xb6\xa1\xa4\xbd\xa5q\xb7Q\xa5\xcd\xb2\xa3\xaaF\xa6\xe8\xb2{\xa6b\xa8S\xbf\xfa "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xaa\xd1\xb2\xbc\xaa\xba\xb7N\xb8q\xacO \xa4@\xb6\xa1\xa4\xbd\xa5q\xb7Q\xa5\xcd\xb2\xa3\xaaF\xa6\xe8\xb2{\xa6b\xa8S\xbf\xfa "),
+					},
+				},
+			},
+			MD5:        "0Z_CmWQ03_875tDRT_AH4Q",
+			IP:         "122.118.131.149",
+			TheDate:    "03/20 09:48",
+			DBCS:       []byte("\x1b[1;31m\xa1\xf7 \x1b[33mkumori\x1b[m\x1b[33m: \xaa\xd1\xb2\xbc\xaa\xba\xb7N\xb8q\xacO \xa4@\xb6\xa1\xa4\xbd\xa5q\xb7Q\xa5\xcd\xb2\xa3\xaaF\xa6\xe8\xb2{\xa6b\xa8S\xbf\xfa \x1b[m122.118.131.149 03/20 09:48\r"),
+			CommentID:  "Ff3f808EIAA:0Z_CmWQ03_875tDRT_AH4Q",
+			CreateTime: 1584668880000000000,
+			SortTime:   1584668880000000000,
+		},
+		{ //6
+			BBoardID:  "test",
+			ArticleID: "test18",
+			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			Owner:     bbs.UUserID("rindesu"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "四個人打麻將可以，你們一群人打麻將？",
+						Big5:   []byte("\xa5|\xad\xd3\xa4H\xa5\xb4\xb3\xc2\xb1N\xa5i\xa5H\xa1A\xa7A\xad\xcc\xa4@\xb8s\xa4H\xa5\xb4\xb3\xc2\xb1N\xa1H   "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa5|\xad\xd3\xa4H\xa5\xb4\xb3\xc2\xb1N\xa5i\xa5H\xa1A\xa7A\xad\xcc\xa4@\xb8s\xa4H\xa5\xb4\xb3\xc2\xb1N\xa1H   "),
+					},
+				},
+			},
+			MD5:        "jd3J52KJCF5KQzt2GErBJg",
+			IP:         "110.28.108.240",
+			TheDate:    "03/20 09:49",
+			DBCS:       []byte("\x1b[1;37m\xb1\xc0 \x1b[33mrindesu\x1b[m\x1b[33m: \xa5|\xad\xd3\xa4H\xa5\xb4\xb3\xc2\xb1N\xa5i\xa5H\xa1A\xa7A\xad\xcc\xa4@\xb8s\xa4H\xa5\xb4\xb3\xc2\xb1N\xa1H   \x1b[m 110.28.108.240 03/20 09:49\r"),
+			CommentID:  "Ff3gAUdLeAA:jd3J52KJCF5KQzt2GErBJg",
+			CreateTime: 1584668940000000000,
+			SortTime:   1584668940000000000,
+		},
+		{ //7
+			BBoardID:  "test",
+			ArticleID: "test18",
+			TheType:   types.COMMENT_TYPE_COMMENT,
+			Owner:     bbs.UUserID("kumori"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "發行一張紙跟你借錢 你認為這間公司以後會",
+						Big5:   []byte("\xb5o\xa6\xe6\xa4@\xb1i\xaf\xc8\xb8\xf2\xa7A\xad\xc9\xbf\xfa \xa7A\xbb{\xac\xb0\xb3o\xb6\xa1\xa4\xbd\xa5q\xa5H\xab\xe1\xb7| "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb5o\xa6\xe6\xa4@\xb1i\xaf\xc8\xb8\xf2\xa7A\xad\xc9\xbf\xfa \xa7A\xbb{\xac\xb0\xb3o\xb6\xa1\xa4\xbd\xa5q\xa5H\xab\xe1\xb7| "),
+					},
+				},
+			},
+			MD5:        "I6z7DF7JHmn_RveuhTM9kg",
+			IP:         "122.118.131.149",
+			TheDate:    "03/20 09:49",
+			DBCS:       []byte("\x1b[1;31m\xa1\xf7 \x1b[33mkumori\x1b[m\x1b[33m: \xb5o\xa6\xe6\xa4@\xb1i\xaf\xc8\xb8\xf2\xa7A\xad\xc9\xbf\xfa \xa7A\xbb{\xac\xb0\xb3o\xb6\xa1\xa4\xbd\xa5q\xa5H\xab\xe1\xb7| \x1b[m122.118.131.149 03/20 09:49\r"),
+			CommentID:  "Ff3gAUdaukA:I6z7DF7JHmn_RveuhTM9kg",
+			CreateTime: 1584668940000000000,
+			SortTime:   1584668940001000000,
+		},
+		{ //8
+			BBoardID:  "test",
+			ArticleID: "test18",
+			TheType:   types.COMMENT_TYPE_COMMENT,
+			Owner:     bbs.UUserID("vowpool"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "應該用賽馬跟股市來做類比 比較像",
+						Big5:   []byte("\xc0\xb3\xb8\xd3\xa5\xce\xc1\xc9\xb0\xa8\xb8\xf2\xaa\xd1\xa5\xab\xa8\xd3\xb0\xb5\xc3\xfe\xa4\xf1 \xa4\xf1\xb8\xfb\xb9\xb3        "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xc0\xb3\xb8\xd3\xa5\xce\xc1\xc9\xb0\xa8\xb8\xf2\xaa\xd1\xa5\xab\xa8\xd3\xb0\xb5\xc3\xfe\xa4\xf1 \xa4\xf1\xb8\xfb\xb9\xb3        "),
+					},
+				},
+			},
+			MD5:        "HxFf1L0eaMiqE3wyJ0Nyow",
+			IP:         "125.227.40.62",
+			TheDate:    "03/20 09:50",
+			DBCS:       []byte("\x1b[1;31m\xa1\xf7 \x1b[33mvowpool\x1b[m\x1b[33m: \xc0\xb3\xb8\xd3\xa5\xce\xc1\xc9\xb0\xa8\xb8\xf2\xaa\xd1\xa5\xab\xa8\xd3\xb0\xb5\xc3\xfe\xa4\xf1 \xa4\xf1\xb8\xfb\xb9\xb3        \x1b[m  125.227.40.62 03/20 09:50\r"),
+			CommentID:  "Ff3gDz-S0AA:HxFf1L0eaMiqE3wyJ0Nyow",
+			CreateTime: 1584669000000000000,
+			SortTime:   1584669000000000000,
+		},
+		{ //9
+			BBoardID:  "test",
+			ArticleID: "test18",
+			TheType:   types.COMMENT_TYPE_COMMENT,
+			Owner:     bbs.UUserID("vowpool"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "賽馬是賭博 股市是金融",
+						Big5:   []byte("\xc1\xc9\xb0\xa8\xacO\xbd\xe4\xb3\xd5 \xaa\xd1\xa5\xab\xacO\xaa\xf7\xbf\xc4                  "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xc1\xc9\xb0\xa8\xacO\xbd\xe4\xb3\xd5 \xaa\xd1\xa5\xab\xacO\xaa\xf7\xbf\xc4                  "),
+					},
+				},
+			},
+			MD5:        "KZhYeiENlhq_U1YasuvFlQ",
+			IP:         "125.227.40.62",
+			TheDate:    "03/20 09:50",
+			DBCS:       []byte("\x1b[1;31m\xa1\xf7 \x1b[33mvowpool\x1b[m\x1b[33m: \xc1\xc9\xb0\xa8\xacO\xbd\xe4\xb3\xd5 \xaa\xd1\xa5\xab\xacO\xaa\xf7\xbf\xc4                  \x1b[m  125.227.40.62 03/20 09:50\r"),
+			CommentID:  "Ff3gDz-iEkA:KZhYeiENlhq_U1YasuvFlQ",
+			CreateTime: 1584669000000000000,
+			SortTime:   1584669000001000000,
 		},
 	}
 

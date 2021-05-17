@@ -17,7 +17,8 @@ var (
 	testContent7Big5         [][]*types.Rune
 	testContent7Utf8         [][]*types.Rune
 
-	testFirstComments7 []*schema.Comment
+	testFirstComments7     []*schema.Comment
+	testFullFirstComments7 []*schema.Comment
 )
 
 func initTest7() {
@@ -238,6 +239,23 @@ func initTest7() {
 			TheDate: "03/31 14:30",
 			IP:      "140.112.29.66",
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: Psycap          \xa8\xd3\xa6\xdb: 140.112.29.66        (03/31 14:30)\r"),
+		},
+	}
+
+	testFullFirstComments7 = []*schema.Comment{
+		{
+			BBoardID:   bbs.BBoardID("test"),
+			ArticleID:  bbs.ArticleID("test7"),
+			TheType:    types.COMMENT_TYPE_EDIT,
+			CommentID:  types.CommentID("Do8fzC2iEAA:K3Ebmg6YJggrKPhd5QkAvA"),
+			Owner:      bbs.UUserID("Psycap"),
+			Content:    nil,
+			MD5:        "K3Ebmg6YJggrKPhd5QkAvA",
+			TheDate:    "03/31 14:30",
+			IP:         "140.112.29.66",
+			DBCS:       []byte("\xa1\xb0 \xbds\xbf\xe8: Psycap          \xa8\xd3\xa6\xdb: 140.112.29.66        (03/31 14:30)\r"),
+			CreateTime: 1049092200000000000,
+			SortTime:   1049092200000000000,
 		},
 	}
 }
