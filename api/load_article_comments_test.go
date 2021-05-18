@@ -25,25 +25,18 @@ func TestLoadArticleComments(t *testing.T) {
 		{
 			BBoardID:   "10_WhoAmI",
 			ArticleID:  "1VrooM21SYSOP",
-			CommentID:  "FlIk7aPheAA:cLGi8fC4fapuiBkTXHU2OA",
+			CommentID:  "FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA",
 			TheType:    2,
-			CreateTime: 1608388620,
+			CreateTime: 1608388624,
 			Owner:      "chhsiao123",
 			Content: [][]*types.Rune{
 				{
 					{
-						Utf8: "噓～",
-						Big5: []byte{
-							0xbc, 0x4e, 0xa1, 0xe3, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20,
-						},
+						Utf8:   "噓～",
+						Big5:   []byte("\xbcN\xa1\xe3                                                "),
 						Color0: types.Color{Foreground: 37, Background: 40},
 						Color1: types.Color{Foreground: 37, Background: 40},
+						DBCS:   []byte("\xbcN\xa1\xe3                                                "),
 					},
 				},
 			},
@@ -58,18 +51,11 @@ func TestLoadArticleComments(t *testing.T) {
 			Content: [][]*types.Rune{
 				{
 					{
-						Utf8: "推",
-						Big5: []byte{
-							0xb1, 0xc0, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20,
-						},
+						Utf8:   "推",
+						Big5:   []byte("\xb1\xc0                                                  "),
 						Color0: types.Color{Foreground: 37, Background: 40},
 						Color1: types.Color{Foreground: 37, Background: 40},
+						DBCS:   []byte("\xb1\xc0                                                  "),
 					},
 				},
 			},
@@ -84,19 +70,11 @@ func TestLoadArticleComments(t *testing.T) {
 			Content: [][]*types.Rune{
 				{
 					{
-						Utf8: "推",
-						Big5: []byte{
-							0xb1, 0xc0, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
-							0x20,
-						},
+						Utf8:   "推",
+						Big5:   []byte("\xb1\xc0                                                       "),
 						Color0: types.Color{Foreground: 37, Background: 40},
 						Color1: types.Color{Foreground: 37, Background: 40},
+						DBCS:   []byte("\xb1\xc0                                                       "),
 					},
 				},
 			},
@@ -160,11 +138,11 @@ func TestLoadArticleComments(t *testing.T) {
 			comments[2],
 			comments[1],
 		},
-		NextIdx: "1608388620000000000@FlIk7aPheAA:cLGi8fC4fapuiBkTXHU2OA",
+		NextIdx: "1608388624000000000@FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA",
 	}
 
 	params5 := &LoadArticleCommentsParams{
-		StartIdx:   "1608388620000000000@FlIk7aPheAA:cLGi8fC4fapuiBkTXHU2OA",
+		StartIdx:   "1608388624000000000@FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA",
 		Descending: false,
 		Max:        2,
 	}

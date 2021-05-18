@@ -10,9 +10,9 @@ import (
 func setupTest() {
 	utils.SetIsTest()
 
-	db.SetIsTest()
-
 	types.SetIsTest("queue")
+
+	db.SetIsTest()
 
 	schema.SetIsTest()
 
@@ -26,9 +26,9 @@ func teardownTest() {
 
 	schema.UnsetIsTest()
 
-	types.UnsetIsTest("queue")
-
 	db.UnsetIsTest()
+
+	types.UnsetIsTest("queue")
 
 	utils.UnsetIsTest()
 }

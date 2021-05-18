@@ -15,23 +15,25 @@ var (
 )
 
 type CommentQueue struct {
-	BBoardID     bbs.BBoardID
-	ArticleID    bbs.ArticleID
-	OwnerID      bbs.UUserID
-	CommentDBCS  []byte
-	LastTime     types.NanoTS
-	UpdateNanoTS types.NanoTS
+	BBoardID          bbs.BBoardID
+	ArticleID         bbs.ArticleID
+	OwnerID           bbs.UUserID
+	CommentDBCS       []byte
+	ArticleCreateTime types.NanoTS
+	ArticleMTime      types.NanoTS
+	UpdateNanoTS      types.NanoTS
 }
 
-func QueueCommentDBCS(bboardID bbs.BBoardID, articleID bbs.ArticleID, ownerID bbs.UUserID, commentDBCS []byte, firstCommentsLastTime types.NanoTS, updateNanoTS types.NanoTS) (err error) {
+func QueueCommentDBCS(bboardID bbs.BBoardID, articleID bbs.ArticleID, ownerID bbs.UUserID, commentDBCS []byte, articleCreateTime types.NanoTS, articleMTime types.NanoTS, updateNanoTS types.NanoTS) (err error) {
 
 	commentQueue := &CommentQueue{
-		BBoardID:     bboardID,
-		ArticleID:    articleID,
-		OwnerID:      ownerID,
-		LastTime:     firstCommentsLastTime,
-		CommentDBCS:  commentDBCS,
-		UpdateNanoTS: updateNanoTS,
+		BBoardID:          bboardID,
+		ArticleID:         articleID,
+		OwnerID:           ownerID,
+		CommentDBCS:       commentDBCS,
+		ArticleCreateTime: articleCreateTime,
+		ArticleMTime:      articleMTime,
+		UpdateNanoTS:      updateNanoTS,
 	}
 
 	timeout := time.After(100 * time.Millisecond)
@@ -71,123 +73,33 @@ func ProcessCommentQueue(idx int, quit chan struct{}) {
 //(lastTime is from firstComments, assuming not change a lot.)
 //(mtime changes frequently and may result in unstable timestamp.)
 func processCommentQueue(q *CommentQueue) {
+	//1. parse comments.
 	comments := dbcs.ParseComments(q.OwnerID, q.CommentDBCS, q.CommentDBCS)
 	//log.Infof("processCommentQueue: after parseComments: comments: %v", len(comments))
 	if len(comments) == 0 {
 		return
 	}
 
-	toAddComments, toUpdateCommentSummaries, toRemoveCommentIDs, err := diffComments(q.BBoardID, q.ArticleID, comments, q.UpdateNanoTS)
-	//log.Infof("processCommentQueue: after diff: toAddComments: %v toUpdateCommentSummaries: %v toRemoveCommentIDs: %v e: %v", len(toAddComments), len(toUpdateCommentSummaries), len(toRemoveCommentIDs), err)
+	//2. integrate comments.
+	toAddComments, toDeleteComments, err := dbcs.IntegrateComments(q.BBoardID, q.ArticleID, comments, q.ArticleCreateTime, q.ArticleMTime, false, true)
+
+	//3. remove comment-ids first.
+	toRemoveCommentIDs := make([]types.CommentID, len(toDeleteComments))
+	for idx, each := range toDeleteComments {
+		toRemoveCommentIDs[idx] = each.CommentID
+	}
+
+	err = schema.RemoveCommentIDs(q.BBoardID, q.ArticleID, toRemoveCommentIDs, q.UpdateNanoTS, "not-in-file")
 	if err != nil {
 		return
 	}
 
+	//4. update comments.
 	err = schema.UpdateComments(toAddComments, q.UpdateNanoTS)
-	//log.Infof("processCommentQueue: after UpdateComments: e: %v", err)
 	if err != nil {
 		return
 	}
 
-	err = schema.UpdateCommentSummaries(q.BBoardID, q.ArticleID, toUpdateCommentSummaries, q.UpdateNanoTS)
-	if err != nil {
-		return
-	}
-
-	err = schema.RemoveCommentIDs(q.BBoardID, q.ArticleID, toRemoveCommentIDs, q.UpdateNanoTS, "invalid in comment-queue")
-	//log.Infof("processCommentQueue: after RemoveCommentIDs: e: %v", err)
-	if err != nil {
-		return
-	}
-
+	//5. update article comments.
 	schema.UpdateArticleCommentsByArticleID(q.BBoardID, q.ArticleID, q.UpdateNanoTS)
-}
-
-func diffComments(
-	bboardID bbs.BBoardID,
-	articleID bbs.ArticleID,
-	comments []*schema.Comment,
-	updateNanoTS types.NanoTS) (
-
-	toAddComments []*schema.Comment,
-	toUpdateCommentSummaries []*schema.CommentSummary,
-	toRemoveCommentIDs []types.CommentID,
-	err error) {
-
-	startNanoTS := comments[0].CreateTime
-	startNanoTSByMin := startNanoTS.ToNanoTSByMin()
-	endNanoTS := comments[len(comments)-1].CreateTime
-	endNanoTSByMin := endNanoTS.ToNanoTSByMin() + types.MIN_TO_NANO_TS
-
-	commentSummaries, err := schema.GetCommentSummaries(bboardID, articleID, startNanoTSByMin, endNanoTSByMin)
-	//log.Infof("diffComments: after get commment-summaries: (%v/%v) startNanoTS: %v startNanoTSByMin: %v endNanoTS: %v endNanoTSByMin: %v commentSummaries: %v e: %v", bboardID, articleID, startNanoTS, startNanoTSByMin, endNanoTS, endNanoTSByMin, len(commentSummaries), err)
-	if err != nil {
-		return nil, nil, nil, err
-	}
-
-	toAddComments, toUpdateCommentSummaries, toRemoveCommentIDs = diffCommentsCore(comments, commentSummaries, updateNanoTS)
-
-	return toAddComments, toUpdateCommentSummaries, toRemoveCommentIDs, nil
-}
-
-//diffCommentsCore
-//
-//CommentID includes CreateTime and MD5,
-//should be sufficient to determine same comment.
-//
-//We just need to check:
-//1. if the comment is not in the comment-summaries: to-add-comments.
-//2. if the comment is in the comment-summaries, but we have newer update-nano-ts: to-update-comment-summary
-//3. if the comment-summary is with newer updateNanoTS: do nothing.
-//4. if the comment-summary is not in the comments: to-remove-comments.
-func diffCommentsCore(
-	comments []*schema.Comment,
-	commentSummaries_db []*schema.CommentSummary,
-	updateNanoTS types.NanoTS) (
-
-	toAddComments []*schema.Comment,
-	toUpdateCommentSummaries []*schema.CommentSummary,
-	toRemoveCommentIDs []types.CommentID) {
-
-	commentMap := make(map[types.CommentID]struct{})
-	for _, each := range comments {
-		commentMap[each.CommentID] = struct{}{}
-	}
-
-	commentSummaryMap := make(map[types.CommentID]*schema.CommentSummary)
-	for _, each := range commentSummaries_db {
-		commentSummaryMap[each.CommentID] = each
-	}
-
-	toAddComments = make([]*schema.Comment, 0, len(comments))
-	toUpdateCommentSummaries = make([]*schema.CommentSummary, 0, len(comments))
-	for _, each := range comments {
-		eachSummary, ok := commentSummaryMap[each.CommentID]
-		//1. the comment is not in the comment-summaries: to-add-comments.
-		if !ok {
-			toAddComments = append(toAddComments, each)
-			continue
-		}
-
-		//2. requires update updateNanoTS: to-update-comment-summaries
-		if eachSummary.IsDeleted || eachSummary.UpdateNanoTS < each.UpdateNanoTS {
-			eachSummary.UpdateNanoTS = each.UpdateNanoTS
-			toUpdateCommentSummaries = append(toUpdateCommentSummaries, eachSummary)
-		}
-	}
-
-	//the comment-id may be re-organized because the poster may delete the comments.
-	toRemoveCommentIDs = make([]types.CommentID, 0, len(commentSummaries_db))
-	for _, each := range commentSummaries_db {
-		//3. the comment-summary is newer: do nothing.
-		if each.IsDeleted || each.UpdateNanoTS >= updateNanoTS {
-			continue
-		}
-		//4. the comment-summary is not in the comments: to remove.
-		if _, ok := commentMap[each.CommentID]; !ok {
-			toRemoveCommentIDs = append(toRemoveCommentIDs, each.CommentID)
-		}
-	}
-
-	return toAddComments, toUpdateCommentSummaries, toRemoveCommentIDs
 }

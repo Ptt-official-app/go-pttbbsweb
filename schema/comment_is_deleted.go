@@ -24,6 +24,10 @@ var (
 //no need to check that update-nano-ts does not exists.
 func RemoveCommentIDs(bboardID bbs.BBoardID, articleID bbs.ArticleID, toRemoveCommentIDs []types.CommentID, updateNanoTS types.NanoTS, reason string) (err error) {
 
+	if len(toRemoveCommentIDs) == 0 {
+		return nil
+	}
+
 	query := bson.M{
 		COMMENT_BBOARD_ID_b:      bboardID,
 		COMMENT_ARTICLE_ID_b:     articleID,

@@ -19,6 +19,10 @@ var (
 
 	testFirstComments6     []*schema.Comment
 	testFullFirstComments6 []*schema.Comment
+
+	testTheRestComments6 []*schema.Comment
+
+	testFullTheRestComments6 []*schema.Comment
 )
 
 func initTest6() {
@@ -1832,6 +1836,216 @@ func initTest6() {
 			MD5:     "9JBlv1b11fR1u5J1QDEHRQ",
 			TheDate: "02/13 08:44",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mLBJKO\x1b[m\x1b[33m: ........=.=lll \xb6\xcc\xb2\xb4 \xa6\xad\xa4\xe9\xb1d\xb4_\xaa\xfc                          \x1b[m 02/13 08:44\r"),
+		},
+	}
+
+	testFullTheRestComments6 = []*schema.Comment{
+		{ //0
+			BBoardID:   bbs.BBoardID("test"),
+			ArticleID:  bbs.ArticleID("test6"),
+			CommentID:  types.CommentID("FfLQDoiUOAA:JqQyojCk0mIw8gXURYjxAQ"),
+			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			Owner:      bbs.UUserID("HaiTurtle"),
+			CreateTime: types.NanoTS(1581555180000000000),
+			SortTime:   types.NanoTS(1581555180000000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "怕",
+						Big5:   []byte("\xa9\xc8                                                  "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa9\xc8                                                  "),
+					},
+				},
+			},
+			MD5:     "JqQyojCk0mIw8gXURYjxAQ",
+			TheDate: "02/13 08:53",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mHaiTurtle\x1b[m\x1b[33m: \xa9\xc8                                                  \x1b[m 02/13 08:53\r"),
+		},
+		{ //1
+			BBoardID:   bbs.BBoardID("test"),
+			ArticleID:  bbs.ArticleID("test6"),
+			CommentID:  types.CommentID("FfLTVLlM2AA:uwbawqbewdgw3DVCeDb4yA"),
+			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			Owner:      bbs.UUserID("Absioute"),
+			CreateTime: types.NanoTS(1581558780000000000),
+			SortTime:   types.NanoTS(1581558780000000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "呃...",
+						Big5:   []byte("\xa7c...                                                "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa7c...                                                "),
+					},
+				},
+			},
+			MD5:     "uwbawqbewdgw3DVCeDb4yA",
+			TheDate: "02/13 09:53",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mAbsioute\x1b[m\x1b[33m: \xa7c...                                                \x1b[m 02/13 09:53\r"),
+		},
+		{ //2
+			BBoardID:   bbs.BBoardID("test"),
+			ArticleID:  bbs.ArticleID("test6"),
+			CommentID:  types.CommentID("FfLWYwjoGAA:5gfFsU379qTU1BguxzZCbg"),
+			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			Owner:      bbs.UUserID("rookievit"),
+			CreateTime: types.NanoTS(1581562140000000000),
+			SortTime:   types.NanoTS(1581562140000000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "這樣剛好可以讓他的春訓的腳步慢一些 呵呵",
+						Big5:   []byte("\xb3o\xbc\xcb\xad\xe8\xa6n\xa5i\xa5H\xc5\xfd\xa5L\xaa\xba\xacK\xb0V\xaa\xba\xb8}\xa8B\xbaC\xa4@\xa8\xc7 \xa8\xfe\xa8\xfe             "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb3o\xbc\xcb\xad\xe8\xa6n\xa5i\xa5H\xc5\xfd\xa5L\xaa\xba\xacK\xb0V\xaa\xba\xb8}\xa8B\xbaC\xa4@\xa8\xc7 \xa8\xfe\xa8\xfe             "),
+					},
+				},
+			},
+			MD5:     "5gfFsU379qTU1BguxzZCbg",
+			TheDate: "02/13 10:49",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mrookievit\x1b[m\x1b[33m: \xb3o\xbc\xcb\xad\xe8\xa6n\xa5i\xa5H\xc5\xfd\xa5L\xaa\xba\xacK\xb0V\xaa\xba\xb8}\xa8B\xbaC\xa4@\xa8\xc7 \xa8\xfe\xa8\xfe             \x1b[m 02/13 10:49\r"),
+		},
+		{ //3
+			BBoardID:   bbs.BBoardID("test"),
+			ArticleID:  bbs.ArticleID("test6"),
+			CommentID:  types.CommentID("FfLWYwj3WkA:1diHhyKLKy7vRk9nu6AbcQ"),
+			TheType:    types.COMMENT_TYPE_COMMENT,
+			Owner:      bbs.UUserID("rookievit"),
+			CreateTime: types.NanoTS(1581562140000000000),
+			SortTime:   types.NanoTS(1581562140001000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "前幾年 教練都說他在春訓衝太快了",
+						Big5:   []byte("\xabe\xb4X\xa6~ \xb1\xd0\xbdm\xb3\xa3\xbb\xa1\xa5L\xa6b\xacK\xb0V\xbd\xc4\xa4\xd3\xa7\xd6\xa4F                     "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xabe\xb4X\xa6~ \xb1\xd0\xbdm\xb3\xa3\xbb\xa1\xa5L\xa6b\xacK\xb0V\xbd\xc4\xa4\xd3\xa7\xd6\xa4F                     "),
+					},
+				},
+			},
+			MD5:     "1diHhyKLKy7vRk9nu6AbcQ",
+			TheDate: "02/13 10:49",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mrookievit\x1b[m\x1b[33m: \xabe\xb4X\xa6~ \xb1\xd0\xbdm\xb3\xa3\xbb\xa1\xa5L\xa6b\xacK\xb0V\xbd\xc4\xa4\xd3\xa7\xd6\xa4F                     \x1b[m 02/13 10:49\r"),
+		},
+		{ //4
+			BBoardID:   bbs.BBoardID("test"),
+			ArticleID:  bbs.ArticleID("test6"),
+			CommentID:  types.CommentID("FfLW0ssi2AA:Jz02wPefPRfUsOCFfY56jg"),
+			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			Owner:      bbs.UUserID("enyaw5215"),
+			CreateTime: types.NanoTS(1581562620000000000),
+			SortTime:   types.NanoTS(1581562620000000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "…到底關買Betts什麼事，而且連Eovaldi都能拼錯",
+						Big5:   []byte("\xa1K\xa8\xec\xa9\xb3\xc3\xf6\xb6RBetts\xa4\xb0\xbb\xf2\xa8\xc6\xa1A\xa6\xd3\xa5B\xb3sEovaldi\xb3\xa3\xaf\xe0\xab\xf7\xbf\xf9        "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa1K\xa8\xec\xa9\xb3\xc3\xf6\xb6RBetts\xa4\xb0\xbb\xf2\xa8\xc6\xa1A\xa6\xd3\xa5B\xb3sEovaldi\xb3\xa3\xaf\xe0\xab\xf7\xbf\xf9        "),
+					},
+				},
+			},
+			MD5:     "Jz02wPefPRfUsOCFfY56jg",
+			TheDate: "02/13 10:57",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33menyaw5215\x1b[m\x1b[33m: \xa1K\xa8\xec\xa9\xb3\xc3\xf6\xb6RBetts\xa4\xb0\xbb\xf2\xa8\xc6\xa1A\xa6\xd3\xa5B\xb3sEovaldi\xb3\xa3\xaf\xe0\xab\xf7\xbf\xf9        \x1b[m 02/13 10:57\r"),
+		},
+		{ //5
+			BBoardID:   bbs.BBoardID("test"),
+			ArticleID:  bbs.ArticleID("test6"),
+			CommentID:  types.CommentID("FfLZOXdl-AA:AK3icfj0OOsdDgS6LooH4g"),
+			TheType:    types.COMMENT_TYPE_COMMENT,
+			Owner:      bbs.UUserID("seekforever"),
+			CreateTime: types.NanoTS(1581565260000000000),
+			SortTime:   types.NanoTS(1581565260000000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "今年好幾隊要接Sale的約，是我們不想低點脫手而已",
+						Big5:   []byte("\xa4\xb5\xa6~\xa6n\xb4X\xb6\xa4\xadn\xb1\xb5Sale\xaa\xba\xac\xf9\xa1A\xacO\xa7\xda\xad\xcc\xa4\xa3\xb7Q\xa7C\xc2I\xb2\xe6\xa4\xe2\xa6\xd3\xa4w    "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4\xb5\xa6~\xa6n\xb4X\xb6\xa4\xadn\xb1\xb5Sale\xaa\xba\xac\xf9\xa1A\xacO\xa7\xda\xad\xcc\xa4\xa3\xb7Q\xa7C\xc2I\xb2\xe6\xa4\xe2\xa6\xd3\xa4w    "),
+					},
+				},
+			},
+			MD5:     "AK3icfj0OOsdDgS6LooH4g",
+			TheDate: "02/13 11:41",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mseekforever\x1b[m\x1b[33m: \xa4\xb5\xa6~\xa6n\xb4X\xb6\xa4\xadn\xb1\xb5Sale\xaa\xba\xac\xf9\xa1A\xacO\xa7\xda\xad\xcc\xa4\xa3\xb7Q\xa7C\xc2I\xb2\xe6\xa4\xe2\xa6\xd3\xa4w    \x1b[m 02/13 11:41\r"),
+		},
+		{ //6
+			BBoardID:   bbs.BBoardID("test"),
+			ArticleID:  bbs.ArticleID("test6"),
+			CommentID:  types.CommentID("FfLabM2HiAA:YcV5XMDVXyKw7wlKk_QnCw"),
+			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			Owner:      bbs.UUserID("myde"),
+			CreateTime: types.NanoTS(1581566580000000000),
+			SortTime:   types.NanoTS(1581566580000000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "今年本來也是重整中，好好康復重要",
+						Big5:   []byte("\xa4\xb5\xa6~\xa5\xbb\xa8\xd3\xa4]\xacO\xad\xab\xbe\xe3\xa4\xa4\xa1A\xa6n\xa6n\xb1d\xb4_\xad\xab\xadn                         "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4\xb5\xa6~\xa5\xbb\xa8\xd3\xa4]\xacO\xad\xab\xbe\xe3\xa4\xa4\xa1A\xa6n\xa6n\xb1d\xb4_\xad\xab\xadn                         "),
+					},
+				},
+			},
+			MD5:     "YcV5XMDVXyKw7wlKk_QnCw",
+			TheDate: "02/13 12:03",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mmyde\x1b[m\x1b[33m: \xa4\xb5\xa6~\xa5\xbb\xa8\xd3\xa4]\xacO\xad\xab\xbe\xe3\xa4\xa4\xa1A\xa6n\xa6n\xb1d\xb4_\xad\xab\xadn                         \x1b[m 02/13 12:03\r"),
+		},
+		{ //7
+			BBoardID:   bbs.BBoardID("test"),
+			ArticleID:  bbs.ArticleID("test6"),
+			CommentID:  types.CommentID("FfLxLjm94AA:dWu3xGlPcgYyIaASlbbtsA"),
+			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			Owner:      bbs.UUserID("ramiraz615"),
+			CreateTime: types.NanoTS(1581591600000000000),
+			SortTime:   types.NanoTS(1581591600000000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "今年陣容也不差 有打進外卡也不意外",
+						Big5:   []byte("\xa4\xb5\xa6~\xb0}\xaee\xa4]\xa4\xa3\xaet \xa6\xb3\xa5\xb4\xb6i\xa5~\xa5d\xa4]\xa4\xa3\xb7N\xa5~                  "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4\xb5\xa6~\xb0}\xaee\xa4]\xa4\xa3\xaet \xa6\xb3\xa5\xb4\xb6i\xa5~\xa5d\xa4]\xa4\xa3\xb7N\xa5~                  "),
+					},
+				},
+			},
+			MD5:     "dWu3xGlPcgYyIaASlbbtsA",
+			TheDate: "02/13 19:00",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mramiraz615\x1b[m\x1b[33m: \xa4\xb5\xa6~\xb0}\xaee\xa4]\xa4\xa3\xaet \xa6\xb3\xa5\xb4\xb6i\xa5~\xa5d\xa4]\xa4\xa3\xb7N\xa5~                  \x1b[m 02/13 19:00\r"),
+		},
+		{ //8
+			BBoardID:   bbs.BBoardID("test"),
+			ArticleID:  bbs.ArticleID("test6"),
+			CommentID:  types.CommentID("FfMS7pIb_AA:yRxsmeS7P4_SoQoRLNn4gw"),
+			TheType:    types.COMMENT_TYPE_COMMENT,
+			Owner:      bbs.UUserID("BMW740Li"),
+			CreateTime: types.NanoTS(1581628710000000000),
+			SortTime:   types.NanoTS(1581628710000000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "早日康復",
+						Big5:   []byte("\xa6\xad\xa4\xe9\xb1d\xb4_                                             "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa6\xad\xa4\xe9\xb1d\xb4_                                             "),
+					},
+				},
+			},
+			MD5:     "yRxsmeS7P4_SoQoRLNn4gw",
+			TheDate: "02/14 05:18",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mBMW740Li\x1b[m\x1b[33m: \xa6\xad\xa4\xe9\xb1d\xb4_                                             \x1b[m 02/14 05:18\r"),
 		},
 	}
 }

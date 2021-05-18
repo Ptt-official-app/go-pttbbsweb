@@ -130,45 +130,28 @@ var (
 )
 
 //GetComments
-func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, createNanoTS types.NanoTS, commentID types.CommentID, descending bool, limit int) (comments []*Comment, err error) {
+func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, sortNanoTS types.NanoTS, commentID types.CommentID, descending bool, limit int) (comments []*Comment, err error) {
 	//setup query
 	var query bson.M
-	if createNanoTS == 0 {
+	if sortNanoTS == 0 {
 		query = bson.M{
 			COMMENT_BBOARD_ID_b:  boardID,
 			COMMENT_ARTICLE_ID_b: articleID,
 		}
 	} else {
 		theDirCommentID := "$gte"
-		theDirCreateNanoTS := "$gt"
 		if descending {
 			theDirCommentID = "$lte"
-			theDirCreateNanoTS = "$lt"
 		}
 
 		query = bson.M{
-			"$or": bson.A{
-				bson.M{
-					COMMENT_BBOARD_ID_b:   boardID,
-					COMMENT_ARTICLE_ID_b:  articleID,
-					COMMENT_CREATE_TIME_b: createNanoTS,
-					COMMENT_COMMENT_ID_b: bson.M{
-						theDirCommentID: commentID,
-					},
-					COMMENT_IS_DELETED_b: bson.M{
-						"$exists": false,
-					},
-				},
-				bson.M{
-					COMMENT_BBOARD_ID_b:  boardID,
-					COMMENT_ARTICLE_ID_b: articleID,
-					COMMENT_CREATE_TIME_b: bson.M{
-						theDirCreateNanoTS: createNanoTS,
-					},
-					COMMENT_IS_DELETED_b: bson.M{
-						"$exists": false,
-					},
-				},
+			COMMENT_BBOARD_ID_b:  boardID,
+			COMMENT_ARTICLE_ID_b: articleID,
+			COMMENT_COMMENT_ID_b: bson.M{
+				theDirCommentID: commentID,
+			},
+			COMMENT_IS_DELETED_b: bson.M{
+				"$exists": false,
 			},
 		}
 	}
@@ -176,12 +159,10 @@ func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, createNanoTS typ
 	var sortOpts bson.D
 	if descending {
 		sortOpts = bson.D{
-			{Key: COMMENT_CREATE_TIME_b, Value: -1},
 			{Key: COMMENT_COMMENT_ID_b, Value: -1},
 		}
 	} else {
 		sortOpts = bson.D{
-			{Key: COMMENT_CREATE_TIME_b, Value: 1},
 			{Key: COMMENT_COMMENT_ID_b, Value: 1},
 		}
 	}
@@ -220,9 +201,13 @@ func SortCommentsBySortTime(comments []*Comment, descending bool) (newComments [
 }
 
 func CountComments(boardID bbs.BBoardID, articleID bbs.ArticleID) (nComments int, err error) {
-	query := &CommentArticleQuery{
-		BBoardID:  boardID,
-		ArticleID: articleID,
+
+	query := bson.M{
+		COMMENT_BBOARD_ID_b:  boardID,
+		COMMENT_ARTICLE_ID_b: articleID,
+		COMMENT_IS_DELETED_b: bson.M{
+			"$exists": false,
+		},
 	}
 
 	count, err := Comment_c.Count(query, 0)

@@ -61,9 +61,9 @@ func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface
 	}
 
 	//get comments
-	queryCreateNanoTS, queryCommentID := loadArticleCommentsDeserializeIdx(theParams.StartIdx)
+	querySortNanoTS, queryCommentID := loadArticleCommentsDeserializeIdx(theParams.StartIdx)
 
-	comments_db, err := schema.GetComments(thePath.BBoardID, thePath.ArticleID, queryCreateNanoTS, queryCommentID, theParams.Descending, theParams.Max+1)
+	comments_db, err := schema.GetComments(thePath.BBoardID, thePath.ArticleID, querySortNanoTS, queryCommentID, theParams.Descending, theParams.Max+1)
 	if err != nil {
 		return nil, 500, err
 	}
@@ -78,7 +78,7 @@ func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface
 	return result, 200, nil
 }
 
-func loadArticleCommentsDeserializeIdx(startIdx string) (createNanoTS types.NanoTS, commentID types.CommentID) {
+func loadArticleCommentsDeserializeIdx(startIdx string) (sortNanoTS types.NanoTS, commentID types.CommentID) {
 	theList := strings.Split(startIdx, "@")
 	if len(theList) != 2 {
 		return 0, ""
@@ -92,15 +92,15 @@ func loadArticleCommentsDeserializeIdx(startIdx string) (createNanoTS types.Nano
 	return types.NanoTS(nanoTSInt), types.CommentID(theList[1])
 }
 
-func loadArticleCommentsSerializeIdx(createNanoTS types.NanoTS, commentID types.CommentID) string {
+func loadArticleCommentsSerializeIdx(sortNanoTS types.NanoTS, commentID types.CommentID) string {
 
-	return fmt.Sprintf("%v@%v", createNanoTS, commentID)
+	return fmt.Sprintf("%v@%v", sortNanoTS, commentID)
 }
 
 func NewLoadArticleCommentsResult(comments_db []*schema.Comment, nextComment *schema.Comment) (result *LoadArticleCommentsResult) {
 	nextIdx := ""
 	if nextComment != nil {
-		nextIdx = loadArticleCommentsSerializeIdx(nextComment.CreateTime, nextComment.CommentID)
+		nextIdx = loadArticleCommentsSerializeIdx(nextComment.SortTime, nextComment.CommentID)
 	}
 
 	comments := make([]*apitypes.Comment, len(comments_db))

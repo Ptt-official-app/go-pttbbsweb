@@ -18,9 +18,14 @@ var (
 	testContent11Big5 [][]*types.Rune
 	testContent11Utf8 [][]*types.Rune
 
-	testFirstComments11 []*schema.Comment
+	testFirstComments11     []*schema.Comment
+	testFullFirstComments11 []*schema.Comment
 
 	testTheRestComments11 []*schema.Comment
+
+	testFullTheRestComments11 []*schema.Comment
+
+	testFullComments11 []*schema.Comment
 )
 
 func initTest11() {
@@ -29,252 +34,456 @@ func initTest11() {
 	testContent11Big5 = [][]*types.Rune{
 		{ //0
 			{
+
 				Big5:   []byte("\xa7@\xaa\xcc: cheinshin (\xa8\xba\xb4N\xb3o\xbc\xcb\xa7a) \xac\xdd\xaaO: Gossiping"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: cheinshin (\xa8\xba\xb4N\xb3o\xbc\xcb\xa7a) \xac\xdd\xaaO: Gossiping\r"),
 			},
 		},
 		{ //1
 			{
+
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3\r"),
 			},
 		},
 		{ //2
 			{
+
 				Big5:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 19:45:20 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 19:45:20 2020\r"),
 			},
 		},
-		{}, //3
-		{}, //4
-		{}, //5
-		{}, //6
+		{ //3
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ //4
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ //5
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ //6
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //7
 			{
+
 				Big5:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:\r"),
 			},
 		},
-		{}, //8
+		{ //8
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //9
 			{
+
 				Big5:   []byte("TVBS"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("TVBS\r"),
 			},
 		},
-		{}, //10
+		{ //10
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //11
 			{
+
 				Big5:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:\r"),
 			},
 		},
-		{}, //12
+		{ //12
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //13
 			{
+
 				Big5:   []byte("\xad\xb3\xaea\xbb\xf4"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xad\xb3\xaea\xbb\xf4\r"),
 			},
 		},
-		{}, //14
+		{ //14
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //15
 			{
+
 				Big5:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:\r"),
 			},
 		},
-		{}, //16
+		{ //16
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //17
 			{
+
 				Big5:   []byte("TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3\r"),
 			},
 		},
-		{}, //18
+		{ //18
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //19
 			{
+
 				Big5:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:\r"),
 			},
 		},
-		{}, //20
-		{}, //21
+		{ //20
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ //21
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //22
 			{
+
 				Big5:   []byte("2022\xbf\xef\xbe\xd4\xa7Y\xb1N\xb6}\xa5\xb4\xa1A\xa5\xc1\xb2\xb3\xa4]\xb9\xef\xa4\xbb\xb3\xa3\xa5\xab\xaa\xf8\xaa\xba\xacI\xacF\xaa\xed\xb2{\xa5\xb4\xa4F\xa4\xc0\xbc\xc6\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xa5x"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("2022\xbf\xef\xbe\xd4\xa7Y\xb1N\xb6}\xa5\xb4\xa1A\xa5\xc1\xb2\xb3\xa4]\xb9\xef\xa4\xbb\xb3\xa3\xa5\xab\xaa\xf8\xaa\xba\xacI\xacF\xaa\xed\xb2{\xa5\xb4\xa4F\xa4\xc0\xbc\xc6\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xa5x\r"),
 			},
 		},
 		{ //23
 			{
+
 				Big5:   []byte("\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xab\xe1\xa1A\xa4H\xae\xf0\xa4W\xa4\xc9\xa1A\xa4\xbb\xb3\xa3\xb1\xc6\xa6W\xb2\xc4\xa5|\xa1A\xa6\xdc\xa9\xf3\xa5h\xa6~\xa4~\xb8\xc9"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xab\xe1\xa1A\xa4H\xae\xf0\xa4W\xa4\xc9\xa1A\xa4\xbb\xb3\xa3\xb1\xc6\xa6W\xb2\xc4\xa5|\xa1A\xa6\xdc\xa9\xf3\xa5h\xa6~\xa4~\xb8\xc9\r"),
 			},
 		},
 		{ //24
 			{
+
 				Big5:   []byte("\xbf\xef\xa4W\xaa\xba\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xa1A\xa5u\xae\xb3\xa4U\xb2\xc4\xa4\xad\xa6W\xa1A\xa5u\xc4\xb9\xa4F\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf5\xa1C"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbf\xef\xa4W\xaa\xba\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xa1A\xa5u\xae\xb3\xa4U\xb2\xc4\xa4\xad\xa6W\xa1A\xa5u\xc4\xb9\xa4F\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf5\xa1C\r"),
 			},
 		},
-		{}, //25
+		{ //25
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		}, //25
 		{ //26
 			{
+
 				Big5:   []byte("\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa1G\xa1u\xa4\xa3\xa7\xc6\xb1\xe6\xa7\xda\xad\xcc\xb8\xd1\xb8T\xa6\xb3\xc3\xf6\xa9\xf3\xa1A\xa7t\xa6\xb3\xb5\xdc\xa7J\xa6h\xa4\xda\xd3i\xa1A\xa9\xce\xbdG\xa6\xd7\xba\xeb\xaa\xba\xbd\xde\xa6\xd7\xb6i\xa4f\xa1C\xa1v"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa1G\xa1u\xa4\xa3\xa7\xc6\xb1\xe6\xa7\xda\xad\xcc\xb8\xd1\xb8T\xa6\xb3\xc3\xf6\xa9\xf3\xa1A\xa7t\xa6\xb3\xb5\xdc\xa7J\xa6h\xa4\xda\xd3i\xa1A\xa9\xce\xbdG\xa6\xd7\xba\xeb\xaa\xba\xbd\xde\xa6\xd7\xb6i\xa4f\xa1C\xa1v\r"),
 			},
 		},
-		{}, //27
+		{ //27
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //28
 			{
+
 				Big5:   []byte("\xb4N\xacO\xb3o\xbb\xf2\xb5L\xb9w\xc4\xb5\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xa1A\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xa1A\xc5\xfd\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa4H\xae\xf0\xf6t\xa4\xc9\xa1A\xa4]\xa4\xcf\xc0\xb3\xa8\xec"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb4N\xacO\xb3o\xbb\xf2\xb5L\xb9w\xc4\xb5\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xa1A\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xa1A\xc5\xfd\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa4H\xae\xf0\xf6t\xa4\xc9\xa1A\xa4]\xa4\xcf\xc0\xb3\xa8\xec\r"),
 			},
 		},
 		{ //29
 			{
+
 				Big5:   []byte("\xa6o\xaa\xba\xa5\xc1\xbd\xd5\xa4W\xad\xb1\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xbfc\xa8q\xbfP\xaa\xba\xacI\xacF\xba\xa1\xb7N\xab\xd7\xf6t\xa8\xec56%\xa1A\xa6\xec\xa9~\xa4\xbb\xb3\xa3\xb2\xc4\xa5|\xa6W"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa6o\xaa\xba\xa5\xc1\xbd\xd5\xa4W\xad\xb1\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xbfc\xa8q\xbfP\xaa\xba\xacI\xacF\xba\xa1\xb7N\xab\xd7\xf6t\xa8\xec56%\xa1A\xa6\xec\xa9~\xa4\xbb\xb3\xa3\xb2\xc4\xa5|\xa6W\r"),
 			},
 		},
 		{ //30
 			{
+
 				Big5:   []byte("\xa1A\xbb\xb7\xbb\xb7\xbb\xe2\xa5\xfd\xb3\xcc\xab\xe1\xa4@\xa6W\xaa\xba\xa1A\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf535%\xaa\xba\xa4\xe4\xab\xf9\xab\xd7\xa1A\xb8\xf2\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xaa\xba44%\xa1A\xa5x\xabn\xa5\xab"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa1A\xbb\xb7\xbb\xb7\xbb\xe2\xa5\xfd\xb3\xcc\xab\xe1\xa4@\xa6W\xaa\xba\xa1A\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf535%\xaa\xba\xa4\xe4\xab\xf9\xab\xd7\xa1A\xb8\xf2\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xaa\xba44%\xa1A\xa5x\xabn\xa5\xab\r"),
 			},
 		},
 		{ //31
 			{
+
 				Big5:   []byte("\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xba\xa1\xb7N\xab\xd7\xa4\xf1\xa5h\xa6~\xa1A\xa6h\xa4F3\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa8\xd3\xa8\xec58%\xa1A\xae\xb3\xa4U\xb2\xc4\xa4T\xa6W\xa1A\xb2\xc4\xa4G\xa6W\xabh\xacO\xae\xe7\xb6\xe9\xa5\xab\xaa\xf8\xbeG\xa4\xe5"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xba\xa1\xb7N\xab\xd7\xa4\xf1\xa5h\xa6~\xa1A\xa6h\xa4F3\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa8\xd3\xa8\xec58%\xa1A\xae\xb3\xa4U\xb2\xc4\xa4T\xa6W\xa1A\xb2\xc4\xa4G\xa6W\xabh\xacO\xae\xe7\xb6\xe9\xa5\xab\xaa\xf8\xbeG\xa4\xe5\r"),
 			},
 		},
 		{ //32
 			{
+
 				Big5:   []byte("\xc0\xe9\xa1A\xae\xb3\xa4U\xa4C\xa6\xa8\xaa\xba\xba\xa1\xb7N\xab\xd7\xa1A\xaba\xadx\xabh\xacO\xa5\xd1\xb1`\xb3\xd3\xadx\xaa\xba\xa1A\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa5H77%\xa6A\xab\xd7\xc2\xcd\xc1p\xa1C"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xc0\xe9\xa1A\xae\xb3\xa4U\xa4C\xa6\xa8\xaa\xba\xba\xa1\xb7N\xab\xd7\xa1A\xaba\xadx\xabh\xacO\xa5\xd1\xb1`\xb3\xd3\xadx\xaa\xba\xa1A\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa5H77%\xa6A\xab\xd7\xc2\xcd\xc1p\xa1C\r"),
 			},
 		},
-		{}, //33
+		{ //33
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //34
 			{
+
 				Big5:   []byte("\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa1G\xa1u\xa7\xda\xb3\xcc\xa6b\xa5G\xaa\xba\xacO\xa1A\xa7\xda\xc1\xd9\xa6\xb3\xab\xdc\xa6h\xa8\xc6\xa8S\xa6\xb3\xb3\xcc\xa6n\xaa\xba\xb3\xa1\xa4\xc0\xa1A\xadn\xa7\xf3\xa5[\xa7\xe2\xabl\xa1A\xa7\xe2\xa5\xa6\xb0\xb5"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa1G\xa1u\xa7\xda\xb3\xcc\xa6b\xa5G\xaa\xba\xacO\xa1A\xa7\xda\xc1\xd9\xa6\xb3\xab\xdc\xa6h\xa8\xc6\xa8S\xa6\xb3\xb3\xcc\xa6n\xaa\xba\xb3\xa1\xa4\xc0\xa1A\xadn\xa7\xf3\xa5[\xa7\xe2\xabl\xa1A\xa7\xe2\xa5\xa6\xb0\xb5\r"),
 			},
 		},
 		{ //35
 			{
+
 				Big5:   []byte("\xb1o\xa7\xf3\xa6n\xa1A\xb3o\xa4~\xacO\xa5\xab\xaa\xf8\xaa\xba\xa5\xbb\xb3d\xa1C\xa1v"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb1o\xa7\xf3\xa6n\xa1A\xb3o\xa4~\xacO\xa5\xab\xaa\xf8\xaa\xba\xa5\xbb\xb3d\xa1C\xa1v\r"),
 			},
 		},
-		{}, //36
+		{ //36
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //37
 			{
+
 				Big5:   []byte("\xb1j\xbd\xd5\xa6\xdb\xa4v\xb4N\xacO\xaeI\xc0Y\xbb{\xafu\xb0\xb5\xa1A\xbe\xa8\xba\xde\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xa1\xa4\xc0\xa1A\xac\xbd\xa5\xcf\xb0\xaa\xb6\xaf\xb8\xf2\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa1A\xc5\xfd\xa4C\xa6\xa8\xaa\xba\xb7s\xa5_"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb1j\xbd\xd5\xa6\xdb\xa4v\xb4N\xacO\xaeI\xc0Y\xbb{\xafu\xb0\xb5\xa1A\xbe\xa8\xba\xde\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xa1\xa4\xc0\xa1A\xac\xbd\xa5\xcf\xb0\xaa\xb6\xaf\xb8\xf2\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa1A\xc5\xfd\xa4C\xa6\xa8\xaa\xba\xb7s\xa5_\r"),
 			},
 		},
 		{ //38
 			{
+
 				Big5:   []byte("\xa5\xab\xa5\xc1\xb7P\xa8\xec\xa5\xfa\xbaa\xa1A\xa6\xfd\xae\xe7\xb6\xe9\xb8\xf2\xa5x\xabn\xaa\xba\xa5\xab\xa5\xc1\xa1A\xb5w\xacO\xa6h\xa5X\xa4F2\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa1A\xa6\xd3\xa6\xb3\xa4K\xa6\xa8\xaa\xba\xa5x\xa4\xa4\xa5\xab\xa5\xc1\xbb{\xa6P"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5\xab\xa5\xc1\xb7P\xa8\xec\xa5\xfa\xbaa\xa1A\xa6\xfd\xae\xe7\xb6\xe9\xb8\xf2\xa5x\xabn\xaa\xba\xa5\xab\xa5\xc1\xa1A\xb5w\xacO\xa6h\xa5X\xa4F2\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa1A\xa6\xd3\xa6\xb3\xa4K\xa6\xa8\xaa\xba\xa5x\xa4\xa4\xa5\xab\xa5\xc1\xbb{\xa6P\r"),
 			},
 		},
 		{ //39
 			{
+
 				Big5:   []byte("\xa5x\xa4\xa4\xa1A\xbaa\xb5n\xa4\xbb\xb3\xa3\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xcc\xb0\xaa\xa1C"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5x\xa4\xa4\xa1A\xbaa\xb5n\xa4\xbb\xb3\xa3\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xcc\xb0\xaa\xa1C\r"),
 			},
 		},
-		{}, //40
+		{ //40
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //41
 			{
+
 				Big5:   []byte("\xa5x\xabn\xa5\xab\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xa1G\xa1u\xa6b\xbb\xdd\xadn\xc0\xcb\xb0Q\xa7\xef\xb6i\xaa\xba\xa6a\xa4\xe8\xa1A\xa7\xda\xad\xcc\xa4]\xb7|\xb5\xea\xa4\xdf\xa6a\xc0\xcb\xb0Q\xa5H\xa4\xce\xa7\xef\xb6i\xa1A\xa7\xc6\xb1\xe6\xb0\xb5\xb1o\xa7\xf3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5x\xabn\xa5\xab\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xa1G\xa1u\xa6b\xbb\xdd\xadn\xc0\xcb\xb0Q\xa7\xef\xb6i\xaa\xba\xa6a\xa4\xe8\xa1A\xa7\xda\xad\xcc\xa4]\xb7|\xb5\xea\xa4\xdf\xa6a\xc0\xcb\xb0Q\xa5H\xa4\xce\xa7\xef\xb6i\xa1A\xa7\xc6\xb1\xe6\xb0\xb5\xb1o\xa7\xf3\r"),
 			},
 		},
 		{ //42
 			{
+
 				Big5:   []byte("\xa6n\xa1A\xc5\xfd\xa5\xab\xa5\xc1\xaaB\xa4\xcd\xad\xcc\xb9L\xb1o\xa7\xf3\xa6n\xa1C\xa1v"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa6n\xa1A\xc5\xfd\xa5\xab\xa5\xc1\xaaB\xa4\xcd\xad\xcc\xb9L\xb1o\xa7\xf3\xa6n\xa1C\xa1v\r"),
 			},
 		},
-		{}, //43
-		{}, //44
+		{ //43
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		}, //43
+		{ //44
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		}, //44
 		{ //45
 			{
+
 				Big5:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):\r"),
 			},
 		},
-		{}, //46
+		{ //46
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		}, //46
 		{ //47
 			{
+
 				Big5:   []byte("https://reurl.cc/8nK7eo"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("https://reurl.cc/8nK7eo\r"),
 			},
 		},
-		{}, //48
+		{ //48
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //49
 			{
+
 				Big5:   []byte("6.\xb3\xc6\xb5\xf9:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("6.\xb3\xc6\xb5\xf9:\r"),
 			},
 		},
-		{}, //50
+		{ //50
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //51
 			{
+
 				Big5:   []byte("1.\xabJ 2.\xbeG 3.\xb6\xc0 4.\xbfc 5.\xb3\xaf 6.\xac_"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("1.\xabJ 2.\xbeG 3.\xb6\xc0 4.\xbfc 5.\xb3\xaf 6.\xac_\r"),
 			},
 		},
-		{}, //52
+		{ //52
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //53
 			{
+
 				Big5:   []byte("\xaf\xf3\xa5]\xbau\xa4F \xac_\xaaG\xb5M\xb9\xd4\xa9\xb3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xaf\xf3\xa5]\xbau\xa4F \xac_\xaaG\xb5M\xb9\xd4\xa9\xb3\r"),
 			},
 		},
-		{}, //54
-		{}, //55
-		{}, //56
-		{ //51
+		{ //54
 			{
-				Big5:   []byte("--"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ //55
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
 			},
 		},
 	}
@@ -286,6 +495,7 @@ func initTest11() {
 				Big5:   []byte("\xa7@\xaa\xcc: cheinshin (\xa8\xba\xb4N\xb3o\xbc\xcb\xa7a) \xac\xdd\xaaO: Gossiping"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: cheinshin (\xa8\xba\xb4N\xb3o\xbc\xcb\xa7a) \xac\xdd\xaaO: Gossiping\r"),
 			},
 		},
 		{ //1
@@ -294,6 +504,7 @@ func initTest11() {
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3\r"),
 			},
 		},
 		{ //2
@@ -302,82 +513,163 @@ func initTest11() {
 				Big5:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 19:45:20 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 19:45:20 2020\r"),
 			},
 		},
-		{}, //3
-		{}, //4
-		{}, //5
-		{}, //6
+		{ //3
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ //4
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ //5
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ //6
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //7
 			{
 				Utf8:   "1.媒體來源:",
 				Big5:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:\r"),
 			},
 		},
-		{}, //8
+		{ //8
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //9
 			{
 				Utf8:   "TVBS",
 				Big5:   []byte("TVBS"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("TVBS\r"),
 			},
 		},
-		{}, //10
+		{ //10
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //11
 			{
 				Utf8:   "2.記者署名:",
 				Big5:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:\r"),
 			},
 		},
-		{}, //12
+		{ //12
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //13
 			{
 				Utf8:   "韋家齊",
 				Big5:   []byte("\xad\xb3\xaea\xbb\xf4"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xad\xb3\xaea\xbb\xf4\r"),
 			},
 		},
-		{}, //14
+		{ //14
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //15
 			{
 				Utf8:   "3.完整新聞標題:",
 				Big5:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:\r"),
 			},
 		},
-		{}, //16
+		{ //16
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //17
 			{
 				Utf8:   "TVBS六都民調 侯奪冠、盧升第四、柯墊底",
 				Big5:   []byte("TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3\r"),
 			},
 		},
-		{}, //18
+		{ //18
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //19
 			{
 				Utf8:   "4.完整新聞內文:",
 				Big5:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:\r"),
 			},
 		},
-		{}, //20
-		{}, //21
+		{ //20
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ //21
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //22
 			{
 				Utf8:   "2022選戰即將開打，民眾也對六都市長的施政表現打了分數，根據TVBS最新民調顯示，台",
 				Big5:   []byte("2022\xbf\xef\xbe\xd4\xa7Y\xb1N\xb6}\xa5\xb4\xa1A\xa5\xc1\xb2\xb3\xa4]\xb9\xef\xa4\xbb\xb3\xa3\xa5\xab\xaa\xf8\xaa\xba\xacI\xacF\xaa\xed\xb2{\xa5\xb4\xa4F\xa4\xc0\xbc\xc6\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xa5x"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("2022\xbf\xef\xbe\xd4\xa7Y\xb1N\xb6}\xa5\xb4\xa1A\xa5\xc1\xb2\xb3\xa4]\xb9\xef\xa4\xbb\xb3\xa3\xa5\xab\xaa\xf8\xaa\xba\xacI\xacF\xaa\xed\xb2{\xa5\xb4\xa4F\xa4\xc0\xbc\xc6\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xa5x\r"),
 			},
 		},
 		{ //23
@@ -386,6 +678,7 @@ func initTest11() {
 				Big5:   []byte("\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xab\xe1\xa1A\xa4H\xae\xf0\xa4W\xa4\xc9\xa1A\xa4\xbb\xb3\xa3\xb1\xc6\xa6W\xb2\xc4\xa5|\xa1A\xa6\xdc\xa9\xf3\xa5h\xa6~\xa4~\xb8\xc9"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xab\xe1\xa1A\xa4H\xae\xf0\xa4W\xa4\xc9\xa1A\xa4\xbb\xb3\xa3\xb1\xc6\xa6W\xb2\xc4\xa5|\xa1A\xa6\xdc\xa9\xf3\xa5h\xa6~\xa4~\xb8\xc9\r"),
 			},
 		},
 		{ //24
@@ -394,24 +687,39 @@ func initTest11() {
 				Big5:   []byte("\xbf\xef\xa4W\xaa\xba\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xa1A\xa5u\xae\xb3\xa4U\xb2\xc4\xa4\xad\xa6W\xa1A\xa5u\xc4\xb9\xa4F\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf5\xa1C"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbf\xef\xa4W\xaa\xba\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xa1A\xa5u\xae\xb3\xa4U\xb2\xc4\xa4\xad\xa6W\xa1A\xa5u\xc4\xb9\xa4F\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf5\xa1C\r"),
 			},
 		},
-		{}, //25
+		{ //25
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		}, //25
 		{ //26
 			{
 				Utf8:   "台中市長盧秀燕：「不希望我們解禁有關於，含有萊克多巴胺，或瘦肉精的豬肉進口。」",
 				Big5:   []byte("\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa1G\xa1u\xa4\xa3\xa7\xc6\xb1\xe6\xa7\xda\xad\xcc\xb8\xd1\xb8T\xa6\xb3\xc3\xf6\xa9\xf3\xa1A\xa7t\xa6\xb3\xb5\xdc\xa7J\xa6h\xa4\xda\xd3i\xa1A\xa9\xce\xbdG\xa6\xd7\xba\xeb\xaa\xba\xbd\xde\xa6\xd7\xb6i\xa4f\xa1C\xa1v"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa1G\xa1u\xa4\xa3\xa7\xc6\xb1\xe6\xa7\xda\xad\xcc\xb8\xd1\xb8T\xa6\xb3\xc3\xf6\xa9\xf3\xa1A\xa7t\xa6\xb3\xb5\xdc\xa7J\xa6h\xa4\xda\xd3i\xa1A\xa9\xce\xbdG\xa6\xd7\xba\xeb\xaa\xba\xbd\xde\xa6\xd7\xb6i\xa4f\xa1C\xa1v\r"),
 			},
 		},
-		{}, //27
+		{ //27
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //28
 			{
 				Utf8:   "就是這麼無預警突襲AIT處長，表達反萊豬立場，讓台中市長盧秀燕人氣飆升，也反應到",
 				Big5:   []byte("\xb4N\xacO\xb3o\xbb\xf2\xb5L\xb9w\xc4\xb5\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xa1A\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xa1A\xc5\xfd\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa4H\xae\xf0\xf6t\xa4\xc9\xa1A\xa4]\xa4\xcf\xc0\xb3\xa8\xec"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb4N\xacO\xb3o\xbb\xf2\xb5L\xb9w\xc4\xb5\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xa1A\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xa1A\xc5\xfd\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa4H\xae\xf0\xf6t\xa4\xc9\xa1A\xa4]\xa4\xcf\xc0\xb3\xa8\xec\r"),
 			},
 		},
 		{ //29
@@ -420,6 +728,7 @@ func initTest11() {
 				Big5:   []byte("\xa6o\xaa\xba\xa5\xc1\xbd\xd5\xa4W\xad\xb1\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xbfc\xa8q\xbfP\xaa\xba\xacI\xacF\xba\xa1\xb7N\xab\xd7\xf6t\xa8\xec56%\xa1A\xa6\xec\xa9~\xa4\xbb\xb3\xa3\xb2\xc4\xa5|\xa6W"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa6o\xaa\xba\xa5\xc1\xbd\xd5\xa4W\xad\xb1\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xbfc\xa8q\xbfP\xaa\xba\xacI\xacF\xba\xa1\xb7N\xab\xd7\xf6t\xa8\xec56%\xa1A\xa6\xec\xa9~\xa4\xbb\xb3\xa3\xb2\xc4\xa5|\xa6W\r"),
 			},
 		},
 		{ //30
@@ -428,6 +737,7 @@ func initTest11() {
 				Big5:   []byte("\xa1A\xbb\xb7\xbb\xb7\xbb\xe2\xa5\xfd\xb3\xcc\xab\xe1\xa4@\xa6W\xaa\xba\xa1A\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf535%\xaa\xba\xa4\xe4\xab\xf9\xab\xd7\xa1A\xb8\xf2\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xaa\xba44%\xa1A\xa5x\xabn\xa5\xab"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa1A\xbb\xb7\xbb\xb7\xbb\xe2\xa5\xfd\xb3\xcc\xab\xe1\xa4@\xa6W\xaa\xba\xa1A\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf535%\xaa\xba\xa4\xe4\xab\xf9\xab\xd7\xa1A\xb8\xf2\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xaa\xba44%\xa1A\xa5x\xabn\xa5\xab\r"),
 			},
 		},
 		{ //31
@@ -436,6 +746,7 @@ func initTest11() {
 				Big5:   []byte("\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xba\xa1\xb7N\xab\xd7\xa4\xf1\xa5h\xa6~\xa1A\xa6h\xa4F3\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa8\xd3\xa8\xec58%\xa1A\xae\xb3\xa4U\xb2\xc4\xa4T\xa6W\xa1A\xb2\xc4\xa4G\xa6W\xabh\xacO\xae\xe7\xb6\xe9\xa5\xab\xaa\xf8\xbeG\xa4\xe5"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xba\xa1\xb7N\xab\xd7\xa4\xf1\xa5h\xa6~\xa1A\xa6h\xa4F3\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa8\xd3\xa8\xec58%\xa1A\xae\xb3\xa4U\xb2\xc4\xa4T\xa6W\xa1A\xb2\xc4\xa4G\xa6W\xabh\xacO\xae\xe7\xb6\xe9\xa5\xab\xaa\xf8\xbeG\xa4\xe5\r"),
 			},
 		},
 		{ //32
@@ -444,15 +755,23 @@ func initTest11() {
 				Big5:   []byte("\xc0\xe9\xa1A\xae\xb3\xa4U\xa4C\xa6\xa8\xaa\xba\xba\xa1\xb7N\xab\xd7\xa1A\xaba\xadx\xabh\xacO\xa5\xd1\xb1`\xb3\xd3\xadx\xaa\xba\xa1A\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa5H77%\xa6A\xab\xd7\xc2\xcd\xc1p\xa1C"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xc0\xe9\xa1A\xae\xb3\xa4U\xa4C\xa6\xa8\xaa\xba\xba\xa1\xb7N\xab\xd7\xa1A\xaba\xadx\xabh\xacO\xa5\xd1\xb1`\xb3\xd3\xadx\xaa\xba\xa1A\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa5H77%\xa6A\xab\xd7\xc2\xcd\xc1p\xa1C\r"),
 			},
 		},
-		{}, //33
+		{ //33
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //34
 			{
 				Utf8:   "新北市長侯友宜：「我最在乎的是，我還有很多事沒有最好的部分，要更加把勁，把它做",
 				Big5:   []byte("\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa1G\xa1u\xa7\xda\xb3\xcc\xa6b\xa5G\xaa\xba\xacO\xa1A\xa7\xda\xc1\xd9\xa6\xb3\xab\xdc\xa6h\xa8\xc6\xa8S\xa6\xb3\xb3\xcc\xa6n\xaa\xba\xb3\xa1\xa4\xc0\xa1A\xadn\xa7\xf3\xa5[\xa7\xe2\xabl\xa1A\xa7\xe2\xa5\xa6\xb0\xb5"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa1G\xa1u\xa7\xda\xb3\xcc\xa6b\xa5G\xaa\xba\xacO\xa1A\xa7\xda\xc1\xd9\xa6\xb3\xab\xdc\xa6h\xa8\xc6\xa8S\xa6\xb3\xb3\xcc\xa6n\xaa\xba\xb3\xa1\xa4\xc0\xa1A\xadn\xa7\xf3\xa5[\xa7\xe2\xabl\xa1A\xa7\xe2\xa5\xa6\xb0\xb5\r"),
 			},
 		},
 		{ //35
@@ -461,15 +780,23 @@ func initTest11() {
 				Big5:   []byte("\xb1o\xa7\xf3\xa6n\xa1A\xb3o\xa4~\xacO\xa5\xab\xaa\xf8\xaa\xba\xa5\xbb\xb3d\xa1C\xa1v"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb1o\xa7\xf3\xa6n\xa1A\xb3o\xa4~\xacO\xa5\xab\xaa\xf8\xaa\xba\xa5\xbb\xb3d\xa1C\xa1v\r"),
 			},
 		},
-		{}, //36
+		{ //36
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //37
 			{
 				Utf8:   "強調自己就是埋頭認真做，儘管城市光榮感部分，狠甩高雄跟墊底的台北，讓七成的新北",
 				Big5:   []byte("\xb1j\xbd\xd5\xa6\xdb\xa4v\xb4N\xacO\xaeI\xc0Y\xbb{\xafu\xb0\xb5\xa1A\xbe\xa8\xba\xde\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xa1\xa4\xc0\xa1A\xac\xbd\xa5\xcf\xb0\xaa\xb6\xaf\xb8\xf2\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa1A\xc5\xfd\xa4C\xa6\xa8\xaa\xba\xb7s\xa5_"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb1j\xbd\xd5\xa6\xdb\xa4v\xb4N\xacO\xaeI\xc0Y\xbb{\xafu\xb0\xb5\xa1A\xbe\xa8\xba\xde\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xa1\xa4\xc0\xa1A\xac\xbd\xa5\xcf\xb0\xaa\xb6\xaf\xb8\xf2\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa1A\xc5\xfd\xa4C\xa6\xa8\xaa\xba\xb7s\xa5_\r"),
 			},
 		},
 		{ //38
@@ -478,6 +805,7 @@ func initTest11() {
 				Big5:   []byte("\xa5\xab\xa5\xc1\xb7P\xa8\xec\xa5\xfa\xbaa\xa1A\xa6\xfd\xae\xe7\xb6\xe9\xb8\xf2\xa5x\xabn\xaa\xba\xa5\xab\xa5\xc1\xa1A\xb5w\xacO\xa6h\xa5X\xa4F2\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa1A\xa6\xd3\xa6\xb3\xa4K\xa6\xa8\xaa\xba\xa5x\xa4\xa4\xa5\xab\xa5\xc1\xbb{\xa6P"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5\xab\xa5\xc1\xb7P\xa8\xec\xa5\xfa\xbaa\xa1A\xa6\xfd\xae\xe7\xb6\xe9\xb8\xf2\xa5x\xabn\xaa\xba\xa5\xab\xa5\xc1\xa1A\xb5w\xacO\xa6h\xa5X\xa4F2\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa1A\xa6\xd3\xa6\xb3\xa4K\xa6\xa8\xaa\xba\xa5x\xa4\xa4\xa5\xab\xa5\xc1\xbb{\xa6P\r"),
 			},
 		},
 		{ //39
@@ -486,15 +814,23 @@ func initTest11() {
 				Big5:   []byte("\xa5x\xa4\xa4\xa1A\xbaa\xb5n\xa4\xbb\xb3\xa3\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xcc\xb0\xaa\xa1C"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5x\xa4\xa4\xa1A\xbaa\xb5n\xa4\xbb\xb3\xa3\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xcc\xb0\xaa\xa1C\r"),
 			},
 		},
-		{}, //40
+		{ //40
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //41
 			{
 				Utf8:   "台南市長黃偉哲：「在需要檢討改進的地方，我們也會虛心地檢討以及改進，希望做得更",
 				Big5:   []byte("\xa5x\xabn\xa5\xab\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xa1G\xa1u\xa6b\xbb\xdd\xadn\xc0\xcb\xb0Q\xa7\xef\xb6i\xaa\xba\xa6a\xa4\xe8\xa1A\xa7\xda\xad\xcc\xa4]\xb7|\xb5\xea\xa4\xdf\xa6a\xc0\xcb\xb0Q\xa5H\xa4\xce\xa7\xef\xb6i\xa1A\xa7\xc6\xb1\xe6\xb0\xb5\xb1o\xa7\xf3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5x\xabn\xa5\xab\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xa1G\xa1u\xa6b\xbb\xdd\xadn\xc0\xcb\xb0Q\xa7\xef\xb6i\xaa\xba\xa6a\xa4\xe8\xa1A\xa7\xda\xad\xcc\xa4]\xb7|\xb5\xea\xa4\xdf\xa6a\xc0\xcb\xb0Q\xa5H\xa4\xce\xa7\xef\xb6i\xa1A\xa7\xc6\xb1\xe6\xb0\xb5\xb1o\xa7\xf3\r"),
 			},
 		},
 		{ //42
@@ -503,75 +839,120 @@ func initTest11() {
 				Big5:   []byte("\xa6n\xa1A\xc5\xfd\xa5\xab\xa5\xc1\xaaB\xa4\xcd\xad\xcc\xb9L\xb1o\xa7\xf3\xa6n\xa1C\xa1v"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa6n\xa1A\xc5\xfd\xa5\xab\xa5\xc1\xaaB\xa4\xcd\xad\xcc\xb9L\xb1o\xa7\xf3\xa6n\xa1C\xa1v\r"),
 			},
 		},
-		{}, //43
-		{}, //44
+		{ //43
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		}, //43
+		{ //44
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		}, //44
 		{ //45
 			{
 				Utf8:   "5.完整新聞連結 (或短網址):",
 				Big5:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):\r"),
 			},
 		},
-		{}, //46
+		{ //46
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		}, //46
 		{ //47
 			{
 				Utf8:   "https://reurl.cc/8nK7eo",
 				Big5:   []byte("https://reurl.cc/8nK7eo"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("https://reurl.cc/8nK7eo\r"),
 			},
 		},
-		{}, //48
+		{ //48
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //49
 			{
 				Utf8:   "6.備註:",
 				Big5:   []byte("6.\xb3\xc6\xb5\xf9:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("6.\xb3\xc6\xb5\xf9:\r"),
 			},
 		},
-		{}, //50
+		{ //50
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //51
 			{
 				Utf8:   "1.侯 2.鄭 3.黃 4.盧 5.陳 6.柯",
 				Big5:   []byte("1.\xabJ 2.\xbeG 3.\xb6\xc0 4.\xbfc 5.\xb3\xaf 6.\xac_"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("1.\xabJ 2.\xbeG 3.\xb6\xc0 4.\xbfc 5.\xb3\xaf 6.\xac_\r"),
 			},
 		},
-		{}, //52
+		{ //52
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
 		{ //53
 			{
 				Utf8:   "草包滾了 柯果然墊底",
 				Big5:   []byte("\xaf\xf3\xa5]\xbau\xa4F \xac_\xaaG\xb5M\xb9\xd4\xa9\xb3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xaf\xf3\xa5]\xbau\xa4F \xac_\xaaG\xb5M\xb9\xd4\xa9\xb3\r"),
 			},
 		},
-		{}, //54
-		{}, //55
-		{}, //56
-		{ //51
+		{ //54
 			{
-				Utf8:   "--",
-				Big5:   []byte("--"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ //55
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
 			},
 		},
 	}
 
-	testFirstComments11 = []*schema.Comment{
-		{
+	testFullFirstComments11 = []*schema.Comment{
+		{ //0
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg8UTpsAA:dNsw21NtPwVNZNl_fVeZew"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4we7XsAA:dNsw21NtPwVNZNl_fVeZew"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("s555666"),
-			CreateTime: types.NanoTS(1261395960000000000),
+			CreateTime: types.NanoTS(1608551160000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -579,18 +960,22 @@ func initTest11() {
 						Big5:   []byte("https://i.imgur.com/CrYi0Ns.jpg                       "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("https://i.imgur.com/CrYi0Ns.jpg                       "),
 					},
 				},
 			},
-			MD5: "dNsw21NtPwVNZNl_fVeZew",
+			MD5:      "dNsw21NtPwVNZNl_fVeZew",
+			TheDate:  "12/21 19:46",
+			DBCS:     []byte("\x1b[1;31m\xa1\xf7 \x1b[33ms555666\x1b[0;33m: https://i.imgur.com/CrYi0Ns.jpg                       \x1b[37m 12/21 19:46\r"),
+			SortTime: 1608551160000000000,
 		},
-		{
+		{ //1
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg8UT48kA:8xhYGp0JR7bWPuXgeieXJw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4we7m8kA:8xhYGp0JR7bWPuXgeieXJw"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("s555666"),
-			CreateTime: types.NanoTS(1261395960001000000),
+			CreateTime: types.NanoTS(1608551160000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -598,18 +983,22 @@ func initTest11() {
 						Big5:   []byte("\xac_\xc1T\xb1Y\xbc\xec\xb0\xd5                                             "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xac_\xc1T\xb1Y\xbc\xec\xb0\xd5                                             "),
 					},
 				},
 			},
-			MD5: "8xhYGp0JR7bWPuXgeieXJw",
+			MD5:      "8xhYGp0JR7bWPuXgeieXJw",
+			TheDate:  "12/21 19:46",
+			DBCS:     []byte("\x1b[1;31m\xa1\xf7 \x1b[33ms555666\x1b[0;33m: \xac_\xc1T\xb1Y\xbc\xec\xb0\xd5                                             \x1b[37m12/21 19:46\r"),
+			SortTime: 1608551160001000000,
 		},
 		{
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg8UUINIA:4ZAxuEaFj97_uIwLWUwQXw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4we72NIA:4ZAxuEaFj97_uIwLWUwQXw"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("MeowDeLay"),
-			CreateTime: types.NanoTS(1261395960002000000),
+			CreateTime: types.NanoTS(1608551160000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -617,18 +1006,22 @@ func initTest11() {
 						Big5:   []byte("\xa4W\xa5\xf4\xa4T\xad\xd3\xa4\xeb\xb4N\xb3o\xbb\xf2\xb1j\xa1A\xafu\xb2r                             "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4W\xa5\xf4\xa4T\xad\xd3\xa4\xeb\xb4N\xb3o\xbb\xf2\xb1j\xa1A\xafu\xb2r                             "),
 					},
 				},
 			},
-			MD5: "4ZAxuEaFj97_uIwLWUwQXw",
+			MD5:      "4ZAxuEaFj97_uIwLWUwQXw",
+			TheDate:  "12/21 19:46",
+			DBCS:     []byte("\x1b[1;31m\xa1\xf7 \x1b[33mMeowDeLay\x1b[0;33m: \xa4W\xa5\xf4\xa4T\xad\xd3\xa4\xeb\xb4N\xb3o\xbb\xf2\xb1j\xa1A\xafu\xb2r                             \x1b[37m12/21 19:46\r"),
+			SortTime: 1608551160002000000,
 		},
 		{
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg8UUXdsA:2SbMNPMpel6LHu5z9loYEg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4we8FdsA:2SbMNPMpel6LHu5z9loYEg"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("milk250"),
-			CreateTime: types.NanoTS(1261395960003000000),
+			CreateTime: types.NanoTS(1608551160000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -636,18 +1029,22 @@ func initTest11() {
 						Big5:   []byte("\xac\xdd\xa7a  \xa5x\xabn\xa4H\xb3\xdf\xc5w\xa4j\xb1i\xa4\xe4\xb2\xbc                              "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xac\xdd\xa7a  \xa5x\xabn\xa4H\xb3\xdf\xc5w\xa4j\xb1i\xa4\xe4\xb2\xbc                              "),
 					},
 				},
 			},
-			MD5: "2SbMNPMpel6LHu5z9loYEg",
+			MD5:      "2SbMNPMpel6LHu5z9loYEg",
+			TheDate:  "12/21 19:46",
+			DBCS:     []byte("\x1b[1;31m\xa1\xf7 \x1b[33mmilk250\x1b[0;33m: \xac\xdd\xa7a  \xa5x\xabn\xa4H\xb3\xdf\xc5w\xa4j\xb1i\xa4\xe4\xb2\xbc                              \x1b[37m 12/21 19:46\r"),
+			SortTime: 1608551160003000000,
 		},
 		{
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg8UUmuQA:mLDBwhh8d0GLH7fluO-Vvg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4we8UuQA:mLDBwhh8d0GLH7fluO-Vvg"),
 			TheType:    types.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("JC910"),
-			CreateTime: types.NanoTS(1261395960004000000),
+			CreateTime: types.NanoTS(1608551160000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -655,18 +1052,22 @@ func initTest11() {
 						Big5:   []byte("\xc4\xea\xa6W\xbd\xd5\xa1A\xa5\xc1\xb6i\xc4\xd2\xc0\xb3\xb8\xd3\xacO\xb2\xc4\xa4@\xa6W\xa4~\xb9\xef                           "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xc4\xea\xa6W\xbd\xd5\xa1A\xa5\xc1\xb6i\xc4\xd2\xc0\xb3\xb8\xd3\xacO\xb2\xc4\xa4@\xa6W\xa4~\xb9\xef                           "),
 					},
 				},
 			},
-			MD5: "mLDBwhh8d0GLH7fluO-Vvg",
+			MD5:      "mLDBwhh8d0GLH7fluO-Vvg",
+			TheDate:  "12/21 19:46",
+			DBCS:     []byte("\x1b[1;31m\xbcN \x1b[33mJC910\x1b[0;33m: \xc4\xea\xa6W\xbd\xd5\xa1A\xa5\xc1\xb6i\xc4\xd2\xc0\xb3\xb8\xd3\xacO\xb2\xc4\xa4@\xa6W\xa4~\xb9\xef                           \x1b[37m12/21 19:46\r"),
+			SortTime: 1608551160004000000,
 		},
 		{
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg_z0xCAA:OauX-VCfv9NlKVTznlBVpw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4z-cfCAA:OauX-VCfv9NlKVTznlBVpw"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("greensaru"),
-			CreateTime: types.NanoTS(1261396020000000000),
+			CreateTime: types.NanoTS(1608551220000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -674,18 +1075,22 @@ func initTest11() {
 						Big5:   []byte("\xc1\xd9\xa6n\xb0\xd5\xa1I\xa4S\xa4\xa3\xacO\xb2\xc4\xa4@\xa6\xb8\xb9\xd4\xa9\xb3\xa4F\xa1A\xb2\xdf\xbaD\xa4F\xb0\xd5\xa1I               "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xc1\xd9\xa6n\xb0\xd5\xa1I\xa4S\xa4\xa3\xacO\xb2\xc4\xa4@\xa6\xb8\xb9\xd4\xa9\xb3\xa4F\xa1A\xb2\xdf\xbaD\xa4F\xb0\xd5\xa1I               "),
 					},
 				},
 			},
-			MD5: "OauX-VCfv9NlKVTznlBVpw",
+			MD5:      "OauX-VCfv9NlKVTznlBVpw",
+			TheDate:  "12/21 19:47",
+			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33mgreensaru\x1b[0;33m: \xc1\xd9\xa6n\xb0\xd5\xa1I\xa4S\xa4\xa3\xacO\xb2\xc4\xa4@\xa6\xb8\xb9\xd4\xa9\xb3\xa4F\xa1A\xb2\xdf\xbaD\xa4F\xb0\xd5\xa1I               \x1b[37m12/21 19:47\r"),
+			SortTime: 1608551220000000000,
 		},
 		{
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg_z1ASkA:TKZBkWPYxqj27AnYM0LebA"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4z-cuSkA:TKZBkWPYxqj27AnYM0LebA"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("s359999"),
-			CreateTime: types.NanoTS(1261396020001000000),
+			CreateTime: types.NanoTS(1608551220000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -693,18 +1098,22 @@ func initTest11() {
 						Big5:   []byte("\xbcy\xb0O\xa5\xab\xa5\xc1\xb4N\xb7R\xb6\xc2\xa6\xe2\xb9D\xb8\xf4\xb3o\xa8\xfd\xb6\xdc\xa1H                           "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xbcy\xb0O\xa5\xab\xa5\xc1\xb4N\xb7R\xb6\xc2\xa6\xe2\xb9D\xb8\xf4\xb3o\xa8\xfd\xb6\xdc\xa1H                           "),
 					},
 				},
 			},
-			MD5: "TKZBkWPYxqj27AnYM0LebA",
+			MD5:      "TKZBkWPYxqj27AnYM0LebA",
+			TheDate:  "12/21 19:47",
+			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33ms359999\x1b[0;33m: \xbcy\xb0O\xa5\xab\xa5\xc1\xb4N\xb7R\xb6\xc2\xa6\xe2\xb9D\xb8\xf4\xb3o\xa8\xfd\xb6\xdc\xa1H                           \x1b[37m12/21 19:47\r"),
+			SortTime: 1608551220001000000,
 		},
-		{
+		{ //7
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg_z1PjIA:kyVnoF9yRMlQP0cD0fif3w"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4z-c9jIA:kyVnoF9yRMlQP0cD0fif3w"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("yuchihsu"),
-			CreateTime: types.NanoTS(1261396020002000000),
+			CreateTime: types.NanoTS(1608551220000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -712,18 +1121,22 @@ func initTest11() {
 						Big5:   []byte("\xa9U\xa7\xa3\xac_\xa1G\xa5x\xa5_\xa4H\xa4\xa3\xc0\xb4\xb7P\xae\xa6                                "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa9U\xa7\xa3\xac_\xa1G\xa5x\xa5_\xa4H\xa4\xa3\xc0\xb4\xb7P\xae\xa6                                "),
 					},
 				},
 			},
-			MD5: "kyVnoF9yRMlQP0cD0fif3w",
+			MD5:      "kyVnoF9yRMlQP0cD0fif3w",
+			TheDate:  "12/21 19:47",
+			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33myuchihsu\x1b[0;33m: \xa9U\xa7\xa3\xac_\xa1G\xa5x\xa5_\xa4H\xa4\xa3\xc0\xb4\xb7P\xae\xa6                                \x1b[37m12/21 19:47\r"),
+			SortTime: 1608551220002000000,
 		},
-		{
+		{ //8
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg_z1ezsA:Q2BPLds3FiPA0H3MXrC8OQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4z-dMzsA:Q2BPLds3FiPA0H3MXrC8OQ"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("Qoo20811"),
-			CreateTime: types.NanoTS(1261396020003000000),
+			CreateTime: types.NanoTS(1608551220000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -731,18 +1144,22 @@ func initTest11() {
 						Big5:   []byte("\xb6\xc0\xb3o\xbc\xcb\xc1\xd9\xa6\xb3\xb2\xc4\xa4T \xaf\xba\xa6\xba                                   "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb6\xc0\xb3o\xbc\xcb\xc1\xd9\xa6\xb3\xb2\xc4\xa4T \xaf\xba\xa6\xba                                   "),
 					},
 				},
 			},
-			MD5: "Q2BPLds3FiPA0H3MXrC8OQ",
+			MD5:      "Q2BPLds3FiPA0H3MXrC8OQ",
+			TheDate:  "12/21 19:47",
+			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33mQoo20811\x1b[0;33m: \xb6\xc0\xb3o\xbc\xcb\xc1\xd9\xa6\xb3\xb2\xc4\xa4T \xaf\xba\xa6\xba                                   \x1b[37m12/21 19:47\r"),
+			SortTime: 1608551220003000000,
 		},
-		{
+		{ //9
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg_z1uEQA:N-j9rNFkWUj4nuYGq1ixjw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4z-dcEQA:N-j9rNFkWUj4nuYGq1ixjw"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("linceass"),
-			CreateTime: types.NanoTS(1261396020004000000),
+			CreateTime: types.NanoTS(1608551220000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -750,21 +1167,40 @@ func initTest11() {
 						Big5:   []byte("\xc2\xc5\xba\xf1\xbd\xe2\xafb\xa4@\xb3e\xa7@\xad\xb7 \xa7\xe2\xabD\xc2\xc5\xba\xf1\xa9\xb9\xa6\xba\xb8\xcc\xa5\xb4                     "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xc2\xc5\xba\xf1\xbd\xe2\xafb\xa4@\xb3e\xa7@\xad\xb7 \xa7\xe2\xabD\xc2\xc5\xba\xf1\xa9\xb9\xa6\xba\xb8\xcc\xa5\xb4                     "),
 					},
 				},
 			},
-			MD5: "N-j9rNFkWUj4nuYGq1ixjw",
+			MD5:      "N-j9rNFkWUj4nuYGq1ixjw",
+			TheDate:  "12/21 19:47",
+			DBCS:     []byte("\x1b[1;31m\xa1\xf7 \x1b[33mlinceass\x1b[0;33m: \xc2\xc5\xba\xf1\xbd\xe2\xafb\xa4@\xb3e\xa7@\xad\xb7 \xa7\xe2\xabD\xc2\xc5\xba\xf1\xa9\xb9\xa6\xba\xb8\xcc\xa5\xb4                     \x1b[37m12/21 19:47\r"),
+			SortTime: 1608551220004000000,
 		},
 	}
 
-	testTheRestComments11 = []*schema.Comment{
+	testFirstComments11 = make([]*schema.Comment, len(testFullFirstComments11))
+	for idx, eachFull := range testFullFirstComments11 {
+		each := &schema.Comment{}
+		*each = *eachFull
+		testFirstComments11[idx] = each
+		testFirstComments11[idx].BBoardID = ""
+		testFirstComments11[idx].ArticleID = ""
+		testFirstComments11[idx].CommentID = ""
+		testFirstComments11[idx].CreateTime = 0
+		testFirstComments11[idx].SortTime = 0
+	}
+
+	//////////
+	//the-rest-comments
+	//////////
+	testFullTheRestComments11 = []*schema.Comment{
 		{ //0
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg_z19U0A:7MK-wwy_g72bIylNku9cew"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4z-drU0A:7MK-wwy_g72bIylNku9cew"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("s359999"),
-			CreateTime: types.NanoTS(1261396020005000000),
+			CreateTime: types.NanoTS(1608551220000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -772,18 +1208,22 @@ func initTest11() {
 						Big5:   []byte("https://i.imgur.com/LUaQ9yP.jpg                        "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("https://i.imgur.com/LUaQ9yP.jpg                        "),
 					},
 				},
 			},
-			MD5: "7MK-wwy_g72bIylNku9cew",
+			MD5:      "7MK-wwy_g72bIylNku9cew",
+			TheDate:  "12/21 19:47",
+			DBCS:     []byte("\x1b[1;31m\xa1\xf7 \x1b[33ms359999\x1b[0;33m: https://i.imgur.com/LUaQ9yP.jpg                        \x1b[37m12/21 19:47\r"),
+			SortTime: 1608551220005000000,
 		},
 		{ //1
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg_z2MlYA:0rTBC1_9pgXCCWFH_I6b2A"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4z-d6lYA:0rTBC1_9pgXCCWFH_I6b2A"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("akway"),
-			CreateTime: types.NanoTS(1261396020006000000),
+			CreateTime: types.NanoTS(1608551220000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -791,18 +1231,22 @@ func initTest11() {
 						Big5:   []byte("35%\xa4\xf1\xb7\xed\xa6~\xc1\xfa\xaf\xf3\xa5]\xc1\xd9\xa7C\xa4F\xa7a                                  "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("35%\xa4\xf1\xb7\xed\xa6~\xc1\xfa\xaf\xf3\xa5]\xc1\xd9\xa7C\xa4F\xa7a                                  "),
 					},
 				},
 			},
-			MD5: "0rTBC1_9pgXCCWFH_I6b2A",
+			MD5:      "0rTBC1_9pgXCCWFH_I6b2A",
+			TheDate:  "12/21 19:47",
+			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33makway\x1b[0;33m: 35%\xa4\xf1\xb7\xed\xa6~\xc1\xfa\xaf\xf3\xa5]\xc1\xd9\xa7C\xa4F\xa7a                                  \x1b[37m12/21 19:47\r"),
+			SortTime: 1608551220006000000,
 		},
 		{ //2
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg_z2b18A:kn6-2_1PZsvngRHQu38y8Q"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4z-eJ18A:kn6-2_1PZsvngRHQu38y8Q"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("b777787"),
-			CreateTime: types.NanoTS(1261396020007000000),
+			CreateTime: types.NanoTS(1608551220000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -810,18 +1254,22 @@ func initTest11() {
 						Big5:   []byte("4%\xbbQ\xa4\xe4\xa5J\xa1G\xa4\xa3\xa5i\xaf\xe0                                       "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("4%\xbbQ\xa4\xe4\xa5J\xa1G\xa4\xa3\xa5i\xaf\xe0                                       "),
 					},
 				},
 			},
-			MD5: "kn6-2_1PZsvngRHQu38y8Q",
+			MD5:      "kn6-2_1PZsvngRHQu38y8Q",
+			TheDate:  "12/21 19:47",
+			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33mb777787\x1b[0;33m: 4%\xbbQ\xa4\xe4\xa5J\xa1G\xa4\xa3\xa5i\xaf\xe0                                       \x1b[37m12/21 19:47\r"),
+			SortTime: 1608551220007000000,
 		},
 		{ //3
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg_z2rGgA:LWCD5fMJhSo3iwACW8FGfQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4z-eZGgA:LWCD5fMJhSo3iwACW8FGfQ"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("pieceiori"),
-			CreateTime: types.NanoTS(1261396020008000000),
+			CreateTime: types.NanoTS(1608551220000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -829,18 +1277,22 @@ func initTest11() {
 						Big5:   []byte("\xb0\xb2\xa5\xc1\xbd\xd5! \xa7\xda\xac\xdd\xb0\xaa\xb6\xaf\xaaO\xa4\xd1\xa4\xd1\xb3\xa3\xbaq\xbbR\xaa@\xa5\xad \xa9\xaf\xba\xd6\xac\xfc\xba\xa1            "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb0\xb2\xa5\xc1\xbd\xd5! \xa7\xda\xac\xdd\xb0\xaa\xb6\xaf\xaaO\xa4\xd1\xa4\xd1\xb3\xa3\xbaq\xbbR\xaa@\xa5\xad \xa9\xaf\xba\xd6\xac\xfc\xba\xa1            "),
 					},
 				},
 			},
-			MD5: "LWCD5fMJhSo3iwACW8FGfQ",
+			MD5:      "LWCD5fMJhSo3iwACW8FGfQ",
+			TheDate:  "12/21 19:47",
+			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33mpieceiori\x1b[0;33m: \xb0\xb2\xa5\xc1\xbd\xd5! \xa7\xda\xac\xdd\xb0\xaa\xb6\xaf\xaaO\xa4\xd1\xa4\xd1\xb3\xa3\xbaq\xbbR\xaa@\xa5\xad \xa9\xaf\xba\xd6\xac\xfc\xba\xa1            \x1b[37m12/21 19:47\r"),
+			SortTime: 1608551220008000000,
 		},
 		{ //4
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg_z26XEA:X4Pa-FYKG05udfJ6SnQLow"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4z-eoXEA:X4Pa-FYKG05udfJ6SnQLow"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("proprome"),
-			CreateTime: types.NanoTS(1261396020009000000),
+			CreateTime: types.NanoTS(1608551220000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -848,18 +1300,22 @@ func initTest11() {
 						Big5:   []byte("\xab\xa2 \xaf\xba\xa6\xba \xb3sTVBS\xb3\xa3\xb9\xd4\xa9\xb3                                  "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xab\xa2 \xaf\xba\xa6\xba \xb3sTVBS\xb3\xa3\xb9\xd4\xa9\xb3                                  "),
 					},
 				},
 			},
-			MD5: "X4Pa-FYKG05udfJ6SnQLow",
+			MD5:      "X4Pa-FYKG05udfJ6SnQLow",
+			TheDate:  "12/21 19:47",
+			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33mproprome\x1b[0;33m: \xab\xa2 \xaf\xba\xa6\xba \xb3sTVBS\xb3\xa3\xb9\xd4\xa9\xb3                                  \x1b[37m12/21 19:47\r"),
+			SortTime: 1608551220009000000,
 		},
 		{ //5
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFg_z3JnoA:ic7tXU1fc7SI_B8Fo4pK6g"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4z-e3noA:ic7tXU1fc7SI_B8Fo4pK6g"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("fuhaho"),
-			CreateTime: types.NanoTS(1261396020010000000),
+			CreateTime: types.NanoTS(1608551220000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -867,18 +1323,23 @@ func initTest11() {
 						Big5:   []byte("\xac_\xaf\xbb\xbb\xb0\xa7\xd6\xab\xe3\xac~\xa4@\xaai\xacF\xc1Z\xa8\xfa\xb7x                                "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xac_\xaf\xbb\xbb\xb0\xa7\xd6\xab\xe3\xac~\xa4@\xaai\xacF\xc1Z\xa8\xfa\xb7x                                "),
 					},
 				},
 			},
-			MD5: "ic7tXU1fc7SI_B8Fo4pK6g",
+			MD5:      "ic7tXU1fc7SI_B8Fo4pK6g",
+			TheDate:  "12/21 19:47",
+			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33mfuhaho\x1b[0;33m: \xac_\xaf\xbb\xbb\xb0\xa7\xd6\xab\xe3\xac~\xa4@\xaai\xacF\xc1Z\xa8\xfa\xb7x                                \x1b[37m12/21 19:47\r"),
+			SortTime: 1608551220010000000,
 		},
 		{ //6
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhDTV4YAA:NhPch5oUn9yd7aQAMgWWxQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK43d9mYAA:NhPch5oUn9yd7aQAMgWWxQ"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("yulis"),
-			CreateTime: types.NanoTS(1261396080000000000),
+			CreateTime: types.NanoTS(1608551280000000000),
+			SortTime:   1608551280000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -886,18 +1347,22 @@ func initTest11() {
 						Big5:   []byte("\xb0\xe4\xc4\xea\xa7a \xbd\xd6\xa6\xb3\xb3Q\xa5\xc1\xbd\xd5\xb0\xdd\xb9L\xaa\xba                                  "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb0\xe4\xc4\xea\xa7a \xbd\xd6\xa6\xb3\xb3Q\xa5\xc1\xbd\xd5\xb0\xdd\xb9L\xaa\xba                                  "),
 					},
 				},
 			},
-			MD5: "NhPch5oUn9yd7aQAMgWWxQ",
+			MD5:     "NhPch5oUn9yd7aQAMgWWxQ",
+			TheDate: "12/21 19:48",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33myulis\x1b[0;33m: \xb0\xe4\xc4\xea\xa7a \xbd\xd6\xa6\xb3\xb3Q\xa5\xc1\xbd\xd5\xb0\xdd\xb9L\xaa\xba                                  \x1b[37m12/21 19:48\r"),
 		},
 		{ //7
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhDTWHokA:FjJ28CxZc_-Q97pBvLvHYg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK43d91okA:FjJ28CxZc_-Q97pBvLvHYg"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("mrlinwng"),
-			CreateTime: types.NanoTS(1261396080001000000),
+			CreateTime: types.NanoTS(1608551280000000000),
+			SortTime:   1608551280001000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -905,18 +1370,22 @@ func initTest11() {
 						Big5:   []byte("@.@                                                   "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("@.@                                                   "),
 					},
 				},
 			},
-			MD5: "FjJ28CxZc_-Q97pBvLvHYg",
+			MD5:     "FjJ28CxZc_-Q97pBvLvHYg",
+			TheDate: "12/21 19:48",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mmrlinwng\x1b[0;33m: @.@                                                   \x1b[37m12/21 19:48\r"),
 		},
 		{ //8
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhDTWW5IA:YIIviyBSu4GFkqUTlcvnTQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK43d-E5IA:YIIviyBSu4GFkqUTlcvnTQ"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("yoshiringo"),
-			CreateTime: types.NanoTS(1261396080002000000),
+			CreateTime: types.NanoTS(1608551280000000000),
+			SortTime:   1608551280002000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -924,18 +1393,22 @@ func initTest11() {
 						Big5:   []byte("\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/  "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/  "),
 					},
 				},
 			},
-			MD5: "YIIviyBSu4GFkqUTlcvnTQ",
+			MD5:     "YIIviyBSu4GFkqUTlcvnTQ",
+			TheDate: "12/21 19:48",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33myoshiringo\x1b[0;33m: \\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/  \x1b[37m12/21 19:48\r"),
 		},
 		{ //9
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhDTWmJsA:oRh-k0pDZqxJs6PScht86A"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK43d-UJsA:oRh-k0pDZqxJs6PScht86A"),
 			TheType:    types.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("Aidrux"),
-			CreateTime: types.NanoTS(1261396080003000000),
+			CreateTime: types.NanoTS(1608551280000000000),
+			SortTime:   1608551280003000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -943,18 +1416,22 @@ func initTest11() {
 						Big5:   []byte("\xa5\xd5\xf2\xe7\xa9U\xa7\xa3\xb1Y\xbc\xec                                            "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa5\xd5\xf2\xe7\xa9U\xa7\xa3\xb1Y\xbc\xec                                            "),
 					},
 				},
 			},
-			MD5: "oRh-k0pDZqxJs6PScht86A",
+			MD5:     "oRh-k0pDZqxJs6PScht86A",
+			TheDate: "12/21 19:48",
+			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mAidrux\x1b[0;33m: \xa5\xd5\xf2\xe7\xa9U\xa7\xa3\xb1Y\xbc\xec                                            \x1b[37m12/21 19:48\r"),
 		},
 		{ //10
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhDTW1aQA:mf6Iet5iaIlS1cg8-Fs-Sg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK43d-jaQA:mf6Iet5iaIlS1cg8-Fs-Sg"),
 			TheType:    types.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("StarLeauge"),
-			CreateTime: types.NanoTS(1261396080004000000),
+			CreateTime: types.NanoTS(1608551280000000000),
+			SortTime:   1608551280004000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -962,18 +1439,22 @@ func initTest11() {
 						Big5:   []byte("\xb3\xaf\xa8\xe4\xc1\xda\xa5\xe1\xa4H                                          "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb3\xaf\xa8\xe4\xc1\xda\xa5\xe1\xa4H                                          "),
 					},
 				},
 			},
-			MD5: "mf6Iet5iaIlS1cg8-Fs-Sg",
+			MD5:     "mf6Iet5iaIlS1cg8-Fs-Sg",
+			TheDate: "12/21 19:48",
+			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mStarLeauge\x1b[0;33m: \xb3\xaf\xa8\xe4\xc1\xda\xa5\xe1\xa4H                                          \x1b[37m12/21 19:48\r"),
 		},
 		{ //11
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhDTXEq0A:KITMtX7T0ZqdaCZt51AHLw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK43d-yq0A:KITMtX7T0ZqdaCZt51AHLw"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("KEYSOLIDER"),
-			CreateTime: types.NanoTS(1261396080005000000),
+			CreateTime: types.NanoTS(1608551280000000000),
+			SortTime:   1608551280005000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -981,18 +1462,22 @@ func initTest11() {
 						Big5:   []byte("\xb3s\xa5\xf4\xaa\xba\xaa\xfc\xa5_\xb3\xba\xb5M\xbf\xe9\xb5\xb9\xc1\xfa\xaf\xbb\xb3\xcc\xb0Q\xb9\xbd \xaa\xba\xa4H\xa4\xd7\xa8\xe4\xb3\xcc\xaa\xf1\xa6\xb3\xac\xfc\xbd\xde\xae\xc4  "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb3s\xa5\xf4\xaa\xba\xaa\xfc\xa5_\xb3\xba\xb5M\xbf\xe9\xb5\xb9\xc1\xfa\xaf\xbb\xb3\xcc\xb0Q\xb9\xbd \xaa\xba\xa4H\xa4\xd7\xa8\xe4\xb3\xcc\xaa\xf1\xa6\xb3\xac\xfc\xbd\xde\xae\xc4  "),
 					},
 				},
 			},
-			MD5: "KITMtX7T0ZqdaCZt51AHLw",
+			MD5:     "KITMtX7T0ZqdaCZt51AHLw",
+			TheDate: "12/21 19:48",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mKEYSOLIDER\x1b[0;33m: \xb3s\xa5\xf4\xaa\xba\xaa\xfc\xa5_\xb3\xba\xb5M\xbf\xe9\xb5\xb9\xc1\xfa\xaf\xbb\xb3\xcc\xb0Q\xb9\xbd \xaa\xba\xa4H\xa4\xd7\xa8\xe4\xb3\xcc\xaa\xf1\xa6\xb3\xac\xfc\xbd\xde\xae\xc4  \x1b[37m 12/21 19:48\r"),
 		},
 		{ //12
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhDTXT7YA:hVx6dxtjwHjIukYpqyVXOg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK43d_B7YA:hVx6dxtjwHjIukYpqyVXOg"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("pieceiori"),
-			CreateTime: types.NanoTS(1261396080006000000),
+			CreateTime: types.NanoTS(1608551280000000000),
+			SortTime:   1608551280006000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1000,18 +1485,22 @@ func initTest11() {
 						Big5:   []byte("\xaea\xa4H\xb3Q\xb0s\xber \xa5\xab\xaa\xf8\xb5\xb9\xa4j\xb1i\xa4\xe4\xb2\xbc \xafu\xa6n                      "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xaea\xa4H\xb3Q\xb0s\xber \xa5\xab\xaa\xf8\xb5\xb9\xa4j\xb1i\xa4\xe4\xb2\xbc \xafu\xa6n                      "),
 					},
 				},
 			},
-			MD5: "hVx6dxtjwHjIukYpqyVXOg",
+			MD5:     "hVx6dxtjwHjIukYpqyVXOg",
+			TheDate: "12/21 19:48",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mpieceiori\x1b[0;33m: \xaea\xa4H\xb3Q\xb0s\xber \xa5\xab\xaa\xf8\xb5\xb9\xa4j\xb1i\xa4\xe4\xb2\xbc \xafu\xa6n                      \x1b[37m 12/21 19:48\r"),
 		},
 		{ //13
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhDTXjL8A:S5yrznntUVoPzdC71azDxA"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK43d_RL8A:S5yrznntUVoPzdC71azDxA"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("giggleboy"),
-			CreateTime: types.NanoTS(1261396080007000000),
+			CreateTime: types.NanoTS(1608551280000000000),
+			SortTime:   1608551280007000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1019,18 +1508,22 @@ func initTest11() {
 						Big5:   []byte("\xaf\xba\xa4F \xc4l\xb4\xed\xa5\xab\xb2\xc4\xa4T\xa6W                                    "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xaf\xba\xa4F \xc4l\xb4\xed\xa5\xab\xb2\xc4\xa4T\xa6W                                    "),
 					},
 				},
 			},
-			MD5: "S5yrznntUVoPzdC71azDxA",
+			MD5:     "S5yrznntUVoPzdC71azDxA",
+			TheDate: "12/21 19:48",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mgiggleboy\x1b[0;33m: \xaf\xba\xa4F \xc4l\xb4\xed\xa5\xab\xb2\xc4\xa4T\xa6W                                    \x1b[37m12/21 19:48\r"),
 		},
 		{ //14
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhDTXycgA:RNOKtUq-Ww-9lW26TwIvFw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK43d_gcgA:RNOKtUq-Ww-9lW26TwIvFw"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("KEYSOLIDER"),
-			CreateTime: types.NanoTS(1261396080008000000),
+			CreateTime: types.NanoTS(1608551280000000000),
+			SortTime:   1608551280008000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1038,18 +1531,22 @@ func initTest11() {
 						Big5:   []byte("\xc0\xb3                                                  "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xc0\xb3                                                  "),
 					},
 				},
 			},
-			MD5: "RNOKtUq-Ww-9lW26TwIvFw",
+			MD5:     "RNOKtUq-Ww-9lW26TwIvFw",
+			TheDate: "12/21 19:48",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mKEYSOLIDER\x1b[0;33m: \xc0\xb3                                                  \x1b[37m12/21 19:48\r"),
 		},
 		{ //15
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhDTYBtEA:5qbzNAAjjU1D3LhUNmMWaA"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK43d_vtEA:5qbzNAAjjU1D3LhUNmMWaA"),
 			TheType:    types.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("OmegaWind"),
-			CreateTime: types.NanoTS(1261396080009000000),
+			CreateTime: types.NanoTS(1608551280000000000),
+			SortTime:   1608551280009000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1057,18 +1554,22 @@ func initTest11() {
 						Big5:   []byte("\xba\xf1\xafb\xa6\xb3\xb3\xaf\xbe\xf7\xd9T   \xc1\xd9\xa6n\xb7N\xab\xe4\xaf\xba\xac_                         "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xba\xf1\xafb\xa6\xb3\xb3\xaf\xbe\xf7\xd9T   \xc1\xd9\xa6n\xb7N\xab\xe4\xaf\xba\xac_                         "),
 					},
 				},
 			},
-			MD5: "5qbzNAAjjU1D3LhUNmMWaA",
+			MD5:     "5qbzNAAjjU1D3LhUNmMWaA",
+			TheDate: "12/21 19:48",
+			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mOmegaWind\x1b[0;33m: \xba\xf1\xafb\xa6\xb3\xb3\xaf\xbe\xf7\xd9T   \xc1\xd9\xa6n\xb7N\xab\xe4\xaf\xba\xac_                         \x1b[37m 12/21 19:48\r"),
 		},
 		{ //16
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhGy2_uAA:ymz0HRfGNJIX9cdasLCyEw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK469etuAA:ymz0HRfGNJIX9cdasLCyEw"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("gunng"),
-			CreateTime: types.NanoTS(1261396140000000000),
+			CreateTime: types.NanoTS(1608551340000000000),
+			SortTime:   1608551340000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1076,18 +1577,22 @@ func initTest11() {
 						Big5:   []byte("\xaf\xba\xa6\xba \xa4K\xa8\xf6\xc4l\xb4\xed\xac~\xa4F\xa4W\xa6\xca\xbdg \xb5\xb2\xaaG\xb6\xc0\xc1\xd9\xa4W\xa4\xc9XD                   "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xaf\xba\xa6\xba \xa4K\xa8\xf6\xc4l\xb4\xed\xac~\xa4F\xa4W\xa6\xca\xbdg \xb5\xb2\xaaG\xb6\xc0\xc1\xd9\xa4W\xa4\xc9XD                   "),
 					},
 				},
 			},
-			MD5: "ymz0HRfGNJIX9cdasLCyEw",
+			MD5:     "ymz0HRfGNJIX9cdasLCyEw",
+			TheDate: "12/21 19:49",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mgunng\x1b[0;33m: \xaf\xba\xa6\xba \xa4K\xa8\xf6\xc4l\xb4\xed\xac~\xa4F\xa4W\xa6\xca\xbdg \xb5\xb2\xaaG\xb6\xc0\xc1\xd9\xa4W\xa4\xc9XD                   \x1b[37m12/21 19:49\r"),
 		},
 		{ //17
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhGy3O-kA:qvaVu3REh0fJL7ZBH7m6PQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK469e8-kA:qvaVu3REh0fJL7ZBH7m6PQ"),
 			TheType:    types.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("gogobar"),
-			CreateTime: types.NanoTS(1261396140001000000),
+			CreateTime: types.NanoTS(1608551340000000000),
+			SortTime:   1608551340001000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1095,19 +1600,22 @@ func initTest11() {
 						Big5:   []byte("\xaf\xba\xa6\xba                                                   "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xaf\xba\xa6\xba                                                   "),
 					},
 				},
 			},
-			MD5: "qvaVu3REh0fJL7ZBH7m6PQ",
+			MD5:     "qvaVu3REh0fJL7ZBH7m6PQ",
+			TheDate: "12/21 19:49",
+			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mgogobar\x1b[0;33m: \xaf\xba\xa6\xba                                                   \x1b[37m12/21 19:49\r"),
 		},
 		{ //18
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhGy3O-kA:qvaVu3REh0fJL7ZBH7m6PQ:R"),
+			ArticleID:  bbs.ArticleID("test11"),
 			TheType:    types.COMMENT_TYPE_REPLY,
 			Owner:      bbs.UUserID("cheinshin"),
-			CreateTime: types.NanoTS(1261396140001100000),
-			RefIDs:     []types.CommentID{"EYFhGy3O-kA:qvaVu3REh0fJL7ZBH7m6PQ"},
+			CommentID:  "FlK469e-gOA:ARcE42l2555xJ93dwcK0YQ",
+			CreateTime: types.NanoTS(1608551574000000000),
+			SortTime:   1608551340001100000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1115,21 +1623,25 @@ func initTest11() {
 						Big5:   []byte("\xac\xdd\xaa\xaf\xa7\xbe\xb1Y\xbc\xec \xaa\xba\xbdT\xc6Z\xa6n\xaf\xba\xaa\xba"),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xac\xdd\xaa\xaf\xa7\xbe\xb1Y\xbc\xec \xaa\xba\xbdT\xc6Z\xa6n\xaf\xba\xaa\xba"),
 					},
 				},
 			},
 			EditNanoTS: types.NanoTS(1608551574000000000),
 			IP:         "49.216.65.39",
 			Host:       "臺灣",
-			MD5:        "a5pFPRdkfCEDY_1FOMBWVg",
+			MD5:        "ARcE42l2555xJ93dwcK0YQ",
+			TheDate:    "12/21/2020 19:52:54",
+			DBCS:       []byte("\r\n\xac\xdd\xaa\xaf\xa7\xbe\xb1Y\xbc\xec \xaa\xba\xbdT\xc6Z\xa6n\xaf\xba\xaa\xba\r"),
 		},
 		{ //19 (20)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhGy3ePIA:AsusUdGgu_XVhE9jh5QMAg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK469fNwyA:AsusUdGgu_XVhE9jh5QMAg"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("bluezero000"),
-			CreateTime: types.NanoTS(1261396140002000000),
+			CreateTime: types.NanoTS(1608551340000000000),
+			SortTime:   1608551340002100000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1137,18 +1649,22 @@ func initTest11() {
 						Big5:   []byte("\xa6Y\xc4l\xb4\xed\xb7P\xc1\xc2\xa5\xab\xaa\xf8                                     "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa6Y\xc4l\xb4\xed\xb7P\xc1\xc2\xa5\xab\xaa\xf8                                     "),
 					},
 				},
 			},
-			MD5: "AsusUdGgu_XVhE9jh5QMAg",
+			MD5:     "AsusUdGgu_XVhE9jh5QMAg",
+			TheDate: "12/21 19:49",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mbluezero000\x1b[0;33m: \xa6Y\xc4l\xb4\xed\xb7P\xc1\xc2\xa5\xab\xaa\xf8                                     \x1b[37m12/21 19:49\r"),
 		},
 		{ //20 (21)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhGy3tfsA:xENP4FFXDXO6amoUcs038g"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK469fdBWA:xENP4FFXDXO6amoUcs038g"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("chenchuhao"),
-			CreateTime: types.NanoTS(1261396140003000000),
+			CreateTime: types.NanoTS(1608551340000000000),
+			SortTime:   1608551340003100000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1156,18 +1672,22 @@ func initTest11() {
 						Big5:   []byte("\xac_\xa5\xc1\xbd\xd5\xc4\xb9\xa4~\xacO\xa9_\xc2\xdd\xa1A\xc2\xc5\xba\xf1\xac~\xa5L\xac~\xa6\xa8\xb3o\xbc\xcb\xad\xfe\xa6\xb3\xa5i\xaf\xe0\xb0\xaaXD      "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xac_\xa5\xc1\xbd\xd5\xc4\xb9\xa4~\xacO\xa9_\xc2\xdd\xa1A\xc2\xc5\xba\xf1\xac~\xa5L\xac~\xa6\xa8\xb3o\xbc\xcb\xad\xfe\xa6\xb3\xa5i\xaf\xe0\xb0\xaaXD      "),
 					},
 				},
 			},
-			MD5: "xENP4FFXDXO6amoUcs038g",
+			MD5:     "xENP4FFXDXO6amoUcs038g",
+			TheDate: "12/21 19:49",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mchenchuhao\x1b[0;33m: \xac_\xa5\xc1\xbd\xd5\xc4\xb9\xa4~\xacO\xa9_\xc2\xdd\xa1A\xc2\xc5\xba\xf1\xac~\xa5L\xac~\xa6\xa8\xb3o\xbc\xcb\xad\xfe\xa6\xb3\xa5i\xaf\xe0\xb0\xaaXD      \x1b[37m12/21 19:49\r"),
 		},
 		{ //21 (22)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhGy38wQA:bd8rQDmuhL0uon7EKO37YA"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK469fsR6A:bd8rQDmuhL0uon7EKO37YA"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("b777787"),
-			CreateTime: types.NanoTS(1261396140004000000),
+			CreateTime: types.NanoTS(1608551340000000000),
+			SortTime:   1608551340004100000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1175,18 +1695,22 @@ func initTest11() {
 						Big5:   []byte("\xac_\xafb\xae\xf0\xa8\xec\xb5o\xa7\xdd                                           "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xac_\xafb\xae\xf0\xa8\xec\xb5o\xa7\xdd                                           "),
 					},
 				},
 			},
-			MD5: "bd8rQDmuhL0uon7EKO37YA",
+			MD5:     "bd8rQDmuhL0uon7EKO37YA",
+			TheDate: "12/21 19:49",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mb777787\x1b[0;33m: \xac_\xafb\xae\xf0\xa8\xec\xb5o\xa7\xdd                                           \x1b[37m12/21 19:49\r"),
 		},
 		{ //22 (23)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhGy4MA0A:fTnc-D1T2UogLI79V7-gVQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK469f7ieA:fTnc-D1T2UogLI79V7-gVQ"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("qweertyui891"),
-			CreateTime: types.NanoTS(1261396140005000000),
+			CreateTime: types.NanoTS(1608551340000000000),
+			SortTime:   1608551340005100000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1194,18 +1718,22 @@ func initTest11() {
 						Big5:   []byte("\xc3\xd2\xa9\xfa\xa4\xcf\xa4\xa3\xa4\xcf\xb5\xdc\xbd\xde\xb8\xf2\xa5\xc1\xbd\xd5\xb5L\xc3\xf6                          "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xc3\xd2\xa9\xfa\xa4\xcf\xa4\xa3\xa4\xcf\xb5\xdc\xbd\xde\xb8\xf2\xa5\xc1\xbd\xd5\xb5L\xc3\xf6                          "),
 					},
 				},
 			},
-			MD5: "fTnc-D1T2UogLI79V7-gVQ",
+			MD5:     "fTnc-D1T2UogLI79V7-gVQ",
+			TheDate: "12/21 19:49",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mqweertyui891\x1b[0;33m: \xc3\xd2\xa9\xfa\xa4\xcf\xa4\xa3\xa4\xcf\xb5\xdc\xbd\xde\xb8\xf2\xa5\xc1\xbd\xd5\xb5L\xc3\xf6                          \x1b[37m12/21 19:49\r"),
 		},
 		{ //23 (24)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhKSYHEAA:6o0zsr2Rmw_IyWb5gI4hzw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4-c_1EAA:6o0zsr2Rmw_IyWb5gI4hzw"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("indium111"),
-			CreateTime: types.NanoTS(1261396200000000000),
+			CreateTime: types.NanoTS(1608551400000000000),
+			SortTime:   1608551400000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1213,18 +1741,22 @@ func initTest11() {
 						Big5:   []byte("TVBS\xb0\xbe\xc2\xc5\xa1A\xb5\xb9\xba\xf1\xc0\xe7\xbf\xa4\xa5\xab\xaa\xf8\xaa\xba\xbc\xc6\xa6r\xa5\xbb\xa8\xd3\xb4N\xb0\xbe\xa7C\xa4F             "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("TVBS\xb0\xbe\xc2\xc5\xa1A\xb5\xb9\xba\xf1\xc0\xe7\xbf\xa4\xa5\xab\xaa\xf8\xaa\xba\xbc\xc6\xa6r\xa5\xbb\xa8\xd3\xb4N\xb0\xbe\xa7C\xa4F             "),
 					},
 				},
 			},
-			MD5: "6o0zsr2Rmw_IyWb5gI4hzw",
+			MD5:     "6o0zsr2Rmw_IyWb5gI4hzw",
+			TheDate: "12/21 19:50",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mindium111\x1b[0;33m: TVBS\xb0\xbe\xc2\xc5\xa1A\xb5\xb9\xba\xf1\xc0\xe7\xbf\xa4\xa5\xab\xaa\xf8\xaa\xba\xbc\xc6\xa6r\xa5\xbb\xa8\xd3\xb4N\xb0\xbe\xa7C\xa4F             \x1b[37m12/21 19:50\r"),
 		},
 		{ //24 (25)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhKSYWUkA:HfV9utwJvAm5UlC8hCMCAQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4-dAEUkA:HfV9utwJvAm5UlC8hCMCAQ"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("chenchuhao"),
-			CreateTime: types.NanoTS(1261396200001000000),
+			CreateTime: types.NanoTS(1608551400000000000),
+			SortTime:   1608551400001000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1232,18 +1764,22 @@ func initTest11() {
 						Big5:   []byte("\xa4\xa3\xb9L\xa6\xe8\xa5\xca\xad\xf5\xb3o\xbb\xf2\xb0\xaa\xafu\xaa\xba\xc6Z\xa5i\xaf\xba\xaa\xba...                     "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4\xa3\xb9L\xa6\xe8\xa5\xca\xad\xf5\xb3o\xbb\xf2\xb0\xaa\xafu\xaa\xba\xc6Z\xa5i\xaf\xba\xaa\xba...                     "),
 					},
 				},
 			},
-			MD5: "HfV9utwJvAm5UlC8hCMCAQ",
+			MD5:     "HfV9utwJvAm5UlC8hCMCAQ",
+			TheDate: "12/21 19:50",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mchenchuhao\x1b[0;33m: \xa4\xa3\xb9L\xa6\xe8\xa5\xca\xad\xf5\xb3o\xbb\xf2\xb0\xaa\xafu\xaa\xba\xc6Z\xa5i\xaf\xba\xaa\xba...                     \x1b[37m12/21 19:50\r"),
 		},
 		{ //25 (26)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhKSYllIA:VoAV787V5UmqE3rWfjP6zQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4-dATlIA:VoAV787V5UmqE3rWfjP6zQ"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("Aidrux"),
-			CreateTime: types.NanoTS(1261396200002000000),
+			CreateTime: types.NanoTS(1608551400000000000),
+			SortTime:   1608551400002000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1251,18 +1787,22 @@ func initTest11() {
 						Big5:   []byte("\xa6n\xa4F\xb0\xd5\xac_\xaf\xbb \xa5h\xa7\xe4\xa4p\xb3\xd3\xa4\xe5\xa8\xfa\xb7x\xb0\xd5                             "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa6n\xa4F\xb0\xd5\xac_\xaf\xbb \xa5h\xa7\xe4\xa4p\xb3\xd3\xa4\xe5\xa8\xfa\xb7x\xb0\xd5                             "),
 					},
 				},
 			},
-			MD5: "VoAV787V5UmqE3rWfjP6zQ",
+			MD5:     "VoAV787V5UmqE3rWfjP6zQ",
+			TheDate: "12/21 19:50",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mAidrux\x1b[0;33m: \xa6n\xa4F\xb0\xd5\xac_\xaf\xbb \xa5h\xa7\xe4\xa4p\xb3\xd3\xa4\xe5\xa8\xfa\xb7x\xb0\xd5                             \x1b[37m12/21 19:50\r"),
 		},
 		{ //26 (27)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhKSY01sA:BK_DZPCFozgILSlXLXydfw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4-dAi1sA:BK_DZPCFozgILSlXLXydfw"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("andy3580"),
-			CreateTime: types.NanoTS(1261396200003000000),
+			CreateTime: types.NanoTS(1608551400000000000),
+			SortTime:   1608551400003000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1270,18 +1810,22 @@ func initTest11() {
 						Big5:   []byte("\xb2{\xb9\xea\xb4N\xacO4% \xa5i\xbc\xa6                                       "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb2{\xb9\xea\xb4N\xacO4% \xa5i\xbc\xa6                                       "),
 					},
 				},
 			},
-			MD5: "BK_DZPCFozgILSlXLXydfw",
+			MD5:     "BK_DZPCFozgILSlXLXydfw",
+			TheDate: "12/21 19:50",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mandy3580\x1b[0;33m: \xb2{\xb9\xea\xb4N\xacO4% \xa5i\xbc\xa6                                       \x1b[37m12/21 19:50\r"),
 		},
 		{ //27 (28)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhKSZEGQA:ETDoEPI4tu7gydfdU0VXDw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4-dAyGQA:ETDoEPI4tu7gydfdU0VXDw"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("foolfighter"),
-			CreateTime: types.NanoTS(1261396200004000000),
+			CreateTime: types.NanoTS(1608551400000000000),
+			SortTime:   1608551400004000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1289,18 +1833,22 @@ func initTest11() {
 						Big5:   []byte("\xabn\xb3\xa1\xac_\xc1T\xbe\xe3\xa4\xd1\xa4\xdb\xb7Q\xaa\xfc\xa5_\xa6n\xb4\xceXDDD                       "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xabn\xb3\xa1\xac_\xc1T\xbe\xe3\xa4\xd1\xa4\xdb\xb7Q\xaa\xfc\xa5_\xa6n\xb4\xceXDDD                       "),
 					},
 				},
 			},
-			MD5: "ETDoEPI4tu7gydfdU0VXDw",
+			MD5:     "ETDoEPI4tu7gydfdU0VXDw",
+			TheDate: "12/21 19:50",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mfoolfighter\x1b[0;33m: \xabn\xb3\xa1\xac_\xc1T\xbe\xe3\xa4\xd1\xa4\xdb\xb7Q\xaa\xfc\xa5_\xa6n\xb4\xceXDDD                       \x1b[37m12/21 19:50\r"),
 		},
 		{ //28 (29)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhKSZTW0A:q024J-pzNIzR1CJv2v614w"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK4-dBBW0A:q024J-pzNIzR1CJv2v614w"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("berkeley5566"),
-			CreateTime: types.NanoTS(1261396200005000000),
+			CreateTime: types.NanoTS(1608551400000000000),
+			SortTime:   1608551400005000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1308,18 +1856,22 @@ func initTest11() {
 						Big5:   []byte("\xbbO\xabn\xa4H\xafu\xa6n                                        "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xbbO\xabn\xa4H\xafu\xa6n                                        "),
 					},
 				},
 			},
-			MD5: "q024J-pzNIzR1CJv2v614w",
+			MD5:     "q024J-pzNIzR1CJv2v614w",
+			TheDate: "12/21 19:50",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mberkeley5566\x1b[0;33m: \xbbO\xabn\xa4H\xafu\xa6n                                        \x1b[37m12/21 19:50\r"),
 		},
 		{ //29 (30)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhNx5OaAA:mwnGopEbEQjAB0QDa03HwA"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5B8g8aAA:mwnGopEbEQjAB0QDa03HwA"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("indium111"),
-			CreateTime: types.NanoTS(1261396260000000000),
+			CreateTime: types.NanoTS(1608551460000000000),
+			SortTime:   1608551460000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1327,18 +1879,22 @@ func initTest11() {
 						Big5:   []byte("\xa6\xd2\xbc{\xa8\xec\xbe\xf7\xbac\xae\xc4\xc0\xb3\xa1A\xbeG\xb6\xc0\xb3\xaf\xa4T\xa4H\xaa\xba\xa5\xc1\xbd\xd5\xbc\xc6\xa6r\xc0\xb3\xb8\xd3\xb7|\xa7\xf3\xb0\xaa       "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa6\xd2\xbc{\xa8\xec\xbe\xf7\xbac\xae\xc4\xc0\xb3\xa1A\xbeG\xb6\xc0\xb3\xaf\xa4T\xa4H\xaa\xba\xa5\xc1\xbd\xd5\xbc\xc6\xa6r\xc0\xb3\xb8\xd3\xb7|\xa7\xf3\xb0\xaa       "),
 					},
 				},
 			},
-			MD5: "mwnGopEbEQjAB0QDa03HwA",
+			MD5:     "mwnGopEbEQjAB0QDa03HwA",
+			TheDate: "12/21 19:51",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mindium111\x1b[0;33m: \xa6\xd2\xbc{\xa8\xec\xbe\xf7\xbac\xae\xc4\xc0\xb3\xa1A\xbeG\xb6\xc0\xb3\xaf\xa4T\xa4H\xaa\xba\xa5\xc1\xbd\xd5\xbc\xc6\xa6r\xc0\xb3\xb8\xd3\xb7|\xa7\xf3\xb0\xaa       \x1b[37m12/21 19:51\r"),
 		},
 		{ //30 (31)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhNx5dqkA:8S9fqyPjGvWH-uASU8-dgw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5B8hLqkA:8S9fqyPjGvWH-uASU8-dgw"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("johnwu"),
-			CreateTime: types.NanoTS(1261396260001000000),
+			CreateTime: types.NanoTS(1608551460000000000),
+			SortTime:   1608551460001000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1346,18 +1902,22 @@ func initTest11() {
 						Big5:   []byte("\xa5x\xa5_\xa5\xab\xaa\xf8\xa4\xa3\xacO\xb6\xc033\xb6\xdc? \xac_\xa7\xbe\xbd\xd6\xb0\xda?                           "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa5x\xa5_\xa5\xab\xaa\xf8\xa4\xa3\xacO\xb6\xc033\xb6\xdc? \xac_\xa7\xbe\xbd\xd6\xb0\xda?                           "),
 					},
 				},
 			},
-			MD5: "8S9fqyPjGvWH-uASU8-dgw",
+			MD5:     "8S9fqyPjGvWH-uASU8-dgw",
+			TheDate: "12/21 19:51",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mjohnwu\x1b[0;33m: \xa5x\xa5_\xa5\xab\xaa\xf8\xa4\xa3\xacO\xb6\xc033\xb6\xdc? \xac_\xa7\xbe\xbd\xd6\xb0\xda?                           \x1b[37m12/21 19:51\r"),
 		},
 		{ //31 (32)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhNx5s7IA:cyCktxdV8xZ76mWofGMjaQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5B8ha7IA:cyCktxdV8xZ76mWofGMjaQ"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("KEYSOLIDER"),
-			CreateTime: types.NanoTS(1261396260002000000),
+			CreateTime: types.NanoTS(1608551460000000000),
+			SortTime:   1608551460002000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1365,18 +1925,22 @@ func initTest11() {
 						Big5:   []byte("\xc0\xb3\xb8\xd3\xacO\xc1\xda\xa5\xa2\xa8\xa5\xa6\xb8\xbc\xc6\xa4\xa3\xba\xe2\xa6h \xa4\xa3\xb5M\xbd}\xa7K\xc1\xfa\xc1`\xa6\xa8\xa5\\\xa4~\xb9L\xb4X\xad\xd3\xa4\xeb   "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xc0\xb3\xb8\xd3\xacO\xc1\xda\xa5\xa2\xa8\xa5\xa6\xb8\xbc\xc6\xa4\xa3\xba\xe2\xa6h \xa4\xa3\xb5M\xbd}\xa7K\xc1\xfa\xc1`\xa6\xa8\xa5\\\xa4~\xb9L\xb4X\xad\xd3\xa4\xeb   "),
 					},
 				},
 			},
-			MD5: "cyCktxdV8xZ76mWofGMjaQ",
+			MD5:     "cyCktxdV8xZ76mWofGMjaQ",
+			TheDate: "12/21 19:51",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mKEYSOLIDER\x1b[0;33m: \xc0\xb3\xb8\xd3\xacO\xc1\xda\xa5\xa2\xa8\xa5\xa6\xb8\xbc\xc6\xa4\xa3\xba\xe2\xa6h \xa4\xa3\xb5M\xbd}\xa7K\xc1\xfa\xc1`\xa6\xa8\xa5\\\xa4~\xb9L\xb4X\xad\xd3\xa4\xeb   \x1b[37m12/21 19:51\r"),
 		},
 		{ //32 (33)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhNx58LsA:FpLsrv8smx-gy5lkG4S7fg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5B8hqLsA:FpLsrv8smx-gy5lkG4S7fg"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("KEYSOLIDER"),
-			CreateTime: types.NanoTS(1261396260003000000),
+			CreateTime: types.NanoTS(1608551460000000000),
+			SortTime:   1608551460003000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1384,18 +1948,22 @@ func initTest11() {
 						Big5:   []byte("\xc1\xfa\xaf\xbb\xa4@\xa9w\xb6W\xab\xeb                                       "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xc1\xfa\xaf\xbb\xa4@\xa9w\xb6W\xab\xeb                                       "),
 					},
 				},
 			},
-			MD5: "FpLsrv8smx-gy5lkG4S7fg",
+			MD5:     "FpLsrv8smx-gy5lkG4S7fg",
+			TheDate: "12/21 19:51",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mKEYSOLIDER\x1b[0;33m:  \xc1\xfa\xaf\xbb\xa4@\xa9w\xb6W\xab\xeb                                       \x1b[37m12/21 19:51\r"),
 		},
 		{ //33 (34)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhNx6LcQA:q6fRVVC5SPnnsEHByC7p4w"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5B8h5cQA:q6fRVVC5SPnnsEHByC7p4w"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("azeroth"),
-			CreateTime: types.NanoTS(1261396260004000000),
+			CreateTime: types.NanoTS(1608551460000000000),
+			SortTime:   1608551460004000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1403,18 +1971,22 @@ func initTest11() {
 						Big5:   []byte("\xc4l\xb4\xed\xa5\xab\xa5\xc1\xafu\xaa\xba\xab\xdc\xa5\xfa\xbaaXDDDDD                               "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xc4l\xb4\xed\xa5\xab\xa5\xc1\xafu\xaa\xba\xab\xdc\xa5\xfa\xbaaXDDDDD                               "),
 					},
 				},
 			},
-			MD5: "q6fRVVC5SPnnsEHByC7p4w",
+			MD5:     "q6fRVVC5SPnnsEHByC7p4w",
+			TheDate: "12/21 19:51",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mazeroth\x1b[0;33m: \xc4l\xb4\xed\xa5\xab\xa5\xc1\xafu\xaa\xba\xab\xdc\xa5\xfa\xbaaXDDDDD                               \x1b[37m12/21 19:51\r"),
 		},
 		{ //34 (35)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhNx6as0A:11qiZDDyJEkFN_lFleo5Dw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5B8iIs0A:11qiZDDyJEkFN_lFleo5Dw"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("newstarisme"),
-			CreateTime: types.NanoTS(1261396260005000000),
+			CreateTime: types.NanoTS(1608551460000000000),
+			SortTime:   1608551460005000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1422,18 +1994,22 @@ func initTest11() {
 						Big5:   []byte("\xb3o\xa7\xda\xabH                                            "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb3o\xa7\xda\xabH                                            "),
 					},
 				},
 			},
-			MD5: "11qiZDDyJEkFN_lFleo5Dw",
+			MD5:     "11qiZDDyJEkFN_lFleo5Dw",
+			TheDate: "12/21 19:51",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mnewstarisme\x1b[0;33m: \xb3o\xa7\xda\xabH                                            \x1b[37m 12/21 19:51\r"),
 		},
 		{ //35 (36)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhNx6p9YA:FzLbMSDglY8_K-jw2HeUOg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5B8iX9YA:FzLbMSDglY8_K-jw2HeUOg"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("whitecow"),
-			CreateTime: types.NanoTS(1261396260006000000),
+			CreateTime: types.NanoTS(1608551460000000000),
+			SortTime:   1608551460006000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1441,18 +2017,22 @@ func initTest11() {
 						Big5:   []byte("\xbfc\xa4]\xaf\xe0\xb2\xc4\xa5|..\xc4\xea\xb3z                                     "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xbfc\xa4]\xaf\xe0\xb2\xc4\xa5|..\xc4\xea\xb3z                                     "),
 					},
 				},
 			},
-			MD5: "FzLbMSDglY8_K-jw2HeUOg",
+			MD5:     "FzLbMSDglY8_K-jw2HeUOg",
+			TheDate: "12/21 19:51",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mwhitecow\x1b[0;33m: \xbfc\xa4]\xaf\xe0\xb2\xc4\xa5|..\xc4\xea\xb3z                                     \x1b[37m 12/21 19:51\r"),
 		},
 		{ //36 (37)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhRRaVwAA:JqSIETfjIWvw1-sQoJGJVg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5FcCDwAA:JqSIETfjIWvw1-sQoJGJVg"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("indium111"),
-			CreateTime: types.NanoTS(1261396320000000000),
+			CreateTime: types.NanoTS(1608551520000000000),
+			SortTime:   1608551520000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1460,18 +2040,39 @@ func initTest11() {
 						Big5:   []byte("\xa4T\xa5\xdf\xb0\xb5\xa5\xc1\xbd\xd5\xa6p\xaaG\xbfc\xa5u\xa6\xb340%\xa1A\xa7\xda\xac\xdb\xabH\xc2\xc5\xaf\xbb\xa4]\xb7|\xb3\xdb\xbe\xf7\xbac\xae\xc4\xc0\xb3\xaa\xba  "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4T\xa5\xdf\xb0\xb5\xa5\xc1\xbd\xd5\xa6p\xaaG\xbfc\xa5u\xa6\xb340%\xa1A\xa7\xda\xac\xdb\xabH\xc2\xc5\xaf\xbb\xa4]\xb7|\xb3\xdb\xbe\xf7\xbac\xae\xc4\xc0\xb3\xaa\xba  "),
 					},
 				},
 			},
-			MD5: "JqSIETfjIWvw1-sQoJGJVg",
+			MD5:     "JqSIETfjIWvw1-sQoJGJVg",
+			TheDate: "12/21 19:52",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mindium111\x1b[0;33m: \xa4T\xa5\xdf\xb0\xb5\xa5\xc1\xbd\xd5\xa6p\xaaG\xbfc\xa5u\xa6\xb340%\xa1A\xa7\xda\xac\xdb\xabH\xc2\xc5\xaf\xbb\xa4]\xb7|\xb3\xdb\xbe\xf7\xbac\xae\xc4\xc0\xb3\xaa\xba  \x1b[37m12/21 19:52\r"),
 		},
-		{ //37 (39)
+		{ //37 (38)
+			BBoardID:  bbs.BBoardID("test"),
+			ArticleID: bbs.ArticleID("test11"),
+			TheType:   types.COMMENT_TYPE_EDIT,
+			Owner:     bbs.UUserID("cheinshin"),
+			Content:   nil,
+			MD5:       "ifWDyeuSbUBW6XDNV_FUVg",
+			TheDate:   "12/21/2020 19:52:54",
+			IP:        "49.216.65.39",
+			Host:      "臺灣",
+			DBCS:      []byte("\xa1\xb0 \xbds\xbf\xe8: cheinshin (49.216.65.39 \xbbO\xc6W), 12/21/2020 19:52:54\r"),
+
+			CreateTime:         1608551574000000000,
+			InferredCreateTime: 1608551574000000000,
+			SortTime:           1608551574000000000,
+			CommentID:          "FlK5IlMqXAA:ifWDyeuSbUBW6XDNV_FUVg",
+		},
+		{ //38 (39)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhRRalAkA:VotHH7dDQucqxEj2FOC0ig"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5IlM5nkA:VotHH7dDQucqxEj2FOC0ig"),
 			TheType:    types.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("d86506"),
-			CreateTime: types.NanoTS(1261396320001000000),
+			CreateTime: types.NanoTS(1608551520000000000),
+			SortTime:   1608551574001000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1479,18 +2080,22 @@ func initTest11() {
 						Big5:   []byte("\xb3\xaf\xa4\xf4\xab\xf3\xacO\xa5\xc1\xbd\xd5\xb2\xc4\xa4@\xa6\xfd\xb3s\xa5\xf4\xbf\xef\xbf\xe9\xa4~\xa6\xb3\xbf\xef\xc1`\xb2\xce\xaa\xba\xb8\xea\xae\xe6\xa1A\xa4\xa3\xaa\xbe\xb9D\xac_\xb3s "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb3\xaf\xa4\xf4\xab\xf3\xacO\xa5\xc1\xbd\xd5\xb2\xc4\xa4@\xa6\xfd\xb3s\xa5\xf4\xbf\xef\xbf\xe9\xa4~\xa6\xb3\xbf\xef\xc1`\xb2\xce\xaa\xba\xb8\xea\xae\xe6\xa1A\xa4\xa3\xaa\xbe\xb9D\xac_\xb3s "),
 					},
 				},
 			},
-			MD5: "VotHH7dDQucqxEj2FOC0ig",
+			MD5:     "VotHH7dDQucqxEj2FOC0ig",
+			TheDate: "12/21 19:52",
+			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33md86506\x1b[0;33m: \xb3\xaf\xa4\xf4\xab\xf3\xacO\xa5\xc1\xbd\xd5\xb2\xc4\xa4@\xa6\xfd\xb3s\xa5\xf4\xbf\xef\xbf\xe9\xa4~\xa6\xb3\xbf\xef\xc1`\xb2\xce\xaa\xba\xb8\xea\xae\xe6\xa1A\xa4\xa3\xaa\xbe\xb9D\xac_\xb3s \x1b[37m 12/21 19:52\r"),
 		},
-		{ //38 (40)
+		{ //39 (40)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhRRa0RIA:9hKRfrW5maV-p0kyiZaoQg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5IlNI4IA:9hKRfrW5maV-p0kyiZaoQg"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("d86506"),
-			CreateTime: types.NanoTS(1261396320002000000),
+			CreateTime: types.NanoTS(1608551520000000000),
+			SortTime:   1608551574002000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1498,18 +2103,22 @@ func initTest11() {
 						Big5:   []byte("\xa5\xf4\xbf\xef\xc4\xb9\xa1A\xa6\xfd\xa5\xc1\xbd\xd5\xa6Q\xa8\xae\xa7\xc0\xa1A\xa6\xb3\xa8S\xa6\xb3\xb8\xea\xae\xe6\xbf\xef\xc1`\xb2\xce\xa1H                "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa5\xf4\xbf\xef\xc4\xb9\xa1A\xa6\xfd\xa5\xc1\xbd\xd5\xa6Q\xa8\xae\xa7\xc0\xa1A\xa6\xb3\xa8S\xa6\xb3\xb8\xea\xae\xe6\xbf\xef\xc1`\xb2\xce\xa1H                "),
 					},
 				},
 			},
-			MD5: "9hKRfrW5maV-p0kyiZaoQg",
+			MD5:     "9hKRfrW5maV-p0kyiZaoQg",
+			TheDate: "12/21 19:52",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33md86506\x1b[0;33m: \xa5\xf4\xbf\xef\xc4\xb9\xa1A\xa6\xfd\xa5\xc1\xbd\xd5\xa6Q\xa8\xae\xa7\xc0\xa1A\xa6\xb3\xa8S\xa6\xb3\xb8\xea\xae\xe6\xbf\xef\xc1`\xb2\xce\xa1H                \x1b[37m12/21 19:52\r"),
 		},
-		{ //39 (41)
+		{ //40 (41)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhRRbDhsA:48BL2Dd9HWBE0KFyTkx3iQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5IlNYIsA:48BL2Dd9HWBE0KFyTkx3iQ"),
 			TheType:    types.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("BlackBass"),
-			CreateTime: types.NanoTS(1261396320003000000),
+			CreateTime: types.NanoTS(1608551520000000000),
+			SortTime:   1608551574003000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1517,18 +2126,22 @@ func initTest11() {
 						Big5:   []byte("TVB\xaa\xaf\xab\xcb                                              "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("TVB\xaa\xaf\xab\xcb                                              "),
 					},
 				},
 			},
-			MD5: "48BL2Dd9HWBE0KFyTkx3iQ",
+			MD5:     "48BL2Dd9HWBE0KFyTkx3iQ",
+			TheDate: "12/21 19:52",
+			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mBlackBass\x1b[0;33m: TVB\xaa\xaf\xab\xcb                                              \x1b[37m12/21 19:52\r"),
 		},
-		{ //40 (42)
+		{ //41 (42)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5I7jLGAA:yBPgyUXJMLN6p6EYeODktQ"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("EraKing"),
-			CreateTime: types.NanoTS(1261396380000000000),
+			CreateTime: types.NanoTS(1608551580000000000),
+			SortTime:   1608551580000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1536,19 +2149,22 @@ func initTest11() {
 						Big5:   []byte("\xa5x\xabn\xb0\xaa\xb6\xaf\xa8\xe2\xad\xd3\xb3o\xbc\xcb\xaa\xba\xba\xa1\xb7N\xab\xd7\xae\xda\xa5\xbb\xb6W\xc4\xea                      "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa5x\xabn\xb0\xaa\xb6\xaf\xa8\xe2\xad\xd3\xb3o\xbc\xcb\xaa\xba\xba\xa1\xb7N\xab\xd7\xae\xda\xa5\xbb\xb6W\xc4\xea                      "),
 					},
 				},
 			},
-			MD5: "yBPgyUXJMLN6p6EYeODktQ",
+			MD5:     "yBPgyUXJMLN6p6EYeODktQ",
+			TheDate: "12/21 19:53",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mEraKing\x1b[0;33m: \xa5x\xabn\xb0\xaa\xb6\xaf\xa8\xe2\xad\xd3\xb3o\xbc\xcb\xaa\xba\xba\xa1\xb7N\xab\xd7\xae\xda\xa5\xbb\xb6W\xc4\xea                      \x1b[37m 12/21 19:53\r"),
 		},
-		{ //41 (43)
+		{ //42 (43)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ:R"),
-			RefIDs:     []types.CommentID{"EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ"},
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  "FlK5I7jMnqA:x2xXuH2bvsoQ_2wOzdcr6A",
 			TheType:    types.COMMENT_TYPE_REPLY,
 			Owner:      bbs.UUserID("cheinshin"),
-			CreateTime: types.NanoTS(1261396380000100000),
+			CreateTime: types.NanoTS(1608551702000000000),
+			SortTime:   1608551580000100000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1556,21 +2172,25 @@ func initTest11() {
 						Big5:   []byte("\xb6\xc0\xa6b\xbb\xb7\xa8\xa3\xa6\xb378 \xa5\xad\xa7\xa1\xa4@\xa4U \xa4j\xac\xf968\xb3\xe1"),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb6\xc0\xa6b\xbb\xb7\xa8\xa3\xa6\xb378 \xa5\xad\xa7\xa1\xa4@\xa4U \xa4j\xac\xf968\xb3\xe1"),
 					},
 				},
 			},
 			IP:         "49.216.65.39",
 			Host:       "臺灣",
-			MD5:        "m4zgWiP6HQDKfLxk-6bAhw",
-			EditNanoTS: types.NanoTS(1608551574000000000),
+			MD5:        "x2xXuH2bvsoQ_2wOzdcr6A",
+			EditNanoTS: types.NanoTS(1608551702000000000),
+			TheDate:    "12/21/2020 19:55:02",
+			DBCS:       []byte("\r\n\xb6\xc0\xa6b\xbb\xb7\xa8\xa3\xa6\xb378 \xa5\xad\xa7\xa1\xa4@\xa4U \xa4j\xac\xf968\xb3\xe1\r"),
 		},
-		{ //42 (45)
+		{ //43 (45)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhUw7sWkA:3z12a9ih3kgrtdLxUACH1Q"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5I7jb4OA:3z12a9ih3kgrtdLxUACH1Q"),
 			TheType:    types.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("lakeisland"),
-			CreateTime: types.NanoTS(1261396380001000000),
+			CreateTime: types.NanoTS(1608551580000000000),
+			SortTime:   1608551580001100000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1578,18 +2198,22 @@ func initTest11() {
 						Big5:   []byte("\xa9U\xa7\xa3\xba\xf1\xb4C\xb0\xb2\xa5\xc1\xbd\xd5                                     "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa9U\xa7\xa3\xba\xf1\xb4C\xb0\xb2\xa5\xc1\xbd\xd5                                     "),
 					},
 				},
 			},
-			MD5: "3z12a9ih3kgrtdLxUACH1Q",
+			MD5:     "3z12a9ih3kgrtdLxUACH1Q",
+			TheDate: "12/21 19:53",
+			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mlakeisland\x1b[0;33m: \xa9U\xa7\xa3\xba\xf1\xb4C\xb0\xb2\xa5\xc1\xbd\xd5                                     \x1b[37m 12/21 19:53\r"),
 		},
-		{ //43 (46)
+		{ //44 (46)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhUw77nIA:smfcjOjPJVDSyoTWjyENnw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5MbEScAA:smfcjOjPJVDSyoTWjyENnw"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("KEYSOLIDER"),
-			CreateTime: types.NanoTS(1261396380002000000),
+			CreateTime: types.NanoTS(1608551640000000000),
+			SortTime:   1608551640000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1597,18 +2221,40 @@ func initTest11() {
 						Big5:   []byte("\xa4K\xa8\xf6\xbc\xf6\xa9I\xa9I \xa5\xc1\xbd\xd5\xa7N\xa6B\xa6B                              "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4K\xa8\xf6\xbc\xf6\xa9I\xa9I \xa5\xc1\xbd\xd5\xa7N\xa6B\xa6B                              "),
 					},
 				},
 			},
-			MD5: "smfcjOjPJVDSyoTWjyENnw",
+			MD5:     "smfcjOjPJVDSyoTWjyENnw",
+			TheDate: "12/21 19:54",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mKEYSOLIDER\x1b[0;33m: \xa4K\xa8\xf6\xbc\xf6\xa9I\xa9I \xa5\xc1\xbd\xd5\xa7N\xa6B\xa6B                              \x1b[37m 12/21 19:54\x1b[m\x1b[m\r"),
 		},
-		{ //44 (48)
+		{ //45 (47)
+			BBoardID:  bbs.BBoardID("test"),
+			ArticleID: bbs.ArticleID("test11"),
+			TheType:   types.COMMENT_TYPE_EDIT,
+			Owner:     bbs.UUserID("cheinshin"),
+			Content:   nil,
+			MD5:       "mYEXHou7QvmhJIJlvIFEAw",
+			TheDate:   "12/21/2020 19:55:02",
+			IP:        "49.216.65.39",
+			Host:      "臺灣",
+			DBCS:      []byte("\xa1\xb0 \xbds\xbf\xe8: cheinshin (49.216.65.39 \xbbO\xc6W), 12/21/2020 19:55:02\r"),
+
+			CreateTime:         1608551702000000000,
+			InferredCreateTime: 1608551702000000000,
+			SortTime:           1608551702000000000,
+
+			CommentID: "FlK5QCCPXAA:mYEXHou7QvmhJIJlvIFEAw",
+		},
+		{ //46 (48)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhYQckcAA:qjTVjQQ7Vy7K3EJTNXro_w"),
+			ArticleID:  bbs.ArticleID("test11"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("indium111"),
-			CreateTime: types.NanoTS(1261396440000000000),
+			CommentID:  "FlK5QCCenkA:qjTVjQQ7Vy7K3EJTNXro_w",
+			CreateTime: types.NanoTS(1608551640000000000),
+			SortTime:   1608551702001000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1616,18 +2262,22 @@ func initTest11() {
 						Big5:   []byte("TVBS\xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xc5\xdc\xa6\xa8\xba\xf1\xb4C\xa4FXD                            "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("TVBS\xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xc5\xdc\xa6\xa8\xba\xf1\xb4C\xa4FXD                            "),
 					},
 				},
 			},
-			MD5: "qjTVjQQ7Vy7K3EJTNXro_w",
+			MD5:     "qjTVjQQ7Vy7K3EJTNXro_w",
+			TheDate: "12/21 19:54",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mindium111\x1b[m\x1b[33m: TVBS\xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xc5\xdc\xa6\xa8\xba\xf1\xb4C\xa4FXD                            \x1b[m 12/21 19:54\r"),
 		},
-		{ //45 (49)
+		{ //47 (49)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhYQczskA:r7TpBHcfWBjUjeMypcTUIA"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5QCCt4IA:r7TpBHcfWBjUjeMypcTUIA"),
 			TheType:    types.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("bibiwei"),
-			CreateTime: types.NanoTS(1261396440001000000),
+			CreateTime: types.NanoTS(1608551640000000000),
+			SortTime:   1608551702002000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1635,18 +2285,22 @@ func initTest11() {
 						Big5:   []byte("\xa4\xb5\xa6~\xa4~\xb8\xc9\xbf\xef\xa4W\xaa\xba\xb0\xd5,\xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xa5h\xa6~\xb8\xc9\xbf\xef\xa4W\xa4F?                "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4\xb5\xa6~\xa4~\xb8\xc9\xbf\xef\xa4W\xaa\xba\xb0\xd5,\xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xa5h\xa6~\xb8\xc9\xbf\xef\xa4W\xa4F?                "),
 					},
 				},
 			},
-			MD5: "r7TpBHcfWBjUjeMypcTUIA",
+			MD5:     "r7TpBHcfWBjUjeMypcTUIA",
+			TheDate: "12/21 19:54",
+			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mbibiwei\x1b[m\x1b[33m: \xa4\xb5\xa6~\xa4~\xb8\xc9\xbf\xef\xa4W\xaa\xba\xb0\xd5,\xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xa5h\xa6~\xb8\xc9\xbf\xef\xa4W\xa4F?                \x1b[m 12/21 19:54\r"),
 		},
-		{ //46 (50)
+		{ //48 (50)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhYQdC9IA:XwyfHMVLp1uw_UgD5HX_yg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5QCC9IsA:XwyfHMVLp1uw_UgD5HX_yg"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("AndyZer"),
-			CreateTime: types.NanoTS(1261396440002000000),
+			CreateTime: types.NanoTS(1608551640000000000),
+			SortTime:   1608551702003000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1654,18 +2308,22 @@ func initTest11() {
 						Big5:   []byte("\xb0\xaa\xb6\xaf\xa4H\xc4\xb1\xb1o\xa4S\xbf\xef\xbf\xf9\xa4H\xa4F (\xa2\xa3\xa2X\xa1\xbc\xa2X\xa1^\xa2\xa3\xa1_ \xa2r\x9d}\xa2r           "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb0\xaa\xb6\xaf\xa4H\xc4\xb1\xb1o\xa4S\xbf\xef\xbf\xf9\xa4H\xa4F (\xa2\xa3\xa2X\xa1\xbc\xa2X\xa1^\xa2\xa3\xa1_ \xa2r\x9d}\xa2r           "),
 					},
 				},
 			},
-			MD5: "XwyfHMVLp1uw_UgD5HX_yg",
+			MD5:     "XwyfHMVLp1uw_UgD5HX_yg",
+			TheDate: "12/21 19:54",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mAndyZer\x1b[m\x1b[33m: \xb0\xaa\xb6\xaf\xa4H\xc4\xb1\xb1o\xa4S\xbf\xef\xbf\xf9\xa4H\xa4F (\xa2\xa3\xa2X\xa1\xbc\xa2X\xa1^\xa2\xa3\xa1_ \xa2r\x9d}\xa2r           \x1b[m 12/21 19:54\r"),
 		},
-		{ //47 (51)
+		{ //49 (51)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhYQdSNsA:_6wV6MlZUZWb0qIqx5a7tA"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5QCDMZQA:_6wV6MlZUZWb0qIqx5a7tA"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("billybbb"),
-			CreateTime: types.NanoTS(1261396440003000000),
+			CreateTime: types.NanoTS(1608551640000000000),
+			SortTime:   1608551702004000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1673,18 +2331,22 @@ func initTest11() {
 						Big5:   []byte("\xba\xf1\xb4\xbc\xbb\xd9\xad\xcc\xa4\xa3\xacO\xbd|\xbfc\xaf}\xc3a\xbbO\xac\xfc\xc3\xf6\xabY\xb6\xdc\xa1H\xa5i\xbc\xa6\xb3\xe1\xb3Q\xa5\xc1\xbd\xd5\xac~\xc1y     "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xba\xf1\xb4\xbc\xbb\xd9\xad\xcc\xa4\xa3\xacO\xbd|\xbfc\xaf}\xc3a\xbbO\xac\xfc\xc3\xf6\xabY\xb6\xdc\xa1H\xa5i\xbc\xa6\xb3\xe1\xb3Q\xa5\xc1\xbd\xd5\xac~\xc1y     "),
 					},
 				},
 			},
-			MD5: "_6wV6MlZUZWb0qIqx5a7tA",
+			MD5:     "_6wV6MlZUZWb0qIqx5a7tA",
+			TheDate: "12/21 19:54",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mbillybbb\x1b[m\x1b[33m: \xba\xf1\xb4\xbc\xbb\xd9\xad\xcc\xa4\xa3\xacO\xbd|\xbfc\xaf}\xc3a\xbbO\xac\xfc\xc3\xf6\xabY\xb6\xdc\xa1H\xa5i\xbc\xa6\xb3\xe1\xb3Q\xa5\xc1\xbd\xd5\xac~\xc1y     \x1b[m 12/21 19:54\r"),
 		},
-		{ //48 (52)
+		{ //50 (52)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhYQdheQA:a1nbh9m8KYnC0QQevDRyqA"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5QCDbp0A:a1nbh9m8KYnC0QQevDRyqA"),
 			TheType:    types.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("carrey8"),
-			CreateTime: types.NanoTS(1261396440004000000),
+			CreateTime: types.NanoTS(1608551640000000000),
+			SortTime:   1608551702005000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1692,18 +2354,22 @@ func initTest11() {
 						Big5:   []byte("\xb7d\xad\xd3\xc1\xe8\xa4l \xb3s\xa8\xe4\xc1\xda\xb3\xa3\xc4\xb9\xa4\xa3\xa4F?                              "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb7d\xad\xd3\xc1\xe8\xa4l \xb3s\xa8\xe4\xc1\xda\xb3\xa3\xc4\xb9\xa4\xa3\xa4F?                              "),
 					},
 				},
 			},
-			MD5: "a1nbh9m8KYnC0QQevDRyqA",
+			MD5:     "a1nbh9m8KYnC0QQevDRyqA",
+			TheDate: "12/21 19:54",
+			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mcarrey8\x1b[m\x1b[33m: \xb7d\xad\xd3\xc1\xe8\xa4l \xb3s\xa8\xe4\xc1\xda\xb3\xa3\xc4\xb9\xa4\xa3\xa4F?                              \x1b[m 12/21 19:54\r"),
 		},
-		{ //49 (53)
+		{ //51 (53)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhbv9ryAA:u0m4ezxFyxG8CX56gLwr4Q"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5QCDq6YA:u0m4ezxFyxG8CX56gLwr4Q"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("hyde711034"),
-			CreateTime: types.NanoTS(1261396500000000000),
+			CreateTime: types.NanoTS(1608551700000000000),
+			SortTime:   1608551702006000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1711,18 +2377,22 @@ func initTest11() {
 						Big5:   []byte("\xa5x\xabn\xa4H\xa5i\xbc\xa6\xc1\xd9\xb6}\xa4\xdf\xab\xfc\xbc\xc6\xb3\xcc\xb0\xaa                           "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa5x\xabn\xa4H\xa5i\xbc\xa6\xc1\xd9\xb6}\xa4\xdf\xab\xfc\xbc\xc6\xb3\xcc\xb0\xaa                           "),
 					},
 				},
 			},
-			MD5: "u0m4ezxFyxG8CX56gLwr4Q",
+			MD5:     "u0m4ezxFyxG8CX56gLwr4Q",
+			TheDate: "12/21 19:55",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mhyde711034\x1b[m\x1b[33m: \xa5x\xabn\xa4H\xa5i\xbc\xa6\xc1\xd9\xb6}\xa4\xdf\xab\xfc\xbc\xc6\xb3\xcc\xb0\xaa                           \x1b[m 12/21 19:55\r"),
 		},
-		{ //50 (54)
+		{ //52 (54)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhbv97CkA:P0aJ_OzsnWCHCW4E1dszLw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5QCD6K8A:P0aJ_OzsnWCHCW4E1dszLw"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("icelaw"),
-			CreateTime: types.NanoTS(1261396500001000000),
+			CreateTime: types.NanoTS(1608551700000000000),
+			SortTime:   1608551702007000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1730,18 +2400,22 @@ func initTest11() {
 						Big5:   []byte("\xac_\xa6b\xba\xf1\xb4C\xb0\xbe\xa7C \xa5\xbf\xb1`                                      "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xac_\xa6b\xba\xf1\xb4C\xb0\xbe\xa7C \xa5\xbf\xb1`                                      "),
 					},
 				},
 			},
-			MD5: "P0aJ_OzsnWCHCW4E1dszLw",
+			TheDate: "12/21 19:55",
+			MD5:     "P0aJ_OzsnWCHCW4E1dszLw",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33micelaw\x1b[m\x1b[33m: \xac_\xa6b\xba\xf1\xb4C\xb0\xbe\xa7C \xa5\xbf\xb1`                                      \x1b[m 12/21 19:55\r"),
 		},
-		{ //51 (55)
+		{ //53 (55)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhbv-KTIA:lXzclvbNv1xXqIYNFr_6fg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5QCEJbgA:lXzclvbNv1xXqIYNFr_6fg"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("touchbird"),
-			CreateTime: types.NanoTS(1261396500002000000),
+			CreateTime: types.NanoTS(1608551700000000000),
+			SortTime:   1608551702008000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1749,18 +2423,22 @@ func initTest11() {
 						Big5:   []byte("\xaa\xfc\xa5_\xa8S\xa6\xb3\xbf\xe9!!!                                       "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xaa\xfc\xa5_\xa8S\xa6\xb3\xbf\xe9!!!                                       "),
 					},
 				},
 			},
-			MD5: "lXzclvbNv1xXqIYNFr_6fg",
+			MD5:     "lXzclvbNv1xXqIYNFr_6fg",
+			TheDate: "12/21 19:55",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mtouchbird\x1b[m\x1b[33m: \xaa\xfc\xa5_\xa8S\xa6\xb3\xbf\xe9!!!                                       \x1b[m 12/21 19:55\r"),
 		},
-		{ //52 (56)
+		{ //54 (56)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhbv-ZjsA:qNlvQ8zw4_MVcjzrLYZ9gw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5QCEYsEA:qNlvQ8zw4_MVcjzrLYZ9gw"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("bradpete"),
-			CreateTime: types.NanoTS(1261396500003000000),
+			CreateTime: types.NanoTS(1608551700000000000),
+			SortTime:   1608551702009000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1768,18 +2446,22 @@ func initTest11() {
 						Big5:   []byte("\xaf\xba\xa6\xba \xab\xa2\xab\xa2\xab\xa2 \xa8\xad\xa6b\xba\xd6\xa4\xa4\xa4\xa3\xaa\xbe\xba\xd6.jpg                       "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xaf\xba\xa6\xba \xab\xa2\xab\xa2\xab\xa2 \xa8\xad\xa6b\xba\xd6\xa4\xa4\xa4\xa3\xaa\xbe\xba\xd6.jpg                       "),
 					},
 				},
 			},
-			MD5: "qNlvQ8zw4_MVcjzrLYZ9gw",
+			MD5:     "qNlvQ8zw4_MVcjzrLYZ9gw",
+			TheDate: "12/21 19:55",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mbradpete\x1b[m\x1b[33m: \xaf\xba\xa6\xba \xab\xa2\xab\xa2\xab\xa2 \xa8\xad\xa6b\xba\xd6\xa4\xa4\xa4\xa3\xaa\xbe\xba\xd6.jpg                       \x1b[m 12/21 19:55\r"),
 		},
-		{ //53 (57)
+		{ //55 (57)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhbv-o0QA:yFk_pNMxLmG5oVw-7Eyl5w"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5QCEn8oA:yFk_pNMxLmG5oVw-7Eyl5w"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("bradpete"),
-			CreateTime: types.NanoTS(1261396500004000000),
+			CreateTime: types.NanoTS(1608551700000000000),
+			SortTime:   1608551702010000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1787,18 +2469,22 @@ func initTest11() {
 						Big5:   []byte("\xa4\xa3\xa8\xd3\xa4K\xa8\xf6\xaa\xa9\xb0\xb5\xa4@\xa4U\xa5\xc1\xbd\xd5\xb6\xdc \xac_\xaa\xd6\xa9w\xb2\xc4\xa4@\xa6W                  "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4\xa3\xa8\xd3\xa4K\xa8\xf6\xaa\xa9\xb0\xb5\xa4@\xa4U\xa5\xc1\xbd\xd5\xb6\xdc \xac_\xaa\xd6\xa9w\xb2\xc4\xa4@\xa6W                  "),
 					},
 				},
 			},
-			MD5: "yFk_pNMxLmG5oVw-7Eyl5w",
+			MD5:     "yFk_pNMxLmG5oVw-7Eyl5w",
+			TheDate: "12/21 19:55",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mbradpete\x1b[m\x1b[33m: \xa4\xa3\xa8\xd3\xa4K\xa8\xf6\xaa\xa9\xb0\xb5\xa4@\xa4U\xa5\xc1\xbd\xd5\xb6\xdc \xac_\xaa\xd6\xa9w\xb2\xc4\xa4@\xa6W                  \x1b[m 12/21 19:55\r"),
 		},
-		{ //54 (58)
+		{ //56 (58)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhbv-4E0A:6_xY0__4tPC8xB1k7Wt5NQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5QCE3NMA:6_xY0__4tPC8xB1k7Wt5NQ"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("amos30627"),
-			CreateTime: types.NanoTS(1261396500005000000),
+			CreateTime: types.NanoTS(1608551700000000000),
+			SortTime:   1608551702011000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1806,18 +2492,22 @@ func initTest11() {
 						Big5:   []byte("\xaa\xfc\xa5_\xa4S\xb3Q\xba\xf1\xb4C\xa9\xd9\xb6\xc2                                    "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xaa\xfc\xa5_\xa4S\xb3Q\xba\xf1\xb4C\xa9\xd9\xb6\xc2                                    "),
 					},
 				},
 			},
-			MD5: "6_xY0__4tPC8xB1k7Wt5NQ",
+			MD5:     "6_xY0__4tPC8xB1k7Wt5NQ",
+			TheDate: "12/21 19:55",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mamos30627\x1b[m\x1b[33m: \xaa\xfc\xa5_\xa4S\xb3Q\xba\xf1\xb4C\xa9\xd9\xb6\xc2                                    \x1b[m 12/21 19:55\r"),
 		},
-		{ //55 (59)
+		{ //57 (59)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhfPezIAA:HKKMDWLDUaUAwCydMIXChQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5TaGhIAA:HKKMDWLDUaUAwCydMIXChQ"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("Niro"),
-			CreateTime: types.NanoTS(1261396560000000000),
+			CreateTime: types.NanoTS(1608551760000000000),
+			SortTime:   1608551760000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1825,18 +2515,22 @@ func initTest11() {
 						Big5:   []byte("\xa4@\xaf\xeb\xb3q\xb1`\xb7|\xa6\xb3\xbbe\xa4\xeb\xb4\xc1  \xb7Q\xa4\xa3\xa8\xec\xabJ\xb6\xc0\xc1\xd9\xa8\xba\xbb\xf2\xb0\xaa                   "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4@\xaf\xeb\xb3q\xb1`\xb7|\xa6\xb3\xbbe\xa4\xeb\xb4\xc1  \xb7Q\xa4\xa3\xa8\xec\xabJ\xb6\xc0\xc1\xd9\xa8\xba\xbb\xf2\xb0\xaa                   "),
 					},
 				},
 			},
-			MD5: "HKKMDWLDUaUAwCydMIXChQ",
+			MD5:     "HKKMDWLDUaUAwCydMIXChQ",
+			TheDate: "12/21 19:56",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mNiro\x1b[m\x1b[33m: \xa4@\xaf\xeb\xb3q\xb1`\xb7|\xa6\xb3\xbbe\xa4\xeb\xb4\xc1  \xb7Q\xa4\xa3\xa8\xec\xabJ\xb6\xc0\xc1\xd9\xa8\xba\xbb\xf2\xb0\xaa                   \x1b[m 12/21 19:56\r"),
 		},
-		{ //56 (60)
+		{ //58 (60)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhiu_6eAA:1TuCV38ll-rSzuvRJ97moQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5W5noeAA:1TuCV38ll-rSzuvRJ97moQ"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("VVizZ"),
-			CreateTime: types.NanoTS(1261396620000000000),
+			CreateTime: types.NanoTS(1608551820000000000),
+			SortTime:   1608551820000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1844,18 +2538,22 @@ func initTest11() {
 						Big5:   []byte("4%\xaf\xba\xa6\xba                                                  "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("4%\xaf\xba\xa6\xba                                                  "),
 					},
 				},
 			},
-			MD5: "1TuCV38ll-rSzuvRJ97moQ",
+			MD5:     "1TuCV38ll-rSzuvRJ97moQ",
+			TheDate: "12/21 19:57",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mVVizZ\x1b[m\x1b[33m: 4%\xaf\xba\xa6\xba                                                  \x1b[m 12/21 19:57\r"),
 		},
-		{ //57 (61)
+		{ //59 (61)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhivAJukA:qyNopZVr9jmK-p7AOqXPpA"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5W5n3ukA:qyNopZVr9jmK-p7AOqXPpA"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("indium111"),
-			CreateTime: types.NanoTS(1261396620001000000),
+			CreateTime: types.NanoTS(1608551820000000000),
+			SortTime:   1608551820001000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1863,18 +2561,22 @@ func initTest11() {
 						Big5:   []byte("\xb3o\xa5\xc1\xbd\xd5\xa6A\xab\xd7\xc5\xe3\xa5\xdc\xb2{\xa6b\xaa\xba\xa4K\xa8\xf6\xaa\xa9\xae\xda\xa5\xbb\xaa\xc0\xb7|\xa4\xcf\xab\xfc\xbc\xd0\xa4F          "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb3o\xa5\xc1\xbd\xd5\xa6A\xab\xd7\xc5\xe3\xa5\xdc\xb2{\xa6b\xaa\xba\xa4K\xa8\xf6\xaa\xa9\xae\xda\xa5\xbb\xaa\xc0\xb7|\xa4\xcf\xab\xfc\xbc\xd0\xa4F          "),
 					},
 				},
 			},
-			MD5: "qyNopZVr9jmK-p7AOqXPpA",
+			MD5:     "qyNopZVr9jmK-p7AOqXPpA",
+			TheDate: "12/21 19:57",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mindium111\x1b[m\x1b[33m: \xb3o\xa5\xc1\xbd\xd5\xa6A\xab\xd7\xc5\xe3\xa5\xdc\xb2{\xa6b\xaa\xba\xa4K\xa8\xf6\xaa\xa9\xae\xda\xa5\xbb\xaa\xc0\xb7|\xa4\xcf\xab\xfc\xbc\xd0\xa4F          \x1b[m 12/21 19:57\r"),
 		},
-		{ //58 (62)
+		{ //60 (62)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhivAY_IA:QfUeb-goUPOrC5n7PSCKBw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5W5oG_IA:QfUeb-goUPOrC5n7PSCKBw"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("takeda3234"),
-			CreateTime: types.NanoTS(1261396620002000000),
+			CreateTime: types.NanoTS(1608551820000000000),
+			SortTime:   1608551820002000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1882,18 +2584,22 @@ func initTest11() {
 						Big5:   []byte("\xb3o\xbc\xcb\xc2\xc5\xc0\xe72022\xab\xdc\xc3\xad\xaa\xfc...\xa5x\xa5_\xae\xb3\xa6^\xbe\xf7\xb2v\xa4j                "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb3o\xbc\xcb\xc2\xc5\xc0\xe72022\xab\xdc\xc3\xad\xaa\xfc...\xa5x\xa5_\xae\xb3\xa6^\xbe\xf7\xb2v\xa4j                "),
 					},
 				},
 			},
-			MD5: "QfUeb-goUPOrC5n7PSCKBw",
+			MD5:     "QfUeb-goUPOrC5n7PSCKBw",
+			TheDate: "12/21 19:57",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mtakeda3234\x1b[m\x1b[33m: \xb3o\xbc\xcb\xc2\xc5\xc0\xe72022\xab\xdc\xc3\xad\xaa\xfc...\xa5x\xa5_\xae\xb3\xa6^\xbe\xf7\xb2v\xa4j                \x1b[m 12/21 19:57\r"),
 		},
-		{ //59 (63)
+		{ //61 (63)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhivAoPsA:KLkw5UsBLsrn1DAUKxbe5g"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5W5oWPsA:KLkw5UsBLsrn1DAUKxbe5g"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("Niubert"),
-			CreateTime: types.NanoTS(1261396620003000000),
+			CreateTime: types.NanoTS(1608551820000000000),
+			SortTime:   1608551820003000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1901,18 +2607,22 @@ func initTest11() {
 						Big5:   []byte("\xc4l\xb4\xed\xa5\xab\xaa\xf8\xab\xe7\xbb\xf2\xa5i\xaf\xe0\xa4W\xa4\xc9\xa1A\xb3s\xa7\xda\xb2`\xba\xf1\xa5x\xabn\xa6P\xbe\xc7\xb3\xa3\xb5o\xa4\xe5\xa9\xea\xab\xe8\xa4F    "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xc4l\xb4\xed\xa5\xab\xaa\xf8\xab\xe7\xbb\xf2\xa5i\xaf\xe0\xa4W\xa4\xc9\xa1A\xb3s\xa7\xda\xb2`\xba\xf1\xa5x\xabn\xa6P\xbe\xc7\xb3\xa3\xb5o\xa4\xe5\xa9\xea\xab\xe8\xa4F    "),
 					},
 				},
 			},
-			MD5: "KLkw5UsBLsrn1DAUKxbe5g",
+			MD5:     "KLkw5UsBLsrn1DAUKxbe5g",
+			TheDate: "12/21 19:57",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mNiubert\x1b[m\x1b[33m: \xc4l\xb4\xed\xa5\xab\xaa\xf8\xab\xe7\xbb\xf2\xa5i\xaf\xe0\xa4W\xa4\xc9\xa1A\xb3s\xa7\xda\xb2`\xba\xf1\xa5x\xabn\xa6P\xbe\xc7\xb3\xa3\xb5o\xa4\xe5\xa9\xea\xab\xe8\xa4F    \x1b[m 12/21 19:57\r"),
 		},
-		{ //60 (64)
+		{ //62 (64)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhivA3gQA:bwLysalLRJbnWlE1MH9xXw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5W5olgQA:bwLysalLRJbnWlE1MH9xXw"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("qweertyui891"),
-			CreateTime: types.NanoTS(1261396620004000000),
+			CreateTime: types.NanoTS(1608551820000000000),
+			SortTime:   1608551820004000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1920,18 +2630,22 @@ func initTest11() {
 						Big5:   []byte("\xa5\xc1\xbd\xd5\xb2\xc4\xa4@\xa6\xb3\xc1`\xb2\xce\xb8\xea\xae\xe6\xa1A\xac\xdd\xa8\xd3\xabJ\xa4\xcd\xa9y\xc3\xad\xa4F               "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa5\xc1\xbd\xd5\xb2\xc4\xa4@\xa6\xb3\xc1`\xb2\xce\xb8\xea\xae\xe6\xa1A\xac\xdd\xa8\xd3\xabJ\xa4\xcd\xa9y\xc3\xad\xa4F               "),
 					},
 				},
 			},
-			MD5: "bwLysalLRJbnWlE1MH9xXw",
+			MD5:     "bwLysalLRJbnWlE1MH9xXw",
+			TheDate: "12/21 19:57",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mqweertyui891\x1b[m\x1b[33m: \xa5\xc1\xbd\xd5\xb2\xc4\xa4@\xa6\xb3\xc1`\xb2\xce\xb8\xea\xae\xe6\xa1A\xac\xdd\xa8\xd3\xabJ\xa4\xcd\xa9y\xc3\xad\xa4F               \x1b[m 12/21 19:57\r"),
 		},
-		{ //61 (65)
+		{ //63 (65)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhmOhB0AA:klMsUdLuqHMayZ9fLs7RSg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5aZIv0AA:klMsUdLuqHMayZ9fLs7RSg"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("irosehead"),
-			CreateTime: types.NanoTS(1261396680000000000),
+			CreateTime: types.NanoTS(1608551880000000000),
+			SortTime:   1608551880000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1939,18 +2653,22 @@ func initTest11() {
 						Big5:   []byte("\xac_\xa7\xbe\xb3s\xa7l\xba\xc9\xc1\xfa\xc1T\xa4\xb3\xab\xeb\xaa\xba\xb3\xaf\xa8\xe4\xc1\xda\xb3\xa3\xa5\xb4\xa4\xa3\xc4\xb9 \xafu\xbco             "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xac_\xa7\xbe\xb3s\xa7l\xba\xc9\xc1\xfa\xc1T\xa4\xb3\xab\xeb\xaa\xba\xb3\xaf\xa8\xe4\xc1\xda\xb3\xa3\xa5\xb4\xa4\xa3\xc4\xb9 \xafu\xbco             "),
 					},
 				},
 			},
-			MD5: "klMsUdLuqHMayZ9fLs7RSg",
+			MD5:     "klMsUdLuqHMayZ9fLs7RSg",
+			TheDate: "12/21 19:58",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mirosehead\x1b[m\x1b[33m: \xac_\xa7\xbe\xb3s\xa7l\xba\xc9\xc1\xfa\xc1T\xa4\xb3\xab\xeb\xaa\xba\xb3\xaf\xa8\xe4\xc1\xda\xb3\xa3\xa5\xb4\xa4\xa3\xc4\xb9 \xafu\xbco             \x1b[m 12/21 19:58\r"),
 		},
-		{ //62 (66)
+		{ //64 (66)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhmOhREkA:Es26f7U0EXdr7Gp4a9N8pQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5aZI_EkA:Es26f7U0EXdr7Gp4a9N8pQ"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("foolfighter"),
-			CreateTime: types.NanoTS(1261396680001000000),
+			CreateTime: types.NanoTS(1608551880000000000),
+			SortTime:   1608551880001000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1958,18 +2676,22 @@ func initTest11() {
 						Big5:   []byte("\xa4g\xac_\xc1T\xb4X\xa6\xa8\xa6\xb3\xa5x\xa5_\xa5\xab\xa4\xe1\xc4y\xb0\xda\xa1H                        "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xa4g\xac_\xc1T\xb4X\xa6\xa8\xa6\xb3\xa5x\xa5_\xa5\xab\xa4\xe1\xc4y\xb0\xda\xa1H                        "),
 					},
 				},
 			},
-			MD5: "Es26f7U0EXdr7Gp4a9N8pQ",
+			MD5:     "Es26f7U0EXdr7Gp4a9N8pQ",
+			TheDate: "12/21 19:58",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mfoolfighter\x1b[m\x1b[33m: \xa4g\xac_\xc1T\xb4X\xa6\xa8\xa6\xb3\xa5x\xa5_\xa5\xab\xa4\xe1\xc4y\xb0\xda\xa1H                        \x1b[m 12/21 19:58\r"),
 		},
-		{ //63 (67)
+		{ //65 (67)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhmOhgVIA:gmrKWXE7BjV-1U89GcPqHg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5aZJOVIA:gmrKWXE7BjV-1U89GcPqHg"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("yehpi"),
-			CreateTime: types.NanoTS(1261396680002000000),
+			CreateTime: types.NanoTS(1608551880000000000),
+			SortTime:   1608551880002000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1977,18 +2699,22 @@ func initTest11() {
 						Big5:   []byte("\xb6\xc0\xa6\xb3\xb6W\xa4j\xa4\xe4\xb2\xbc\xa1]\xaa\xab\xb2z\xa1^                                    "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb6\xc0\xa6\xb3\xb6W\xa4j\xa4\xe4\xb2\xbc\xa1]\xaa\xab\xb2z\xa1^                                    "),
 					},
 				},
 			},
-			MD5: "gmrKWXE7BjV-1U89GcPqHg",
+			MD5:     "gmrKWXE7BjV-1U89GcPqHg",
+			TheDate: "12/21 19:58",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33myehpi\x1b[m\x1b[33m: \xb6\xc0\xa6\xb3\xb6W\xa4j\xa4\xe4\xb2\xbc\xa1]\xaa\xab\xb2z\xa1^                                    \x1b[m 12/21 19:58\r"),
 		},
-		{ //64 (68)
+		{ //66 (68)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhmOhvlsA:cpqbGyLoF_jIyITF4bv-rQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlK5aZJdlsA:cpqbGyLoF_jIyITF4bv-rQ"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("lockeyman"),
-			CreateTime: types.NanoTS(1261396680003000000),
+			CreateTime: types.NanoTS(1608551880000000000),
+			SortTime:   1608551880003000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -1996,19 +2722,22 @@ func initTest11() {
 						Big5:   []byte("\xbcP                                                  "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xbcP                                                  "),
 					},
 				},
 			},
-			MD5: "cpqbGyLoF_jIyITF4bv-rQ",
+			MD5:     "cpqbGyLoF_jIyITF4bv-rQ",
+			TheDate: "12/21 19:58",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mlockeyman\x1b[m\x1b[33m: \xbcP                                                  \x1b[m 12/21 19:58\r"),
 		},
-		{ //65 (69)
+		{ //67 (69)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFhmOhvlsA:cpqbGyLoF_jIyITF4bv-rQ:R"),
-			RefIDs:     []types.CommentID{"EYFhmOhvlsA:cpqbGyLoF_jIyITF4bv-rQ"},
+			ArticleID:  bbs.ArticleID("test11"),
 			TheType:    types.COMMENT_TYPE_REPLY,
-			Owner:      bbs.UUserID("cheinshin"),
-			CreateTime: types.NanoTS(1261396680003100000),
+			Owner:      bbs.UUserID("testOwner"),
+			CommentID:  "FlK5aZJfHWA:VMu8YlVFJ4k06pYnUILy4w",
+			CreateTime: types.NanoTS(1608551880003100000),
+			SortTime:   1608551880003100000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -2016,39 +2745,56 @@ func initTest11() {
 						Big5:   []byte("test123123"),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("test123123\r"),
 					},
 				},
-				{},
+				{
+					{
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\r"),
+					},
+				},
 				{
 					{
 						Utf8:   "test124124",
 						Big5:   []byte("test124124"),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("test124124\r"),
 					},
 				},
-				{},
+				{
+					{
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\r"),
+					},
+				},
 				{
 					{
 						Utf8:   "test125125",
 						Big5:   []byte("test125125"),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("test125125\r"),
 					},
 				},
 			},
-			MD5:        "YdlPEuzP2CXzn8nA-n92Ow",
-			IP:         "49.216.65.39",
-			Host:       "臺灣",
-			EditNanoTS: types.NanoTS(1608551574000000000),
+			MD5:        "VMu8YlVFJ4k06pYnUILy4w",
+			IP:         "",
+			Host:       "",
+			EditNanoTS: 0,
+			DBCS:       []byte("\r\ntest123123\r\n\r\ntest124124\r\n\r\ntest125125\r\n\r"),
 		},
-		{ //66 (76)
+		{ //68 (76)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFuT-Ew6AA:ALE6XIa5ARhXunryJTB3xg"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlLGIIse6AA:ALE6XIa5ARhXunryJTB3xg"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("deathdancer"),
-			CreateTime: types.NanoTS(1261410660000000000),
+			CreateTime: types.NanoTS(1608565860000000000),
+			SortTime:   1608565860000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -2056,18 +2802,22 @@ func initTest11() {
 						Big5:   []byte("\xaa\xfc\xa5_\xa4~\xa8S\xa6\xb3\xbf\xe9                                      "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xaa\xfc\xa5_\xa4~\xa8S\xa6\xb3\xbf\xe9                                      "),
 					},
 				},
 			},
-			MD5: "ALE6XIa5ARhXunryJTB3xg",
+			MD5:     "ALE6XIa5ARhXunryJTB3xg",
+			TheDate: "12/21 23:51",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdeathdancer\x1b[m\x1b[33m: \xaa\xfc\xa5_\xa4~\xa8S\xa6\xb3\xbf\xe9                                      \x1b[m 12/21 23:51\r"),
 		},
-		{ //67 (77)
+		{ //69 (77)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFu6YxBsAA:xKzE3ZYx3C20_i3o3OMHbQ"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlLGujYvsAA:xKzE3ZYx3C20_i3o3OMHbQ"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("joshualiu"),
-			CreateTime: types.NanoTS(1261411320000000000),
+			CreateTime: types.NanoTS(1608566520000000000),
+			SortTime:   1608566520000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -2075,18 +2825,22 @@ func initTest11() {
 						Big5:   []byte("\xb6\xc0\xb0\xb6\xad\xf5\xacO\xab\xe7\xbb\xf2                                        "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb6\xc0\xb0\xb6\xad\xf5\xacO\xab\xe7\xbb\xf2                                        "),
 					},
 				},
 			},
-			MD5: "xKzE3ZYx3C20_i3o3OMHbQ",
+			MD5:     "xKzE3ZYx3C20_i3o3OMHbQ",
+			TheDate: "12/22 00:02",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mjoshualiu\x1b[m\x1b[33m: \xb6\xc0\xb0\xb6\xad\xf5\xacO\xab\xe7\xbb\xf2                                        \x1b[m 12/22 00:02\r"),
 		},
 		{ //68 (78)
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYFvZ0bDyAA:E_omXaZAX9dffXNX2NAZYw"),
+			ArticleID:  bbs.ArticleID("test11"),
+			CommentID:  types.CommentID("FlLHQI4Q-gA:E_omXaZAX9dffXNX2NAZYw"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("ken0062"),
-			CreateTime: types.NanoTS(1261411860000000000),
+			CreateTime: types.NanoTS(1608567097000000000),
+			SortTime:   1608567097000000000,
 			Content: [][]*types.Rune{
 				{
 					{
@@ -2094,10 +2848,40 @@ func initTest11() {
 						Big5:   []byte("\xb0\xb5\xb6V\xa6h\xb6V\xb3Q\xb6\xfbww                                        "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb0\xb5\xb6V\xa6h\xb6V\xb3Q\xb6\xfbww                                        "),
 					},
 				},
 			},
-			MD5: "E_omXaZAX9dffXNX2NAZYw",
+			MD5:     "E_omXaZAX9dffXNX2NAZYw",
+			TheDate: "12/22 00:11",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mken0062\x1b[m\x1b[33m: \xb0\xb5\xb6V\xa6h\xb6V\xb3Q\xb6\xfbww                                        \x1b[m 12/22 00:11\r"),
 		},
 	}
+
+	testTheRestComments11 = make([]*schema.Comment, len(testFullTheRestComments11))
+	for idx, eachFull := range testFullTheRestComments11 {
+		each := &schema.Comment{}
+		*each = *eachFull
+		testTheRestComments11[idx] = each
+		testTheRestComments11[idx].BBoardID = ""
+		testTheRestComments11[idx].ArticleID = ""
+		testTheRestComments11[idx].RefIDs = nil
+
+		if testTheRestComments11[idx].TheType != types.COMMENT_TYPE_EDIT && testTheRestComments11[idx].TheType != types.COMMENT_TYPE_REPLY {
+			testTheRestComments11[idx].CommentID = ""
+			testTheRestComments11[idx].CreateTime = 0
+			testTheRestComments11[idx].SortTime = 0
+		}
+		if testTheRestComments11[idx].TheType == types.COMMENT_TYPE_REPLY {
+			testTheRestComments11[idx].CommentID = ""
+			testTheRestComments11[idx].SortTime = 0
+		}
+	}
+	testTheRestComments11[67].CreateTime = 0
+	testTheRestComments11[67].Owner = "cheinshin"
+
+	testFullComments11 = make([]*schema.Comment, 0, len(testFullFirstComments11)+len(testFullTheRestComments11))
+
+	testFullComments11 = append(testFullComments11, testFullFirstComments11...)
+	testFullComments11 = append(testFullComments11, testFullTheRestComments11...)
 }
