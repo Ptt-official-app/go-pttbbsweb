@@ -35,7 +35,5 @@ func tryUpdateFirstComments(
 	}
 
 	//remove old first comments.
-	err = schema.RemoveOldFirstComments(articleDetailSummary.BBoardID, articleDetailSummary.ArticleID, firstCommentsUpdateNanoTS)
-
 	return nil
 }

@@ -152,9 +152,8 @@ var (
 					},
 				},
 			},
-			MD5:             "a1nbh9m8KYnC0QQevDRyqA",
-			IsFirstComments: true,
-			UpdateNanoTS:    types.NanoTS(1334567890000000000),
+			MD5:          "a1nbh9m8KYnC0QQevDRyqA",
+			UpdateNanoTS: types.NanoTS(1334567890000000000),
 		},
 		{ //
 			BBoardID:   bbs.BBoardID("test"),
@@ -173,9 +172,8 @@ var (
 					},
 				},
 			},
-			MD5:             "u0m4ezxFyxG8CX56gLwr4Q",
-			IsFirstComments: true,
-			UpdateNanoTS:    types.NanoTS(1334567890000000000),
+			MD5:          "u0m4ezxFyxG8CX56gLwr4Q",
+			UpdateNanoTS: types.NanoTS(1334567890000000000),
 		},
 	}
 

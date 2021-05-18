@@ -4,43 +4,67 @@ import (
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/sirupsen/logrus"
 	log "github.com/sirupsen/logrus"
 )
 
 //ParseContent
 //
 //Assume:
-//1. the content is with chars >= 32 and '\x1b', '\n'
+//1. the content is with chars >= 32 and '\x1b', '\r', \n'
 //2. the timestamp of the 1st-comments (around 10 comments, including the last-same-min comments) are within 1-year of the createTime.
 //3. the timestamp of the rest of the comments are able to reverse-inferred from mtime. compared as stored as nano-ts.
-//4. assuming no more than 60000000000 comments  (6x10^10) in 1 minute.
-func ParseContent(content []byte, origMD5 string) (content_r [][]*types.Rune, contentMD5 string, ip string, host string, bbs string, commentsDBCS []byte) {
+//4. assuming no more than 60000 comments  (60 x 1000) in 1 minute.
+func ParseContent(contentBytes []byte, origContentMD5 string) (content [][]*types.Rune, contentMD5 string, ip string, host string, bbs string, signatureMD5 string, signatureDBCS []byte, commentsDBCS []byte) {
 
-	contentDBCS, signatureDBCS, commentsDBCS := splitArticleSignatureCommentsDBCS(content)
+	contentDBCS, signatureDBCS, commentsDBCS := splitArticleSignatureCommentsDBCS(contentBytes)
 
 	contentMD5 = md5sum(contentDBCS)
 
-	if contentMD5 == origMD5 {
-		return nil, "", "", "", "", commentsDBCS
+	if contentMD5 == origContentMD5 {
+		return nil, "", "", "", "", "", nil, commentsDBCS
 	}
 
 	contentBig5 := dbcsToBig5(contentDBCS)
-	content_r = big5ToUtf8(contentBig5)
+	content = big5ToUtf8(contentBig5)
 
 	signatureBig5 := dbcsToBig5(signatureDBCS)
 	signatureUtf8 := big5ToUtf8(signatureBig5)
-	ip, host, bbs = parseIPHostBBS(signatureUtf8)
+	logrus.Infof("ParseContent: signatureUtf8: %v", signatureUtf8)
+	ip, host, bbs = parseSignatureIPHostBBS(signatureUtf8)
+	signatureMD5 = md5sum(signatureDBCS)
 
-	return content_r, contentMD5, ip, host, bbs, commentsDBCS
+	return content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, commentsDBCS
 }
 
-func parseIPHostBBS(signatureUtf8 [][]*types.Rune) (ip string, host string, bbs string) {
+func parseSignatureIPHostBBS(signatureUtf8 [][]*types.Rune) (ip string, host string, bbs string) {
 	if len(signatureUtf8) == 0 { //unable to parse signature.
 		return "", "", ""
 	}
 
-	//check the 0th line
+	//check \n
 	zerothLine := signatureUtf8[0]
+	if len(zerothLine) == 0 {
+		signatureUtf8 = signatureUtf8[1:]
+	} else if len(zerothLine) == 1 && zerothLine[0].Utf8 == "" {
+		signatureUtf8 = signatureUtf8[1:]
+	}
+	if len(signatureUtf8) == 0 {
+		return "", "", ""
+	}
+
+	//check --
+	zerothLine = signatureUtf8[0]
+	if zerothLine[0].Utf8 == "--" {
+		signatureUtf8 = signatureUtf8[1:]
+	}
+
+	if len(signatureUtf8) == 0 {
+		return "", "", ""
+	}
+
+	//check the 0th line
+	zerothLine = signatureUtf8[0]
 	if len(zerothLine) == 0 { //unable to get rune
 		return "", "", ""
 	}

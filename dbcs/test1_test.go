@@ -29,6 +29,7 @@ func initTest1() {
 				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 			},
 		},
 		{
@@ -36,6 +37,7 @@ func initTest1() {
 				Big5:   []byte("\xbc\xd0\xc3D: [\xa4\xdf\xb1o] \xb5M\xab\xe1\xa9O\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xa4\xdf\xb1o] \xb5M\xab\xe1\xa9O\xa1H\xa1\xe3"),
 			},
 		},
 		{
@@ -43,6 +45,7 @@ func initTest1() {
 				Big5:   []byte("\xae\xc9\xb6\xa1: Sun Dec  6 05:23:13 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Sun Dec  6 05:23:13 2020"),
 			},
 		},
 		{},
@@ -51,17 +54,10 @@ func initTest1() {
 				Big5:   []byte("\xb5M\xab\xe1\xa9O\xa1\xe3\xa1H"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb5M\xab\xe1\xa9O\xa1\xe3\xa1H"),
 			},
 		},
 		{},
-		{},
-		{
-			{
-				Big5:   []byte("--"),
-				Color0: types.DefaultColor,
-				Color1: types.DefaultColor,
-			},
-		},
 	}
 
 	testContent1Utf8 = [][]*types.Rune{ // from python read
@@ -71,6 +67,7 @@ func initTest1() {
 				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 			},
 		},
 		{
@@ -79,6 +76,7 @@ func initTest1() {
 				Big5:   []byte("\xbc\xd0\xc3D: [\xa4\xdf\xb1o] \xb5M\xab\xe1\xa9O\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xa4\xdf\xb1o] \xb5M\xab\xe1\xa9O\xa1H\xa1\xe3"),
 			},
 		},
 		{
@@ -87,6 +85,7 @@ func initTest1() {
 				Big5:   []byte("\xae\xc9\xb6\xa1: Sun Dec  6 05:23:13 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Sun Dec  6 05:23:13 2020"),
 			},
 		},
 		{},
@@ -96,18 +95,10 @@ func initTest1() {
 				Big5:   []byte("\xb5M\xab\xe1\xa9O\xa1\xe3\xa1H"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb5M\xab\xe1\xa9O\xa1\xe3\xa1H"),
 			},
 		},
 		{},
-		{},
-		{
-			{
-				Utf8:   "--",
-				Big5:   []byte("--"),
-				Color0: types.DefaultColor,
-				Color1: types.DefaultColor,
-			},
-		},
 	}
 
 	testFirstComments1 = []*schema.Comment{
