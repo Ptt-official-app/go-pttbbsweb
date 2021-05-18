@@ -382,7 +382,7 @@ func cleanReplyPerLine(origLine []*types.Rune) (newLine []*types.Rune) {
 	return origLine
 }
 
-func (c *Comment) SetCreateTime(createTime types.NanoTS) {
-	c.CreateTime = createTime
-	c.CommentID = types.ToCommentID(createTime, c.MD5)
+func (c *Comment) SetSortTime(sortTime types.NanoTS) {
+	c.SortTime = sortTime
+	c.CommentID = types.ToCommentID(sortTime, c.MD5)
 }

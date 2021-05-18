@@ -18,7 +18,8 @@ var (
 	testContent10Big5 [][]*types.Rune
 	testContent10Utf8 [][]*types.Rune
 
-	testFirstComments10 []*schema.Comment
+	testFirstComments10     []*schema.Comment
+	testFullFirstComments10 []*schema.Comment
 )
 
 func initTest10() {
@@ -475,6 +476,49 @@ func initTest10() {
 			MD5:     "QTzPa_CHE5xLUEUF_A0aZw",
 			TheDate: "12/11 02:15",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mrareone\x1b[m\x1b[33m: Closed \xbcx\xa8\xec\xa4F                                         \x1b[m 12/11 02:15\r"),
+		},
+	}
+
+	testFullFirstComments10 = []*schema.Comment{
+		{
+			BBoardID:  "test",
+			ArticleID: "test10",
+			TheType:   types.COMMENT_TYPE_EDIT,
+			Owner:     bbs.UUserID("rareone"),
+			Content:   nil,
+			MD5:       "WH30ZZA2DpAv_WfoE-hcBA",
+			TheDate:   "12/09/2020 16:53:01",
+			IP:        "140.112.217.57",
+			Host:      "臺灣",
+			DBCS:      []byte("\xa1\xb0 \xbds\xbf\xe8: rareone (140.112.217.57 \xbbO\xc6W), 12/09/2020 16:53:01\r"),
+
+			CreateTime:         1607503981000000000,
+			InferredCreateTime: 1607503981000000000,
+			SortTime:           1607503981000000000,
+			CommentID:          "Fk8AWpKIAgA:WH30ZZA2DpAv_WfoE-hcBA",
+		},
+		{
+			BBoardID:  "test",
+			ArticleID: "test10",
+			TheType:   types.COMMENT_TYPE_COMMENT,
+			Owner:     bbs.UUserID("rareone"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "Closed 徵到了",
+						Big5:   []byte("Closed \xbcx\xa8\xec\xa4F                                         "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("Closed \xbcx\xa8\xec\xa4F                                         "),
+					},
+				},
+			},
+			MD5:        "QTzPa_CHE5xLUEUF_A0aZw",
+			TheDate:    "12/11 02:15",
+			DBCS:       []byte("\x1b[1;31m\xa1\xf7 \x1b[33mrareone\x1b[m\x1b[33m: Closed \xbcx\xa8\xec\xa4F                                         \x1b[m 12/11 02:15\r"),
+			CommentID:  "Fk9tn0_DjgA:QTzPa_CHE5xLUEUF_A0aZw",
+			SortTime:   1607624123000000000,
+			CreateTime: 1607624123000000000,
 		},
 	}
 }

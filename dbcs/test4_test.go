@@ -177,11 +177,12 @@ func initTest4() {
 	testFullFirstComments4 = []*schema.Comment{
 		{
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYDNAQlkyAA:3dK46zmOe5zmna12AC1gnQ"),
+			ArticleID:  bbs.ArticleID("test4"),
+			CommentID:  types.CommentID("FlIk0qHNMkA:3dK46zmOe5zmna12AC1gnQ"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SYSOP"),
-			CreateTime: types.NanoTS(1261233300000000000),
+			CreateTime: types.NanoTS(1608388500000000000),
+			SortTime:   types.NanoTS(1608388504001000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -189,18 +190,22 @@ func initTest4() {
 						Big5:   []byte("\xb1\xc0                                                       "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0                                                       "),
 					},
 				},
 			},
-			MD5: "3dK46zmOe5zmna12AC1gnQ",
+			MD5:     "3dK46zmOe5zmna12AC1gnQ",
+			TheDate: "12/19 22:35",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0                                                       \x1b[m 12/19 22:35"),
 		},
 		{
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYDNDwGsIAA:FQaNH8WkdAbEGD7yp2Zkvg"),
+			ArticleID:  bbs.ArticleID("test4"),
+			CommentID:  types.CommentID("FlIk36uaIAA:FQaNH8WkdAbEGD7yp2Zkvg"),
 			TheType:    types.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("chhsiao123"),
-			CreateTime: types.NanoTS(1261233360000000000),
+			CreateTime: types.NanoTS(1608388560000000000),
+			SortTime:   types.NanoTS(1608388560000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -208,18 +213,22 @@ func initTest4() {
 						Big5:   []byte("\xb1\xc0                                                  "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0                                                  "),
 					},
 				},
 			},
-			MD5: "FQaNH8WkdAbEGD7yp2Zkvg",
+			MD5:     "FQaNH8WkdAbEGD7yp2Zkvg",
+			TheDate: "12/19 22:36",
+			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mchhsiao123\x1b[m\x1b[33m:\xb1\xc0                                                  \x1b[m 12/19 22:36"),
 		},
 		{
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EYDNHPnzeAA:cLGi8fC4fapuiBkTXHU2OA"),
+			ArticleID:  bbs.ArticleID("test4"),
+			CommentID:  types.CommentID("FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA"),
 			TheType:    types.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("chhsiao123"),
-			CreateTime: types.NanoTS(1261233420000000000),
+			CreateTime: types.NanoTS(1608388624000000000),
+			SortTime:   types.NanoTS(1608388624000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -227,10 +236,13 @@ func initTest4() {
 						Big5:   []byte("\xbcN\xa1\xe3                                                "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xbcN\xa1\xe3                                                "),
 					},
 				},
 			},
-			MD5: "cLGi8fC4fapuiBkTXHU2OA",
+			MD5:     "cLGi8fC4fapuiBkTXHU2OA",
+			TheDate: "12/19 22:37",
+			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mchhsiao123\x1b[m\x1b[33m:\xbcN\xa1\xe3                                                \x1b[m 12/19 22:37"),
 		},
 	}
 }

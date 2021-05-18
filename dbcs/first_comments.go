@@ -17,27 +17,30 @@ func ParseFirstComments(
 	articleID bbs.ArticleID,
 	ownerID bbs.UUserID,
 	articleCreateTime types.NanoTS,
+	articleMTime types.NanoTS,
 	commentsDBCS []byte,
-	origFirstCommentsMD5 string,
-	origFirstCommentsLastTime types.NanoTS,
-	updateNanoTS types.NanoTS) (
+	origFirstCommentsMD5 string) (
 
 	firstComments []*schema.Comment,
 	firstCommentsMD5 string,
-	firstCommentsLastTime types.NanoTS,
-	theRestCommentsDBCS []byte) {
+	theRestCommentsDBCS []byte,
+	err error) {
 
 	firstCommentsDBCS, theRestCommentsDBCS := splitFirstComments(commentsDBCS)
 
 	//check md5
 	firstCommentsMD5 = md5sum(firstCommentsDBCS)
 	if firstCommentsMD5 == origFirstCommentsMD5 {
-		return nil, origFirstCommentsMD5, origFirstCommentsLastTime, theRestCommentsDBCS
+		return nil, origFirstCommentsMD5, theRestCommentsDBCS, nil
 	}
 
-	firstComments = ParseComments(ownerID, firstCommentsDBCS, commentsDBCS)
+	comments := ParseComments(ownerID, firstCommentsDBCS, commentsDBCS)
 
-	return firstComments, firstCommentsMD5, firstCommentsLastTime, theRestCommentsDBCS
+	isLastAlignEndNanoTS := len(theRestCommentsDBCS) == 0
+
+	firstComments, _, err = IntegrateComments(bboardID, articleID, comments, articleCreateTime, articleMTime, true, isLastAlignEndNanoTS)
+
+	return firstComments, firstCommentsMD5, theRestCommentsDBCS, err
 }
 
 //splitFirstComments
