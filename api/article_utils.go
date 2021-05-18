@@ -62,12 +62,18 @@ func updateArticleNComments(bboardID bbs.BBoardID, articleSummaries []*schema.Ar
 		return
 	}
 
-	nCommentsByArticleIDMap := make(map[bbs.ArticleID]int)
+	nCommentsByArticleIDMap := make(map[bbs.ArticleID]*schema.ArticleNComments)
 	for _, each := range articleNComments {
-		nCommentsByArticleIDMap[each.ArticleID] = each.NComments
+		nCommentsByArticleIDMap[each.ArticleID] = each
 	}
 
 	for _, each := range articleSummaries {
-		each.NComments = nCommentsByArticleIDMap[each.ArticleID]
+		eachArticleNComments := nCommentsByArticleIDMap[each.ArticleID]
+		if eachArticleNComments == nil {
+			continue
+		}
+
+		each.NComments = eachArticleNComments.NComments
+		each.Rank = eachArticleNComments.Rank
 	}
 }

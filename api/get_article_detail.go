@@ -45,6 +45,9 @@ type GetArticleDetailResult struct {
 	IP      string          `json:"ip"`
 	Host    string          `json:"host"` //ip 的中文呈現, 外國則為國家.
 	BBS     string          `json:"bbs"`
+
+	Rank int `bson:"rank"` //評價
+
 }
 
 func GetArticleDetailWrapper(c *gin.Context) {
@@ -84,6 +87,7 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 		Money:      articleDetailSummary.Money,
 		Class:      articleDetailSummary.Class,
 		Filemode:   articleDetailSummary.Filemode,
+		Rank:       articleDetailSummary.Rank,
 
 		URL:  url,
 		Read: true,

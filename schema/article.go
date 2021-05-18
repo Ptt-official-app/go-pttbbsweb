@@ -48,6 +48,10 @@ type Article struct {
 
 	NComments            int          `bson:"n_comments"`
 	CommentsUpdateNanoTS types.NanoTS `bson:"comments_update_nano_ts"`
+
+	Rank               int          `bson:"rank"` //評價
+	RankToUpdateNanoTS types.NanoTS `bson:"rank_to_update_nano_ts"`
+	RankUpdateNanoTS   types.NanoTS `bson:"rank_update_nano_ts"`
 }
 
 var (
@@ -88,7 +92,12 @@ var ( //bson-name
 
 	ARTICLE_FIRST_COMMENTS_UPDATE_NANO_TS_b = getBSONName(EMPTY_ARTICLE, "FirstCommentsUpdateNanoTS")
 
+	ARTICLE_N_COMMENTS_b              = getBSONName(EMPTY_ARTICLE, "NComments")
 	ARTICLE_COMMENTS_UPDATE_NANO_TS_b = getBSONName(EMPTY_ARTICLE, "CommentsUpdateNanoTS")
+
+	ARTICLE_RANK_b                   = getBSONName(EMPTY_ARTICLE, "Rank")
+	ARTICLE_RANK_TO_UPDATE_NANO_TS_b = getBSONName(EMPTY_ARTICLE, "RankToUpdateNanoTS")
+	ARTICLE_RANK_UPDATE_NANO_TS_b    = getBSONName(EMPTY_ARTICLE, "RankUpdateNanoTS")
 )
 
 func assertArticleFields() error {
@@ -121,9 +130,12 @@ func assertArticleFields() error {
 		return err
 	}
 
+	// article-n-comments
 	if err := assertFields(EMPTY_ARTICLE, EMPTY_ARTICLE_N_COMMENTS); err != nil {
 		return err
 	}
+
+	//article-rank
 
 	return nil
 }

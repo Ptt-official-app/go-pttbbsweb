@@ -79,6 +79,17 @@ func Init() (err error) {
 	if err != nil {
 		return err
 	}
+	//rank
+	Rank_c = client.Collection("rank")
+	keys = &bson.D{
+		{Key: RANK_BBOARD_ID_b, Value: 1},
+		{Key: RANK_ARTICLE_ID_b, Value: 1},
+		{Key: RANK_OWNER_b, Value: 1},
+	}
+	err = Rank_c.CreateUniqueIndex(keys)
+	if err != nil {
+		return err
+	}
 
 	//User
 	User_c = client.Collection("user")
@@ -126,14 +137,6 @@ func Init() (err error) {
 	UserEmail_c = client.Collection("user_email")
 	keys = &bson.D{
 		{Key: USER_EMAIL_USER_ID_b, Value: 1},
-	}
-	err = UserEmail_c.CreateUniqueIndex(keys)
-	if err != nil {
-		return err
-	}
-
-	keys = &bson.D{
-		{Key: USER_EMAIL_EMAIL_b, Value: 1},
 	}
 	err = UserEmail_c.CreateUniqueIndex(keys)
 	if err != nil {
