@@ -188,3 +188,67 @@ func TestGetComments(t *testing.T) {
 		})
 	}
 }
+
+func TestComment_SetSortTime(t *testing.T) {
+	type fields struct {
+		BBoardID           bbs.BBoardID
+		ArticleID          bbs.ArticleID
+		CommentID          types.CommentID
+		TheType            types.CommentType
+		RefIDs             []types.CommentID
+		IsDeleted          bool
+		DeleteReason       string
+		CreateTime         types.NanoTS
+		Owner              bbs.UUserID
+		Content            [][]*types.Rune
+		IP                 string
+		Host               string
+		MD5                string
+		FirstCreateTime    types.NanoTS
+		InferredCreateTime types.NanoTS
+		NewCreateTime      types.NanoTS
+		SortTime           types.NanoTS
+		TheDate            string
+		DBCS               []byte
+		EditNanoTS         types.NanoTS
+		UpdateNanoTS       types.NanoTS
+	}
+	type args struct {
+		nanoTS types.NanoTS
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			c := &Comment{
+				BBoardID:           tt.fields.BBoardID,
+				ArticleID:          tt.fields.ArticleID,
+				CommentID:          tt.fields.CommentID,
+				TheType:            tt.fields.TheType,
+				RefIDs:             tt.fields.RefIDs,
+				IsDeleted:          tt.fields.IsDeleted,
+				DeleteReason:       tt.fields.DeleteReason,
+				CreateTime:         tt.fields.CreateTime,
+				Owner:              tt.fields.Owner,
+				Content:            tt.fields.Content,
+				IP:                 tt.fields.IP,
+				Host:               tt.fields.Host,
+				MD5:                tt.fields.MD5,
+				FirstCreateTime:    tt.fields.FirstCreateTime,
+				InferredCreateTime: tt.fields.InferredCreateTime,
+				NewCreateTime:      tt.fields.NewCreateTime,
+				SortTime:           tt.fields.SortTime,
+				TheDate:            tt.fields.TheDate,
+				DBCS:               tt.fields.DBCS,
+				EditNanoTS:         tt.fields.EditNanoTS,
+				UpdateNanoTS:       tt.fields.UpdateNanoTS,
+			}
+			c.SetSortTime(tt.args.nanoTS)
+		})
+	}
+}

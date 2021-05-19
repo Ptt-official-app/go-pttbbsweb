@@ -17,7 +17,8 @@ var (
 	testContent1Big5         [][]*types.Rune
 	testContent1Utf8         [][]*types.Rune
 
-	testFirstComments1 []*schema.Comment
+	testFirstComments1     []*schema.Comment
+	testFullFirstComments1 []*schema.Comment
 )
 
 func initTest1() {
@@ -29,6 +30,7 @@ func initTest1() {
 				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 			},
 		},
 		{
@@ -36,6 +38,7 @@ func initTest1() {
 				Big5:   []byte("\xbc\xd0\xc3D: [\xa4\xdf\xb1o] \xb5M\xab\xe1\xa9O\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xa4\xdf\xb1o] \xb5M\xab\xe1\xa9O\xa1H\xa1\xe3"),
 			},
 		},
 		{
@@ -43,6 +46,7 @@ func initTest1() {
 				Big5:   []byte("\xae\xc9\xb6\xa1: Sun Dec  6 05:23:13 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Sun Dec  6 05:23:13 2020"),
 			},
 		},
 		{},
@@ -51,17 +55,10 @@ func initTest1() {
 				Big5:   []byte("\xb5M\xab\xe1\xa9O\xa1\xe3\xa1H"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb5M\xab\xe1\xa9O\xa1\xe3\xa1H"),
 			},
 		},
 		{},
-		{},
-		{
-			{
-				Big5:   []byte("--"),
-				Color0: types.DefaultColor,
-				Color1: types.DefaultColor,
-			},
-		},
 	}
 
 	testContent1Utf8 = [][]*types.Rune{ // from python read
@@ -71,6 +68,7 @@ func initTest1() {
 				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 			},
 		},
 		{
@@ -79,6 +77,7 @@ func initTest1() {
 				Big5:   []byte("\xbc\xd0\xc3D: [\xa4\xdf\xb1o] \xb5M\xab\xe1\xa9O\xa1H\xa1\xe3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xa4\xdf\xb1o] \xb5M\xab\xe1\xa9O\xa1H\xa1\xe3"),
 			},
 		},
 		{
@@ -87,6 +86,7 @@ func initTest1() {
 				Big5:   []byte("\xae\xc9\xb6\xa1: Sun Dec  6 05:23:13 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Sun Dec  6 05:23:13 2020"),
 			},
 		},
 		{},
@@ -96,28 +96,16 @@ func initTest1() {
 				Big5:   []byte("\xb5M\xab\xe1\xa9O\xa1\xe3\xa1H"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb5M\xab\xe1\xa9O\xa1\xe3\xa1H"),
 			},
 		},
 		{},
-		{},
-		{
-			{
-				Utf8:   "--",
-				Big5:   []byte("--"),
-				Color0: types.DefaultColor,
-				Color1: types.DefaultColor,
-			},
-		},
 	}
 
 	testFirstComments1 = []*schema.Comment{
 		{
-			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EX64IZAFEAA:uzQhiFhT_R5HGcpcXa10Fg"),
-			TheType:    types.COMMENT_TYPE_COMMENT,
-			Owner:      bbs.UUserID("SYSOP"),
-			CreateTime: types.NanoTS(1260647400000000000),
+			TheType: types.COMMENT_TYPE_COMMENT,
+			Owner:   bbs.UUserID("SYSOP"),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -125,18 +113,85 @@ func initTest1() {
 						Big5:   []byte("\xb1\xc0\xb1\xc0\xa1\xe3                                                   "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0\xb1\xc0\xa1\xe3                                                   "),
 					},
 				},
 			},
+			MD5:     "uzQhiFhT_R5HGcpcXa10Fg",
+			TheDate: "12/13 03:50",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0\xa1\xe3                                                   \x1b[m 12/13 03:50"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_COMMENT,
+			Owner:   bbs.UUserID("SYSOP"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "推推",
+						Big5:   []byte("\xb1\xc0\xb1\xc0                                                     "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0\xb1\xc0                                                     "),
+					},
+				},
+			},
+			MD5:     "t24G1aV7UjVPoUv-6_T93A",
+			TheDate: "12/13 03:51",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0                                                     \x1b[m 12/13 03:51"),
+		},
+		{
+			TheType: types.COMMENT_TYPE_COMMENT,
+			Owner:   bbs.UUserID("SYSOP"),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "推推",
+						Big5:   []byte("\xb1\xc0\xb1\xc0                                                     "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0\xb1\xc0                                                     "),
+					},
+				},
+			},
+			MD5:     "HWj0bTiKkHE3DnJEz3TO0A",
+			TheDate: "12/13 03:52",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0                                                     \x1b[m 12/13 03:52"),
+		},
+	}
+
+	testFullFirstComments1 = []*schema.Comment{
+		{
+			BBoardID:   bbs.BBoardID("test"),
+			ArticleID:  bbs.ArticleID("test1"),
+			CommentID:  types.CommentID("FlAP8jnzEAA:uzQhiFhT_R5HGcpcXa10Fg"),
+			TheType:    types.COMMENT_TYPE_COMMENT,
+			Owner:      bbs.UUserID("SYSOP"),
+			CreateTime: types.NanoTS(1607802600000000000),
+			SortTime:   types.NanoTS(1607802600000000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "推推～",
+						Big5:   []byte("\xb1\xc0\xb1\xc0\xa1\xe3                                                   "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0\xb1\xc0\xa1\xe3                                                   "),
+					},
+				},
+			},
+			TheDate: "12/13 03:50",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0\xa1\xe3                                                   \x1b[m 12/13 03:50"),
+
 			MD5: "uzQhiFhT_R5HGcpcXa10Fg",
 		},
 		{
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EX64L4hMaAA:t24G1aV7UjVPoUv-6_T93A"),
+			ArticleID:  bbs.ArticleID("test1"),
+			CommentID:  types.CommentID("FlAQADI6aAA:t24G1aV7UjVPoUv-6_T93A"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SYSOP"),
-			CreateTime: types.NanoTS(1260647460000000000),
+			CreateTime: types.NanoTS(1607802660000000000),
+			SortTime:   types.NanoTS(1607802660000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -144,18 +199,22 @@ func initTest1() {
 						Big5:   []byte("\xb1\xc0\xb1\xc0                                                     "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0\xb1\xc0                                                     "),
 					},
 				},
 			},
-			MD5: "t24G1aV7UjVPoUv-6_T93A",
+			MD5:     "t24G1aV7UjVPoUv-6_T93A",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0                                                     \x1b[m 12/13 03:51"),
+			TheDate: "12/13 03:51",
 		},
 		{
 			BBoardID:   bbs.BBoardID("test"),
-			ArticleID:  bbs.ArticleID("test"),
-			CommentID:  types.CommentID("EX64PYCTwAA:HWj0bTiKkHE3DnJEz3TO0A"),
+			ArticleID:  bbs.ArticleID("test1"),
+			CommentID:  types.CommentID("FlAQDiqBwAA:HWj0bTiKkHE3DnJEz3TO0A"),
 			TheType:    types.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SYSOP"),
-			CreateTime: types.NanoTS(1260647520000000000),
+			CreateTime: types.NanoTS(1607802720000000000),
+			SortTime:   types.NanoTS(1607802720000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -163,10 +222,13 @@ func initTest1() {
 						Big5:   []byte("\xb1\xc0\xb1\xc0                                                     "),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
+						DBCS:   []byte("\xb1\xc0\xb1\xc0                                                     "),
 					},
 				},
 			},
-			MD5: "HWj0bTiKkHE3DnJEz3TO0A",
+			MD5:     "HWj0bTiKkHE3DnJEz3TO0A",
+			TheDate: "12/13 03:52",
+			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0                                                     \x1b[m 12/13 03:52"),
 		},
 	}
 }

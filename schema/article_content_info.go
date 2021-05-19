@@ -17,6 +17,9 @@ type ArticleContentInfo struct {
 	BBS                 string          `bson:"bbs"`
 	ContentUpdateNanoTS types.NanoTS    `bson:"content_update_nano_ts"`
 
+	SignatureDBCS []byte `bson:"signature_dbcs"`
+	SignatureMD5  string `bson:"signature_md5"`
+
 	IsDeleted bool `bson:"deleted,omitempty"` //
 }
 

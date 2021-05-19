@@ -103,6 +103,22 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 	return result, 200, nil
 }
 
+//tryGetArticleContentInfo
+//
+//嘗試拿到 article-content
+//
+//1. 根據 article-id 得到相對應的 filename, ownerid, create-time.
+//2. 嘗試從 schema 拿到 db summary 資訊. (create-time)
+//3. 如果可以從 schema 拿到 db 資訊:
+//   3.1. 如果已經 deleted: return deleted.
+//   3.2. 如果距離上次跟 pttbbs 拿的時間太近: 從 schema 拿到 content, return schema-content.
+//4. 嘗試做 lock.
+//   4.1. 如果 lock 失敗: 從 schema 拿到 content, return schema-content.
+//5. 從 pttbbs 拿到 article
+//6. 如果從 pttbbs 拿到的時間比 schema 裡拿到的時間舊的話: return schema-content.
+//7. parse article 為 content / comments.
+//8. 將 comments parse 為 firstComments / theRestComments.
+//9. 將 theRestComments 丟進 queue 裡.
 func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context) (content [][]*types.Rune, ip string, host string, bbs string, articleDetailSummary *schema.ArticleDetailSummary, statusCode int, err error) {
 
 	updateNanoTS := types.NanoTS(0)
@@ -157,7 +173,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		}
 	}
 
-	//do lock. if failed, return the data in db.
+	//4. do lock. if failed, return the data in db.
 	lockKey := string(bboardID) + ":" + string(articleID)
 	err = schema.TryLock(lockKey, ARTICLE_LOCK_TS_DURATION)
 	if err != nil {
@@ -170,6 +186,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	}
 	defer schema.Unlock(lockKey)
 
+	//5. get article from pttbbs
 	theParams_b := &pttbbsapi.GetArticleParams{
 		RetrieveTS: articleDetailSummary_db.ContentMTime.ToTime4(),
 	}
@@ -186,8 +203,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		return nil, "", "", "", nil, statusCode, err
 	}
 
-	//check content-mtime (no modify from backend, no need to parse again)
-
+	//6. check content-mtime (no modify from backend, no need to parse again)
 	contentMTime := types.Time4ToNanoTS(result_b.MTime)
 	if articleDetailSummary_db.ContentMTime >= contentMTime {
 		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID)
@@ -201,10 +217,10 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		return nil, "", "", "", nil, 500, ErrNoArticle
 	}
 
-	//parse content
+	//7. parse article as content / commentsDBCS
 	updateNanoTS = types.NowNanoTS()
 
-	content, contentMD5, ip, host, bbs, commentsDBCS := dbcs.ParseContent(result_b.Content, articleDetailSummary_db.ContentMD5)
+	content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, commentsDBCS := dbcs.ParseContent(result_b.Content, articleDetailSummary_db.ContentMD5)
 
 	//update article
 	//we need update-article-content be the 1st to upload,
@@ -218,28 +234,32 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		Host:    host,
 		BBS:     bbs,
 
+		SignatureDBCS: signatureDBCS,
+		SignatureMD5:  signatureMD5,
+
 		ContentUpdateNanoTS: updateNanoTS,
 	}
 
 	err = schema.UpdateArticleContentInfo(bboardID, articleID, contentInfo)
+	if err != nil {
+		return nil, "", "", "", nil, 500, err
+	}
 
-	//parse comments
-
-	firstComments, firstCommentsMD5, firstCommentsLastTime, theRestComments := dbcs.ParseFirstComments(
+	//8. parse comments as firstComments and theRestComments
+	firstComments, firstCommentsMD5, _, err := dbcs.ParseFirstComments(
 		bboardID,
 		articleID,
 		ownerID,
 		articleCreateTimeNanoTS,
+		contentMTime,
 		commentsDBCS,
 		articleDetailSummary_db.FirstCommentsMD5,
-		articleDetailSummary_db.FirstCommentsLastTime,
-		updateNanoTS,
 	)
 
 	//update first-comments
 	//possibly err because the data is too old.
 	//we don't need to queue and update content-mtime if the data is too old.
-	err = tryUpdateFirstComments(firstComments, firstCommentsMD5, firstCommentsLastTime, updateNanoTS, articleDetailSummary_db)
+	err = tryUpdateFirstComments(firstComments, firstCommentsMD5, updateNanoTS, articleDetailSummary_db)
 	if err != nil {
 		//if failed update: we still send the content back.
 		//(no updating the content in db,
@@ -247,14 +267,10 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		return content, ip, host, bbs, articleDetailSummary_db, 200, nil
 	}
 
-	//enqueue and n_comments
-	if theRestComments != nil {
-		err = queue.QueueCommentDBCS(bboardID, articleID, ownerID, theRestComments, firstCommentsLastTime, updateNanoTS)
-		if err != nil {
-			return content, ip, host, bbs, articleDetailSummary_db, 200, nil
-		}
-	} else {
-		schema.UpdateArticleCommentsByArticleID(bboardID, articleID, updateNanoTS)
+	//9. enqueue and n_comments
+	err = queue.QueueCommentDBCS(bboardID, articleID, ownerID, commentsDBCS, articleCreateTimeNanoTS, contentMTime, updateNanoTS)
+	if err != nil {
+		return content, ip, host, bbs, articleDetailSummary_db, 200, nil
 	}
 
 	if articleDetailSummary_db.NComments == 0 {

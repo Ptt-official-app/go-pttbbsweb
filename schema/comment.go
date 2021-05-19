@@ -38,7 +38,14 @@ type Comment struct {
 	Host         string            `bson:"host"` //ip 的中文呈現, 外國則為國家.
 	MD5          string            `bson:"md5"`
 
-	IsFirstComments bool `bson:"is_first_comments"`
+	FirstCreateTime    types.NanoTS `bson:"first_create_time_nano_ts,omitempty"`    //create-time from first-comments.
+	InferredCreateTime types.NanoTS `bson:"inferred_create_time_nano_ts,omitempty"` //create-time from inferred.
+	NewCreateTime      types.NanoTS `bson:"new_create_time_nano_ts,omitempty"`      //create-time from new comment.
+
+	SortTime types.NanoTS `bson:"sort_time_nano_ts"`
+
+	TheDate string `bson:"the_date"`
+	DBCS    []byte `bson:"dbcs"`
 
 	EditNanoTS types.NanoTS `bson:"edit_nano_ts"` //for reply.
 
@@ -64,7 +71,14 @@ var (
 	COMMENT_HOST_b          = getBSONName(EMPTY_COMMENT, "Host")
 	COMMENT_MD5_b           = getBSONName(EMPTY_COMMENT, "MD5")
 
-	COMMENT_IS_FIRST_COMMENTS_b = getBSONName(EMPTY_COMMENT, "IsFirstComments")
+	COMMENT_FIRST_CREATE_TIME_b    = getBSONName(EMPTY_COMMENT, "FirstCreateTime")
+	COMMENT_INFERRED_CREATE_TIME_b = getBSONName(EMPTY_COMMENT, "InferredCreateTime")
+	COMMENT_NEW_CREATE_TIME_b      = getBSONName(EMPTY_COMMENT, "NewCreateTime")
+
+	COMMENT_SORT_TIME_b = getBSONName(EMPTY_COMMENT, "SortTime")
+
+	COMMENT_THE_DATE_b = getBSONName(EMPTY_COMMENT, "TheDate")
+	COMMENT_DBCS_b     = getBSONName(EMPTY_COMMENT, "DBCS")
 
 	COMMENT_EDIT_NANO_TS_b = getBSONName(EMPTY_COMMENT, "EditNanoTS")
 
@@ -85,6 +99,10 @@ func assertCommentFields() error {
 	}
 
 	if err := assertFields(EMPTY_COMMENT, EMPTY_COMMENT_IS_DELETED); err != nil {
+		return err
+	}
+
+	if err := assertFields(EMPTY_COMMENT, EMPTY_COMMENT_MD5); err != nil {
 		return err
 	}
 
@@ -112,45 +130,28 @@ var (
 )
 
 //GetComments
-func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, createNanoTS types.NanoTS, commentID types.CommentID, descending bool, limit int) (comments []*Comment, err error) {
+func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, sortNanoTS types.NanoTS, commentID types.CommentID, descending bool, limit int) (comments []*Comment, err error) {
 	//setup query
 	var query bson.M
-	if createNanoTS == 0 {
+	if sortNanoTS == 0 {
 		query = bson.M{
 			COMMENT_BBOARD_ID_b:  boardID,
 			COMMENT_ARTICLE_ID_b: articleID,
 		}
 	} else {
 		theDirCommentID := "$gte"
-		theDirCreateNanoTS := "$gt"
 		if descending {
 			theDirCommentID = "$lte"
-			theDirCreateNanoTS = "$lt"
 		}
 
 		query = bson.M{
-			"$or": bson.A{
-				bson.M{
-					COMMENT_BBOARD_ID_b:   boardID,
-					COMMENT_ARTICLE_ID_b:  articleID,
-					COMMENT_CREATE_TIME_b: createNanoTS,
-					COMMENT_COMMENT_ID_b: bson.M{
-						theDirCommentID: commentID,
-					},
-					COMMENT_IS_DELETED_b: bson.M{
-						"$exists": false,
-					},
-				},
-				bson.M{
-					COMMENT_BBOARD_ID_b:  boardID,
-					COMMENT_ARTICLE_ID_b: articleID,
-					COMMENT_CREATE_TIME_b: bson.M{
-						theDirCreateNanoTS: createNanoTS,
-					},
-					COMMENT_IS_DELETED_b: bson.M{
-						"$exists": false,
-					},
-				},
+			COMMENT_BBOARD_ID_b:  boardID,
+			COMMENT_ARTICLE_ID_b: articleID,
+			COMMENT_COMMENT_ID_b: bson.M{
+				theDirCommentID: commentID,
+			},
+			COMMENT_IS_DELETED_b: bson.M{
+				"$exists": false,
 			},
 		}
 	}
@@ -158,12 +159,10 @@ func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, createNanoTS typ
 	var sortOpts bson.D
 	if descending {
 		sortOpts = bson.D{
-			{Key: COMMENT_CREATE_TIME_b, Value: -1},
 			{Key: COMMENT_COMMENT_ID_b, Value: -1},
 		}
 	} else {
 		sortOpts = bson.D{
-			{Key: COMMENT_CREATE_TIME_b, Value: 1},
 			{Key: COMMENT_COMMENT_ID_b, Value: 1},
 		}
 	}
@@ -174,26 +173,26 @@ func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, createNanoTS typ
 		return nil, err
 	}
 
-	comments = SortCommentsByCreateNanoTS(comments, descending)
+	comments = SortCommentsBySortTime(comments, descending)
 
 	return comments, nil
 }
 
-func SortCommentsByCreateNanoTS(comments []*Comment, descending bool) (newComments []*Comment) {
+func SortCommentsBySortTime(comments []*Comment, descending bool) (newComments []*Comment) {
 	if descending {
 		sort.SliceStable(comments, func(i, j int) bool {
-			if comments[i].CreateTime == comments[j].CreateTime {
+			if comments[i].SortTime == comments[j].SortTime {
 				return strings.Compare(string(comments[i].CommentID), string(comments[j].CommentID)) > 0
 			} else {
-				return comments[i].CreateTime-comments[j].CreateTime > 0
+				return comments[i].SortTime-comments[j].SortTime > 0
 			}
 		})
 	} else {
 		sort.SliceStable(comments, func(i, j int) bool {
-			if comments[i].CreateTime == comments[j].CreateTime {
+			if comments[i].SortTime == comments[j].SortTime {
 				return strings.Compare(string(comments[i].CommentID), string(comments[j].CommentID)) < 0
 			} else {
-				return comments[i].CreateTime-comments[j].CreateTime < 0
+				return comments[i].SortTime-comments[j].SortTime < 0
 			}
 		})
 	}
@@ -202,9 +201,13 @@ func SortCommentsByCreateNanoTS(comments []*Comment, descending bool) (newCommen
 }
 
 func CountComments(boardID bbs.BBoardID, articleID bbs.ArticleID) (nComments int, err error) {
-	query := &CommentArticleQuery{
-		BBoardID:  boardID,
-		ArticleID: articleID,
+
+	query := bson.M{
+		COMMENT_BBOARD_ID_b:  boardID,
+		COMMENT_ARTICLE_ID_b: articleID,
+		COMMENT_IS_DELETED_b: bson.M{
+			"$exists": false,
+		},
 	}
 
 	count, err := Comment_c.Count(query, 0)
@@ -349,25 +352,6 @@ func (c *Comment) CleanReply() {
 	}
 
 	c.Content = c.Content[idxFirstGoodContent:idxLastGoodContent]
-
-	newContent := make([][]*types.Rune, 0, len(c.Content))
-	for _, each := range c.Content {
-		if !isEditReplyPerLine(each) {
-			newContent = append(newContent, each)
-		}
-	}
-
-	c.Content = newContent
-}
-
-func isEditReplyPerLine(line []*types.Rune) bool {
-	if len(line) == 0 { //we don't want to remove nil line this time
-		return false
-	}
-
-	zerothStr := line[0].Utf8
-
-	return strings.HasPrefix(zerothStr, "※ 編輯:")
 }
 
 func cleanReplyPerLine(origLine []*types.Rune) (newLine []*types.Rune) {
@@ -380,11 +364,10 @@ func cleanReplyPerLine(origLine []*types.Rune) (newLine []*types.Rune) {
 		return nil
 	}
 
-	zerothStr := origLine[0].Utf8 // with count, len(origLine) must >= 1
-
-	if strings.HasPrefix(zerothStr, "※ 編輯:") {
-		return nil
-	}
-
 	return origLine
+}
+
+func (c *Comment) SetSortTime(sortTime types.NanoTS) {
+	c.SortTime = sortTime
+	c.CommentID = types.ToCommentID(sortTime, c.MD5)
 }

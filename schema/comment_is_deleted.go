@@ -18,39 +18,15 @@ var (
 	commentIsDeletedFields   = getFields(EMPTY_COMMENT, EMPTY_COMMENT_IS_DELETED)
 )
 
-//RemoveOldFirstComments
-//
-//Assuming that the data already exists,
-//no need to check that update-nano-ts does not exists.
-func RemoveOldFirstComments(bboardID bbs.BBoardID, articleID bbs.ArticleID, updateNanoTS types.NanoTS) (err error) {
-	query := bson.M{
-		COMMENT_BBOARD_ID_b:  bboardID,
-		COMMENT_ARTICLE_ID_b: articleID,
-		COMMENT_UPDATE_NANO_TS_b: bson.M{
-			"$lt": updateNanoTS,
-		},
-		COMMENT_IS_FIRST_COMMENTS_b: true,
-		COMMENT_IS_DELETED_b: bson.M{
-			"$exists": false,
-		},
-	}
-
-	update := &CommentIsDeleted{
-		IsDeleted:    true,
-		DeleteReason: "old-first-comments",
-		UpdateNanoTS: updateNanoTS,
-	}
-
-	_, err = Comment_c.UpdateManyOnly(query, update)
-
-	return err
-}
-
 //RemoveCommentIDs
 //
 //Assuming that the data already exists,
 //no need to check that update-nano-ts does not exists.
 func RemoveCommentIDs(bboardID bbs.BBoardID, articleID bbs.ArticleID, toRemoveCommentIDs []types.CommentID, updateNanoTS types.NanoTS, reason string) (err error) {
+
+	if len(toRemoveCommentIDs) == 0 {
+		return nil
+	}
 
 	query := bson.M{
 		COMMENT_BBOARD_ID_b:      bboardID,

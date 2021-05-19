@@ -33,6 +33,8 @@ func setupTest() {
 
 	SetIsTest()
 
+	initTest()
+
 	params := &RegisterClientParams{ClientID: "default_client_id", ClientType: types.CLIENT_TYPE_APP}
 	_, _, _ = RegisterClient("localhost", bbs.UUserID("SYSOP"), params, nil)
 	//logrus.Infof("api.setupTest: after RegisterClient: status: %v e: %v", statusCode, err)

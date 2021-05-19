@@ -39,6 +39,9 @@ type Article struct {
 	BBS                 string          `bson:"bbs"`     //
 	ContentUpdateNanoTS types.NanoTS    `bson:"content_update_nano_ts"`
 
+	SignatureDBCS []byte `bson:"signature_dbcs"`
+	SignatureMD5  string `bson:"signature_md5"`
+
 	FirstCommentsMD5          string       `bson:"first_comments_md5"`
 	FirstCommentsLastTime     types.NanoTS `bson:"first_comments_last_time_nano_ts"`
 	FirstCommentsUpdateNanoTS types.NanoTS `bson:"first_comments_update_nano_ts"`
@@ -80,6 +83,9 @@ var ( //bson-name
 	ARTICLE_BBS_b           = getBSONName(EMPTY_ARTICLE, "BBS")
 
 	ARTICLE_CONTENT_UPDATE_NANO_TS_b = getBSONName(EMPTY_ARTICLE, "ContentUpdateNanoTS")
+
+	ARTICLE_SIGNATURE_DBCS_b = getBSONName(EMPTY_ARTICLE, "SignatureDBCS")
+	ARTICLE_SIGNATURE_MD5_b  = getBSONName(EMPTY_ARTICLE, "SignatureMD5")
 
 	ARTICLE_FIRST_COMMENTS_MD5_b       = getBSONName(EMPTY_ARTICLE, "FirstCommentsMD5")
 	ARTICLE_FIRST_COMMENTS_LAST_TIME_b = getBSONName(EMPTY_ARTICLE, "FirstCommentsLastTime")

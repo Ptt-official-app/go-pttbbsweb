@@ -30,6 +30,7 @@ func ToReplyID(commentID CommentID) CommentID {
 const (
 	TS_TO_NANO_TS  = NanoTS(1000000000) //10^9
 	MIN_TO_NANO_TS = NanoTS(60) * TS_TO_NANO_TS
+	YEAR_NANO_TS   = NanoTS(365*86400) * TS_TO_NANO_TS
 )
 
 type NanoTS int64
@@ -91,16 +92,15 @@ func TimeToNanoTS(t time.Time) NanoTS {
 
 //DateStrToTime
 //
-//MM/DD
+//(YYYY/)MM/DD
 //
 //used in old-comment.
 //
 //golang requires year to parse TIMEZONE with CST.
 //https://github.com/golang/go/issues/34101
 func DateStrToTime(dateStr string) (time.Time, error) {
-
-	layout := "2006 01/02"
-	t, err := time.ParseInLocation(layout, "1970 "+dateStr, TIMEZONE)
+	layout := "2006/01/02"
+	t, err := time.ParseInLocation(layout, dateStr, TIMEZONE)
 	if err != nil {
 		return t, err
 	}
@@ -121,17 +121,17 @@ func DateYearTimeStrToTime(dateYearTimeStr string) (time.Time, error) {
 	return t.In(TIMEZONE), nil
 }
 
-//DateTimeStrToTime
+//DateMinStrToTime
 //
-//MM/DD hh:mm
+//(YYYY/)MM/DD hh:mm
 //
 //used in comment.
 //
 //golang requires year to parse TIMEZONE with CST.
 //https://github.com/golang/go/issues/34101
-func DateTimeStrToTime(dateTimeStr string) (time.Time, error) {
-	layout := "2006 01/02 15:04"
-	t, err := time.ParseInLocation(layout, "1970 "+dateTimeStr, TIMEZONE)
+func DateMinStrToTime(dateTimeStr string) (time.Time, error) {
+	layout := "2006/01/02 15:04"
+	t, err := time.ParseInLocation(layout, dateTimeStr, TIMEZONE)
 	if err != nil {
 		return t, err
 	}

@@ -1,6 +1,10 @@
 package api
 
 import (
+	"io"
+	"io/ioutil"
+	"os"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
@@ -96,3 +100,103 @@ var (
 		testBoardSummary8,
 	}
 )
+
+func initTest() {
+	if testContentAll4 != nil {
+		return
+	}
+
+	initTest3()
+	initTest4()
+}
+
+func loadTest(filename string) (contentAll []byte, content []byte, signature []byte, recommend []byte, firstComments []byte, theRestComments []byte) {
+
+	// content-all
+	fullFilename := "testcase/" + filename
+	file0, err := os.Open(fullFilename)
+	if err != nil {
+		return nil, nil, nil, nil, nil, nil
+	}
+	defer file0.Close()
+
+	r := io.Reader(file0)
+	contentAll, _ = ioutil.ReadAll(r)
+
+	//content
+	fullFilename = "testcase/" + filename + ".content"
+	file1, err := os.Open(fullFilename)
+	if err != nil {
+		return nil, nil, nil, nil, nil, nil
+	}
+	defer file1.Close()
+
+	r = io.Reader(file1)
+	content, _ = ioutil.ReadAll(r)
+
+	if len(content) == 0 {
+		content = nil
+	}
+
+	//signature
+	fullFilename = "testcase/" + filename + ".signature"
+	file2, err := os.Open(fullFilename)
+	if err != nil {
+		return nil, nil, nil, nil, nil, nil
+	}
+	defer file2.Close()
+
+	r = io.Reader(file2)
+	signature, _ = ioutil.ReadAll(r)
+
+	if len(signature) == 0 {
+		signature = nil
+	}
+
+	//recommend
+	fullFilename = "testcase/" + filename + ".recommend"
+	file3, err := os.Open(fullFilename)
+	if err != nil {
+		return nil, nil, nil, nil, nil, nil
+	}
+	defer file3.Close()
+
+	r = io.Reader(file3)
+	recommend, _ = ioutil.ReadAll(r)
+
+	if len(recommend) == 0 {
+		recommend = nil
+	}
+
+	//firstComments
+	fullFilename = "testcase/" + filename + ".firstComments"
+	file4, err := os.Open(fullFilename)
+	if err != nil {
+		return nil, nil, nil, nil, nil, nil
+	}
+	defer file4.Close()
+
+	r = io.Reader(file4)
+	firstComments, _ = ioutil.ReadAll(r)
+
+	if len(firstComments) == 0 {
+		firstComments = nil
+	}
+
+	//theRestComments
+	fullFilename = "testcase/" + filename + ".theRestComments"
+	file5, err := os.Open(fullFilename)
+	if err != nil {
+		return nil, nil, nil, nil, nil, nil
+	}
+	defer file5.Close()
+
+	r = io.Reader(file5)
+	theRestComments, _ = ioutil.ReadAll(r)
+
+	if len(theRestComments) == 0 {
+		theRestComments = nil
+	}
+
+	return contentAll, content, signature, recommend, firstComments, theRestComments
+}

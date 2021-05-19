@@ -152,9 +152,8 @@ var (
 					},
 				},
 			},
-			MD5:             "a1nbh9m8KYnC0QQevDRyqA",
-			IsFirstComments: true,
-			UpdateNanoTS:    types.NanoTS(1334567890000000000),
+			MD5:          "a1nbh9m8KYnC0QQevDRyqA",
+			UpdateNanoTS: types.NanoTS(1334567890000000000),
 		},
 		{ //
 			BBoardID:   bbs.BBoardID("test"),
@@ -173,9 +172,8 @@ var (
 					},
 				},
 			},
-			MD5:             "u0m4ezxFyxG8CX56gLwr4Q",
-			IsFirstComments: true,
-			UpdateNanoTS:    types.NanoTS(1334567890000000000),
+			MD5:          "u0m4ezxFyxG8CX56gLwr4Q",
+			UpdateNanoTS: types.NanoTS(1334567890000000000),
 		},
 	}
 
@@ -209,14 +207,6 @@ var (
 				{
 					Utf8:   "     123123 123123 123123 123123     ",
 					Big5:   []byte("     123123 123123 123123 123123     "),
-					Color0: types.DefaultColor,
-					Color1: types.DefaultColor,
-				},
-			},
-			{
-				{
-					Utf8:   "※ 編輯: cheinshin (49.216.65.39 臺灣), 12/21/2020 19:52:54        ",
-					Big5:   []byte(""),
 					Color0: types.DefaultColor,
 					Color1: types.DefaultColor,
 				},
@@ -287,10 +277,11 @@ var (
 			{},
 			{
 				{
-					Utf8:   "※ 編輯: cheinshin (49.216.65.39 臺灣), 12/21/2020 19:52:54        ",
+					Utf8:   "",
 					Big5:   []byte(""),
 					Color0: types.DefaultColor,
 					Color1: types.DefaultColor,
+					DBCS:   []byte("\r"),
 				},
 			},
 			{},

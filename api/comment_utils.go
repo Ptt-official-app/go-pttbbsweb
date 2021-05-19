@@ -8,7 +8,6 @@ import (
 func tryUpdateFirstComments(
 	firstComments []*schema.Comment,
 	firstCommentsMD5 string,
-	firstCommentsLastTime types.NanoTS,
 	firstCommentsUpdateNanoTS types.NanoTS,
 	articleDetailSummary *schema.ArticleDetailSummary) (
 
@@ -26,7 +25,6 @@ func tryUpdateFirstComments(
 		BBoardID:                  articleDetailSummary.BBoardID,
 		ArticleID:                 articleDetailSummary.ArticleID,
 		FirstCommentsMD5:          firstCommentsMD5,
-		FirstCommentsLastTime:     firstCommentsLastTime,
 		FirstCommentsUpdateNanoTS: firstCommentsUpdateNanoTS,
 	}
 	err = schema.UpdateArticleFirstComments(articleFirstComments)
@@ -35,7 +33,5 @@ func tryUpdateFirstComments(
 	}
 
 	//remove old first comments.
-	err = schema.RemoveOldFirstComments(articleDetailSummary.BBoardID, articleDetailSummary.ArticleID, firstCommentsUpdateNanoTS)
-
 	return nil
 }
