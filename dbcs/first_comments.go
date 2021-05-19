@@ -6,7 +6,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/sirupsen/logrus"
 )
 
 //ParseFirstComments
@@ -58,7 +57,6 @@ func splitFirstComments(commentsDBCS []byte) (firstCommentsDBCS []byte, theRestC
 		p_commentsDBCS = p_commentsDBCS[idxNewLine:] //starting from '\n'
 
 		nextCommentIdx := MatchComment(p_commentsDBCS)
-		logrus.Infof("splitFirstComments: nComments: %v nextCommentIdx: %v", nComments, nextCommentIdx)
 		if nextCommentIdx == -1 {
 			break
 		}

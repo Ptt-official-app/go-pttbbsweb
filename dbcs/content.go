@@ -4,7 +4,6 @@ import (
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/sirupsen/logrus"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -30,7 +29,6 @@ func ParseContent(contentBytes []byte, origContentMD5 string) (content [][]*type
 
 	signatureBig5 := dbcsToBig5(signatureDBCS)
 	signatureUtf8 := big5ToUtf8(signatureBig5)
-	logrus.Infof("ParseContent: signatureUtf8: %v", signatureUtf8)
 	ip, host, bbs = parseSignatureIPHostBBS(signatureUtf8)
 	signatureMD5 = md5sum(signatureDBCS)
 

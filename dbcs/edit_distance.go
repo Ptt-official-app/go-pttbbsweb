@@ -5,7 +5,6 @@ import (
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/sirupsen/logrus"
 )
 
 type EDBlock struct {
@@ -440,8 +439,6 @@ func (ed *EDBlock) ForwardInferTS(startNanoTS types.NanoTS) (nextIdx int) {
 			sortNanoTS, createNanoTS = forwardInferTSWithYear(newComment.TheDate, currentYear, currentNanoTS)
 		}
 
-		logrus.Infof("ForwardInferTS: currentYear: %v theDate: %v currentNanoTS: %v sortNanoTS: %v createNanoTS %v startNanoTS: %v", currentYear, newComment.TheDate, currentNanoTS, sortNanoTS, createNanoTS, startNanoTS)
-
 		if sortNanoTS >= ed.EndNanoTS {
 			sortNanoTS = forwardExceedingEndNanoTS(idx, len(newComments), currentNanoTS, ed.EndNanoTS)
 		}
@@ -452,10 +449,8 @@ func (ed *EDBlock) ForwardInferTS(startNanoTS types.NanoTS) (nextIdx int) {
 		}
 
 		newComment.SetSortTime(sortNanoTS)
-		logrus.Infof("ForwardInferTS: to check CreateTime: newComment.CreateTime: %v createNanoTS: %v", newComment.CreateTime, createNanoTS)
 		if newComment.CreateTime == 0 {
 			newComment.CreateTime = createNanoTS
-			logrus.Infof("ForwardInferTS: after set CreateTime: newComment.CreateTime: %v createNanoTS: %v", newComment.CreateTime, createNanoTS)
 		}
 
 		currentNanoTS = newComment.SortTime
@@ -560,7 +555,6 @@ func forwardInferTSWithYear(theDate string, year int, startNanoTS types.NanoTS) 
 	sortNanoTS, inferType := inferTSWithYear(theDate, year)
 	createNanoTS = sortNanoTS
 
-	logrus.Infof("forwardInferTSWithYear: start: theDate: %v startNanoTS: %v nanoTS: %v", theDate, startNanoTS, sortNanoTS)
 	if sortNanoTS <= startNanoTS {
 		inferDiff := COMMENT_STEP_DIFF_NANO_TS
 		if inferType == INFER_TIMESTAMP_YMD {
@@ -574,7 +568,6 @@ func forwardInferTSWithYear(theDate string, year int, startNanoTS types.NanoTS) 
 			createNanoTS = sortNanoTS
 		}
 	}
-	logrus.Infof("forwardInferTSWithYear: after 1st cmp: theDate: %v startNanoTS: %v nanoTS: %v", theDate, startNanoTS, sortNanoTS)
 	if sortNanoTS <= startNanoTS {
 		sortNanoTS = startNanoTS + COMMENT_STEP_NANO_TS
 	}
@@ -582,7 +575,6 @@ func forwardInferTSWithYear(theDate string, year int, startNanoTS types.NanoTS) 
 		createNanoTS = sortNanoTS
 	}
 
-	logrus.Infof("forwardInferTSWithYear: end: sortNanoTS: %v createNanoTS: %v", sortNanoTS, createNanoTS)
 	return sortNanoTS, createNanoTS
 }
 
@@ -626,14 +618,12 @@ func inferTSWithYear(theDate string, year int) (nanoTS types.NanoTS, theType INF
 
 	//1. try YYYY/MM/DD hh:mm
 	theTime, err := types.DateMinStrToTime(theDateWithYear)
-	logrus.Infof("inferTSWithYear: after 1st: theDateWithYear: %v theTime: %v e: %v", theDateWithYear, theTime, err)
 	if err == nil {
 		return types.TimeToNanoTS(theTime), INFER_TIMESTAMP_YMDHM
 	}
 
 	//2. try YYYY/MM/DD
 	theTime, err = types.DateStrToTime(theDateWithYear)
-	logrus.Infof("inferTSWithYear: after 2nd: theDateWithYear: %v theTime: %v e: %v", theDateWithYear, theTime, err)
 	if err == nil {
 		return types.TimeToNanoTS(theTime), INFER_TIMESTAMP_YMD
 	}

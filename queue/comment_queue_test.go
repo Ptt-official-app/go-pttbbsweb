@@ -8,10 +8,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/dbcs"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
+	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -24,12 +26,13 @@ func TestQueueCommentDBCS(t *testing.T) {
 
 	//move setupTest inside
 	type args struct {
-		bboardID              bbs.BBoardID
-		articleID             bbs.ArticleID
-		ownerID               bbs.UUserID
-		commentDBCS           []byte
-		firstCommentsLastTime types.NanoTS
-		updateNanoTS          types.NanoTS
+		bboardID          bbs.BBoardID
+		articleID         bbs.ArticleID
+		ownerID           bbs.UUserID
+		commentDBCS       []byte
+		articleCreateTime types.NanoTS
+		articleMTime      types.NanoTS
+		updateNanoTS      types.NanoTS
 	}
 	tests := []struct {
 		name     string
@@ -41,27 +44,30 @@ func TestQueueCommentDBCS(t *testing.T) {
 		// TODO: Add test cases.
 		{
 			args: args{
-				bboardID:              "test",
-				articleID:             "test",
-				ownerID:               "cheinshin",
-				commentDBCS:           testTheRestCommentsDBCS11,
-				firstCommentsLastTime: types.NanoTS(1261396020004000000),
-				updateNanoTS:          types.NanoTS(1334567890000000000),
+				bboardID:          "test",
+				articleID:         "test11",
+				ownerID:           "testOwner",
+				commentDBCS:       testComment11,
+				articleCreateTime: types.NanoTS(1608551120000000000),
+				articleMTime:      types.NanoTS(1608567097000000000),
+				updateNanoTS:      types.NanoTS(1688888888000000001),
 			},
-			expected: testTheRestComments11,
+			expected: testFullComments11,
 		},
-		{
-			args: args{
-				bboardID:              "test",
-				articleID:             "test",
-				ownerID:               "cheinshin",
-				commentDBCS:           testTheRestCommentsDBCS11,
-				firstCommentsLastTime: types.NanoTS(1261396020004000000),
-				updateNanoTS:          types.NanoTS(1434567890000000000),
+		/*
+			{
+				args: args{
+					bboardID:          "test",
+					articleID:         "test11",
+					ownerID:           "testOwner",
+					commentDBCS:       testComment11,
+					articleCreateTime: types.NanoTS(1608551120000000000),
+					articleMTime:      types.NanoTS(1608567097000000000),
+					updateNanoTS:      types.NanoTS(1688888888000000002),
+				},
+				expected: testFullTheRestComments11,
 			},
-			expected: testTheRestComments11,
-			sleepTS:  1,
-		},
+		*/
 	}
 
 	var wg sync.WaitGroup
@@ -70,10 +76,13 @@ func TestQueueCommentDBCS(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
 
-			if tt.sleepTS > 0 {
-				time.Sleep(time.Duration(tt.sleepTS) * time.Second)
-			}
-			if err := QueueCommentDBCS(tt.args.bboardID, tt.args.articleID, tt.args.ownerID, tt.args.commentDBCS, tt.args.firstCommentsLastTime, tt.args.updateNanoTS); (err != nil) != tt.wantErr {
+			firstComments, _, _, _ := dbcs.ParseFirstComments(tt.args.bboardID, tt.args.articleID, "testOwner", tt.args.articleCreateTime, tt.args.articleMTime, tt.args.commentDBCS, "")
+
+			logrus.Infof("QueueCommentDBCS: firstComments: %v", len(firstComments))
+
+			schema.UpdateComments(firstComments, 1688888888000000000)
+
+			if err := QueueCommentDBCS(tt.args.bboardID, tt.args.articleID, tt.args.ownerID, tt.args.commentDBCS, tt.args.articleCreateTime, tt.args.articleMTime, tt.args.updateNanoTS); (err != nil) != tt.wantErr {
 				t.Errorf("QueueCommentDBCS() error = %v, wantErr %v", err, tt.wantErr)
 
 			}
@@ -81,14 +90,14 @@ func TestQueueCommentDBCS(t *testing.T) {
 			time.Sleep(time.Duration(5) * time.Second)
 
 			query := bson.M{
-				schema.COMMENT_BBOARD_ID_b:  "test",
-				schema.COMMENT_ARTICLE_ID_b: "test",
+				schema.COMMENT_BBOARD_ID_b:  tt.args.bboardID,
+				schema.COMMENT_ARTICLE_ID_b: tt.args.articleID,
 			}
 			var got []*schema.Comment
 			_ = schema.Comment_c.Find(query, 0, &got, nil, nil)
 
 			sort.SliceStable(got, func(i, j int) bool {
-				return got[i].CreateTime <= got[j].CreateTime
+				return got[i].SortTime <= got[j].SortTime
 			})
 			for _, each := range got {
 				each.UpdateNanoTS = types.NanoTS(0)
@@ -96,6 +105,6 @@ func TestQueueCommentDBCS(t *testing.T) {
 			testutil.TDeepEqual(t, "got", got, tt.expected)
 
 		})
+		wg.Wait()
 	}
-	wg.Wait()
 }

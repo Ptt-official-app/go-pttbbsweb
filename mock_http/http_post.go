@@ -24,7 +24,7 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(LoadHotBoards(), result)
 	case "/board/1_test1/articles":
 		return parseResult(LoadGeneralArticles(data.(*api.LoadGeneralArticlesParams)), result)
-	case "/board/10_WhoAmI/article/19bWBI4ZSYSOP":
+	case "/board/10_WhoAmI/article/1VtWRel9SYSOP":
 		return parseResult(GetArticleDetail(data.(*api.GetArticleParams)), result)
 	case "/board/10_WhoAmI/article/1VrooM21SYSOP":
 		return parseResult(GetArticleDetail2(data.(*api.GetArticleParams)), result)

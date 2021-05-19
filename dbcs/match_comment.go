@@ -4,7 +4,6 @@ import (
 	"bytes"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -91,13 +90,11 @@ func MatchComment(content []byte) int {
 
 func MatchCommentType(commentDBCS []byte) (theType types.CommentType, nextCommentDBCS []byte) {
 	if bytes.HasPrefix(commentDBCS, MATCH_COMMENT_GREEN_PREFIX) {
-		logrus.Infof("MatchCommentType: green-prefix: commentDBCS: %v", string(commentDBCS[:30]))
 		if bytes.HasPrefix(commentDBCS, MATCH_COMMENT_EDIT_BYTES) {
 			return types.COMMENT_TYPE_EDIT, commentDBCS[len(MATCH_COMMENT_EDIT_BYTES):]
 		}
 
 		isForward, newCommentDBCS := hasPrefixCommentForward(commentDBCS)
-		logrus.Infof("MatchCommentType: isForward: %v", isForward)
 		if isForward {
 			return types.COMMENT_TYPE_FORWARD, newCommentDBCS
 		}

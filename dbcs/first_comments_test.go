@@ -280,7 +280,7 @@ func TestParseFirstComments(t *testing.T) {
 				articleID:         "test14",
 				ownerID:           "testOwner",
 				articleCreateTime: types.NanoTS(1616036734000000000),
-				articleMTime:      types.NanoTS(1616119706000000000),
+				articleMTime:      types.NanoTS(1616123306000000000),
 				commentsDBCS:      testComment14,
 			},
 			updateNanoTS:             types.NanoTS(1688435524000000000),
