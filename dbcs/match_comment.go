@@ -33,9 +33,10 @@ var (
 
 	//※ abcde:轉錄至看板 SYSOP
 	//\xa1\xb0 \x1b[1;32mabcd\x1b[0;32m:\xc2\xe0\xbf\xfd\xa6\xdc\xac\xdd\xaaO Mavericks\x1b[m                               03/18 12:07
-	MATCH_COMMENT_FORWARD_BYTES = []byte{ //\x1b[0;32m:\xc2
-		0x1b, 0x5b, 0x30, 0x3b, 0x33, 0x32, 0x6d, 0x3a, 0xc2, 0xe0, 0xbf, 0xfd, 0xa6, 0xdc, 0xac, 0xdd, 0xaa, 0x4f, 0x20,
-	}
+	//※ jasome:轉錄至某隱形看板
+	//\xa1\xb0 \x1b[1;32mjasome\x1b[0;32m:\xc2\xe0\xbf\xfd\xa6\xdc\xacY\xc1\xf4\xa7\xce\xac\xdd\xaaO\x1b[m                                         01/29 02:39
+	MATCH_COMMENT_FORWARD_BYTES       = []byte("\x1b[0;32m:\xc2\xe0\xbf\xfd\xa6\xdc") //\x1b[0;32m:\xc2
+	MATCH_COMMENT_FORWARD_BOARD_BYTES = []byte("\xac\xdd\xaaO ")
 
 	MATCH_COMMENT_FORWARD_PREFIX = []byte("\xa1\xb0 \x1b[1;32m")
 

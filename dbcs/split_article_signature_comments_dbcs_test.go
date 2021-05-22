@@ -153,6 +153,13 @@ func Test_splitArticleSignatureCommentsDBCS(t *testing.T) {
 			expectedSignatureDBCS: testSignature18,
 			expectedComments:      testComment18,
 		},
+		{
+			name:                  "19_" + testFilename19,
+			args:                  args{content: testContentAll19},
+			expectedArticleDBCS:   testContent19,
+			expectedSignatureDBCS: testSignature19,
+			expectedComments:      testComment19,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
