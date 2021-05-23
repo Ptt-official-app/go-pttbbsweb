@@ -224,6 +224,15 @@ func TestParseComments(t *testing.T) {
 			},
 			expectedComments: testTheRestComments18,
 		},
+		{
+			name: "19_" + testFilename19,
+			args: args{
+				ownerID:         "testOwner",
+				commentsDBCS:    testFirstCommentsDBCS19,
+				allCommentsDBCS: testComment19,
+			},
+			expectedComments: testFirstComments19,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

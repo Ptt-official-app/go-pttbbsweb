@@ -30,6 +30,7 @@ func initTest() {
 	initTest16()
 	initTest17()
 	initTest18()
+	initTest19()
 }
 
 func loadTest(filename string) (contentAll []byte, content []byte, signature []byte, recommend []byte, firstComments []byte, theRestComments []byte) {

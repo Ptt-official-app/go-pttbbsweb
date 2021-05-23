@@ -85,6 +85,19 @@ func TestIntegrateComments(t *testing.T) {
 			},
 			expectedNewComments: testFullTheRestComments18,
 		},
+		{
+			name: "19_" + testFilename19,
+			args: args{
+				boardID:              "test",
+				articleID:            "test19",
+				commentDBCS:          testComment19,
+				articleCreateTime:    types.NanoTS(1516958302000000000),
+				articleMTime:         types.NanoTS(1517273782000000000),
+				isForwardOnly:        false,
+				isLastAlignEndNanoTS: true,
+			},
+			expectedNewComments: testFullTheRestComments19,
+		},
 	}
 	var wg sync.WaitGroup
 	for _, tt := range tests {

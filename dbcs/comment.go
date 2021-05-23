@@ -273,6 +273,10 @@ func parseCommentForwardContent(commentDBCS []byte) (contentDBCS []byte, newComm
 	}
 
 	p_commentDBCS := commentDBCS[len(MATCH_COMMENT_FORWARD_BYTES):]
+	if bytes.Equal(p_commentDBCS[:len(MATCH_COMMENT_FORWARD_BOARD_BYTES)], MATCH_COMMENT_FORWARD_BOARD_BYTES) {
+		p_commentDBCS = p_commentDBCS[len(MATCH_COMMENT_FORWARD_BOARD_BYTES):]
+	}
+
 	idx := bytes.Index(p_commentDBCS, []byte{'\x1b'})
 	if idx == -1 {
 		return nil, nil
