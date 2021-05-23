@@ -18,6 +18,14 @@ services:
       - ${MONGO}:/data
       - ${MONGO}/db:/data/db
       - ${MONGO}/configdb:/data/configdb
+    deploy:
+      resources:
+        limits:
+          cpus: ${MONGO_CPU}
+          memory: ${MONGO_MEM}
+        reservations:
+          cpus: ${MONGO_CPU}
+          memory: ${MONGO_MEM}
   redis:
     image: redis:6.0.9-alpine
     restart: always
