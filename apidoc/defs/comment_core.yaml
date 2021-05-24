@@ -13,6 +13,9 @@ refid:
 create_time:
   type: number
   description: 留言時間
+sort_time:
+  type: number
+  description: 排序時間
 content:
   '$ref': '#/definitions/Content'
 ip:

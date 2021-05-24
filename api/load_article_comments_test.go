@@ -28,6 +28,7 @@ func TestLoadArticleComments(t *testing.T) {
 			CommentID:  "FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA",
 			TheType:    2,
 			CreateTime: 1608388624,
+			SortTime:   1608388624,
 			Owner:      "chhsiao123",
 			Content: [][]*types.Rune{
 				{
@@ -47,6 +48,7 @@ func TestLoadArticleComments(t *testing.T) {
 			CommentID:  "FlIk36uaIAA:FQaNH8WkdAbEGD7yp2Zkvg",
 			TheType:    1,
 			CreateTime: 1608388560,
+			SortTime:   1608388560,
 			Owner:      "chhsiao123",
 			Content: [][]*types.Rune{
 				{
@@ -66,6 +68,7 @@ func TestLoadArticleComments(t *testing.T) {
 			CommentID:  "FlIk0bNSyAA:3dK46zmOe5zmna12AC1gnQ",
 			TheType:    3,
 			CreateTime: 1608388500,
+			SortTime:   1608388500,
 			Owner:      "SYSOP",
 			Content: [][]*types.Rune{
 				{

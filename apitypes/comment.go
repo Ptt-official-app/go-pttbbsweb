@@ -14,6 +14,7 @@ type Comment struct {
 	RefID      types.CommentID   `json:"refid"`
 	IsDeleted  bool              `json:"deleted"`
 	CreateTime types.Time8       `json:"create_time"`
+	SortTime   types.Time8       `json:"sort_time"`
 	Owner      bbs.UUserID       `json:"owner"`
 	Content    [][]*types.Rune   `json:"content"`
 	IP         string            `json:"ip"`
@@ -33,6 +34,7 @@ func NewComment(comment_db *schema.Comment) (comment *Comment) {
 		RefID:      refID,
 		IsDeleted:  comment_db.IsDeleted,
 		CreateTime: comment_db.CreateTime.ToTime8(),
+		SortTime:   comment_db.SortTime.ToTime8(),
 		Owner:      comment_db.Owner,
 		Content:    comment_db.Content,
 		IP:         comment_db.IP,
