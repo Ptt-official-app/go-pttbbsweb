@@ -93,24 +93,59 @@ func Init() (err error) {
 
 	//User
 	User_c = client.Collection("user")
+	keys = &bson.D{
+		{Key: USER_USER_ID_b, Value: 1},
+	}
+	err = User_c.CreateUniqueIndex(keys)
+	if err != nil {
+		return err
+	}
 
 	//UserAloha
 	UserAloha_c = client.Collection("user_aloha")
 
 	//UserFavorites
 	UserFavorites_c = client.Collection("user_favorites")
+	keys = &bson.D{
+		{Key: USER_FAVORITES_USER_ID_b, Value: 1},
+	}
+	err = UserFavorites_c.CreateIndex(keys, nil)
+	if err != nil {
+		return err
+	}
 
 	//UserFavoritesMeta
 	UserFavoritesMeta_c = client.Collection("user_favorites_meta")
+	keys = &bson.D{
+		{Key: USER_FAVORITES_META_USER_ID_b, Value: 1},
+	}
+	err = UserFavoritesMeta_c.CreateIndex(keys, nil)
+	if err != nil {
+		return err
+	}
 
 	//UserFriend
 	UserFriend_c = client.Collection("user_friend")
 
 	//UserReadArticle
 	UserReadArticle_c = client.Collection("user_read_article")
+	keys = &bson.D{
+		{Key: USER_READ_ARTICLE_USER_ID_b, Value: 1},
+	}
+	err = UserReadArticle_c.CreateIndex(keys, nil)
+	if err != nil {
+		return err
+	}
 
 	//UserReadBoard
 	UserReadBoard_c = client.Collection("user_read_board")
+	keys = &bson.D{
+		{Key: USER_READ_BOARD_USER_ID_b, Value: 1},
+	}
+	err = UserReadBoard_c.CreateIndex(keys, nil)
+	if err != nil {
+		return err
+	}
 
 	//UserReject
 	UserReject_c = client.Collection("user_reject")
