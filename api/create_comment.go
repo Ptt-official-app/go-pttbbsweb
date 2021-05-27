@@ -14,8 +14,8 @@ import (
 const CREATE_COMMENT_R = "/board/:bid/article/:aid/comment"
 
 type CreateCommentParams struct {
-	CommentType ptttype.CommentType
-	Content     string
+	CommentType ptttype.CommentType `json:"type" form:"type" url:"type"`
+	Content     string              `json:"content" form:"content" url:"content"`
 }
 
 type CreateCommentPath struct {
