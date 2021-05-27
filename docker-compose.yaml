@@ -19,14 +19,6 @@ services:
     cpus: ${MONGO_CPU}
     mem_limit: ${MONGO_MEM}
     mem_reservation: ${MONGO_MEM}
-    deploy:
-      resources:
-        limits:
-          cpus: ${MONGO_CPU}
-          memory: ${MONGO_MEM}
-        reservations:
-          cpus: ${MONGO_CPU}
-          memory: ${MONGO_MEM}
   redis:
     image: redis:6.0.9-alpine
     restart: always
@@ -37,7 +29,7 @@ services:
       - ${POSTFIX_MASTER_CF}:/etc/postfix/master.cf
     restart: always
   openbbs-middleware:
-    image: pttofficialapps/go-openbbsmiddleware:v0.16.1
+    image: pttofficialapps/go-openbbsmiddleware:v0.16.2
     ports:
       - "127.0.0.1:3457:3457"
     volumes:
