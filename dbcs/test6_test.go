@@ -4,6 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 var (
@@ -1425,7 +1426,7 @@ func initTest6() {
 
 	testFirstComments6 = []*schema.Comment{
 		{
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("try107799"),
 			Content: [][]*types.Rune{
 				{
@@ -1443,7 +1444,7 @@ func initTest6() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mtry107799\x1b[m\x1b[33m: .....,.                                             \x1b[m 02/13 03:01\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("hahabis"),
 			Content: [][]*types.Rune{
 				{
@@ -1461,7 +1462,7 @@ func initTest6() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mhahabis\x1b[m\x1b[33m: ..............                                        \x1b[m 02/13 03:04\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Unleashed"),
 			Content: [][]*types.Rune{
 				{
@@ -1479,7 +1480,7 @@ func initTest6() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mUnleashed\x1b[m\x1b[33m: \xad\xfe\xa9\xdb...                                             \x1b[m 02/13 03:14\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("piconeko"),
 			Content: [][]*types.Rune{
 				{
@@ -1497,7 +1498,7 @@ func initTest6() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mpiconeko\x1b[m\x1b[33m: \xa4\xa3\xacO\xa9\xd4\xa8{\xa4l\xb4N\xacO\xaa\xcd\xaa\xa2,\xa9\xfa\xa6~\xb2M\xa5X\xb3o\xa8\xc7\xa4HSale,Elvo,JD\xb6RBetts \x1b[m 02/13 03:29\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("DavFlow"),
 			Content: [][]*types.Rune{
 				{
@@ -1515,7 +1516,7 @@ func initTest6() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mDavFlow\x1b[m\x1b[33m: ....                                                  \x1b[m 02/13 03:41\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("ekpum135"),
 			Content: [][]*types.Rune{
 				{
@@ -1533,7 +1534,7 @@ func initTest6() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mekpum135\x1b[m\x1b[33m: \xa7\xc6\xb1\xe6\xa8S\xa8\xc6.....                                        \x1b[m 02/13 04:09\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("seekforever"),
 			Content: [][]*types.Rune{
 				{
@@ -1551,7 +1552,7 @@ func initTest6() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mseekforever\x1b[m\x1b[33m: \xa5L\xc1\xd9\xa6b\xa5\xbf\xb1`\xb0V\xbdm\xa1A\xc0\xb3\xb8\xd3\xc1\xd9\xa6n                          \x1b[m 02/13 04:52\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("tortoise2006"),
 			Content: [][]*types.Rune{
 				{
@@ -1569,7 +1570,7 @@ func initTest6() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mtortoise2006\x1b[m\x1b[33m: \xa6\xad\xa4\xe9\xb1d\xb4_\xb0\xda                                       \x1b[m 02/13 07:43\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("triff"),
 			Content: [][]*types.Rune{
 				{
@@ -1587,7 +1588,7 @@ func initTest6() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mtriff\x1b[m\x1b[33m: \xb3o\xad\xd3\xae\xc9\xb6\xa1\xc2I\xb1o\xaa\xcd\xaa\xa2...                                     \x1b[m 02/13 08:02\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("LBJKO"),
 			Content: [][]*types.Rune{
 				{
@@ -1611,7 +1612,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfK82SZ7OAA:6T-ZR97m1lqVecQZAmlMuA"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("try107799"),
 			CreateTime: types.NanoTS(1581534060000000000),
 			SortTime:   types.NanoTS(1581534060000000000),
@@ -1634,7 +1635,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfK9Aw9RQAA:ivEDjzbs9GQE0tA2qP9PVQ"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("hahabis"),
 			CreateTime: types.NanoTS(1581534240000000000),
 			SortTime:   types.NanoTS(1581534240000000000),
@@ -1657,7 +1658,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfK9jsIasAA:p5dkEHAzRTSQL4gzP6GvNg"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("Unleashed"),
 			CreateTime: types.NanoTS(1581534840000000000),
 			SortTime:   types.NanoTS(1581534840000000000),
@@ -1680,7 +1681,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfK-YE5I2AA:PKyW17rlcp07gdY_wBC4sw"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("piconeko"),
 			CreateTime: types.NanoTS(1581535740000000000),
 			SortTime:   types.NanoTS(1581535740000000000),
@@ -1703,7 +1704,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfK_B_Gg-AA:py4oWIA-ee0qAUqWJ4WO5A"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("DavFlow"),
 			CreateTime: types.NanoTS(1581536460000000000),
 			SortTime:   types.NanoTS(1581536460000000000),
@@ -1726,7 +1727,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLAjxlumAA:ag_pH6PvnPs4D5Guezh9kQ"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("ekpum135"),
 			CreateTime: types.NanoTS(1581538140000000000),
 			SortTime:   types.NanoTS(1581538140000000000),
@@ -1749,7 +1750,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLC581qYAA:WB3pkDhBHnLC-eJYMdIeEQ"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("seekforever"),
 			CreateTime: types.NanoTS(1581540720000000000),
 			SortTime:   types.NanoTS(1581540720000000000),
@@ -1772,7 +1773,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLMPKUSKAA:lxWkMcBKgzfkQU58S75mDw"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("tortoise2006"),
 			CreateTime: types.NanoTS(1581550980000000000),
 			SortTime:   types.NanoTS(1581550980000000000),
@@ -1795,7 +1796,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLNRhJdsAA:VsL5xJ9ukmfB5g3kITeCNQ"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("triff"),
 			CreateTime: types.NanoTS(1581552120000000000),
 			SortTime:   types.NanoTS(1581552120000000000),
@@ -1818,7 +1819,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLPkM4SIAA:9JBlv1b11fR1u5J1QDEHRQ"),
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("LBJKO"),
 			CreateTime: types.NanoTS(1581554640000000000),
 			SortTime:   types.NanoTS(1581554640000000000),
@@ -1844,7 +1845,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLQDoiUOAA:JqQyojCk0mIw8gXURYjxAQ"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("HaiTurtle"),
 			CreateTime: types.NanoTS(1581555180000000000),
 			SortTime:   types.NanoTS(1581555180000000000),
@@ -1867,7 +1868,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLTVLlM2AA:uwbawqbewdgw3DVCeDb4yA"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("Absioute"),
 			CreateTime: types.NanoTS(1581558780000000000),
 			SortTime:   types.NanoTS(1581558780000000000),
@@ -1890,7 +1891,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLWYwjoGAA:5gfFsU379qTU1BguxzZCbg"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("rookievit"),
 			CreateTime: types.NanoTS(1581562140000000000),
 			SortTime:   types.NanoTS(1581562140000000000),
@@ -1913,7 +1914,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLWYwj3WkA:1diHhyKLKy7vRk9nu6AbcQ"),
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("rookievit"),
 			CreateTime: types.NanoTS(1581562140000000000),
 			SortTime:   types.NanoTS(1581562140001000000),
@@ -1936,7 +1937,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLW0ssi2AA:Jz02wPefPRfUsOCFfY56jg"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("enyaw5215"),
 			CreateTime: types.NanoTS(1581562620000000000),
 			SortTime:   types.NanoTS(1581562620000000000),
@@ -1959,7 +1960,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLZOXdl-AA:AK3icfj0OOsdDgS6LooH4g"),
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("seekforever"),
 			CreateTime: types.NanoTS(1581565260000000000),
 			SortTime:   types.NanoTS(1581565260000000000),
@@ -1982,7 +1983,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLabM2HiAA:YcV5XMDVXyKw7wlKk_QnCw"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("myde"),
 			CreateTime: types.NanoTS(1581566580000000000),
 			SortTime:   types.NanoTS(1581566580000000000),
@@ -2005,7 +2006,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLxLjm94AA:dWu3xGlPcgYyIaASlbbtsA"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("ramiraz615"),
 			CreateTime: types.NanoTS(1581591600000000000),
 			SortTime:   types.NanoTS(1581591600000000000),
@@ -2028,7 +2029,7 @@ func initTest6() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfMS7pIb_AA:yRxsmeS7P4_SoQoRLNn4gw"),
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("BMW740Li"),
 			CreateTime: types.NanoTS(1581628710000000000),
 			SortTime:   types.NanoTS(1581628710000000000),

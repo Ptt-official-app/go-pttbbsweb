@@ -4,6 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 var (
@@ -104,7 +105,7 @@ func initTest1() {
 
 	testFirstComments1 = []*schema.Comment{
 		{
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("SYSOP"),
 			Content: [][]*types.Rune{
 				{
@@ -122,7 +123,7 @@ func initTest1() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0\xa1\xe3                                                   \x1b[m 12/13 03:50"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("SYSOP"),
 			Content: [][]*types.Rune{
 				{
@@ -140,7 +141,7 @@ func initTest1() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSYSOP\x1b[m\x1b[33m:\xb1\xc0\xb1\xc0                                                     \x1b[m 12/13 03:51"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("SYSOP"),
 			Content: [][]*types.Rune{
 				{
@@ -164,7 +165,7 @@ func initTest1() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test1"),
 			CommentID:  types.CommentID("FlAP8jnzEAA:uzQhiFhT_R5HGcpcXa10Fg"),
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SYSOP"),
 			CreateTime: types.NanoTS(1607802600000000000),
 			SortTime:   types.NanoTS(1607802600000000000),
@@ -188,7 +189,7 @@ func initTest1() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test1"),
 			CommentID:  types.CommentID("FlAQADI6aAA:t24G1aV7UjVPoUv-6_T93A"),
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SYSOP"),
 			CreateTime: types.NanoTS(1607802660000000000),
 			SortTime:   types.NanoTS(1607802660000000000),
@@ -211,7 +212,7 @@ func initTest1() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test1"),
 			CommentID:  types.CommentID("FlAQDiqBwAA:HWj0bTiKkHE3DnJEz3TO0A"),
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SYSOP"),
 			CreateTime: types.NanoTS(1607802720000000000),
 			SortTime:   types.NanoTS(1607802720000000000),

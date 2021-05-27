@@ -4,6 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 var (
@@ -232,7 +233,7 @@ func initTest7() {
 
 	testFirstComments7 = []*schema.Comment{
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("Psycap"),
 			Content: nil,
 			MD5:     "K3Ebmg6YJggrKPhd5QkAvA",
@@ -246,7 +247,7 @@ func initTest7() {
 		{
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test7"),
-			TheType:    types.COMMENT_TYPE_EDIT,
+			TheType:    ptttype.COMMENT_TYPE_EDIT,
 			CommentID:  types.CommentID("Do8fzC2iEAA:K3Ebmg6YJggrKPhd5QkAvA"),
 			Owner:      bbs.UUserID("Psycap"),
 			Content:    nil,

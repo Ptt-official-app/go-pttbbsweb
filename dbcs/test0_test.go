@@ -4,6 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 var (
@@ -142,7 +143,7 @@ func initTest0() {
 
 	testFirstComments0 = []*schema.Comment{
 		{
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("SYSOP"),
 			Content: [][]*types.Rune{
 				{
@@ -166,7 +167,7 @@ func initTest0() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),
 			CommentID:  types.CommentID("FlAQADI6aAA:t24G1aV7UjVPoUv-6_T93A"),
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SYSOP"),
 			CreateTime: types.NanoTS(1607802660000000000),
 			SortTime:   types.NanoTS(1607802660000000000),
@@ -192,7 +193,7 @@ func initTest0() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test01"),
 			CommentID:  types.CommentID("FlAQBy5eFAA:t24G1aV7UjVPoUv-6_T93A"),
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SYSOP"),
 			CreateTime: types.NanoTS(1607802690000000000),
 			SortTime:   types.NanoTS(1607802690000000000),
@@ -218,7 +219,7 @@ func initTest0() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test02"),
 			CommentID:  types.CommentID("FsAZ01_daAA:t24G1aV7UjVPoUv-6_T93A"),
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SYSOP"),
 			CreateTime: types.NanoTS(1639338660000000000),
 			SortTime:   types.NanoTS(1639338660000000000),

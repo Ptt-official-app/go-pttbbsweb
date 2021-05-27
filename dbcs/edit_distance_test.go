@@ -7,6 +7,7 @@ import (
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 )
 
@@ -664,7 +665,7 @@ func TestEDBlock_AlignEndNanoTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_DELETED,
+					TheType:    ptttype.COMMENT_TYPE_DELETED,
 					MD5:        "m4",
 					SortTime:   1234576900000010000,
 					CreateTime: 1234576900000010000,
@@ -675,7 +676,7 @@ func TestEDBlock_AlignEndNanoTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -683,7 +684,7 @@ func TestEDBlock_AlignEndNanoTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "02/14 10:31",
 				},
@@ -691,7 +692,7 @@ func TestEDBlock_AlignEndNanoTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "02/14 10:32",
 				},
@@ -717,7 +718,7 @@ func TestEDBlock_AlignEndNanoTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_DELETED,
+					TheType:    ptttype.COMMENT_TYPE_DELETED,
 					MD5:        "m4",
 					SortTime:   1234576900000010000,
 					CreateTime: 1234576900000010000,
@@ -728,7 +729,7 @@ func TestEDBlock_AlignEndNanoTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -736,7 +737,7 @@ func TestEDBlock_AlignEndNanoTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "02/14 10:31",
 				},
@@ -744,7 +745,7 @@ func TestEDBlock_AlignEndNanoTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_COMMENT,
+					TheType:    ptttype.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "02/14 10:32",
 					SortTime:   1234578720000000000,
@@ -809,7 +810,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_DELETED,
+					TheType: ptttype.COMMENT_TYPE_DELETED,
 					MD5:     "m4",
 					RefIDs:  []types.CommentID{"temp:m3"},
 				},
@@ -817,7 +818,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -825,7 +826,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -833,7 +834,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/14 10:32",
 				},
@@ -859,7 +860,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_DELETED,
+					TheType:    ptttype.COMMENT_TYPE_DELETED,
 					MD5:        "m4",
 					SortTime:   1234567890001000000,
 					CreateTime: 1234567890001000000,
@@ -870,7 +871,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1234578600000000000,
@@ -881,7 +882,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
 					CommentID:  "ESqy__E36AA:m1",
@@ -892,7 +893,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_COMMENT,
+					TheType:    ptttype.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/14 10:32",
 					CommentID:  "ETQ3C4IQQAA:m2",
@@ -921,7 +922,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -929,7 +930,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -937,7 +938,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "02/14 10:32",
 				},
@@ -964,7 +965,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1234578600000000000,
@@ -975,7 +976,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
 					CommentID:  "ESqy__E36AA:m1",
@@ -986,7 +987,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "02/14 10:32",
 				},
@@ -1012,7 +1013,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -1020,7 +1021,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "02/14 10:30",
 				},
@@ -1028,7 +1029,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_EDIT,
+					TheType:    ptttype.COMMENT_TYPE_EDIT,
 					MD5:        "m2",
 					TheDate:    "02/14/2009 10:32",
 					CommentID:  "temp:m2",
@@ -1058,7 +1059,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1234578600000000000,
@@ -1069,7 +1070,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "02/14 10:30",
 					CommentID:  "ESIashRb0kA:m1",
@@ -1080,7 +1081,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_EDIT,
+					TheType:    ptttype.COMMENT_TYPE_EDIT,
 					MD5:        "m2",
 					TheDate:    "02/14/2009 10:32",
 					CommentID:  "temp:m2",
@@ -1109,7 +1110,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -1117,7 +1118,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:30",
 				},
@@ -1125,7 +1126,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m2",
 					TheDate: "05/14 10:32",
 				},
@@ -1152,7 +1153,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1234578600000000000,
@@ -1163,7 +1164,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:30",
 					CommentID:  "ESqy8fjwkAA:m1",
@@ -1174,7 +1175,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m2",
 					TheDate:    "05/14 10:32",
 					CommentID:  "ETVdbiF7_Bg:m2",
@@ -1203,7 +1204,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_REPLY,
+					TheType:    ptttype.COMMENT_TYPE_REPLY,
 					MD5:        "m0",
 					TheDate:    "04/14/2009 10:30",
 					CommentID:  "temp:m0",
@@ -1213,7 +1214,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:30",
 				},
@@ -1221,7 +1222,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_REPLY,
+					TheType:    ptttype.COMMENT_TYPE_REPLY,
 					MD5:        "m2",
 					TheDate:    "04/14/2009 10:30",
 					CommentID:  "temp:m2",
@@ -1250,7 +1251,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_REPLY,
+					TheType:    ptttype.COMMENT_TYPE_REPLY,
 					MD5:        "m0",
 					TheDate:    "04/14/2009 10:30",
 					CreateTime: 1239676320000000000,
@@ -1261,7 +1262,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:30",
 					CommentID:  "ESqy8fjwkAA:m1",
@@ -1272,7 +1273,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_REPLY,
+					TheType:    ptttype.COMMENT_TYPE_REPLY,
 					MD5:        "m2",
 					TheDate:    "04/14/2009 10:30",
 					CommentID:  "ESqy8fjyFqA:m2",
@@ -1369,7 +1370,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_DELETED,
+					TheType: ptttype.COMMENT_TYPE_DELETED,
 					MD5:     "m4",
 					RefIDs:  []types.CommentID{"temp:m3"},
 				},
@@ -1377,7 +1378,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -1385,7 +1386,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -1393,7 +1394,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/14 10:32",
 				},
@@ -1419,7 +1420,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_DELETED,
+					TheType:    ptttype.COMMENT_TYPE_DELETED,
 					MD5:        "m4",
 					SortTime:   1234578600899000000,
 					CreateTime: 1234578600899000000,
@@ -1430,7 +1431,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1234578600000000000,
@@ -1441,7 +1442,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
 					CommentID:  "ESqzACbc0QA:m1",
@@ -1452,7 +1453,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_COMMENT,
+					TheType:    ptttype.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/14 10:32",
 					CommentID:  "ETQ3C7e1KQA:m2",
@@ -1481,7 +1482,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_DELETED,
+					TheType: ptttype.COMMENT_TYPE_DELETED,
 					MD5:     "m4",
 					RefIDs:  []types.CommentID{"temp:m3"},
 				},
@@ -1489,7 +1490,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -1497,7 +1498,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -1505,7 +1506,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/14 10:32",
 				},
@@ -1531,7 +1532,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_DELETED,
+					TheType:    ptttype.COMMENT_TYPE_DELETED,
 					MD5:        "m4",
 					SortTime:   1266114600899000000,
 					CreateTime: 1266114600899000000,
@@ -1542,7 +1543,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1266114600000000000,
@@ -1553,7 +1554,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
 					CommentID:  "EZq801R_0QA:m1",
@@ -1564,7 +1565,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_COMMENT,
+					TheType:    ptttype.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/14 10:32",
 					CommentID:  "EaRA3uVYKQA:m2",
@@ -1593,7 +1594,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m4",
 					TheDate: "05/14 10:30",
 				},
@@ -1601,7 +1602,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -1609,7 +1610,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -1617,7 +1618,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/14 10:32",
 				},
@@ -1643,7 +1644,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m4",
 					TheDate:    "05/14 10:30",
 					CreateTime: 1242268200000000000,
@@ -1654,7 +1655,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1266114600000000000,
@@ -1665,7 +1666,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
 					CommentID:  "EZq801R_0QA:m1",
@@ -1676,7 +1677,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_COMMENT,
+					TheType:    ptttype.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/14 10:32",
 					CommentID:  "EaRA3uVYKQA:m2",
@@ -1705,7 +1706,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m4",
 					TheDate: "05/14 10:30",
 				},
@@ -1713,7 +1714,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -1721,7 +1722,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -1729,7 +1730,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/17 12:00",
 				},
@@ -1755,7 +1756,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m4",
 					TheDate:    "05/14 10:30",
 					CreateTime: 1242268200000000000,
@@ -1766,7 +1767,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1266114600000000000,
@@ -1777,7 +1778,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
 					CommentID:  "EZq801R_0QA:m1",
@@ -1788,7 +1789,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_COMMENT,
+					TheType:    ptttype.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/17 12:00",
 					CommentID:  "EaUxabwXPcA:m2",
@@ -1817,7 +1818,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m4",
 					TheDate: "05/14 10:30",
 				},
@@ -1825,7 +1826,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -1833,7 +1834,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -1841,7 +1842,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/17 12:00",
 				},
@@ -1867,7 +1868,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m4",
 					TheDate:    "05/14 10:30",
 					CreateTime: 1242268200000000000,
@@ -1878,7 +1879,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1266114600000000000,
@@ -1889,7 +1890,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
 					CommentID:  "EZq801R_0QA:m1",
@@ -1900,7 +1901,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_COMMENT,
+					TheType:    ptttype.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/17 12:00",
 					CommentID:  "EaUxafHLaQA:m2",
@@ -1929,7 +1930,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m4",
 					TheDate: "05/14 10:30",
 				},
@@ -1937,7 +1938,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -1945,7 +1946,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -1953,7 +1954,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/17 12:00",
 				},
@@ -1979,7 +1980,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m4",
 					TheDate:    "05/14 10:30",
 					CreateTime: 1242268200000000000,
@@ -1990,7 +1991,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1266114600000000000,
@@ -2001,7 +2002,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
 					CommentID:  "EZq801R_0QA:m1",
@@ -2012,7 +2013,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_COMMENT,
+					TheType:    ptttype.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/17 12:00",
 					CommentID:  "EaUxcLhKLAA:m2",
@@ -2041,7 +2042,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m4",
 					TheDate: "01/14 10:30",
 				},
@@ -2049,7 +2050,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -2057,7 +2058,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -2065,7 +2066,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/14 10:32",
 				},
@@ -2091,7 +2092,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m4",
 					TheDate:    "01/14 10:30",
 					CreateTime: 1231900200000000000,
@@ -2102,7 +2103,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1234578600000000000,
@@ -2113,7 +2114,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
 					CommentID:  "ESqzACbc0QA:m1",
@@ -2124,7 +2125,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_COMMENT,
+					TheType:    ptttype.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/14 10:32",
 					CommentID:  "ETQ3C7e1KQA:m2",
@@ -2153,14 +2154,14 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_REPLY,
+					TheType: ptttype.COMMENT_TYPE_REPLY,
 					MD5:     "m4",
 				},
 			},
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -2168,7 +2169,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -2176,14 +2177,14 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_REPLY,
+					TheType: ptttype.COMMENT_TYPE_REPLY,
 					MD5:     "m1",
 				},
 			},
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/14 10:32",
 				},
@@ -2209,7 +2210,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_REPLY,
+					TheType:    ptttype.COMMENT_TYPE_REPLY,
 					MD5:        "m4",
 					SortTime:   1234567890000100000,
 					CreateTime: 1234567890000100000,
@@ -2219,7 +2220,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1266114600000000000,
@@ -2230,7 +2231,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
 					CommentID:  "EZq801R_0QA:m1",
@@ -2241,7 +2242,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_REPLY,
+					TheType:    ptttype.COMMENT_TYPE_REPLY,
 					MD5:        "m1",
 					CommentID:  "EZq801SBV6A:m1",
 					CreateTime: 1268533860900100000,
@@ -2251,7 +2252,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_COMMENT,
+					TheType:    ptttype.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/14 10:32",
 					CommentID:  "EaRA3uVYKQA:m2",
@@ -2358,7 +2359,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m4",
 					TheDate: "05/14 10:30",
 				},
@@ -2366,7 +2367,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -2374,7 +2375,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -2382,7 +2383,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/17 12:00",
 				},
@@ -2408,7 +2409,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m4",
 					TheDate:    "05/14 10:30",
 					CreateTime: 1242268200000000000,
@@ -2419,7 +2420,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1297650600000000000,
@@ -2430,7 +2431,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
 					CommentID:  "EgrGpoIi0QA:m1",
@@ -2441,7 +2442,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_COMMENT,
+					TheType:    ptttype.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/17 12:00",
 					CommentID:  "EhU7PR9uaQA:m2",
@@ -2470,7 +2471,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m4",
 					TheDate: "05/14 10:30",
 				},
@@ -2478,7 +2479,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -2486,7 +2487,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -2494,7 +2495,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/17 12:00",
 				},
@@ -2520,7 +2521,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m4",
 					TheDate:    "05/14 10:30",
 					CreateTime: 1242268200000000000,
@@ -2549,7 +2550,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m4",
 					TheDate: "05/14 10:30",
 				},
@@ -2557,7 +2558,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -2565,7 +2566,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -2573,7 +2574,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/17 12:00",
 				},
@@ -2599,7 +2600,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m4",
 					TheDate:    "05/14 10:30",
 					CreateTime: 1242268200000000000,
@@ -2629,7 +2630,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_RECOMMEND,
+					TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:     "m0",
 					TheDate: "02/14 10:30",
 				},
@@ -2637,7 +2638,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_BOO,
+					TheType: ptttype.COMMENT_TYPE_BOO,
 					MD5:     "m1",
 					TheDate: "03/14 10:31",
 				},
@@ -2645,7 +2646,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType: types.COMMENT_TYPE_COMMENT,
+					TheType: ptttype.COMMENT_TYPE_COMMENT,
 					MD5:     "m2",
 					TheDate: "04/17 12:00",
 				},
@@ -2671,7 +2672,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_RECOMMEND,
+					TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 					MD5:        "m0",
 					TheDate:    "02/14 10:30",
 					CreateTime: 1234578600000000000,
@@ -2682,7 +2683,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_BOO,
+					TheType:    ptttype.COMMENT_TYPE_BOO,
 					MD5:        "m1",
 					TheDate:    "03/14 10:31",
 					CommentID:  "ESqy__E36AA:m1",
@@ -2693,7 +2694,7 @@ func TestInferTimestamp(t *testing.T) {
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
-					TheType:    types.COMMENT_TYPE_COMMENT,
+					TheType:    ptttype.COMMENT_TYPE_COMMENT,
 					MD5:        "m2",
 					TheDate:    "04/17 12:00",
 					CommentID:  "EhU7Q-XtLAA:m2",
@@ -2750,7 +2751,8 @@ func TestInferTimestamp(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			InferTimestamp(tt.args.edBlocks, tt.args.isForwardOnly, tt.args.isLastAlignEndNanoTS)
+			articleCreateTime := tt.args.edBlocks[0].StartNanoTS
+			InferTimestamp(tt.args.edBlocks, tt.args.isForwardOnly, tt.args.isLastAlignEndNanoTS, articleCreateTime)
 			testutil.TDeepEqual(t, "got", tt.args.edBlocks, tt.expected)
 		})
 	}

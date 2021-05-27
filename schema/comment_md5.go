@@ -6,6 +6,7 @@ import (
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -13,8 +14,8 @@ type CommentMD5 struct {
 	BBoardID  bbs.BBoardID  `bson:"bid"`
 	ArticleID bbs.ArticleID `bson:"aid"`
 
-	CommentID types.CommentID   `bson:"cid"`
-	TheType   types.CommentType `bson:"type"`
+	CommentID types.CommentID     `bson:"cid"`
+	TheType   ptttype.CommentType `bson:"type"`
 
 	CreateTime types.NanoTS `bson:"create_time_nano_ts"`
 	MD5        string       `bson:"md5"`

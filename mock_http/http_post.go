@@ -56,6 +56,8 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(GetBoardSummary(data.(*api.LoadBoardSummaryParams)), result)
 	case "/class/2/board":
 		return parseResult(CreateBoard(data.(*api.CreateBoardParams)), result)
+	case "/board/10_WhoAmI/article/1VrooM21SYSOP/comment":
+		return parseResult(CreateComment(data.(*api.CreateCommentParams)), result)
 	default:
 		return 500, ErrURL
 	}

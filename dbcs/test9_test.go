@@ -4,6 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 var (
@@ -1015,7 +1016,7 @@ func initTest9() {
 
 	testFirstComments9 = []*schema.Comment{
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("xxFrency"),
 			Content: nil,
 			MD5:     "2dn14lVR7wDw3BC6XOEizw",
@@ -1030,7 +1031,7 @@ func initTest9() {
 			CommentID:          "FlILSAyAsgA:2dn14lVR7wDw3BC6XOEizw",
 		},
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("xxFrency"),
 			Content: nil,
 			MD5:     "L1kywzRrQ3nO1w4NU_C3ig",
@@ -1045,7 +1046,7 @@ func initTest9() {
 			CommentID:          "FlILUoa2NAA:L1kywzRrQ3nO1w4NU_C3ig",
 		},
 		{
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("asdfghjklasd"),
 			Content: [][]*types.Rune{
 				{
@@ -1063,7 +1064,7 @@ func initTest9() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33masdfghjklasd\x1b[m\x1b[33m: \xb3o\xba\xd8\xaa\xba\xa4\xa3\xacO\xadn\xa7\xe4 Tech Lead \xb4N\xacO\xadn\xa7\xe4\xc5U\xb0\xdd            \x1b[m 12/19 17:21\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("dinos"),
 			Content: [][]*types.Rune{
 				{
@@ -1081,7 +1082,7 @@ func initTest9() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mdinos\x1b[m\x1b[33m: \xa4\xa3\xacO\xa7\xe2\xbe\xf7\xbe\xb9\xa5[\xa4j,\xacO\xa7\xe2\xbe\xf7\xbe\xb9\xa5[\xa6h                             \x1b[m 12/19 18:38\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("bestwishes"),
 			Content: [][]*types.Rune{
 				{
@@ -1104,7 +1105,7 @@ func initTest9() {
 		{
 			BBoardID:  "test",
 			ArticleID: "test9",
-			TheType:   types.COMMENT_TYPE_EDIT,
+			TheType:   ptttype.COMMENT_TYPE_EDIT,
 			Owner:     bbs.UUserID("xxFrency"),
 			Content:   nil,
 			MD5:       "2dn14lVR7wDw3BC6XOEizw",
@@ -1121,7 +1122,7 @@ func initTest9() {
 		{
 			BBoardID:  "test",
 			ArticleID: "test9",
-			TheType:   types.COMMENT_TYPE_EDIT,
+			TheType:   ptttype.COMMENT_TYPE_EDIT,
 			Owner:     bbs.UUserID("xxFrency"),
 			Content:   nil,
 			MD5:       "L1kywzRrQ3nO1w4NU_C3ig",
@@ -1138,7 +1139,7 @@ func initTest9() {
 		{
 			BBoardID:  "test",
 			ArticleID: "test9",
-			TheType:   types.COMMENT_TYPE_COMMENT,
+			TheType:   ptttype.COMMENT_TYPE_COMMENT,
 			Owner:     bbs.UUserID("asdfghjklasd"),
 			Content: [][]*types.Rune{
 				{
@@ -1161,7 +1162,7 @@ func initTest9() {
 		{
 			BBoardID:  "test",
 			ArticleID: "test9",
-			TheType:   types.COMMENT_TYPE_COMMENT,
+			TheType:   ptttype.COMMENT_TYPE_COMMENT,
 			Owner:     bbs.UUserID("dinos"),
 			Content: [][]*types.Rune{
 				{
@@ -1184,7 +1185,7 @@ func initTest9() {
 		{
 			BBoardID:  "test",
 			ArticleID: "test9",
-			TheType:   types.COMMENT_TYPE_COMMENT,
+			TheType:   ptttype.COMMENT_TYPE_COMMENT,
 			Owner:     bbs.UUserID("bestwishes"),
 			Content: [][]*types.Rune{
 				{

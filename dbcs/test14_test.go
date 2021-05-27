@@ -4,6 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 var (
@@ -2705,7 +2706,7 @@ func initTest14() {
 
 	testFirstComments14 = []*schema.Comment{
 		{ //0
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("guardyo"),
 
 			MD5:     "3VevXQUX8i9UiFETWDrcTQ",
@@ -2720,7 +2721,7 @@ func initTest14() {
 			CommentID:          "Fm1UOEgTRAA:3VevXQUX8i9UiFETWDrcTQ",
 		},
 		{ //1
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("yasan1029"),
 			Content: [][]*types.Rune{
 				{
@@ -2738,7 +2739,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33myasan1029   \x1b[m\x1b[33m: 77777777                                         \x1b[m 03/18 12:07\r"),
 		},
 		{ //2
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("yue1013"),
 			Content: [][]*types.Rune{
 				{
@@ -2756,7 +2757,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33myue1013     \x1b[m\x1b[33m: 777                                              \x1b[m 03/18 12:07\r"),
 		},
 		{ //3
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Dorae5566"),
 			Content: [][]*types.Rune{
 				{
@@ -2775,7 +2776,7 @@ func initTest14() {
 		},
 
 		{ //4
-			TheType: types.COMMENT_TYPE_FORWARD,
+			TheType: ptttype.COMMENT_TYPE_FORWARD,
 			Owner:   bbs.UUserID("doooooooooog"),
 			Content: [][]*types.Rune{
 				{
@@ -2794,7 +2795,7 @@ func initTest14() {
 		},
 
 		{ //5
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("luck945"),
 			Content: [][]*types.Rune{
 				{
@@ -2812,7 +2813,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mluck945     \x1b[m\x1b[33m: 7777777777                                       \x1b[m 03/18 12:07\r"),
 		},
 		{ //6
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Eddward"),
 			Content: [][]*types.Rune{
 				{
@@ -2830,7 +2831,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mEddward     \x1b[m\x1b[33m: \xa7\xd6\xb8\xa5\xb9q\xb1\xe8\xa6V\xa4U\xa1H                                   \x1b[m 03/18 12:07\r"),
 		},
 		{ //7
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("kkxf336g037"),
 			Content: [][]*types.Rune{
 				{
@@ -2848,7 +2849,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mkkxf336g037 \x1b[m\x1b[33m: 77777777                                         \x1b[m 03/18 12:08\r"),
 		},
 		{ //8
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("outnow5566"),
 			Content: [][]*types.Rune{
 				{
@@ -2866,7 +2867,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33moutnow5566  \x1b[m\x1b[33m: \xb3o\xa4T\xa4\xc0\xa7\xda\xc1\xd9\xa5H\xac\xb0\xacOP.league\xa9O                       \x1b[m 03/18 12:08\r"),
 		},
 		{ //9
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("doooooooooog"),
 			Content: [][]*types.Rune{
 				{
@@ -2889,7 +2890,7 @@ func initTest14() {
 		{ //0
 			BBoardID:  "test",
 			ArticleID: "test14",
-			TheType:   types.COMMENT_TYPE_EDIT,
+			TheType:   ptttype.COMMENT_TYPE_EDIT,
 			Owner:     bbs.UUserID("guardyo"),
 
 			MD5:     "3VevXQUX8i9UiFETWDrcTQ",
@@ -2906,7 +2907,7 @@ func initTest14() {
 		{ //1
 			BBoardID:  "test",
 			ArticleID: "test14",
-			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:     bbs.UUserID("yasan1029"),
 			Content: [][]*types.Rune{
 				{
@@ -2929,7 +2930,7 @@ func initTest14() {
 		{ //2
 			BBoardID:  "test",
 			ArticleID: "test14",
-			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:     bbs.UUserID("yue1013"),
 			Content: [][]*types.Rune{
 				{
@@ -2952,7 +2953,7 @@ func initTest14() {
 		{ //3
 			BBoardID:  "test",
 			ArticleID: "test14",
-			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:     bbs.UUserID("Dorae5566"),
 			Content: [][]*types.Rune{
 				{
@@ -2976,7 +2977,7 @@ func initTest14() {
 		{ //4
 			BBoardID:  "test",
 			ArticleID: "test14",
-			TheType:   types.COMMENT_TYPE_FORWARD,
+			TheType:   ptttype.COMMENT_TYPE_FORWARD,
 			Owner:     bbs.UUserID("doooooooooog"),
 			Content: [][]*types.Rune{
 				{
@@ -3000,7 +3001,7 @@ func initTest14() {
 		{ //5
 			BBoardID:  "test",
 			ArticleID: "test14",
-			TheType:   types.COMMENT_TYPE_COMMENT,
+			TheType:   ptttype.COMMENT_TYPE_COMMENT,
 			Owner:     bbs.UUserID("luck945"),
 			Content: [][]*types.Rune{
 				{
@@ -3023,7 +3024,7 @@ func initTest14() {
 		{ //6
 			BBoardID:  "test",
 			ArticleID: "test14",
-			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:     bbs.UUserID("Eddward"),
 			Content: [][]*types.Rune{
 				{
@@ -3046,7 +3047,7 @@ func initTest14() {
 		{ //7
 			BBoardID:  "test",
 			ArticleID: "test14",
-			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:     bbs.UUserID("kkxf336g037"),
 			Content: [][]*types.Rune{
 				{
@@ -3069,7 +3070,7 @@ func initTest14() {
 		{ //8
 			BBoardID:  "test",
 			ArticleID: "test14",
-			TheType:   types.COMMENT_TYPE_RECOMMEND,
+			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:     bbs.UUserID("outnow5566"),
 			Content: [][]*types.Rune{
 				{
@@ -3092,7 +3093,7 @@ func initTest14() {
 		{ //9
 			BBoardID:  "test",
 			ArticleID: "test14",
-			TheType:   types.COMMENT_TYPE_COMMENT,
+			TheType:   ptttype.COMMENT_TYPE_COMMENT,
 			Owner:     bbs.UUserID("doooooooooog"),
 			Content: [][]*types.Rune{
 				{
@@ -3116,7 +3117,7 @@ func initTest14() {
 
 	testTheRestComments14 = []*schema.Comment{
 		{ //0
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("JTFWAHQ"),
 			Content: [][]*types.Rune{
 				{
@@ -3134,7 +3135,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mJTFWAHQ     \x1b[m\x1b[33m: 77777777777777777777777777                       \x1b[m 03/18 12:08\r"),
 		},
 		{ //1
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("HardDDDD"),
 			Content: [][]*types.Rune{
 				{
@@ -3152,7 +3153,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mHardDDDD    \x1b[m\x1b[33m: 77777777777777777777                             \x1b[m 03/18 12:08\r"),
 		},
 		{ //2
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("MilkTea0509"),
 			Content: [][]*types.Rune{
 				{
@@ -3170,7 +3171,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mMilkTea0509 \x1b[m\x1b[33m: \xad\xc9\xc2\xe0\xafO\xc1\xc9\xaa\xa9                                       \x1b[m 03/18 12:08\r"),
 		},
 		{ //3
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("boy80421"),
 			Content: [][]*types.Rune{
 				{
@@ -3188,7 +3189,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mboy80421    \x1b[m\x1b[33m: 77\xb8\xf2\xa7\xd6\xb8\xa5\xacO\xa4\xa3\xacO\xa6\xb3\xa4\xb3 \xa6L\xb6H\xa4\xa4\xa5\xb4\xa7\xd6\xb8\xa5\xb1`\xc3z\xae\xf0            \x1b[m 03/18 12:08\r"),
 		},
 		{ //4
-			TheType: types.COMMENT_TYPE_FORWARD,
+			TheType: ptttype.COMMENT_TYPE_FORWARD,
 			Owner:   bbs.UUserID("MilkTea0509"),
 			Content: [][]*types.Rune{
 				{
@@ -3206,7 +3207,7 @@ func initTest14() {
 			DBCS:    []byte("\xa1\xb0 \x1b[1;32mMilkTea0509\x1b[0;32m:\xc2\xe0\xbf\xfd\xa6\xdc\xac\xdd\xaaO LaClippers\x1b[m                               03/18 12:08\r"),
 		},
 		{ //5
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("homocat"),
 			Content: [][]*types.Rune{
 				{
@@ -3224,7 +3225,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mhomocat     \x1b[m\x1b[33m: 77\xa4\xa3\xbf\xf9                                           \x1b[m 03/18 12:08\r"),
 		},
 		{ //6
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("aa01081008tw"),
 			Content: [][]*types.Rune{
 				{
@@ -3242,7 +3243,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33maa01081008tw\x1b[m\x1b[33m: \xa5i\xb7R\xb7|\xa4\xa3\xb7|\xb3o\xa9u\xb5\xb2\xa7\xf4\xafO\xb6]\xb0\xda..\xa4\xf1\xa4W\xa9u\xa7\xf3\xa8S\xc0\xb8XD         \x1b[m 03/18 12:08\r"),
 		},
 		{ //7
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("chenluyang"),
 			Content: [][]*types.Rune{
 				{
@@ -3260,7 +3261,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mchenluyang  \x1b[m\x1b[33m: 77\xb3o\xb3\xf5\xc3z\xb7F\xb1j                                     \x1b[m 03/18 12:08\r"),
 		},
 		{ //8
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("jardon"),
 			Content: [][]*types.Rune{
 				{
@@ -3278,7 +3279,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mjardon      \x1b[m\x1b[33m: +25  eff 45                                      \x1b[m 03/18 12:09\r"),
 		},
 		{ //9
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Toy17"),
 			Content: [][]*types.Rune{
 				{
@@ -3296,7 +3297,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mToy17       \x1b[m\x1b[33m: \xb0\xad\xaf\xab7777777777777777777777                       \x1b[m 03/18 12:09\r"),
 		},
 		{ //10
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Y225"),
 			Content: [][]*types.Rune{
 				{
@@ -3314,7 +3315,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mY225        \x1b[m\x1b[33m: \xa7\xda777777                                         \x1b[m 03/18 12:09\r"),
 		},
 		{ //11
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("darren2586"),
 			Content: [][]*types.Rune{
 				{
@@ -3332,7 +3333,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdarren2586  \x1b[m\x1b[33m: 7777777                                          \x1b[m 03/18 12:09\r"),
 		},
 		{ //12
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Siika"),
 			Content: [][]*types.Rune{
 				{
@@ -3350,7 +3351,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mSiika       \x1b[m\x1b[33m: 77\xa6n\xb0\xad                                           \x1b[m 03/18 12:09\r"),
 		},
 		{ //13
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("munchlax"),
 			Content: [][]*types.Rune{
 				{
@@ -3368,7 +3369,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mmunchlax    \x1b[m\x1b[33m: \xbaG \xb6i\xa7\xf0\xba\xdd\xb3\xd1 Kawhi\xb8\xf2 PG\xa6b\xbc\xb5 \xb3o\xa8\xe2\xad\xd3\xa4S\xadn\xa6\xaa\xa8\xbe\xa6u= =   \x1b[m 03/18 12:09\r"),
 		},
 		{ //14
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("ryan0928"),
 			Content: [][]*types.Rune{
 				{
@@ -3386,7 +3387,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mryan0928    \x1b[m\x1b[33m: 77777777                                         \x1b[m 03/18 12:49\r"),
 		},
 		{ //15
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("JessicaA1ba"),
 			Content: [][]*types.Rune{
 				{
@@ -3404,7 +3405,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mJessicaA1ba \x1b[m\x1b[33m: KP\xa4\xb5\xa4\xd1\xa4\xc6\xa8\xad\xc2\xea\xadC\xa1A\xb6i\xa7\xf0\xb4N\xa5\xe6\xb5\xb9\xb8U\xaa\xe1\xb5\xa977               \x1b[m 03/18 12:52\r"),
 		},
 		{ //16
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("qpeter"),
 			Content: [][]*types.Rune{
 				{
@@ -3422,7 +3423,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mqpeter      \x1b[m\x1b[33m: \xa4\xb5\xa4\xd1\xb9\xea\xa6b\xa8S\xaak\xa4l THJ\xa6\xaa\xa5\xfd\xb5o \xb4\xcb\xad\xf4\xa4S\xab\xdc\xb9p \xaaO\xb9\xb9\xa8S\xa4H\xa5i\xb1a \x1b[m 03/18 12:52\r"),
 		},
 		{ //17
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("qpeter"),
 			Content: [][]*types.Rune{
 				{
@@ -3440,7 +3441,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mqpeter      \x1b[m\x1b[33m: \xa5u\xa6n\xc5\xfd077\xa5[\xae\xc9\xa5[\xafZ\xa4F                              \x1b[m 03/18 12:53\r"),
 		},
 		{ //18
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("doooooooooog"),
 			Content: [][]*types.Rune{
 				{
@@ -3458,7 +3459,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdoooooooooog\x1b[m\x1b[33m: \xa4\xb5\xa4\xd1\xa8\xe2\xc3\xe4\xaaO\xb9\xb9\xab\xdc\xb9\xce\xb5\xb2\xa1A11\xa4\xf111XD                     \x1b[m 03/18 12:54\r"),
 		},
 		{ //19
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("dy1278dy"),
 			Content: [][]*types.Rune{
 				{
@@ -3476,7 +3477,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdy1278dy    \x1b[m\x1b[33m: 777777777                                        \x1b[m 03/18 12:55\r"),
 		},
 		{ //20
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("TokyoKind"),
 			Content: [][]*types.Rune{
 				{
@@ -3494,7 +3495,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mTokyoKind   \x1b[m\x1b[33m: \xb4_\xa4\xb3\xa6\xa8\xa5\\                                         \x1b[m 03/18 12:56\r"),
 		},
 		{ //21
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("blastillocal"),
 			Content: [][]*types.Rune{
 				{
@@ -3512,7 +3513,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mblastillocal\x1b[m\x1b[33m: 77\xa6\xb3\xb2r\xa8\xec                                         \x1b[m 03/18 12:57\r"),
 		},
 		{ //22
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("YouGot5566"),
 			Content: [][]*types.Rune{
 				{
@@ -3530,7 +3531,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mYouGot5566  \x1b[m\x1b[33m: \xbb\xa1\xa6n\xaa\xba\xa5\xb4\xc3z\xb4\xf2\xa4H\xab\xa8 \xa4\xa3\xadn\xa9u\xab\xe1\xc1\xc9\xa4S\xa6\xdb\xa4v\xa5\xfd\xa4U\xa5h\xa4F        \x1b[m 03/18 12:57\r"),
 		},
 		{ //23
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("ooxxman"),
 			Content: [][]*types.Rune{
 				{
@@ -3548,7 +3549,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mooxxman     \x1b[m\x1b[33m: \xa4p\xadD\xa4l\xa4@\xb4\xee\xaa\xce\xa1A\xa4p\xabL\xb7U\xa8\xd3\xb7U\xa6\xb3\xc4v\xaa\xa7\xa4O\xa1AMVP\xa8\xd3\xa4F        \x1b[m 03/18 12:58\r"),
 		},
 		{ //24
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("oo98560"),
 			Content: [][]*types.Rune{
 				{
@@ -3566,7 +3567,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33moo98560     \x1b[m\x1b[33m: \xbb@\xb2y\xa4\xa3\xa8\xec60\xa2H? \xb3o\xa4]\xa5s\xc2\xbe\xb7~\xa1H \xaa\xfc\xa4\xa3\xacO\xab\xdc\xb7R\xbcLp\xa1\xcf       \x1b[m 03/18 12:59\r"),
 		},
 		{ //25
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("iNicholas"),
 			Content: [][]*types.Rune{
 				{
@@ -3584,7 +3585,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33miNicholas   \x1b[m\x1b[33m: \xc5w\xaa\xef\xa5i\xb7R\xa8\xd3\xa7\xda\xa4\xfb                                   \x1b[m 03/18 13:04\r"),
 		},
 		{ //26
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("gn00152097"),
 			Content: [][]*types.Rune{
 				{
@@ -3602,7 +3603,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mgn00152097  \x1b[m\x1b[33m: \xa4p\xc3}\xa5[\xb7\xc5\xab\xdc\xa4[\xa4FXD\xa5\xfd\xa4\xa3\xbb\xa1\xa9\xfa\xacP\xc1\xc9\xabe\xaa\xba\xb3s\xb3\xd3 \xa9\xfa\xacP\xc1\xc9\xab\xe1\xc4\xb9  \x1b[m 03/18 13:06\r"),
 		},
 		{ //27
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("gn00152097"),
 			Content: [][]*types.Rune{
 				{
@@ -3620,7 +3621,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mgn00152097  \x1b[m\x1b[33m: \xa4F\xb0\xa8\xa8\xeb\xaa\xf7\xb6\xf4\xa7\xd6\xb8\xa5 \xa5\xfe\xacO\xb1\xc6\xa6W\xa6b\xabe\xad\xb1\xaa\xba                  \x1b[m 03/18 13:06\r"),
 		},
 		{ //28
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Pacers31"),
 			Content: [][]*types.Rune{
 				{
@@ -3638,7 +3639,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mPacers31    \x1b[m\x1b[33m: PG\xa4W\xb3\xf5\xae\xc9\xb6\xa1\xab\xe7\xbb\xf2\xa4S\xb6}\xa9l\xbe\xde\xa4F  \xa4\xa7\xabe\xa4\xa3\xacO\xbb\xa1\xa6\xb3\xb6\xcb\xadn\xb1\xb1\xa8\xee?  \x1b[m 03/18 13:07\r"),
 		},
 		{ //29
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("JasonIm"),
 			Content: [][]*types.Rune{
 				{
@@ -3656,7 +3657,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mJasonIm     \x1b[m\x1b[33m: mvp                                              \x1b[m 03/18 13:16\r"),
 		},
 		{ //30
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("DavidFoster"),
 			Content: [][]*types.Rune{
 				{
@@ -3674,7 +3675,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mDavidFoster \x1b[m\x1b[33m: \xa5\xb4\xc3z\xa7\xd6\xb8\xa5\xa4\xf4\xb0\xd5                                     \x1b[m 03/18 13:16\r"),
 		},
 		{ //31
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("pippen2002"),
 			Content: [][]*types.Rune{
 				{
@@ -3692,7 +3693,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mpippen2002  \x1b[m\x1b[33m: \xca\xa8\xc3z                                             \x1b[m 03/18 13:18\r"),
 		},
 		{ //32
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("remsuki"),
 			Content: [][]*types.Rune{
 				{
@@ -3710,7 +3711,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mremsuki     \x1b[m\x1b[33m: 77777777777                                      \x1b[m 03/18 13:18\r"),
 		},
 		{ //33
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("dchiu815"),
 			Content: [][]*types.Rune{
 				{
@@ -3728,7 +3729,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdchiu815    \x1b[m\x1b[33m: \xa7\xd6\xb8\xa5\xa8\xba\xad\xd3Mann\xab\xe7\xbb\xf2\xa8C\xa4@\xa6\xb8\xb3\xa3\xb7|\xb8\xf277\xb0_\xaa\xa7\xc4\xb3             \x1b[m 03/18 13:23\r"),
 		},
 		{ //34
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("jardon"),
 			Content: [][]*types.Rune{
 				{
@@ -3746,7 +3747,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mjardon      \x1b[m\x1b[33m: kp\xb6i\xa7\xf0\xc1\xd9\xacO\xb3y\xa6\xa8\xa7\xd6\xb8\xa5\xab\xdc\xa4j\xaa\xba\xb3\xc2\xb7\xd0\xa6n\xb6\xdc                 \x1b[m 03/18 13:32\r"),
 		},
 		{ //35
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("jardon"),
 			Content: [][]*types.Rune{
 				{
@@ -3764,7 +3765,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mjardon      \x1b[m\x1b[33m: \xb6i\xa7\xf0\xa8S\xa8\xba\xbb\xf2\xb6} \xa8\xbe\xa6u\xa6\xb3\xa6b\xa4\xa3\xb4N\xacO\xa4p\xa4\xfb\xb3\xcc\xbb\xdd\xadn\xaa\xba          \x1b[m 03/18 13:33\r"),
 		},
 		{ //36
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("mavnokia"),
 			Content: [][]*types.Rune{
 				{
@@ -3782,7 +3783,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mmavnokia    \x1b[m\x1b[33m: KP\xb3o\xb4X\xb3\xf5\xc4\xea\xa7\xeb\xa4\xd6\xa9M\xb1a\xb2y\xa4\xc1\xa1B\xa4\xa4\xa7\xeb\xc5\xdc\xa6h\xab\xdc\xc3\xf6\xc1\xe4           \x1b[m 03/18 13:34\r"),
 		},
 		{ //37
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("SwissMiniGun"),
 			Content: [][]*types.Rune{
 				{
@@ -3800,7 +3801,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mSwissMiniGun\x1b[m\x1b[33m: \xa6p\xaaG\xa4\xdf\xbaA\xacO\xbb\xe2\xb0\xaa\xc1~\xb4N\xadn\xa5\xfe\xa5] \xa8\xba\xa4j\xb7\xa7\xa8S\xb4X\xad\xd3\xb8g\xb1o\xb0_\xbe\xde    \x1b[m 03/18 13:35\r"),
 		},
 		{ //38
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("SwissMiniGun"),
 			Content: [][]*types.Rune{
 				{
@@ -3818,7 +3819,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSwissMiniGun\x1b[m\x1b[33m: \xb7\xed\xa7A\xa5\xe6\xa9\xf6\xa8\xd3\xa4@\xad\xd3\xa4\xa3\xad@\xbe\xd4\xaa\xba \xa5\xbb\xa8\xd3\xb4N\xa4\xa3\xb8\xd3\xa7\xf0\xa8\xbe\xb3\xa3\xb7Q\xbe\xde\xa5L    \x1b[m 03/18 13:36\r"),
 		},
 		{ //39
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("SwissMiniGun"),
 			Content: [][]*types.Rune{
 				{
@@ -3836,7 +3837,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSwissMiniGun\x1b[m\x1b[33m: \xbeA\xb7\xed\xaa\xba\xc5\xfd\xa5L\xb5o\xa4O\xa4~\xaf\xe0\xc5\xfd\xa5L\xabO\xab\xf9\xa4W\xb3\xf5\xb0\xb5\xa5X\xb0^\xc4m           \x1b[m 03/18 13:36\r"),
 		},
 		{ //40
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("SwissMiniGun"),
 			Content: [][]*types.Rune{
 				{
@@ -3854,7 +3855,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSwissMiniGun\x1b[m\x1b[33m: \xb8g\xb9L\xa4W\xa9u\xa8S\xa8\xba\xbb\xf2\xc2\xd4\xb7V\xaa\xba\xa8\xcf\xa5\xce \xa7\xda\xa4\xfb\xb3o\xa9u\xc1`\xb8\xd3\xbe\xc7\xa8\xc4        \x1b[m 03/18 13:37\r"),
 		},
 		{ //41
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("kevin202025"),
 			Content: [][]*types.Rune{
 				{
@@ -3872,7 +3873,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mkevin202025 \x1b[m\x1b[33m: 77\xad\xab\xa6^MVP\xc4v\xaa\xa7\xa6\xe6\xa6C                                \x1b[m 03/18 13:40\r"),
 		},
 		{ //42
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("Tawara"),
 			Content: [][]*types.Rune{
 				{
@@ -3890,7 +3891,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mTawara      \x1b[m\x1b[33m: \xa5i\xb7R\xa1G\xb3o\xb2\xee \xa4\xa3\xa4\xd3\xb9\xef                                \x1b[m 03/18 13:41\r"),
 		},
 		{ //43
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("ruiun"),
 			Content: [][]*types.Rune{
 				{
@@ -3908,7 +3909,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mruiun       \x1b[m\x1b[33m: \xa7\xd6\xb8\xa5\xb3\xcc\xaa\xf1\xacO\xa4\xa3\xacO\xa6b\xc2\xc3\xb0\xda\xa1A\xa5\xb4\xba\xe2\xa9u\xab\xe1\xc1\xc9\xa4~\xa5[\xb3t           \x1b[m 03/18 13:43\r"),
 		},
 		{ //44
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("cccman"),
 			Content: [][]*types.Rune{
 				{
@@ -3926,7 +3927,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mcccman      \x1b[m\x1b[33m: 7777777                                          \x1b[m 03/18 13:51\r"),
 		},
 		{ //45
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("providence"),
 			Content: [][]*types.Rune{
 				{
@@ -3944,7 +3945,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mprovidence  \x1b[m\x1b[33m: 77\xa4\xb5\xa4\xd1\xb8\xf2\xb0\xad\xa4@\xbc\xcb                                   \x1b[m 03/18 13:58\r"),
 		},
 		{ //46
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("age200"),
 			Content: [][]*types.Rune{
 				{
@@ -3962,7 +3963,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mage200      \x1b[m\x1b[33m: \xaaF77\xacO\xb0\xad\xa7a                                       \x1b[m 03/18 14:00\r"),
 		},
 		{ //47
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("zold"),
 			Content: [][]*types.Rune{
 				{
@@ -3980,7 +3981,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mzold        \x1b[m\x1b[33m: 77777777777777777                                \x1b[m 03/19 00:31\r"),
 		},
 		{ //48
-			TheType: types.COMMENT_TYPE_RECOMMEND,
+			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("fantastic96"),
 			Content: [][]*types.Rune{
 				{
@@ -4003,7 +4004,7 @@ func initTest14() {
 		{ //0
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("JTFWAHQ"),
 			CommentID:  "Fm1UQSE7BsA:wqpZ9lDTnYcD0moScLqLjw",
 			CreateTime: 1616040480000000000,
@@ -4026,7 +4027,7 @@ func initTest14() {
 		{ //1
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("HardDDDD"),
 			CommentID:  "Fm1UQSFKSQA:3lKNZOVNh8zRtqDB4fY3ag",
 			CreateTime: 1616040480000000000,
@@ -4049,7 +4050,7 @@ func initTest14() {
 		{ //2
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("MilkTea0509"),
 			CommentID:  "Fm1UQSFZi0A:Bae9hkebo2JtOUBLD8boQw",
 			CreateTime: 1616040480000000000,
@@ -4072,7 +4073,7 @@ func initTest14() {
 		{ //3
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("boy80421"),
 			CommentID:  "Fm1UQSFozYA:V7SJz7XXJApwus9m5PUEkQ",
 			CreateTime: 1616040480000000000,
@@ -4095,7 +4096,7 @@ func initTest14() {
 		{ //4
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_FORWARD,
+			TheType:    ptttype.COMMENT_TYPE_FORWARD,
 			Owner:      bbs.UUserID("MilkTea0509"),
 			CommentID:  "Fm1UQSF4D8A:7Gsdh9Cywjm66UnkM89YtQ",
 			CreateTime: 1616040480000000000,
@@ -4118,7 +4119,7 @@ func initTest14() {
 		{ //5
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("homocat"),
 			CommentID:  "Fm1UQSGHUgA:ZYr--Qi9wWKviy68ucjWHA",
 			CreateTime: 1616040480000000000,
@@ -4141,7 +4142,7 @@ func initTest14() {
 		{ //6
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("aa01081008tw"),
 			CommentID:  "Fm1UQSGWlEA:m6bHx4bj0mLlG3WUVNI2yw",
 			CreateTime: 1616040480000000000,
@@ -4164,7 +4165,7 @@ func initTest14() {
 		{ //7
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("chenluyang"),
 			CommentID:  "Fm1UQSGl1oA:WOXgkIVbxhXmv5u8mkoAag",
 			CreateTime: 1616040480000000000,
@@ -4187,7 +4188,7 @@ func initTest14() {
 		{ //8
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("jardon"),
 			CommentID:  "Fm1UTxlUmAA:-FtXbwVpV9hwndBXdqLaVA",
 			CreateTime: 1616040540000000000,
@@ -4210,7 +4211,7 @@ func initTest14() {
 		{ //9
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("Toy17"),
 			CommentID:  "Fm1UTxlj2kA:d3qwKrwviJaqhx5yUx8JxQ",
 			CreateTime: 1616040540000000000,
@@ -4233,7 +4234,7 @@ func initTest14() {
 		{ //10
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("Y225"),
 			CommentID:  "Fm1UTxlzHIA:jm1qWGg30BCUWLvcY0XxbA",
 			CreateTime: 1616040540000000000,
@@ -4256,7 +4257,7 @@ func initTest14() {
 		{ //11
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("darren2586"),
 			CommentID:  "Fm1UTxmCXsA:TJkaWYo_F2O9ptaThfyoLw",
 			CreateTime: 1616040540000000000,
@@ -4279,7 +4280,7 @@ func initTest14() {
 		{ //12
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("Siika"),
 			CommentID:  "Fm1UTxmRoQA:noHr5bIQhCQkeNmfS3_zPQ",
 			CreateTime: 1616040540000000000,
@@ -4302,7 +4303,7 @@ func initTest14() {
 		{ //13
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("munchlax"),
 			CommentID:  "Fm1UTxmg40A:tg-YCzVxKWQcxlRnU3uxPw",
 			CreateTime: 1616040540000000000,
@@ -4325,7 +4326,7 @@ func initTest14() {
 		{ //14
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("ryan0928"),
 			CommentID:  "Fm1WfeR6WAA:PEj7ECjB_hdT8ZwdnNxSMQ",
 			CreateTime: 1616042940000000000,
@@ -4348,7 +4349,7 @@ func initTest14() {
 		{ //15
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("JessicaA1ba"),
 			CommentID:  "Fm1Wp81QYAA:cfRIJJ___V5vpwk338-Ggg",
 			CreateTime: 1616043120000000000,
@@ -4371,7 +4372,7 @@ func initTest14() {
 		{ //16
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("qpeter"),
 			CommentID:  "Fm1Wp81fokA:JPRAQRgnykuQrupTvv2HLQ",
 			CreateTime: 1616043120000000000,
@@ -4394,7 +4395,7 @@ func initTest14() {
 		{ //17
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("qpeter"),
 			CommentID:  "Fm1WtcWXuAA:iqUxK00D37IacQoC1n_4-Q",
 			CreateTime: 1616043180000000000,
@@ -4417,7 +4418,7 @@ func initTest14() {
 		{ //18
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("doooooooooog"),
 			CommentID:  "Fm1Ww73fEAA:-dnzO3RC_nFemMe53_lxSg",
 			CreateTime: 1616043240000000000,
@@ -4440,7 +4441,7 @@ func initTest14() {
 		{ //19
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("dy1278dy"),
 			CommentID:  "Fm1W0bYmaAA:NC1LVO8JZtKyCogzalJPgQ",
 			CreateTime: 1616043300000000000,
@@ -4463,7 +4464,7 @@ func initTest14() {
 		{ //20
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("TokyoKind"),
 			CommentID:  "Fm1W365twAA:Z22GRmR8fWEHXJKc9vQeWw",
 			CreateTime: 1616043360000000000,
@@ -4486,7 +4487,7 @@ func initTest14() {
 		{ //21
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("blastillocal"),
 			CommentID:  "Fm1W7aa1GAA:o-eGHvDGU15tS5wo89M9Dw",
 			CreateTime: 1616043420000000000,
@@ -4509,7 +4510,7 @@ func initTest14() {
 		{ //22
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("YouGot5566"),
 			CommentID:  "Fm1W7abEWkA:ZUTsAvYswh4FBsQRTmkI-Q",
 			CreateTime: 1616043420000000000,
@@ -4532,7 +4533,7 @@ func initTest14() {
 		{ //23
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("ooxxman"),
 			CommentID:  "Fm1W-578cAA:UXc9DQX55hWFXaH1sfGO3A",
 			CreateTime: 1616043480000000000,
@@ -4555,7 +4556,7 @@ func initTest14() {
 		{ //24
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("oo98560"),
 			CommentID:  "Fm1XCZdDyAA:ejp1VCqJUeAteHxvAdkE7g",
 			CreateTime: 1616043540000000000,
@@ -4578,7 +4579,7 @@ func initTest14() {
 		{ //25
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("iNicholas"),
 			CommentID:  "Fm1XT3CogAA:sy9zuwnRLuFju0TwM7qleQ",
 			CreateTime: 1616043840000000000,
@@ -4601,7 +4602,7 @@ func initTest14() {
 		{ //26
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("gn00152097"),
 			CommentID:  "Fm1Xa2E3MAA:wEnNOVHuDeaGSfSWOmDD9A",
 			CreateTime: 1616043960000000000,
@@ -4624,7 +4625,7 @@ func initTest14() {
 		{ //27
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("gn00152097"),
 			CommentID:  "Fm1Xa2FGckA:NVbEccsO7LnVSY_27F_cUA",
 			CreateTime: 1616043960000000000,
@@ -4647,7 +4648,7 @@ func initTest14() {
 		{ //28
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("Pacers31"),
 			CommentID:  "Fm1XeVl-iAA:LFJp_NKgSquSnPM3TgnkrA",
 			CreateTime: 1616044020000000000,
@@ -4670,7 +4671,7 @@ func initTest14() {
 		{ //29
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("JasonIm"),
 			CommentID:  "Fm1X9xQAoAA:UYFBYcoqJcOetb0NvYRaSA",
 			CreateTime: 1616044560000000000,
@@ -4693,7 +4694,7 @@ func initTest14() {
 		{ //30
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("DavidFoster"),
 			CommentID:  "Fm1X9xQP4kA:_LvHtH4CrcEFp2irMSrFMQ",
 			CreateTime: 1616044560000000000,
@@ -4716,7 +4717,7 @@ func initTest14() {
 		{ //31
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("pippen2002"),
 			CommentID:  "Fm1YEwSPUAA:EO64jiCn_iKGWCoJPRryag",
 			CreateTime: 1616044680000000000,
@@ -4739,7 +4740,7 @@ func initTest14() {
 		{ //32
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("remsuki"),
 			CommentID:  "Fm1YEwSekkA:V0xryI-8F1kjRml41TbvPw",
 			CreateTime: 1616044680000000000,
@@ -4762,7 +4763,7 @@ func initTest14() {
 		{ //33
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("dchiu815"),
 			CommentID:  "Fm1YWN30CAA:WW6KMFt5wBBN80ew_1rdoA",
 			CreateTime: 1616044980000000000,
@@ -4785,7 +4786,7 @@ func initTest14() {
 		{ //34
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("jardon"),
 			CommentID:  "Fm1Y1ph2IAA:_sqDrgglfO95jB7mR4siLw",
 			CreateTime: 1616045520000000000,
@@ -4808,7 +4809,7 @@ func initTest14() {
 		{ //35
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("jardon"),
 			CommentID:  "Fm1Y5JC9eAA:xgNuPTLtD2sLrBuUjjvNNQ",
 			CreateTime: 1616045580000000000,
@@ -4831,7 +4832,7 @@ func initTest14() {
 		{ //36
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("mavnokia"),
 			CommentID:  "Fm1Y8okE0AA:MGJEtJXEQ3JVGMZ-ahBHbw",
 			CreateTime: 1616045640000000000,
@@ -4854,7 +4855,7 @@ func initTest14() {
 		{ //37
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("SwissMiniGun"),
 			CommentID:  "Fm1ZAIFMKAA:zaqtlDlgqsM5DMAePyVgqA",
 			CreateTime: 1616045700000000000,
@@ -4877,7 +4878,7 @@ func initTest14() {
 		{ //38
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SwissMiniGun"),
 			CommentID:  "Fm1ZDnmTgAA:YPaZNdGx6b0WoocwYEYC5w",
 			CreateTime: 1616045760000000000,
@@ -4900,7 +4901,7 @@ func initTest14() {
 		{ //39
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SwissMiniGun"),
 			CommentID:  "Fm1ZDnmiwkA:t1pxMdHdPAkXULHcUNscjQ",
 			CreateTime: 1616045760000000000,
@@ -4923,7 +4924,7 @@ func initTest14() {
 		{ //40
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SwissMiniGun"),
 			CommentID:  "Fm1ZHHHa2AA:wGdHlTX0kotx84G0Fi72WA",
 			CreateTime: 1616045820000000000,
@@ -4946,7 +4947,7 @@ func initTest14() {
 		{ //41
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("kevin202025"),
 			CommentID:  "Fm1ZRlqw4AA:i05CDCp6bjuhaxKC7DP3nw",
 			CreateTime: 1616046000000000000,
@@ -4969,7 +4970,7 @@ func initTest14() {
 		{ //42
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_COMMENT,
+			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("Tawara"),
 			CommentID:  "Fm1ZVFL4OAA:c9SqN5m7XDGhY3Aye0PB0A",
 			CreateTime: 1616046060000000000,
@@ -4992,7 +4993,7 @@ func initTest14() {
 		{ //43
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("ruiun"),
 			CommentID:  "Fm1ZcEOG6AA:LBuOhmLE3NfnAO8eoVnpVw",
 			CreateTime: 1616046180000000000,
@@ -5015,7 +5016,7 @@ func initTest14() {
 		{ //44
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("cccman"),
 			CommentID:  "Fm1Z4AXBqAA:5Fo0L-CExiKxJ8DLmIRM-w",
 			CreateTime: 1616046660000000000,
@@ -5038,7 +5039,7 @@ func initTest14() {
 		{ //45
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("providence"),
 			CommentID:  "Fm1aQc-1EAA:kZkjmvFrpXL-hSFIkkfyRw",
 			CreateTime: 1616047080000000000,
@@ -5061,7 +5062,7 @@ func initTest14() {
 		{ //46
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("age200"),
 			CommentID:  "Fm1aXcBDwAA:oD9CLBN0Sja3cDKBkiv4Ag",
 			CreateTime: 1616047200000000000,
@@ -5084,7 +5085,7 @@ func initTest14() {
 		{ //47
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("zold"),
 			CommentID:  "Fm18zLgdqAA:nnHHFGegTCV9lL8kItKYvw",
 			CreateTime: 1616085060000000000,
@@ -5107,7 +5108,7 @@ func initTest14() {
 		{ //48
 			BBoardID:   "test",
 			ArticleID:  "test14",
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("fantastic96"),
 			CommentID:  "Fm2flY9cJAA:0uwavwBPcAcoYqzaSaBlxg",
 			CreateTime: 1616123306000000000,

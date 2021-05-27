@@ -4,6 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 var (
@@ -445,7 +446,7 @@ func initTest10() {
 
 	testFirstComments10 = []*schema.Comment{
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("rareone"),
 			Content: nil,
 			MD5:     "WH30ZZA2DpAv_WfoE-hcBA",
@@ -460,7 +461,7 @@ func initTest10() {
 			CommentID:          "Fk8AWpKIAgA:WH30ZZA2DpAv_WfoE-hcBA",
 		},
 		{
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("rareone"),
 			Content: [][]*types.Rune{
 				{
@@ -483,7 +484,7 @@ func initTest10() {
 		{
 			BBoardID:  "test",
 			ArticleID: "test10",
-			TheType:   types.COMMENT_TYPE_EDIT,
+			TheType:   ptttype.COMMENT_TYPE_EDIT,
 			Owner:     bbs.UUserID("rareone"),
 			Content:   nil,
 			MD5:       "WH30ZZA2DpAv_WfoE-hcBA",
@@ -500,7 +501,7 @@ func initTest10() {
 		{
 			BBoardID:  "test",
 			ArticleID: "test10",
-			TheType:   types.COMMENT_TYPE_COMMENT,
+			TheType:   ptttype.COMMENT_TYPE_COMMENT,
 			Owner:     bbs.UUserID("rareone"),
 			Content: [][]*types.Rune{
 				{

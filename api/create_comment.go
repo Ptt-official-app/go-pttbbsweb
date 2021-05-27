@@ -1,0 +1,84 @@
+package api
+
+import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/dbcs"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/gin-gonic/gin"
+)
+
+const CREATE_COMMENT_R = "/board/:bid/article/:aid/comment"
+
+type CreateCommentParams struct {
+	CommentType ptttype.CommentType
+	Content     string
+}
+
+type CreateCommentPath struct {
+	BoardID   bbs.BBoardID  `uri:"bid" binding:"required"`
+	ArticleID bbs.ArticleID `uri:"aid" binding:"required"`
+}
+
+type CreateCommentResult *apitypes.Comment
+
+func CreateCommentWrapper(c *gin.Context) {
+	params := &CreateCommentParams{}
+	path := &CreateCommentPath{}
+	LoginRequiredPathJSON(CreateComment, params, path, c)
+}
+
+func CreateComment(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+
+	theParams, ok := params.(*CreateCommentParams)
+	if !ok {
+		return nil, 400, ErrInvalidParams
+	}
+
+	thePath, ok := path.(*CreateCommentPath)
+	if !ok {
+		return nil, 400, ErrInvalidPath
+	}
+
+	contentDBCS := types.Utf8ToBig5(theParams.Content)
+
+	//backend
+	theParams_b := &pttbbsapi.CreateCommentParams{
+		CommentType: theParams.CommentType,
+		Content:     contentDBCS,
+	}
+	var result_b *pttbbsapi.CreateCommentResult
+
+	urlMap := map[string]string{
+		"bid": string(thePath.BoardID),
+		"aid": string(thePath.ArticleID),
+	}
+	url := utils.MergeURL(urlMap, pttbbsapi.CREATE_COMMENT_R)
+	statusCode, err = utils.BackendPost(c, url, theParams_b, nil, &result_b)
+	if err != nil || statusCode != 200 {
+		return nil, statusCode, err
+	}
+
+	dbComments := dbcs.ParseComments(userID, result_b.Content, result_b.Content)
+	if len(dbComments) == 0 {
+		return nil, 500, ErrInvalidParams
+	}
+
+	dbComment := dbComments[0]
+	dbComment.CreateTime = types.Time4ToNanoTS(result_b.MTime)
+	dbComment.BBoardID = thePath.BoardID
+	dbComment.ArticleID = thePath.ArticleID
+	updateNanoTS := types.NowNanoTS()
+	dbComment.SetSortTime(updateNanoTS)
+	err = tryUpdateComments(dbComments, updateNanoTS)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	apiComment := apitypes.NewComment(dbComment)
+
+	return CreateCommentResult(apiComment), 200, nil
+}
