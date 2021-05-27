@@ -1,4 +1,4 @@
-version: '2'
+version: '2.2'
 services:
   go-pttbbs:
     image: pttofficialapps/go-pttbbs:v0.14.1
@@ -16,6 +16,9 @@ services:
       - ${MONGO}:/data
       - ${MONGO}/db:/data/db
       - ${MONGO}/configdb:/data/configdb
+    cpus: ${MONGO_CPU}
+    mem_limit: ${MONGO_MEM}
+    mem_reservation: ${MONGO_MEM}
     deploy:
       resources:
         limits:
@@ -34,7 +37,7 @@ services:
       - ${POSTFIX_MASTER_CF}:/etc/postfix/master.cf
     restart: always
   openbbs-middleware:
-    image: pttofficialapps/go-openbbsmiddleware:v0.16.0
+    image: pttofficialapps/go-openbbsmiddleware:v0.16.1
     ports:
       - "127.0.0.1:3457:3457"
     volumes:
