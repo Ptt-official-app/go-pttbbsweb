@@ -4,6 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 var (
@@ -292,7 +293,7 @@ func initTest13() {
 
 	testFirstComments13 = []*schema.Comment{
 		{ //0
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("easy1"),
 			Content: [][]*types.Rune{
 				{
@@ -311,7 +312,7 @@ func initTest13() {
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33measy1\x1b[m\x1b[33m:\xa4U\xbe\xc7\xb4\xc1 \xa4@\xa6\xb8\xad\xd7\xa8\xe2\xad\xd3\xb1M\xc3D?\x1b[m                        \xb1\xc0  140.112.28.31 11/19\r"),
 		},
 		{ //1
-			TheType: types.COMMENT_TYPE_COMMENT,
+			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("Foxwall"),
 			Content: [][]*types.Rune{
 				{
@@ -335,7 +336,7 @@ func initTest13() {
 		{ //0
 			BBoardID:  "test",
 			ArticleID: "test13",
-			TheType:   types.COMMENT_TYPE_COMMENT,
+			TheType:   ptttype.COMMENT_TYPE_COMMENT,
 			Owner:     bbs.UUserID("easy1"),
 			Content: [][]*types.Rune{
 				{
@@ -359,7 +360,7 @@ func initTest13() {
 		{ //1
 			BBoardID:  "test",
 			ArticleID: "test13",
-			TheType:   types.COMMENT_TYPE_COMMENT,
+			TheType:   ptttype.COMMENT_TYPE_COMMENT,
 			Owner:     bbs.UUserID("Foxwall"),
 			Content: [][]*types.Rune{
 				{

@@ -5,6 +5,7 @@ import (
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 type EDBlock struct {
@@ -305,18 +306,16 @@ func (meta *EDInfoMeta) ToEDBlock(edInfos []*EDInfo) (edBlock *EDBlock) {
 	return edBlock
 }
 
-func InferTimestamp(edBlocks []*EDBlock, isForwardOnly bool, isLastAlignEndNanoTS bool) (nBlock int) {
+func InferTimestamp(edBlocks []*EDBlock, isForwardOnly bool, isLastAlignEndNanoTS bool, articleCreateTime types.NanoTS) (nBlock int) {
 	if len(edBlocks) == 0 {
 		return
 	}
-
-	startNanoTS := edBlocks[0].StartNanoTS
 
 	nBlock = len(edBlocks)
 	for idx, each := range edBlocks {
 		isAlignEndNanoTS := isLastAlignEndNanoTS && (idx == len(edBlocks)-1)
 		lenBeforeComments := len(each.NewComments)
-		each.InferTimestamp(startNanoTS, isForwardOnly, isAlignEndNanoTS)
+		each.InferTimestamp(articleCreateTime, isForwardOnly, isAlignEndNanoTS)
 		lenAfterComments := len(each.NewComments)
 		if lenAfterComments == 0 {
 			return idx
@@ -342,7 +341,7 @@ func InferTimestamp(edBlocks []*EDBlock, isForwardOnly bool, isLastAlignEndNanoT
 //2. reply (previous-appearing-message (currentNanoTS in same or newComments) + REPLY_STEP_NANO_TS)
 //3. new messages. (sort-time should be after the deleted-messages)
 //4. others (the owners accidentally edited something, sort-time should be after the deleted-messages)
-func (ed *EDBlock) InferTimestamp(startNanoTS types.NanoTS, isForwardOnly bool, isLastAlignEndNanoTS bool) {
+func (ed *EDBlock) InferTimestamp(articleCreateTime types.NanoTS, isForwardOnly bool, isLastAlignEndNanoTS bool) {
 	// no need to infer timestamp
 	if len(ed.NewComments) == 0 {
 		return
@@ -352,7 +351,7 @@ func (ed *EDBlock) InferTimestamp(startNanoTS types.NanoTS, isForwardOnly bool, 
 	//ed.MapDeletedMessages()
 
 	//2. forward sort (with reply)
-	nextIdx := ed.ForwardInferTS(startNanoTS)
+	nextIdx := ed.ForwardInferTS(articleCreateTime)
 	if isForwardOnly {
 		isLastAlignEndNanoTS = isLastAlignEndNanoTS && (nextIdx == len(ed.NewComments))
 		ed.NewComments = ed.NewComments[:nextIdx]
@@ -373,7 +372,7 @@ func (ed *EDBlock) AlignEndNanoTS() {
 	}
 
 	lastComment := newComments[len(newComments)-1].NewComment
-	if lastComment.TheType > types.COMMENT_TYPE_BASIC {
+	if lastComment.TheType > ptttype.COMMENT_TYPE_BASIC_DATE {
 		return
 	}
 
@@ -417,7 +416,7 @@ func (ed *EDBlock) ForwardInferTS(startNanoTS types.NanoTS) (nextIdx int) {
 			}
 		}
 
-		if newComment.TheType == types.COMMENT_TYPE_REPLY {
+		if newComment.TheType == ptttype.COMMENT_TYPE_REPLY {
 			theNanoTS := currentNanoTS + REPLY_STEP_NANO_TS
 			if newComment.CreateTime == 0 {
 				newComment.CreateTime = theNanoTS
@@ -489,7 +488,7 @@ func (ed *EDBlock) BackwardInferTS(nextIdx int, isAlignEndNanoTS bool) {
 			}
 		}
 
-		if newComment.TheType == types.COMMENT_TYPE_REPLY { //do not do reply until the last
+		if newComment.TheType == ptttype.COMMENT_TYPE_REPLY { //do not do reply until the last
 			continue
 		}
 
@@ -516,7 +515,7 @@ func (ed *EDBlock) BackwardInferTS(nextIdx int, isAlignEndNanoTS bool) {
 	currentNanoTS = startNanoTS
 	for idx := nextIdx; idx < len(newComments); idx++ {
 		newComment := newComments[idx].NewComment
-		if newComment.TheType != types.COMMENT_TYPE_REPLY {
+		if newComment.TheType != ptttype.COMMENT_TYPE_REPLY {
 			currentNanoTS = newComment.SortTime
 			continue
 		}

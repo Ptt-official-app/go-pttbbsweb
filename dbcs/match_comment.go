@@ -3,7 +3,7 @@ package dbcs
 import (
 	"bytes"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 var (
@@ -89,30 +89,30 @@ func MatchComment(content []byte) int {
 	return theIdx //do not include the leading \n
 }
 
-func MatchCommentType(commentDBCS []byte) (theType types.CommentType, nextCommentDBCS []byte) {
+func MatchCommentType(commentDBCS []byte) (theType ptttype.CommentType, nextCommentDBCS []byte) {
 	if bytes.HasPrefix(commentDBCS, MATCH_COMMENT_GREEN_PREFIX) {
 		if bytes.HasPrefix(commentDBCS, MATCH_COMMENT_EDIT_BYTES) {
-			return types.COMMENT_TYPE_EDIT, commentDBCS[len(MATCH_COMMENT_EDIT_BYTES):]
+			return ptttype.COMMENT_TYPE_EDIT, commentDBCS[len(MATCH_COMMENT_EDIT_BYTES):]
 		}
 
 		isForward, newCommentDBCS := hasPrefixCommentForward(commentDBCS)
 		if isForward {
-			return types.COMMENT_TYPE_FORWARD, newCommentDBCS
+			return ptttype.COMMENT_TYPE_FORWARD, newCommentDBCS
 		}
 	} else if bytes.HasPrefix(commentDBCS, MATCH_COMMENT_RECOMMEND_BYTES) {
-		return types.COMMENT_TYPE_RECOMMEND, commentDBCS[len(MATCH_COMMENT_RECOMMEND_BYTES):]
+		return ptttype.COMMENT_TYPE_RECOMMEND, commentDBCS[len(MATCH_COMMENT_RECOMMEND_BYTES):]
 	} else if bytes.HasPrefix(commentDBCS, MATCH_COMMENT_BOO_BYTES) {
-		return types.COMMENT_TYPE_BOO, commentDBCS[len(MATCH_COMMENT_BOO_BYTES):]
+		return ptttype.COMMENT_TYPE_BOO, commentDBCS[len(MATCH_COMMENT_BOO_BYTES):]
 	} else if bytes.HasPrefix(commentDBCS, MATCH_COMMENT_ARROW_BYTES) {
-		return types.COMMENT_TYPE_COMMENT, commentDBCS[len(MATCH_COMMENT_ARROW_BYTES):]
+		return ptttype.COMMENT_TYPE_COMMENT, commentDBCS[len(MATCH_COMMENT_ARROW_BYTES):]
 	} else {
 		isDeleted, newCommentDBCS := hasPrefixCommentDeleted(commentDBCS)
 		if isDeleted {
-			return types.COMMENT_TYPE_DELETED, newCommentDBCS
+			return ptttype.COMMENT_TYPE_DELETED, newCommentDBCS
 		}
 	}
 
-	return types.COMMENT_TYPE_UNKNOWN, commentDBCS
+	return ptttype.COMMENT_TYPE_UNKNOWN, commentDBCS
 }
 
 func matchCommentIntegratedIdx(theIdx int, idx int) int {

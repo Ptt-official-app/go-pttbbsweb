@@ -35,3 +35,13 @@ func tryUpdateFirstComments(
 	//remove old first comments.
 	return nil
 }
+
+func tryUpdateComments(comments []*schema.Comment, updateNanoTS types.NanoTS) (err error) {
+	err = schema.UpdateComments(comments, updateNanoTS)
+	if err != nil {
+		return err
+	}
+
+	//remove old first comments.
+	return nil
+}

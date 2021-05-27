@@ -5,6 +5,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	pttbbsfav "github.com/Ptt-official-app/go-pttbbs/ptt/fav"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 var (
@@ -13,7 +14,7 @@ var (
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),
 			CommentID:  types.CommentID("EYFhmOhREkA:Es26f7U0EXdr7Gp4a9N8pQ"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("foolfighter"),
 			CreateTime: types.NanoTS(1261396680001000000),
 			Content: [][]*types.Rune{
@@ -33,7 +34,7 @@ var (
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),
 			CommentID:  types.CommentID("EYFhmOhgVIA:gmrKWXE7BjV-1U89GcPqHg"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("yehpi"),
 			CreateTime: types.NanoTS(1261396680002000000),
 			Content: [][]*types.Rune{
@@ -53,7 +54,7 @@ var (
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),
 			CommentID:  types.CommentID("EYFhmOhvlsA:cpqbGyLoF_jIyITF4bv-rQ"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("lockeyman"),
 			CreateTime: types.NanoTS(1261396680003000000),
 			Content: [][]*types.Rune{
@@ -74,7 +75,7 @@ var (
 			ArticleID:  bbs.ArticleID("test"),
 			CommentID:  types.CommentID("EYFhmOhvlsA:cpqbGyLoF_jIyITF4bv-rQ:R"),
 			RefIDs:     []types.CommentID{"EYFhmOhvlsA:cpqbGyLoF_jIyITF4bv-rQ"},
-			TheType:    types.COMMENT_TYPE_REPLY,
+			TheType:    ptttype.COMMENT_TYPE_REPLY,
 			Owner:      bbs.UUserID("cheinshin"),
 			CreateTime: types.NanoTS(1261396680003100000),
 			Content: [][]*types.Rune{
@@ -116,7 +117,7 @@ var (
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),
 			CommentID:  types.CommentID("EYFuT-Ew6AA:ALE6XIa5ARhXunryJTB3xg"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("deathdancer"),
 			CreateTime: types.NanoTS(1261410660000000000),
 			Content: [][]*types.Rune{
@@ -139,7 +140,7 @@ var (
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),
 			CommentID:  types.CommentID("EYFhYQdheQA:a1nbh9m8KYnC0QQevDRyqA"),
-			TheType:    types.COMMENT_TYPE_BOO,
+			TheType:    ptttype.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("carrey8"),
 			CreateTime: types.NanoTS(1261396440004000000),
 			Content: [][]*types.Rune{
@@ -159,7 +160,7 @@ var (
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test"),
 			CommentID:  types.CommentID("EYFhbv9ryAA:u0m4ezxFyxG8CX56gLwr4Q"),
-			TheType:    types.COMMENT_TYPE_RECOMMEND,
+			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("hyde711034"),
 			CreateTime: types.NanoTS(1261396500000000000),
 			Content: [][]*types.Rune{
@@ -182,7 +183,7 @@ var (
 		ArticleID:  bbs.ArticleID("test"),
 		CommentID:  types.CommentID("EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ:R"),
 		RefIDs:     []types.CommentID{"EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ"},
-		TheType:    types.COMMENT_TYPE_REPLY,
+		TheType:    ptttype.COMMENT_TYPE_REPLY,
 		Owner:      bbs.UUserID("test123"),
 		CreateTime: types.NanoTS(1234567890000000000),
 		Content: [][]*types.Rune{
@@ -226,7 +227,7 @@ var (
 		ArticleID:  bbs.ArticleID("test"),
 		CommentID:  types.CommentID("EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ:R"),
 		RefIDs:     []types.CommentID{"EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ"},
-		TheType:    types.COMMENT_TYPE_REPLY,
+		TheType:    ptttype.COMMENT_TYPE_REPLY,
 		Owner:      bbs.UUserID("test123"),
 		CreateTime: types.NanoTS(1234567890000000000),
 		Content: [][]*types.Rune{
@@ -266,7 +267,7 @@ var (
 		ArticleID:  bbs.ArticleID("test"),
 		CommentID:  types.CommentID("EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ:R"),
 		RefIDs:     []types.CommentID{"EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ"},
-		TheType:    types.COMMENT_TYPE_REPLY,
+		TheType:    ptttype.COMMENT_TYPE_REPLY,
 		Owner:      bbs.UUserID("test123"),
 		CreateTime: types.NanoTS(1234567890000000000),
 		Content: [][]*types.Rune{
@@ -299,7 +300,7 @@ var (
 		ArticleID:  bbs.ArticleID("test"),
 		CommentID:  types.CommentID("EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ:R"),
 		RefIDs:     []types.CommentID{"EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ"},
-		TheType:    types.COMMENT_TYPE_REPLY,
+		TheType:    ptttype.COMMENT_TYPE_REPLY,
 		Owner:      bbs.UUserID("test123"),
 		CreateTime: types.NanoTS(1234567890000000000),
 		Content:    nil,

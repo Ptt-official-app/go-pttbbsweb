@@ -7,6 +7,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 //ParseComments
@@ -129,11 +130,11 @@ func parseComment(commentDBCS []byte) (comment *schema.Comment) {
 	theType, p_commentDBCS := MatchCommentType(commentDBCS)
 
 	switch theType {
-	case types.COMMENT_TYPE_EDIT:
+	case ptttype.COMMENT_TYPE_EDIT:
 		return parseCommentEdit(p_commentDBCS, commentDBCS)
-	case types.COMMENT_TYPE_FORWARD:
+	case ptttype.COMMENT_TYPE_FORWARD:
 		return parseCommentForward(p_commentDBCS, commentDBCS)
-	case types.COMMENT_TYPE_DELETED:
+	case ptttype.COMMENT_TYPE_DELETED:
 		return parseCommentDeleted(p_commentDBCS, commentDBCS)
 	default:
 		return parseCommentDefault(theType, p_commentDBCS, commentDBCS)
@@ -155,7 +156,7 @@ func parseCommentEdit(commentDBCS []byte, origCommentDBCS []byte) (comment *sche
 	}
 
 	comment = &schema.Comment{
-		TheType: types.COMMENT_TYPE_EDIT,
+		TheType: ptttype.COMMENT_TYPE_EDIT,
 		Owner:   ownerID,
 		IP:      ip,
 		Host:    host,
@@ -240,7 +241,7 @@ func parseCommentForward(commentDBCS []byte, origCommentDBCS []byte) (comment *s
 	commentMD5 := md5sum(origCommentDBCS)
 
 	comment = &schema.Comment{
-		TheType: types.COMMENT_TYPE_FORWARD,
+		TheType: ptttype.COMMENT_TYPE_FORWARD,
 		Owner:   ownerID,
 		Content: contentUtf8,
 		IP:      ip,
@@ -315,7 +316,7 @@ func parseCommentDeleted(commentDBCS []byte, origCommentDBCS []byte) (comment *s
 	commentMD5 := md5sum(origCommentDBCS)
 
 	comment = &schema.Comment{
-		TheType: types.COMMENT_TYPE_DELETED,
+		TheType: ptttype.COMMENT_TYPE_DELETED,
 		Owner:   ownerID,
 		Content: contentUtf8,
 		MD5:     commentMD5,
@@ -347,7 +348,7 @@ func parseCommentDeletedContent(commentDBCS []byte) (contentDBCS []byte, newComm
 	return commentDBCS[:idx], commentDBCS[idx:]
 }
 
-func parseCommentDefault(theType types.CommentType, commentDBCS []byte, origCommentDBCS []byte) (comment *schema.Comment) {
+func parseCommentDefault(theType ptttype.CommentType, commentDBCS []byte, origCommentDBCS []byte) (comment *schema.Comment) {
 	ownerID, commentDBCS := parseCommentDefaultOwnerID(commentDBCS)
 
 	contentDBCS, commentDBCS := parseCommentContent(commentDBCS)
@@ -495,7 +496,7 @@ func parseReply(replyDBCS []byte, editDBCS []byte, ownerID bbs.UUserID) (reply *
 	}
 
 	reply = &schema.Comment{
-		TheType: types.COMMENT_TYPE_REPLY,
+		TheType: ptttype.COMMENT_TYPE_REPLY,
 		Owner:   editUserID,
 		Content: replyUtf8,
 		IP:      editIP,

@@ -4,6 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 var (
@@ -292,7 +293,7 @@ func initTest17() {
 
 	testFirstComments17 = []*schema.Comment{
 		{ //0
-			TheType: types.COMMENT_TYPE_DELETED,
+			TheType: ptttype.COMMENT_TYPE_DELETED,
 			Owner:   bbs.UUserID("teemocogs"),
 			Content: [][]*types.Rune{
 				{
@@ -314,7 +315,7 @@ func initTest17() {
 		{ //0
 			BBoardID:  "test",
 			ArticleID: "test17",
-			TheType:   types.COMMENT_TYPE_DELETED,
+			TheType:   ptttype.COMMENT_TYPE_DELETED,
 			Owner:     bbs.UUserID("teemocogs"),
 			Content: [][]*types.Rune{
 				{

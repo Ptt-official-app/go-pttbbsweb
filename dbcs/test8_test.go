@@ -4,6 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
 var (
@@ -753,7 +754,7 @@ func initTest8() {
 
 	testFirstComments8 = []*schema.Comment{
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("shiou7788"),
 			Content: nil,
 			MD5:     "KxkHBwyiFnfhZJ6u-ayFFA",
@@ -762,7 +763,7 @@ func initTest8() {
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 06:53)\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("shiou7788"),
 			Content: nil,
 			MD5:     "HbrbjPybbW4AtITcFsZM2A",
@@ -771,7 +772,7 @@ func initTest8() {
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("shiou7788"),
 			Content: nil,
 			MD5:     "HbrbjPybbW4AtITcFsZM2A",
@@ -780,7 +781,7 @@ func initTest8() {
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("shiou7788"),
 			Content: nil,
 			MD5:     "HbrbjPybbW4AtITcFsZM2A",
@@ -789,7 +790,7 @@ func initTest8() {
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("shiou7788"),
 			Content: nil,
 			MD5:     "HbrbjPybbW4AtITcFsZM2A",
@@ -798,7 +799,7 @@ func initTest8() {
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("shiou7788"),
 			Content: nil,
 			MD5:     "HbrbjPybbW4AtITcFsZM2A",
@@ -807,7 +808,7 @@ func initTest8() {
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("shiou7788"),
 			Content: nil,
 			MD5:     "HbrbjPybbW4AtITcFsZM2A",
@@ -816,7 +817,7 @@ func initTest8() {
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("shiou7788"),
 			Content: nil,
 			MD5:     "HbrbjPybbW4AtITcFsZM2A",
@@ -825,7 +826,7 @@ func initTest8() {
 			DBCS:    []byte("\xa1\xb0 \xbds\xbf\xe8: shiou7788       \xa8\xd3\xa6\xdb: 140.112.92.137       (12/22 07:00)\r"),
 		},
 		{
-			TheType: types.COMMENT_TYPE_EDIT,
+			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("shiou7788"),
 			Content: nil,
 			MD5:     "HbrbjPybbW4AtITcFsZM2A",
@@ -840,7 +841,7 @@ func initTest8() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test8"),
 			CommentID:  types.CommentID("E7IFC5xJ-AA:KxkHBwyiFnfhZJ6u-ayFFA"),
-			TheType:    types.COMMENT_TYPE_EDIT,
+			TheType:    ptttype.COMMENT_TYPE_EDIT,
 			Owner:      bbs.UUserID("shiou7788"),
 			Content:    nil,
 			MD5:        "KxkHBwyiFnfhZJ6u-ayFFA",
@@ -853,7 +854,7 @@ func initTest8() {
 		{
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test8"),
-			TheType:    types.COMMENT_TYPE_EDIT,
+			TheType:    ptttype.COMMENT_TYPE_EDIT,
 			CommentID:  "E7IFbWY9YAA:HbrbjPybbW4AtITcFsZM2A",
 			Owner:      bbs.UUserID("shiou7788"),
 			Content:    nil,
@@ -868,7 +869,7 @@ func initTest8() {
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test8"),
 			CommentID:  "E7IFbWZMokA:HbrbjPybbW4AtITcFsZM2A",
-			TheType:    types.COMMENT_TYPE_EDIT,
+			TheType:    ptttype.COMMENT_TYPE_EDIT,
 			Owner:      bbs.UUserID("shiou7788"),
 			Content:    nil,
 			MD5:        "HbrbjPybbW4AtITcFsZM2A",
@@ -881,7 +882,7 @@ func initTest8() {
 		{
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test8"),
-			TheType:    types.COMMENT_TYPE_EDIT,
+			TheType:    ptttype.COMMENT_TYPE_EDIT,
 			Owner:      bbs.UUserID("shiou7788"),
 			Content:    nil,
 			MD5:        "HbrbjPybbW4AtITcFsZM2A",
@@ -895,7 +896,7 @@ func initTest8() {
 		{
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test8"),
-			TheType:    types.COMMENT_TYPE_EDIT,
+			TheType:    ptttype.COMMENT_TYPE_EDIT,
 			Owner:      bbs.UUserID("shiou7788"),
 			Content:    nil,
 			MD5:        "HbrbjPybbW4AtITcFsZM2A",
@@ -909,7 +910,7 @@ func initTest8() {
 		{
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test8"),
-			TheType:    types.COMMENT_TYPE_EDIT,
+			TheType:    ptttype.COMMENT_TYPE_EDIT,
 			Owner:      bbs.UUserID("shiou7788"),
 			Content:    nil,
 			MD5:        "HbrbjPybbW4AtITcFsZM2A",
@@ -923,7 +924,7 @@ func initTest8() {
 		{
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test8"),
-			TheType:    types.COMMENT_TYPE_EDIT,
+			TheType:    ptttype.COMMENT_TYPE_EDIT,
 			Owner:      bbs.UUserID("shiou7788"),
 			Content:    nil,
 			MD5:        "HbrbjPybbW4AtITcFsZM2A",
@@ -937,7 +938,7 @@ func initTest8() {
 		{
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test8"),
-			TheType:    types.COMMENT_TYPE_EDIT,
+			TheType:    ptttype.COMMENT_TYPE_EDIT,
 			Owner:      bbs.UUserID("shiou7788"),
 			Content:    nil,
 			MD5:        "HbrbjPybbW4AtITcFsZM2A",
@@ -951,7 +952,7 @@ func initTest8() {
 		{
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test8"),
-			TheType:    types.COMMENT_TYPE_EDIT,
+			TheType:    ptttype.COMMENT_TYPE_EDIT,
 			Owner:      bbs.UUserID("shiou7788"),
 			Content:    nil,
 			MD5:        "HbrbjPybbW4AtITcFsZM2A",

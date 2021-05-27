@@ -7,6 +7,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -26,17 +27,17 @@ type Comment struct {
 	//if we add the inferred CreateTime into the comment-id:
 	//  the CreateTime may be changed if the author deletes
 	//  some other comments within same minute.
-	CommentID    types.CommentID   `bson:"cid"`
-	TheType      types.CommentType `bson:"type"`
-	RefIDs       []types.CommentID `bson:"refids"`
-	IsDeleted    bool              `bson:"deleted,omitempty"`
-	DeleteReason string            `bson:"delete_reason,omitempty"`
-	CreateTime   types.NanoTS      `bson:"create_time_nano_ts"`
-	Owner        bbs.UUserID       `bson:"owner"`
-	Content      [][]*types.Rune   `bson:"content"` //content in comment is colorless.
-	IP           string            `bson:"ip"`
-	Host         string            `bson:"host"` //ip 的中文呈現, 外國則為國家.
-	MD5          string            `bson:"md5"`
+	CommentID    types.CommentID     `bson:"cid"`
+	TheType      ptttype.CommentType `bson:"type"`
+	RefIDs       []types.CommentID   `bson:"refids"`
+	IsDeleted    bool                `bson:"deleted,omitempty"`
+	DeleteReason string              `bson:"delete_reason,omitempty"`
+	CreateTime   types.NanoTS        `bson:"create_time_nano_ts"`
+	Owner        bbs.UUserID         `bson:"owner"`
+	Content      [][]*types.Rune     `bson:"content"` //content in comment is colorless.
+	IP           string              `bson:"ip"`
+	Host         string              `bson:"host"` //ip 的中文呈現, 外國則為國家.
+	MD5          string              `bson:"md5"`
 
 	FirstCreateTime    types.NanoTS `bson:"first_create_time_nano_ts,omitempty"`    //create-time from first-comments.
 	InferredCreateTime types.NanoTS `bson:"inferred_create_time_nano_ts,omitempty"` //create-time from inferred.
