@@ -46,7 +46,7 @@ type GetArticleDetailResult struct {
 	Host    string          `json:"host"` //ip 的中文呈現, 外國則為國家.
 	BBS     string          `json:"bbs"`
 
-	Rank int `bson:"rank"` //評價
+	Rank int `json:"rank"` //評價
 
 }
 
