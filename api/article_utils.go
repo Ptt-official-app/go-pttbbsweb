@@ -6,6 +6,41 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
+func updateArticleContentInfo(
+	boardID bbs.BBoardID,
+	articleID bbs.ArticleID,
+	content [][]*types.Rune,
+	contentMD5 string,
+	ip string,
+	host string,
+	bbs string,
+	signatureMD5 string,
+	signatureDBCS []byte,
+	updateNanoTS types.NanoTS) (err error) {
+
+	if contentMD5 == "" {
+		return nil
+	}
+
+	contentInfo := &schema.ArticleContentInfo{
+		ContentMD5: contentMD5,
+
+		Content: content,
+		IP:      ip,
+		Host:    host,
+		BBS:     bbs,
+
+		SignatureDBCS: signatureDBCS,
+		SignatureMD5:  signatureMD5,
+
+		ContentUpdateNanoTS: updateNanoTS,
+	}
+
+	err = schema.UpdateArticleContentInfo(boardID, articleID, contentInfo)
+
+	return err
+}
+
 func deserializeArticlesAndUpdateDB(userID bbs.UUserID, bboardID bbs.BBoardID, articleSummaries_b []*bbs.ArticleSummary, updateNanoTS types.NanoTS) (articleSummaries []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool, err error) {
 	if len(articleSummaries_b) == 0 {
 		return nil, nil, nil
