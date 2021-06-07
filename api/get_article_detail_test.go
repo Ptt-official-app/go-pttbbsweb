@@ -50,6 +50,14 @@ func TestGetArticleDetail(t *testing.T) {
 		FirstCommentsLastTime: types.NanoTS(0),
 	}
 
+	expectedArticleDetailSummary02 := &schema.ArticleDetailSummary{
+		BBoardID:              bbs.BBoardID("10_WhoAmI"),
+		ArticleID:             bbs.ArticleID("1VtWRel9SYSOP"),
+		ContentMD5:            "L6QISYJFt-Y5g4Thl-roaw",
+		ContentMTime:          types.NanoTS(1608386300000000000),
+		FirstCommentsLastTime: types.NanoTS(0),
+	}
+
 	path1 := &GetArticleDetailPath{
 		BBoardID:  bbs.BBoardID("10_WhoAmI"),
 		ArticleID: bbs.ArticleID("1VrooM21SYSOP"),
@@ -101,6 +109,7 @@ func TestGetArticleDetail(t *testing.T) {
 
 		expectedStatusCode int
 		wantErr            bool
+		toSoonNanoTS       types.NanoTS
 	}{
 		// TODO: Add test cases.
 		{
@@ -132,6 +141,22 @@ func TestGetArticleDetail(t *testing.T) {
 			expectedArticleDetailSummary: expectedArticleDetailSummary0,
 			expectedResult:               expectedResult0,
 			expectedStatusCode:           200,
+		},
+		{
+			name: "2st-1VtWRel9SYSOP",
+			args: args{
+				remoteAddr: "localhost",
+				userID:     "chhsiao123",
+				params:     params,
+				path:       path0,
+				c:          c,
+				boardID:    "10_WhoAmI",
+				articleID:  "1VtWRel9SYSOP",
+			},
+			expectedArticleDetailSummary: expectedArticleDetailSummary02,
+			expectedResult:               expectedResult0,
+			expectedStatusCode:           200,
+			toSoonNanoTS:                 1,
 		},
 		{
 			name: "0th-1VrooM21SYSOP",
@@ -174,6 +199,15 @@ func TestGetArticleDetail(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
+			origTooSoonNanoTS := GET_ARTICLE_CONTENT_INFO_TOO_SOON_NANO_TS
+			defer func() {
+				GET_ARTICLE_CONTENT_INFO_TOO_SOON_NANO_TS = origTooSoonNanoTS
+			}()
+
+			if tt.toSoonNanoTS != 0 {
+				GET_ARTICLE_CONTENT_INFO_TOO_SOON_NANO_TS = tt.toSoonNanoTS
+			}
+
 			gotResult, gotStatusCode, err := GetArticleDetail(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetArticleDetail() error = %v, wantErr %v", err, tt.wantErr)

@@ -226,23 +226,22 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	//we need update-article-content be the 1st to upload,
 	//because it's possible that there is no first-comments.
 	//only article-content is guaranteed.
-	contentInfo := &schema.ArticleContentInfo{
-		ContentMD5: contentMD5,
 
-		Content: content,
-		IP:      ip,
-		Host:    host,
-		BBS:     bbs,
+	err = updateArticleContentInfo(bboardID, articleID, content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, updateNanoTS)
 
-		SignatureDBCS: signatureDBCS,
-		SignatureMD5:  signatureMD5,
-
-		ContentUpdateNanoTS: updateNanoTS,
-	}
-
-	err = schema.UpdateArticleContentInfo(bboardID, articleID, contentInfo)
 	if err != nil {
 		return nil, "", "", "", nil, 500, err
+	}
+
+	if contentMD5 == "" {
+		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID)
+		if err != nil {
+			return nil, "", "", "", nil, 500, err
+		}
+		content = contentInfo.Content
+		ip = contentInfo.IP
+		host = contentInfo.Host
+		bbs = contentInfo.BBS
 	}
 
 	//8. parse comments as firstComments and theRestComments
