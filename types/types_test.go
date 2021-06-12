@@ -24,6 +24,18 @@ func TestNanoTS_Base64(t *testing.T) {
 			expected: "ESIQ9HaNtAA",
 		},
 		{
+			tr:       NanoTS(1234567891000000000),
+			expected: "ESIQ9LIofgA",
+		},
+		{
+			tr:       NanoTS(1623481669497326980),
+			expected: "FofD-hG_DYQ",
+		},
+		{
+			tr:       NanoTS(1623481493520955346),
+			expected: "FofD0Ri8t9I",
+		},
+		{
 			tr:       NanoTS(9223372036854775807),
 			expected: "f_________8",
 		},
