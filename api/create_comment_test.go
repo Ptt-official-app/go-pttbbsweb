@@ -41,6 +41,7 @@ func TestCreateComment(t *testing.T) {
 				},
 			},
 		},
+		Idx: "1622139048149857000@FofoE7wzVug:PlQBjivX5w0hPmg3SIsGjw",
 	}
 
 	type args struct {
@@ -79,6 +80,7 @@ func TestCreateComment(t *testing.T) {
 			got, _ := gotResult.(CreateCommentResult)
 			got.SortTime = tt.expectedResult.SortTime
 			got.CommentID = tt.expectedResult.CommentID
+			got.Idx = tt.expectedResult.Idx
 			testutil.TDeepEqual(t, "got", got, tt.expectedResult)
 			if gotStatusCode != tt.expectedStatusCode {
 				t.Errorf("CreateComment() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)

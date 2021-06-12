@@ -1,6 +1,10 @@
 package apitypes
 
 import (
+	"fmt"
+	"strconv"
+	"strings"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -20,6 +24,7 @@ type Comment struct {
 	Content    [][]*types.Rune     `json:"content"`
 	IP         string              `json:"ip"`
 	Host       string              `json:"host"` //ip 的中文呈現, 外國則為國家.
+	Idx        string              `json:"idx"`
 }
 
 func NewComment(comment_db *schema.Comment) (comment *Comment) {
@@ -40,7 +45,27 @@ func NewComment(comment_db *schema.Comment) (comment *Comment) {
 		Content:    comment_db.Content,
 		IP:         comment_db.IP,
 		Host:       comment_db.Host,
+		Idx:        SerializeCommentIdx(comment_db.SortTime, comment_db.CommentID),
 	}
 
 	return comment
+}
+
+func DeserializeCommentIdx(startIdx string) (sortNanoTS types.NanoTS, commentID types.CommentID) {
+	theList := strings.Split(startIdx, "@")
+	if len(theList) != 2 {
+		return 0, ""
+	}
+
+	nanoTSInt, err := strconv.Atoi(theList[0])
+	if err != nil {
+		return 0, ""
+	}
+
+	return types.NanoTS(nanoTSInt), types.CommentID(theList[1])
+}
+
+func SerializeCommentIdx(sortNanoTS types.NanoTS, commentID types.CommentID) string {
+
+	return fmt.Sprintf("%v@%v", sortNanoTS, commentID)
 }

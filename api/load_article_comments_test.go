@@ -41,6 +41,7 @@ func TestLoadArticleComments(t *testing.T) {
 					},
 				},
 			},
+			Idx: "1608388624000000000@FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA",
 		},
 		{
 			BBoardID:   "10_WhoAmI",
@@ -61,6 +62,7 @@ func TestLoadArticleComments(t *testing.T) {
 					},
 				},
 			},
+			Idx: "1608388560000000000@FlIk36uaIAA:FQaNH8WkdAbEGD7yp2Zkvg",
 		},
 		{
 			BBoardID:   "10_WhoAmI",
@@ -81,6 +83,7 @@ func TestLoadArticleComments(t *testing.T) {
 					},
 				},
 			},
+			Idx: "1608388500000000000@FlIk0bNSyAA:3dK46zmOe5zmna12AC1gnQ",
 		},
 	}
 
