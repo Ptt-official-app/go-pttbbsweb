@@ -1,13 +1,8 @@
 package api
 
 import (
-	"fmt"
-	"strconv"
-	"strings"
-
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
@@ -61,7 +56,7 @@ func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface
 	}
 
 	//get comments
-	querySortNanoTS, queryCommentID := loadArticleCommentsDeserializeIdx(theParams.StartIdx)
+	querySortNanoTS, queryCommentID := apitypes.DeserializeCommentIdx(theParams.StartIdx)
 
 	comments_db, err := schema.GetComments(thePath.BBoardID, thePath.ArticleID, querySortNanoTS, queryCommentID, theParams.Descending, theParams.Max+1)
 	if err != nil {
@@ -78,29 +73,10 @@ func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface
 	return result, 200, nil
 }
 
-func loadArticleCommentsDeserializeIdx(startIdx string) (sortNanoTS types.NanoTS, commentID types.CommentID) {
-	theList := strings.Split(startIdx, "@")
-	if len(theList) != 2 {
-		return 0, ""
-	}
-
-	nanoTSInt, err := strconv.Atoi(theList[0])
-	if err != nil {
-		return 0, ""
-	}
-
-	return types.NanoTS(nanoTSInt), types.CommentID(theList[1])
-}
-
-func loadArticleCommentsSerializeIdx(sortNanoTS types.NanoTS, commentID types.CommentID) string {
-
-	return fmt.Sprintf("%v@%v", sortNanoTS, commentID)
-}
-
 func NewLoadArticleCommentsResult(comments_db []*schema.Comment, nextComment *schema.Comment) (result *LoadArticleCommentsResult) {
 	nextIdx := ""
 	if nextComment != nil {
-		nextIdx = loadArticleCommentsSerializeIdx(nextComment.SortTime, nextComment.CommentID)
+		nextIdx = apitypes.SerializeCommentIdx(nextComment.SortTime, nextComment.CommentID)
 	}
 
 	comments := make([]*apitypes.Comment, len(comments_db))

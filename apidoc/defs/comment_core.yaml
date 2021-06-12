@@ -24,3 +24,6 @@ ip:
 host:
   type: string
   description: from 的描述 (國名)
+idx:
+  type: string
+  description: idx
