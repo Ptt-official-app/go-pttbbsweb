@@ -64,9 +64,9 @@ func Init() (err error) {
 	keys = &bson.D{
 		{Key: COMMENT_BBOARD_ID_b, Value: 1},
 		{Key: COMMENT_ARTICLE_ID_b, Value: 1},
-		{Key: COMMENT_COMMENT_ID_b, Value: 1},
+		{Key: COMMENT_SORT_TIME_b, Value: 1},
 	}
-	err = Board_c.CreateIndex(keys, nil)
+	err = Comment_c.CreateIndex(keys, nil)
 	if err != nil {
 		return err
 	}
@@ -75,10 +75,11 @@ func Init() (err error) {
 		{Key: COMMENT_ARTICLE_ID_b, Value: 1},
 		{Key: COMMENT_UPDATE_NANO_TS_b, Value: 1},
 	}
-	err = Board_c.CreateIndex(keys, nil)
+	err = Comment_c.CreateIndex(keys, nil)
 	if err != nil {
 		return err
 	}
+
 	//rank
 	Rank_c = client.Collection("rank")
 	keys = &bson.D{

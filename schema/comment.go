@@ -148,8 +148,8 @@ func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, sortNanoTS types
 		query = bson.M{
 			COMMENT_BBOARD_ID_b:  boardID,
 			COMMENT_ARTICLE_ID_b: articleID,
-			COMMENT_COMMENT_ID_b: bson.M{
-				theDirCommentID: commentID,
+			COMMENT_SORT_TIME_b: bson.M{
+				theDirCommentID: sortNanoTS,
 			},
 			COMMENT_IS_DELETED_b: bson.M{
 				"$exists": false,
@@ -160,11 +160,11 @@ func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, sortNanoTS types
 	var sortOpts bson.D
 	if descending {
 		sortOpts = bson.D{
-			{Key: COMMENT_COMMENT_ID_b, Value: -1},
+			{Key: COMMENT_SORT_TIME_b, Value: -1},
 		}
 	} else {
 		sortOpts = bson.D{
-			{Key: COMMENT_COMMENT_ID_b, Value: 1},
+			{Key: COMMENT_SORT_TIME_b, Value: 1},
 		}
 	}
 

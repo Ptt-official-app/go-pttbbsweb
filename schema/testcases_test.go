@@ -17,6 +17,7 @@ var (
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("foolfighter"),
 			CreateTime: types.NanoTS(1261396680001000000),
+			SortTime:   types.NanoTS(1261396680001000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -37,6 +38,7 @@ var (
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("yehpi"),
 			CreateTime: types.NanoTS(1261396680002000000),
+			SortTime:   types.NanoTS(1261396680002000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -57,6 +59,7 @@ var (
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("lockeyman"),
 			CreateTime: types.NanoTS(1261396680003000000),
+			SortTime:   types.NanoTS(1261396680003000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -78,6 +81,7 @@ var (
 			TheType:    ptttype.COMMENT_TYPE_REPLY,
 			Owner:      bbs.UUserID("cheinshin"),
 			CreateTime: types.NanoTS(1261396680003100000),
+			SortTime:   types.NanoTS(1261396680003100000),
 			Content: [][]*types.Rune{
 				{},
 				{
@@ -120,6 +124,7 @@ var (
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("deathdancer"),
 			CreateTime: types.NanoTS(1261410660000000000),
+			SortTime:   types.NanoTS(1261410660000000000),
 			Content: [][]*types.Rune{
 				{
 					{
