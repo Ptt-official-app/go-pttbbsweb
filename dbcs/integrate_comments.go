@@ -44,7 +44,7 @@ func IntegrateComments(boardID bbs.BBoardID, articleID bbs.ArticleID, comments [
 		each.ArticleID = articleID
 	}
 
-	//early-return for isForawrdOnly
+	//early-return for isForwardOnly
 	if isForwardOnly {
 		return newComments, nil, nil
 	}

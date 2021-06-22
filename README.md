@@ -117,3 +117,9 @@ You can run swagger with:
 ## Schema definition
 
 * `https://github.com/Ptt-official-app/go-openbbsmiddleware/tree/main/schema`
+
+## Repository Naming
+
+The reason why this repo is called go-openbbsmiddleware is because previously the ASP developers hoped that the scope of the middleware can include other versions of bbs (Maple/中山之島). The naming of this repo followed the naming convention at that time.
+
+這個 repo 之所以會被稱為 go-openbbsmiddleware, 是因為古早的 asp 時期的開發者希望 asp 的版本可以擴及其他版本的 bbs (Maple/中山之島). 這個 repo 就 follow 當時的 naming convention 命名為 go-openbbsmiddleware.
