@@ -10,7 +10,9 @@ WORKDIR /srv/go-openbbsmiddleware
 RUN mkdir -p /etc/go-openbbsmiddleware && cp 01-config.docker.ini /etc/go-openbbsmiddleware/production.ini
 
 WORKDIR /srv/go-openbbsmiddleware
-RUN go build -ldflags "-X github.com/Ptt-official-app/go-openbbsmiddleware/types.GIT_VERSION=`git rev-parse --short HEAD` -X github.com/Ptt-official-app/go-openbbsmiddleware/types.VERSION=`git describe --tags`"
+RUN go get "github.com/Ptt-official-app/go-pttbbs@${GO_PTTBBS_VERSION}" && \
+    cp "/go/pkg/mod/github.com/!ptt-official-app/go-pttbbs@${GO_PTTBBS_VERSION}/01-config-docker.go.template" "/go/pkg/mod/github.com/!ptt-official-app/go-pttbbs@${GO_PTTBBS_VERSION}/ptttype/00-config-production.go"
+RUN go build -tags production -ldflags "-X github.com/Ptt-official-app/go-openbbsmiddleware/types.GIT_VERSION=`git rev-parse --short HEAD` -X github.com/Ptt-official-app/go-openbbsmiddleware/types.VERSION=`git describe --tags`"
 
 RUN mkdir -p /static
 
