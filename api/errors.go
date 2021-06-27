@@ -12,6 +12,7 @@ var (
 	ErrInvalidToken             = errors.New("invalid token")
 	ErrInvalidOrigin            = errors.New("invalid origin")
 	ErrInvalidBackendStatusCode = errors.New("invalid backend status code")
+	ErrNoBoard                  = errors.New("no board")
 	ErrNoArticle                = errors.New("no article")
 	ErrAlreadyDeleted           = errors.New("already deleted")
 	ErrFileNotFound             = errors.New("file not found")

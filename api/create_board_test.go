@@ -26,7 +26,7 @@ func TestCreateBoard(t *testing.T) {
 	}
 
 	expected0 := &apitypes.BoardSummary{
-		BBoardID:  "13_test3",
+		FBoardID:  "test3",
 		Brdname:   "test3",
 		Title:     "測試1",
 		BoardType: "◎",
@@ -35,6 +35,7 @@ func TestCreateBoard(t *testing.T) {
 		StatAttr:  ptttype.NBRD_BOARD,
 		Gid:       2,
 		Idx:       "",
+		Read:      true,
 	}
 
 	type args struct {

@@ -3,7 +3,6 @@ package mock
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
 type CommentListResult_t struct {
@@ -15,8 +14,8 @@ var (
 	CommentListResult = &CommentListResult_t{
 		List: []*apitypes.Comment{
 			{
-				BBoardID:   bbs.BBoardID("10_WhoAmI"),
-				ArticleID:  bbs.ArticleID("WEFSDHASD"),
+				FBoardID:   apitypes.FBoardID("WhoAmI"),
+				FArticleID: apitypes.FArticleID("M.1234567890.A.123"),
 				CommentID:  "alasdjfksj",
 				TheType:    0,
 				RefID:      "bbasdkfjs",
@@ -32,8 +31,8 @@ var (
 				Host: "我家",
 			},
 			{
-				BBoardID:   bbs.BBoardID("10_WhoAmI"),
-				ArticleID:  bbs.ArticleID("WEFSDHASD"),
+				FBoardID:   apitypes.FBoardID("WhoAmI"),
+				FArticleID: apitypes.FArticleID("M.1234567890.A.123"),
 				CommentID:  "bcdasdjfksj",
 				TheType:    0,
 				RefID:      "bdfsdkfjs",
@@ -49,8 +48,8 @@ var (
 				Host: "全家",
 			},
 			{
-				BBoardID:   bbs.BBoardID("10_WhoAmI"),
-				ArticleID:  bbs.ArticleID("WEFSDHASD"),
+				FBoardID:   apitypes.FBoardID("WhoAmI"),
+				FArticleID: apitypes.FArticleID("M.1234567890.A.123"),
 				CommentID:  "bcdDFsdjfksj",
 				TheType:    0,
 				RefID:      "bdfsdkfjs",
@@ -66,8 +65,8 @@ var (
 				Host: "妳家",
 			},
 			{
-				BBoardID:   bbs.BBoardID("10_WhoAmI"),
-				ArticleID:  bbs.ArticleID("WEFSDHASD"),
+				FBoardID:   apitypes.FBoardID("WhoAmI"),
+				FArticleID: apitypes.FArticleID("M.1234567890.A.123"),
 				CommentID:  "bcdDsadFsdjfksj",
 				TheType:    0,
 				RefID:      "bdfsdkfjs",

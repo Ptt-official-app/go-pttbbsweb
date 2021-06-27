@@ -19,8 +19,8 @@ type CreateCommentParams struct {
 }
 
 type CreateCommentPath struct {
-	BoardID   bbs.BBoardID  `uri:"bid" binding:"required"`
-	ArticleID bbs.ArticleID `uri:"aid" binding:"required"`
+	FBoardID   apitypes.FBoardID   `uri:"bid" binding:"required"`
+	FArticleID apitypes.FArticleID `uri:"aid" binding:"required"`
 }
 
 type CreateCommentResult *apitypes.Comment
@@ -43,6 +43,13 @@ func CreateComment(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 		return nil, 400, ErrInvalidPath
 	}
 
+	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
+	if err != nil {
+		return nil, 500, err
+	}
+	articleID := thePath.FArticleID.ToArticleID()
+
+	//content-dbcs
 	contentDBCS := types.Utf8ToBig5(theParams.Content)
 
 	//backend
@@ -53,8 +60,8 @@ func CreateComment(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 	var result_b *pttbbsapi.CreateCommentResult
 
 	urlMap := map[string]string{
-		"bid": string(thePath.BoardID),
-		"aid": string(thePath.ArticleID),
+		"bid": string(boardID),
+		"aid": string(articleID),
 	}
 	url := utils.MergeURL(urlMap, pttbbsapi.CREATE_COMMENT_R)
 	statusCode, err = utils.BackendPost(c, url, theParams_b, nil, &result_b)
@@ -69,8 +76,8 @@ func CreateComment(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 
 	dbComment := dbComments[0]
 	dbComment.CreateTime = types.Time4ToNanoTS(result_b.MTime)
-	dbComment.BBoardID = thePath.BoardID
-	dbComment.ArticleID = thePath.ArticleID
+	dbComment.BBoardID = boardID
+	dbComment.ArticleID = articleID
 	updateNanoTS := types.NowNanoTS()
 	dbComment.SetSortTime(updateNanoTS)
 	err = tryUpdateComments(dbComments, updateNanoTS)

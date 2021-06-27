@@ -23,10 +23,10 @@ func TestGetBoardSummary(t *testing.T) {
 	_, _ = schema.UserReadBoard_c.Update(update0, update0)
 
 	params0 := &GetBoardSummaryParams{}
-	path0 := &GetBoardSummaryPath{BBoardID: "1_test1"}
+	path0 := &GetBoardSummaryPath{FBoardID: "test1"}
 
 	result0 := GetBoardSummaryResult(&apitypes.BoardSummary{
-		BBoardID:  "1_test1",
+		FBoardID:  "test1",
 		Brdname:   "test1",
 		Title:     "測試1",
 		BrdAttr:   0,

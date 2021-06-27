@@ -50,6 +50,14 @@ func Init() (err error) {
 		return err
 	}
 
+	keys = &bson.D{
+		{Key: BOARD_BRDNAME_b, Value: 1},
+	}
+	err = Board_c.CreateIndex(keys, nil)
+	if err != nil {
+		return err
+	}
+
 	//BoardBanuser
 	BoardBanuser_c = client.Collection("board_banuser")
 

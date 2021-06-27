@@ -22,14 +22,14 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(LoadGeneralBoardsByClass(data.(*api.LoadGeneralBoardsParams)), result)
 	case api.LOAD_HOT_BOARDS_R:
 		return parseResult(LoadHotBoards(), result)
-	case "/board/1_test1/articles":
-		return parseResult(LoadGeneralArticles(data.(*api.LoadGeneralArticlesParams)), result)
-	case "/board/10_WhoAmI/article/1VtWRel9SYSOP":
+	case "/board/10_WhoAmI/article/1VtWRel9":
 		return parseResult(GetArticleDetail(data.(*api.GetArticleParams)), result)
-	case "/board/10_WhoAmI/article/1VrooM21SYSOP":
+	case "/board/10_WhoAmI/article/1VrooM21":
 		return parseResult(GetArticleDetail2(data.(*api.GetArticleParams)), result)
 	case "/board/10_WhoAmI/article":
 		return parseResult(CreateArticle(data.(*api.CreateArticleParams)), result)
+	case "/board/10_WhoAmI/articles":
+		return parseResult(LoadGeneralArticles2(data.(*api.LoadGeneralArticlesParams)), result)
 	case "/user/SYSOP/information":
 		return parseResult(GetUser(), result)
 	case "/user/SYSOP/changepasswd":
@@ -56,7 +56,7 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(GetBoardSummary(data.(*api.LoadBoardSummaryParams)), result)
 	case "/class/2/board":
 		return parseResult(CreateBoard(data.(*api.CreateBoardParams)), result)
-	case "/board/10_WhoAmI/article/1VrooM21SYSOP/comment":
+	case "/board/10_WhoAmI/article/1VrooM21/comment":
 		return parseResult(CreateComment(data.(*api.CreateCommentParams)), result)
 	default:
 		return 500, ErrURL

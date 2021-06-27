@@ -60,7 +60,7 @@ var (
 	testTitle0 = "新的目錄"
 
 	testBoardSummary9 = &apitypes.BoardSummary{
-		BBoardID:  "9_test9",
+		FBoardID:  "test9",
 		Brdname:   "test9",
 		Title:     "測試9",
 		BrdAttr:   0,
@@ -76,7 +76,7 @@ var (
 	}
 
 	testBoardSummary8 = &apitypes.BoardSummary{
-		BBoardID:  "8_test8",
+		FBoardID:  "test8",
 		Brdname:   "test8",
 		Title:     "測試8",
 		BrdAttr:   0,
@@ -98,6 +98,25 @@ var (
 		testBoardSummary9,
 		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":4", Idx: "4"},
 		testBoardSummary8,
+	}
+
+	testBoardSummaryWhoAmI_b = &bbs.BoardSummary{
+		Gid:      5,
+		Bid:      10,
+		BBoardID: bbs.BBoardID("10_WhoAmI"),
+		StatAttr: ptttype.NBRD_FAV,
+		Brdname:  "WhoAmI",
+		BoardClass: []byte{
+			0xbc, 0x54, 0xad, 0xf9,
+		},
+		RealTitle: []byte{
+			0xa8, 0xfe, 0xa8, 0xfe, 0xa1, 0x41, 0xb2, 0x71, 0xb2, 0x71,
+			0xa7, 0xda, 0xac, 0x4f, 0xbd, 0xd6, 0xa1, 0x49,
+		},
+		BoardType:  []byte{0xa1, 0xb7},
+		BM:         []bbs.UUserID{},
+		IdxByName:  "WhoAmI",
+		IdxByClass: "vFSt-Q@WhoAmI",
 	}
 )
 

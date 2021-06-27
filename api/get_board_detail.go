@@ -15,7 +15,7 @@ type GetBoardDetailParams struct {
 }
 
 type GetBoardDetailPath struct {
-	BBoardID bbs.BBoardID `uri:"bid"`
+	FBoardID apitypes.FBoardID `uri:"bid"`
 }
 
 type GetBoardDetailResult struct {
@@ -40,9 +40,9 @@ type GetBoardDetailResult struct {
 }
 
 type GetBoardDetailFailResult struct {
-	BBoard bbs.BBoardID  `json:"bid"`
-	BMs    []bbs.UUserID `json:"moderators"`
-	Reason string        `json:"reason"`
+	BBoard apitypes.FBoardID `json:"bid"`
+	BMs    []bbs.UUserID     `json:"moderators"`
+	Reason string            `json:"reason"`
 }
 
 func GetBoardDetailWrapper(c *gin.Context) {
@@ -59,7 +59,7 @@ func GetBoardDetail(remoteAddr string, userID bbs.UUserID, params interface{}, p
 
 	result = &GetBoardDetailResult{
 		BoardSummary: &apitypes.BoardSummary{
-			BBoardID:  bbs.BBoardID("10_WhoAmI"),
+			FBoardID:  apitypes.FBoardID("WhoAmI"),
 			Brdname:   "WhoAmI",
 			Title:     "我～是～誰？～",
 			BrdAttr:   0,

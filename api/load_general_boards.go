@@ -77,39 +77,20 @@ func postLoadBoards(userID bbs.UUserID, result_b *pttbbsapi.LoadGeneralBoardsRes
 		return nil, 500, err
 	}
 
-	r := NewLoadGeneralBoardsResult(boardSummaries_db, result_b.NextIdx, url)
-
 	//check isRead
-	err = checkBoardInfo(userID, userBoardInfoMap, r.List)
+	userBoardInfoMap, err = checkUserReadBoard(userID, userBoardInfoMap, boardSummaries_db)
 	if err != nil {
 		return nil, 500, err
 	}
+
+	r := NewLoadGeneralBoardsResult(boardSummaries_db, userBoardInfoMap, result_b.NextIdx, url)
 
 	return r, 200, nil
 
 }
 
-func NewLoadGeneralBoardsResult(boardSummaries_db []*schema.BoardSummary, nextIdx string, url string) *LoadGeneralBoardsResult {
-
-	theList := make([]*apitypes.BoardSummary, len(boardSummaries_db))
-
-	isByClass := url == pttbbsapi.LOAD_GENERAL_BOARDS_BY_CLASS_R
-	for i, each_db := range boardSummaries_db {
-		idx := each_db.IdxByName
-		if isByClass {
-			idx = each_db.IdxByClass
-		}
-		theList[i] = apitypes.NewBoardSummary(each_db, idx)
-	}
-
-	return &LoadGeneralBoardsResult{
-		List:    theList,
-		NextIdx: nextIdx,
-	}
-}
-
 //https://github.com/ptt/pttbbs/blob/master/mbbsd/board.c#L953
-func checkBoardInfo(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*userBoardInfo, theList []*apitypes.BoardSummary) error {
+func checkUserReadBoard(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, theList []*schema.BoardSummary) (newUserBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, err error) {
 	checkBBoardIDMap := make(map[bbs.BBoardID]int)
 	queryBBoardIDs := make([]bbs.BBoardID, 0, len(theList))
 	for idx, each := range theList {
@@ -117,26 +98,19 @@ func checkBoardInfo(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*userB
 			continue
 		}
 
-		if (each.StatAttr&ptttype.NBRD_LINE != 0) || (each.StatAttr&ptttype.NBRD_FOLDER != 0) {
-			continue
-		}
-
 		eachBoardInfo, ok := userBoardInfoMap[each.BBoardID]
-		if ok {
-			each.StatAttr = eachBoardInfo.Stat
-			each.NUser = eachBoardInfo.NUser
+		if (eachBoardInfo.Stat&ptttype.NBRD_LINE != 0) || (eachBoardInfo.Stat&ptttype.NBRD_FOLDER != 0) {
+			continue
 		}
 
 		if ok && eachBoardInfo.Read {
 			continue
 		}
+
 		if each.BrdAttr&(ptttype.BRD_GROUPBOARD|ptttype.BRD_SYMBOLIC) != 0 {
 			continue
 		}
 
-		if each.StatAttr&(ptttype.NBRD_LINE|ptttype.NBRD_FOLDER) != 0 {
-			continue
-		}
 		if each.Total == 0 {
 			continue
 		}
@@ -148,7 +122,7 @@ func checkBoardInfo(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*userB
 
 	dbResults, err := schema.FindUserReadBoards(userID, queryBBoardIDs)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	//setup read in the list
@@ -158,12 +132,48 @@ func checkBoardInfo(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*userB
 		eachBoardID := each.BBoardID
 		eachReadNanoTS := each.UpdateNanoTS
 
-		listIdx := checkBBoardIDMap[eachBoardID]
-		eachInTheList := theList[listIdx]
+		eachBoardInfo, ok := userBoardInfoMap[eachBoardID]
+		if !ok {
+			continue
+		}
 
-		eachLastPostNanoTS := eachInTheList.LastPostTime.ToNanoTS()
-		eachInTheList.Read = eachReadNanoTS > eachLastPostNanoTS
+		listIdx, ok := checkBBoardIDMap[eachBoardID]
+		if !ok {
+			continue
+		}
+
+		eachInTheList := theList[listIdx]
+		eachLastPostNanoTS := eachInTheList.LastPostTime
+
+		isRead := eachReadNanoTS > eachLastPostNanoTS
+		eachBoardInfo.Read = isRead
 	}
 
-	return nil
+	return userBoardInfoMap, nil
+}
+
+func NewLoadGeneralBoardsResult(boardSummaries_db []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, nextIdx string, url string) *LoadGeneralBoardsResult {
+
+	theList := make([]*apitypes.BoardSummary, len(boardSummaries_db))
+
+	isByClass := url == pttbbsapi.LOAD_GENERAL_BOARDS_BY_CLASS_R
+	for i, each_db := range boardSummaries_db {
+		idx := each_db.IdxByName
+		if isByClass {
+			idx = each_db.IdxByClass
+		}
+
+		userBoardInfo, ok := userBoardInfoMap[each_db.BBoardID]
+		if !ok {
+			continue
+		}
+
+		each := apitypes.NewBoardSummary(each_db, idx, userBoardInfo)
+		theList[i] = each
+	}
+
+	return &LoadGeneralBoardsResult{
+		List:    theList,
+		NextIdx: nextIdx,
+	}
 }

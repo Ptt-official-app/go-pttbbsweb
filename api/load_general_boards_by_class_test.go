@@ -1,7 +1,6 @@
 package api
 
 import (
-	"reflect"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
@@ -9,6 +8,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,7 +28,7 @@ func TestLoadGeneralBoardsByClass(t *testing.T) {
 	expectedResult := &LoadGeneralBoardsResult{
 		List: []*apitypes.BoardSummary{
 			{
-				BBoardID:  "1_test1",
+				FBoardID:  "test1",
 				Brdname:   "test1",
 				Title:     "測試1",
 				BrdAttr:   0,
@@ -43,7 +43,7 @@ func TestLoadGeneralBoardsByClass(t *testing.T) {
 				StatAttr:     ptttype.NBRD_BOARD,
 			},
 			{
-				BBoardID:  "2_test2",
+				FBoardID:  "test2",
 				Brdname:   "test2",
 				Title:     "測試2",
 				BrdAttr:   0,
@@ -88,9 +88,9 @@ func TestLoadGeneralBoardsByClass(t *testing.T) {
 				t.Errorf("LoadGeneralBoardsByClass() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(gotResult, tt.expectedResult) {
-				t.Errorf("LoadGeneralBoardsByClass() gotResult = %v, want %v", gotResult, tt.expectedResult)
-			}
+
+			testutil.TDeepEqual(t, "got", gotResult, tt.expectedResult)
+
 			if gotStatusCode != tt.expectedStatusCode {
 				t.Errorf("LoadGeneralBoardsByClass() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}

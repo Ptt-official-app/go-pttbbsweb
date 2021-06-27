@@ -178,7 +178,7 @@ func initTest4() {
 	testFullFirstComments4 = []*schema.Comment{
 		{
 			BBoardID:   bbs.BBoardID("10_WhoAmI"),
-			ArticleID:  bbs.ArticleID("1VrooM21SYSOP"),
+			ArticleID:  bbs.ArticleID("1VrooM21"),
 			CommentID:  types.CommentID("FlIk0bNSyAA:3dK46zmOe5zmna12AC1gnQ"),
 			TheType:    ptttype.COMMENT_TYPE_COMMENT,
 			Owner:      bbs.UUserID("SYSOP"),
@@ -201,7 +201,7 @@ func initTest4() {
 		},
 		{
 			BBoardID:   bbs.BBoardID("10_WhoAmI"),
-			ArticleID:  bbs.ArticleID("1VrooM21SYSOP"),
+			ArticleID:  bbs.ArticleID("1VrooM21"),
 			CommentID:  types.CommentID("FlIk36uaIAA:FQaNH8WkdAbEGD7yp2Zkvg"),
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("chhsiao123"),
@@ -224,7 +224,7 @@ func initTest4() {
 		},
 		{
 			BBoardID:   bbs.BBoardID("10_WhoAmI"),
-			ArticleID:  bbs.ArticleID("1VrooM21SYSOP"),
+			ArticleID:  bbs.ArticleID("1VrooM21"),
 			CommentID:  types.CommentID("FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA"),
 			TheType:    ptttype.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("chhsiao123"),

@@ -15,16 +15,19 @@ func TestCreateComment(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
+	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
+	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
+
 	params0 := &CreateCommentParams{
 		CommentType: ptttype.COMMENT_TYPE_RECOMMEND,
 	}
 	path0 := &CreateCommentPath{
-		BoardID:   "10_WhoAmI",
-		ArticleID: "1VrooM21SYSOP",
+		FBoardID:   "WhoAmI",
+		FArticleID: "M.1607937174.A.081",
 	}
 	expected0 := &apitypes.Comment{
-		BBoardID:   "10_WhoAmI",
-		ArticleID:  "1VrooM21SYSOP",
+		FBoardID:   "WhoAmI",
+		FArticleID: "M.1607937174.A.081",
 		TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 		Owner:      "SYSOP",
 		CommentID:  "FoL-3rSuO0A:PlQBjivX5w0hPmg3SIsGjw",

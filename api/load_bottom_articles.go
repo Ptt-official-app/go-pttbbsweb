@@ -12,7 +12,7 @@ const LOAD_BOTTOM_ARTICLES_R = "/board/:bid/articles/bottom"
 type LoadBottomArticlesParams struct{}
 
 type LoadBottomArticlesPath struct {
-	BBoardID bbs.BBoardID `json:"bid"`
+	FBoardID apitypes.FBoardID `json:"bid"`
 }
 
 type LoadBottomArticlesResult struct {

@@ -14,17 +14,20 @@ func TestLoadArticleComments(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
+	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
+	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
+
 	articleParams := &GetArticleDetailParams{}
 	articlePath := &GetArticleDetailPath{
-		BBoardID:  bbs.BBoardID("10_WhoAmI"),
-		ArticleID: bbs.ArticleID("1VrooM21SYSOP"),
+		FBoardID:   apitypes.FBoardID("WhoAmI"),
+		FArticleID: apitypes.FArticleID("M.1607937174.A.081"),
 	}
 	_, _, _ = GetArticleDetail(testIP, "SYSOP", articleParams, articlePath, nil)
 
 	comments := []*apitypes.Comment{
 		{
-			BBoardID:   "10_WhoAmI",
-			ArticleID:  "1VrooM21SYSOP",
+			FBoardID:   "WhoAmI",
+			FArticleID: "M.1607937174.A.081",
 			CommentID:  "FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA",
 			TheType:    2,
 			CreateTime: 1608388624,
@@ -44,8 +47,8 @@ func TestLoadArticleComments(t *testing.T) {
 			Idx: "1608388624000000000@FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA",
 		},
 		{
-			BBoardID:   "10_WhoAmI",
-			ArticleID:  "1VrooM21SYSOP",
+			FBoardID:   "WhoAmI",
+			FArticleID: "M.1607937174.A.081",
 			CommentID:  "FlIk36uaIAA:FQaNH8WkdAbEGD7yp2Zkvg",
 			TheType:    1,
 			CreateTime: 1608388560,
@@ -65,8 +68,8 @@ func TestLoadArticleComments(t *testing.T) {
 			Idx: "1608388560000000000@FlIk36uaIAA:FQaNH8WkdAbEGD7yp2Zkvg",
 		},
 		{
-			BBoardID:   "10_WhoAmI",
-			ArticleID:  "1VrooM21SYSOP",
+			FBoardID:   "WhoAmI",
+			FArticleID: "M.1607937174.A.081",
 			CommentID:  "FlIk0bNSyAA:3dK46zmOe5zmna12AC1gnQ",
 			TheType:    3,
 			CreateTime: 1608388500,
@@ -89,8 +92,8 @@ func TestLoadArticleComments(t *testing.T) {
 
 	params0 := NewLoadArticleCommentsParams()
 	path0 := &LoadArticleCommentsPath{
-		BBoardID:  "10_WhoAmI",
-		ArticleID: "1VrooM21SYSOP",
+		FBoardID:   "WhoAmI",
+		FArticleID: "M.1607937174.A.081",
 	}
 	expected0 := &LoadArticleCommentsResult{
 		List: []*apitypes.Comment{

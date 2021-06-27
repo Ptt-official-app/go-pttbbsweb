@@ -8,8 +8,8 @@ import (
 )
 
 type ArticleSummary struct {
-	BBoardID   bbs.BBoardID     `json:"bid"`         //
-	ArticleID  bbs.ArticleID    `json:"aid"`         //
+	FBoardID   FBoardID         `json:"bid"`         //
+	ArticleID  FArticleID       `json:"aid"`         //
 	IsDeleted  bool             `json:"deleted"`     //
 	CreateTime types.Time8      `json:"create_time"` //
 	MTime      types.Time8      `json:"modified"`    //
@@ -30,11 +30,14 @@ type ArticleSummary struct {
 }
 
 func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
-	url := ToURL(a_db.BBoardID, a_db.ArticleID)
+	fboardID := ToFBoardID(a_db.BBoardID)
+	farticleID := ToFArticleID(a_db.ArticleID)
+
+	url := ToURL(fboardID, farticleID)
 
 	return &ArticleSummary{
-		BBoardID:   a_db.BBoardID,             //
-		ArticleID:  a_db.ArticleID,            //
+		FBoardID:   fboardID,                  //
+		ArticleID:  farticleID,                //
 		IsDeleted:  a_db.IsDeleted,            //
 		CreateTime: a_db.CreateTime.ToTime8(), //
 		MTime:      a_db.MTime.ToTime8(),      //

@@ -10,7 +10,7 @@ func CreateArticle(params *api.CreateArticleParams) (ret api.CreateArticleResult
 
 	ret = api.CreateArticleResult(&bbs.ArticleSummary{
 		BBoardID:   bbs.BBoardID("10_WhoAmI"),
-		ArticleID:  bbs.ArticleID("1VrooM21SYSOP"),
+		ArticleID:  bbs.ArticleID("1VrooM21"),
 		IsDeleted:  false,
 		Filename:   "M.1607937174.A.081",
 		CreateTime: types.Time4(1607937174),

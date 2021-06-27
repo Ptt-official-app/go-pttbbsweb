@@ -14,8 +14,11 @@ func TestCreateArticle(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
+	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
+	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
+
 	path0 := &CreateArticlePath{
-		BoardID: "10_WhoAmI",
+		FBoardID: "WhoAmI",
 	}
 
 	rune0 := &types.Rune{
@@ -39,8 +42,8 @@ func TestCreateArticle(t *testing.T) {
 	}
 
 	expected0 := CreateArticleResult(&apitypes.ArticleSummary{
-		BBoardID:   bbs.BBoardID("10_WhoAmI"),
-		ArticleID:  bbs.ArticleID("1VrooM21SYSOP"),
+		FBoardID:   apitypes.FBoardID("WhoAmI"),
+		ArticleID:  apitypes.FArticleID("M.1607937174.A.081"),
 		IsDeleted:  false,
 		CreateTime: types.Time8(1607937174),
 		MTime:      types.Time8(1607937100),
@@ -48,7 +51,7 @@ func TestCreateArticle(t *testing.T) {
 		Owner:      "SYSOP",
 		Title:      "this is a test",
 		Class:      "測試",
-		URL:        "http://localhost:3457/bbs/10_WhoAmI/M.1607937174.A.081.html",
+		URL:        "http://localhost:3457/bbs/WhoAmI/M.1607937174.A.081.html",
 		Read:       false,
 	})
 

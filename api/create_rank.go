@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -14,8 +15,8 @@ type CreateRankParams struct {
 }
 
 type CreateRankPath struct {
-	BoardID   bbs.BBoardID  `uri:"bid" binding:"required"`
-	ArticleID bbs.ArticleID `uri:"aid" binding:"required"`
+	FBoardID   apitypes.FBoardID   `uri:"bid" binding:"required"`
+	FArticleID apitypes.FArticleID `uri:"aid" binding:"required"`
 }
 
 type CreateRankResult struct {
@@ -38,8 +39,14 @@ func CreateRank(remoteAddr string, userID bbs.UUserID, params interface{}, path 
 		return nil, 400, ErrInvalidPath
 	}
 
+	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
+	if err != nil {
+		return nil, 500, err
+	}
+	articleID := thePath.FArticleID.ToArticleID()
+
 	// check permission
-	articleSummary, err := schema.GetArticleSummary(thePath.BoardID, thePath.ArticleID)
+	articleSummary, err := schema.GetArticleSummary(boardID, articleID)
 	if err != nil {
 		return nil, 500, err
 	}
@@ -51,7 +58,7 @@ func CreateRank(remoteAddr string, userID bbs.UUserID, params interface{}, path 
 		return nil, 403, ErrInvalidUser
 	}
 
-	isValid, statusCode, err := isBoardValidUser(thePath.BoardID, c)
+	isValid, statusCode, err := isBoardValidUser(boardID, c)
 	if err != nil {
 		return nil, statusCode, err
 	}
@@ -61,12 +68,12 @@ func CreateRank(remoteAddr string, userID bbs.UUserID, params interface{}, path 
 
 	//update rank
 	updateNanoTS := types.NowNanoTS()
-	origRank, err := schema.UpdateRank(thePath.BoardID, thePath.ArticleID, userID, theParams.Rank, updateNanoTS)
+	origRank, err := schema.UpdateRank(boardID, articleID, userID, theParams.Rank, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}
 
-	newRank, err := schema.UpdateArticleRank(thePath.BoardID, thePath.ArticleID, theParams.Rank-origRank, updateNanoTS)
+	newRank, err := schema.UpdateArticleRank(boardID, articleID, theParams.Rank-origRank, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}

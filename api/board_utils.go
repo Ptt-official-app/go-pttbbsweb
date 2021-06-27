@@ -1,23 +1,37 @@
 package api
 
 import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
 
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 )
 
-type userBoardInfo struct {
-	Read  bool
-	Stat  ptttype.BoardStatAttr
-	NUser int
+func toBoardID(fboardID apitypes.FBoardID, remoteAddr string, userID bbs.UUserID, c *gin.Context) (boardID bbs.BBoardID, err error) {
+	boardID, err = fboardID.ToBBoardID()
+	if err == nil {
+		return boardID, nil
+	}
+
+	params := &LoadAutoCompleteBoardsParams{
+		Keyword:   string(fboardID),
+		Ascending: true,
+		Max:       1,
+	}
+
+	_, _, err = LoadAutoCompleteBoards(remoteAddr, userID, params, c)
+	if err != nil {
+		return "", err
+	}
+
+	return fboardID.ToBBoardID()
 }
 
-func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.BoardSummary, updateNanoTS types.NanoTS) (boardSummaries []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*userBoardInfo, err error) {
+func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.BoardSummary, updateNanoTS types.NanoTS) (boardSummaries []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, err error) {
 
 	if len(boardSummaries_b) == 0 {
 		return nil, nil, nil
@@ -39,16 +53,15 @@ func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.Bo
 	}
 
 	userReadBoards := make([]*schema.UserReadBoard, 0, len(boardSummaries_b))
-	userBoardInfoMap = make(map[bbs.BBoardID]*userBoardInfo)
+	userBoardInfoMap = make(map[bbs.BBoardID]*apitypes.UserBoardInfo)
 	for _, each_b := range boardSummaries_b {
 		if each_b.Reason != 0 {
 			continue
 		}
 
-		userBoardInfoMap[each_b.BBoardID] = &userBoardInfo{
-			Read:  each_b.Read,
-			Stat:  each_b.StatAttr,
-			NUser: int(each_b.NUser),
+		userBoardInfoMap[each_b.BBoardID] = &apitypes.UserBoardInfo{
+			Read: each_b.Read,
+			Stat: each_b.StatAttr,
 		}
 
 		if each_b.Read {
@@ -86,5 +99,4 @@ func isBoardValidUser(boardID bbs.BBoardID, c *gin.Context) (isValid bool, statu
 	}
 
 	return true, 200, nil
-
 }

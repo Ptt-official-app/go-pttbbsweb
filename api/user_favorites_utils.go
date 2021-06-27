@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"strconv"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/fav"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
@@ -148,7 +149,7 @@ func getUserFavoritesFromDB(userID bbs.UUserID, levelIdx schema.LevelIdx, startI
 	return userFavorites, nextIdx, nil
 }
 
-func tryGetBoardSummaryMapFromUserFavorites(userID bbs.UUserID, userFavorites_db []*schema.UserFavorites, c *gin.Context) (boardSummaryMap_db map[int]*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*userBoardInfo, statusCode int, err error) {
+func tryGetBoardSummaryMapFromUserFavorites(userID bbs.UUserID, userFavorites_db []*schema.UserFavorites, c *gin.Context) (boardSummaryMap_db map[int]*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, statusCode int, err error) {
 	bids := bidsInUserFavorites(userFavorites_db)
 
 	//backend get boards by bids
