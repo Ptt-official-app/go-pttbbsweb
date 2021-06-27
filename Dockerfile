@@ -1,5 +1,7 @@
 FROM golang:1.16-buster
 
+ARG GO_PTTBBS_VERSION
+
 ENV GOROOT=/usr/local/go
 ENV PATH=${PATH}:/usr/local/go/bin
 
