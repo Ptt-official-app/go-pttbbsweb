@@ -1,12 +1,11 @@
 package api
 
 import (
-	"net/http"
-	"net/url"
 	"sort"
 	"sync"
 	"testing"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -20,58 +19,87 @@ func TestGetArticleDetail(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
+	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
+	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
+
 	params := &GetArticleDetailParams{}
 	path0 := &GetArticleDetailPath{
-		BBoardID:  bbs.BBoardID("10_WhoAmI"),
-		ArticleID: bbs.ArticleID("1VtWRel9SYSOP"),
+		FBoardID:   apitypes.FBoardID("WhoAmI"),
+		FArticleID: apitypes.FArticleID("M.1608386280.A.BC9"),
 	}
 
 	expectedResult0 := &GetArticleDetailResult{
-		BBoardID:   bbs.BBoardID("10_WhoAmI"),
-		ArticleID:  bbs.ArticleID("1VtWRel9SYSOP"),
+		BBoardID:   apitypes.FBoardID("WhoAmI"),
+		ArticleID:  apitypes.FArticleID("M.1608386280.A.BC9"),
 		Owner:      bbs.UUserID("SYSOP"),
 		CreateTime: types.Time8(1608386280),
+		MTime:      types.Time8(1608386280),
 
-		URL:  "http://localhost:3457/bbs/10_WhoAmI/M.1608386280.A.BC9.html",
+		URL:  "http://localhost:3457/bbs/WhoAmI/M.1608386280.A.BC9.html",
 		Read: true,
 
-		Brdname: "WhoAmI",
-		Content: testContent3Utf8,
-		IP:      "172.22.0.1",
-		Host:    "",
-		BBS:     "批踢踢 docker(pttdocker.test)",
+		Title:     "然後呢？～",
+		Money:     3,
+		Recommend: 8,
+		Class:     "問題",
+		Brdname:   "WhoAmI",
+		Content:   testContent3Utf8,
+		IP:        "172.22.0.1",
+		Host:      "",
+		BBS:       "批踢踢 docker(pttdocker.test)",
 	}
 
 	expectedArticleDetailSummary0 := &schema.ArticleDetailSummary{
 		BBoardID:              bbs.BBoardID("10_WhoAmI"),
-		ArticleID:             bbs.ArticleID("1VtWRel9SYSOP"),
+		ArticleID:             bbs.ArticleID("1VtWRel9"),
 		ContentMD5:            "L6QISYJFt-Y5g4Thl-roaw",
 		ContentMTime:          types.NanoTS(1608386280000000000),
 		FirstCommentsLastTime: types.NanoTS(0),
+
+		CreateTime: types.NanoTS(1608386280000000000),
+		MTime:      types.NanoTS(1608386280000000000),
+		Recommend:  8,
+		Owner:      "SYSOP",
+		Title:      "然後呢？～",
+		Money:      3,
+		Class:      "問題",
 	}
 
 	expectedArticleDetailSummary02 := &schema.ArticleDetailSummary{
 		BBoardID:              bbs.BBoardID("10_WhoAmI"),
-		ArticleID:             bbs.ArticleID("1VtWRel9SYSOP"),
+		ArticleID:             bbs.ArticleID("1VtWRel9"),
 		ContentMD5:            "L6QISYJFt-Y5g4Thl-roaw",
 		ContentMTime:          types.NanoTS(1608386300000000000),
 		FirstCommentsLastTime: types.NanoTS(0),
+
+		CreateTime: types.NanoTS(1608386280000000000),
+		MTime:      types.NanoTS(1608386280000000000),
+		Recommend:  8,
+		Owner:      "SYSOP",
+		Title:      "然後呢？～",
+		Money:      3,
+		Class:      "問題",
 	}
 
 	path1 := &GetArticleDetailPath{
-		BBoardID:  bbs.BBoardID("10_WhoAmI"),
-		ArticleID: bbs.ArticleID("1VrooM21SYSOP"),
+		FBoardID:   apitypes.FBoardID("WhoAmI"),
+		FArticleID: apitypes.FArticleID("M.1607937174.A.081"),
 	}
 
 	expectedResult1 := &GetArticleDetailResult{
-		BBoardID:   bbs.BBoardID("10_WhoAmI"),
-		ArticleID:  bbs.ArticleID("1VrooM21SYSOP"),
+		BBoardID:   apitypes.FBoardID("WhoAmI"),
+		ArticleID:  apitypes.FArticleID("M.1607937174.A.081"),
 		Owner:      bbs.UUserID("SYSOP"),
 		CreateTime: types.Time8(1607937174),
+		MTime:      types.Time8(1607937100),
 
-		URL:  "http://localhost:3457/bbs/10_WhoAmI/M.1607937174.A.081.html",
+		URL:  "http://localhost:3457/bbs/WhoAmI/M.1607937174.A.081.html",
 		Read: true,
 
+		Title:     "再來呢？～",
+		Money:     12,
+		Recommend: 3,
+		Class:     "問題",
 		Brdname:   "WhoAmI",
 		Content:   testContent4Utf8,
 		IP:        "172.22.0.1",
@@ -82,15 +110,24 @@ func TestGetArticleDetail(t *testing.T) {
 
 	expectedArticleDetailSummary1 := &schema.ArticleDetailSummary{
 		BBoardID:     bbs.BBoardID("10_WhoAmI"),
-		ArticleID:    bbs.ArticleID("1VrooM21SYSOP"),
+		ArticleID:    bbs.ArticleID("1VrooM21"),
 		ContentMTime: types.NanoTS(1608388624000000000),
 		ContentMD5:   "riiRuKCZzG0gAGpQiq4GJA",
+		Owner:        "SYSOP",
 
 		FirstCommentsMD5: "3fjMk__1yvzpuEgq8jfdmg",
 		NComments:        0,
+
+		CreateTime: types.NanoTS(1607937174000000000),
+		MTime:      types.NanoTS(1607937100000000000),
+
+		Title:     "再來呢？～",
+		Money:     12,
+		Recommend: 3,
+		Class:     "問題",
 	}
 	c := &gin.Context{}
-	c.Request = &http.Request{URL: &url.URL{Path: "/api/boards/10_WhoAmI/articles/1VtWRel9SYSOP"}}
+	//c.Request = &http.Request{URL: &url.URL{Path: "/api/boards/WhoAmI/article/M.1607937174.A.081"}}
 	type args struct {
 		remoteAddr string
 		userID     bbs.UUserID
@@ -113,7 +150,7 @@ func TestGetArticleDetail(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{
-			name: "0th-1VtWRel9SYSOP",
+			name: "0th-BC9",
 			args: args{
 				remoteAddr: "localhost",
 				userID:     "chhsiao123",
@@ -121,14 +158,14 @@ func TestGetArticleDetail(t *testing.T) {
 				path:       path0,
 				c:          c,
 				boardID:    "10_WhoAmI",
-				articleID:  "1VtWRel9SYSOP",
+				articleID:  "1VtWRel9",
 			},
 			expectedArticleDetailSummary: expectedArticleDetailSummary0,
 			expectedResult:               expectedResult0,
 			expectedStatusCode:           200,
 		},
 		{
-			name: "1st-1VtWRel9SYSOP",
+			name: "1st-BC9",
 			args: args{
 				remoteAddr: "localhost",
 				userID:     "chhsiao123",
@@ -136,14 +173,14 @@ func TestGetArticleDetail(t *testing.T) {
 				path:       path0,
 				c:          c,
 				boardID:    "10_WhoAmI",
-				articleID:  "1VtWRel9SYSOP",
+				articleID:  "1VtWRel9",
 			},
 			expectedArticleDetailSummary: expectedArticleDetailSummary0,
 			expectedResult:               expectedResult0,
 			expectedStatusCode:           200,
 		},
 		{
-			name: "2st-1VtWRel9SYSOP",
+			name: "2st-BC9",
 			args: args{
 				remoteAddr: "localhost",
 				userID:     "chhsiao123",
@@ -151,7 +188,7 @@ func TestGetArticleDetail(t *testing.T) {
 				path:       path0,
 				c:          c,
 				boardID:    "10_WhoAmI",
-				articleID:  "1VtWRel9SYSOP",
+				articleID:  "1VtWRel9",
 			},
 			expectedArticleDetailSummary: expectedArticleDetailSummary02,
 			expectedResult:               expectedResult0,
@@ -159,7 +196,7 @@ func TestGetArticleDetail(t *testing.T) {
 			toSoonNanoTS:                 1,
 		},
 		{
-			name: "0th-1VrooM21SYSOP",
+			name: "0th-081",
 			args: args{
 				remoteAddr: "localhost",
 				userID:     "chhsiao123",
@@ -167,7 +204,7 @@ func TestGetArticleDetail(t *testing.T) {
 				path:       path1,
 				c:          c,
 				boardID:    "10_WhoAmI",
-				articleID:  "1VrooM21SYSOP",
+				articleID:  "1VrooM21",
 			},
 			expectedFirstComments:        testFullFirstComments4,
 			expectedResult:               expectedResult1,
@@ -244,6 +281,7 @@ func TestGetArticleDetail(t *testing.T) {
 				gotArticleDetailSummary.FirstCommentsUpdateNanoTS = 0
 				gotArticleDetailSummary.CommentsUpdateNanoTS = 0
 				gotArticleDetailSummary.NComments = 0
+				gotArticleDetailSummary.UpdateNanoTS = 0
 			}
 
 			testutil.TDeepEqual(t, "article-detail-summary", gotArticleDetailSummary, tt.expectedArticleDetailSummary)

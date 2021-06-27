@@ -8,6 +8,7 @@ import (
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 const CREATE_ARTICLE_R = "/board/:bid/article"
@@ -19,7 +20,7 @@ type CreateArticleParams struct {
 }
 
 type CreateArticlePath struct {
-	BoardID bbs.BBoardID `uri:"bid" binding:"required"`
+	FBoardID apitypes.FBoardID `uri:"bid" binding:"required"`
 }
 
 type CreateArticleResult *apitypes.ArticleSummary
@@ -42,6 +43,12 @@ func CreateArticle(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 		return nil, 400, ErrInvalidPath
 	}
 
+	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
+	if err != nil {
+		logrus.Errorf("CreateArticle: unable to find boardID: boardID: %v e: %v", thePath.FBoardID, err)
+		return nil, 500, err
+	}
+
 	theType := types.Utf8ToBig5(theParams.PostType)
 	theTitle := types.Utf8ToBig5(theParams.Title)
 	contentDBCS := dbcs.Utf8ToDBCS(theParams.Content)
@@ -55,7 +62,7 @@ func CreateArticle(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 	var result_b pttbbsapi.CreateArticleResult
 
 	urlMap := map[string]string{
-		"bid": string(thePath.BoardID),
+		"bid": string(boardID),
 	}
 	url := utils.MergeURL(urlMap, pttbbsapi.CREATE_ARTICLE_R)
 	statusCode, err = utils.BackendPost(c, url, theParams_b, nil, &result_b)
@@ -66,7 +73,7 @@ func CreateArticle(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 	//update to db
 	theList_b := []*bbs.ArticleSummary{(*bbs.ArticleSummary)(result_b)}
 	updateNanoTS := types.NowNanoTS()
-	articleSummaries_db, _, err := deserializeArticlesAndUpdateDB(userID, thePath.BoardID, theList_b, updateNanoTS)
+	articleSummaries_db, _, err := deserializeArticlesAndUpdateDB(userID, boardID, theList_b, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}

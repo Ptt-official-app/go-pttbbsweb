@@ -11,7 +11,7 @@ import (
 )
 
 type BoardSummary struct {
-	BBoardID     bbs.BBoardID    `json:"bid"`
+	FBoardID     FBoardID        `json:"bid"`
 	Brdname      string          `json:"brdname"`
 	Title        string          `json:"title"`
 	BrdAttr      ptttype.BrdAttr `json:"flag"`
@@ -32,12 +32,12 @@ type BoardSummary struct {
 	Idx string `json:"idx"`
 }
 
-func NewBoardSummary(b_db *schema.BoardSummary, idx string) *BoardSummary {
+func NewBoardSummary(b_db *schema.BoardSummary, idx string, userBoardInfo *UserBoardInfo) *BoardSummary {
 	if b_db == nil {
 		return nil
 	}
 	return &BoardSummary{
-		BBoardID:     b_db.BBoardID,
+		FBoardID:     ToFBoardID(b_db.BBoardID),
 		Brdname:      b_db.Brdname,
 		Title:        b_db.Title,
 		BrdAttr:      b_db.BrdAttr,
@@ -48,15 +48,16 @@ func NewBoardSummary(b_db *schema.BoardSummary, idx string) *BoardSummary {
 		LastPostTime: b_db.LastPostTime.ToTime8(),
 		NUser:        b_db.NUser,
 
-		StatAttr: ptttype.NBRD_BOARD,
-
 		Gid: b_db.Gid,
 
 		Idx: idx,
+
+		StatAttr: userBoardInfo.Stat,
+		Read:     userBoardInfo.Read,
 	}
 }
 
-func NewBoardSummaryFromUserFavorites(uf_db *schema.UserFavorites, b_db *schema.BoardSummary) *BoardSummary {
+func NewBoardSummaryFromUserFavorites(uf_db *schema.UserFavorites, b_db *schema.BoardSummary, userBoardInfo *UserBoardInfo) *BoardSummary {
 	idxStr := strconv.Itoa(uf_db.Idx)
 
 	switch uf_db.TheType {
@@ -75,7 +76,7 @@ func NewBoardSummaryFromUserFavorites(uf_db *schema.UserFavorites, b_db *schema.
 		}
 
 	case pttbbsfav.FAVT_BOARD:
-		return NewBoardSummary(b_db, idxStr)
+		return NewBoardSummary(b_db, idxStr, userBoardInfo)
 	}
 
 	return nil

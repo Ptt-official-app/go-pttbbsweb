@@ -10,8 +10,8 @@ func LoadGeneralArticles(params *api.LoadGeneralArticlesParams) (ret *api.LoadGe
 	ret = &api.LoadGeneralArticlesResult{
 		Articles: []*bbs.ArticleSummary{
 			{
-				BBoardID:   bbs.BBoardID("1_test1"),
-				ArticleID:  bbs.ArticleID("1VrooM21teemo"),
+				BBoardID:   bbs.BBoardID("10_WhoAmI"),
+				ArticleID:  bbs.ArticleID("1VrooM21"),
 				IsDeleted:  false,
 				Filename:   "M.1607937174.A.081",
 				CreateTime: types.Time4(1607937174),
@@ -25,8 +25,8 @@ func LoadGeneralArticles(params *api.LoadGeneralArticlesParams) (ret *api.LoadGe
 				Read:       false,
 			},
 			{
-				BBoardID:   bbs.BBoardID("1_test1"),
-				ArticleID:  bbs.ArticleID("19bWBI4Zokcool"),
+				BBoardID:   bbs.BBoardID("10_WhoAmI"),
+				ArticleID:  bbs.ArticleID("19bWBI4Z"),
 				IsDeleted:  false,
 				Filename:   "M.1234567890.A.123",
 				CreateTime: types.Time4(1234567890),
@@ -41,7 +41,7 @@ func LoadGeneralArticles(params *api.LoadGeneralArticlesParams) (ret *api.LoadGe
 			},
 		},
 		IsNewest:       true,
-		NextIdx:        "1234560000@19bUG021okcool",
+		NextIdx:        "1234560000@19bUG021",
 		NextCreateTime: 1234560000,
 	}
 

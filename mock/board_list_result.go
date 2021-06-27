@@ -15,7 +15,7 @@ var (
 	BoardListResult = &BoardListResult_t{
 		List: []*apitypes.BoardSummary{
 			{
-				BBoardID:  bbs.BBoardID("10_WhoAmI"),
+				FBoardID:  apitypes.FBoardID("WhoAmI"),
 				Brdname:   "WhoAmI",
 				Title:     "我～是～誰？～",
 				BrdAttr:   0,
@@ -28,7 +28,7 @@ var (
 				Total:     134,
 			},
 			{
-				BBoardID:  bbs.BBoardID("6_ALLPOST"),
+				FBoardID:  apitypes.FBoardID("ALLPOST"),
 				Brdname:   "ALLPOST",
 				Title:     "所有文章都底家",
 				BrdAttr:   ptttype.BRD_POSTMASK,

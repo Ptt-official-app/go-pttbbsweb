@@ -28,7 +28,7 @@ func TestLoadGeneralBoards(t *testing.T) {
 	expectedResult := &LoadGeneralBoardsResult{
 		List: []*apitypes.BoardSummary{
 			{
-				BBoardID:  "1_test1",
+				FBoardID:  "test1",
 				Brdname:   "test1",
 				Title:     "測試1",
 				BrdAttr:   0,
@@ -43,7 +43,7 @@ func TestLoadGeneralBoards(t *testing.T) {
 				StatAttr:     ptttype.NBRD_BOARD,
 			},
 			{
-				BBoardID:  "2_test2",
+				FBoardID:  "test2",
 				Brdname:   "test2",
 				Title:     "測試2",
 				BrdAttr:   0,

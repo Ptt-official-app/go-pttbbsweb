@@ -12,8 +12,8 @@ import (
 )
 
 type Comment struct {
-	BBoardID   bbs.BBoardID        `json:"bid"`
-	ArticleID  bbs.ArticleID       `json:"aid"`
+	FBoardID   FBoardID            `json:"bid"`
+	FArticleID FArticleID          `json:"aid"`
 	CommentID  types.CommentID     `json:"cid"`
 	TheType    ptttype.CommentType `json:"type"`
 	RefID      types.CommentID     `json:"refid"`
@@ -33,8 +33,8 @@ func NewComment(comment_db *schema.Comment) (comment *Comment) {
 		refID = comment_db.RefIDs[0]
 	}
 	comment = &Comment{
-		BBoardID:   comment_db.BBoardID,
-		ArticleID:  comment_db.ArticleID,
+		FBoardID:   ToFBoardID(comment_db.BBoardID),
+		FArticleID: ToFArticleID(comment_db.ArticleID),
 		CommentID:  comment_db.CommentID,
 		TheType:    comment_db.TheType,
 		RefID:      refID,

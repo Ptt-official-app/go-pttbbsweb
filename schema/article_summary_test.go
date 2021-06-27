@@ -1,6 +1,7 @@
 package schema
 
 import (
+	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/mock_http"
@@ -17,17 +18,17 @@ func TestUpdateArticleSummaries(t *testing.T) {
 
 	ret := mock_http.LoadGeneralArticles(nil)
 
-	updateNanoTS := types.NowNanoTS()
+	updateNanoTS := types.NowNanoTS() - 200
 
 	articleSummaries0 := make([]*ArticleSummary, len(ret.Articles))
 	for idx, each_b := range ret.Articles {
 		articleSummaries0[idx] = NewArticleSummary(each_b, updateNanoTS)
 	}
 
-	query0 := &ArticleQuery{BBoardID: bbs.BBoardID("1_test1"), ArticleID: bbs.ArticleID("19bWBI4Zokcool")}
+	query0 := &ArticleQuery{BBoardID: bbs.BBoardID("10_WhoAmI"), ArticleID: bbs.ArticleID("19bWBI4Z")}
 	articleSummary0 := &ArticleSummary{
-		BBoardID:   bbs.BBoardID("1_test1"),
-		ArticleID:  bbs.ArticleID("19bWBI4Zokcool"),
+		BBoardID:   bbs.BBoardID("10_WhoAmI"),
+		ArticleID:  bbs.ArticleID("19bWBI4Z"),
 		IsDeleted:  false,
 		CreateTime: types.NanoTS(1234567890000000000),
 		MTime:      types.NanoTS(1234567889000000000),
@@ -43,8 +44,8 @@ func TestUpdateArticleSummaries(t *testing.T) {
 	}
 
 	articleSummary1 := &ArticleSummary{
-		BBoardID:   bbs.BBoardID("1_test1"),
-		ArticleID:  bbs.ArticleID("1VrooM21teemo"),
+		BBoardID:   bbs.BBoardID("10_WhoAmI"),
+		ArticleID:  bbs.ArticleID("1VrooM21"),
 		IsDeleted:  false,
 		CreateTime: types.NanoTS(1607937174000000000),
 		MTime:      types.NanoTS(1607937100000000000),
@@ -59,9 +60,11 @@ func TestUpdateArticleSummaries(t *testing.T) {
 		UpdateNanoTS: updateNanoTS,
 	}
 
+	updateNanoTS = types.NowNanoTS() - 100
+
 	articleSummary2 := &ArticleSummary{
-		BBoardID:   bbs.BBoardID("1_test1"),
-		ArticleID:  bbs.ArticleID("1VrooM21teem2"),
+		BBoardID:   bbs.BBoardID("10_WhoAmI"),
+		ArticleID:  bbs.ArticleID("1VrooM21"),
 		IsDeleted:  false,
 		CreateTime: types.NanoTS(1607937174000000000),
 		MTime:      types.NanoTS(1607937100000000000),
@@ -79,8 +82,8 @@ func TestUpdateArticleSummaries(t *testing.T) {
 	updateNanoTS1 := types.NowNanoTS()
 
 	articleSummary3 := &ArticleSummary{
-		BBoardID:     bbs.BBoardID("1_test1"),
-		ArticleID:    bbs.ArticleID("1VrooM21teemo"),
+		BBoardID:     bbs.BBoardID("10_WhoAmI"),
+		ArticleID:    bbs.ArticleID("1VrooM21"),
 		IsDeleted:    false,
 		CreateTime:   types.NanoTS(1607937174000000000),
 		MTime:        types.NanoTS(1607937100000000000),
@@ -94,17 +97,17 @@ func TestUpdateArticleSummaries(t *testing.T) {
 		UpdateNanoTS: updateNanoTS1,
 	}
 
-	articleSummaries1 := []*ArticleSummary{articleSummary1, articleSummary2}
+	articleSummaries1 := []*ArticleSummary{articleSummary2}
 
-	query1 := &ArticleQuery{BBoardID: bbs.BBoardID("1_test1"), ArticleID: bbs.ArticleID("1VrooM21teemo")}
+	query1 := &ArticleQuery{BBoardID: bbs.BBoardID("10_WhoAmI"), ArticleID: bbs.ArticleID("1VrooM21")}
 
-	query2 := &ArticleQuery{BBoardID: bbs.BBoardID("1_test1"), ArticleID: bbs.ArticleID("1VrooM21teem2")}
+	query2 := &ArticleQuery{BBoardID: bbs.BBoardID("10_WhoAmI"), ArticleID: bbs.ArticleID("1VrooM21")}
 
-	articleSummaries2 := []*ArticleSummary{articleSummary2, articleSummary3}
+	articleSummaries2 := []*ArticleSummary{articleSummary3}
 
 	type args struct {
-		a            []*ArticleSummary
-		updateNanoTS types.NanoTS
+		articleSummaries []*ArticleSummary
+		updateNanoTS     types.NanoTS
 	}
 	tests := []struct {
 		name     string
@@ -115,34 +118,38 @@ func TestUpdateArticleSummaries(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{
-			args:     args{a: articleSummaries0, updateNanoTS: updateNanoTS},
+			args:     args{articleSummaries: articleSummaries0, updateNanoTS: updateNanoTS},
 			query:    query0,
 			expected: articleSummary0,
 		},
 		{
-			args:     args{a: articleSummaries0, updateNanoTS: updateNanoTS},
+			args:     args{articleSummaries: articleSummaries0, updateNanoTS: updateNanoTS},
 			query:    query1,
 			expected: articleSummary1,
 		},
 		{
-			args:     args{a: articleSummaries1, updateNanoTS: updateNanoTS},
+			args:     args{articleSummaries: articleSummaries1, updateNanoTS: updateNanoTS},
 			query:    query2,
 			expected: articleSummary2,
 		},
 		{
-			args:     args{a: articleSummaries2, updateNanoTS: updateNanoTS1},
+			args:     args{articleSummaries: articleSummaries2, updateNanoTS: updateNanoTS1},
 			query:    query1,
 			expected: articleSummary3,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
-			if err := UpdateArticleSummaries(tt.args.a, tt.args.updateNanoTS); (err != nil) != tt.wantErr {
+			defer wg.Done()
+			if err := UpdateArticleSummaries(tt.args.articleSummaries, tt.args.updateNanoTS); (err != nil) != tt.wantErr {
 				t.Errorf("UpdateArticleSummaries() error = %v, wantErr %v", err, tt.wantErr)
 			}
 
 			got, _ := GetArticleSummary(tt.query.BBoardID, tt.query.ArticleID)
 			testutil.TDeepEqual(t, "got", got, tt.expected)
 		})
+		wg.Wait()
 	}
 }

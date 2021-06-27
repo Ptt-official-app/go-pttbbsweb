@@ -3,7 +3,6 @@ package mock
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
 type ArticleListResult_t struct {
@@ -15,8 +14,8 @@ var (
 	ArticleListResult = &ArticleListResult_t{
 		List: []*apitypes.ArticleSummary{
 			{
-				BBoardID:   bbs.BBoardID("10_WhoAmI"),
-				ArticleID:  bbs.ArticleID("WEFSDHASD"),
+				FBoardID:   apitypes.FBoardID("WhoAmI"),
+				ArticleID:  apitypes.FArticleID("M.1234567890.A.123"),
 				IsDeleted:  false,
 				CreateTime: types.Time8(1234567890),
 				MTime:      types.Time8(1234567888),
@@ -29,8 +28,8 @@ var (
 				URL:        "http://localhost/bbs/test/M.1234567890.A.123",
 			},
 			{
-				BBoardID:   bbs.BBoardID("10_WhoAmI"),
-				ArticleID:  bbs.ArticleID("WFwrHASF"),
+				FBoardID:   apitypes.FBoardID("WhoAmI"),
+				ArticleID:  apitypes.FArticleID("M.1234567900.A.125"),
 				IsDeleted:  true,
 				CreateTime: types.Time8(1234567900),
 				MTime:      types.Time8(1234567898),
@@ -42,8 +41,8 @@ var (
 				URL:        "http://localhost/bbs/test/M.1234567900.A.125",
 			},
 			{
-				BBoardID:   bbs.BBoardID("10_WhoAmI"),
-				ArticleID:  bbs.ArticleID("WFSrHASF"),
+				FBoardID:   apitypes.FBoardID("WhoAmI"),
+				ArticleID:  apitypes.FArticleID("M.1234568900.A.125"),
 				IsDeleted:  false,
 				CreateTime: types.Time8(1234568900),
 				MTime:      types.Time8(1234568898),

@@ -99,6 +99,10 @@ func assertBoardFields() error {
 		return err
 	}
 
+	if err := assertFields(EMPTY_BOARD, EMPTY_BOARD_ID); err != nil {
+		return err
+	}
+
 	return nil
 }
 

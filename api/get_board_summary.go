@@ -15,7 +15,7 @@ type GetBoardSummaryParams struct {
 }
 
 type GetBoardSummaryPath struct {
-	BBoardID bbs.BBoardID `uri:"bid"`
+	FBoardID apitypes.FBoardID `uri:"bid"`
 }
 
 type GetBoardSummaryResult *apitypes.BoardSummary
@@ -32,13 +32,18 @@ func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, 
 		return nil, 400, ErrInvalidPath
 	}
 
+	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
+	if err != nil {
+		return nil, 400, err
+	}
+
 	//backend get-board-summary
 	theParams_b := &pttbbsapi.LoadBoardSummaryParams{}
 
 	var result_b pttbbsapi.LoadBoardSummaryResult
 
 	urlMap := map[string]string{
-		"bid": string(thePath.BBoardID),
+		"bid": string(boardID),
 	}
 	url := utils.MergeURL(urlMap, pttbbsapi.LOAD_BOARD_SUMMARY_R)
 	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
@@ -54,15 +59,19 @@ func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, 
 		return nil, 500, err
 	}
 
-	boardSummary_db := boardSummaries_db[0]
-	boardSummary := apitypes.NewBoardSummary(boardSummary_db, "")
-	theList := []*apitypes.BoardSummary{boardSummary}
-
 	//check isRead
-	err = checkBoardInfo(userID, userBoardInfoMap, theList)
+	userBoardInfoMap, err = checkUserReadBoard(userID, userBoardInfoMap, boardSummaries_db)
 	if err != nil {
 		return nil, 500, err
 	}
+
+	userBoardInfo, ok := userBoardInfoMap[boardID]
+	if !ok {
+		return nil, 500, ErrNoBoard
+	}
+
+	boardSummary_db := boardSummaries_db[0]
+	boardSummary := apitypes.NewBoardSummary(boardSummary_db, "", userBoardInfo)
 
 	//result
 	result = GetBoardSummaryResult(boardSummary)

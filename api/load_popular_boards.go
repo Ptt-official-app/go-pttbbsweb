@@ -38,23 +38,24 @@ func LoadPopularBoards(remoteAddr string, userID bbs.UUserID, params interface{}
 		return nil, 500, err
 	}
 
-	r := NewLoadPopularBoardsResult(boardSummaries_db)
-
 	//check isRead
-	err = checkBoardInfo(userID, userBoardInfoMap, r.List)
+	userBoardInfoMap, err = checkUserReadBoard(userID, userBoardInfoMap, boardSummaries_db)
 	if err != nil {
 		return nil, 500, err
 	}
+
+	r := NewLoadPopularBoardsResult(boardSummaries_db, userBoardInfoMap)
 
 	return r, 200, nil
 
 }
 
-func NewLoadPopularBoardsResult(boardSummaries_db []*schema.BoardSummary) *LoadPopularBoardsResult {
+func NewLoadPopularBoardsResult(boardSummaries_db []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo) *LoadPopularBoardsResult {
 
 	theList := make([]*apitypes.BoardSummary, len(boardSummaries_db))
 	for i, each_db := range boardSummaries_db {
-		theList[i] = apitypes.NewBoardSummary(each_db, "")
+		userBoardInfo := userBoardInfoMap[each_db.BBoardID]
+		theList[i] = apitypes.NewBoardSummary(each_db, "", userBoardInfo)
 	}
 
 	return &LoadPopularBoardsResult{

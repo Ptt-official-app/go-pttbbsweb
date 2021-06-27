@@ -16,8 +16,8 @@ type LoadArticleCommentsParams struct {
 }
 
 type LoadArticleCommentsPath struct {
-	BBoardID  bbs.BBoardID  `uri:"bid"`
-	ArticleID bbs.ArticleID `uri:"aid"`
+	FBoardID   apitypes.FBoardID   `uri:"bid"`
+	FArticleID apitypes.FArticleID `uri:"aid"`
 }
 
 type LoadArticleCommentsResult struct {
@@ -49,8 +49,14 @@ func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface
 		return nil, 400, ErrInvalidPath
 	}
 
+	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
+	if err != nil {
+		return nil, 500, err
+	}
+	articleID := thePath.FArticleID.ToArticleID()
+
 	//is board-valid-user
-	_, statusCode, err = isBoardValidUser(thePath.BBoardID, c)
+	_, statusCode, err = isBoardValidUser(boardID, c)
 	if err != nil {
 		return nil, statusCode, err
 	}
@@ -58,7 +64,7 @@ func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface
 	//get comments
 	querySortNanoTS, queryCommentID := apitypes.DeserializeCommentIdx(theParams.StartIdx)
 
-	comments_db, err := schema.GetComments(thePath.BBoardID, thePath.ArticleID, querySortNanoTS, queryCommentID, theParams.Descending, theParams.Max+1)
+	comments_db, err := schema.GetComments(boardID, articleID, querySortNanoTS, queryCommentID, theParams.Descending, theParams.Max+1)
 	if err != nil {
 		return nil, 500, err
 	}

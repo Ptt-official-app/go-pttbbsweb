@@ -15,28 +15,37 @@ func TestCreateRank(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	schema.UpdateArticleSummaries([]*schema.ArticleSummary{{BBoardID: "10_WhoAmI", ArticleID: "test_articleID"}}, 1234567890000000000)
+	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
+	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
+
+	schema.UpdateArticleSummaries([]*schema.ArticleSummary{{BBoardID: "10_WhoAmI", ArticleID: "1VrooM21", Owner: "test"}}, 1234567890000000000)
 
 	path0 := &CreateRankPath{
-		BoardID:   "10_WhoAmI",
-		ArticleID: "test_articleID",
+		FBoardID:   "WhoAmI",
+		FArticleID: "M.1607937174.A.081",
 	}
 
 	type args struct {
 		remoteAddr string
 		userID     bbs.UUserID
-		params     interface{}
-		path       interface{}
+		params     *CreateRankParams
+		path       *CreateRankPath
 		c          *gin.Context
 	}
 	tests := []struct {
 		name               string
 		args               args
-		expectedResult     *CreateRankResult
+		expectedResult     interface{}
 		expectedStatusCode int
 		wantErr            bool
 	}{
 		// TODO: Add test cases.
+		{
+			name:               "owner cannot do rank",
+			args:               args{remoteAddr: testIP, userID: "test", params: &CreateRankParams{Rank: 1}, path: path0},
+			wantErr:            true,
+			expectedStatusCode: 403,
+		},
 		{
 			args:               args{remoteAddr: testIP, userID: "SYSOP", params: &CreateRankParams{Rank: 1}, path: path0},
 			expectedResult:     &CreateRankResult{Rank: 1},
@@ -81,11 +90,16 @@ func TestCreateRank(t *testing.T) {
 				t.Errorf("CreateRank() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
 
-			path0 := &GetArticleDetailPath{BBoardID: "10_WhoAmI", ArticleID: "test_articleID"}
+			if tt.expectedResult == nil {
+				return
+			}
+
+			path0 := &GetArticleDetailPath{FBoardID: tt.args.path.FBoardID, FArticleID: tt.args.path.FArticleID}
 			r0, _, _ := GetArticleDetail(tt.args.remoteAddr, tt.args.userID, nil, path0, nil)
 			if r0 != nil {
 				ret0 := r0.(*GetArticleDetailResult)
-				assert.Equal(t, tt.expectedResult.Rank, ret0.Rank)
+				expectedResult := tt.expectedResult.(*CreateRankResult)
+				assert.Equal(t, expectedResult.Rank, ret0.Rank)
 			}
 
 		})
