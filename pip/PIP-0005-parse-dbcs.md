@@ -9,7 +9,7 @@ c-pttbbs 另外有 BBSMovie. 在這個 PIP 裡先暫時不處理 BBSMovie 的情
 
 這個年代的通用 encoding 是 utf8. 需要設計相對應的 data structure 來將 c-pttbbs 裡的文章轉為 utf8-based content.
 
-MongoDB 有著每個 document 32MB 的上限. c-pttbbs 裡有可能會出現超長文章. 尤其是 BBSMovie 似乎以前曾經出現過 1G+ 的文章. \
+MongoDB 有著每個 document 16MB 的上限. c-pttbbs 裡有可能會出現超長文章. 尤其是 BBSMovie 似乎以前曾經出現過 1G+ 的文章. \
 不過似乎是後來會被站長群關切. 目前先假設所有本文都 < 1M. 可以被裝進 MongoDB 的單一 document. \
 先不需要考慮文章過長而必須要放在 multiple MongoDB documents 裡.
 

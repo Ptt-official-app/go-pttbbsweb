@@ -12,3 +12,4 @@ MongoDB 有著以下的 features:
   就是利用把一整個 key-space 分成很多個 (lower-key/upper-key) 的 chunk. \
   然後 given 一個 indexing-key, 可以利用 $gte lower-key / $lt upper-key 知道是在哪個 chunk.
 * 可能用不到, 不過 4.0 以後增加了 transaction 的機制.
+* Limits: [https://docs.mongodb.com/manual/reference/limits](https://docs.mongodb.com/manual/reference/limits)
