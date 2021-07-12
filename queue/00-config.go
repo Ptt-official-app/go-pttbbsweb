@@ -1,5 +1,3 @@
 package queue
 
-var (
-	N_COMMENT_QUEUE = 2
-)
+var N_COMMENT_QUEUE = 2

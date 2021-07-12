@@ -20,7 +20,7 @@ func Init() (err error) {
 		return err
 	}
 
-	//access-token
+	// access-token
 	AccessToken_c = client.Collection("access_token")
 
 	keys := &bson.D{{Key: ACCESS_TOKEN_USER_ID_b, Value: 1}}
@@ -29,7 +29,7 @@ func Init() (err error) {
 		return err
 	}
 
-	//article
+	// article
 	Article_c = client.Collection("article")
 	keys = &bson.D{
 		{Key: ARTICLE_BBOARD_ID_b, Value: 1},
@@ -40,7 +40,7 @@ func Init() (err error) {
 		return err
 	}
 
-	//board
+	// board
 	Board_c = client.Collection("board")
 	keys = &bson.D{
 		{Key: BOARD_BBOARD_ID_b, Value: 1},
@@ -58,16 +58,16 @@ func Init() (err error) {
 		return err
 	}
 
-	//BoardBanuser
+	// BoardBanuser
 	BoardBanuser_c = client.Collection("board_banuser")
 
-	//BoardFriend
+	// BoardFriend
 	BoardFriend_c = client.Collection("board_friend")
 
-	//Client
+	// Client
 	Client_c = client.Collection("client")
 
-	//comment
+	// comment
 	Comment_c = client.Collection("comment")
 	keys = &bson.D{
 		{Key: COMMENT_BBOARD_ID_b, Value: 1},
@@ -88,7 +88,7 @@ func Init() (err error) {
 		return err
 	}
 
-	//rank
+	// rank
 	Rank_c = client.Collection("rank")
 	keys = &bson.D{
 		{Key: RANK_BBOARD_ID_b, Value: 1},
@@ -100,7 +100,7 @@ func Init() (err error) {
 		return err
 	}
 
-	//User
+	// User
 	User_c = client.Collection("user")
 	keys = &bson.D{
 		{Key: USER_USER_ID_b, Value: 1},
@@ -110,10 +110,10 @@ func Init() (err error) {
 		return err
 	}
 
-	//UserAloha
+	// UserAloha
 	UserAloha_c = client.Collection("user_aloha")
 
-	//UserFavorites
+	// UserFavorites
 	UserFavorites_c = client.Collection("user_favorites")
 	keys = &bson.D{
 		{Key: USER_FAVORITES_USER_ID_b, Value: 1},
@@ -123,7 +123,7 @@ func Init() (err error) {
 		return err
 	}
 
-	//UserFavoritesMeta
+	// UserFavoritesMeta
 	UserFavoritesMeta_c = client.Collection("user_favorites_meta")
 	keys = &bson.D{
 		{Key: USER_FAVORITES_META_USER_ID_b, Value: 1},
@@ -133,10 +133,10 @@ func Init() (err error) {
 		return err
 	}
 
-	//UserFriend
+	// UserFriend
 	UserFriend_c = client.Collection("user_friend")
 
-	//UserReadArticle
+	// UserReadArticle
 	UserReadArticle_c = client.Collection("user_read_article")
 	keys = &bson.D{
 		{Key: USER_READ_ARTICLE_USER_ID_b, Value: 1},
@@ -146,7 +146,7 @@ func Init() (err error) {
 		return err
 	}
 
-	//UserReadBoard
+	// UserReadBoard
 	UserReadBoard_c = client.Collection("user_read_board")
 	keys = &bson.D{
 		{Key: USER_READ_BOARD_USER_ID_b, Value: 1},
@@ -156,10 +156,10 @@ func Init() (err error) {
 		return err
 	}
 
-	//UserReject
+	// UserReject
 	UserReject_c = client.Collection("user_reject")
 
-	//userIDEmail
+	// userIDEmail
 	UserIDEmail_c = client.Collection("user_id_email")
 	keys = &bson.D{
 		{Key: USER_ID_EMAIL_USER_ID_b, Value: 1},
@@ -177,7 +177,7 @@ func Init() (err error) {
 		return err
 	}
 
-	//userEmail
+	// userEmail
 	UserEmail_c = client.Collection("user_email")
 	keys = &bson.D{
 		{Key: USER_EMAIL_USER_ID_b, Value: 1},
@@ -195,13 +195,13 @@ func Init() (err error) {
 		return err
 	}
 
-	//assert-all-fields
+	// assert-all-fields
 	err = assertAllFields()
 	if err != nil {
 		return err
 	}
 
-	//redis
+	// redis
 	rdb = redis.NewClient(&redis.Options{
 		Addr:     REDIS_HOST,
 		Password: "", // no password set

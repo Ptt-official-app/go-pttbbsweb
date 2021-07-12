@@ -10,5 +10,3 @@ var (
 
 	rdb *redis.Client
 )
-
-const ()

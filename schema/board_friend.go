@@ -6,12 +6,10 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
-var (
-	BoardFriend_c *db.Collection
-)
+var BoardFriend_c *db.Collection
 
 type BoardFriend struct {
-	//可看見板的名單
+	// 可看見板的名單
 
 	BoardID bbs.BBoardID `bson:"bid"`
 	UserID  bbs.UUserID  `bson:"user_id"`

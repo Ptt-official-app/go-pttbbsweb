@@ -276,7 +276,7 @@ func (f *Fav) DecreaseFavNum() {
 }
 
 func (f *Fav) AddBoard(bid ptttype.Bid) (favType *FavType, err error) {
-	//check whether already added
+	// check whether already added
 	favBoard, err := f.GetBoard(bid)
 	if err != nil {
 		return nil, err

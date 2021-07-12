@@ -76,7 +76,7 @@ func deserializeArticlesAndUpdateDB(userID bbs.UUserID, bboardID bbs.BBoardID, a
 		return nil, nil, err
 	}
 
-	//get n-comments
+	// get n-comments
 	updateArticleNComments(bboardID, articleSummaries)
 
 	return articleSummaries, userReadArticleMap, err

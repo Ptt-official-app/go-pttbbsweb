@@ -8,12 +8,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-var (
-	Client_c *db.Collection
-)
+var Client_c *db.Collection
 
 type Client struct {
-	//可信任的 app-client
+	// 可信任的 app-client
 
 	ClientID     string           `bson:"client_id"`
 	ClientSecret string           `bson:"client_secret"`
@@ -22,9 +20,7 @@ type Client struct {
 	UpdateNanoTS types.NanoTS     `bson:"update_nano_ts"`
 }
 
-var (
-	EMPTY_CLIENT = &Client{}
-)
+var EMPTY_CLIENT = &Client{}
 
 var (
 	CLIENT_CLIENT_ID_b      = getBSONName(EMPTY_CLIENT, "ClientID")
@@ -34,7 +30,6 @@ var (
 )
 
 func NewClient(clientID string, clientType types.ClientType, remoteAddr string) *Client {
-
 	clientSecret := genClientSecret()
 	nowNanoTS := types.NowNanoTS()
 

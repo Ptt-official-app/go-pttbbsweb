@@ -32,7 +32,6 @@ func toBoardID(fboardID apitypes.FBoardID, remoteAddr string, userID bbs.UUserID
 }
 
 func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.BoardSummary, updateNanoTS types.NanoTS) (boardSummaries []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, err error) {
-
 	if len(boardSummaries_b) == 0 {
 		return nil, nil, nil
 	}
@@ -83,7 +82,6 @@ func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.Bo
 }
 
 func isBoardValidUser(boardID bbs.BBoardID, c *gin.Context) (isValid bool, statusCode int, err error) {
-
 	var result_b *pttbbsapi.IsBoardValidUserResult
 
 	urlMap := map[string]string{

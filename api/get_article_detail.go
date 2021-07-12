@@ -16,8 +16,7 @@ import (
 
 const GET_ARTICLE_R = "/board/:bid/article/:aid"
 
-type GetArticleDetailParams struct {
-}
+type GetArticleDetailParams struct{}
 
 type GetArticleDetailPath struct {
 	FBoardID   apitypes.FBoardID   `uri:"bid"`
@@ -35,7 +34,7 @@ type GetArticleDetailResult struct {
 	Owner      bbs.UUserID         `json:"owner"`       //
 	Title      string              `json:"title"`       //
 	Money      int                 `json:"money"`       //
-	Class      string              `json:"class"`       //can be: R: 轉, [class]
+	Class      string              `json:"class"`       // can be: R: 轉, [class]
 	Filemode   ptttype.FileMode    `json:"mode"`        //
 
 	URL  string `json:"url"`  //
@@ -44,10 +43,10 @@ type GetArticleDetailResult struct {
 	Brdname string          `json:"brdname"`
 	Content [][]*types.Rune `json:"content"`
 	IP      string          `json:"ip"`
-	Host    string          `json:"host"` //ip 的中文呈現, 外國則為國家.
+	Host    string          `json:"host"` // ip 的中文呈現, 外國則為國家.
 	BBS     string          `json:"bbs"`
 
-	Rank int `json:"rank"` //評價
+	Rank int `json:"rank"` // 評價
 
 }
 
@@ -69,7 +68,7 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
-	//validate user
+	// validate user
 	_, statusCode, err = isBoardValidUser(boardID, c)
 	if err != nil {
 		return nil, statusCode, err
@@ -128,7 +127,6 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 //8. 將 comments parse 為 firstComments / theRestComments.
 //9. 將 theRestComments 丟進 queue 裡.
 func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context) (content [][]*types.Rune, ip string, host string, bbs string, articleDetailSummary *schema.ArticleDetailSummary, statusCode int, err error) {
-
 	updateNanoTS := types.NanoTS(0)
 
 	// set user-read-article-id
@@ -138,7 +136,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		}
 	}()
 
-	//get article-info (ensuring valid article-id)
+	// get article-info (ensuring valid article-id)
 	articleFilename := articleID.ToRaw()
 	articleCreateTime, err := articleFilename.CreateTime()
 	if err != nil {
@@ -147,15 +145,15 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 
 	articleCreateTimeNanoTS := types.Time4ToNanoTS(articleCreateTime)
 
-	//get from backend with content-mtime
-	//estimated max 500ms + 3 seconds
+	// get from backend with content-mtime
+	// estimated max 500ms + 3 seconds
 
 	articleDetailSummary_db, statusCode, err := tryGetArticleDetailSummary(userID, bboardID, articleID, articleCreateTime, c)
 	if err != nil {
 		return nil, "", "", "", nil, statusCode, err
 	}
 
-	//preliminarily checking article-detail-summary.
+	// preliminarily checking article-detail-summary.
 	if articleDetailSummary_db.IsDeleted {
 		return nil, "", "", "", nil, 500, ErrAlreadyDeleted
 	}
@@ -175,7 +173,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 
 	ownerID := articleDetailSummary_db.Owner
 
-	//4. do lock. if failed, return the data in db.
+	// 4. do lock. if failed, return the data in db.
 	lockKey := string(bboardID) + ":" + string(articleID)
 	err = schema.TryLock(lockKey, ARTICLE_LOCK_TS_DURATION)
 	if err != nil {
@@ -188,7 +186,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	}
 	defer schema.Unlock(lockKey)
 
-	//5. get article from pttbbs
+	// 5. get article from pttbbs
 	theParams_b := &pttbbsapi.GetArticleParams{
 		RetrieveTS: articleDetailSummary_db.ContentMTime.ToTime4(),
 	}
@@ -205,7 +203,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		return nil, "", "", "", nil, statusCode, err
 	}
 
-	//6. check content-mtime (no modify from backend, no need to parse again)
+	// 6. check content-mtime (no modify from backend, no need to parse again)
 	contentMTime := types.Time4ToNanoTS(result_b.MTime)
 	if articleDetailSummary_db.ContentMTime >= contentMTime {
 		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID)
@@ -215,19 +213,19 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		return contentInfo.Content, contentInfo.IP, contentInfo.Host, contentInfo.BBS, articleDetailSummary_db, 200, nil
 	}
 
-	if result_b.Content == nil { //XXX possibly the article is deleted. Need to check error-code and mark the article as deleted.
+	if result_b.Content == nil { // XXX possibly the article is deleted. Need to check error-code and mark the article as deleted.
 		return nil, "", "", "", nil, 500, ErrNoArticle
 	}
 
-	//7. parse article as content / commentsDBCS
+	// 7. parse article as content / commentsDBCS
 	updateNanoTS = types.NowNanoTS()
 
 	content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, commentsDBCS := dbcs.ParseContent(result_b.Content, articleDetailSummary_db.ContentMD5)
 
-	//update article
-	//we need update-article-content be the 1st to upload,
-	//because it's possible that there is no first-comments.
-	//only article-content is guaranteed.
+	// update article
+	// we need update-article-content be the 1st to upload,
+	// because it's possible that there is no first-comments.
+	// only article-content is guaranteed.
 
 	err = updateArticleContentInfo(bboardID, articleID, content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, updateNanoTS)
 
@@ -246,7 +244,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		bbs = contentInfo.BBS
 	}
 
-	//8. parse comments as firstComments and theRestComments
+	// 8. parse comments as firstComments and theRestComments
 	firstComments, firstCommentsMD5, _, err := dbcs.ParseFirstComments(
 		bboardID,
 		articleID,
@@ -257,9 +255,9 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		articleDetailSummary_db.FirstCommentsMD5,
 	)
 
-	//update first-comments
-	//possibly err because the data is too old.
-	//we don't need to queue and update content-mtime if the data is too old.
+	// update first-comments
+	// possibly err because the data is too old.
+	// we don't need to queue and update content-mtime if the data is too old.
 	err = tryUpdateFirstComments(firstComments, firstCommentsMD5, updateNanoTS, articleDetailSummary_db)
 	if err != nil {
 		//if failed update: we still send the content back.
@@ -268,7 +266,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		return content, ip, host, bbs, articleDetailSummary_db, 200, nil
 	}
 
-	//9. enqueue and n_comments
+	// 9. enqueue and n_comments
 	err = queue.QueueCommentDBCS(bboardID, articleID, ownerID, commentsDBCS, articleCreateTimeNanoTS, contentMTime, updateNanoTS)
 	if err != nil {
 		return content, ip, host, bbs, articleDetailSummary_db, 200, nil
@@ -278,7 +276,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		articleDetailSummary_db.NComments = len(firstComments)
 	}
 
-	//everything is good, update content-mtime
+	// everything is good, update content-mtime
 	_ = schema.UpdateArticleContentMTime(bboardID, articleID, contentMTime)
 
 	return content, ip, host, bbs, articleDetailSummary_db, 200, nil
@@ -291,18 +289,18 @@ func tryGetArticleContentInfoTooSoon(updateNanoTS types.NanoTS) bool {
 
 func tryGetArticleDetailSummary(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, articleCreateTime pttbbstypes.Time4, c *gin.Context) (articleDetailSummary *schema.ArticleDetailSummary, statusCode int, err error) {
 	articleDetailSummary, err = schema.GetArticleDetailSummary(boardID, articleID)
-	if err != nil { //something went wrong with db.
+	if err != nil { // something went wrong with db.
 		return nil, 500, err
 	}
 	if articleDetailSummary != nil {
 		return articleDetailSummary, 200, nil
 	}
 
-	//init startIdx
+	// init startIdx
 	articleSummary := &bbs.ArticleSummary{ArticleID: articleID, CreateTime: articleCreateTime}
 	startIdx := bbs.SerializeArticleIdxStr(articleSummary)
 
-	//backend load-general-articles
+	// backend load-general-articles
 	theParams_b := &pttbbsapi.LoadGeneralArticlesParams{
 		StartIdx:  startIdx,
 		NArticles: 1,
@@ -327,7 +325,7 @@ func tryGetArticleDetailSummary(userID bbs.UUserID, boardID bbs.BBoardID, articl
 		return nil, 500, ErrNoArticle
 	}
 
-	//update to db
+	// update to db
 	updateNanoTS := types.NowNanoTS()
 	articleSummaries_db, _, err := deserializeArticlesAndUpdateDB(userID, boardID, result_b.Articles, updateNanoTS)
 	if err != nil {
@@ -358,7 +356,7 @@ func setUserReadArticle(content [][]*types.Rune, userID bbs.UUserID, articleID b
 		return
 	}
 
-	//user read article
+	// user read article
 	userReadArticle := &schema.UserReadArticle{
 		UserID:       userID,
 		ArticleID:    articleID,

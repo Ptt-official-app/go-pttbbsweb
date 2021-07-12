@@ -77,7 +77,6 @@ func TestRegisterClient(t *testing.T) {
 			}
 
 			testutil.TDeepEqual(t, "ret", ret, expectedDB)
-
 		})
 	}
 }
@@ -116,7 +115,6 @@ func TestRegisterClientWrapper(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-
 			w, c, r := testSetRequest(REGISTER_CLIENT_R, REGISTER_CLIENT_R, tt.args.params, accessTokenSYSOP2, "", nil, "POST", RegisterClientWrapper)
 			logrus.Infof("RegisterClientWrapper: remote-addr: %v", c.Request.RemoteAddr)
 			r.ServeHTTP(w, c.Request)

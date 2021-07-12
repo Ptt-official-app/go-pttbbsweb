@@ -50,7 +50,7 @@ func utf8ToDBCSByRune(theRune *types.Rune, color *types.Color) (theDBCS []byte, 
 	color1Bytes := theRune.Color1.BytesWithPreColor(&theRune.Color0, false)
 	big5 := types.Utf8ToBig5(theRune.Utf8)
 	if len(big5) > 0 {
-		//Need to deal with color1Bytes
+		// Need to deal with color1Bytes
 		if len(color1Bytes) > 0 {
 			lastBig5 := big5[len(big5)-1]
 			big5 = big5[:len(big5)-1]
@@ -150,38 +150,38 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 		return []*types.Rune{}, color0
 	}
 
-	//1. check isCarriage
+	// 1. check isCarriage
 	isCarriage := false
-	if dbcs[len(dbcs)-1] == '\r' { //remove '\r' in the end
+	if dbcs[len(dbcs)-1] == '\r' { // remove '\r' in the end
 		isCarriage = true
 		dbcs = dbcs[:len(dbcs)-1]
 	}
 
-	//2. estimate len big5
+	// 2. estimate len big5
 	lenDBCS := len(dbcs)
 	expectedLenBig5 := lenDBCS / 2
 
-	//init
+	// init
 	big5 := make([]*types.Rune, 0, expectedLenBig5)
 	dbcsStat := DBCS_STATE_NONE
 	startIdx := 0
 	color1 := types.InvalidColor
 	dbcs0Pos := -1
-	//3. for-loop
+	// 3. for-loop
 	for idx := 0; idx < len(dbcs); {
 		ch := dbcs[idx]
-		if ch != '\x1b' { //not the color-code.
+		if ch != '\x1b' { // not the color-code.
 			switch dbcsStat {
 			case DBCS_STATE_LEAD:
 				dbcsStat = DBCS_STATE_TAIL
 			case DBCS_STATE_NONE:
-				if ch >= 0x80 { //is dbcs0
+				if ch >= 0x80 { // is dbcs0
 					dbcsStat = DBCS_STATE_LEAD
 					dbcs0Pos = idx
 					color1 = types.InvalidColor
 				}
-			case DBCS_STATE_TAIL: //previous ch is tail.
-				if color1.Foreground != types.COLOR_INVALID { //dbcs. need to set a new rune.
+			case DBCS_STATE_TAIL: // previous ch is tail.
+				if color1.Foreground != types.COLOR_INVALID { // dbcs. need to set a new rune.
 					eachDBCS := dbcs[startIdx:idx]
 					r := &types.Rune{
 						Big5:   dbcsToBig5PurifyColor(eachDBCS),
@@ -192,15 +192,15 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 					big5 = append(big5, r)
 
 					startIdx = idx
-					color0 = color1 //color0 becomes color1 now.
+					color0 = color1 // color0 becomes color1 now.
 
 				}
-				if ch >= 0x80 { //is dbcs0 again
+				if ch >= 0x80 { // is dbcs0 again
 					dbcsStat = DBCS_STATE_LEAD
 					dbcs0Pos = idx
 					color1 = types.InvalidColor
 
-				} else { //done with tail. reset as NONE
+				} else { // done with tail. reset as NONE
 					dbcsStat = DBCS_STATE_NONE
 					color1 = types.InvalidColor
 				}
@@ -208,7 +208,7 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 			idx++
 		} else { // is the start of the color
 			switch dbcsStat {
-			case DBCS_STATE_LEAD: //the previous char is the 0th big5
+			case DBCS_STATE_LEAD: // the previous char is the 0th big5
 				if color1.Foreground == types.COLOR_INVALID {
 					color1 = color0
 				}
@@ -250,7 +250,7 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 				big5 = append(big5, r)
 				startIdx = idx
 
-				dbcsStat = DBCS_STATE_NONE //dealt with tail, re-starting from none.
+				dbcsStat = DBCS_STATE_NONE // dealt with tail, re-starting from none.
 				color1 = types.InvalidColor
 			}
 
@@ -264,7 +264,7 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 		}
 	}
 
-	//the last rune
+	// the last rune
 	switch dbcsStat {
 	case DBCS_STATE_NONE:
 		eachDBCS := dbcs[startIdx:]
@@ -278,8 +278,8 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 			big5 = append(big5, r)
 		}
 		startIdx = len(dbcs)
-	case DBCS_STATE_TAIL: //previous ch is tail.
-		if color1.Foreground != types.COLOR_INVALID { //dbcs. need to set a new rune.
+	case DBCS_STATE_TAIL: // previous ch is tail.
+		if color1.Foreground != types.COLOR_INVALID { // dbcs. need to set a new rune.
 			eachDBCS := dbcs[startIdx:]
 			if len(eachDBCS) > 0 {
 				r := &types.Rune{
@@ -291,7 +291,7 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 				big5 = append(big5, r)
 			}
 
-			color0 = color1 //color0 becomes color1 now.
+			color0 = color1 // color0 becomes color1 now.
 			startIdx = len(dbcs)
 		} else {
 			eachDBCS := dbcs[startIdx:]
@@ -307,7 +307,7 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 			startIdx = len(dbcs)
 		}
 	}
-	//defensive programming
+	// defensive programming
 	if startIdx < len(dbcs) {
 		logrus.Warnf("dbcs.dbcsToBig5PerLine: still with some dbcs: startIdx: %v dbcs: %v dbcsStat: %v", startIdx, len(dbcs), dbcsStat)
 		eachDBCS := dbcs[startIdx:]
@@ -348,7 +348,7 @@ func dbcsToBig5PurifyColor(dbcs []byte) []byte {
 			p_dbcs = p_dbcs[idx:]
 		}
 
-		if len(p_dbcs) < 3 || p_dbcs[1] != '[' { //not valid control char.
+		if len(p_dbcs) < 3 || p_dbcs[1] != '[' { // not valid control char.
 			p_dbcs = p_dbcs[1:]
 			continue
 		}
@@ -358,7 +358,7 @@ func dbcsToBig5PurifyColor(dbcs []byte) []byte {
 			p_dbcs = p_dbcs[2:]
 			continue
 		}
-		//skip to idxM (excluded)
+		// skip to idxM (excluded)
 		p_dbcs = p_dbcs[idxM+1:]
 	}
 
@@ -402,20 +402,20 @@ func dbcsParseColor(dbcs []byte) (color types.Color, nBytes int) {
 	p_dbcs := dbcs
 	nBytes = 0
 
-	for len(p_dbcs) > 0 && bytes.HasPrefix(p_dbcs, []byte{'\x1b'}) { //p_dbcs always start with control-code.
-		if len(p_dbcs) < 3 || p_dbcs[1] != '[' { //0th is control-code, but 1st is not '[', set nBytes to include '\x1b', p_dbcs as next, and continue find the next color
+	for len(p_dbcs) > 0 && bytes.HasPrefix(p_dbcs, []byte{'\x1b'}) { // p_dbcs always start with control-code.
+		if len(p_dbcs) < 3 || p_dbcs[1] != '[' { // 0th is control-code, but 1st is not '[', set nBytes to include '\x1b', p_dbcs as next, and continue find the next color
 			nBytes++
 			p_dbcs = p_dbcs[1:]
 			continue
 		}
 		idxM := bytes.Index(p_dbcs, []byte{'m'})
-		if idxM == -1 { //unable to find 'm', set nBytes to include "\x1b[", p_dbcs as next, and continue find the next color.
+		if idxM == -1 { // unable to find 'm', set nBytes to include "\x1b[", p_dbcs as next, and continue find the next color.
 			nBytes += 2
 			p_dbcs = p_dbcs[2:]
 			continue
 		}
 
-		//found complete color-code
+		// found complete color-code
 		if idxM == 2 { //'\x1b[m': reset
 			color = types.ResetColor
 			nBytes += idxM + 1
@@ -426,7 +426,7 @@ func dbcsParseColor(dbcs []byte) (color types.Color, nBytes int) {
 		colorCodeList := bytes.Split(p_dbcs[2:idxM], []byte{';'})
 		for _, each := range colorCodeList {
 			intColor, err := strconv.Atoi(string(each))
-			if err != nil { //not numbers
+			if err != nil { // not numbers
 				continue
 			}
 			switch {
@@ -441,7 +441,7 @@ func dbcsParseColor(dbcs []byte) (color types.Color, nBytes int) {
 			}
 		}
 
-		//set nBytes to include m, p_dbs as next, and continue find the next color
+		// set nBytes to include m, p_dbs as next, and continue find the next color
 		nBytes += idxM + 1
 		p_dbcs = p_dbcs[idxM+1:]
 	}

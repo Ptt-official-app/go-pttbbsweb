@@ -7,20 +7,16 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-//ContentMTime
+// ContentMTime
 type ArticleContentMTime struct {
 	ContentMTime types.NanoTS `bson:"content_mtime_nano_ts"`
 
 	IsDeleted bool `bson:"deleted,omitempty"` //
 }
 
-var (
-	EMPTY_ARTICLE_CONTENT_MTIME = &ArticleContentMTime{}
-)
+var EMPTY_ARTICLE_CONTENT_MTIME = &ArticleContentMTime{}
 
-var (
-	articleContentMTimeFields = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_CONTENT_MTIME)
-)
+var articleContentMTimeFields = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_CONTENT_MTIME)
 
 func GetArticleContentMTime(bboardID bbs.BBoardID, articleID bbs.ArticleID) (ret *ArticleContentMTime, err error) {
 	query := &ArticleQuery{

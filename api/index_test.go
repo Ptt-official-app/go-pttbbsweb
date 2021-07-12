@@ -6,8 +6,8 @@ import (
 )
 
 func TestIndex(t *testing.T) {
-	//setupTest moves inside for-loop
-	//teardownTest moves inside for-loop
+	// setupTest moves inside for-loop
+	// teardownTest moves inside for-loop
 
 	params := &IndexParams{}
 

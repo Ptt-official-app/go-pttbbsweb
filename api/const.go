@@ -20,7 +20,7 @@ const (
 )
 
 var (
-	GET_ARTICLE_CONTENT_INFO_TOO_SOON_NANO_TS = ARTICLE_LOCK_NANO_TS + types.NanoTS(1)*types.TS_TO_NANO_TS //10 + 1 seconds.
+	GET_ARTICLE_CONTENT_INFO_TOO_SOON_NANO_TS = ARTICLE_LOCK_NANO_TS + types.NanoTS(1)*types.TS_TO_NANO_TS // 10 + 1 seconds.
 
 	MIME_TYPE_MAP = map[string]string{
 		".js":   "text/javascript",

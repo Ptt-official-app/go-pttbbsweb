@@ -60,7 +60,7 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 		return nil, 500, err
 	}
 
-	//backend load-general-articles
+	// backend load-general-articles
 	theParams_b := &pttbbsapi.LoadGeneralArticlesParams{
 		StartIdx:  theParams.StartIdx,
 		NArticles: theParams.Max,
@@ -77,7 +77,7 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 		return nil, statusCode, err
 	}
 
-	//update to db
+	// update to db
 	updateNanoTS := types.NowNanoTS()
 	articleSummaries_db, userReadArticleMap, err := deserializeArticlesAndUpdateDB(userID, boardID, result_b.Articles, updateNanoTS)
 	if err != nil {
@@ -91,7 +91,7 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 
 	r := NewLoadGeneralArticlesResult(articleSummaries_db, userReadArticleMap, result_b)
 
-	//update user_read_board
+	// update user_read_board
 	if result_b.IsNewest {
 		err = updateUserReadBoard(userID, boardID, updateNanoTS)
 		if err != nil {
@@ -111,7 +111,7 @@ func checkReadArticles(userID bbs.UUserID, boardID bbs.BBoardID, userReadArticle
 			continue
 		}
 
-		//check with read-time
+		// check with read-time
 		checkArticleIDMap[each.ArticleID] = idx
 		queryArticleIDs = append(queryArticleIDs, each.ArticleID)
 	}
@@ -121,9 +121,9 @@ func checkReadArticles(userID bbs.UUserID, boardID bbs.BBoardID, userReadArticle
 		return nil, err
 	}
 
-	//setup read in the list
-	//no need to update db, because we don't read the article yet.
-	//the Read flag is set based on the existing db.UpdateNanoTS
+	// setup read in the list
+	// no need to update db, because we don't read the article yet.
+	// the Read flag is set based on the existing db.UpdateNanoTS
 	for _, each := range dbResults {
 		eachArticleID := each.ArticleID
 		eachReadNanoTS := each.UpdateNanoTS
@@ -143,7 +143,6 @@ func checkReadArticles(userID bbs.UUserID, boardID bbs.BBoardID, userReadArticle
 }
 
 func updateUserReadBoard(userID bbs.UUserID, boardID bbs.BBoardID, updateNanoTS types.NanoTS) (err error) {
-
 	userReadBoard := &schema.UserReadBoard{UserID: userID, BBoardID: boardID, UpdateNanoTS: updateNanoTS}
 
 	err = schema.UpdateUserReadBoard(userReadBoard)

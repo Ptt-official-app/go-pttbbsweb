@@ -101,7 +101,6 @@ func setTimeLocation(timeLocation string) (origTimeLocation string, err error) {
 }
 
 func setAllowOrigins(allowOrigins []string) (origAllowOrigins []string, err error) {
-
 	origAllowOrigins = ALLOW_ORIGINS
 
 	ALLOW_ORIGINS = allowOrigins
@@ -142,7 +141,6 @@ func setCSRFTokenTS(csrfTokenTS int) (origCSRFTokenTS int, err error) {
 }
 
 func setAccessTokenExpireTS(accessTokenExpireTS int) (origAccessTokenExpireTS int, err error) {
-
 	origAccessTokenExpireTS = ACCESS_TOKEN_EXPIRE_TS
 
 	ACCESS_TOKEN_EXPIRE_TS = accessTokenExpireTS
@@ -150,7 +148,6 @@ func setAccessTokenExpireTS(accessTokenExpireTS int) (origAccessTokenExpireTS in
 	ACCESS_TOKEN_EXPIRE_TS_DURATION = time.Duration(ACCESS_TOKEN_EXPIRE_TS) * time.Second
 
 	return origAccessTokenExpireTS, nil
-
 }
 
 func setAttemptRegisterUserEmailTS(expireAttemptRegisterUserEmailTS int) (origExpireAttemptRegisterUserEmailTS int, err error) {
@@ -163,7 +160,6 @@ func setAttemptRegisterUserEmailTS(expireAttemptRegisterUserEmailTS int) (origEx
 }
 
 func setEmailTokenTemplate(emailTokenTemplate string) (origEmailTokenTemplate string, err error) {
-
 	origEmailTokenTemplate = EMAILTOKEN_TEMPLATE
 	EMAILTOKEN_TEMPLATE = emailTokenTemplate
 

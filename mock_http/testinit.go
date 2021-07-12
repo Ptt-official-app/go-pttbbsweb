@@ -7,5 +7,4 @@ func setupTest() {
 }
 
 func teardownTest() {
-
 }

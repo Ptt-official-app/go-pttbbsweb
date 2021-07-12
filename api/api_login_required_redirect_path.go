@@ -17,7 +17,6 @@ func RedirectPathQuery(theFunc RedirectPathApiFunc, params interface{}, path int
 }
 
 func redirectPathProcess(theFunc RedirectPathApiFunc, params interface{}, path interface{}, c *gin.Context) {
-
 	err := c.ShouldBindUri(path)
 	if err != nil {
 		processResult(c, nil, 400, err)

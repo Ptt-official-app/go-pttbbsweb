@@ -13,8 +13,8 @@ func GetBoardSummary(params *api.LoadBoardSummaryParams) (ret api.LoadBoardSumma
 		BrdAttr:      0,
 		StatAttr:     ptttype.NBRD_BOARD,
 		Brdname:      "test1",
-		RealTitle:    []byte{0xb4, 0xfa, 0xb8, 0xd5, 0x31}, //測試1
-		BoardClass:   []byte{0xb4, 0xfa, 0xb8, 0xd5},       //測試
+		RealTitle:    []byte{0xb4, 0xfa, 0xb8, 0xd5, 0x31}, // 測試1
+		BoardClass:   []byte{0xb4, 0xfa, 0xb8, 0xd5},       // 測試
 		BoardType:    []byte{0xa1, 0xb7},                   //◎
 		BM:           []bbs.UUserID{"okcool", "teemo"},
 		LastPostTime: types.Time4(1234567890),

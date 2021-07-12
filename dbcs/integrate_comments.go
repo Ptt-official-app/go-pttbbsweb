@@ -17,7 +17,7 @@ func IntegrateComments(boardID bbs.BBoardID, articleID bbs.ArticleID, comments [
 	}
 
 	nBlock := InferTimestamp(edBlocks, isForwardOnly, isLastAlignEndNanoTS, articleCreateTime)
-	//count new comments
+	// count new comments
 	nNewComments := 0
 	for idx, each := range edBlocks {
 		if idx == nBlock {
@@ -44,12 +44,12 @@ func IntegrateComments(boardID bbs.BBoardID, articleID bbs.ArticleID, comments [
 		each.ArticleID = articleID
 	}
 
-	//early-return for isForwardOnly
+	// early-return for isForwardOnly
 	if isForwardOnly {
 		return newComments, nil, nil
 	}
 
-	//to delete comments
+	// to delete comments
 	nToDeleteComments := 0
 	for idx, each := range edBlocks {
 		if idx == nBlock {

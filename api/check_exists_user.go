@@ -25,7 +25,6 @@ func CheckExistsUserWrapper(c *gin.Context) {
 }
 
 func CheckExistsUser(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	theParams, ok := params.(*CheckExistsUserParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -37,7 +36,7 @@ func CheckExistsUser(remoteAddr string, params interface{}, c *gin.Context) (res
 		return nil, 400, ErrInvalidParams
 	}
 
-	//check existing user
+	// check existing user
 	theParams_b := &pttbbsapi.CheckExistsUserParams{
 		Username: theParams.Username,
 	}

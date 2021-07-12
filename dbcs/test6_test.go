@@ -27,11 +27,10 @@ var (
 )
 
 func initTest6() {
-
 	testContentAll6, testContent6, testSignature6, testComment6, testFirstCommentsDBCS6, testTheRestCommentsDBCS6 = loadTest(testFilename6)
 
 	testContent6Big5 = [][]*types.Rune{
-		{ //0
+		{ // 0
 			{
 				Big5:   []byte("\xa7@\xaa\xcc: currykukuo (\xb3\xaf\xb5\xe2\xc0\xe3\xa6\xbd) \xac\xdd\xaaO: RedSox"),
 				Color0: types.DefaultColor,
@@ -39,7 +38,7 @@ func initTest6() {
 				DBCS:   []byte("\xa7@\xaa\xcc: currykukuo (\xb3\xaf\xb5\xe2\xc0\xe3\xa6\xbd) \xac\xdd\xaaO: RedSox\r"),
 			},
 		},
-		{ //1
+		{ // 1
 			{
 				Big5:   []byte("\xbc\xd0\xc3D: Fw: [\xb1\xa1\xb3\xf8] Chris Sale \xb1o\xaa\xcd\xaa\xa2"),
 				Color0: types.DefaultColor,
@@ -47,7 +46,7 @@ func initTest6() {
 				DBCS:   []byte("\xbc\xd0\xc3D: Fw: [\xb1\xa1\xb3\xf8] Chris Sale \xb1o\xaa\xcd\xaa\xa2\r"),
 			},
 		},
-		{ //2
+		{ // 2
 			{
 
 				Big5:   []byte("\xae\xc9\xb6\xa1: Thu Feb 13 01:46:44 2020"),
@@ -56,14 +55,14 @@ func initTest6() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Thu Feb 13 01:46:44 2020\r"),
 			},
 		},
-		{ //3
+		{ // 3
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //4
+		{ // 4
 			{
 
 				Big5:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb MLB \xac\xdd\xaaO #1UH3bcSy ]"),
@@ -72,14 +71,14 @@ func initTest6() {
 				DBCS:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb MLB \xac\xdd\xaaO #1UH3bcSy ]\r"),
 			},
 		},
-		{ //5
+		{ // 5
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //6
+		{ // 6
 			{
 
 				Big5:   []byte("\xa7@\xaa\xcc: currykukuo (\xb3\xaf\xb5\xe2\xc0\xe3\xa6\xbd) \xac\xdd\xaaO: MLB"),
@@ -88,7 +87,7 @@ func initTest6() {
 				DBCS:   []byte("\xa7@\xaa\xcc: currykukuo (\xb3\xaf\xb5\xe2\xc0\xe3\xa6\xbd) \xac\xdd\xaaO: MLB\r"),
 			},
 		},
-		{ //7
+		{ // 7
 			{
 
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb1\xa1\xb3\xf8] Chris Sale \xb1o\xaa\xcd\xaa\xa2"),
@@ -97,7 +96,7 @@ func initTest6() {
 				DBCS:   []byte("\xbc\xd0\xc3D: [\xb1\xa1\xb3\xf8] Chris Sale \xb1o\xaa\xcd\xaa\xa2\r"),
 			},
 		},
-		{ //8
+		{ // 8
 			{
 
 				Big5:   []byte("\xae\xc9\xb6\xa1: Thu Feb 13 01:44:02 2020"),
@@ -106,14 +105,14 @@ func initTest6() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Thu Feb 13 01:44:02 2020\r"),
 			},
 		},
-		{ //9
+		{ // 9
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //10
+		{ // 10
 			{
 
 				Big5:   []byte("https://twitter.com/BNightengale/status/1227634955699789824"),
@@ -122,14 +121,14 @@ func initTest6() {
 				DBCS:   []byte("https://twitter.com/BNightengale/status/1227634955699789824\r"),
 			},
 		},
-		{ //11
+		{ // 11
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //12
+		{ // 12
 			{
 
 				Big5:   []byte("Chris Sale has flu that turned into pneumonia and expected in #Redsox camp"),
@@ -138,7 +137,7 @@ func initTest6() {
 				DBCS:   []byte("Chris Sale has flu that turned into pneumonia and expected in #Redsox camp\r"),
 			},
 		},
-		{ //13
+		{ // 13
 			{
 
 				Big5:   []byte("Friday."),
@@ -147,14 +146,14 @@ func initTest6() {
 				DBCS:   []byte("Friday.\r"),
 			},
 		},
-		{ //14
+		{ // 14
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //15
+		{ // 15
 			{
 
 				Big5:   []byte("Chris Sale \xad\xec\xa5\xbb\xb1o\xa8\xec\xaa\xba\xacy\xb7P\xb2{\xa6b\xa4w\xb8g\xc5\xdc\xa6\xa8\xaa\xcd\xaa\xa2\xa1C"),
@@ -163,21 +162,21 @@ func initTest6() {
 				DBCS:   []byte("Chris Sale \xad\xec\xa5\xbb\xb1o\xa8\xec\xaa\xba\xacy\xb7P\xb2{\xa6b\xa4w\xb8g\xc5\xdc\xa6\xa8\xaa\xcd\xaa\xa2\xa1C\r"),
 			},
 		},
-		{ //16
+		{ // 16
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //17
+		{ // 17
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //18
+		{ // 18
 			{
 
 				Big5:   []byte("..\xa9\xc8"),
@@ -186,14 +185,14 @@ func initTest6() {
 				DBCS:   []byte("..\xa9\xc8\r"),
 			},
 		},
-		{ //19
+		{ // 19
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //20
+		{ // 20
 			{
 
 				Big5:   []byte("--"),
@@ -202,7 +201,7 @@ func initTest6() {
 				DBCS:   []byte("--\r"),
 			},
 		},
-		{ //21
+		{ // 21
 			{
 
 				Big5:   []byte(" "),
@@ -237,7 +236,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //22
+		{ // 22
 			{
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
@@ -326,7 +325,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m\xa2\xa9\r"),
 			},
 		},
-		{ //23
+		{ // 23
 			{
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
@@ -399,7 +398,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //24
+		{ // 24
 			{
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
@@ -467,7 +466,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m\xa2\xab\r"),
 			},
 		},
-		{ //25
+		{ // 25
 			{
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
@@ -521,7 +520,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m\xa2\xab\r"),
 			},
 		},
-		{ //26
+		{ // 26
 			{
 
 				Big5:   []byte("  "),
@@ -570,14 +569,14 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //27
+		{ // 27
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //28
+		{ // 28
 			{
 
 				Big5:   []byte("--"),
@@ -586,7 +585,7 @@ func initTest6() {
 				DBCS:   []byte("--\r"),
 			},
 		},
-		{ //29
+		{ // 29
 			{
 
 				Big5:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc), \xa8\xd3\xa6\xdb: 110.50.185.154 (\xbbO\xc6W)"),
@@ -595,7 +594,7 @@ func initTest6() {
 				DBCS:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc), \xa8\xd3\xa6\xdb: 110.50.185.154 (\xbbO\xc6W)\r"),
 			},
 		},
-		{ //30
+		{ // 30
 			{
 
 				Big5:   []byte("\xa1\xb0 \xa4\xe5\xb3\xb9\xba\xf4\xa7}: https://www.ptt.cc/bbs/MLB/M.1581529446.A.73C.html"),
@@ -604,7 +603,7 @@ func initTest6() {
 				DBCS:   []byte("\xa1\xb0 \xa4\xe5\xb3\xb9\xba\xf4\xa7}: https://www.ptt.cc/bbs/MLB/M.1581529446.A.73C.html\r"),
 			},
 		},
-		{ //31
+		{ // 31
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -634,7 +633,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m 02/13 01:44\r"),
 			},
 		},
-		{ //32
+		{ // 32
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -664,7 +663,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m 02/13 01:44\r"),
 			},
 		},
-		{ //33
+		{ // 33
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -694,7 +693,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m 02/13 01:44\r"),
 			},
 		},
-		{ //34
+		{ // 34
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -727,7 +726,7 @@ func initTest6() {
 	}
 
 	testContent6Utf8 = [][]*types.Rune{
-		{ //0
+		{ // 0
 			{
 				Utf8:   "作者: currykukuo (陳菊濕汗) 看板: RedSox",
 				Big5:   []byte("\xa7@\xaa\xcc: currykukuo (\xb3\xaf\xb5\xe2\xc0\xe3\xa6\xbd) \xac\xdd\xaaO: RedSox"),
@@ -736,7 +735,7 @@ func initTest6() {
 				DBCS:   []byte("\xa7@\xaa\xcc: currykukuo (\xb3\xaf\xb5\xe2\xc0\xe3\xa6\xbd) \xac\xdd\xaaO: RedSox\r"),
 			},
 		},
-		{ //1
+		{ // 1
 			{
 				Utf8:   "標題: Fw: [情報] Chris Sale 得肺炎",
 				Big5:   []byte("\xbc\xd0\xc3D: Fw: [\xb1\xa1\xb3\xf8] Chris Sale \xb1o\xaa\xcd\xaa\xa2"),
@@ -745,7 +744,7 @@ func initTest6() {
 				DBCS:   []byte("\xbc\xd0\xc3D: Fw: [\xb1\xa1\xb3\xf8] Chris Sale \xb1o\xaa\xcd\xaa\xa2\r"),
 			},
 		},
-		{ //2
+		{ // 2
 			{
 				Utf8:   "時間: Thu Feb 13 01:46:44 2020",
 				Big5:   []byte("\xae\xc9\xb6\xa1: Thu Feb 13 01:46:44 2020"),
@@ -754,14 +753,14 @@ func initTest6() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Thu Feb 13 01:46:44 2020\r"),
 			},
 		},
-		{ //3
+		{ // 3
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //4
+		{ // 4
 			{
 				Utf8:   "※ [本文轉錄自 MLB 看板 #1UH3bcSy ]",
 				Big5:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb MLB \xac\xdd\xaaO #1UH3bcSy ]"),
@@ -770,14 +769,14 @@ func initTest6() {
 				DBCS:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb MLB \xac\xdd\xaaO #1UH3bcSy ]\r"),
 			},
 		},
-		{ //5
+		{ // 5
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //6
+		{ // 6
 			{
 				Utf8:   "作者: currykukuo (陳菊濕汗) 看板: MLB",
 				Big5:   []byte("\xa7@\xaa\xcc: currykukuo (\xb3\xaf\xb5\xe2\xc0\xe3\xa6\xbd) \xac\xdd\xaaO: MLB"),
@@ -786,7 +785,7 @@ func initTest6() {
 				DBCS:   []byte("\xa7@\xaa\xcc: currykukuo (\xb3\xaf\xb5\xe2\xc0\xe3\xa6\xbd) \xac\xdd\xaaO: MLB\r"),
 			},
 		},
-		{ //7
+		{ // 7
 			{
 				Utf8:   "標題: [情報] Chris Sale 得肺炎",
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb1\xa1\xb3\xf8] Chris Sale \xb1o\xaa\xcd\xaa\xa2"),
@@ -795,7 +794,7 @@ func initTest6() {
 				DBCS:   []byte("\xbc\xd0\xc3D: [\xb1\xa1\xb3\xf8] Chris Sale \xb1o\xaa\xcd\xaa\xa2\r"),
 			},
 		},
-		{ //8
+		{ // 8
 			{
 				Utf8:   "時間: Thu Feb 13 01:44:02 2020",
 				Big5:   []byte("\xae\xc9\xb6\xa1: Thu Feb 13 01:44:02 2020"),
@@ -804,14 +803,14 @@ func initTest6() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Thu Feb 13 01:44:02 2020\r"),
 			},
 		},
-		{ //9
+		{ // 9
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //10
+		{ // 10
 			{
 				Utf8:   "https://twitter.com/BNightengale/status/1227634955699789824",
 				Big5:   []byte("https://twitter.com/BNightengale/status/1227634955699789824"),
@@ -820,14 +819,14 @@ func initTest6() {
 				DBCS:   []byte("https://twitter.com/BNightengale/status/1227634955699789824\r"),
 			},
 		},
-		{ //11
+		{ // 11
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //12
+		{ // 12
 			{
 				Utf8:   "Chris Sale has flu that turned into pneumonia and expected in #Redsox camp",
 				Big5:   []byte("Chris Sale has flu that turned into pneumonia and expected in #Redsox camp"),
@@ -836,7 +835,7 @@ func initTest6() {
 				DBCS:   []byte("Chris Sale has flu that turned into pneumonia and expected in #Redsox camp\r"),
 			},
 		},
-		{ //13
+		{ // 13
 			{
 				Utf8:   "Friday.",
 				Big5:   []byte("Friday."),
@@ -845,14 +844,14 @@ func initTest6() {
 				DBCS:   []byte("Friday.\r"),
 			},
 		},
-		{ //14
+		{ // 14
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //15
+		{ // 15
 			{
 				Utf8:   "Chris Sale 原本得到的流感現在已經變成肺炎。",
 				Big5:   []byte("Chris Sale \xad\xec\xa5\xbb\xb1o\xa8\xec\xaa\xba\xacy\xb7P\xb2{\xa6b\xa4w\xb8g\xc5\xdc\xa6\xa8\xaa\xcd\xaa\xa2\xa1C"),
@@ -861,21 +860,21 @@ func initTest6() {
 				DBCS:   []byte("Chris Sale \xad\xec\xa5\xbb\xb1o\xa8\xec\xaa\xba\xacy\xb7P\xb2{\xa6b\xa4w\xb8g\xc5\xdc\xa6\xa8\xaa\xcd\xaa\xa2\xa1C\r"),
 			},
 		},
-		{ //16
+		{ // 16
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //17
+		{ // 17
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //18
+		{ // 18
 			{
 				Utf8:   "..怕",
 				Big5:   []byte("..\xa9\xc8"),
@@ -884,14 +883,14 @@ func initTest6() {
 				DBCS:   []byte("..\xa9\xc8\r"),
 			},
 		},
-		{ //19
+		{ // 19
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //20
+		{ // 20
 			{
 				Utf8:   "--",
 				Big5:   []byte("--"),
@@ -900,7 +899,7 @@ func initTest6() {
 				DBCS:   []byte("--\r"),
 			},
 		},
-		{ //21
+		{ // 21
 			{
 				Utf8:   " ",
 				Big5:   []byte(" "),
@@ -935,7 +934,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //22
+		{ // 22
 			{
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
@@ -1024,7 +1023,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m\xa2\xa9\r"),
 			},
 		},
-		{ //23
+		{ // 23
 			{
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
@@ -1097,7 +1096,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //24
+		{ // 24
 			{
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
@@ -1165,7 +1164,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m\xa2\xab\r"),
 			},
 		},
-		{ //25
+		{ // 25
 			{
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
@@ -1219,7 +1218,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m\xa2\xab\r"),
 			},
 		},
-		{ //26
+		{ // 26
 			{
 				Utf8:   "  ",
 				Big5:   []byte("  "),
@@ -1268,14 +1267,14 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //27
+		{ // 27
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //28
+		{ // 28
 			{
 				Utf8:   "--",
 				Big5:   []byte("--"),
@@ -1284,7 +1283,7 @@ func initTest6() {
 				DBCS:   []byte("--\r"),
 			},
 		},
-		{ //29
+		{ // 29
 			{
 				Utf8:   "※ 發信站: 批踢踢實業坊(ptt.cc), 來自: 110.50.185.154 (臺灣)",
 				Big5:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc), \xa8\xd3\xa6\xdb: 110.50.185.154 (\xbbO\xc6W)"),
@@ -1293,7 +1292,7 @@ func initTest6() {
 				DBCS:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc), \xa8\xd3\xa6\xdb: 110.50.185.154 (\xbbO\xc6W)\r"),
 			},
 		},
-		{ //30
+		{ // 30
 			{
 				Utf8:   "※ 文章網址: https://www.ptt.cc/bbs/MLB/M.1581529446.A.73C.html",
 				Big5:   []byte("\xa1\xb0 \xa4\xe5\xb3\xb9\xba\xf4\xa7}: https://www.ptt.cc/bbs/MLB/M.1581529446.A.73C.html"),
@@ -1302,7 +1301,7 @@ func initTest6() {
 				DBCS:   []byte("\xa1\xb0 \xa4\xe5\xb3\xb9\xba\xf4\xa7}: https://www.ptt.cc/bbs/MLB/M.1581529446.A.73C.html\r"),
 			},
 		},
-		{ //31
+		{ // 31
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -1332,7 +1331,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m 02/13 01:44\r"),
 			},
 		},
-		{ //32
+		{ // 32
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -1362,7 +1361,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m 02/13 01:44\r"),
 			},
 		},
-		{ //33
+		{ // 33
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -1392,7 +1391,7 @@ func initTest6() {
 				DBCS:   []byte("\x1b[m 02/13 01:44\r"),
 			},
 		},
-		{ //34
+		{ // 34
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -1608,7 +1607,7 @@ func initTest6() {
 	}
 
 	testFullFirstComments6 = []*schema.Comment{
-		{ //0
+		{ // 0
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfK82SZ7OAA:6T-ZR97m1lqVecQZAmlMuA"),
@@ -1631,7 +1630,7 @@ func initTest6() {
 			TheDate: "02/13 03:01",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mtry107799\x1b[m\x1b[33m: .....,.                                             \x1b[m 02/13 03:01\r"),
 		},
-		{ //1
+		{ // 1
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfK9Aw9RQAA:ivEDjzbs9GQE0tA2qP9PVQ"),
@@ -1654,7 +1653,7 @@ func initTest6() {
 			TheDate: "02/13 03:04",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mhahabis\x1b[m\x1b[33m: ..............                                        \x1b[m 02/13 03:04\r"),
 		},
-		{ //2
+		{ // 2
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfK9jsIasAA:p5dkEHAzRTSQL4gzP6GvNg"),
@@ -1677,7 +1676,7 @@ func initTest6() {
 			TheDate: "02/13 03:14",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mUnleashed\x1b[m\x1b[33m: \xad\xfe\xa9\xdb...                                             \x1b[m 02/13 03:14\r"),
 		},
-		{ //3
+		{ // 3
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfK-YE5I2AA:PKyW17rlcp07gdY_wBC4sw"),
@@ -1700,7 +1699,7 @@ func initTest6() {
 			TheDate: "02/13 03:29",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mpiconeko\x1b[m\x1b[33m: \xa4\xa3\xacO\xa9\xd4\xa8{\xa4l\xb4N\xacO\xaa\xcd\xaa\xa2,\xa9\xfa\xa6~\xb2M\xa5X\xb3o\xa8\xc7\xa4HSale,Elvo,JD\xb6RBetts \x1b[m 02/13 03:29\r"),
 		},
-		{ //4
+		{ // 4
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfK_B_Gg-AA:py4oWIA-ee0qAUqWJ4WO5A"),
@@ -1723,7 +1722,7 @@ func initTest6() {
 			TheDate: "02/13 03:41",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mDavFlow\x1b[m\x1b[33m: ....                                                  \x1b[m 02/13 03:41\r"),
 		},
-		{ //5
+		{ // 5
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLAjxlumAA:ag_pH6PvnPs4D5Guezh9kQ"),
@@ -1746,7 +1745,7 @@ func initTest6() {
 			TheDate: "02/13 04:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mekpum135\x1b[m\x1b[33m: \xa7\xc6\xb1\xe6\xa8S\xa8\xc6.....                                        \x1b[m 02/13 04:09\r"),
 		},
-		{ //6
+		{ // 6
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLC581qYAA:WB3pkDhBHnLC-eJYMdIeEQ"),
@@ -1769,7 +1768,7 @@ func initTest6() {
 			TheDate: "02/13 04:52",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mseekforever\x1b[m\x1b[33m: \xa5L\xc1\xd9\xa6b\xa5\xbf\xb1`\xb0V\xbdm\xa1A\xc0\xb3\xb8\xd3\xc1\xd9\xa6n                          \x1b[m 02/13 04:52\r"),
 		},
-		{ //7
+		{ // 7
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLMPKUSKAA:lxWkMcBKgzfkQU58S75mDw"),
@@ -1792,7 +1791,7 @@ func initTest6() {
 			TheDate: "02/13 07:43",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mtortoise2006\x1b[m\x1b[33m: \xa6\xad\xa4\xe9\xb1d\xb4_\xb0\xda                                       \x1b[m 02/13 07:43\r"),
 		},
-		{ //8
+		{ // 8
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLNRhJdsAA:VsL5xJ9ukmfB5g3kITeCNQ"),
@@ -1815,7 +1814,7 @@ func initTest6() {
 			TheDate: "02/13 08:02",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mtriff\x1b[m\x1b[33m: \xb3o\xad\xd3\xae\xc9\xb6\xa1\xc2I\xb1o\xaa\xcd\xaa\xa2...                                     \x1b[m 02/13 08:02\r"),
 		},
-		{ //9
+		{ // 9
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLPkM4SIAA:9JBlv1b11fR1u5J1QDEHRQ"),
@@ -1841,7 +1840,7 @@ func initTest6() {
 	}
 
 	testFullTheRestComments6 = []*schema.Comment{
-		{ //0
+		{ // 0
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLQDoiUOAA:JqQyojCk0mIw8gXURYjxAQ"),
@@ -1864,7 +1863,7 @@ func initTest6() {
 			TheDate: "02/13 08:53",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mHaiTurtle\x1b[m\x1b[33m: \xa9\xc8                                                  \x1b[m 02/13 08:53\r"),
 		},
-		{ //1
+		{ // 1
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLTVLlM2AA:uwbawqbewdgw3DVCeDb4yA"),
@@ -1887,7 +1886,7 @@ func initTest6() {
 			TheDate: "02/13 09:53",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mAbsioute\x1b[m\x1b[33m: \xa7c...                                                \x1b[m 02/13 09:53\r"),
 		},
-		{ //2
+		{ // 2
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLWYwjoGAA:5gfFsU379qTU1BguxzZCbg"),
@@ -1910,7 +1909,7 @@ func initTest6() {
 			TheDate: "02/13 10:49",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mrookievit\x1b[m\x1b[33m: \xb3o\xbc\xcb\xad\xe8\xa6n\xa5i\xa5H\xc5\xfd\xa5L\xaa\xba\xacK\xb0V\xaa\xba\xb8}\xa8B\xbaC\xa4@\xa8\xc7 \xa8\xfe\xa8\xfe             \x1b[m 02/13 10:49\r"),
 		},
-		{ //3
+		{ // 3
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLWYwj3WkA:1diHhyKLKy7vRk9nu6AbcQ"),
@@ -1933,7 +1932,7 @@ func initTest6() {
 			TheDate: "02/13 10:49",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mrookievit\x1b[m\x1b[33m: \xabe\xb4X\xa6~ \xb1\xd0\xbdm\xb3\xa3\xbb\xa1\xa5L\xa6b\xacK\xb0V\xbd\xc4\xa4\xd3\xa7\xd6\xa4F                     \x1b[m 02/13 10:49\r"),
 		},
-		{ //4
+		{ // 4
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLW0ssi2AA:Jz02wPefPRfUsOCFfY56jg"),
@@ -1956,7 +1955,7 @@ func initTest6() {
 			TheDate: "02/13 10:57",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33menyaw5215\x1b[m\x1b[33m: \xa1K\xa8\xec\xa9\xb3\xc3\xf6\xb6RBetts\xa4\xb0\xbb\xf2\xa8\xc6\xa1A\xa6\xd3\xa5B\xb3sEovaldi\xb3\xa3\xaf\xe0\xab\xf7\xbf\xf9        \x1b[m 02/13 10:57\r"),
 		},
-		{ //5
+		{ // 5
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLZOXdl-AA:AK3icfj0OOsdDgS6LooH4g"),
@@ -1979,7 +1978,7 @@ func initTest6() {
 			TheDate: "02/13 11:41",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mseekforever\x1b[m\x1b[33m: \xa4\xb5\xa6~\xa6n\xb4X\xb6\xa4\xadn\xb1\xb5Sale\xaa\xba\xac\xf9\xa1A\xacO\xa7\xda\xad\xcc\xa4\xa3\xb7Q\xa7C\xc2I\xb2\xe6\xa4\xe2\xa6\xd3\xa4w    \x1b[m 02/13 11:41\r"),
 		},
-		{ //6
+		{ // 6
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLabM2HiAA:YcV5XMDVXyKw7wlKk_QnCw"),
@@ -2002,7 +2001,7 @@ func initTest6() {
 			TheDate: "02/13 12:03",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mmyde\x1b[m\x1b[33m: \xa4\xb5\xa6~\xa5\xbb\xa8\xd3\xa4]\xacO\xad\xab\xbe\xe3\xa4\xa4\xa1A\xa6n\xa6n\xb1d\xb4_\xad\xab\xadn                         \x1b[m 02/13 12:03\r"),
 		},
-		{ //7
+		{ // 7
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfLxLjm94AA:dWu3xGlPcgYyIaASlbbtsA"),
@@ -2025,7 +2024,7 @@ func initTest6() {
 			TheDate: "02/13 19:00",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mramiraz615\x1b[m\x1b[33m: \xa4\xb5\xa6~\xb0}\xaee\xa4]\xa4\xa3\xaet \xa6\xb3\xa5\xb4\xb6i\xa5~\xa5d\xa4]\xa4\xa3\xb7N\xa5~                  \x1b[m 02/13 19:00\r"),
 		},
-		{ //8
+		{ // 8
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test6"),
 			CommentID:  types.CommentID("FfMS7pIb_AA:yRxsmeS7P4_SoQoRLNn4gw"),

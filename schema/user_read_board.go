@@ -7,21 +7,17 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-var (
-	UserReadBoard_c *db.Collection
-)
+var UserReadBoard_c *db.Collection
 
 type UserReadBoard struct {
-	//已讀板紀錄
+	// 已讀板紀錄
 
 	UserID       bbs.UUserID  `bson:"user_id"`
 	BBoardID     bbs.BBoardID `bson:"bid"`
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
 
-var (
-	EMPTY_USER_READ_BOARD = &UserReadBoard{}
-)
+var EMPTY_USER_READ_BOARD = &UserReadBoard{}
 
 var (
 	USER_READ_BOARD_USER_ID_b        = getBSONName(EMPTY_USER_READ_BOARD, "UserID")
@@ -42,9 +38,7 @@ type UserReadBoardQuery struct {
 	BBoardID bbs.BBoardID `bson:"bid"`
 }
 
-var (
-	EMPTY_USER_READ_BOARD_QUERY = &UserReadBoardQuery{}
-)
+var EMPTY_USER_READ_BOARD_QUERY = &UserReadBoardQuery{}
 
 func UpdateUserReadBoard(userReadBoard *UserReadBoard) (err error) {
 	query := bson.M{
@@ -56,7 +50,7 @@ func UpdateUserReadBoard(userReadBoard *UserReadBoard) (err error) {
 	if err != nil {
 		return err
 	}
-	if r.UpsertedCount == 1 { //created, no need to update.
+	if r.UpsertedCount == 1 { // created, no need to update.
 		return nil
 	}
 
@@ -118,8 +112,7 @@ func UpdateUserReadBoards(userReadBoards []*UserReadBoard, updateNanoTS types.Na
 }
 
 func FindUserReadBoards(userID bbs.UUserID, boardIDs []bbs.BBoardID) ([]*UserReadBoard, error) {
-
-	//query
+	// query
 	query := bson.M{
 		USER_READ_BOARD_USER_ID_b: userID,
 		USER_READ_BOARD_BBOARD_ID_b: bson.M{

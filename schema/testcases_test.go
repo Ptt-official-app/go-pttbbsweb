@@ -183,7 +183,7 @@ var (
 		},
 	}
 
-	testReply0 = &Comment{ //41 (43)
+	testReply0 = &Comment{ // 41 (43)
 		BBoardID:   bbs.BBoardID("test"),
 		ArticleID:  bbs.ArticleID("test"),
 		CommentID:  types.CommentID("EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ:R"),
@@ -227,7 +227,7 @@ var (
 		EditNanoTS: types.NanoTS(1234567890000000001),
 	}
 
-	testExpectedReply0 = &Comment{ //41 (43)
+	testExpectedReply0 = &Comment{ // 41 (43)
 		BBoardID:   bbs.BBoardID("test"),
 		ArticleID:  bbs.ArticleID("test"),
 		CommentID:  types.CommentID("EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ:R"),
@@ -267,7 +267,7 @@ var (
 		EditNanoTS: types.NanoTS(1234567890000000001),
 	}
 
-	testReply1 = &Comment{ //41 (43)
+	testReply1 = &Comment{ // 41 (43)
 		BBoardID:   bbs.BBoardID("test"),
 		ArticleID:  bbs.ArticleID("test"),
 		CommentID:  types.CommentID("EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ:R"),
@@ -300,7 +300,7 @@ var (
 		EditNanoTS: types.NanoTS(1234567890000000001),
 	}
 
-	testExpectedReply1 = &Comment{ //41 (43)
+	testExpectedReply1 = &Comment{ // 41 (43)
 		BBoardID:   bbs.BBoardID("test"),
 		ArticleID:  bbs.ArticleID("test"),
 		CommentID:  types.CommentID("EYFhUw7dGAA:yBPgyUXJMLN6p6EYeODktQ:R"),

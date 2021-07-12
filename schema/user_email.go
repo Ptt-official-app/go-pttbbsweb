@@ -8,9 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-var (
-	UserEmail_c *db.Collection
-)
+var UserEmail_c *db.Collection
 
 type UserEmail struct {
 	UserID bbs.UUserID `bson:"user_id"`
@@ -21,9 +19,7 @@ type UserEmail struct {
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
 
-var (
-	EMPTY_USER_EMAIL = &UserEmail{}
-)
+var EMPTY_USER_EMAIL = &UserEmail{}
 
 var (
 	USER_EMAIL_USER_ID_b        = getBSONName(EMPTY_USER_EMAIL, "UserID")
@@ -33,7 +29,6 @@ var (
 )
 
 func GetUserEmailByUserID(userID bbs.UUserID, updateNanoTS types.NanoTS) (userEmail *UserEmail, err error) {
-
 	query := bson.M{
 		USER_EMAIL_USER_ID_b: userID,
 	}
@@ -50,7 +45,6 @@ func GetUserEmailByEmail(email string, updateNanoTS types.NanoTS) (userEmail *Us
 }
 
 func getUserEmailCore(query bson.M, updateNanoTS types.NanoTS) (userEmail *UserEmail, err error) {
-
 	userEmail = &UserEmail{}
 	err = UserEmail_c.FindOne(query, userEmail, nil)
 	if err != nil {
@@ -68,7 +62,7 @@ func getUserEmailCore(query bson.M, updateNanoTS types.NanoTS) (userEmail *UserE
 		return userEmail, nil
 	}
 
-	//to remove query.
+	// to remove query.
 	err = UserEmail_c.Remove(query)
 	if err != nil {
 		return nil, err
@@ -93,7 +87,7 @@ func CreateUserEmail(userID bbs.UUserID, email string, updateNanoTS types.NanoTS
 		return nil
 	}
 
-	//check duplicate
+	// check duplicate
 	if createErr != nil {
 		return createErr
 	}
@@ -125,7 +119,6 @@ func CreateUserEmail(userID bbs.UUserID, email string, updateNanoTS types.NanoTS
 }
 
 func UpdateUserEmailIsSet(userID bbs.UUserID, email string, isSet bool, updateNanoTS types.NanoTS) (err error) {
-
 	query := bson.M{
 		USER_EMAIL_USER_ID_b: userID,
 		USER_EMAIL_EMAIL_b:   email,

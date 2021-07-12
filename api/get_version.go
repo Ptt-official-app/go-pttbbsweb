@@ -22,7 +22,6 @@ func GetVersionWrapper(c *gin.Context) {
 }
 
 func GetVersion(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	url := pttbbsapi.GET_VERSION_R
 
 	var result_b *pttbbsapi.GetVersionResult

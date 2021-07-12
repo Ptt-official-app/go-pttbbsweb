@@ -111,7 +111,6 @@ func TestLoadGeneralArticles(t *testing.T) {
 			if gotStatusCode != tt.expectedStatusCode {
 				t.Errorf("LoadGeneralArticles() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
-
 		})
 	}
 	wg.Wait()

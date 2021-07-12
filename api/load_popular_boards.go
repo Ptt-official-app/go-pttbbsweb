@@ -21,8 +21,7 @@ func LoadPopularBoardsWrapper(c *gin.Context) {
 }
 
 func LoadPopularBoards(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
-	//get data
+	// get data
 	var result_b *pttbbsapi.LoadHotBoardsResult
 
 	url := pttbbsapi.LOAD_HOT_BOARDS_R
@@ -31,14 +30,14 @@ func LoadPopularBoards(remoteAddr string, userID bbs.UUserID, params interface{}
 		return nil, statusCode, err
 	}
 
-	//update to db
+	// update to db
 	updateNanoTS := types.NowNanoTS()
 	boardSummaries_db, userBoardInfoMap, err := deserializeBoardsAndUpdateDB(userID, result_b.Boards, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}
 
-	//check isRead
+	// check isRead
 	userBoardInfoMap, err = checkUserReadBoard(userID, userBoardInfoMap, boardSummaries_db)
 	if err != nil {
 		return nil, 500, err
@@ -47,11 +46,9 @@ func LoadPopularBoards(remoteAddr string, userID bbs.UUserID, params interface{}
 	r := NewLoadPopularBoardsResult(boardSummaries_db, userBoardInfoMap)
 
 	return r, 200, nil
-
 }
 
 func NewLoadPopularBoardsResult(boardSummaries_db []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo) *LoadPopularBoardsResult {
-
 	theList := make([]*apitypes.BoardSummary, len(boardSummaries_db))
 	for i, each_db := range boardSummaries_db {
 		userBoardInfo := userBoardInfoMap[each_db.BBoardID]

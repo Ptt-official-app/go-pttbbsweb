@@ -7,7 +7,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 )
 
-//TryLock
+// TryLock
 func TryLock(key string, expireTSDuration time.Duration) (err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), REDIS_TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {
@@ -31,7 +31,7 @@ func TryLock(key string, expireTSDuration time.Duration) (err error) {
 	return nil
 }
 
-//Unlock
+// Unlock
 func Unlock(key string) (err error) {
 	ctx, cancel := context.WithTimeout(context.Background(), REDIS_TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {

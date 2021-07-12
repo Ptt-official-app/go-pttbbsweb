@@ -127,7 +127,7 @@ func TestGetArticleDetail(t *testing.T) {
 		Class:     "問題",
 	}
 	c := &gin.Context{}
-	//c.Request = &http.Request{URL: &url.URL{Path: "/api/boards/WhoAmI/article/M.1607937174.A.081"}}
+	// c.Request = &http.Request{URL: &url.URL{Path: "/api/boards/WhoAmI/article/M.1607937174.A.081"}}
 	type args struct {
 		remoteAddr string
 		userID     bbs.UUserID

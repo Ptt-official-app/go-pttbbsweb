@@ -8,9 +8,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
-var (
-	User_c *db.Collection
-)
+var User_c *db.Collection
 
 type User struct {
 	Version  int         `bson:"version"`
@@ -26,7 +24,7 @@ type User struct {
 	Firstlogin   types.NanoTS  `bson:"first_login_nano_ts"`
 	Lastlogin    types.NanoTS  `bson:"last_login_nano_ts"` /* 考慮透過 db-max, 但是可能在拉 user-detail 時會花很多時間. */
 	LastIP       string        `bson:"last_ip"`
-	LastHost     string        `bson:"last_host"` //last-ip 的中文呈現, 外國則為國家.
+	LastHost     string        `bson:"last_host"` // last-ip 的中文呈現, 外國則為國家.
 
 	Money    int    `bson:"money"`
 	PttEmail string `bson:"pttemail"`
@@ -80,14 +78,12 @@ type User struct {
 	UserLevel2    ptttype.PERM2 `bson:"perm2"`
 	UpdateNanoTS2 types.NanoTS  `bson:"update_nano_ts2"`
 
-	//NFriend int `bson:"n_friend"` /* 需要透過 db-count */
+	// NFriend int `bson:"n_friend"` /* 需要透過 db-count */
 	Avatar       []byte       `bson:"avatar"`
 	AvatarNanoTS types.NanoTS `bson:"avatar_nano_ts"`
 }
 
-var (
-	EMPTY_USER = &User{}
-)
+var EMPTY_USER = &User{}
 
 var (
 	USER_USER_ID_b  = getBSONName(EMPTY_USER, "UserID")
@@ -187,6 +183,4 @@ type UserQuery struct {
 	IsDeleted interface{} `bson:"deleted,omitempty"`
 }
 
-var (
-	EMPTY_USER_QUERY = &UserQuery{}
-)
+var EMPTY_USER_QUERY = &UserQuery{}

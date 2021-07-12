@@ -32,7 +32,7 @@ func tryUpdateFirstComments(
 		return err
 	}
 
-	//remove old first comments.
+	// remove old first comments.
 	return nil
 }
 
@@ -42,6 +42,6 @@ func tryUpdateComments(comments []*schema.Comment, updateNanoTS types.NanoTS) (e
 		return err
 	}
 
-	//remove old first comments.
+	// remove old first comments.
 	return nil
 }

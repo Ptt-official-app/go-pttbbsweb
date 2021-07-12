@@ -28,7 +28,7 @@ func initTest15() {
 	logrus.Infof("initTest15: testContentAll15: %v testContent15: %v testSignature15: %v testComment15: %v", len(testContentAll15), len(testContent15), len(testSignature15), len(testComment15))
 
 	testContent15Big5 = [][]*types.Rune{
-		{ //0
+		{ // 0
 			{
 
 				Big5:   []byte("\xa7@\xaa\xcc: AAstar (\xa6\xd1\xad\xf4\xa4@\xaaT) \xac\xdd\xaaO: NBA"),
@@ -37,7 +37,7 @@ func initTest15() {
 				DBCS:   []byte("\xa7@\xaa\xcc: AAstar (\xa6\xd1\xad\xf4\xa4@\xaaT) \xac\xdd\xaaO: NBA\r"),
 			},
 		},
-		{ //1
+		{ // 1
 			{
 
 				Big5:   []byte("\xbc\xd0\xc3D: [\xc2\xe0\xbf\xfd][\xbc\xc6\xbe\xda] \xc0\xb0\xbe\xe3\xb2z\xa4F\xa4@\xa4UMJ\xabO\xab\xf9\xaa\xba\xa4E\xa4Q\xb6\xb5NBA\xb2\xc4\xa4@"),
@@ -46,7 +46,7 @@ func initTest15() {
 				DBCS:   []byte("\xbc\xd0\xc3D: [\xc2\xe0\xbf\xfd][\xbc\xc6\xbe\xda] \xc0\xb0\xbe\xe3\xb2z\xa4F\xa4@\xa4UMJ\xabO\xab\xf9\xaa\xba\xa4E\xa4Q\xb6\xb5NBA\xb2\xc4\xa4@\r"),
 			},
 		},
-		{ //2
+		{ // 2
 			{
 
 				Big5:   []byte("\xae\xc9\xb6\xa1: Thu Jun 23 12:14:48 2016"),
@@ -55,14 +55,14 @@ func initTest15() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Thu Jun 23 12:14:48 2016\r"),
 			},
 		},
-		{ //3
+		{ // 3
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //4
+		{ // 4
 			{
 
 				Big5:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb AIR_JORDAN \xac\xdd\xaaO #19UFg6e0 ]"),
@@ -71,14 +71,14 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb AIR_JORDAN \xac\xdd\xaaO #19UFg6e0 ]\r"),
 			},
 		},
-		{ //5
+		{ // 5
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //6
+		{ // 6
 			{
 
 				Big5:   []byte("\xa7@\xaa\xcc: hate2004 (\xaf\xac\xa7A\xa6\xf2\xbd\xcf\xa4\xe9\xa7\xd6\xbc\xd6) \xac\xdd\xaaO: AIR_JORDAN"),
@@ -87,7 +87,7 @@ func initTest15() {
 				DBCS:   []byte("\xa7@\xaa\xcc: hate2004 (\xaf\xac\xa7A\xa6\xf2\xbd\xcf\xa4\xe9\xa7\xd6\xbc\xd6) \xac\xdd\xaaO: AIR_JORDAN\r"),
 			},
 		},
-		{ //7
+		{ // 7
 			{
 
 				Big5:   []byte("\xbc\xd0\xc3D: [\xc2\xe0\xbf\xfd][\xbc\xc6\xbe\xda] \xc0\xb0\xbe\xe3\xb2z\xa4F\xa4@\xa4UMJ\xabO\xab\xf9\xaa\xba\xa4E\xa4Q\xb6\xb5NBA\xb2\xc4\xa4@"),
@@ -96,7 +96,7 @@ func initTest15() {
 				DBCS:   []byte("\xbc\xd0\xc3D: [\xc2\xe0\xbf\xfd][\xbc\xc6\xbe\xda] \xc0\xb0\xbe\xe3\xb2z\xa4F\xa4@\xa4UMJ\xabO\xab\xf9\xaa\xba\xa4E\xa4Q\xb6\xb5NBA\xb2\xc4\xa4@\r"),
 			},
 		},
-		{ //8
+		{ // 8
 			{
 
 				Big5:   []byte("\xae\xc9\xb6\xa1: Fri Jan 23 07:00:21 2009"),
@@ -105,14 +105,14 @@ func initTest15() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Fri Jan 23 07:00:21 2009\r"),
 			},
 		},
-		{ //9
+		{ // 9
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //10
+		{ // 10
 			{
 
 				Big5:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb NBA \xac\xdd\xaaO]"),
@@ -121,14 +121,14 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb NBA \xac\xdd\xaaO]\r"),
 			},
 		},
-		{ //11
+		{ // 11
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //12
+		{ // 12
 			{
 
 				Big5:   []byte("\xa7@\xaa\xcc: sk2g (\xb0\xb2\xafZ\xa5N\xa5\xac\xa5\xac) \xac\xdd\xaaO: NBA"),
@@ -137,7 +137,7 @@ func initTest15() {
 				DBCS:   []byte("\xa7@\xaa\xcc: sk2g (\xb0\xb2\xafZ\xa5N\xa5\xac\xa5\xac) \xac\xdd\xaaO: NBA\r"),
 			},
 		},
-		{ //13
+		{ // 13
 			{
 
 				Big5:   []byte("\xbc\xd0\xc3D: [\xbc\xc6\xbe\xda] MJ\xabO\xab\xf9\xaa\xba\xa4E\xa4Q\xb6\xb5NBA\xbe\xfa\xa5v\xb2\xc4\xa4@\xb0O\xbf\xfd"),
@@ -146,7 +146,7 @@ func initTest15() {
 				DBCS:   []byte("\xbc\xd0\xc3D: [\xbc\xc6\xbe\xda] MJ\xabO\xab\xf9\xaa\xba\xa4E\xa4Q\xb6\xb5NBA\xbe\xfa\xa5v\xb2\xc4\xa4@\xb0O\xbf\xfd\r"),
 			},
 		},
-		{ //14
+		{ // 14
 			{
 
 				Big5:   []byte("\xae\xc9\xb6\xa1: Thu Jan 22 23:34:14 2009"),
@@ -155,14 +155,14 @@ func initTest15() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Thu Jan 22 23:34:14 2009\r"),
 			},
 		},
-		{ //15
+		{ // 15
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //16
+		{ // 16
 			{
 
 				Big5:   []byte("\xa4p\xa7\xcc\xa4j\xb7\xa7\xb4\xc0\xb3o\xa6\xec\xa4j\xa4j\xbe\xe3\xb2z\xa4@\xa4U"),
@@ -171,7 +171,7 @@ func initTest15() {
 				DBCS:   []byte("\xa4p\xa7\xcc\xa4j\xb7\xa7\xb4\xc0\xb3o\xa6\xec\xa4j\xa4j\xbe\xe3\xb2z\xa4@\xa4U\r"),
 			},
 		},
-		{ //17
+		{ // 17
 			{
 
 				Big5:   []byte("\xa1\xb0 \xa4\xde\xadz\xa1mLaban (\xb0\xc7\xa5\xbb)\xa1n\xa4\xa7\xbb\xca\xa8\xa5\xa1G"),
@@ -180,7 +180,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 \xa4\xde\xadz\xa1mLaban (\xb0\xc7\xa5\xbb)\xa1n\xa4\xa7\xbb\xca\xa8\xa5\xa1G\r"),
 			},
 		},
-		{ //18
+		{ // 18
 			{
 
 				Big5:   []byte("\xb1`\xb3W\xc1\xc9\xb0O\xbf\xfd\xa1G"),
@@ -194,7 +194,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //19
+		{ // 19
 			{
 
 				Big5:   []byte("1.\xc2\xbe\xb7~\xa5\xcd\xb2P\xb3\xf5\xa7\xa130.123\xa4\xc0\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C"),
@@ -203,7 +203,7 @@ func initTest15() {
 				DBCS:   []byte("1.\xc2\xbe\xb7~\xa5\xcd\xb2P\xb3\xf5\xa7\xa130.123\xa4\xc0\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C\r"),
 			},
 		},
-		{ //20
+		{ // 20
 			{
 
 				Big5:   []byte(" "),
@@ -224,14 +224,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //22
+		{ // 22
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //23
+		{ // 23
 			{
 
 				Big5:   []byte("2.\xad\xd3\xa4H10\xa6\xb8\xb1o\xa4\xc0\xa4\xfd\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C"),
@@ -240,14 +240,14 @@ func initTest15() {
 				DBCS:   []byte("2.\xad\xd3\xa4H10\xa6\xb8\xb1o\xa4\xc0\xa4\xfd\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C\r"),
 			},
 		},
-		{ //24
+		{ // 24
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //25
+		{ // 25
 			{
 
 				Big5:   []byte("3.\xa5\xad\xa4FChamberlain\xb3s\xc4\xf2\xa4C\xa6\xb8\xb1o\xa4\xc0\xa4\xfd\xac\xf6\xbf\xfd\xa1C"),
@@ -256,7 +256,7 @@ func initTest15() {
 				DBCS:   []byte("3.\xa5\xad\xa4FChamberlain\xb3s\xc4\xf2\xa4C\xa6\xb8\xb1o\xa4\xc0\xa4\xfd\xac\xf6\xbf\xfd\xa1C\r"),
 			},
 		},
-		{ //26
+		{ // 26
 			{
 
 				Big5:   []byte(" "),
@@ -277,14 +277,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //27
+		{ // 27
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //28
+		{ // 28
 			{
 
 				Big5:   []byte("4.\xb3s\xc4\xf2866\xb3\xf5\xa4\xf1\xc1\xc9\xb1o\xa4\xc0\xb6W\xb9L\xa8\xe2\xa6\xec\xbc\xc6\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C"),
@@ -293,14 +293,14 @@ func initTest15() {
 				DBCS:   []byte("4.\xb3s\xc4\xf2866\xb3\xf5\xa4\xf1\xc1\xc9\xb1o\xa4\xc0\xb6W\xb9L\xa8\xe2\xa6\xec\xbc\xc6\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C\r"),
 			},
 		},
-		{ //29
+		{ // 29
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //30
+		{ // 30
 			{
 
 				Big5:   []byte("5.\xabO\xab\xf9\xb3\xe6\xb8`\xbb@\xb2y\xa9R\xa4\xa4NBA\xb3\xcc\xb0\xaa\xb0O\xbf\xfd14\xa6\xb8\xa1C"),
@@ -309,7 +309,7 @@ func initTest15() {
 				DBCS:   []byte("5.\xabO\xab\xf9\xb3\xe6\xb8`\xbb@\xb2y\xa9R\xa4\xa4NBA\xb3\xcc\xb0\xaa\xb0O\xbf\xfd14\xa6\xb8\xa1C\r"),
 			},
 		},
-		{ //31
+		{ // 31
 			{
 
 				Big5:   []byte(" "),
@@ -325,7 +325,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[32m\xa1]\xb5\xf9\xa1G\xa6\xb3\xa8\xe2\xa6\xb8,\xa4@\xa6\xb8\xacO1989\xa6~11\xa4\xeb15\xa4\xe9\xa1A\xb9\xefUtah Jazz\xb3\xe6\xb8`\xbb@\xa4\xa414\xb2y\xa1A\r"),
 			},
 		},
-		{ //32
+		{ // 32
 			{
 
 				Big5:   []byte("   \xa5t\xa4@\xa6\xb8\xacO1993\xa6~\xb9\xefMiami Heat\xa1C\xa1^"),
@@ -339,14 +339,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //32
+		{ // 32
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //33
+		{ // 33
 			{
 
 				Big5:   []byte("6.\xabO\xab\xf9\xb5\xdb\xb3\xe6\xb8`\xbb@\xb2y\xa6\xb8\xbc\xc6\xb3\xcc\xb0\xaa16\xa6\xb8\xa1C"),
@@ -355,7 +355,7 @@ func initTest15() {
 				DBCS:   []byte("6.\xabO\xab\xf9\xb5\xdb\xb3\xe6\xb8`\xbb@\xb2y\xa6\xb8\xbc\xc6\xb3\xcc\xb0\xaa16\xa6\xb8\xa1C\r"),
 			},
 		},
-		{ //34
+		{ // 34
 			{
 
 				Big5:   []byte(" \xa1]\xb5\xf9:1992\xa6~12\xa4\xeb30\xa4\xe9\xb9\xefMiami Heat\xaa\xba\xb2\xc44\xb8`\xa1AJordan\xa5\xfe\xb3\xf524\xbb@\xb2y\xa1C\xa1^"),
@@ -369,14 +369,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //35
+		{ // 35
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //36
+		{ // 36
 			{
 
 				Big5:   []byte("7.NBA\xbe\xfa\xa5v\xb3\xcc\xa6h\xaa\xba10\xad\xd3\xc1\xc9\xa9u\xaa\xba\xa7\xeb\xc4x\xa6\xb8\xbc\xc6\xa9M\xa7\xeb\xa4\xa4\xa6\xb8\xbc\xc6\xa7\xa1\xa6CNBA\xbe\xfa\xa5v\xb2\xc4\xa4@\xa6\xec\xa1C"),
@@ -385,14 +385,14 @@ func initTest15() {
 				DBCS:   []byte("7.NBA\xbe\xfa\xa5v\xb3\xcc\xa6h\xaa\xba10\xad\xd3\xc1\xc9\xa9u\xaa\xba\xa7\xeb\xc4x\xa6\xb8\xbc\xc6\xa9M\xa7\xeb\xa4\xa4\xa6\xb8\xbc\xc6\xa7\xa1\xa6CNBA\xbe\xfa\xa5v\xb2\xc4\xa4@\xa6\xec\xa1C\r"),
 			},
 		},
-		{ //39
+		{ // 39
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //38
+		{ // 38
 			{
 
 				Big5:   []byte("8.1987\xa6~\xb9\xefAtlanta Hawks\xa4@\xbe\xd4\xb3\xd0\xa4U\xb3s\xc4\xf2\xb1o23\xa4\xc0\xaa\xbaNBA\xb0O\xbf\xfd\xa1C"),
@@ -401,7 +401,7 @@ func initTest15() {
 				DBCS:   []byte("8.1987\xa6~\xb9\xefAtlanta Hawks\xa4@\xbe\xd4\xb3\xd0\xa4U\xb3s\xc4\xf2\xb1o23\xa4\xc0\xaa\xbaNBA\xb0O\xbf\xfd\xa1C\r"),
 			},
 		},
-		{ //39
+		{ // 39
 			{
 
 				Big5:   []byte(" "),
@@ -417,7 +417,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[32m\xa1]\xb5\xf91:\xb4N\xacO\xa7\xeb\xc4x\xbb@\xb2y\xa5\xfe\xb3\xa1\xa9R\xa4\xa4\xa1A\xa8\xc3\xa5B\xa6b\xb3o\xb4\xc1\xb6\xa1\xa5\xbb\xb6\xa4\xb5L\xa5\xf4\xa6\xf3\xa8\xe4\xa5L\xb2y\xad\xfb\xb1o\xa4\xc0\xa1C\xa1^\r"),
 			},
 		},
-		{ //40
+		{ // 40
 			{
 
 				Big5:   []byte(" "),
@@ -482,7 +482,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\xa1^\r"),
 			},
 		},
-		{ //41
+		{ // 41
 			{
 
 				Big5:   []byte(" "),
@@ -559,14 +559,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //44
+		{ // 44
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //45
+		{ // 45
 			{
 
 				Big5:   []byte("19.10\xa6\xb8\xa4J\xbf\xefNBA\xa6~\xab\xd7\xb2\xc4\xa4@\xb6\xa4\xa1C"),
@@ -575,7 +575,7 @@ func initTest15() {
 				DBCS:   []byte("19.10\xa6\xb8\xa4J\xbf\xefNBA\xa6~\xab\xd7\xb2\xc4\xa4@\xb6\xa4\xa1C\r"),
 			},
 		},
-		{ //46
+		{ // 46
 			{
 
 				Big5:   []byte("   (\xb5\xf9:1986-87\xa6\xdc1992-93\xc1\xc9\xa9u, 1995-96\xa6\xdc1997-98\xc1\xc9\xa9u\xa1C)"),
@@ -589,14 +589,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //47
+		{ // 47
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //48
+		{ // 48
 			{
 
 				Big5:   []byte("20.87-88\xc1\xc9\xa9u\xaa\xfd\xa7\xf0\xa6\xb8\xbc\xc6\xb9F\xa8\xec131\xa6\xb8,\xacO\xab\xe1\xbd\xc3\xaa\xba\xaa\xfd\xa7\xf0\xb0O\xbf\xfd\xa1C"),
@@ -605,7 +605,7 @@ func initTest15() {
 				DBCS:   []byte("20.87-88\xc1\xc9\xa9u\xaa\xfd\xa7\xf0\xa6\xb8\xbc\xc6\xb9F\xa8\xec131\xa6\xb8,\xacO\xab\xe1\xbd\xc3\xaa\xba\xaa\xfd\xa7\xf0\xb0O\xbf\xfd\xa1C\r"),
 			},
 		},
-		{ //49
+		{ // 49
 			{
 
 				Big5:   []byte("  \xa1]\xb5\xf9:\xb3\xe6\xb3\xf5\xb3\xcc\xb0\xaa6\xa6\xb8\xa1A\xc2\xbe\xb7~\xa5\xcd\xb2P\xa6\xb38\xb3\xf5\xa4\xf1\xc1\xc9\xb3\xe6\xb3\xf5\xaa\xfd\xa7\xf05\xa6\xb8\xa5H\xa4W\xa1C\xa1^"),
@@ -619,14 +619,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //50
+		{ // 50
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //51
+		{ // 51
 			{
 
 				Big5:   []byte("39.\xb3\xe6\xa4@\xc1\xc9\xa9u\xa9u\xab\xe1\xc1\xc9\xa5\xad\xa7\xa1\xb3\xcc\xb0\xaa43.7\xa4\xc0\xa1C"),
@@ -635,7 +635,7 @@ func initTest15() {
 				DBCS:   []byte("39.\xb3\xe6\xa4@\xc1\xc9\xa9u\xa9u\xab\xe1\xc1\xc9\xa5\xad\xa7\xa1\xb3\xcc\xb0\xaa43.7\xa4\xc0\xa1C\r"),
 			},
 		},
-		{ //52
+		{ // 52
 			{
 
 				Big5:   []byte("   (\xb5\xf9:1986\xa6~\xa1AJordan\xa6b\xad\xb1\xb9\xef\xb7\xed\xa6~67\xb3\xd3\xa1]\xa5D\xb3\xf540\xb3\xd31\xb1\xd1)\xaa\xba\xc1`\xaba\xadxBoston Celtics"),
@@ -644,7 +644,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[32m   (\xb5\xf9:1986\xa6~\xa1AJordan\xa6b\xad\xb1\xb9\xef\xb7\xed\xa6~67\xb3\xd3\xa1]\xa5D\xb3\xf540\xb3\xd31\xb1\xd1)\xaa\xba\xc1`\xaba\xadxBoston Celtics\r"),
 			},
 		},
-		{ //53
+		{ // 53
 			{
 
 				Big5:   []byte("       \xaa\xba\xa4T\xb3\xf5\xa9u\xab\xe1\xc1\xc9\xa1A\xa4\xc0\xa7O\xae\xb3\xa4U49\xa4\xc0\xa1A63\xa4\xc0\xa1A19\xa4\xc0\xa1A\xb3\xf5\xa7\xa143.7\xa4\xc0\xacO\xb3\xe6\xa4@\xc1\xc9\xa9u\xa9u\xab\xe1\xc1\xc9\xb3\xf5\xa7\xa1"),
@@ -653,7 +653,7 @@ func initTest15() {
 				DBCS:   []byte("       \xaa\xba\xa4T\xb3\xf5\xa9u\xab\xe1\xc1\xc9\xa1A\xa4\xc0\xa7O\xae\xb3\xa4U49\xa4\xc0\xa1A63\xa4\xc0\xa1A19\xa4\xc0\xa1A\xb3\xf5\xa7\xa143.7\xa4\xc0\xacO\xb3\xe6\xa4@\xc1\xc9\xa9u\xa9u\xab\xe1\xc1\xc9\xb3\xf5\xa7\xa1\r"),
 			},
 		},
-		{ //54
+		{ // 54
 			{
 
 				Big5:   []byte("       \xb3\xcc\xb0\xaa\xb0O\xbf\xfd\xa1A\xbe\xfa\xa5v\xa4W\xa5u\xa6\xb3\xa8\xe2\xad\xd3\xa4H\xa6b\xa9u\xab\xe1\xc1\xc9\xb3\xf5\xa7\xa140\xa4\xc0\xa5H\xa4W\xa1A\xa5t\xa4@\xa6\xec\xacOJerry West"),
@@ -662,7 +662,7 @@ func initTest15() {
 				DBCS:   []byte("       \xb3\xcc\xb0\xaa\xb0O\xbf\xfd\xa1A\xbe\xfa\xa5v\xa4W\xa5u\xa6\xb3\xa8\xe2\xad\xd3\xa4H\xa6b\xa9u\xab\xe1\xc1\xc9\xb3\xf5\xa7\xa140\xa4\xc0\xa5H\xa4W\xa1A\xa5t\xa4@\xa6\xec\xacOJerry West\r"),
 			},
 		},
-		{ //55
+		{ // 55
 			{
 
 				Big5:   []byte("      \xa1]\xb3\xf5\xa7\xa140.6\xa4\xc0\xa1^)"),
@@ -676,14 +676,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //56
+		{ // 56
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //57
+		{ // 57
 			{
 
 				Big5:   []byte("40.\xa9u\xab\xe1\xc1\xc9\xb3\xe6\xb3\xf5\xb1o\xa4\xc063\xa4\xc0\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C"),
@@ -692,14 +692,14 @@ func initTest15() {
 				DBCS:   []byte("40.\xa9u\xab\xe1\xc1\xc9\xb3\xe6\xb3\xf5\xb1o\xa4\xc063\xa4\xc0\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C\r"),
 			},
 		},
-		{ //58
+		{ // 58
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //59
+		{ // 59
 			{
 
 				Big5:   []byte("41.\xa9u\xab\xe1\xc1\xc9\xb0\xdf\xa4@\xa4@\xad\xd3\xae\xb3\xb9Lback to back 50\xa4\xc0\xaa\xba\xb2y\xad\xfb\xa1C"),
@@ -708,7 +708,7 @@ func initTest15() {
 				DBCS:   []byte("41.\xa9u\xab\xe1\xc1\xc9\xb0\xdf\xa4@\xa4@\xad\xd3\xae\xb3\xb9Lback to back 50\xa4\xc0\xaa\xba\xb2y\xad\xfb\xa1C\r"),
 			},
 		},
-		{ //60
+		{ // 60
 			{
 
 				Big5:   []byte("   (\xb5\xf9:1988\xa6~\xa9u\xab\xe1\xc1\xc9\xa1AJordan\xa6b\xb9\xefCleveland Cavaliers\xaa\xba\xa4\xf1\xc1\xc9\xa4\xa4\xa1A\xb2\xc4\xa4@\xb3\xf550\xa4\xc0\xa1A"),
@@ -717,7 +717,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[32m   (\xb5\xf9:1988\xa6~\xa9u\xab\xe1\xc1\xc9\xa1AJordan\xa6b\xb9\xefCleveland Cavaliers\xaa\xba\xa4\xf1\xc1\xc9\xa4\xa4\xa1A\xb2\xc4\xa4@\xb3\xf550\xa4\xc0\xa1A\r"),
 			},
 		},
-		{ //61
+		{ // 61
 			{
 
 				Big5:   []byte("       \xb2\xc4\xa4G\xb3\xf555\xa4\xc0\xa1A\xb3s\xc4\xf2\xa8\xe2\xb3\xf5\xae\xb3\xa4U50\xa4\xc0\xa1A\xbe\xfa\xa5v\xa4W\xa5u\xa6\xb3Jordan\xa1C)"),
@@ -731,14 +731,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //62
+		{ // 62
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //63
+		{ // 63
 			{
 
 				Big5:   []byte("42.\xa9u\xab\xe1\xc1\xc9\xb0\xdf\xa4@\xa4@\xad\xd3\xae\xb3\xb9L\xb3s\xc4\xf23\xb3\xf545\xa4\xc0\xaa\xba\xb2y\xad\xfb\xa1C"),
@@ -747,7 +747,7 @@ func initTest15() {
 				DBCS:   []byte("42.\xa9u\xab\xe1\xc1\xc9\xb0\xdf\xa4@\xa4@\xad\xd3\xae\xb3\xb9L\xb3s\xc4\xf23\xb3\xf545\xa4\xc0\xaa\xba\xb2y\xad\xfb\xa1C\r"),
 			},
 		},
-		{ //64
+		{ // 64
 			{
 
 				Big5:   []byte("   (\xb5\xf91:1990\xa6~\xa6b\xb9\xefPhiladelphia 76ers\xaa\xba\xa5b\xa8M\xc1\xc9\xa4\xa4\xa1AJordan5\xb3\xf5\xa4\xf1\xc1\xc9\xb3\xf5\xa7\xa1\xae\xb3\xa4U43.0\xa4\xc0"),
@@ -756,7 +756,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[32m   (\xb5\xf91:1990\xa6~\xa6b\xb9\xefPhiladelphia 76ers\xaa\xba\xa5b\xa8M\xc1\xc9\xa4\xa4\xa1AJordan5\xb3\xf5\xa4\xf1\xc1\xc9\xb3\xf5\xa7\xa1\xae\xb3\xa4U43.0\xa4\xc0\r"),
 			},
 		},
-		{ //65
+		{ // 65
 			{
 
 				Big5:   []byte("        \xa1A\xa8\xe4\xa4\xa4\xa6b\xb2\xc4\xa4G\xa8\xec\xb2\xc44\xb3\xf5\xa4\xf1\xc1\xc9\xa4\xa4\xa1A\xa4\xc0\xa7O\xb1o\xa8\xec45\xa4\xc0\xa1A49\xa4\xc0\xa1A45\xa4\xc0\xb3s\xc4\xf2\xa4T\xb3\xf5\xa4\xf1\xc1\xc9\xb6W\xb9L45+\xa1A"),
@@ -765,7 +765,7 @@ func initTest15() {
 				DBCS:   []byte("        \xa1A\xa8\xe4\xa4\xa4\xa6b\xb2\xc4\xa4G\xa8\xec\xb2\xc44\xb3\xf5\xa4\xf1\xc1\xc9\xa4\xa4\xa1A\xa4\xc0\xa7O\xb1o\xa8\xec45\xa4\xc0\xa1A49\xa4\xc0\xa1A45\xa4\xc0\xb3s\xc4\xf2\xa4T\xb3\xf5\xa4\xf1\xc1\xc9\xb6W\xb9L45+\xa1A\r"),
 			},
 		},
-		{ //66
+		{ // 66
 			{
 
 				Big5:   []byte("        \xbe\xfa\xa5v\xa4W\xa5u\xa6\xb3Jordan\xa1C)"),
@@ -774,14 +774,14 @@ func initTest15() {
 				DBCS:   []byte("        \xbe\xfa\xa5v\xa4W\xa5u\xa6\xb3Jordan\xa1C)\r"),
 			},
 		},
-		{ //67
+		{ // 67
 			{
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //68
+		{ // 68
 			{
 
 				Big5:   []byte("  \xa1]\xb5\xf92:Jordan\xc1\xd9\xa6\xb3\xa6\xb8\xb3s\xc4\xf2\xb1o\xa8\xec44\xa4\xc0\xa1A50\xa4\xc0\xa9M44\xa4\xc0\xa1AIverson\xb4\xbf\xb8g\xb3s\xc4\xf2\xb1o\xa8\xec46\xa4\xc0\xa1A44\xa4\xc0\xa9M"),
@@ -790,7 +790,7 @@ func initTest15() {
 				DBCS:   []byte("  \xa1]\xb5\xf92:Jordan\xc1\xd9\xa6\xb3\xa6\xb8\xb3s\xc4\xf2\xb1o\xa8\xec44\xa4\xc0\xa1A50\xa4\xc0\xa9M44\xa4\xc0\xa1AIverson\xb4\xbf\xb8g\xb3s\xc4\xf2\xb1o\xa8\xec46\xa4\xc0\xa1A44\xa4\xc0\xa9M\r"),
 			},
 		},
-		{ //69
+		{ // 69
 			{
 
 				Big5:   []byte("        48\xa4\xc0\xa1A\xb3\xa3\xa5u\xaet\xa4@\xc2I\xa1C\xa1^"),
@@ -804,14 +804,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //70
+		{ // 70
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //69
+		{ // 69
 			{
 
 				Big5:   []byte("90.\xb0\xdf\xa4@\xaf\xe0\xc5\xfd\xc1p\xb7\xf9\xaf}\xa8\xd2\xa7\xe2\xa4w\xb8g\xb0h\xa7\xd0\xaa\xba\xb2y\xa6\xe7"),
@@ -834,7 +834,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\xad\xab\xb7s\xac\xef\xa6^\xa1C\r"),
 			},
 		},
-		{ //70
+		{ // 70
 			{
 
 				Big5:   []byte("   (\xb5\xf9:\xa4U\xad\xb1\xa4w\xa6\xb3\xaa\xa9\xa4\xcd\xb8\xc9\xa5R\xa4\xa3\xa5u\xa5L\xa4@\xa4H\xa4F\xa1AMagic Johnson 1996\xa6~\xb4_\xa5X\xae\xc9\xa4]\xacO\xa1C)"),
@@ -848,14 +848,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //71
+		{ // 71
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //72
+		{ // 72
 			{
 
 				Big5:   []byte("91.MJ\xacO\xb0\xdf\xa4@\xa6b\xa5L\xa4\xa3\xb4\xbf\xae\xc4\xa4O\xaa\xba\xb2y\xb6\xa4\xb3Q\xb1\xbe\xa4W\xb2y\xa6\xe7\xa6b\xb2y\xc0]("),
@@ -878,14 +878,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\xaa\xba\xb2y\xc0])\xaa\xba\xb2y\xad\xfb~\r"),
 			},
 		},
-		{ //73
+		{ // 73
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //74
+		{ // 74
 			{
 
 				Big5:   []byte("92.Jordan\xc1\xd9\xacO\xb0\xdf\xa4@\xa5N\xaa\xed\xac\xfc\xb0\xea\xa4j\xbe\xc7\xc4x\xb2y\xb6\xa4\xa9M\xac\xfc\xb0\xea\xb9\xda\xa4\xa7\xb6\xa4\xa4\xc0\xa7O\xc0\xf2\xb1o\xb6\xf8\xb9B\xb7|\xaa\xf7\xb5P\xaa\xba\xb2y\xad\xfb~\xa6\xb9\xb0O\xbf\xfd\xaa`\xa9w"),
@@ -894,7 +894,7 @@ func initTest15() {
 				DBCS:   []byte("92.Jordan\xc1\xd9\xacO\xb0\xdf\xa4@\xa5N\xaa\xed\xac\xfc\xb0\xea\xa4j\xbe\xc7\xc4x\xb2y\xb6\xa4\xa9M\xac\xfc\xb0\xea\xb9\xda\xa4\xa7\xb6\xa4\xa4\xc0\xa7O\xc0\xf2\xb1o\xb6\xf8\xb9B\xb7|\xaa\xf7\xb5P\xaa\xba\xb2y\xad\xfb~\xa6\xb9\xb0O\xbf\xfd\xaa`\xa9w\r"),
 			},
 		},
-		{ //77
+		{ // 77
 			{
 
 				Big5:   []byte("   \xacO\xb5\xb4\xab\xe1\xaa\xba\xa4F,\xa6]\xac\xb0\xb2{\xa6b\xac\xfc\xb0\xea\xa4\xa3\xa5i\xaf\xe0\xa6A\xac\xa3\xa4j\xbe\xc7\xb6\xa4\xa5\xee\xb0\xd1\xa5[\xb6\xf8\xb9B\xb7|\xa4F~"),
@@ -903,7 +903,7 @@ func initTest15() {
 				DBCS:   []byte("   \xacO\xb5\xb4\xab\xe1\xaa\xba\xa4F,\xa6]\xac\xb0\xb2{\xa6b\xac\xfc\xb0\xea\xa4\xa3\xa5i\xaf\xe0\xa6A\xac\xa3\xa4j\xbe\xc7\xb6\xa4\xa5\xee\xb0\xd1\xa5[\xb6\xf8\xb9B\xb7|\xa4F~\r"),
 			},
 		},
-		{ //78
+		{ // 78
 			{
 
 				Big5:   []byte("   (\xb5\xf9:\xa4w\xa6\xb3\xaa\xa9\xa4\xcd\xb8\xc9\xa5R\xa4\xa3\xa5uJordan\xa4@\xa4H\xa1APatrick Ewing\xb8\xf2Chris Mullin\xb3\xa3\xb8\xf2Jordan\xa4@\xb0_\xa1C)"),
@@ -917,14 +917,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //79
+		{ // 79
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //80
+		{ // 80
 			{
 
 				Big5:   []byte("93.Jordan\xacO\xbe\xfa\xa5v\xa4W\xb2\xc4\xa4@\xad\xd3\xaf\xe0\xa6b\xb4_\xa5X\xab\xe1\xc1\xd9\xb1a\xbb\xe2\xb2y\xb6\xa4\xb3s\xb1o3\xa6\xb8NBA\xc1`\xaba\xadx\xaa\xba\xa4H\xa1C"),
@@ -933,14 +933,14 @@ func initTest15() {
 				DBCS:   []byte("93.Jordan\xacO\xbe\xfa\xa5v\xa4W\xb2\xc4\xa4@\xad\xd3\xaf\xe0\xa6b\xb4_\xa5X\xab\xe1\xc1\xd9\xb1a\xbb\xe2\xb2y\xb6\xa4\xb3s\xb1o3\xa6\xb8NBA\xc1`\xaba\xadx\xaa\xba\xa4H\xa1C\r"),
 			},
 		},
-		{ //81
+		{ // 81
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //82
+		{ // 82
 			{
 
 				Big5:   []byte("94.02\xa6~\xb4_\xa5X\xae\xc9\xb1N\xa8\xba\xa6~\xaa\xba\xa9\xd2\xa6\xb3\xa4u\xb8\xea\xa1]\xa4j\xac\xf9100\xb8U\xac\xfc\xa4\xb8\xa1^\xae\xbd\xb5\xb9911\xa8\xfc\xc3\xf8\xaa\xcc\xa1A\xacONBA\xa5v\xa4W\xb0\xdf\xa4@\xa4@\xad\xd3"),
@@ -949,7 +949,7 @@ func initTest15() {
 				DBCS:   []byte("94.02\xa6~\xb4_\xa5X\xae\xc9\xb1N\xa8\xba\xa6~\xaa\xba\xa9\xd2\xa6\xb3\xa4u\xb8\xea\xa1]\xa4j\xac\xf9100\xb8U\xac\xfc\xa4\xb8\xa1^\xae\xbd\xb5\xb9911\xa8\xfc\xc3\xf8\xaa\xcc\xa1A\xacONBA\xa5v\xa4W\xb0\xdf\xa4@\xa4@\xad\xd3\r"),
 			},
 		},
-		{ //83
+		{ // 83
 			{
 
 				Big5:   []byte("   \xae\xbd\xa6\xdb\xa4v\xa5\xfe\xa6~\xa4u\xb8\xea\xaa\xba\xa1C"),
@@ -958,14 +958,14 @@ func initTest15() {
 				DBCS:   []byte("   \xae\xbd\xa6\xdb\xa4v\xa5\xfe\xa6~\xa4u\xb8\xea\xaa\xba\xa1C\r"),
 			},
 		},
-		{ //84
+		{ // 84
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //85
+		{ // 85
 			{
 
 				Big5:   []byte(": ------------------------------------------------------------------------------"),
@@ -974,14 +974,14 @@ func initTest15() {
 				DBCS:   []byte(": ------------------------------------------------------------------------------\r"),
 			},
 		},
-		{ //86
+		{ // 86
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //87
+		{ // 87
 			{
 
 				Big5:   []byte(" "),
@@ -1002,14 +1002,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //88
+		{ // 88
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //89
+		{ // 89
 			{
 
 				Big5:   []byte("--"),
@@ -1018,7 +1018,7 @@ func initTest15() {
 				DBCS:   []byte("--\r"),
 			},
 		},
-		{ //90
+		{ // 90
 			{
 
 				Big5:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc)"),
@@ -1027,7 +1027,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc)\r"),
 			},
 		},
-		{ //91
+		{ // 91
 			{
 
 				Big5:   []byte("\xa1\xbb From: 61.228.169.158"),
@@ -1036,7 +1036,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xbb From: 61.228.169.158\r"),
 			},
 		},
-		{ //92
+		{ // 92
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1066,7 +1066,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:35\r"),
 			},
 		},
-		{ //93
+		{ // 93
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1096,7 +1096,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:36\r"),
 			},
 		},
-		{ //92
+		{ // 92
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1126,7 +1126,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:37\r"),
 			},
 		},
-		{ //93
+		{ // 93
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1156,7 +1156,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:38\r"),
 			},
 		},
-		{ //97
+		{ // 97
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1186,7 +1186,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:39\r"),
 			},
 		},
-		{ //98
+		{ // 98
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -1216,7 +1216,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:44\r"),
 			},
 		},
-		{ //96
+		{ // 96
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1246,7 +1246,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:44\r"),
 			},
 		},
-		{ //100
+		{ // 100
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -1276,7 +1276,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:44\r"),
 			},
 		},
-		{ //101
+		{ // 101
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1306,7 +1306,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:47\r"),
 			},
 		},
-		{ //102
+		{ // 102
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1336,7 +1336,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:49\r"),
 			},
 		},
-		{ //100
+		{ // 100
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -1366,7 +1366,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:15\r"),
 			},
 		},
-		{ //101
+		{ // 101
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1396,7 +1396,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:17\r"),
 			},
 		},
-		{ //106
+		{ // 106
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1426,7 +1426,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:22\r"),
 			},
 		},
-		{ //107
+		{ // 107
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1456,7 +1456,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:22\r"),
 			},
 		},
-		{ //108
+		{ // 108
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1486,7 +1486,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:25\r"),
 			},
 		},
-		{ //105
+		{ // 105
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1516,7 +1516,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:25\r"),
 			},
 		},
-		{ //106
+		{ // 106
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -1546,7 +1546,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:26\r"),
 			},
 		},
-		{ //112
+		{ // 112
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1576,7 +1576,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:27\r"),
 			},
 		},
-		{ //108
+		{ // 108
 			{
 
 				Big5:   []byte("\xa1\xb0 \xbds\xbf\xe8: sk2g            \xa8\xd3\xa6\xdb: 61.228.169.158       (01/23 00:40)"),
@@ -1585,7 +1585,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 \xbds\xbf\xe8: sk2g            \xa8\xd3\xa6\xdb: 61.228.169.158       (01/23 00:40)\r"),
 			},
 		},
-		{ //109
+		{ // 109
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1615,7 +1615,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:31\r"),
 			},
 		},
-		{ //115
+		{ // 115
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1645,7 +1645,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:34\r"),
 			},
 		},
-		{ //111
+		{ // 111
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -1675,7 +1675,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:37\r"),
 			},
 		},
-		{ //117
+		{ // 117
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1705,7 +1705,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:47\r"),
 			},
 		},
-		{ //118
+		{ // 118
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -1735,7 +1735,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:49\r"),
 			},
 		},
-		{ //119
+		{ // 119
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1765,7 +1765,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:57\r"),
 			},
 		},
-		{ //120
+		{ // 120
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -1795,7 +1795,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:59\r"),
 			},
 		},
-		{ //121
+		{ // 121
 			{
 
 				Big5:   []byte("\xa1\xb0 \xbds\xbf\xe8: sk2g            \xa8\xd3\xa6\xdb: 61.228.169.158       (01/23 01:00)"),
@@ -1804,7 +1804,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 \xbds\xbf\xe8: sk2g            \xa8\xd3\xa6\xdb: 61.228.169.158       (01/23 01:00)\r"),
 			},
 		},
-		{ //122
+		{ // 122
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1834,7 +1834,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:00\r"),
 			},
 		},
-		{ //123
+		{ // 123
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1864,7 +1864,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:09\r"),
 			},
 		},
-		{ //124
+		{ // 124
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1894,7 +1894,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:12\r"),
 			},
 		},
-		{ //120
+		{ // 120
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -1924,7 +1924,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:12\r"),
 			},
 		},
-		{ //121
+		{ // 121
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -1954,7 +1954,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:25\r"),
 			},
 		},
-		{ //122
+		{ // 122
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -1984,7 +1984,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:27\r"),
 			},
 		},
-		{ //123
+		{ // 123
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -2014,7 +2014,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:32\r"),
 			},
 		},
-		{ //124
+		{ // 124
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -2044,7 +2044,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:35\r"),
 			},
 		},
-		{ //125
+		{ // 125
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2074,7 +2074,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:36\r"),
 			},
 		},
-		{ //126
+		{ // 126
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -2104,7 +2104,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:39\r"),
 			},
 		},
-		{ //127
+		{ // 127
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -2134,7 +2134,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:44\r"),
 			},
 		},
-		{ //128
+		{ // 128
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2164,7 +2164,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:57\r"),
 			},
 		},
-		{ //129
+		{ // 129
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -2194,7 +2194,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:58\r"),
 			},
 		},
-		{ //130
+		{ // 130
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -2224,7 +2224,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:59\r"),
 			},
 		},
-		{ //131
+		{ // 131
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2254,7 +2254,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 02:01\r"),
 			},
 		},
-		{ //132
+		{ // 132
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2284,7 +2284,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 02:13\r"),
 			},
 		},
-		{ //133
+		{ // 133
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2314,7 +2314,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 02:29\r"),
 			},
 		},
-		{ //134
+		{ // 134
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2344,7 +2344,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 02:46\r"),
 			},
 		},
-		{ //135
+		{ // 135
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2374,7 +2374,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 03:36\r"),
 			},
 		},
-		{ //136
+		{ // 136
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2404,7 +2404,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 03:42\r"),
 			},
 		},
-		{ //137
+		{ // 137
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2434,7 +2434,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 04:52\r"),
 			},
 		},
-		{ //138
+		{ // 138
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2464,7 +2464,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 05:25\r"),
 			},
 		},
-		{ //139
+		{ // 139
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -2494,7 +2494,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 05:44\r"),
 			},
 		},
-		{ //140
+		{ // 140
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2524,7 +2524,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 05:45\r"),
 			},
 		},
-		{ //141
+		{ // 141
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2554,7 +2554,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 06:09\r"),
 			},
 		},
-		{ //142
+		{ // 142
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -2584,7 +2584,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 06:11\r"),
 			},
 		},
-		{ //143
+		{ // 143
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2614,7 +2614,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 06:39\r"),
 			},
 		},
-		{ //144
+		{ // 144
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2644,7 +2644,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 06:42\r"),
 			},
 		},
-		{ //145
+		{ // 145
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2674,14 +2674,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 06:53\r"),
 			},
 		},
-		{ //146
+		{ // 146
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //147
+		{ // 147
 			{
 
 				Big5:   []byte("--"),
@@ -2690,7 +2690,7 @@ func initTest15() {
 				DBCS:   []byte("--\r"),
 			},
 		},
-		{ //148
+		{ // 148
 			{
 
 				Big5:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc) "),
@@ -2699,7 +2699,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc) \r"),
 			},
 		},
-		{ //149
+		{ // 149
 			{
 
 				Big5:   []byte("\xa1\xbb From: 61.228.174.209"),
@@ -2708,7 +2708,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xbb From: 61.228.174.209\r"),
 			},
 		},
-		{ //150
+		{ // 150
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2738,7 +2738,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 21:32\r"),
 			},
 		},
-		{ //151
+		{ // 151
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2768,7 +2768,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/29 12:40\r"),
 			},
 		},
-		{ //152
+		{ // 152
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2798,7 +2798,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 02/05 06:23\r"),
 			},
 		},
-		{ //153
+		{ // 153
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2828,7 +2828,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 02/05 06:28\r"),
 			},
 		},
-		{ //154
+		{ // 154
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2858,7 +2858,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 02/12 00:35\r"),
 			},
 		},
-		{ //155
+		{ // 155
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2888,7 +2888,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 03/08 21:12\r"),
 			},
 		},
-		{ //156
+		{ // 156
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2918,7 +2918,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 03/17 00:58\r"),
 			},
 		},
-		{ //157
+		{ // 157
 			{
 
 				Big5:   []byte("\xb1\xc0 "),
@@ -2948,7 +2948,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 04/08 12:01\r"),
 			},
 		},
-		{ //158
+		{ // 158
 			{
 
 				Big5:   []byte("\xa1\xf7 "),
@@ -2981,7 +2981,7 @@ func initTest15() {
 	}
 
 	testContent15Utf8 = [][]*types.Rune{
-		{ //0
+		{ // 0
 			{
 				Utf8:   "作者: AAstar (老哥一枚) 看板: NBA",
 				Big5:   []byte("\xa7@\xaa\xcc: AAstar (\xa6\xd1\xad\xf4\xa4@\xaaT) \xac\xdd\xaaO: NBA"),
@@ -2990,7 +2990,7 @@ func initTest15() {
 				DBCS:   []byte("\xa7@\xaa\xcc: AAstar (\xa6\xd1\xad\xf4\xa4@\xaaT) \xac\xdd\xaaO: NBA\r"),
 			},
 		},
-		{ //1
+		{ // 1
 			{
 				Utf8:   "標題: [轉錄][數據] 幫整理了一下MJ保持的九十項NBA第一",
 				Big5:   []byte("\xbc\xd0\xc3D: [\xc2\xe0\xbf\xfd][\xbc\xc6\xbe\xda] \xc0\xb0\xbe\xe3\xb2z\xa4F\xa4@\xa4UMJ\xabO\xab\xf9\xaa\xba\xa4E\xa4Q\xb6\xb5NBA\xb2\xc4\xa4@"),
@@ -2999,7 +2999,7 @@ func initTest15() {
 				DBCS:   []byte("\xbc\xd0\xc3D: [\xc2\xe0\xbf\xfd][\xbc\xc6\xbe\xda] \xc0\xb0\xbe\xe3\xb2z\xa4F\xa4@\xa4UMJ\xabO\xab\xf9\xaa\xba\xa4E\xa4Q\xb6\xb5NBA\xb2\xc4\xa4@\r"),
 			},
 		},
-		{ //2
+		{ // 2
 			{
 				Utf8:   "時間: Thu Jun 23 12:14:48 2016",
 				Big5:   []byte("\xae\xc9\xb6\xa1: Thu Jun 23 12:14:48 2016"),
@@ -3008,14 +3008,14 @@ func initTest15() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Thu Jun 23 12:14:48 2016\r"),
 			},
 		},
-		{ //3
+		{ // 3
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //4
+		{ // 4
 			{
 				Utf8:   "※ [本文轉錄自 AIR_JORDAN 看板 #19UFg6e0 ]",
 				Big5:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb AIR_JORDAN \xac\xdd\xaaO #19UFg6e0 ]"),
@@ -3024,14 +3024,14 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb AIR_JORDAN \xac\xdd\xaaO #19UFg6e0 ]\r"),
 			},
 		},
-		{ //5
+		{ // 5
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //6
+		{ // 6
 			{
 				Utf8:   "作者: hate2004 (祝你佛誕日快樂) 看板: AIR_JORDAN",
 				Big5:   []byte("\xa7@\xaa\xcc: hate2004 (\xaf\xac\xa7A\xa6\xf2\xbd\xcf\xa4\xe9\xa7\xd6\xbc\xd6) \xac\xdd\xaaO: AIR_JORDAN"),
@@ -3040,7 +3040,7 @@ func initTest15() {
 				DBCS:   []byte("\xa7@\xaa\xcc: hate2004 (\xaf\xac\xa7A\xa6\xf2\xbd\xcf\xa4\xe9\xa7\xd6\xbc\xd6) \xac\xdd\xaaO: AIR_JORDAN\r"),
 			},
 		},
-		{ //7
+		{ // 7
 			{
 				Utf8:   "標題: [轉錄][數據] 幫整理了一下MJ保持的九十項NBA第一",
 				Big5:   []byte("\xbc\xd0\xc3D: [\xc2\xe0\xbf\xfd][\xbc\xc6\xbe\xda] \xc0\xb0\xbe\xe3\xb2z\xa4F\xa4@\xa4UMJ\xabO\xab\xf9\xaa\xba\xa4E\xa4Q\xb6\xb5NBA\xb2\xc4\xa4@"),
@@ -3049,7 +3049,7 @@ func initTest15() {
 				DBCS:   []byte("\xbc\xd0\xc3D: [\xc2\xe0\xbf\xfd][\xbc\xc6\xbe\xda] \xc0\xb0\xbe\xe3\xb2z\xa4F\xa4@\xa4UMJ\xabO\xab\xf9\xaa\xba\xa4E\xa4Q\xb6\xb5NBA\xb2\xc4\xa4@\r"),
 			},
 		},
-		{ //8
+		{ // 8
 			{
 				Utf8:   "時間: Fri Jan 23 07:00:21 2009",
 				Big5:   []byte("\xae\xc9\xb6\xa1: Fri Jan 23 07:00:21 2009"),
@@ -3058,14 +3058,14 @@ func initTest15() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Fri Jan 23 07:00:21 2009\r"),
 			},
 		},
-		{ //9
+		{ // 9
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //10
+		{ // 10
 			{
 				Utf8:   "※ [本文轉錄自 NBA 看板]",
 				Big5:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb NBA \xac\xdd\xaaO]"),
@@ -3074,14 +3074,14 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb NBA \xac\xdd\xaaO]\r"),
 			},
 		},
-		{ //11
+		{ // 11
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //12
+		{ // 12
 			{
 				Utf8:   "作者: sk2g (假班代布布) 看板: NBA",
 				Big5:   []byte("\xa7@\xaa\xcc: sk2g (\xb0\xb2\xafZ\xa5N\xa5\xac\xa5\xac) \xac\xdd\xaaO: NBA"),
@@ -3090,7 +3090,7 @@ func initTest15() {
 				DBCS:   []byte("\xa7@\xaa\xcc: sk2g (\xb0\xb2\xafZ\xa5N\xa5\xac\xa5\xac) \xac\xdd\xaaO: NBA\r"),
 			},
 		},
-		{ //13
+		{ // 13
 			{
 				Utf8:   "標題: [數據] MJ保持的九十項NBA歷史第一記錄",
 				Big5:   []byte("\xbc\xd0\xc3D: [\xbc\xc6\xbe\xda] MJ\xabO\xab\xf9\xaa\xba\xa4E\xa4Q\xb6\xb5NBA\xbe\xfa\xa5v\xb2\xc4\xa4@\xb0O\xbf\xfd"),
@@ -3099,7 +3099,7 @@ func initTest15() {
 				DBCS:   []byte("\xbc\xd0\xc3D: [\xbc\xc6\xbe\xda] MJ\xabO\xab\xf9\xaa\xba\xa4E\xa4Q\xb6\xb5NBA\xbe\xfa\xa5v\xb2\xc4\xa4@\xb0O\xbf\xfd\r"),
 			},
 		},
-		{ //14
+		{ // 14
 			{
 				Utf8:   "時間: Thu Jan 22 23:34:14 2009",
 				Big5:   []byte("\xae\xc9\xb6\xa1: Thu Jan 22 23:34:14 2009"),
@@ -3108,14 +3108,14 @@ func initTest15() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Thu Jan 22 23:34:14 2009\r"),
 			},
 		},
-		{ //15
+		{ // 15
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //16
+		{ // 16
 			{
 				Utf8:   "小弟大概替這位大大整理一下",
 				Big5:   []byte("\xa4p\xa7\xcc\xa4j\xb7\xa7\xb4\xc0\xb3o\xa6\xec\xa4j\xa4j\xbe\xe3\xb2z\xa4@\xa4U"),
@@ -3124,7 +3124,7 @@ func initTest15() {
 				DBCS:   []byte("\xa4p\xa7\xcc\xa4j\xb7\xa7\xb4\xc0\xb3o\xa6\xec\xa4j\xa4j\xbe\xe3\xb2z\xa4@\xa4U\r"),
 			},
 		},
-		{ //17
+		{ // 17
 			{
 				Utf8:   "※ 引述《Laban (勒本)》之銘言：",
 				Big5:   []byte("\xa1\xb0 \xa4\xde\xadz\xa1mLaban (\xb0\xc7\xa5\xbb)\xa1n\xa4\xa7\xbb\xca\xa8\xa5\xa1G"),
@@ -3133,7 +3133,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 \xa4\xde\xadz\xa1mLaban (\xb0\xc7\xa5\xbb)\xa1n\xa4\xa7\xbb\xca\xa8\xa5\xa1G\r"),
 			},
 		},
-		{ //18
+		{ // 18
 			{
 				Utf8:   "常規賽記錄：",
 				Big5:   []byte("\xb1`\xb3W\xc1\xc9\xb0O\xbf\xfd\xa1G"),
@@ -3147,7 +3147,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //19
+		{ // 19
 			{
 				Utf8:   "1.職業生涯場均30.123分，歷史第一。",
 				Big5:   []byte("1.\xc2\xbe\xb7~\xa5\xcd\xb2P\xb3\xf5\xa7\xa130.123\xa4\xc0\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C"),
@@ -3156,7 +3156,7 @@ func initTest15() {
 				DBCS:   []byte("1.\xc2\xbe\xb7~\xa5\xcd\xb2P\xb3\xf5\xa7\xa130.123\xa4\xc0\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C\r"),
 			},
 		},
-		{ //20
+		{ // 20
 			{
 				Utf8:   " ",
 				Big5:   []byte(" "),
@@ -3177,14 +3177,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //22
+		{ // 22
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //23
+		{ // 23
 			{
 				Utf8:   "2.個人10次得分王，歷史第一。",
 				Big5:   []byte("2.\xad\xd3\xa4H10\xa6\xb8\xb1o\xa4\xc0\xa4\xfd\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C"),
@@ -3193,14 +3193,14 @@ func initTest15() {
 				DBCS:   []byte("2.\xad\xd3\xa4H10\xa6\xb8\xb1o\xa4\xc0\xa4\xfd\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C\r"),
 			},
 		},
-		{ //24
+		{ // 24
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //25
+		{ // 25
 			{
 				Utf8:   "3.平了Chamberlain連續七次得分王紀錄。",
 				Big5:   []byte("3.\xa5\xad\xa4FChamberlain\xb3s\xc4\xf2\xa4C\xa6\xb8\xb1o\xa4\xc0\xa4\xfd\xac\xf6\xbf\xfd\xa1C"),
@@ -3209,7 +3209,7 @@ func initTest15() {
 				DBCS:   []byte("3.\xa5\xad\xa4FChamberlain\xb3s\xc4\xf2\xa4C\xa6\xb8\xb1o\xa4\xc0\xa4\xfd\xac\xf6\xbf\xfd\xa1C\r"),
 			},
 		},
-		{ //26
+		{ // 26
 			{
 				Utf8:   " ",
 				Big5:   []byte(" "),
@@ -3230,14 +3230,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //27
+		{ // 27
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //28
+		{ // 28
 			{
 				Utf8:   "4.連續866場比賽得分超過兩位數，歷史第一。",
 				Big5:   []byte("4.\xb3s\xc4\xf2866\xb3\xf5\xa4\xf1\xc1\xc9\xb1o\xa4\xc0\xb6W\xb9L\xa8\xe2\xa6\xec\xbc\xc6\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C"),
@@ -3246,14 +3246,14 @@ func initTest15() {
 				DBCS:   []byte("4.\xb3s\xc4\xf2866\xb3\xf5\xa4\xf1\xc1\xc9\xb1o\xa4\xc0\xb6W\xb9L\xa8\xe2\xa6\xec\xbc\xc6\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C\r"),
 			},
 		},
-		{ //29
+		{ // 29
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //30
+		{ // 30
 			{
 				Utf8:   "5.保持單節罰球命中NBA最高記錄14次。",
 				Big5:   []byte("5.\xabO\xab\xf9\xb3\xe6\xb8`\xbb@\xb2y\xa9R\xa4\xa4NBA\xb3\xcc\xb0\xaa\xb0O\xbf\xfd14\xa6\xb8\xa1C"),
@@ -3262,7 +3262,7 @@ func initTest15() {
 				DBCS:   []byte("5.\xabO\xab\xf9\xb3\xe6\xb8`\xbb@\xb2y\xa9R\xa4\xa4NBA\xb3\xcc\xb0\xaa\xb0O\xbf\xfd14\xa6\xb8\xa1C\r"),
 			},
 		},
-		{ //31
+		{ // 31
 			{
 				Utf8:   " ",
 				Big5:   []byte(" "),
@@ -3278,7 +3278,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[32m\xa1]\xb5\xf9\xa1G\xa6\xb3\xa8\xe2\xa6\xb8,\xa4@\xa6\xb8\xacO1989\xa6~11\xa4\xeb15\xa4\xe9\xa1A\xb9\xefUtah Jazz\xb3\xe6\xb8`\xbb@\xa4\xa414\xb2y\xa1A\r"),
 			},
 		},
-		{ //32
+		{ // 32
 			{
 				Utf8:   "   另一次是1993年對Miami Heat。）",
 				Big5:   []byte("   \xa5t\xa4@\xa6\xb8\xacO1993\xa6~\xb9\xefMiami Heat\xa1C\xa1^"),
@@ -3292,14 +3292,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //32
+		{ // 32
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //33
+		{ // 33
 			{
 				Utf8:   "6.保持著單節罰球次數最高16次。",
 				Big5:   []byte("6.\xabO\xab\xf9\xb5\xdb\xb3\xe6\xb8`\xbb@\xb2y\xa6\xb8\xbc\xc6\xb3\xcc\xb0\xaa16\xa6\xb8\xa1C"),
@@ -3308,7 +3308,7 @@ func initTest15() {
 				DBCS:   []byte("6.\xabO\xab\xf9\xb5\xdb\xb3\xe6\xb8`\xbb@\xb2y\xa6\xb8\xbc\xc6\xb3\xcc\xb0\xaa16\xa6\xb8\xa1C\r"),
 			},
 		},
-		{ //34
+		{ // 34
 			{
 				Utf8:   " （註:1992年12月30日對Miami Heat的第4節，Jordan全場24罰球。）",
 				Big5:   []byte(" \xa1]\xb5\xf9:1992\xa6~12\xa4\xeb30\xa4\xe9\xb9\xefMiami Heat\xaa\xba\xb2\xc44\xb8`\xa1AJordan\xa5\xfe\xb3\xf524\xbb@\xb2y\xa1C\xa1^"),
@@ -3322,14 +3322,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //35
+		{ // 35
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //36
+		{ // 36
 			{
 				Utf8:   "7.NBA歷史最多的10個賽季的投籃次數和投中次數均列NBA歷史第一位。",
 				Big5:   []byte("7.NBA\xbe\xfa\xa5v\xb3\xcc\xa6h\xaa\xba10\xad\xd3\xc1\xc9\xa9u\xaa\xba\xa7\xeb\xc4x\xa6\xb8\xbc\xc6\xa9M\xa7\xeb\xa4\xa4\xa6\xb8\xbc\xc6\xa7\xa1\xa6CNBA\xbe\xfa\xa5v\xb2\xc4\xa4@\xa6\xec\xa1C"),
@@ -3338,14 +3338,14 @@ func initTest15() {
 				DBCS:   []byte("7.NBA\xbe\xfa\xa5v\xb3\xcc\xa6h\xaa\xba10\xad\xd3\xc1\xc9\xa9u\xaa\xba\xa7\xeb\xc4x\xa6\xb8\xbc\xc6\xa9M\xa7\xeb\xa4\xa4\xa6\xb8\xbc\xc6\xa7\xa1\xa6CNBA\xbe\xfa\xa5v\xb2\xc4\xa4@\xa6\xec\xa1C\r"),
 			},
 		},
-		{ //39
+		{ // 39
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //38
+		{ // 38
 			{
 				Utf8:   "8.1987年對Atlanta Hawks一戰創下連續得23分的NBA記錄。",
 				Big5:   []byte("8.1987\xa6~\xb9\xefAtlanta Hawks\xa4@\xbe\xd4\xb3\xd0\xa4U\xb3s\xc4\xf2\xb1o23\xa4\xc0\xaa\xbaNBA\xb0O\xbf\xfd\xa1C"),
@@ -3354,7 +3354,7 @@ func initTest15() {
 				DBCS:   []byte("8.1987\xa6~\xb9\xefAtlanta Hawks\xa4@\xbe\xd4\xb3\xd0\xa4U\xb3s\xc4\xf2\xb1o23\xa4\xc0\xaa\xbaNBA\xb0O\xbf\xfd\xa1C\r"),
 			},
 		},
-		{ //39
+		{ // 39
 			{
 				Utf8:   " ",
 				Big5:   []byte(" "),
@@ -3370,7 +3370,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[32m\xa1]\xb5\xf91:\xb4N\xacO\xa7\xeb\xc4x\xbb@\xb2y\xa5\xfe\xb3\xa1\xa9R\xa4\xa4\xa1A\xa8\xc3\xa5B\xa6b\xb3o\xb4\xc1\xb6\xa1\xa5\xbb\xb6\xa4\xb5L\xa5\xf4\xa6\xf3\xa8\xe4\xa5L\xb2y\xad\xfb\xb1o\xa4\xc0\xa1C\xa1^\r"),
 			},
 		},
-		{ //40
+		{ // 40
 			{
 				Utf8:   " ",
 				Big5:   []byte(" "),
@@ -3435,7 +3435,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\xa1^\r"),
 			},
 		},
-		{ //41
+		{ // 41
 			{
 				Utf8:   " ",
 				Big5:   []byte(" "),
@@ -3512,14 +3512,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //44
+		{ // 44
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //45
+		{ // 45
 			{
 				Utf8:   "19.10次入選NBA年度第一隊。",
 				Big5:   []byte("19.10\xa6\xb8\xa4J\xbf\xefNBA\xa6~\xab\xd7\xb2\xc4\xa4@\xb6\xa4\xa1C"),
@@ -3528,7 +3528,7 @@ func initTest15() {
 				DBCS:   []byte("19.10\xa6\xb8\xa4J\xbf\xefNBA\xa6~\xab\xd7\xb2\xc4\xa4@\xb6\xa4\xa1C\r"),
 			},
 		},
-		{ //46
+		{ // 46
 			{
 				Utf8:   "   (註:1986-87至1992-93賽季, 1995-96至1997-98賽季。)",
 				Big5:   []byte("   (\xb5\xf9:1986-87\xa6\xdc1992-93\xc1\xc9\xa9u, 1995-96\xa6\xdc1997-98\xc1\xc9\xa9u\xa1C)"),
@@ -3542,14 +3542,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //47
+		{ // 47
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //48
+		{ // 48
 			{
 				Utf8:   "20.87-88賽季阻攻次數達到131次,是後衛的阻攻記錄。",
 				Big5:   []byte("20.87-88\xc1\xc9\xa9u\xaa\xfd\xa7\xf0\xa6\xb8\xbc\xc6\xb9F\xa8\xec131\xa6\xb8,\xacO\xab\xe1\xbd\xc3\xaa\xba\xaa\xfd\xa7\xf0\xb0O\xbf\xfd\xa1C"),
@@ -3558,7 +3558,7 @@ func initTest15() {
 				DBCS:   []byte("20.87-88\xc1\xc9\xa9u\xaa\xfd\xa7\xf0\xa6\xb8\xbc\xc6\xb9F\xa8\xec131\xa6\xb8,\xacO\xab\xe1\xbd\xc3\xaa\xba\xaa\xfd\xa7\xf0\xb0O\xbf\xfd\xa1C\r"),
 			},
 		},
-		{ //49
+		{ // 49
 			{
 				Utf8:   "  （註:單場最高6次，職業生涯有8場比賽單場阻攻5次以上。）",
 				Big5:   []byte("  \xa1]\xb5\xf9:\xb3\xe6\xb3\xf5\xb3\xcc\xb0\xaa6\xa6\xb8\xa1A\xc2\xbe\xb7~\xa5\xcd\xb2P\xa6\xb38\xb3\xf5\xa4\xf1\xc1\xc9\xb3\xe6\xb3\xf5\xaa\xfd\xa7\xf05\xa6\xb8\xa5H\xa4W\xa1C\xa1^"),
@@ -3572,14 +3572,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //50
+		{ // 50
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //51
+		{ // 51
 			{
 				Utf8:   "39.單一賽季季後賽平均最高43.7分。",
 				Big5:   []byte("39.\xb3\xe6\xa4@\xc1\xc9\xa9u\xa9u\xab\xe1\xc1\xc9\xa5\xad\xa7\xa1\xb3\xcc\xb0\xaa43.7\xa4\xc0\xa1C"),
@@ -3588,7 +3588,7 @@ func initTest15() {
 				DBCS:   []byte("39.\xb3\xe6\xa4@\xc1\xc9\xa9u\xa9u\xab\xe1\xc1\xc9\xa5\xad\xa7\xa1\xb3\xcc\xb0\xaa43.7\xa4\xc0\xa1C\r"),
 			},
 		},
-		{ //52
+		{ // 52
 			{
 				Utf8:   "   (註:1986年，Jordan在面對當年67勝（主場40勝1敗)的總冠軍Boston Celtics",
 				Big5:   []byte("   (\xb5\xf9:1986\xa6~\xa1AJordan\xa6b\xad\xb1\xb9\xef\xb7\xed\xa6~67\xb3\xd3\xa1]\xa5D\xb3\xf540\xb3\xd31\xb1\xd1)\xaa\xba\xc1`\xaba\xadxBoston Celtics"),
@@ -3597,7 +3597,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[32m   (\xb5\xf9:1986\xa6~\xa1AJordan\xa6b\xad\xb1\xb9\xef\xb7\xed\xa6~67\xb3\xd3\xa1]\xa5D\xb3\xf540\xb3\xd31\xb1\xd1)\xaa\xba\xc1`\xaba\xadxBoston Celtics\r"),
 			},
 		},
-		{ //53
+		{ // 53
 			{
 				Utf8:   "       的三場季後賽，分別拿下49分，63分，19分，場均43.7分是單一賽季季後賽場均",
 				Big5:   []byte("       \xaa\xba\xa4T\xb3\xf5\xa9u\xab\xe1\xc1\xc9\xa1A\xa4\xc0\xa7O\xae\xb3\xa4U49\xa4\xc0\xa1A63\xa4\xc0\xa1A19\xa4\xc0\xa1A\xb3\xf5\xa7\xa143.7\xa4\xc0\xacO\xb3\xe6\xa4@\xc1\xc9\xa9u\xa9u\xab\xe1\xc1\xc9\xb3\xf5\xa7\xa1"),
@@ -3606,7 +3606,7 @@ func initTest15() {
 				DBCS:   []byte("       \xaa\xba\xa4T\xb3\xf5\xa9u\xab\xe1\xc1\xc9\xa1A\xa4\xc0\xa7O\xae\xb3\xa4U49\xa4\xc0\xa1A63\xa4\xc0\xa1A19\xa4\xc0\xa1A\xb3\xf5\xa7\xa143.7\xa4\xc0\xacO\xb3\xe6\xa4@\xc1\xc9\xa9u\xa9u\xab\xe1\xc1\xc9\xb3\xf5\xa7\xa1\r"),
 			},
 		},
-		{ //54
+		{ // 54
 			{
 				Utf8:   "       最高記錄，歷史上只有兩個人在季後賽場均40分以上，另一位是Jerry West",
 				Big5:   []byte("       \xb3\xcc\xb0\xaa\xb0O\xbf\xfd\xa1A\xbe\xfa\xa5v\xa4W\xa5u\xa6\xb3\xa8\xe2\xad\xd3\xa4H\xa6b\xa9u\xab\xe1\xc1\xc9\xb3\xf5\xa7\xa140\xa4\xc0\xa5H\xa4W\xa1A\xa5t\xa4@\xa6\xec\xacOJerry West"),
@@ -3615,7 +3615,7 @@ func initTest15() {
 				DBCS:   []byte("       \xb3\xcc\xb0\xaa\xb0O\xbf\xfd\xa1A\xbe\xfa\xa5v\xa4W\xa5u\xa6\xb3\xa8\xe2\xad\xd3\xa4H\xa6b\xa9u\xab\xe1\xc1\xc9\xb3\xf5\xa7\xa140\xa4\xc0\xa5H\xa4W\xa1A\xa5t\xa4@\xa6\xec\xacOJerry West\r"),
 			},
 		},
-		{ //55
+		{ // 55
 			{
 				Utf8:   "      （場均40.6分）)",
 				Big5:   []byte("      \xa1]\xb3\xf5\xa7\xa140.6\xa4\xc0\xa1^)"),
@@ -3629,14 +3629,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //56
+		{ // 56
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //57
+		{ // 57
 			{
 				Utf8:   "40.季後賽單場得分63分，歷史第一。",
 				Big5:   []byte("40.\xa9u\xab\xe1\xc1\xc9\xb3\xe6\xb3\xf5\xb1o\xa4\xc063\xa4\xc0\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C"),
@@ -3645,14 +3645,14 @@ func initTest15() {
 				DBCS:   []byte("40.\xa9u\xab\xe1\xc1\xc9\xb3\xe6\xb3\xf5\xb1o\xa4\xc063\xa4\xc0\xa1A\xbe\xfa\xa5v\xb2\xc4\xa4@\xa1C\r"),
 			},
 		},
-		{ //58
+		{ // 58
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //59
+		{ // 59
 			{
 				Utf8:   "41.季後賽唯一一個拿過back to back 50分的球員。",
 				Big5:   []byte("41.\xa9u\xab\xe1\xc1\xc9\xb0\xdf\xa4@\xa4@\xad\xd3\xae\xb3\xb9Lback to back 50\xa4\xc0\xaa\xba\xb2y\xad\xfb\xa1C"),
@@ -3661,7 +3661,7 @@ func initTest15() {
 				DBCS:   []byte("41.\xa9u\xab\xe1\xc1\xc9\xb0\xdf\xa4@\xa4@\xad\xd3\xae\xb3\xb9Lback to back 50\xa4\xc0\xaa\xba\xb2y\xad\xfb\xa1C\r"),
 			},
 		},
-		{ //60
+		{ // 60
 			{
 				Utf8:   "   (註:1988年季後賽，Jordan在對Cleveland Cavaliers的比賽中，第一場50分，",
 				Big5:   []byte("   (\xb5\xf9:1988\xa6~\xa9u\xab\xe1\xc1\xc9\xa1AJordan\xa6b\xb9\xefCleveland Cavaliers\xaa\xba\xa4\xf1\xc1\xc9\xa4\xa4\xa1A\xb2\xc4\xa4@\xb3\xf550\xa4\xc0\xa1A"),
@@ -3670,7 +3670,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[32m   (\xb5\xf9:1988\xa6~\xa9u\xab\xe1\xc1\xc9\xa1AJordan\xa6b\xb9\xefCleveland Cavaliers\xaa\xba\xa4\xf1\xc1\xc9\xa4\xa4\xa1A\xb2\xc4\xa4@\xb3\xf550\xa4\xc0\xa1A\r"),
 			},
 		},
-		{ //61
+		{ // 61
 			{
 				Utf8:   "       第二場55分，連續兩場拿下50分，歷史上只有Jordan。)",
 				Big5:   []byte("       \xb2\xc4\xa4G\xb3\xf555\xa4\xc0\xa1A\xb3s\xc4\xf2\xa8\xe2\xb3\xf5\xae\xb3\xa4U50\xa4\xc0\xa1A\xbe\xfa\xa5v\xa4W\xa5u\xa6\xb3Jordan\xa1C)"),
@@ -3684,14 +3684,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //62
+		{ // 62
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //63
+		{ // 63
 			{
 				Utf8:   "42.季後賽唯一一個拿過連續3場45分的球員。",
 				Big5:   []byte("42.\xa9u\xab\xe1\xc1\xc9\xb0\xdf\xa4@\xa4@\xad\xd3\xae\xb3\xb9L\xb3s\xc4\xf23\xb3\xf545\xa4\xc0\xaa\xba\xb2y\xad\xfb\xa1C"),
@@ -3700,7 +3700,7 @@ func initTest15() {
 				DBCS:   []byte("42.\xa9u\xab\xe1\xc1\xc9\xb0\xdf\xa4@\xa4@\xad\xd3\xae\xb3\xb9L\xb3s\xc4\xf23\xb3\xf545\xa4\xc0\xaa\xba\xb2y\xad\xfb\xa1C\r"),
 			},
 		},
-		{ //64
+		{ // 64
 			{
 				Utf8:   "   (註1:1990年在對Philadelphia 76ers的半決賽中，Jordan5場比賽場均拿下43.0分",
 				Big5:   []byte("   (\xb5\xf91:1990\xa6~\xa6b\xb9\xefPhiladelphia 76ers\xaa\xba\xa5b\xa8M\xc1\xc9\xa4\xa4\xa1AJordan5\xb3\xf5\xa4\xf1\xc1\xc9\xb3\xf5\xa7\xa1\xae\xb3\xa4U43.0\xa4\xc0"),
@@ -3709,7 +3709,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[32m   (\xb5\xf91:1990\xa6~\xa6b\xb9\xefPhiladelphia 76ers\xaa\xba\xa5b\xa8M\xc1\xc9\xa4\xa4\xa1AJordan5\xb3\xf5\xa4\xf1\xc1\xc9\xb3\xf5\xa7\xa1\xae\xb3\xa4U43.0\xa4\xc0\r"),
 			},
 		},
-		{ //65
+		{ // 65
 			{
 				Utf8:   "        ，其中在第二到第4場比賽中，分別得到45分，49分，45分連續三場比賽超過45+，",
 				Big5:   []byte("        \xa1A\xa8\xe4\xa4\xa4\xa6b\xb2\xc4\xa4G\xa8\xec\xb2\xc44\xb3\xf5\xa4\xf1\xc1\xc9\xa4\xa4\xa1A\xa4\xc0\xa7O\xb1o\xa8\xec45\xa4\xc0\xa1A49\xa4\xc0\xa1A45\xa4\xc0\xb3s\xc4\xf2\xa4T\xb3\xf5\xa4\xf1\xc1\xc9\xb6W\xb9L45+\xa1A"),
@@ -3718,7 +3718,7 @@ func initTest15() {
 				DBCS:   []byte("        \xa1A\xa8\xe4\xa4\xa4\xa6b\xb2\xc4\xa4G\xa8\xec\xb2\xc44\xb3\xf5\xa4\xf1\xc1\xc9\xa4\xa4\xa1A\xa4\xc0\xa7O\xb1o\xa8\xec45\xa4\xc0\xa1A49\xa4\xc0\xa1A45\xa4\xc0\xb3s\xc4\xf2\xa4T\xb3\xf5\xa4\xf1\xc1\xc9\xb6W\xb9L45+\xa1A\r"),
 			},
 		},
-		{ //66
+		{ // 66
 			{
 				Utf8:   "        歷史上只有Jordan。)",
 				Big5:   []byte("        \xbe\xfa\xa5v\xa4W\xa5u\xa6\xb3Jordan\xa1C)"),
@@ -3727,14 +3727,14 @@ func initTest15() {
 				DBCS:   []byte("        \xbe\xfa\xa5v\xa4W\xa5u\xa6\xb3Jordan\xa1C)\r"),
 			},
 		},
-		{ //67
+		{ // 67
 			{
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //68
+		{ // 68
 			{
 				Utf8:   "  （註2:Jordan還有次連續得到44分，50分和44分，Iverson曾經連續得到46分，44分和",
 				Big5:   []byte("  \xa1]\xb5\xf92:Jordan\xc1\xd9\xa6\xb3\xa6\xb8\xb3s\xc4\xf2\xb1o\xa8\xec44\xa4\xc0\xa1A50\xa4\xc0\xa9M44\xa4\xc0\xa1AIverson\xb4\xbf\xb8g\xb3s\xc4\xf2\xb1o\xa8\xec46\xa4\xc0\xa1A44\xa4\xc0\xa9M"),
@@ -3743,7 +3743,7 @@ func initTest15() {
 				DBCS:   []byte("  \xa1]\xb5\xf92:Jordan\xc1\xd9\xa6\xb3\xa6\xb8\xb3s\xc4\xf2\xb1o\xa8\xec44\xa4\xc0\xa1A50\xa4\xc0\xa9M44\xa4\xc0\xa1AIverson\xb4\xbf\xb8g\xb3s\xc4\xf2\xb1o\xa8\xec46\xa4\xc0\xa1A44\xa4\xc0\xa9M\r"),
 			},
 		},
-		{ //69
+		{ // 69
 			{
 				Utf8:   "        48分，都只差一點。）",
 				Big5:   []byte("        48\xa4\xc0\xa1A\xb3\xa3\xa5u\xaet\xa4@\xc2I\xa1C\xa1^"),
@@ -3757,14 +3757,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //70
+		{ // 70
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //69
+		{ // 69
 			{
 				Utf8:   "90.唯一能讓聯盟破例把已經退役的球衣",
 				Big5:   []byte("90.\xb0\xdf\xa4@\xaf\xe0\xc5\xfd\xc1p\xb7\xf9\xaf}\xa8\xd2\xa7\xe2\xa4w\xb8g\xb0h\xa7\xd0\xaa\xba\xb2y\xa6\xe7"),
@@ -3787,7 +3787,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\xad\xab\xb7s\xac\xef\xa6^\xa1C\r"),
 			},
 		},
-		{ //70
+		{ // 70
 			{
 				Utf8:   "   (註:下面已有版友補充不只他一人了，Magic Johnson 1996年復出時也是。)",
 				Big5:   []byte("   (\xb5\xf9:\xa4U\xad\xb1\xa4w\xa6\xb3\xaa\xa9\xa4\xcd\xb8\xc9\xa5R\xa4\xa3\xa5u\xa5L\xa4@\xa4H\xa4F\xa1AMagic Johnson 1996\xa6~\xb4_\xa5X\xae\xc9\xa4]\xacO\xa1C)"),
@@ -3801,14 +3801,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //71
+		{ // 71
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //72
+		{ // 72
 			{
 				Utf8:   "91.MJ是唯一在他不曾效力的球隊被掛上球衣在球館(",
 				Big5:   []byte("91.MJ\xacO\xb0\xdf\xa4@\xa6b\xa5L\xa4\xa3\xb4\xbf\xae\xc4\xa4O\xaa\xba\xb2y\xb6\xa4\xb3Q\xb1\xbe\xa4W\xb2y\xa6\xe7\xa6b\xb2y\xc0]("),
@@ -3831,14 +3831,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\xaa\xba\xb2y\xc0])\xaa\xba\xb2y\xad\xfb~\r"),
 			},
 		},
-		{ //73
+		{ // 73
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //74
+		{ // 74
 			{
 				Utf8:   "92.Jordan還是唯一代表美國大學籃球隊和美國夢之隊分別獲得奧運會金牌的球員~此記錄注定",
 				Big5:   []byte("92.Jordan\xc1\xd9\xacO\xb0\xdf\xa4@\xa5N\xaa\xed\xac\xfc\xb0\xea\xa4j\xbe\xc7\xc4x\xb2y\xb6\xa4\xa9M\xac\xfc\xb0\xea\xb9\xda\xa4\xa7\xb6\xa4\xa4\xc0\xa7O\xc0\xf2\xb1o\xb6\xf8\xb9B\xb7|\xaa\xf7\xb5P\xaa\xba\xb2y\xad\xfb~\xa6\xb9\xb0O\xbf\xfd\xaa`\xa9w"),
@@ -3847,7 +3847,7 @@ func initTest15() {
 				DBCS:   []byte("92.Jordan\xc1\xd9\xacO\xb0\xdf\xa4@\xa5N\xaa\xed\xac\xfc\xb0\xea\xa4j\xbe\xc7\xc4x\xb2y\xb6\xa4\xa9M\xac\xfc\xb0\xea\xb9\xda\xa4\xa7\xb6\xa4\xa4\xc0\xa7O\xc0\xf2\xb1o\xb6\xf8\xb9B\xb7|\xaa\xf7\xb5P\xaa\xba\xb2y\xad\xfb~\xa6\xb9\xb0O\xbf\xfd\xaa`\xa9w\r"),
 			},
 		},
-		{ //77
+		{ // 77
 			{
 				Utf8:   "   是絕後的了,因為現在美國不可能再派大學隊伍參加奧運會了~",
 				Big5:   []byte("   \xacO\xb5\xb4\xab\xe1\xaa\xba\xa4F,\xa6]\xac\xb0\xb2{\xa6b\xac\xfc\xb0\xea\xa4\xa3\xa5i\xaf\xe0\xa6A\xac\xa3\xa4j\xbe\xc7\xb6\xa4\xa5\xee\xb0\xd1\xa5[\xb6\xf8\xb9B\xb7|\xa4F~"),
@@ -3856,7 +3856,7 @@ func initTest15() {
 				DBCS:   []byte("   \xacO\xb5\xb4\xab\xe1\xaa\xba\xa4F,\xa6]\xac\xb0\xb2{\xa6b\xac\xfc\xb0\xea\xa4\xa3\xa5i\xaf\xe0\xa6A\xac\xa3\xa4j\xbe\xc7\xb6\xa4\xa5\xee\xb0\xd1\xa5[\xb6\xf8\xb9B\xb7|\xa4F~\r"),
 			},
 		},
-		{ //78
+		{ // 78
 			{
 				Utf8:   "   (註:已有版友補充不只Jordan一人，Patrick Ewing跟Chris Mullin都跟Jordan一起。)",
 				Big5:   []byte("   (\xb5\xf9:\xa4w\xa6\xb3\xaa\xa9\xa4\xcd\xb8\xc9\xa5R\xa4\xa3\xa5uJordan\xa4@\xa4H\xa1APatrick Ewing\xb8\xf2Chris Mullin\xb3\xa3\xb8\xf2Jordan\xa4@\xb0_\xa1C)"),
@@ -3870,14 +3870,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //79
+		{ // 79
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //80
+		{ // 80
 			{
 				Utf8:   "93.Jordan是歷史上第一個能在復出後還帶領球隊連得3次NBA總冠軍的人。",
 				Big5:   []byte("93.Jordan\xacO\xbe\xfa\xa5v\xa4W\xb2\xc4\xa4@\xad\xd3\xaf\xe0\xa6b\xb4_\xa5X\xab\xe1\xc1\xd9\xb1a\xbb\xe2\xb2y\xb6\xa4\xb3s\xb1o3\xa6\xb8NBA\xc1`\xaba\xadx\xaa\xba\xa4H\xa1C"),
@@ -3886,14 +3886,14 @@ func initTest15() {
 				DBCS:   []byte("93.Jordan\xacO\xbe\xfa\xa5v\xa4W\xb2\xc4\xa4@\xad\xd3\xaf\xe0\xa6b\xb4_\xa5X\xab\xe1\xc1\xd9\xb1a\xbb\xe2\xb2y\xb6\xa4\xb3s\xb1o3\xa6\xb8NBA\xc1`\xaba\xadx\xaa\xba\xa4H\xa1C\r"),
 			},
 		},
-		{ //81
+		{ // 81
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //82
+		{ // 82
 			{
 				Utf8:   "94.02年復出時將那年的所有工資（大約100萬美元）捐給911受難者，是NBA史上唯一一個",
 				Big5:   []byte("94.02\xa6~\xb4_\xa5X\xae\xc9\xb1N\xa8\xba\xa6~\xaa\xba\xa9\xd2\xa6\xb3\xa4u\xb8\xea\xa1]\xa4j\xac\xf9100\xb8U\xac\xfc\xa4\xb8\xa1^\xae\xbd\xb5\xb9911\xa8\xfc\xc3\xf8\xaa\xcc\xa1A\xacONBA\xa5v\xa4W\xb0\xdf\xa4@\xa4@\xad\xd3"),
@@ -3902,7 +3902,7 @@ func initTest15() {
 				DBCS:   []byte("94.02\xa6~\xb4_\xa5X\xae\xc9\xb1N\xa8\xba\xa6~\xaa\xba\xa9\xd2\xa6\xb3\xa4u\xb8\xea\xa1]\xa4j\xac\xf9100\xb8U\xac\xfc\xa4\xb8\xa1^\xae\xbd\xb5\xb9911\xa8\xfc\xc3\xf8\xaa\xcc\xa1A\xacONBA\xa5v\xa4W\xb0\xdf\xa4@\xa4@\xad\xd3\r"),
 			},
 		},
-		{ //83
+		{ // 83
 			{
 				Utf8:   "   捐自己全年工資的。",
 				Big5:   []byte("   \xae\xbd\xa6\xdb\xa4v\xa5\xfe\xa6~\xa4u\xb8\xea\xaa\xba\xa1C"),
@@ -3911,14 +3911,14 @@ func initTest15() {
 				DBCS:   []byte("   \xae\xbd\xa6\xdb\xa4v\xa5\xfe\xa6~\xa4u\xb8\xea\xaa\xba\xa1C\r"),
 			},
 		},
-		{ //84
+		{ // 84
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //85
+		{ // 85
 			{
 				Utf8:   ": ------------------------------------------------------------------------------",
 				Big5:   []byte(": ------------------------------------------------------------------------------"),
@@ -3927,14 +3927,14 @@ func initTest15() {
 				DBCS:   []byte(": ------------------------------------------------------------------------------\r"),
 			},
 		},
-		{ //86
+		{ // 86
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //87
+		{ // 87
 			{
 				Utf8:   " ",
 				Big5:   []byte(" "),
@@ -3955,14 +3955,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //88
+		{ // 88
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //89
+		{ // 89
 			{
 				Utf8:   "--",
 				Big5:   []byte("--"),
@@ -3971,7 +3971,7 @@ func initTest15() {
 				DBCS:   []byte("--\r"),
 			},
 		},
-		{ //90
+		{ // 90
 			{
 				Utf8:   "※ 發信站: 批踢踢實業坊(ptt.cc)",
 				Big5:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc)"),
@@ -3980,7 +3980,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc)\r"),
 			},
 		},
-		{ //91
+		{ // 91
 			{
 				Utf8:   "◆ From: 61.228.169.158",
 				Big5:   []byte("\xa1\xbb From: 61.228.169.158"),
@@ -3989,7 +3989,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xbb From: 61.228.169.158\r"),
 			},
 		},
-		{ //92
+		{ // 92
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4019,7 +4019,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:35\r"),
 			},
 		},
-		{ //93
+		{ // 93
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4049,7 +4049,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:36\r"),
 			},
 		},
-		{ //92
+		{ // 92
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4079,7 +4079,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:37\r"),
 			},
 		},
-		{ //93
+		{ // 93
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4109,7 +4109,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:38\r"),
 			},
 		},
-		{ //97
+		{ // 97
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4139,7 +4139,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:39\r"),
 			},
 		},
-		{ //98
+		{ // 98
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -4169,7 +4169,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:44\r"),
 			},
 		},
-		{ //96
+		{ // 96
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4199,7 +4199,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:44\r"),
 			},
 		},
-		{ //100
+		{ // 100
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -4229,7 +4229,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:44\r"),
 			},
 		},
-		{ //101
+		{ // 101
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4259,7 +4259,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:47\r"),
 			},
 		},
-		{ //102
+		{ // 102
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4289,7 +4289,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/22 23:49\r"),
 			},
 		},
-		{ //100
+		{ // 100
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -4319,7 +4319,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:15\r"),
 			},
 		},
-		{ //101
+		{ // 101
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4349,7 +4349,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:17\r"),
 			},
 		},
-		{ //106
+		{ // 106
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4379,7 +4379,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:22\r"),
 			},
 		},
-		{ //107
+		{ // 107
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4409,7 +4409,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:22\r"),
 			},
 		},
-		{ //108
+		{ // 108
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4439,7 +4439,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:25\r"),
 			},
 		},
-		{ //105
+		{ // 105
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4469,7 +4469,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:25\r"),
 			},
 		},
-		{ //106
+		{ // 106
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -4499,7 +4499,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:26\r"),
 			},
 		},
-		{ //112
+		{ // 112
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4529,7 +4529,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:27\r"),
 			},
 		},
-		{ //108
+		{ // 108
 			{
 				Utf8:   "※ 編輯: sk2g            來自: 61.228.169.158       (01/23 00:40)",
 				Big5:   []byte("\xa1\xb0 \xbds\xbf\xe8: sk2g            \xa8\xd3\xa6\xdb: 61.228.169.158       (01/23 00:40)"),
@@ -4538,7 +4538,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 \xbds\xbf\xe8: sk2g            \xa8\xd3\xa6\xdb: 61.228.169.158       (01/23 00:40)\r"),
 			},
 		},
-		{ //109
+		{ // 109
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4568,7 +4568,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:31\r"),
 			},
 		},
-		{ //115
+		{ // 115
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4598,7 +4598,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:34\r"),
 			},
 		},
-		{ //111
+		{ // 111
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -4628,7 +4628,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:37\r"),
 			},
 		},
-		{ //117
+		{ // 117
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4658,7 +4658,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:47\r"),
 			},
 		},
-		{ //118
+		{ // 118
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -4688,7 +4688,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:49\r"),
 			},
 		},
-		{ //119
+		{ // 119
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4718,7 +4718,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:57\r"),
 			},
 		},
-		{ //120
+		{ // 120
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -4748,7 +4748,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 00:59\r"),
 			},
 		},
-		{ //121
+		{ // 121
 			{
 				Utf8:   "※ 編輯: sk2g            來自: 61.228.169.158       (01/23 01:00)",
 				Big5:   []byte("\xa1\xb0 \xbds\xbf\xe8: sk2g            \xa8\xd3\xa6\xdb: 61.228.169.158       (01/23 01:00)"),
@@ -4757,7 +4757,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 \xbds\xbf\xe8: sk2g            \xa8\xd3\xa6\xdb: 61.228.169.158       (01/23 01:00)\r"),
 			},
 		},
-		{ //122
+		{ // 122
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4787,7 +4787,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:00\r"),
 			},
 		},
-		{ //123
+		{ // 123
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4817,7 +4817,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:09\r"),
 			},
 		},
-		{ //124
+		{ // 124
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4847,7 +4847,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:12\r"),
 			},
 		},
-		{ //120
+		{ // 120
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -4877,7 +4877,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:12\r"),
 			},
 		},
-		{ //121
+		{ // 121
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -4907,7 +4907,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:25\r"),
 			},
 		},
-		{ //122
+		{ // 122
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -4937,7 +4937,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:27\r"),
 			},
 		},
-		{ //123
+		{ // 123
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -4967,7 +4967,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:32\r"),
 			},
 		},
-		{ //124
+		{ // 124
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -4997,7 +4997,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:35\r"),
 			},
 		},
-		{ //125
+		{ // 125
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5027,7 +5027,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:36\r"),
 			},
 		},
-		{ //126
+		{ // 126
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -5057,7 +5057,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:39\r"),
 			},
 		},
-		{ //127
+		{ // 127
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -5087,7 +5087,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:44\r"),
 			},
 		},
-		{ //128
+		{ // 128
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5117,7 +5117,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:57\r"),
 			},
 		},
-		{ //129
+		{ // 129
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -5147,7 +5147,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:58\r"),
 			},
 		},
-		{ //130
+		{ // 130
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -5177,7 +5177,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 01:59\r"),
 			},
 		},
-		{ //131
+		{ // 131
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5207,7 +5207,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 02:01\r"),
 			},
 		},
-		{ //132
+		{ // 132
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5237,7 +5237,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 02:13\r"),
 			},
 		},
-		{ //133
+		{ // 133
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5267,7 +5267,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 02:29\r"),
 			},
 		},
-		{ //134
+		{ // 134
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5297,7 +5297,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 02:46\r"),
 			},
 		},
-		{ //135
+		{ // 135
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5327,7 +5327,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 03:36\r"),
 			},
 		},
-		{ //136
+		{ // 136
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5357,7 +5357,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 03:42\r"),
 			},
 		},
-		{ //137
+		{ // 137
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5387,7 +5387,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 04:52\r"),
 			},
 		},
-		{ //138
+		{ // 138
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5417,7 +5417,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 05:25\r"),
 			},
 		},
-		{ //139
+		{ // 139
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -5447,7 +5447,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 05:44\r"),
 			},
 		},
-		{ //140
+		{ // 140
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5477,7 +5477,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 05:45\r"),
 			},
 		},
-		{ //141
+		{ // 141
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5507,7 +5507,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 06:09\r"),
 			},
 		},
-		{ //142
+		{ // 142
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -5537,7 +5537,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 06:11\r"),
 			},
 		},
-		{ //143
+		{ // 143
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5567,7 +5567,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 06:39\r"),
 			},
 		},
-		{ //144
+		{ // 144
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5597,7 +5597,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 06:42\r"),
 			},
 		},
-		{ //145
+		{ // 145
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5627,14 +5627,14 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 06:53\r"),
 			},
 		},
-		{ //146
+		{ // 146
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //147
+		{ // 147
 			{
 				Utf8:   "--",
 				Big5:   []byte("--"),
@@ -5643,7 +5643,7 @@ func initTest15() {
 				DBCS:   []byte("--\r"),
 			},
 		},
-		{ //148
+		{ // 148
 			{
 				Utf8:   "※ 發信站: 批踢踢實業坊(ptt.cc) ",
 				Big5:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc) "),
@@ -5652,7 +5652,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc) \r"),
 			},
 		},
-		{ //149
+		{ // 149
 			{
 				Utf8:   "◆ From: 61.228.174.209",
 				Big5:   []byte("\xa1\xbb From: 61.228.174.209"),
@@ -5661,7 +5661,7 @@ func initTest15() {
 				DBCS:   []byte("\xa1\xbb From: 61.228.174.209\r"),
 			},
 		},
-		{ //150
+		{ // 150
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5691,7 +5691,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/23 21:32\r"),
 			},
 		},
-		{ //151
+		{ // 151
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5721,7 +5721,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 01/29 12:40\r"),
 			},
 		},
-		{ //152
+		{ // 152
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5751,7 +5751,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 02/05 06:23\r"),
 			},
 		},
-		{ //153
+		{ // 153
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5781,7 +5781,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 02/05 06:28\r"),
 			},
 		},
-		{ //154
+		{ // 154
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5811,7 +5811,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 02/12 00:35\r"),
 			},
 		},
-		{ //155
+		{ // 155
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5841,7 +5841,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 03/08 21:12\r"),
 			},
 		},
-		{ //156
+		{ // 156
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5871,7 +5871,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 03/17 00:58\r"),
 			},
 		},
-		{ //157
+		{ // 157
 			{
 				Utf8:   "推 ",
 				Big5:   []byte("\xb1\xc0 "),
@@ -5901,7 +5901,7 @@ func initTest15() {
 				DBCS:   []byte("\x1b[m 04/08 12:01\r"),
 			},
 		},
-		{ //158
+		{ // 158
 			{
 				Utf8:   "→ ",
 				Big5:   []byte("\xa1\xf7 "),
@@ -5934,7 +5934,7 @@ func initTest15() {
 	}
 
 	testFirstComments15 = []*schema.Comment{
-		{ //0
+		{ // 0
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("hunt5566"),
 			Content: [][]*types.Rune{
@@ -5952,7 +5952,7 @@ func initTest15() {
 			TheDate: "06/23 12:16",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mhunt5566    \x1b[m\x1b[33m: http://i.imgur.com/4PQq6rd.jpg                   \x1b[m 06/23 12:16\r"),
 		},
-		{ //1
+		{ // 1
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("sunnyyoung"),
 			Content: [][]*types.Rune{
@@ -5970,7 +5970,7 @@ func initTest15() {
 			TheDate: "06/23 12:18",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33msunnyyoung  \x1b[m\x1b[33m: \xb2\xc423\xb6\xb5\xacO\xab\xe7\xbc\xcb\xa1A\xc5\xba\xb6\xc6\xa4\xb0\xbb\xf2\xb0\xd5~~~                      \x1b[m 06/23 12:18\r"),
 		},
-		{ //2
+		{ // 2
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("YO8BO10"),
 			Content: [][]*types.Rune{
@@ -5988,7 +5988,7 @@ func initTest15() {
 			TheDate: "06/23 12:18",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mYO8BO10     \x1b[m\x1b[33m: \xaf\xab\xa1I\xa1I\xa1I\xb8\xf7\xa1I\xa1I\xa1I                                 \x1b[m 06/23 12:18\r"),
 		},
-		{ //3
+		{ // 3
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Aggro"),
 			Content: [][]*types.Rune{
@@ -6006,7 +6006,7 @@ func initTest15() {
 			TheDate: "06/23 12:20",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mAggro       \x1b[m\x1b[33m: \xb1o\xa4\xc0\xa4\xfd\xa6P\xae\xc9\xa6\xb3\xa8\xbe\xa6u\xa4\xfd\xacO\xd4\xa3\xb7\xa7\xa9\xc0\xa1K\xa1K                   \x1b[m 06/23 12:20\r"),
 		},
-		{ //4
+		{ // 4
 			TheType: ptttype.COMMENT_TYPE_BOO,
 			Owner:   bbs.UUserID("lycium"),
 			Content: [][]*types.Rune{
@@ -6024,7 +6024,7 @@ func initTest15() {
 			TheDate: "06/23 12:21",
 			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mlycium      \x1b[m\x1b[33m: bug                                              \x1b[m 06/23 12:21\r"),
 		},
-		{ //5
+		{ // 5
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("XaviYang"),
 			Content: [][]*types.Rune{
@@ -6042,7 +6042,7 @@ func initTest15() {
 			TheDate: "06/23 12:21",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mXaviYang    \x1b[m\x1b[33m: \xb8G\xae@...\xab\xc2\xb2r                                      \x1b[m 06/23 12:21\r"),
 		},
-		{ //6
+		{ // 6
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("katanakiller"),
 			Content: [][]*types.Rune{
@@ -6060,7 +6060,7 @@ func initTest15() {
 			TheDate: "06/23 12:21",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mkatanakiller\x1b[m\x1b[33m: \xb3\xe6\xb8`13\xbb@ \xc4G\xa4l\xa4]\xa5\xcc\xab\xf4\xa4U\xad\xb7                          \x1b[m 06/23 12:21\r"),
 		},
-		{ //7
+		{ // 7
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("lycium"),
 			Content: [][]*types.Rune{
@@ -6078,7 +6078,7 @@ func initTest15() {
 			TheDate: "06/23 12:21",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mlycium      \x1b[m\x1b[33m: \xa5~\xacP\xa4H\xa8\xd3\xa6a\xb2y\xadh\xb5\xe6\xa4\xa3\xad\xc8\xb1o\xa4@\xb4\xa3                       \x1b[m 06/23 12:21\r"),
 		},
-		{ //8
+		{ // 8
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("yankees733"),
 			Content: [][]*types.Rune{
@@ -6096,7 +6096,7 @@ func initTest15() {
 			TheDate: "06/23 12:23",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33myankees733  \x1b[m\x1b[33m: \xbb\xa1MJ\xadn\xa8\xab\xa4U\xaf\xab\xbe\xc2\xaa\xba\xa4H\xa9O?                            \x1b[m 06/23 12:23\r"),
 		},
-		{ //9
+		{ // 9
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("juniorpenny"),
 			Content: [][]*types.Rune{
@@ -6117,7 +6117,7 @@ func initTest15() {
 	}
 
 	testFullFirstComments15 = []*schema.Comment{
-		{ //0
+		{ // 0
 			BBoardID:  "test",
 			ArticleID: "test15",
 			TheType:   ptttype.COMMENT_TYPE_COMMENT,
@@ -6140,7 +6140,7 @@ func initTest15() {
 			CreateTime: 1466655360000000000,
 			SortTime:   1466655360000000000,
 		},
-		{ //1
+		{ // 1
 			BBoardID:  "test",
 			ArticleID: "test15",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
@@ -6163,7 +6163,7 @@ func initTest15() {
 			CreateTime: 1466655480000000000,
 			SortTime:   1466655480000000000,
 		},
-		{ //2
+		{ // 2
 			BBoardID:  "test",
 			ArticleID: "test15",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
@@ -6186,7 +6186,7 @@ func initTest15() {
 			CreateTime: 1466655480000000000,
 			SortTime:   1466655480001000000,
 		},
-		{ //3
+		{ // 3
 			BBoardID:  "test",
 			ArticleID: "test15",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
@@ -6209,7 +6209,7 @@ func initTest15() {
 			CreateTime: 1466655600000000000,
 			SortTime:   1466655600000000000,
 		},
-		{ //4
+		{ // 4
 			BBoardID:  "test",
 			ArticleID: "test15",
 			TheType:   ptttype.COMMENT_TYPE_BOO,
@@ -6232,7 +6232,7 @@ func initTest15() {
 			CreateTime: 1466655660000000000,
 			SortTime:   1466655660000000000,
 		},
-		{ //5
+		{ // 5
 			BBoardID:  "test",
 			ArticleID: "test15",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
@@ -6255,7 +6255,7 @@ func initTest15() {
 			CreateTime: 1466655660000000000,
 			SortTime:   1466655660001000000,
 		},
-		{ //6
+		{ // 6
 			BBoardID:  "test",
 			ArticleID: "test15",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
@@ -6278,7 +6278,7 @@ func initTest15() {
 			CreateTime: 1466655660000000000,
 			SortTime:   1466655660002000000,
 		},
-		{ //7
+		{ // 7
 			BBoardID:  "test",
 			ArticleID: "test15",
 			TheType:   ptttype.COMMENT_TYPE_COMMENT,
@@ -6301,7 +6301,7 @@ func initTest15() {
 			CreateTime: 1466655660000000000,
 			SortTime:   1466655660003000000,
 		},
-		{ //8
+		{ // 8
 			BBoardID:  "test",
 			ArticleID: "test15",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
@@ -6324,7 +6324,7 @@ func initTest15() {
 			CreateTime: 1466655780000000000,
 			SortTime:   1466655780000000000,
 		},
-		{ //9
+		{ // 9
 			BBoardID:  "test",
 			ArticleID: "test15",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,

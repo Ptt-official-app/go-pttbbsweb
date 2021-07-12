@@ -11,8 +11,7 @@ import (
 
 const GET_BOARD_SUMMARY_R = "/board/:bid/summary"
 
-type GetBoardSummaryParams struct {
-}
+type GetBoardSummaryParams struct{}
 
 type GetBoardSummaryPath struct {
 	FBoardID apitypes.FBoardID `uri:"bid"`
@@ -37,7 +36,7 @@ func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, 
 		return nil, 400, err
 	}
 
-	//backend get-board-summary
+	// backend get-board-summary
 	theParams_b := &pttbbsapi.LoadBoardSummaryParams{}
 
 	var result_b pttbbsapi.LoadBoardSummaryResult
@@ -51,7 +50,7 @@ func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, 
 		return nil, statusCode, err
 	}
 
-	//update to db
+	// update to db
 	theList_b := []*bbs.BoardSummary{(*bbs.BoardSummary)(result_b)}
 	updateNanoTS := types.NowNanoTS()
 	boardSummaries_db, userBoardInfoMap, err := deserializeBoardsAndUpdateDB(userID, theList_b, updateNanoTS)
@@ -59,7 +58,7 @@ func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, 
 		return nil, 500, err
 	}
 
-	//check isRead
+	// check isRead
 	userBoardInfoMap, err = checkUserReadBoard(userID, userBoardInfoMap, boardSummaries_db)
 	if err != nil {
 		return nil, 500, err
@@ -73,7 +72,7 @@ func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, 
 	boardSummary_db := boardSummaries_db[0]
 	boardSummary := apitypes.NewBoardSummary(boardSummary_db, "", userBoardInfo)
 
-	//result
+	// result
 	result = GetBoardSummaryResult(boardSummary)
 
 	return result, 200, nil

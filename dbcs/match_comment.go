@@ -7,13 +7,13 @@ import (
 )
 
 var (
-	MATCH_COMMENT_RECOMMEND_BYTES = []byte{ //推
+	MATCH_COMMENT_RECOMMEND_BYTES = []byte{ // 推
 		//\x1b[1;37m\xb1\xc0 \x1b[33mabcd   \x1b[m\x1b[33m: 77777777                                         \x1b[m 03/18 12:07
 		0x1b, 0x5b, 0x31, 0x3b, 0x33, 0x37, 0x6d,
 		0xb1, 0xc0, 0x20, 0x1b, 0x5b, 0x33, 0x33, 0x6d,
 	}
 
-	MATCH_COMMENT_BOO_BYTES = []byte{ //噓
+	MATCH_COMMENT_BOO_BYTES = []byte{ // 噓
 		//\x1b[1;31m\xbcN \x1b[33mabcd  \x1b[m\x1b[33m: \xb0\xa3\xabD\xb9\xef\xa4\xe2\xa4]....          \x1b[m 03/18 18:13
 		0x1b, 0x5b, 0x31, 0x3b, 0x33, 0x31, 0x6d,
 		0xbc, 0x4e, 0x20, 0x1b, 0x5b, 0x33, 0x33, 0x6d,
@@ -86,7 +86,7 @@ func MatchComment(content []byte) int {
 		return theIdx
 	}
 
-	return theIdx //do not include the leading \n
+	return theIdx // do not include the leading \n
 }
 
 func MatchCommentType(commentDBCS []byte) (theType ptttype.CommentType, nextCommentDBCS []byte) {
@@ -209,7 +209,6 @@ func hasPrefixCommentDeleted(content []byte) (isDeleted bool, nextCommentDBCS []
 	}
 	if !bytes.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX0) {
 		return false, nil
-
 	}
 	idx += len(MATCH_COMMENT_DELETED_INFIX0)
 	for ; idx < len(content) && content[idx] != ' '; idx++ {

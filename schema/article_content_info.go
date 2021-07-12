@@ -7,13 +7,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-//ContentInfo
+// ContentInfo
 type ArticleContentInfo struct {
 	ContentMD5 string `bson:"content_md5"`
 
 	Content             [][]*types.Rune `bson:"content"`
 	IP                  string          `bson:"ip"`
-	Host                string          `bson:"host"` //ip 的中文呈現, 外國則為國家.
+	Host                string          `bson:"host"` // ip 的中文呈現, 外國則為國家.
 	BBS                 string          `bson:"bbs"`
 	ContentUpdateNanoTS types.NanoTS    `bson:"content_update_nano_ts"`
 
@@ -29,7 +29,6 @@ var (
 )
 
 func GetArticleContentInfo(bboardID bbs.BBoardID, articleID bbs.ArticleID) (contentInfo *ArticleContentInfo, err error) {
-
 	query := &ArticleQuery{
 		BBoardID:  bboardID,
 		ArticleID: articleID,
@@ -48,7 +47,6 @@ func GetArticleContentInfo(bboardID bbs.BBoardID, articleID bbs.ArticleID) (cont
 }
 
 func UpdateArticleContentInfo(bboardID bbs.BBoardID, articleID bbs.ArticleID, contentInfo *ArticleContentInfo) (err error) {
-
 	query := bson.M{
 		ARTICLE_BBOARD_ID_b:  bboardID,
 		ARTICLE_ARTICLE_ID_b: articleID,

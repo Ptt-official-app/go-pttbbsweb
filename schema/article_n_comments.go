@@ -6,13 +6,13 @@ import (
 )
 
 type ArticleNComments struct {
-	//ArticleSummary
+	// ArticleSummary
 	BBoardID  bbs.BBoardID  `bson:"bid"`
 	ArticleID bbs.ArticleID `bson:"aid"`
 
-	NComments int `bson:"n_comments,omitempty"` //n_comments is read-only in article-summary.
+	NComments int `bson:"n_comments,omitempty"` // n_comments is read-only in article-summary.
 
-	Rank int `bson:"rank,omitempty"` //評價
+	Rank int `bson:"rank,omitempty"` // 評價
 }
 
 var (
@@ -20,9 +20,8 @@ var (
 	articleNCommentsFields   = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_N_COMMENTS)
 )
 
-//GetArticleNCommentsByArticleIDs
+// GetArticleNCommentsByArticleIDs
 func GetArticleNCommentsByArticleIDs(bboardID bbs.BBoardID, articleIDs []bbs.ArticleID) (articleNComments []*ArticleNComments, err error) {
-
 	query := bson.M{
 		ARTICLE_BBOARD_ID_b: bboardID,
 		ARTICLE_ARTICLE_ID_b: bson.M{

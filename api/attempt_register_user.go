@@ -28,7 +28,6 @@ func AttemptRegisterUserWrapper(c *gin.Context) {
 }
 
 func AttemptRegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	theParams, ok := params.(*AttemptRegisterUserParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -45,7 +44,7 @@ func AttemptRegisterUser(remoteAddr string, params interface{}, c *gin.Context) 
 		return nil, 400, ErrInvalidParams
 	}
 
-	//check existing user
+	// check existing user
 	theParams_b := &pttbbsapi.CheckExistsUserParams{
 		Username: theParams.Username,
 	}

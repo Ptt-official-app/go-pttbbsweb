@@ -155,7 +155,6 @@ func TestFavRaw_AddBoard(t *testing.T) {
 			tt.expected.CleanParentAndRoot()
 
 			testutil.TDeepEqual(t, "expected", tt.cmp, tt.expected)
-
 		})
 		wg.Wait()
 	}

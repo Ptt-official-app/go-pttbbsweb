@@ -26,7 +26,6 @@ import (
 //    result := &backend.LoginResult{}
 //    BackendPost(c, url, postData, nil, &result)
 func BackendPost(c *gin.Context, url string, postData interface{}, headers map[string]string, result interface{}) (statusCode int, err error) {
-
 	if isTest {
 		return mock_http.HttpPost(url, postData, result)
 	}
@@ -56,7 +55,6 @@ func BackendPost(c *gin.Context, url string, postData interface{}, headers map[s
 }
 
 func BackendGet(c *gin.Context, url string, params interface{}, headers map[string]string, result interface{}) (statusCode int, err error) {
-
 	if isTest {
 		return mock_http.HttpPost(url, params, result)
 	}

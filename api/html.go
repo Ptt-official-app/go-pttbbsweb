@@ -11,8 +11,10 @@ type HTMLPath struct {
 	Path string `uri:"path"`
 }
 
-const ROOT_HTML_R = "/"
-const INDEX_HTML_R = "/index.html"
+const (
+	ROOT_HTML_R  = "/"
+	INDEX_HTML_R = "/index.html"
+)
 
 func IndexHtmlWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "home.html")

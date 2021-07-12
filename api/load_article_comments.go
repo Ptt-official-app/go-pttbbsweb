@@ -55,13 +55,13 @@ func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
-	//is board-valid-user
+	// is board-valid-user
 	_, statusCode, err = isBoardValidUser(boardID, c)
 	if err != nil {
 		return nil, statusCode, err
 	}
 
-	//get comments
+	// get comments
 	querySortNanoTS, queryCommentID := apitypes.DeserializeCommentIdx(theParams.StartIdx)
 
 	comments_db, err := schema.GetComments(boardID, articleID, querySortNanoTS, queryCommentID, theParams.Descending, theParams.Max+1)

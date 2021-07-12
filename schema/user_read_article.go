@@ -7,12 +7,10 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-var (
-	UserReadArticle_c *db.Collection
-)
+var UserReadArticle_c *db.Collection
 
 type UserReadArticle struct {
-	//已讀文章紀錄
+	// 已讀文章紀錄
 
 	UserID       bbs.UUserID   `bson:"user_id"`
 	BoardID      bbs.BBoardID  `bson:"bid"`
@@ -20,9 +18,7 @@ type UserReadArticle struct {
 	UpdateNanoTS types.NanoTS  `bson:"update_nano_ts"`
 }
 
-var (
-	EMPTY_USER_READ_ARTICLE = &UserReadArticle{}
-)
+var EMPTY_USER_READ_ARTICLE = &UserReadArticle{}
 
 var (
 	USER_READ_ARTICLE_USER_ID_b        = getBSONName(EMPTY_USER_READ_ARTICLE, "UserID")
@@ -45,9 +41,7 @@ type UserReadArticleQuery struct {
 	ArticleID bbs.ArticleID `bson:"aid"`
 }
 
-var (
-	EMPTY_USER_READ_ARTICLE_QUERY = &UserReadArticleQuery{}
-)
+var EMPTY_USER_READ_ARTICLE_QUERY = &UserReadArticleQuery{}
 
 func UpdateUserReadArticle(userReadArticle *UserReadArticle) (err error) {
 	query := bson.M{
@@ -60,7 +54,7 @@ func UpdateUserReadArticle(userReadArticle *UserReadArticle) (err error) {
 	if err != nil {
 		return err
 	}
-	if r.UpsertedCount == 1 { //created, no need to update.
+	if r.UpsertedCount == 1 { // created, no need to update.
 		return nil
 	}
 
@@ -96,7 +90,7 @@ func UpdateUserReadArticles(userReadArticles []*UserReadArticle, updateNanoTS ty
 	if err != nil {
 		return err
 	}
-	if r.UpsertedCount == int64(len(userReadArticles)) { //all are created
+	if r.UpsertedCount == int64(len(userReadArticles)) { // all are created
 		return nil
 	}
 
@@ -126,8 +120,7 @@ func UpdateUserReadArticles(userReadArticles []*UserReadArticle, updateNanoTS ty
 }
 
 func FindUserReadArticles(userID bbs.UUserID, boardID bbs.BBoardID, articleIDs []bbs.ArticleID) ([]*UserReadArticle, error) {
-
-	//query
+	// query
 	query := bson.M{
 		USER_READ_ARTICLE_USER_ID_b:  userID,
 		USER_READ_ARTICLE_BOARD_ID_b: boardID,

@@ -34,7 +34,6 @@ func AttemptChangeEmailWrapper(c *gin.Context) {
 }
 
 func AttemptChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	theParams, ok := params.(*AttemptChangeEmailParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -58,7 +57,7 @@ func AttemptChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{
 
 	clientInfo := getClientInfo(client)
 
-	//get backend data
+	// get backend data
 	theParams_b := &pttbbsapi.AttemptChangeEmailParams{
 		ClientInfo: clientInfo,
 		Passwd:     theParams.Password,

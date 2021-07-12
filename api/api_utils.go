@@ -20,7 +20,7 @@ import (
 )
 
 func verifyJwt(c *gin.Context) (userID bbs.UUserID, err error) {
-	jwt := pttbbsapi.GetJwt(c) //get jwt from access-token
+	jwt := pttbbsapi.GetJwt(c) // get jwt from access-token
 
 	if jwt == "" {
 		jwt = utils.GetCookie(c, types.ACCESS_TOKEN_NAME)
@@ -80,7 +80,6 @@ func createCSRFToken() (string, error) {
 }
 
 func isValidCSRFToken(raw string) bool {
-
 	tok, err := jwt.ParseSigned(raw)
 	if err != nil {
 		return false
@@ -151,5 +150,4 @@ func setCookie(c *gin.Context, name string, value string, expireDuration time.Du
 
 	setCookie += "SameSite=Lax;" + types.TOKEN_COOKIE_SUFFIX
 	c.Header("Set-Cookie", setCookie)
-
 }

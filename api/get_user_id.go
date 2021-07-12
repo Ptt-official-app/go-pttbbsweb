@@ -16,7 +16,6 @@ func GetUserIDWrapper(c *gin.Context) {
 }
 
 func GetUserID(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	return &GetUserIDResult{
 		UserID: userID,
 	}, 200, nil

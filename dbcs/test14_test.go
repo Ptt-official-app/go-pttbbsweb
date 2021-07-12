@@ -29,14 +29,14 @@ func initTest14() {
 	testContentAll14, testContent14, testSignature14, testComment14, testFirstCommentsDBCS14, testTheRestCommentsDBCS14 = loadTest(testFilename14)
 
 	testContent14Big5 = [][]*types.Rune{
-		{ //0
+		{ // 0
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //1
+		{ // 1
 			{
 
 				Big5:   []byte("2020-21 NBA Regular Season"),
@@ -50,7 +50,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //2
+		{ // 2
 			{
 
 				Big5:   []byte("\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3"),
@@ -64,7 +64,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //3
+		{ // 3
 			{
 
 				Big5:   []byte(" LA Clippers "),
@@ -92,21 +92,21 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //4
+		{ // 4
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //5
+		{ // 5
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //6
+		{ // 6
 			{
 
 				Big5:   []byte("Team  1st   2nd   3rd   4th  Total "),
@@ -120,7 +120,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //7
+		{ // 7
 			{
 
 				Big5:   []byte("LAC    29    22    20    18    89"),
@@ -129,7 +129,7 @@ func initTest14() {
 				DBCS:   []byte("LAC    29    22    20    18    89\r"),
 			},
 		},
-		{ //8
+		{ // 8
 			{
 
 				Big5:   []byte("DAL    24    32    21    28   105"),
@@ -138,21 +138,21 @@ func initTest14() {
 				DBCS:   []byte("DAL    24    32    21    28   105\r"),
 			},
 		},
-		{ //9
+		{ // 9
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //10
+		{ // 10
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //11
+		{ // 11
 			{
 
 				Big5:   []byte("Arena Stats             "),
@@ -166,7 +166,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //12
+		{ // 12
 			{
 
 				Big5:   []byte("Stadium: "),
@@ -187,7 +187,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //13
+		{ // 13
 			{
 
 				Big5:   []byte("         "),
@@ -208,7 +208,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //14
+		{ // 14
 			{
 
 				Big5:   []byte("Attendance: "),
@@ -229,7 +229,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //15
+		{ // 15
 			{
 
 				Big5:   []byte("Duration:   "),
@@ -250,21 +250,21 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //16
+		{ // 16
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //17
+		{ // 17
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //18
+		{ // 18
 			{
 
 				Big5:   []byte("Scoring                 "),
@@ -278,7 +278,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //19
+		{ // 19
 			{
 
 				Big5:   []byte("Lead Changes: "),
@@ -299,7 +299,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //20
+		{ // 20
 			{
 
 				Big5:   []byte("Times Tied:   "),
@@ -320,28 +320,28 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //21
+		{ // 21
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //22
+		{ // 22
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //23
+		{ // 23
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //24
+		{ // 24
 			{
 
 				Big5:   []byte(" LA Clippers  (26-16)                                                          "),
@@ -355,7 +355,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //25
+		{ // 25
 			{
 
 				Big5:   []byte("PLAYER        P  MIN  FGM-A 3PM-A FTM-A +/- OR DR TR AS PF ST TO BS BA PTS EFF "),
@@ -369,7 +369,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //26
+		{ // 26
 			{
 
 				Big5:   []byte("K. Leonard    F 36:55  9-21 "),
@@ -406,7 +406,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m19\r"),
 			},
 		},
-		{ //27
+		{ // 27
 			{
 
 				Big5:   []byte("M. Morris Sr. F 36:03  5-14 "),
@@ -429,7 +429,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m0-0 -11  1  6  7  2  3  2  0  0  0  11  13\r"),
 			},
 		},
-		{ //28
+		{ // 28
 			{
 
 				Big5:   []byte("I. Zubac      C 35:02 "),
@@ -452,7 +452,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m   0-0   0-0 -15  4  3  7  2  2  3  2  1  1  14  23\r"),
 			},
 		},
-		{ //29
+		{ // 29
 			{
 
 				Big5:   []byte("P. George     G 41:21 10-20 "),
@@ -496,7 +496,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m28\r"),
 			},
 		},
-		{ //30
+		{ // 30
 			{
 
 				Big5:   []byte("R. Jackson    G 19:16 "),
@@ -519,7 +519,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m1-2 -13  0  2  2  1  2  2  1  0  1   5   2\r"),
 			},
 		},
-		{ //31
+		{ // 31
 			{
 
 				Big5:   []byte("N. Batum        29:00   1-3   1-2   0-0  -3  0  2  2  2  2  2  1  0  0   3   6"),
@@ -528,7 +528,7 @@ func initTest14() {
 				DBCS:   []byte("N. Batum        29:00   1-3   1-2   0-0  -3  0  2  2  2  2  2  1  0  0   3   6\r"),
 			},
 		},
-		{ //32
+		{ // 32
 			{
 
 				Big5:   []byte("L. Williams     24:24 "),
@@ -551,7 +551,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m0-0  -5  0  1  1  3  0  0  1  1  2   5   1\r"),
 			},
 		},
-		{ //33
+		{ // 33
 			{
 
 				Big5:   []byte("T. Mann         13:33   1-2 "),
@@ -574,7 +574,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m1-2  -6  1  3  4  0  3  0  0  0  0   3   5\r"),
 			},
 		},
-		{ //34
+		{ // 34
 			{
 
 				Big5:   []byte("A. Coffey       01:32   0-0   0-0   0-0  -3  0  0  0  0  0  0  0  0  0   0   0"),
@@ -583,7 +583,7 @@ func initTest14() {
 				DBCS:   []byte("A. Coffey       01:32   0-0   0-0   0-0  -3  0  0  0  0  0  0  0  0  0   0   0\r"),
 			},
 		},
-		{ //35
+		{ // 35
 			{
 
 				Big5:   []byte("D. Oturu        01:27   0-0   0-0   0-0  -3  0  0  0  0  0  0  1  0  0   0 "),
@@ -604,7 +604,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //36
+		{ // 36
 			{
 
 				Big5:   []byte("M. Kabengele    01:27 "),
@@ -639,7 +639,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //37
+		{ // 37
 			{
 
 				Big5:   []byte("L. Kennard       DNP    Coach's Decision"),
@@ -653,7 +653,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //38
+		{ // 38
 			{
 
 				Big5:   []byte("P. Patterson     DNP    Coach's Decision"),
@@ -667,14 +667,14 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //39
+		{ // 39
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //40
+		{ // 40
 			{
 
 				Big5:   []byte("Total            MIN  FGM-A 3PM-A FTM-A     OR DR TR AS PF ST TO BS BA PTS     "),
@@ -689,7 +689,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //41
+		{ // 41
 			{
 
 				Big5:   []byte("                 "),
@@ -747,7 +747,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m15 12 12  3  7  89\r"),
 			},
 		},
-		{ //42
+		{ // 42
 			{
 
 				Big5:   []byte("                      "),
@@ -797,7 +797,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //43
+		{ // 43
 			{
 
 				Color0: types.DefaultColor,
@@ -805,7 +805,7 @@ func initTest14() {
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //44
+		{ // 44
 			{
 
 				Color0: types.DefaultColor,
@@ -813,7 +813,7 @@ func initTest14() {
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //45
+		{ // 45
 			{
 
 				Big5:   []byte(" Dallas Mavericks  (21-18)                                                     "),
@@ -828,7 +828,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //46
+		{ // 46
 			{
 
 				Big5:   []byte("PLAYER        P  MIN  FGM-A 3PM-A FTM-A +/- OR DR TR AS PF ST TO BS BA PTS EFF "),
@@ -843,7 +843,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //47
+		{ // 47
 			{
 
 				Big5:   []byte("Hardaway Jr.  F 36:34  6-12   3-7   0-0 +17  0  6  6  1  1  0  2  0  0  15  14"),
@@ -852,7 +852,7 @@ func initTest14() {
 				DBCS:   []byte("Hardaway Jr.  F 36:34  6-12   3-7   0-0 +17  0  6  6  1  1  0  2  0  0  15  14\r"),
 			},
 		},
-		{ //48
+		{ // 48
 			{
 
 				Big5:   []byte("M. Kleber     F 40:54   4-8   2-5 "),
@@ -875,7 +875,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m+24  0  6  6  0  3  0  1  0  0  12  13\r"),
 			},
 		},
-		{ //49
+		{ // 49
 			{
 
 				Big5:   []byte("K. Porzingis  C 34:19  5-14"),
@@ -932,7 +932,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //50
+		{ // 50
 			{
 
 				Big5:   []byte("J. Richardson G 38:51   5-9   2-4 "),
@@ -955,7 +955,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m+16  1  4  5  2  2  3  1  1  0  14  20\r"),
 			},
 		},
-		{ //51
+		{ // 51
 			{
 
 				Big5:   []byte("L. Doncic     G 42:48 16-28  6-11   4-5 +29  1  5  6  9  2  3  4  2  2 "),
@@ -976,7 +976,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //52
+		{ // 52
 			{
 
 				Big5:   []byte("J. Brunson      15:44   2-5   1-2   0-0 -11  1  2  3  2  2  1  5  0  0   5   3"),
@@ -985,7 +985,7 @@ func initTest14() {
 				DBCS:   []byte("J. Brunson      15:44   2-5   1-2   0-0 -11  1  2  3  2  2  1  5  0  0   5   3\r"),
 			},
 		},
-		{ //53
+		{ // 53
 			{
 
 				Big5:   []byte("W. Iwundu       10:37   0-0   0-0   0-0  -2  0  2  2  0  2  0  1  0  0   0   1"),
@@ -994,7 +994,7 @@ func initTest14() {
 				DBCS:   []byte("W. Iwundu       10:37   0-0   0-0   0-0  -2  0  2  2  0  2  0  1  0  0   0   1\r"),
 			},
 		},
-		{ //54
+		{ // 54
 			{
 
 				Big5:   []byte("T. Burke        04:59 "),
@@ -1031,7 +1031,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m0-0  -7  0  0  0  0  0  0  0  0  0   2   2\r"),
 			},
 		},
-		{ //55
+		{ // 55
 			{
 
 				Big5:   []byte("D. Powell       03:19   0-0   0-0   0-0  -5  0  0  0  0  0  0  0  0  0   0   0"),
@@ -1040,7 +1040,7 @@ func initTest14() {
 				DBCS:   []byte("D. Powell       03:19   0-0   0-0   0-0  -5  0  0  0  0  0  0  0  0  0   0   0\r"),
 			},
 		},
-		{ //56
+		{ // 56
 			{
 
 				Big5:   []byte("Cauley-Stein    11:55   1-2 "),
@@ -1070,7 +1070,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m+10  0  2  2  0  2  0  0  2  0   4   7\r"),
 			},
 		},
-		{ //57
+		{ // 57
 			{
 
 				Big5:   []byte("T. Bey           DNP    Coach's Decision"),
@@ -1084,7 +1084,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //58
+		{ // 58
 			{
 
 				Big5:   []byte("J. Green         DNP    Coach's Decision"),
@@ -1098,7 +1098,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //59
+		{ // 59
 			{
 
 				Big5:   []byte("N. Hinton        DNP    Coach's Decision"),
@@ -1112,7 +1112,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //60
+		{ // 60
 			{
 
 				Big5:   []byte("B. Marjanovic    DNP    Coach's Decision"),
@@ -1126,14 +1126,14 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //61
+		{ // 61
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //62
+		{ // 62
 			{
 
 				Big5:   []byte("Total            MIN  FGM-A 3PM-A FTM-A     OR DR TR AS PF ST TO BS BA PTS     "),
@@ -1147,7 +1147,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //63
+		{ // 63
 			{
 
 				Big5:   []byte("                 "),
@@ -1205,7 +1205,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m16  7 18  7  3 105\r"),
 			},
 		},
-		{ //64
+		{ // 64
 			{
 
 				Big5:   []byte("                      "),
@@ -1254,7 +1254,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //65
+		{ // 65
 			{
 
 				Color0: types.DefaultColor,
@@ -1262,7 +1262,7 @@ func initTest14() {
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //66
+		{ // 66
 			{
 
 				Color0: types.DefaultColor,
@@ -1270,7 +1270,7 @@ func initTest14() {
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //67
+		{ // 67
 			{
 
 				Big5:   []byte("Team Statistics      LAC   DAL  "),
@@ -1284,7 +1284,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //68
+		{ // 68
 			{
 
 				Big5:   []byte("Fast Break Points"),
@@ -1300,7 +1300,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m     13     7\r"),
 			},
 		},
-		{ //69
+		{ // 69
 			{
 
 				Big5:   []byte("Biggest Lead  "),
@@ -1316,7 +1316,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m         7    16\r"),
 			},
 		},
-		{ //70
+		{ // 70
 			{
 
 				Big5:   []byte("Points In The Paint"),
@@ -1332,7 +1332,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m   42    30\r"),
 			},
 		},
-		{ //71
+		{ // 71
 			{
 
 				Big5:   []byte("Bench Points  "),
@@ -1348,7 +1348,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m        11    11\r"),
 			},
 		},
-		{ //72
+		{ // 72
 			{
 
 				Color0: types.DefaultColor,
@@ -1356,7 +1356,7 @@ func initTest14() {
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //73
+		{ // 73
 			{
 
 				Color0: types.DefaultColor,
@@ -1367,14 +1367,14 @@ func initTest14() {
 	}
 
 	testContent14Utf8 = [][]*types.Rune{
-		{ //0
+		{ // 0
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //1
+		{ // 1
 			{
 				Utf8:   "2020-21 NBA Regular Season",
 				Big5:   []byte("2020-21 NBA Regular Season"),
@@ -1388,7 +1388,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //2
+		{ // 2
 			{
 				Utf8:   "￣￣￣￣￣￣￣￣￣￣￣￣￣",
 				Big5:   []byte("\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3\xa1\xc3"),
@@ -1402,7 +1402,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //3
+		{ // 3
 			{
 				Utf8:   " LA Clippers ",
 				Big5:   []byte(" LA Clippers "),
@@ -1430,21 +1430,21 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //4
+		{ // 4
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //5
+		{ // 5
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //6
+		{ // 6
 			{
 				Utf8:   "Team  1st   2nd   3rd   4th  Total ",
 				Big5:   []byte("Team  1st   2nd   3rd   4th  Total "),
@@ -1458,7 +1458,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //7
+		{ // 7
 			{
 				Utf8:   "LAC    29    22    20    18    89",
 				Big5:   []byte("LAC    29    22    20    18    89"),
@@ -1467,7 +1467,7 @@ func initTest14() {
 				DBCS:   []byte("LAC    29    22    20    18    89\r"),
 			},
 		},
-		{ //8
+		{ // 8
 			{
 				Utf8:   "DAL    24    32    21    28   105",
 				Big5:   []byte("DAL    24    32    21    28   105"),
@@ -1476,21 +1476,21 @@ func initTest14() {
 				DBCS:   []byte("DAL    24    32    21    28   105\r"),
 			},
 		},
-		{ //9
+		{ // 9
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //10
+		{ // 10
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //11
+		{ // 11
 			{
 				Utf8:   "Arena Stats             ",
 				Big5:   []byte("Arena Stats             "),
@@ -1504,7 +1504,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //12
+		{ // 12
 			{
 				Utf8:   "Stadium: ",
 				Big5:   []byte("Stadium: "),
@@ -1525,7 +1525,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //13
+		{ // 13
 			{
 				Utf8:   "         ",
 				Big5:   []byte("         "),
@@ -1546,7 +1546,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //14
+		{ // 14
 			{
 				Utf8:   "Attendance: ",
 				Big5:   []byte("Attendance: "),
@@ -1567,7 +1567,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //15
+		{ // 15
 			{
 				Utf8:   "Duration:   ",
 				Big5:   []byte("Duration:   "),
@@ -1588,21 +1588,21 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //16
+		{ // 16
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //17
+		{ // 17
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //18
+		{ // 18
 			{
 				Utf8:   "Scoring                 ",
 				Big5:   []byte("Scoring                 "),
@@ -1616,7 +1616,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //19
+		{ // 19
 			{
 				Utf8:   "Lead Changes: ",
 				Big5:   []byte("Lead Changes: "),
@@ -1637,7 +1637,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //20
+		{ // 20
 			{
 				Utf8:   "Times Tied:   ",
 				Big5:   []byte("Times Tied:   "),
@@ -1658,28 +1658,28 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //21
+		{ // 21
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //22
+		{ // 22
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //23
+		{ // 23
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //24
+		{ // 24
 			{
 				Utf8:   " LA Clippers  (26-16)                                                          ",
 				Big5:   []byte(" LA Clippers  (26-16)                                                          "),
@@ -1693,7 +1693,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //25
+		{ // 25
 			{
 				Utf8:   "PLAYER        P  MIN  FGM-A 3PM-A FTM-A +/- OR DR TR AS PF ST TO BS BA PTS EFF ",
 				Big5:   []byte("PLAYER        P  MIN  FGM-A 3PM-A FTM-A +/- OR DR TR AS PF ST TO BS BA PTS EFF "),
@@ -1707,7 +1707,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //26
+		{ // 26
 			{
 				Utf8:   "K. Leonard    F 36:55  9-21 ",
 				Big5:   []byte("K. Leonard    F 36:55  9-21 "),
@@ -1744,7 +1744,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m19\r"),
 			},
 		},
-		{ //27
+		{ // 27
 			{
 				Utf8:   "M. Morris Sr. F 36:03  5-14 ",
 				Big5:   []byte("M. Morris Sr. F 36:03  5-14 "),
@@ -1767,7 +1767,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m0-0 -11  1  6  7  2  3  2  0  0  0  11  13\r"),
 			},
 		},
-		{ //28
+		{ // 28
 			{
 				Utf8:   "I. Zubac      C 35:02 ",
 				Big5:   []byte("I. Zubac      C 35:02 "),
@@ -1790,7 +1790,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m   0-0   0-0 -15  4  3  7  2  2  3  2  1  1  14  23\r"),
 			},
 		},
-		{ //29
+		{ // 29
 			{
 				Utf8:   "P. George     G 41:21 10-20 ",
 				Big5:   []byte("P. George     G 41:21 10-20 "),
@@ -1834,7 +1834,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m28\r"),
 			},
 		},
-		{ //30
+		{ // 30
 			{
 				Utf8:   "R. Jackson    G 19:16 ",
 				Big5:   []byte("R. Jackson    G 19:16 "),
@@ -1857,7 +1857,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m1-2 -13  0  2  2  1  2  2  1  0  1   5   2\r"),
 			},
 		},
-		{ //31
+		{ // 31
 			{
 				Utf8:   "N. Batum        29:00   1-3   1-2   0-0  -3  0  2  2  2  2  2  1  0  0   3   6",
 				Big5:   []byte("N. Batum        29:00   1-3   1-2   0-0  -3  0  2  2  2  2  2  1  0  0   3   6"),
@@ -1866,7 +1866,7 @@ func initTest14() {
 				DBCS:   []byte("N. Batum        29:00   1-3   1-2   0-0  -3  0  2  2  2  2  2  1  0  0   3   6\r"),
 			},
 		},
-		{ //32
+		{ // 32
 			{
 				Utf8:   "L. Williams     24:24 ",
 				Big5:   []byte("L. Williams     24:24 "),
@@ -1889,7 +1889,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m0-0  -5  0  1  1  3  0  0  1  1  2   5   1\r"),
 			},
 		},
-		{ //33
+		{ // 33
 			{
 				Utf8:   "T. Mann         13:33   1-2 ",
 				Big5:   []byte("T. Mann         13:33   1-2 "),
@@ -1912,7 +1912,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m1-2  -6  1  3  4  0  3  0  0  0  0   3   5\r"),
 			},
 		},
-		{ //34
+		{ // 34
 			{
 				Utf8:   "A. Coffey       01:32   0-0   0-0   0-0  -3  0  0  0  0  0  0  0  0  0   0   0",
 				Big5:   []byte("A. Coffey       01:32   0-0   0-0   0-0  -3  0  0  0  0  0  0  0  0  0   0   0"),
@@ -1921,7 +1921,7 @@ func initTest14() {
 				DBCS:   []byte("A. Coffey       01:32   0-0   0-0   0-0  -3  0  0  0  0  0  0  0  0  0   0   0\r"),
 			},
 		},
-		{ //35
+		{ // 35
 			{
 				Utf8:   "D. Oturu        01:27   0-0   0-0   0-0  -3  0  0  0  0  0  0  1  0  0   0 ",
 				Big5:   []byte("D. Oturu        01:27   0-0   0-0   0-0  -3  0  0  0  0  0  0  1  0  0   0 "),
@@ -1942,7 +1942,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //36
+		{ // 36
 			{
 				Utf8:   "M. Kabengele    01:27 ",
 				Big5:   []byte("M. Kabengele    01:27 "),
@@ -1977,7 +1977,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //37
+		{ // 37
 			{
 				Utf8:   "L. Kennard       DNP    Coach's Decision",
 				Big5:   []byte("L. Kennard       DNP    Coach's Decision"),
@@ -1991,7 +1991,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //38
+		{ // 38
 			{
 				Utf8:   "P. Patterson     DNP    Coach's Decision",
 				Big5:   []byte("P. Patterson     DNP    Coach's Decision"),
@@ -2005,14 +2005,14 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //39
+		{ // 39
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //40
+		{ // 40
 			{
 				Utf8:   "Total            MIN  FGM-A 3PM-A FTM-A     OR DR TR AS PF ST TO BS BA PTS     ",
 				Big5:   []byte("Total            MIN  FGM-A 3PM-A FTM-A     OR DR TR AS PF ST TO BS BA PTS     "),
@@ -2027,7 +2027,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //41
+		{ // 41
 			{
 				Utf8:   "                 ",
 				Big5:   []byte("                 "),
@@ -2085,7 +2085,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m15 12 12  3  7  89\r"),
 			},
 		},
-		{ //42
+		{ // 42
 			{
 				Utf8:   "                      ",
 				Big5:   []byte("                      "),
@@ -2135,7 +2135,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //43
+		{ // 43
 			{
 
 				Color0: types.DefaultColor,
@@ -2143,7 +2143,7 @@ func initTest14() {
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //44
+		{ // 44
 			{
 
 				Color0: types.DefaultColor,
@@ -2151,7 +2151,7 @@ func initTest14() {
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //45
+		{ // 45
 			{
 				Utf8:   " Dallas Mavericks  (21-18)                                                     ",
 				Big5:   []byte(" Dallas Mavericks  (21-18)                                                     "),
@@ -2166,7 +2166,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //46
+		{ // 46
 			{
 				Utf8:   "PLAYER        P  MIN  FGM-A 3PM-A FTM-A +/- OR DR TR AS PF ST TO BS BA PTS EFF ",
 				Big5:   []byte("PLAYER        P  MIN  FGM-A 3PM-A FTM-A +/- OR DR TR AS PF ST TO BS BA PTS EFF "),
@@ -2181,7 +2181,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //47
+		{ // 47
 			{
 				Utf8:   "Hardaway Jr.  F 36:34  6-12   3-7   0-0 +17  0  6  6  1  1  0  2  0  0  15  14",
 				Big5:   []byte("Hardaway Jr.  F 36:34  6-12   3-7   0-0 +17  0  6  6  1  1  0  2  0  0  15  14"),
@@ -2190,7 +2190,7 @@ func initTest14() {
 				DBCS:   []byte("Hardaway Jr.  F 36:34  6-12   3-7   0-0 +17  0  6  6  1  1  0  2  0  0  15  14\r"),
 			},
 		},
-		{ //48
+		{ // 48
 			{
 				Utf8:   "M. Kleber     F 40:54   4-8   2-5 ",
 				Big5:   []byte("M. Kleber     F 40:54   4-8   2-5 "),
@@ -2213,7 +2213,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m+24  0  6  6  0  3  0  1  0  0  12  13\r"),
 			},
 		},
-		{ //49
+		{ // 49
 			{
 				Utf8:   "K. Porzingis  C 34:19  5-14",
 				Big5:   []byte("K. Porzingis  C 34:19  5-14"),
@@ -2270,7 +2270,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //50
+		{ // 50
 			{
 				Utf8:   "J. Richardson G 38:51   5-9   2-4 ",
 				Big5:   []byte("J. Richardson G 38:51   5-9   2-4 "),
@@ -2293,7 +2293,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m+16  1  4  5  2  2  3  1  1  0  14  20\r"),
 			},
 		},
-		{ //51
+		{ // 51
 			{
 				Utf8:   "L. Doncic     G 42:48 16-28  6-11   4-5 +29  1  5  6  9  2  3  4  2  2 ",
 				Big5:   []byte("L. Doncic     G 42:48 16-28  6-11   4-5 +29  1  5  6  9  2  3  4  2  2 "),
@@ -2314,7 +2314,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //52
+		{ // 52
 			{
 				Utf8:   "J. Brunson      15:44   2-5   1-2   0-0 -11  1  2  3  2  2  1  5  0  0   5   3",
 				Big5:   []byte("J. Brunson      15:44   2-5   1-2   0-0 -11  1  2  3  2  2  1  5  0  0   5   3"),
@@ -2323,7 +2323,7 @@ func initTest14() {
 				DBCS:   []byte("J. Brunson      15:44   2-5   1-2   0-0 -11  1  2  3  2  2  1  5  0  0   5   3\r"),
 			},
 		},
-		{ //53
+		{ // 53
 			{
 				Utf8:   "W. Iwundu       10:37   0-0   0-0   0-0  -2  0  2  2  0  2  0  1  0  0   0   1",
 				Big5:   []byte("W. Iwundu       10:37   0-0   0-0   0-0  -2  0  2  2  0  2  0  1  0  0   0   1"),
@@ -2332,7 +2332,7 @@ func initTest14() {
 				DBCS:   []byte("W. Iwundu       10:37   0-0   0-0   0-0  -2  0  2  2  0  2  0  1  0  0   0   1\r"),
 			},
 		},
-		{ //54
+		{ // 54
 			{
 				Utf8:   "T. Burke        04:59 ",
 				Big5:   []byte("T. Burke        04:59 "),
@@ -2369,7 +2369,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m0-0  -7  0  0  0  0  0  0  0  0  0   2   2\r"),
 			},
 		},
-		{ //55
+		{ // 55
 			{
 				Utf8:   "D. Powell       03:19   0-0   0-0   0-0  -5  0  0  0  0  0  0  0  0  0   0   0",
 				Big5:   []byte("D. Powell       03:19   0-0   0-0   0-0  -5  0  0  0  0  0  0  0  0  0   0   0"),
@@ -2378,7 +2378,7 @@ func initTest14() {
 				DBCS:   []byte("D. Powell       03:19   0-0   0-0   0-0  -5  0  0  0  0  0  0  0  0  0   0   0\r"),
 			},
 		},
-		{ //56
+		{ // 56
 			{
 				Utf8:   "Cauley-Stein    11:55   1-2 ",
 				Big5:   []byte("Cauley-Stein    11:55   1-2 "),
@@ -2408,7 +2408,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m+10  0  2  2  0  2  0  0  2  0   4   7\r"),
 			},
 		},
-		{ //57
+		{ // 57
 			{
 				Utf8:   "T. Bey           DNP    Coach's Decision",
 				Big5:   []byte("T. Bey           DNP    Coach's Decision"),
@@ -2422,7 +2422,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //58
+		{ // 58
 			{
 				Utf8:   "J. Green         DNP    Coach's Decision",
 				Big5:   []byte("J. Green         DNP    Coach's Decision"),
@@ -2436,7 +2436,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //59
+		{ // 59
 			{
 				Utf8:   "N. Hinton        DNP    Coach's Decision",
 				Big5:   []byte("N. Hinton        DNP    Coach's Decision"),
@@ -2450,7 +2450,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //60
+		{ // 60
 			{
 				Utf8:   "B. Marjanovic    DNP    Coach's Decision",
 				Big5:   []byte("B. Marjanovic    DNP    Coach's Decision"),
@@ -2464,14 +2464,14 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //61
+		{ // 61
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //62
+		{ // 62
 			{
 				Utf8:   "Total            MIN  FGM-A 3PM-A FTM-A     OR DR TR AS PF ST TO BS BA PTS     ",
 				Big5:   []byte("Total            MIN  FGM-A 3PM-A FTM-A     OR DR TR AS PF ST TO BS BA PTS     "),
@@ -2485,7 +2485,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //63
+		{ // 63
 			{
 				Utf8:   "                 ",
 				Big5:   []byte("                 "),
@@ -2543,7 +2543,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m16  7 18  7  3 105\r"),
 			},
 		},
-		{ //64
+		{ // 64
 			{
 				Utf8:   "                      ",
 				Big5:   []byte("                      "),
@@ -2592,7 +2592,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //65
+		{ // 65
 			{
 
 				Color0: types.DefaultColor,
@@ -2600,7 +2600,7 @@ func initTest14() {
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //66
+		{ // 66
 			{
 
 				Color0: types.DefaultColor,
@@ -2608,7 +2608,7 @@ func initTest14() {
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //67
+		{ // 67
 			{
 				Utf8:   "Team Statistics      LAC   DAL  ",
 				Big5:   []byte("Team Statistics      LAC   DAL  "),
@@ -2622,7 +2622,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //68
+		{ // 68
 			{
 				Utf8:   "Fast Break Points",
 				Big5:   []byte("Fast Break Points"),
@@ -2638,7 +2638,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m     13     7\r"),
 			},
 		},
-		{ //69
+		{ // 69
 			{
 				Utf8:   "Biggest Lead  ",
 				Big5:   []byte("Biggest Lead  "),
@@ -2654,7 +2654,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m         7    16\r"),
 			},
 		},
-		{ //70
+		{ // 70
 			{
 				Utf8:   "Points In The Paint",
 				Big5:   []byte("Points In The Paint"),
@@ -2670,7 +2670,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m   42    30\r"),
 			},
 		},
-		{ //71
+		{ // 71
 			{
 				Utf8:   "Bench Points  ",
 				Big5:   []byte("Bench Points  "),
@@ -2686,7 +2686,7 @@ func initTest14() {
 				DBCS:   []byte("\x1b[m        11    11\r"),
 			},
 		},
-		{ //72
+		{ // 72
 			{
 
 				Color0: types.DefaultColor,
@@ -2694,7 +2694,7 @@ func initTest14() {
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //73
+		{ // 73
 			{
 
 				Color0: types.DefaultColor,
@@ -2705,7 +2705,7 @@ func initTest14() {
 	}
 
 	testFirstComments14 = []*schema.Comment{
-		{ //0
+		{ // 0
 			TheType: ptttype.COMMENT_TYPE_EDIT,
 			Owner:   bbs.UUserID("guardyo"),
 
@@ -2720,7 +2720,7 @@ func initTest14() {
 			SortTime:           1616040442000000000,
 			CommentID:          "Fm1UOEgTRAA:3VevXQUX8i9UiFETWDrcTQ",
 		},
-		{ //1
+		{ // 1
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("yasan1029"),
 			Content: [][]*types.Rune{
@@ -2738,7 +2738,7 @@ func initTest14() {
 			TheDate: "03/18 12:07",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33myasan1029   \x1b[m\x1b[33m: 77777777                                         \x1b[m 03/18 12:07\r"),
 		},
-		{ //2
+		{ // 2
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("yue1013"),
 			Content: [][]*types.Rune{
@@ -2756,7 +2756,7 @@ func initTest14() {
 			TheDate: "03/18 12:07",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33myue1013     \x1b[m\x1b[33m: 777                                              \x1b[m 03/18 12:07\r"),
 		},
-		{ //3
+		{ // 3
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Dorae5566"),
 			Content: [][]*types.Rune{
@@ -2775,7 +2775,7 @@ func initTest14() {
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mDorae5566   \x1b[m\x1b[33m: \xb3o\xa9u\xa5\xb4\xa7\xb9\xa4j\xb7\xa7\xa4S\xadn\xa4W\xbat\xa4H\xa5\xcd\xa4F...                    \x1b[m 03/18 12:07\r"),
 		},
 
-		{ //4
+		{ // 4
 			TheType: ptttype.COMMENT_TYPE_FORWARD,
 			Owner:   bbs.UUserID("doooooooooog"),
 			Content: [][]*types.Rune{
@@ -2794,7 +2794,7 @@ func initTest14() {
 			DBCS:    []byte("\xa1\xb0 \x1b[1;32mdoooooooooog\x1b[0;32m:\xc2\xe0\xbf\xfd\xa6\xdc\xac\xdd\xaaO Mavericks\x1b[m                               03/18 12:07\r"),
 		},
 
-		{ //5
+		{ // 5
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("luck945"),
 			Content: [][]*types.Rune{
@@ -2812,7 +2812,7 @@ func initTest14() {
 			TheDate: "03/18 12:07",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mluck945     \x1b[m\x1b[33m: 7777777777                                       \x1b[m 03/18 12:07\r"),
 		},
-		{ //6
+		{ // 6
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Eddward"),
 			Content: [][]*types.Rune{
@@ -2830,7 +2830,7 @@ func initTest14() {
 			TheDate: "03/18 12:07",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mEddward     \x1b[m\x1b[33m: \xa7\xd6\xb8\xa5\xb9q\xb1\xe8\xa6V\xa4U\xa1H                                   \x1b[m 03/18 12:07\r"),
 		},
-		{ //7
+		{ // 7
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("kkxf336g037"),
 			Content: [][]*types.Rune{
@@ -2848,7 +2848,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mkkxf336g037 \x1b[m\x1b[33m: 77777777                                         \x1b[m 03/18 12:08\r"),
 		},
-		{ //8
+		{ // 8
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("outnow5566"),
 			Content: [][]*types.Rune{
@@ -2866,7 +2866,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33moutnow5566  \x1b[m\x1b[33m: \xb3o\xa4T\xa4\xc0\xa7\xda\xc1\xd9\xa5H\xac\xb0\xacOP.league\xa9O                       \x1b[m 03/18 12:08\r"),
 		},
-		{ //9
+		{ // 9
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("doooooooooog"),
 			Content: [][]*types.Rune{
@@ -2887,7 +2887,7 @@ func initTest14() {
 	}
 
 	testFullFirstComments14 = []*schema.Comment{
-		{ //0
+		{ // 0
 			BBoardID:  "test",
 			ArticleID: "test14",
 			TheType:   ptttype.COMMENT_TYPE_EDIT,
@@ -2904,7 +2904,7 @@ func initTest14() {
 			SortTime:           1616040442000000000,
 			CommentID:          "Fm1UOEgTRAA:3VevXQUX8i9UiFETWDrcTQ",
 		},
-		{ //1
+		{ // 1
 			BBoardID:  "test",
 			ArticleID: "test14",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
@@ -2927,7 +2927,7 @@ func initTest14() {
 			CreateTime: 1616040420000000000,
 			SortTime:   1616040442001000000,
 		},
-		{ //2
+		{ // 2
 			BBoardID:  "test",
 			ArticleID: "test14",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
@@ -2950,7 +2950,7 @@ func initTest14() {
 			CreateTime: 1616040420000000000,
 			SortTime:   1616040442002000000,
 		},
-		{ //3
+		{ // 3
 			BBoardID:  "test",
 			ArticleID: "test14",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
@@ -2974,7 +2974,7 @@ func initTest14() {
 			SortTime:   1616040442003000000,
 		},
 
-		{ //4
+		{ // 4
 			BBoardID:  "test",
 			ArticleID: "test14",
 			TheType:   ptttype.COMMENT_TYPE_FORWARD,
@@ -2998,7 +2998,7 @@ func initTest14() {
 			SortTime:   1616040442004000000,
 		},
 
-		{ //5
+		{ // 5
 			BBoardID:  "test",
 			ArticleID: "test14",
 			TheType:   ptttype.COMMENT_TYPE_COMMENT,
@@ -3021,7 +3021,7 @@ func initTest14() {
 			CreateTime: 1616040420000000000,
 			SortTime:   1616040442005000000,
 		},
-		{ //6
+		{ // 6
 			BBoardID:  "test",
 			ArticleID: "test14",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
@@ -3044,7 +3044,7 @@ func initTest14() {
 			CreateTime: 1616040420000000000,
 			SortTime:   1616040442006000000,
 		},
-		{ //7
+		{ // 7
 			BBoardID:  "test",
 			ArticleID: "test14",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
@@ -3067,7 +3067,7 @@ func initTest14() {
 			CreateTime: 1616040480000000000,
 			SortTime:   1616040480000000000,
 		},
-		{ //8
+		{ // 8
 			BBoardID:  "test",
 			ArticleID: "test14",
 			TheType:   ptttype.COMMENT_TYPE_RECOMMEND,
@@ -3090,7 +3090,7 @@ func initTest14() {
 			CreateTime: 1616040480000000000,
 			SortTime:   1616040480001000000,
 		},
-		{ //9
+		{ // 9
 			BBoardID:  "test",
 			ArticleID: "test14",
 			TheType:   ptttype.COMMENT_TYPE_COMMENT,
@@ -3116,7 +3116,7 @@ func initTest14() {
 	}
 
 	testTheRestComments14 = []*schema.Comment{
-		{ //0
+		{ // 0
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("JTFWAHQ"),
 			Content: [][]*types.Rune{
@@ -3134,7 +3134,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mJTFWAHQ     \x1b[m\x1b[33m: 77777777777777777777777777                       \x1b[m 03/18 12:08\r"),
 		},
-		{ //1
+		{ // 1
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("HardDDDD"),
 			Content: [][]*types.Rune{
@@ -3152,7 +3152,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mHardDDDD    \x1b[m\x1b[33m: 77777777777777777777                             \x1b[m 03/18 12:08\r"),
 		},
-		{ //2
+		{ // 2
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("MilkTea0509"),
 			Content: [][]*types.Rune{
@@ -3170,7 +3170,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mMilkTea0509 \x1b[m\x1b[33m: \xad\xc9\xc2\xe0\xafO\xc1\xc9\xaa\xa9                                       \x1b[m 03/18 12:08\r"),
 		},
-		{ //3
+		{ // 3
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("boy80421"),
 			Content: [][]*types.Rune{
@@ -3188,7 +3188,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mboy80421    \x1b[m\x1b[33m: 77\xb8\xf2\xa7\xd6\xb8\xa5\xacO\xa4\xa3\xacO\xa6\xb3\xa4\xb3 \xa6L\xb6H\xa4\xa4\xa5\xb4\xa7\xd6\xb8\xa5\xb1`\xc3z\xae\xf0            \x1b[m 03/18 12:08\r"),
 		},
-		{ //4
+		{ // 4
 			TheType: ptttype.COMMENT_TYPE_FORWARD,
 			Owner:   bbs.UUserID("MilkTea0509"),
 			Content: [][]*types.Rune{
@@ -3206,7 +3206,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\xa1\xb0 \x1b[1;32mMilkTea0509\x1b[0;32m:\xc2\xe0\xbf\xfd\xa6\xdc\xac\xdd\xaaO LaClippers\x1b[m                               03/18 12:08\r"),
 		},
-		{ //5
+		{ // 5
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("homocat"),
 			Content: [][]*types.Rune{
@@ -3224,7 +3224,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mhomocat     \x1b[m\x1b[33m: 77\xa4\xa3\xbf\xf9                                           \x1b[m 03/18 12:08\r"),
 		},
-		{ //6
+		{ // 6
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("aa01081008tw"),
 			Content: [][]*types.Rune{
@@ -3242,7 +3242,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33maa01081008tw\x1b[m\x1b[33m: \xa5i\xb7R\xb7|\xa4\xa3\xb7|\xb3o\xa9u\xb5\xb2\xa7\xf4\xafO\xb6]\xb0\xda..\xa4\xf1\xa4W\xa9u\xa7\xf3\xa8S\xc0\xb8XD         \x1b[m 03/18 12:08\r"),
 		},
-		{ //7
+		{ // 7
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("chenluyang"),
 			Content: [][]*types.Rune{
@@ -3260,7 +3260,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mchenluyang  \x1b[m\x1b[33m: 77\xb3o\xb3\xf5\xc3z\xb7F\xb1j                                     \x1b[m 03/18 12:08\r"),
 		},
-		{ //8
+		{ // 8
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("jardon"),
 			Content: [][]*types.Rune{
@@ -3278,7 +3278,7 @@ func initTest14() {
 			TheDate: "03/18 12:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mjardon      \x1b[m\x1b[33m: +25  eff 45                                      \x1b[m 03/18 12:09\r"),
 		},
-		{ //9
+		{ // 9
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Toy17"),
 			Content: [][]*types.Rune{
@@ -3296,7 +3296,7 @@ func initTest14() {
 			TheDate: "03/18 12:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mToy17       \x1b[m\x1b[33m: \xb0\xad\xaf\xab7777777777777777777777                       \x1b[m 03/18 12:09\r"),
 		},
-		{ //10
+		{ // 10
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Y225"),
 			Content: [][]*types.Rune{
@@ -3314,7 +3314,7 @@ func initTest14() {
 			TheDate: "03/18 12:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mY225        \x1b[m\x1b[33m: \xa7\xda777777                                         \x1b[m 03/18 12:09\r"),
 		},
-		{ //11
+		{ // 11
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("darren2586"),
 			Content: [][]*types.Rune{
@@ -3332,7 +3332,7 @@ func initTest14() {
 			TheDate: "03/18 12:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdarren2586  \x1b[m\x1b[33m: 7777777                                          \x1b[m 03/18 12:09\r"),
 		},
-		{ //12
+		{ // 12
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Siika"),
 			Content: [][]*types.Rune{
@@ -3350,7 +3350,7 @@ func initTest14() {
 			TheDate: "03/18 12:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mSiika       \x1b[m\x1b[33m: 77\xa6n\xb0\xad                                           \x1b[m 03/18 12:09\r"),
 		},
-		{ //13
+		{ // 13
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("munchlax"),
 			Content: [][]*types.Rune{
@@ -3368,7 +3368,7 @@ func initTest14() {
 			TheDate: "03/18 12:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mmunchlax    \x1b[m\x1b[33m: \xbaG \xb6i\xa7\xf0\xba\xdd\xb3\xd1 Kawhi\xb8\xf2 PG\xa6b\xbc\xb5 \xb3o\xa8\xe2\xad\xd3\xa4S\xadn\xa6\xaa\xa8\xbe\xa6u= =   \x1b[m 03/18 12:09\r"),
 		},
-		{ //14
+		{ // 14
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("ryan0928"),
 			Content: [][]*types.Rune{
@@ -3386,7 +3386,7 @@ func initTest14() {
 			TheDate: "03/18 12:49",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mryan0928    \x1b[m\x1b[33m: 77777777                                         \x1b[m 03/18 12:49\r"),
 		},
-		{ //15
+		{ // 15
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("JessicaA1ba"),
 			Content: [][]*types.Rune{
@@ -3404,7 +3404,7 @@ func initTest14() {
 			TheDate: "03/18 12:52",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mJessicaA1ba \x1b[m\x1b[33m: KP\xa4\xb5\xa4\xd1\xa4\xc6\xa8\xad\xc2\xea\xadC\xa1A\xb6i\xa7\xf0\xb4N\xa5\xe6\xb5\xb9\xb8U\xaa\xe1\xb5\xa977               \x1b[m 03/18 12:52\r"),
 		},
-		{ //16
+		{ // 16
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("qpeter"),
 			Content: [][]*types.Rune{
@@ -3422,7 +3422,7 @@ func initTest14() {
 			TheDate: "03/18 12:52",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mqpeter      \x1b[m\x1b[33m: \xa4\xb5\xa4\xd1\xb9\xea\xa6b\xa8S\xaak\xa4l THJ\xa6\xaa\xa5\xfd\xb5o \xb4\xcb\xad\xf4\xa4S\xab\xdc\xb9p \xaaO\xb9\xb9\xa8S\xa4H\xa5i\xb1a \x1b[m 03/18 12:52\r"),
 		},
-		{ //17
+		{ // 17
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("qpeter"),
 			Content: [][]*types.Rune{
@@ -3440,7 +3440,7 @@ func initTest14() {
 			TheDate: "03/18 12:53",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mqpeter      \x1b[m\x1b[33m: \xa5u\xa6n\xc5\xfd077\xa5[\xae\xc9\xa5[\xafZ\xa4F                              \x1b[m 03/18 12:53\r"),
 		},
-		{ //18
+		{ // 18
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("doooooooooog"),
 			Content: [][]*types.Rune{
@@ -3458,7 +3458,7 @@ func initTest14() {
 			TheDate: "03/18 12:54",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdoooooooooog\x1b[m\x1b[33m: \xa4\xb5\xa4\xd1\xa8\xe2\xc3\xe4\xaaO\xb9\xb9\xab\xdc\xb9\xce\xb5\xb2\xa1A11\xa4\xf111XD                     \x1b[m 03/18 12:54\r"),
 		},
-		{ //19
+		{ // 19
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("dy1278dy"),
 			Content: [][]*types.Rune{
@@ -3476,7 +3476,7 @@ func initTest14() {
 			TheDate: "03/18 12:55",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdy1278dy    \x1b[m\x1b[33m: 777777777                                        \x1b[m 03/18 12:55\r"),
 		},
-		{ //20
+		{ // 20
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("TokyoKind"),
 			Content: [][]*types.Rune{
@@ -3494,7 +3494,7 @@ func initTest14() {
 			TheDate: "03/18 12:56",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mTokyoKind   \x1b[m\x1b[33m: \xb4_\xa4\xb3\xa6\xa8\xa5\\                                         \x1b[m 03/18 12:56\r"),
 		},
-		{ //21
+		{ // 21
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("blastillocal"),
 			Content: [][]*types.Rune{
@@ -3512,7 +3512,7 @@ func initTest14() {
 			TheDate: "03/18 12:57",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mblastillocal\x1b[m\x1b[33m: 77\xa6\xb3\xb2r\xa8\xec                                         \x1b[m 03/18 12:57\r"),
 		},
-		{ //22
+		{ // 22
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("YouGot5566"),
 			Content: [][]*types.Rune{
@@ -3530,7 +3530,7 @@ func initTest14() {
 			TheDate: "03/18 12:57",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mYouGot5566  \x1b[m\x1b[33m: \xbb\xa1\xa6n\xaa\xba\xa5\xb4\xc3z\xb4\xf2\xa4H\xab\xa8 \xa4\xa3\xadn\xa9u\xab\xe1\xc1\xc9\xa4S\xa6\xdb\xa4v\xa5\xfd\xa4U\xa5h\xa4F        \x1b[m 03/18 12:57\r"),
 		},
-		{ //23
+		{ // 23
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("ooxxman"),
 			Content: [][]*types.Rune{
@@ -3548,7 +3548,7 @@ func initTest14() {
 			TheDate: "03/18 12:58",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mooxxman     \x1b[m\x1b[33m: \xa4p\xadD\xa4l\xa4@\xb4\xee\xaa\xce\xa1A\xa4p\xabL\xb7U\xa8\xd3\xb7U\xa6\xb3\xc4v\xaa\xa7\xa4O\xa1AMVP\xa8\xd3\xa4F        \x1b[m 03/18 12:58\r"),
 		},
-		{ //24
+		{ // 24
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("oo98560"),
 			Content: [][]*types.Rune{
@@ -3566,7 +3566,7 @@ func initTest14() {
 			TheDate: "03/18 12:59",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33moo98560     \x1b[m\x1b[33m: \xbb@\xb2y\xa4\xa3\xa8\xec60\xa2H? \xb3o\xa4]\xa5s\xc2\xbe\xb7~\xa1H \xaa\xfc\xa4\xa3\xacO\xab\xdc\xb7R\xbcLp\xa1\xcf       \x1b[m 03/18 12:59\r"),
 		},
-		{ //25
+		{ // 25
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("iNicholas"),
 			Content: [][]*types.Rune{
@@ -3584,7 +3584,7 @@ func initTest14() {
 			TheDate: "03/18 13:04",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33miNicholas   \x1b[m\x1b[33m: \xc5w\xaa\xef\xa5i\xb7R\xa8\xd3\xa7\xda\xa4\xfb                                   \x1b[m 03/18 13:04\r"),
 		},
-		{ //26
+		{ // 26
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("gn00152097"),
 			Content: [][]*types.Rune{
@@ -3602,7 +3602,7 @@ func initTest14() {
 			TheDate: "03/18 13:06",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mgn00152097  \x1b[m\x1b[33m: \xa4p\xc3}\xa5[\xb7\xc5\xab\xdc\xa4[\xa4FXD\xa5\xfd\xa4\xa3\xbb\xa1\xa9\xfa\xacP\xc1\xc9\xabe\xaa\xba\xb3s\xb3\xd3 \xa9\xfa\xacP\xc1\xc9\xab\xe1\xc4\xb9  \x1b[m 03/18 13:06\r"),
 		},
-		{ //27
+		{ // 27
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("gn00152097"),
 			Content: [][]*types.Rune{
@@ -3620,7 +3620,7 @@ func initTest14() {
 			TheDate: "03/18 13:06",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mgn00152097  \x1b[m\x1b[33m: \xa4F\xb0\xa8\xa8\xeb\xaa\xf7\xb6\xf4\xa7\xd6\xb8\xa5 \xa5\xfe\xacO\xb1\xc6\xa6W\xa6b\xabe\xad\xb1\xaa\xba                  \x1b[m 03/18 13:06\r"),
 		},
-		{ //28
+		{ // 28
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("Pacers31"),
 			Content: [][]*types.Rune{
@@ -3638,7 +3638,7 @@ func initTest14() {
 			TheDate: "03/18 13:07",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mPacers31    \x1b[m\x1b[33m: PG\xa4W\xb3\xf5\xae\xc9\xb6\xa1\xab\xe7\xbb\xf2\xa4S\xb6}\xa9l\xbe\xde\xa4F  \xa4\xa7\xabe\xa4\xa3\xacO\xbb\xa1\xa6\xb3\xb6\xcb\xadn\xb1\xb1\xa8\xee?  \x1b[m 03/18 13:07\r"),
 		},
-		{ //29
+		{ // 29
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("JasonIm"),
 			Content: [][]*types.Rune{
@@ -3656,7 +3656,7 @@ func initTest14() {
 			TheDate: "03/18 13:16",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mJasonIm     \x1b[m\x1b[33m: mvp                                              \x1b[m 03/18 13:16\r"),
 		},
-		{ //30
+		{ // 30
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("DavidFoster"),
 			Content: [][]*types.Rune{
@@ -3674,7 +3674,7 @@ func initTest14() {
 			TheDate: "03/18 13:16",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mDavidFoster \x1b[m\x1b[33m: \xa5\xb4\xc3z\xa7\xd6\xb8\xa5\xa4\xf4\xb0\xd5                                     \x1b[m 03/18 13:16\r"),
 		},
-		{ //31
+		{ // 31
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("pippen2002"),
 			Content: [][]*types.Rune{
@@ -3692,7 +3692,7 @@ func initTest14() {
 			TheDate: "03/18 13:18",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mpippen2002  \x1b[m\x1b[33m: \xca\xa8\xc3z                                             \x1b[m 03/18 13:18\r"),
 		},
-		{ //32
+		{ // 32
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("remsuki"),
 			Content: [][]*types.Rune{
@@ -3710,7 +3710,7 @@ func initTest14() {
 			TheDate: "03/18 13:18",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mremsuki     \x1b[m\x1b[33m: 77777777777                                      \x1b[m 03/18 13:18\r"),
 		},
-		{ //33
+		{ // 33
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("dchiu815"),
 			Content: [][]*types.Rune{
@@ -3728,7 +3728,7 @@ func initTest14() {
 			TheDate: "03/18 13:23",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdchiu815    \x1b[m\x1b[33m: \xa7\xd6\xb8\xa5\xa8\xba\xad\xd3Mann\xab\xe7\xbb\xf2\xa8C\xa4@\xa6\xb8\xb3\xa3\xb7|\xb8\xf277\xb0_\xaa\xa7\xc4\xb3             \x1b[m 03/18 13:23\r"),
 		},
-		{ //34
+		{ // 34
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("jardon"),
 			Content: [][]*types.Rune{
@@ -3746,7 +3746,7 @@ func initTest14() {
 			TheDate: "03/18 13:32",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mjardon      \x1b[m\x1b[33m: kp\xb6i\xa7\xf0\xc1\xd9\xacO\xb3y\xa6\xa8\xa7\xd6\xb8\xa5\xab\xdc\xa4j\xaa\xba\xb3\xc2\xb7\xd0\xa6n\xb6\xdc                 \x1b[m 03/18 13:32\r"),
 		},
-		{ //35
+		{ // 35
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("jardon"),
 			Content: [][]*types.Rune{
@@ -3764,7 +3764,7 @@ func initTest14() {
 			TheDate: "03/18 13:33",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mjardon      \x1b[m\x1b[33m: \xb6i\xa7\xf0\xa8S\xa8\xba\xbb\xf2\xb6} \xa8\xbe\xa6u\xa6\xb3\xa6b\xa4\xa3\xb4N\xacO\xa4p\xa4\xfb\xb3\xcc\xbb\xdd\xadn\xaa\xba          \x1b[m 03/18 13:33\r"),
 		},
-		{ //36
+		{ // 36
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("mavnokia"),
 			Content: [][]*types.Rune{
@@ -3782,7 +3782,7 @@ func initTest14() {
 			TheDate: "03/18 13:34",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mmavnokia    \x1b[m\x1b[33m: KP\xb3o\xb4X\xb3\xf5\xc4\xea\xa7\xeb\xa4\xd6\xa9M\xb1a\xb2y\xa4\xc1\xa1B\xa4\xa4\xa7\xeb\xc5\xdc\xa6h\xab\xdc\xc3\xf6\xc1\xe4           \x1b[m 03/18 13:34\r"),
 		},
-		{ //37
+		{ // 37
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("SwissMiniGun"),
 			Content: [][]*types.Rune{
@@ -3800,7 +3800,7 @@ func initTest14() {
 			TheDate: "03/18 13:35",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mSwissMiniGun\x1b[m\x1b[33m: \xa6p\xaaG\xa4\xdf\xbaA\xacO\xbb\xe2\xb0\xaa\xc1~\xb4N\xadn\xa5\xfe\xa5] \xa8\xba\xa4j\xb7\xa7\xa8S\xb4X\xad\xd3\xb8g\xb1o\xb0_\xbe\xde    \x1b[m 03/18 13:35\r"),
 		},
-		{ //38
+		{ // 38
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("SwissMiniGun"),
 			Content: [][]*types.Rune{
@@ -3818,7 +3818,7 @@ func initTest14() {
 			TheDate: "03/18 13:36",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSwissMiniGun\x1b[m\x1b[33m: \xb7\xed\xa7A\xa5\xe6\xa9\xf6\xa8\xd3\xa4@\xad\xd3\xa4\xa3\xad@\xbe\xd4\xaa\xba \xa5\xbb\xa8\xd3\xb4N\xa4\xa3\xb8\xd3\xa7\xf0\xa8\xbe\xb3\xa3\xb7Q\xbe\xde\xa5L    \x1b[m 03/18 13:36\r"),
 		},
-		{ //39
+		{ // 39
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("SwissMiniGun"),
 			Content: [][]*types.Rune{
@@ -3836,7 +3836,7 @@ func initTest14() {
 			TheDate: "03/18 13:36",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSwissMiniGun\x1b[m\x1b[33m: \xbeA\xb7\xed\xaa\xba\xc5\xfd\xa5L\xb5o\xa4O\xa4~\xaf\xe0\xc5\xfd\xa5L\xabO\xab\xf9\xa4W\xb3\xf5\xb0\xb5\xa5X\xb0^\xc4m           \x1b[m 03/18 13:36\r"),
 		},
-		{ //40
+		{ // 40
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("SwissMiniGun"),
 			Content: [][]*types.Rune{
@@ -3854,7 +3854,7 @@ func initTest14() {
 			TheDate: "03/18 13:37",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSwissMiniGun\x1b[m\x1b[33m: \xb8g\xb9L\xa4W\xa9u\xa8S\xa8\xba\xbb\xf2\xc2\xd4\xb7V\xaa\xba\xa8\xcf\xa5\xce \xa7\xda\xa4\xfb\xb3o\xa9u\xc1`\xb8\xd3\xbe\xc7\xa8\xc4        \x1b[m 03/18 13:37\r"),
 		},
-		{ //41
+		{ // 41
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("kevin202025"),
 			Content: [][]*types.Rune{
@@ -3872,7 +3872,7 @@ func initTest14() {
 			TheDate: "03/18 13:40",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mkevin202025 \x1b[m\x1b[33m: 77\xad\xab\xa6^MVP\xc4v\xaa\xa7\xa6\xe6\xa6C                                \x1b[m 03/18 13:40\r"),
 		},
-		{ //42
+		{ // 42
 			TheType: ptttype.COMMENT_TYPE_COMMENT,
 			Owner:   bbs.UUserID("Tawara"),
 			Content: [][]*types.Rune{
@@ -3890,7 +3890,7 @@ func initTest14() {
 			TheDate: "03/18 13:41",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mTawara      \x1b[m\x1b[33m: \xa5i\xb7R\xa1G\xb3o\xb2\xee \xa4\xa3\xa4\xd3\xb9\xef                                \x1b[m 03/18 13:41\r"),
 		},
-		{ //43
+		{ // 43
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("ruiun"),
 			Content: [][]*types.Rune{
@@ -3908,7 +3908,7 @@ func initTest14() {
 			TheDate: "03/18 13:43",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mruiun       \x1b[m\x1b[33m: \xa7\xd6\xb8\xa5\xb3\xcc\xaa\xf1\xacO\xa4\xa3\xacO\xa6b\xc2\xc3\xb0\xda\xa1A\xa5\xb4\xba\xe2\xa9u\xab\xe1\xc1\xc9\xa4~\xa5[\xb3t           \x1b[m 03/18 13:43\r"),
 		},
-		{ //44
+		{ // 44
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("cccman"),
 			Content: [][]*types.Rune{
@@ -3926,7 +3926,7 @@ func initTest14() {
 			TheDate: "03/18 13:51",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mcccman      \x1b[m\x1b[33m: 7777777                                          \x1b[m 03/18 13:51\r"),
 		},
-		{ //45
+		{ // 45
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("providence"),
 			Content: [][]*types.Rune{
@@ -3944,7 +3944,7 @@ func initTest14() {
 			TheDate: "03/18 13:58",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mprovidence  \x1b[m\x1b[33m: 77\xa4\xb5\xa4\xd1\xb8\xf2\xb0\xad\xa4@\xbc\xcb                                   \x1b[m 03/18 13:58\r"),
 		},
-		{ //46
+		{ // 46
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("age200"),
 			Content: [][]*types.Rune{
@@ -3962,7 +3962,7 @@ func initTest14() {
 			TheDate: "03/18 14:00",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mage200      \x1b[m\x1b[33m: \xaaF77\xacO\xb0\xad\xa7a                                       \x1b[m 03/18 14:00\r"),
 		},
-		{ //47
+		{ // 47
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("zold"),
 			Content: [][]*types.Rune{
@@ -3980,7 +3980,7 @@ func initTest14() {
 			TheDate: "03/19 00:31",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mzold        \x1b[m\x1b[33m: 77777777777777777                                \x1b[m 03/19 00:31\r"),
 		},
-		{ //48
+		{ // 48
 			TheType: ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:   bbs.UUserID("fantastic96"),
 			Content: [][]*types.Rune{
@@ -4001,7 +4001,7 @@ func initTest14() {
 	}
 
 	testFullTheRestComments14 = []*schema.Comment{
-		{ //0
+		{ // 0
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4024,7 +4024,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mJTFWAHQ     \x1b[m\x1b[33m: 77777777777777777777777777                       \x1b[m 03/18 12:08\r"),
 		},
-		{ //1
+		{ // 1
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4047,7 +4047,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mHardDDDD    \x1b[m\x1b[33m: 77777777777777777777                             \x1b[m 03/18 12:08\r"),
 		},
-		{ //2
+		{ // 2
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4070,7 +4070,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mMilkTea0509 \x1b[m\x1b[33m: \xad\xc9\xc2\xe0\xafO\xc1\xc9\xaa\xa9                                       \x1b[m 03/18 12:08\r"),
 		},
-		{ //3
+		{ // 3
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4093,7 +4093,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mboy80421    \x1b[m\x1b[33m: 77\xb8\xf2\xa7\xd6\xb8\xa5\xacO\xa4\xa3\xacO\xa6\xb3\xa4\xb3 \xa6L\xb6H\xa4\xa4\xa5\xb4\xa7\xd6\xb8\xa5\xb1`\xc3z\xae\xf0            \x1b[m 03/18 12:08\r"),
 		},
-		{ //4
+		{ // 4
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_FORWARD,
@@ -4116,7 +4116,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\xa1\xb0 \x1b[1;32mMilkTea0509\x1b[0;32m:\xc2\xe0\xbf\xfd\xa6\xdc\xac\xdd\xaaO LaClippers\x1b[m                               03/18 12:08\r"),
 		},
-		{ //5
+		{ // 5
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4139,7 +4139,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mhomocat     \x1b[m\x1b[33m: 77\xa4\xa3\xbf\xf9                                           \x1b[m 03/18 12:08\r"),
 		},
-		{ //6
+		{ // 6
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4162,7 +4162,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33maa01081008tw\x1b[m\x1b[33m: \xa5i\xb7R\xb7|\xa4\xa3\xb7|\xb3o\xa9u\xb5\xb2\xa7\xf4\xafO\xb6]\xb0\xda..\xa4\xf1\xa4W\xa9u\xa7\xf3\xa8S\xc0\xb8XD         \x1b[m 03/18 12:08\r"),
 		},
-		{ //7
+		{ // 7
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4185,7 +4185,7 @@ func initTest14() {
 			TheDate: "03/18 12:08",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mchenluyang  \x1b[m\x1b[33m: 77\xb3o\xb3\xf5\xc3z\xb7F\xb1j                                     \x1b[m 03/18 12:08\r"),
 		},
-		{ //8
+		{ // 8
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4208,7 +4208,7 @@ func initTest14() {
 			TheDate: "03/18 12:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mjardon      \x1b[m\x1b[33m: +25  eff 45                                      \x1b[m 03/18 12:09\r"),
 		},
-		{ //9
+		{ // 9
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4231,7 +4231,7 @@ func initTest14() {
 			TheDate: "03/18 12:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mToy17       \x1b[m\x1b[33m: \xb0\xad\xaf\xab7777777777777777777777                       \x1b[m 03/18 12:09\r"),
 		},
-		{ //10
+		{ // 10
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4254,7 +4254,7 @@ func initTest14() {
 			TheDate: "03/18 12:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mY225        \x1b[m\x1b[33m: \xa7\xda777777                                         \x1b[m 03/18 12:09\r"),
 		},
-		{ //11
+		{ // 11
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4277,7 +4277,7 @@ func initTest14() {
 			TheDate: "03/18 12:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdarren2586  \x1b[m\x1b[33m: 7777777                                          \x1b[m 03/18 12:09\r"),
 		},
-		{ //12
+		{ // 12
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4300,7 +4300,7 @@ func initTest14() {
 			TheDate: "03/18 12:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mSiika       \x1b[m\x1b[33m: 77\xa6n\xb0\xad                                           \x1b[m 03/18 12:09\r"),
 		},
-		{ //13
+		{ // 13
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4323,7 +4323,7 @@ func initTest14() {
 			TheDate: "03/18 12:09",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mmunchlax    \x1b[m\x1b[33m: \xbaG \xb6i\xa7\xf0\xba\xdd\xb3\xd1 Kawhi\xb8\xf2 PG\xa6b\xbc\xb5 \xb3o\xa8\xe2\xad\xd3\xa4S\xadn\xa6\xaa\xa8\xbe\xa6u= =   \x1b[m 03/18 12:09\r"),
 		},
-		{ //14
+		{ // 14
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4346,7 +4346,7 @@ func initTest14() {
 			TheDate: "03/18 12:49",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mryan0928    \x1b[m\x1b[33m: 77777777                                         \x1b[m 03/18 12:49\r"),
 		},
-		{ //15
+		{ // 15
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4369,7 +4369,7 @@ func initTest14() {
 			TheDate: "03/18 12:52",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mJessicaA1ba \x1b[m\x1b[33m: KP\xa4\xb5\xa4\xd1\xa4\xc6\xa8\xad\xc2\xea\xadC\xa1A\xb6i\xa7\xf0\xb4N\xa5\xe6\xb5\xb9\xb8U\xaa\xe1\xb5\xa977               \x1b[m 03/18 12:52\r"),
 		},
-		{ //16
+		{ // 16
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4392,7 +4392,7 @@ func initTest14() {
 			TheDate: "03/18 12:52",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mqpeter      \x1b[m\x1b[33m: \xa4\xb5\xa4\xd1\xb9\xea\xa6b\xa8S\xaak\xa4l THJ\xa6\xaa\xa5\xfd\xb5o \xb4\xcb\xad\xf4\xa4S\xab\xdc\xb9p \xaaO\xb9\xb9\xa8S\xa4H\xa5i\xb1a \x1b[m 03/18 12:52\r"),
 		},
-		{ //17
+		{ // 17
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_COMMENT,
@@ -4415,7 +4415,7 @@ func initTest14() {
 			TheDate: "03/18 12:53",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mqpeter      \x1b[m\x1b[33m: \xa5u\xa6n\xc5\xfd077\xa5[\xae\xc9\xa5[\xafZ\xa4F                              \x1b[m 03/18 12:53\r"),
 		},
-		{ //18
+		{ // 18
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4438,7 +4438,7 @@ func initTest14() {
 			TheDate: "03/18 12:54",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdoooooooooog\x1b[m\x1b[33m: \xa4\xb5\xa4\xd1\xa8\xe2\xc3\xe4\xaaO\xb9\xb9\xab\xdc\xb9\xce\xb5\xb2\xa1A11\xa4\xf111XD                     \x1b[m 03/18 12:54\r"),
 		},
-		{ //19
+		{ // 19
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4461,7 +4461,7 @@ func initTest14() {
 			TheDate: "03/18 12:55",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdy1278dy    \x1b[m\x1b[33m: 777777777                                        \x1b[m 03/18 12:55\r"),
 		},
-		{ //20
+		{ // 20
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4484,7 +4484,7 @@ func initTest14() {
 			TheDate: "03/18 12:56",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mTokyoKind   \x1b[m\x1b[33m: \xb4_\xa4\xb3\xa6\xa8\xa5\\                                         \x1b[m 03/18 12:56\r"),
 		},
-		{ //21
+		{ // 21
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4507,7 +4507,7 @@ func initTest14() {
 			TheDate: "03/18 12:57",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mblastillocal\x1b[m\x1b[33m: 77\xa6\xb3\xb2r\xa8\xec                                         \x1b[m 03/18 12:57\r"),
 		},
-		{ //22
+		{ // 22
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4530,7 +4530,7 @@ func initTest14() {
 			TheDate: "03/18 12:57",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mYouGot5566  \x1b[m\x1b[33m: \xbb\xa1\xa6n\xaa\xba\xa5\xb4\xc3z\xb4\xf2\xa4H\xab\xa8 \xa4\xa3\xadn\xa9u\xab\xe1\xc1\xc9\xa4S\xa6\xdb\xa4v\xa5\xfd\xa4U\xa5h\xa4F        \x1b[m 03/18 12:57\r"),
 		},
-		{ //23
+		{ // 23
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4553,7 +4553,7 @@ func initTest14() {
 			TheDate: "03/18 12:58",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mooxxman     \x1b[m\x1b[33m: \xa4p\xadD\xa4l\xa4@\xb4\xee\xaa\xce\xa1A\xa4p\xabL\xb7U\xa8\xd3\xb7U\xa6\xb3\xc4v\xaa\xa7\xa4O\xa1AMVP\xa8\xd3\xa4F        \x1b[m 03/18 12:58\r"),
 		},
-		{ //24
+		{ // 24
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_COMMENT,
@@ -4576,7 +4576,7 @@ func initTest14() {
 			TheDate: "03/18 12:59",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33moo98560     \x1b[m\x1b[33m: \xbb@\xb2y\xa4\xa3\xa8\xec60\xa2H? \xb3o\xa4]\xa5s\xc2\xbe\xb7~\xa1H \xaa\xfc\xa4\xa3\xacO\xab\xdc\xb7R\xbcLp\xa1\xcf       \x1b[m 03/18 12:59\r"),
 		},
-		{ //25
+		{ // 25
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4599,7 +4599,7 @@ func initTest14() {
 			TheDate: "03/18 13:04",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33miNicholas   \x1b[m\x1b[33m: \xc5w\xaa\xef\xa5i\xb7R\xa8\xd3\xa7\xda\xa4\xfb                                   \x1b[m 03/18 13:04\r"),
 		},
-		{ //26
+		{ // 26
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4622,7 +4622,7 @@ func initTest14() {
 			TheDate: "03/18 13:06",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mgn00152097  \x1b[m\x1b[33m: \xa4p\xc3}\xa5[\xb7\xc5\xab\xdc\xa4[\xa4FXD\xa5\xfd\xa4\xa3\xbb\xa1\xa9\xfa\xacP\xc1\xc9\xabe\xaa\xba\xb3s\xb3\xd3 \xa9\xfa\xacP\xc1\xc9\xab\xe1\xc4\xb9  \x1b[m 03/18 13:06\r"),
 		},
-		{ //27
+		{ // 27
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_COMMENT,
@@ -4645,7 +4645,7 @@ func initTest14() {
 			TheDate: "03/18 13:06",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mgn00152097  \x1b[m\x1b[33m: \xa4F\xb0\xa8\xa8\xeb\xaa\xf7\xb6\xf4\xa7\xd6\xb8\xa5 \xa5\xfe\xacO\xb1\xc6\xa6W\xa6b\xabe\xad\xb1\xaa\xba                  \x1b[m 03/18 13:06\r"),
 		},
-		{ //28
+		{ // 28
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4668,7 +4668,7 @@ func initTest14() {
 			TheDate: "03/18 13:07",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mPacers31    \x1b[m\x1b[33m: PG\xa4W\xb3\xf5\xae\xc9\xb6\xa1\xab\xe7\xbb\xf2\xa4S\xb6}\xa9l\xbe\xde\xa4F  \xa4\xa7\xabe\xa4\xa3\xacO\xbb\xa1\xa6\xb3\xb6\xcb\xadn\xb1\xb1\xa8\xee?  \x1b[m 03/18 13:07\r"),
 		},
-		{ //29
+		{ // 29
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4691,7 +4691,7 @@ func initTest14() {
 			TheDate: "03/18 13:16",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mJasonIm     \x1b[m\x1b[33m: mvp                                              \x1b[m 03/18 13:16\r"),
 		},
-		{ //30
+		{ // 30
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4714,7 +4714,7 @@ func initTest14() {
 			TheDate: "03/18 13:16",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mDavidFoster \x1b[m\x1b[33m: \xa5\xb4\xc3z\xa7\xd6\xb8\xa5\xa4\xf4\xb0\xd5                                     \x1b[m 03/18 13:16\r"),
 		},
-		{ //31
+		{ // 31
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_COMMENT,
@@ -4737,7 +4737,7 @@ func initTest14() {
 			TheDate: "03/18 13:18",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mpippen2002  \x1b[m\x1b[33m: \xca\xa8\xc3z                                             \x1b[m 03/18 13:18\r"),
 		},
-		{ //32
+		{ // 32
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4760,7 +4760,7 @@ func initTest14() {
 			TheDate: "03/18 13:18",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mremsuki     \x1b[m\x1b[33m: 77777777777                                      \x1b[m 03/18 13:18\r"),
 		},
-		{ //33
+		{ // 33
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4783,7 +4783,7 @@ func initTest14() {
 			TheDate: "03/18 13:23",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdchiu815    \x1b[m\x1b[33m: \xa7\xd6\xb8\xa5\xa8\xba\xad\xd3Mann\xab\xe7\xbb\xf2\xa8C\xa4@\xa6\xb8\xb3\xa3\xb7|\xb8\xf277\xb0_\xaa\xa7\xc4\xb3             \x1b[m 03/18 13:23\r"),
 		},
-		{ //34
+		{ // 34
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_COMMENT,
@@ -4806,7 +4806,7 @@ func initTest14() {
 			TheDate: "03/18 13:32",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mjardon      \x1b[m\x1b[33m: kp\xb6i\xa7\xf0\xc1\xd9\xacO\xb3y\xa6\xa8\xa7\xd6\xb8\xa5\xab\xdc\xa4j\xaa\xba\xb3\xc2\xb7\xd0\xa6n\xb6\xdc                 \x1b[m 03/18 13:32\r"),
 		},
-		{ //35
+		{ // 35
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_COMMENT,
@@ -4829,7 +4829,7 @@ func initTest14() {
 			TheDate: "03/18 13:33",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mjardon      \x1b[m\x1b[33m: \xb6i\xa7\xf0\xa8S\xa8\xba\xbb\xf2\xb6} \xa8\xbe\xa6u\xa6\xb3\xa6b\xa4\xa3\xb4N\xacO\xa4p\xa4\xfb\xb3\xcc\xbb\xdd\xadn\xaa\xba          \x1b[m 03/18 13:33\r"),
 		},
-		{ //36
+		{ // 36
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4852,7 +4852,7 @@ func initTest14() {
 			TheDate: "03/18 13:34",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mmavnokia    \x1b[m\x1b[33m: KP\xb3o\xb4X\xb3\xf5\xc4\xea\xa7\xeb\xa4\xd6\xa9M\xb1a\xb2y\xa4\xc1\xa1B\xa4\xa4\xa7\xeb\xc5\xdc\xa6h\xab\xdc\xc3\xf6\xc1\xe4           \x1b[m 03/18 13:34\r"),
 		},
-		{ //37
+		{ // 37
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4875,7 +4875,7 @@ func initTest14() {
 			TheDate: "03/18 13:35",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mSwissMiniGun\x1b[m\x1b[33m: \xa6p\xaaG\xa4\xdf\xbaA\xacO\xbb\xe2\xb0\xaa\xc1~\xb4N\xadn\xa5\xfe\xa5] \xa8\xba\xa4j\xb7\xa7\xa8S\xb4X\xad\xd3\xb8g\xb1o\xb0_\xbe\xde    \x1b[m 03/18 13:35\r"),
 		},
-		{ //38
+		{ // 38
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_COMMENT,
@@ -4898,7 +4898,7 @@ func initTest14() {
 			TheDate: "03/18 13:36",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSwissMiniGun\x1b[m\x1b[33m: \xb7\xed\xa7A\xa5\xe6\xa9\xf6\xa8\xd3\xa4@\xad\xd3\xa4\xa3\xad@\xbe\xd4\xaa\xba \xa5\xbb\xa8\xd3\xb4N\xa4\xa3\xb8\xd3\xa7\xf0\xa8\xbe\xb3\xa3\xb7Q\xbe\xde\xa5L    \x1b[m 03/18 13:36\r"),
 		},
-		{ //39
+		{ // 39
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_COMMENT,
@@ -4921,7 +4921,7 @@ func initTest14() {
 			TheDate: "03/18 13:36",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSwissMiniGun\x1b[m\x1b[33m: \xbeA\xb7\xed\xaa\xba\xc5\xfd\xa5L\xb5o\xa4O\xa4~\xaf\xe0\xc5\xfd\xa5L\xabO\xab\xf9\xa4W\xb3\xf5\xb0\xb5\xa5X\xb0^\xc4m           \x1b[m 03/18 13:36\r"),
 		},
-		{ //40
+		{ // 40
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_COMMENT,
@@ -4944,7 +4944,7 @@ func initTest14() {
 			TheDate: "03/18 13:37",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mSwissMiniGun\x1b[m\x1b[33m: \xb8g\xb9L\xa4W\xa9u\xa8S\xa8\xba\xbb\xf2\xc2\xd4\xb7V\xaa\xba\xa8\xcf\xa5\xce \xa7\xda\xa4\xfb\xb3o\xa9u\xc1`\xb8\xd3\xbe\xc7\xa8\xc4        \x1b[m 03/18 13:37\r"),
 		},
-		{ //41
+		{ // 41
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -4967,7 +4967,7 @@ func initTest14() {
 			TheDate: "03/18 13:40",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mkevin202025 \x1b[m\x1b[33m: 77\xad\xab\xa6^MVP\xc4v\xaa\xa7\xa6\xe6\xa6C                                \x1b[m 03/18 13:40\r"),
 		},
-		{ //42
+		{ // 42
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_COMMENT,
@@ -4990,7 +4990,7 @@ func initTest14() {
 			TheDate: "03/18 13:41",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mTawara      \x1b[m\x1b[33m: \xa5i\xb7R\xa1G\xb3o\xb2\xee \xa4\xa3\xa4\xd3\xb9\xef                                \x1b[m 03/18 13:41\r"),
 		},
-		{ //43
+		{ // 43
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -5013,7 +5013,7 @@ func initTest14() {
 			TheDate: "03/18 13:43",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mruiun       \x1b[m\x1b[33m: \xa7\xd6\xb8\xa5\xb3\xcc\xaa\xf1\xacO\xa4\xa3\xacO\xa6b\xc2\xc3\xb0\xda\xa1A\xa5\xb4\xba\xe2\xa9u\xab\xe1\xc1\xc9\xa4~\xa5[\xb3t           \x1b[m 03/18 13:43\r"),
 		},
-		{ //44
+		{ // 44
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -5036,7 +5036,7 @@ func initTest14() {
 			TheDate: "03/18 13:51",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mcccman      \x1b[m\x1b[33m: 7777777                                          \x1b[m 03/18 13:51\r"),
 		},
-		{ //45
+		{ // 45
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -5059,7 +5059,7 @@ func initTest14() {
 			TheDate: "03/18 13:58",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mprovidence  \x1b[m\x1b[33m: 77\xa4\xb5\xa4\xd1\xb8\xf2\xb0\xad\xa4@\xbc\xcb                                   \x1b[m 03/18 13:58\r"),
 		},
-		{ //46
+		{ // 46
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -5082,7 +5082,7 @@ func initTest14() {
 			TheDate: "03/18 14:00",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mage200      \x1b[m\x1b[33m: \xaaF77\xacO\xb0\xad\xa7a                                       \x1b[m 03/18 14:00\r"),
 		},
-		{ //47
+		{ // 47
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -5105,7 +5105,7 @@ func initTest14() {
 			TheDate: "03/19 00:31",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mzold        \x1b[m\x1b[33m: 77777777777777777                                \x1b[m 03/19 00:31\r"),
 		},
-		{ //48
+		{ // 48
 			BBoardID:   "test",
 			ArticleID:  "test14",
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,

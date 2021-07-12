@@ -5,7 +5,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
-//FBoardID as board-id for frontend.
+// FBoardID as board-id for frontend.
 type FBoardID string
 
 func ToFBoardID(boardID bbs.BBoardID) FBoardID {

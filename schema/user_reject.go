@@ -6,12 +6,10 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
-var (
-	UserReject_c *db.Collection
-)
+var UserReject_c *db.Collection
 
 type UserReject struct {
-	//壞人名單
+	// 壞人名單
 
 	UUserID  bbs.UUserID `bson:"user_id"`
 	RejectID bbs.UUserID `bson:"reject_id"`

@@ -8,9 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-var (
-	UserIDEmail_c *db.Collection
-)
+var UserIDEmail_c *db.Collection
 
 type UserIDEmail struct {
 	UserID  bbs.UUserID `bson:"user_id"`
@@ -21,9 +19,7 @@ type UserIDEmail struct {
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
 
-var (
-	EMPTY_USER_ID_EMAIL = &UserIDEmail{}
-)
+var EMPTY_USER_ID_EMAIL = &UserIDEmail{}
 
 var (
 	USER_ID_EMAIL_USER_ID_b        = getBSONName(EMPTY_USER_ID_EMAIL, "UserID")
@@ -33,7 +29,6 @@ var (
 )
 
 func GetUserIDEmailByUserID(userID bbs.UUserID, updateNanoTS types.NanoTS) (userIDEmail *UserIDEmail, err error) {
-
 	query := bson.M{
 		USER_ID_EMAIL_USER_ID_b: userID,
 	}
@@ -50,7 +45,6 @@ func GetUserIDEmailByEmail(email string, updateNanoTS types.NanoTS) (userIDEmail
 }
 
 func getUserIDEmailCore(query bson.M, updateNanoTS types.NanoTS) (userIDEmail *UserIDEmail, err error) {
-
 	userIDEmail = &UserIDEmail{}
 	err = UserIDEmail_c.FindOne(query, userIDEmail, nil)
 	if err != nil {
@@ -68,7 +62,7 @@ func getUserIDEmailCore(query bson.M, updateNanoTS types.NanoTS) (userIDEmail *U
 		return userIDEmail, nil
 	}
 
-	//to remove query.
+	// to remove query.
 	err = UserIDEmail_c.Remove(query)
 	if err != nil {
 		return nil, err
@@ -93,7 +87,7 @@ func CreateUserIDEmail(userID bbs.UUserID, email string, updateNanoTS types.Nano
 		return nil
 	}
 
-	//check duplicate
+	// check duplicate
 	if createErr != nil {
 		return createErr
 	}
@@ -125,7 +119,6 @@ func CreateUserIDEmail(userID bbs.UUserID, email string, updateNanoTS types.Nano
 }
 
 func UpdateUserIDEmailIsSet(userID bbs.UUserID, email string, isSet bool, updateNanoTS types.NanoTS) (err error) {
-
 	query := bson.M{
 		USER_ID_EMAIL_USER_ID_b:  userID,
 		USER_ID_EMAIL_ID_EMAIL_b: email,

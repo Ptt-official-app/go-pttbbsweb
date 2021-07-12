@@ -5,7 +5,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
-//FArticleID as article-id for frontend.
+// FArticleID as article-id for frontend.
 type FArticleID string
 
 func ToFArticleID(articleID bbs.ArticleID) FArticleID {

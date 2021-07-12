@@ -1,14 +1,11 @@
 package queue
 
-var (
-	IsTest = false
-)
+var IsTest = false
 
 func SetIsTest() {
 	IsTest = true
 
 	Init()
-
 }
 
 func UnsetIsTest() {

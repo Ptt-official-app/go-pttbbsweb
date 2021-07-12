@@ -21,7 +21,7 @@ type UserDetail struct {
 	Firstlogin   types.NanoTS  `bson:"first_login_nano_ts"`
 	Lastlogin    types.NanoTS  `bson:"last_login_nano_ts"` /* 考慮透過 db-max, 但是可能在拉 user-detail 時會花很多時間. */
 	LastIP       string        `bson:"last_ip"`
-	LastHost     string        `bson:"last_host"` //last-ip 的中文呈現, 外國則為國家.
+	LastHost     string        `bson:"last_host"` // last-ip 的中文呈現, 外國則為國家.
 
 	Money    int    `bson:"money"`
 	PttEmail string `bson:"pttemail"`
@@ -82,7 +82,6 @@ var (
 )
 
 func NewUserDetail(user_b pttbbsapi.GetUserResult, updateNanoTS types.NanoTS) (user *UserDetail) {
-
 	return &UserDetail{
 		UserID:   user_b.UUserID,
 		Username: user_b.Username,

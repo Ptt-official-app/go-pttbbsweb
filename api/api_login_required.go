@@ -27,7 +27,6 @@ func LoginRequiredQuery(theFunc LoginRequiredApiFunc, params interface{}, c *gin
 }
 
 func loginRequiredProcess(theFunc LoginRequiredApiFunc, params interface{}, c *gin.Context) {
-
 	remoteAddr := strings.TrimSpace(c.ClientIP())
 	if !isValidRemoteAddr(remoteAddr) {
 		processResult(c, nil, 403, ErrInvalidRemoteAddr)

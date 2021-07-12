@@ -77,26 +77,24 @@ func (c ColorMap) String() string {
 	}
 }
 
-var (
-	colorBytesMap = map[ColorMap][]byte{
-		COLOR_FOREGROUND_BLACK:   {'3', '0'},
-		COLOR_FOREGROUND_RED:     {'3', '1'},
-		COLOR_FOREGROUND_GREEN:   {'3', '2'},
-		COLOR_FOREGROUND_YELLOW:  {'3', '3'},
-		COLOR_FOREGROUND_BLUE:    {'3', '4'},
-		COLOR_FOREGROUND_MAGENTA: {'3', '5'},
-		COLOR_FOREGROUND_CYAN:    {'3', '6'},
-		COLOR_FOREGROUND_WHITE:   {'3', '7'},
-		COLOR_BACKGROUND_BLACK:   {'4', '0'},
-		COLOR_BACKGROUND_RED:     {'4', '1'},
-		COLOR_BACKGROUND_GREEN:   {'4', '2'},
-		COLOR_BACKGROUND_YELLOW:  {'4', '3'},
-		COLOR_BACKGROUND_BLUE:    {'4', '4'},
-		COLOR_BACKGROUND_MAGENTA: {'4', '5'},
-		COLOR_BACKGROUND_CYAN:    {'4', '6'},
-		COLOR_BACKGROUND_WHITE:   {'4', '7'},
-	}
-)
+var colorBytesMap = map[ColorMap][]byte{
+	COLOR_FOREGROUND_BLACK:   {'3', '0'},
+	COLOR_FOREGROUND_RED:     {'3', '1'},
+	COLOR_FOREGROUND_GREEN:   {'3', '2'},
+	COLOR_FOREGROUND_YELLOW:  {'3', '3'},
+	COLOR_FOREGROUND_BLUE:    {'3', '4'},
+	COLOR_FOREGROUND_MAGENTA: {'3', '5'},
+	COLOR_FOREGROUND_CYAN:    {'3', '6'},
+	COLOR_FOREGROUND_WHITE:   {'3', '7'},
+	COLOR_BACKGROUND_BLACK:   {'4', '0'},
+	COLOR_BACKGROUND_RED:     {'4', '1'},
+	COLOR_BACKGROUND_GREEN:   {'4', '2'},
+	COLOR_BACKGROUND_YELLOW:  {'4', '3'},
+	COLOR_BACKGROUND_BLUE:    {'4', '4'},
+	COLOR_BACKGROUND_MAGENTA: {'4', '5'},
+	COLOR_BACKGROUND_CYAN:    {'4', '6'},
+	COLOR_BACKGROUND_WHITE:   {'4', '7'},
+}
 
 const (
 	DEFAULT_LEN_COLOR_BYTES = 20 //\x1b[0;1;5;37;40m

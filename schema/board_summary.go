@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-//BoardSummary
+// BoardSummary
 type BoardSummary struct {
 	BBoardID  bbs.BBoardID    `bson:"bid"`
 	Brdname   string          `bson:"brdname"`
@@ -66,7 +66,7 @@ func UpdateBoardSummaries(boardSummaries []*BoardSummary, updateNanoTS types.Nan
 		return nil
 	}
 
-	//create items which do not exists yet.
+	// create items which do not exists yet.
 	theList := make([]*db.UpdatePair, len(boardSummaries))
 	for idx, each := range boardSummaries {
 		query := &BoardQuery{
@@ -83,11 +83,11 @@ func UpdateBoardSummaries(boardSummaries []*BoardSummary, updateNanoTS types.Nan
 	if err != nil {
 		return err
 	}
-	if r.UpsertedCount == int64(len(boardSummaries)) { //all are created
+	if r.UpsertedCount == int64(len(boardSummaries)) { // all are created
 		return nil
 	}
 
-	//update items with comparing update-nano-ts
+	// update items with comparing update-nano-ts
 	upsertedIDs := r.UpsertedIDs
 	updateBoardSummaries := make([]*db.UpdatePair, 0, len(theList))
 	for idx, each := range theList {
@@ -141,5 +141,4 @@ func GetBoardSummary(bboardID bbs.BBoardID) (result *BoardSummary, err error) {
 	}
 
 	return result, nil
-
 }

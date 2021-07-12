@@ -13,7 +13,6 @@ import (
 )
 
 func deserializeUserDetailAndUpdateDB(user_b pttbbsapi.GetUserResult, updateNanoTS types.NanoTS) (userDetail *schema.UserDetail, err error) {
-
 	userDetail = schema.NewUserDetail(user_b, updateNanoTS)
 
 	err = schema.UpdateUserDetail(userDetail)
@@ -31,7 +30,6 @@ func deserializeEmailTokenAndEmail(email string, title string, userID bbs.UUserI
 }
 
 func deserializeEmailToken(email string, userID bbs.UUserID, token string, urlTemplate string, contentTemplate string) (content string) {
-
 	userIDStr := string(userID)
 
 	urlMap := map[string]string{
@@ -81,7 +79,6 @@ func checkUniqueEmail(email string) (err error) {
 }
 
 func getEmailTokenInfo(jwt string, context pttbbsapi.EmailTokenContext, c *gin.Context) (userID bbs.UUserID, email string, clientInfo string, statusCode int, err error) {
-
 	theParams_b := &pttbbsapi.GetEmailTokenInfoParams{
 		Jwt:     jwt,
 		Context: context,

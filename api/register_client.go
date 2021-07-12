@@ -42,13 +42,12 @@ func RegisterClient(remoteAddr string, userID bbs.UUserID, params interface{}, c
 		return nil, 500, err
 	}
 
-	//result
+	// result
 	result = NewRegisterClientResult(client)
 	return result, 200, nil
 }
 
 func deserializeClientAndUpdateDB(registerClientParams *RegisterClientParams, remoteAddr string) (client *schema.Client, err error) {
-
 	client = schema.NewClient(registerClientParams.ClientID, registerClientParams.ClientType, remoteAddr)
 
 	err = schema.UpdateClient(client)

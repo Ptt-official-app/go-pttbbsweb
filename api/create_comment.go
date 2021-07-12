@@ -32,7 +32,6 @@ func CreateCommentWrapper(c *gin.Context) {
 }
 
 func CreateComment(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	theParams, ok := params.(*CreateCommentParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -49,10 +48,10 @@ func CreateComment(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
-	//content-dbcs
+	// content-dbcs
 	contentDBCS := types.Utf8ToBig5(theParams.Content)
 
-	//backend
+	// backend
 	theParams_b := &pttbbsapi.CreateCommentParams{
 		CommentType: theParams.CommentType,
 		Content:     contentDBCS,

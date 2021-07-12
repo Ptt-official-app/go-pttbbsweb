@@ -27,7 +27,7 @@ func ParseFirstComments(
 
 	firstCommentsDBCS, theRestCommentsDBCS := splitFirstComments(commentsDBCS)
 
-	//check md5
+	// check md5
 	firstCommentsMD5 = md5sum(firstCommentsDBCS)
 	if firstCommentsMD5 == origFirstCommentsMD5 {
 		return nil, origFirstCommentsMD5, theRestCommentsDBCS, nil
@@ -54,7 +54,7 @@ func splitFirstComments(commentsDBCS []byte) (firstCommentsDBCS []byte, theRestC
 		nComments++
 
 		nBytes += idxNewLine
-		p_commentsDBCS = p_commentsDBCS[idxNewLine:] //starting from '\n'
+		p_commentsDBCS = p_commentsDBCS[idxNewLine:] // starting from '\n'
 
 		nextCommentIdx := MatchComment(p_commentsDBCS)
 		if nextCommentIdx == -1 {
@@ -62,16 +62,16 @@ func splitFirstComments(commentsDBCS []byte) (firstCommentsDBCS []byte, theRestC
 		}
 
 		nBytes += nextCommentIdx
-		p_commentsDBCS = p_commentsDBCS[nextCommentIdx:] //starting from beginning of the next comment.
+		p_commentsDBCS = p_commentsDBCS[nextCommentIdx:] // starting from beginning of the next comment.
 
 		idxNewLine = bytes.Index(p_commentsDBCS, []byte{'\n'})
 	}
 
-	if nComments < N_FIRST_COMMENTS { //no more '\n', but not enough comments yet, add the last comment.
+	if nComments < N_FIRST_COMMENTS { // no more '\n', but not enough comments yet, add the last comment.
 		nBytes += len(p_commentsDBCS)
 	}
 
-	//defensive programming for '\n'
+	// defensive programming for '\n'
 	if nBytes < len(commentsDBCS) && commentsDBCS[nBytes] == '\n' {
 		nBytes++
 	}
