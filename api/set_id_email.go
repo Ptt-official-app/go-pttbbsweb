@@ -34,7 +34,6 @@ func SetIDEmailWrapper(c *gin.Context) {
 }
 
 func SetIDEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	theParams, ok := params.(*SetIDEmailParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -53,7 +52,7 @@ func SetIDEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path 
 
 	clientInfo := getClientInfo(client)
 
-	//get email token info
+	// get email token info
 	queryUserID, idEmail, queryClientInfo, statusCode, err := getEmailTokenInfo(theParams.Jwt, pttbbsapi.CONTEXT_SET_ID_EMAIL, c)
 	if err != nil {
 		return nil, statusCode, err
@@ -67,14 +66,14 @@ func SetIDEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path 
 		return nil, 403, ErrInvalidUser
 	}
 
-	//create db-record first to avoid race-condition
+	// create db-record first to avoid race-condition
 	updateNanoTS := types.NowNanoTS()
 	err = schema.CreateUserIDEmail(queryUserID, idEmail, updateNanoTS)
 	if err != nil {
 		return nil, 403, err
 	}
 
-	//get backend data
+	// get backend data
 	theParams_b := &pttbbsapi.SetIDEmailParams{
 		Jwt:   theParams.Jwt,
 		IsSet: true,
@@ -92,7 +91,7 @@ func SetIDEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path 
 		return nil, statusCode, err
 	}
 
-	//update db-record to complete the record.
+	// update db-record to complete the record.
 	updateNanoTS = types.NowNanoTS()
 	err = schema.UpdateUserIDEmailIsSet(queryUserID, result_b.Email, true, updateNanoTS)
 	if err != nil {

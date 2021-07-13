@@ -240,7 +240,6 @@ func TestParseComments(t *testing.T) {
 			gotComments := ParseComments(tt.args.ownerID, tt.args.commentsDBCS, tt.args.allCommentsDBCS)
 
 			testutil.TDeepEqual(t, "comments", gotComments, tt.expectedComments)
-
 		})
 	}
 }

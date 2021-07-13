@@ -23,12 +23,13 @@ type CommentID string
 func ToCommentID(nanoTS NanoTS, md5 string) CommentID {
 	return CommentID(nanoTS.Base64() + ":" + md5)
 }
+
 func ToReplyID(commentID CommentID) CommentID {
 	return commentID + ":R"
 }
 
 const (
-	TS_TO_NANO_TS  = NanoTS(1000000000) //10^9
+	TS_TO_NANO_TS  = NanoTS(1000000000) // 10^9
 	MIN_TO_NANO_TS = NanoTS(60) * TS_TO_NANO_TS
 	YEAR_NANO_TS   = NanoTS(365*86400) * TS_TO_NANO_TS
 )

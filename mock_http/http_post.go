@@ -64,7 +64,6 @@ func HttpPost(url string, data interface{}, result interface{}) (statusCode int,
 }
 
 func parseResult(backendResult interface{}, httpResult interface{}) (statusCode int, err error) {
-
 	convert(backendResult, httpResult)
 
 	return 200, nil

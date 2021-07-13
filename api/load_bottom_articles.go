@@ -27,7 +27,6 @@ func LoadBottomArticlesWrapper(c *gin.Context) {
 }
 
 func LoadBottomArticles(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	result = mock.ArticleListResult
 	return result, 200, nil
 }

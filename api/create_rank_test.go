@@ -101,7 +101,6 @@ func TestCreateRank(t *testing.T) {
 				expectedResult := tt.expectedResult.(*CreateRankResult)
 				assert.Equal(t, expectedResult.Rank, ret0.Rank)
 			}
-
 		})
 		wg.Wait()
 	}

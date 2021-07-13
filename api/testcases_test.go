@@ -130,7 +130,6 @@ func initTest() {
 }
 
 func loadTest(filename string) (contentAll []byte, content []byte, signature []byte, recommend []byte, firstComments []byte, theRestComments []byte) {
-
 	// content-all
 	fullFilename := "testcase/" + filename
 	file0, err := os.Open(fullFilename)
@@ -142,7 +141,7 @@ func loadTest(filename string) (contentAll []byte, content []byte, signature []b
 	r := io.Reader(file0)
 	contentAll, _ = ioutil.ReadAll(r)
 
-	//content
+	// content
 	fullFilename = "testcase/" + filename + ".content"
 	file1, err := os.Open(fullFilename)
 	if err != nil {
@@ -157,7 +156,7 @@ func loadTest(filename string) (contentAll []byte, content []byte, signature []b
 		content = nil
 	}
 
-	//signature
+	// signature
 	fullFilename = "testcase/" + filename + ".signature"
 	file2, err := os.Open(fullFilename)
 	if err != nil {
@@ -172,7 +171,7 @@ func loadTest(filename string) (contentAll []byte, content []byte, signature []b
 		signature = nil
 	}
 
-	//recommend
+	// recommend
 	fullFilename = "testcase/" + filename + ".recommend"
 	file3, err := os.Open(fullFilename)
 	if err != nil {
@@ -187,7 +186,7 @@ func loadTest(filename string) (contentAll []byte, content []byte, signature []b
 		recommend = nil
 	}
 
-	//firstComments
+	// firstComments
 	fullFilename = "testcase/" + filename + ".firstComments"
 	file4, err := os.Open(fullFilename)
 	if err != nil {
@@ -202,7 +201,7 @@ func loadTest(filename string) (contentAll []byte, content []byte, signature []b
 		firstComments = nil
 	}
 
-	//theRestComments
+	// theRestComments
 	fullFilename = "testcase/" + filename + ".theRestComments"
 	file5, err := os.Open(fullFilename)
 	if err != nil {

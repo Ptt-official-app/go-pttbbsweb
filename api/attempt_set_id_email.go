@@ -35,7 +35,6 @@ func AttemptSetIDEmailWrapper(c *gin.Context) {
 }
 
 func AttemptSetIDEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	theParams, ok := params.(*AttemptSetIDEmailParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -59,7 +58,7 @@ func AttemptSetIDEmail(remoteAddr string, userID bbs.UUserID, params interface{}
 
 	clientInfo := getClientInfo(client)
 
-	//get backend data
+	// get backend data
 	theParams_b := &pttbbsapi.AttemptSetIDEmailParams{
 		ClientInfo: clientInfo,
 		Passwd:     theParams.Password,

@@ -62,7 +62,7 @@ func UpdateCommentSummaries(bboardID bbs.BBoardID, articleID bbs.ArticleID, comm
 }
 
 func updateCommentSummariesCore(bboardID bbs.BBoardID, articleID bbs.ArticleID, commentSummaries []*CommentSummary, updateNanoTS types.NanoTS) (err error) {
-	//this is to update only, must be with updateNanoTS.
+	// this is to update only, must be with updateNanoTS.
 	theList := make([]*db.UpdatePair, len(commentSummaries))
 	for idx, each := range commentSummaries {
 		query := bson.M{

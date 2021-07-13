@@ -16,9 +16,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-var (
-	testIP = "127.0.0.1"
-)
+var testIP = "127.0.0.1"
 
 func setupTest() {
 	utils.SetIsTest()
@@ -37,7 +35,7 @@ func setupTest() {
 
 	params := &RegisterClientParams{ClientID: "default_client_id", ClientType: types.CLIENT_TYPE_APP}
 	_, _, _ = RegisterClient("localhost", bbs.UUserID("SYSOP"), params, nil)
-	//logrus.Infof("api.setupTest: after RegisterClient: status: %v e: %v", statusCode, err)
+	// logrus.Infof("api.setupTest: after RegisterClient: status: %v e: %v", statusCode, err)
 }
 
 func teardownTest() {

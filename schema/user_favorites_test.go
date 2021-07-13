@@ -148,7 +148,6 @@ func TestUpdateUserFavorites(t *testing.T) {
 			gotUserFavorites = SortUserFavoritesByFavIdx(gotUserFavorites, true)
 
 			testutil.TDeepEqual(t, "userFavorites", gotUserFavorites, tt.expected)
-
 		})
 		wg.Wait()
 	}

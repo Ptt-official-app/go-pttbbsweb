@@ -16,22 +16,22 @@ func withPrefix(path string) string {
 func initGin() (*gin.Engine, error) {
 	router := gin.Default()
 
-	//options
+	// options
 	router.OPTIONS("/*path", api.OptionsWrapper)
 
-	//index
+	// index
 	router.GET(withPrefix(api.INDEX_R), api.IndexWrapper)
 
 	router.GET(withPrefix(api.GET_VERSION_R), api.GetVersionWrapper)
 
-	//register/login
+	// register/login
 	router.POST(withPrefix(api.REGISTER_CLIENT_R), api.RegisterClientWrapper)
 	router.POST(withPrefix(api.REGISTER_USER_R), api.RegisterUserWrapper)
 	router.POST(withPrefix(api.LOGIN_R), api.LoginWrapper)
 	router.POST(withPrefix(api.ATTEMPT_REGISTER_USER_R), api.AttemptRegisterUserWrapper)
 	router.POST(withPrefix(api.CHECK_EXISTS_USER_R), api.CheckExistsUserWrapper)
 
-	//board
+	// board
 	router.GET(withPrefix(api.LOAD_GENERAL_BOARDS_R), api.LoadGeneralBoardsWrapper)
 	router.GET(withPrefix(api.GET_BOARD_DETAIL_R), api.GetBoardDetailWrapper)
 	router.GET(withPrefix(api.GET_BOARD_SUMMARY_R), api.GetBoardSummaryWrapper)
@@ -40,14 +40,14 @@ func initGin() (*gin.Engine, error) {
 	router.GET(withPrefix(api.LOAD_AUTO_COMPLETE_BOARDS_R), api.LoadAutoCompleteBoardsWrapper)
 	router.POST(withPrefix(api.CREATE_BOARD_R), api.CreateBoardWrapper)
 
-	//article
+	// article
 	router.GET(withPrefix(api.LOAD_GENERAL_ARTICLES_R), api.LoadGeneralArticlesWrapper)
 	router.GET(withPrefix(api.LOAD_BOTTOM_ARTICLES_R), api.LoadBottomArticlesWrapper)
 	router.GET(withPrefix(api.GET_ARTICLE_R), api.GetArticleDetailWrapper)
 	router.GET(withPrefix(api.LOAD_POPULAR_ARTICLES_R), api.LoadPopularArticlesWrapper)
 	router.POST(withPrefix(api.CREATE_ARTICLE_R), api.CreateArticleWrapper)
 
-	//user
+	// user
 	router.GET(withPrefix(api.GET_USER_INFO_R), api.GetUserInfoWrapper)
 	router.GET(withPrefix(api.LOAD_FAVORITE_BOARDS_R), api.LoadFavoriteBoardsWrapper)
 	router.GET(withPrefix(api.LOAD_USER_ARTICLES_R), api.LoadUserArticlesWrapper)
@@ -58,15 +58,15 @@ func initGin() (*gin.Engine, error) {
 	router.POST(withPrefix(api.SET_ID_EMAIL_R), api.SetIDEmailWrapper)
 	router.GET(withPrefix(api.GET_USER_ID_R), api.GetUserIDWrapper)
 
-	//comments
+	// comments
 	router.GET(withPrefix(api.LOAD_ARTICLE_COMMENTS_R), api.LoadArticleCommentsWrapper)
 	router.GET(withPrefix(api.LOAD_USER_COMMENTS_R), api.LoadUserCommentsWrapper)
 	router.POST(withPrefix(api.CREATE_COMMENT_R), api.CreateCommentWrapper)
 
-	//ranks
+	// ranks
 	router.POST(withPrefix(api.CREATE_RANK_R), api.CreateRankWrapper)
 
-	//html
+	// html
 	router.GET(api.ROOT_HTML_R, api.IndexHtmlWrapper)
 	router.GET(api.INDEX_HTML_R, api.IndexHtmlWrapper)
 

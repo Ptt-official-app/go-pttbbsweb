@@ -37,7 +37,7 @@ func TestGetCommentSummaries(t *testing.T) {
 				bboardID:    bbs.BBoardID("test"),
 				articleID:   bbs.ArticleID("test"),
 				startNanoTS: types.NanoTS(1261396500000000000),
-				endNanoTS:   types.NanoTS(1261396680003100000) + types.NanoTS(1), //excluding endNanoTS
+				endNanoTS:   types.NanoTS(1261396680003100000) + types.NanoTS(1), // excluding endNanoTS
 			},
 			expectedCommentSummaries: testCommentSummaries0,
 		},
@@ -52,7 +52,6 @@ func TestGetCommentSummaries(t *testing.T) {
 
 			sort.SliceStable(gotCommentSummaries, func(i int, j int) bool {
 				return gotCommentSummaries[i].CreateTime <= gotCommentSummaries[j].CreateTime
-
 			})
 
 			if !reflect.DeepEqual(gotCommentSummaries, tt.expectedCommentSummaries) {
@@ -104,11 +103,9 @@ func TestUpdateCommentSummaries(t *testing.T) {
 
 			sort.SliceStable(gotCommentSummaries, func(i int, j int) bool {
 				return gotCommentSummaries[i].CreateTime <= gotCommentSummaries[j].CreateTime
-
 			})
 
 			testutil.TDeepEqual(t, "got", gotCommentSummaries, tt.expected)
-
 		})
 	}
 }

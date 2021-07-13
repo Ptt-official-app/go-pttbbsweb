@@ -8,9 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-var (
-	UserFavoritesMeta_c *db.Collection
-)
+var UserFavoritesMeta_c *db.Collection
 
 type UserFavoritesMeta struct {
 	UserID          bbs.UUserID  `bson:"user_id"`
@@ -20,9 +18,7 @@ type UserFavoritesMeta struct {
 	FolderMeta      FolderMeta   `bson:"folder_meta"`
 }
 
-var (
-	EMPTY_USER_FAVORITES_META = &UserFavoritesMeta{}
-)
+var EMPTY_USER_FAVORITES_META = &UserFavoritesMeta{}
 
 var (
 	USER_FAVORITES_META_USER_ID_b           = getBSONName(EMPTY_USER_FAVORITES_META, "UserID")

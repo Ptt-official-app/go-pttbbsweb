@@ -240,7 +240,6 @@ func Test_big5ToUtf8(t *testing.T) {
 					}
 				}
 			}
-
 		})
 	}
 }

@@ -22,7 +22,6 @@ import (
 //Return
 //      error: err
 func initAllConfig(filename string) error {
-
 	filenameList := strings.Split(filename, ".")
 	if len(filenameList) == 1 {
 		return ErrInvalidIni

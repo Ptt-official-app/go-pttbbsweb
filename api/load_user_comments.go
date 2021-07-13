@@ -38,7 +38,6 @@ func LoadUserCommentsWrapper(c *gin.Context) {
 }
 
 func LoadUserComments(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	result = mock.CommentListResult
 	return result, 200, nil
 }

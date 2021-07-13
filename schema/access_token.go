@@ -7,9 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-var (
-	AccessToken_c *db.Collection
-)
+var AccessToken_c *db.Collection
 
 type AccessToken struct {
 	AccessToken  string       `bson:"access_token"`
@@ -17,9 +15,7 @@ type AccessToken struct {
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
 
-var (
-	EMPTY_ACCESS_TOKEN = &AccessToken{}
-)
+var EMPTY_ACCESS_TOKEN = &AccessToken{}
 
 var (
 	ACCESS_TOKEN_ACCESS_TOKEN_b   = getBSONName(EMPTY_ACCESS_TOKEN, "AccessToken")

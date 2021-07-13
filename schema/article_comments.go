@@ -24,7 +24,6 @@ var (
 )
 
 func UpdateArticleCommentsByArticleID(boardID bbs.BBoardID, articleID bbs.ArticleID, updateNanoTS types.NanoTS) {
-
 	nComments, _ := CountComments(boardID, articleID)
 
 	articleComments := &ArticleComments{
@@ -41,7 +40,6 @@ func UpdateArticleCommentsByArticleID(boardID bbs.BBoardID, articleID bbs.Articl
 //
 //We've already have article-content-info, we don't do create UpdateArticleComments
 func UpdateArticleComments(articleComments *ArticleComments) (err error) {
-
 	query := bson.M{
 		"$or": bson.A{
 			bson.M{

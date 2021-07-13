@@ -38,7 +38,7 @@ func tryGetUserFavorites(
 		}
 	}
 
-	//user-favorites-meta
+	// user-favorites-meta
 	userFavoritesMeta, err := schema.GetUserFavoritesMeta(userID)
 	if err != nil {
 		return nil, "", 500, err
@@ -51,7 +51,7 @@ func tryGetUserFavorites(
 		newDoubleBufferIdx = (userFavoritesMeta.DoubleBufferIdx + 1) % schema.N_USER_FAVORITES_DOUBLE_BUFFER
 	}
 
-	//backend get user-favorites
+	// backend get user-favorites
 	theParams_b := &pttbbsapi.GetFavoritesParams{
 		RetrieveTS: dbMTime.ToTime4(),
 	}
@@ -67,7 +67,7 @@ func tryGetUserFavorites(
 		return nil, "", statusCode, err
 	}
 
-	//check mtime
+	// check mtime
 	updateNanoTS := types.NowNanoTS()
 
 	backendMTime := types.Time4ToNanoTS(result_b.MTime)
@@ -79,7 +79,7 @@ func tryGetUserFavorites(
 
 	}
 
-	//get db
+	// get db
 	userFavorites, nextIdx, err := getUserFavoritesFromDB(userID, levelIdx, startIdx, ascending, limit)
 	if err != nil {
 		return nil, "", 500, err
@@ -113,7 +113,7 @@ func deserializeUserFavoritesAndUpdateDB(userID bbs.UUserID, mTime types.NanoTS,
 		return err
 	}
 
-	//ok if data is out-dated.
+	// ok if data is out-dated.
 	err = schema.UpdateUserFavoritesMeta(meta)
 	if err == schema.ErrNoMatch {
 		err = nil
@@ -126,7 +126,6 @@ func deserializeUserFavoritesAndUpdateDB(userID bbs.UUserID, mTime types.NanoTS,
 }
 
 func getUserFavoritesFromDB(userID bbs.UUserID, levelIdx schema.LevelIdx, startIdx int, ascending bool, limit int) (userFavorites []*schema.UserFavorites, nextIdx int, err error) {
-
 	metaSumamry, err := schema.GetUserFavoritesMetaSummary(userID)
 	if err == mongo.ErrNoDocuments {
 		return nil, -1, nil
@@ -152,7 +151,7 @@ func getUserFavoritesFromDB(userID bbs.UUserID, levelIdx schema.LevelIdx, startI
 func tryGetBoardSummaryMapFromUserFavorites(userID bbs.UUserID, userFavorites_db []*schema.UserFavorites, c *gin.Context) (boardSummaryMap_db map[int]*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, statusCode int, err error) {
 	bids := bidsInUserFavorites(userFavorites_db)
 
-	//backend get boards by bids
+	// backend get boards by bids
 	theParams_b := &pttbbsapi.LoadBoardsByBidsParams{
 		Bids: bids,
 	}
@@ -164,7 +163,7 @@ func tryGetBoardSummaryMapFromUserFavorites(userID bbs.UUserID, userFavorites_db
 		return nil, nil, statusCode, err
 	}
 
-	//update to db
+	// update to db
 	updateNanoTS := types.NowNanoTS()
 	boardSummaries_db, userBoardInfoMap, err := deserializeBoardsAndUpdateDB(userID, result_b.Boards, updateNanoTS)
 	if err != nil {

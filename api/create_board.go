@@ -39,7 +39,6 @@ func CreateBoardWrapper(c *gin.Context) {
 }
 
 func CreateBoard(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	theParams, ok := params.(*CreateBoardParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -53,7 +52,7 @@ func CreateBoard(remoteAddr string, userID bbs.UUserID, params interface{}, path
 	theClass := types.Utf8ToBig5(theParams.BrdClass)
 	theTitle := types.Utf8ToBig5(theParams.BrdTitle)
 
-	//backend
+	// backend
 	theParams_b := &pttbbsapi.CreateBoardParams{
 		Brdname:      theParams.Brdname,
 		BrdClass:     theClass,
@@ -75,7 +74,7 @@ func CreateBoard(remoteAddr string, userID bbs.UUserID, params interface{}, path
 		return nil, statusCode, err
 	}
 
-	//update to db
+	// update to db
 	theList_b := []*bbs.BoardSummary{(*bbs.BoardSummary)(result_b)}
 	updateNanoTS := types.NowNanoTS()
 	boardSummaries_db, _, err := deserializeBoardsAndUpdateDB(userID, theList_b, updateNanoTS)
@@ -87,7 +86,7 @@ func CreateBoard(remoteAddr string, userID bbs.UUserID, params interface{}, path
 	userReadBoard := &apitypes.UserBoardInfo{Stat: ptttype.NBRD_BOARD, Read: true}
 	boardSummary := apitypes.NewBoardSummary(boardSummary_db, "", userReadBoard)
 
-	//result
+	// result
 	result = CreateBoardResult(boardSummary)
 
 	return result, 200, nil

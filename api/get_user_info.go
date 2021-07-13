@@ -33,7 +33,7 @@ type GetUserInfoResult struct {
 	Firstlogin   types.Time8   `json:"first_login"`
 	Lastlogin    types.Time8   `json:"last_login"`
 	LastIP       string        `json:"last_ip"`
-	LastHost     string        `json:"last_host"` //ip 的中文呈現, 外國則為國家.
+	LastHost     string        `json:"last_host"` // ip 的中文呈現, 外國則為國家.
 
 	Money    int    `json:"money"`
 	PttEmail string `json:"pttemail"`
@@ -109,7 +109,6 @@ func GetUserInfoWrapper(c *gin.Context) {
 }
 
 func GetUserInfo(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	thePath, ok := path.(*GetUserInfoPath)
 	if !ok {
 		return nil, 400, ErrInvalidPath
@@ -121,7 +120,7 @@ func GetUserInfo(remoteAddr string, userID bbs.UUserID, params interface{}, path
 func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context) (result *GetUserInfoResult, statusCode int, err error) {
 	updateNanoTS := types.NowNanoTS()
 
-	//get backend data
+	// get backend data
 	var result_b pttbbsapi.GetUserResult
 
 	urlMap := map[string]string{
@@ -160,7 +159,6 @@ func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context)
 }
 
 func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.UserNewInfo, userIDEmail_db *schema.UserIDEmail, userEmail_db *schema.UserEmail) (result *GetUserInfoResult) {
-
 	if userNewInfo_db == nil {
 		userNewInfo_db = &schema.UserNewInfo{}
 	}

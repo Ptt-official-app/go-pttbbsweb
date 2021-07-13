@@ -158,7 +158,6 @@ func TestUpdateBoardSummaries(t *testing.T) {
 
 			got, _ := GetBoardSummary(tt.query.BBoardID)
 			testutil.TDeepEqual(t, "got", got, tt.expected)
-
 		})
 	}
 }

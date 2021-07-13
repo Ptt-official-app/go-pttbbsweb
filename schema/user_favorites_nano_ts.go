@@ -6,18 +6,14 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
-var (
-	UserFavoritesNanoTS_c *db.Collection
-)
+var UserFavoritesNanoTS_c *db.Collection
 
 type UserFavoritesNanoTS struct {
 	UserID       bbs.UUserID  `bson:"user_id"`
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
 
-var (
-	EMPTY_USER_FAVORITES_NANO_TS = &UserFavoritesNanoTS{}
-)
+var EMPTY_USER_FAVORITES_NANO_TS = &UserFavoritesNanoTS{}
 
 var (
 	USER_FAVORITES_NANO_TS_USER_ID_b        = getBSONName(EMPTY_USER_FAVORITES_NANO_TS, "UserID")

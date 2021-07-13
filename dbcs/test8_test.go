@@ -27,7 +27,7 @@ func initTest8() {
 	testContentAll8, testContent8, testSignature8, testComment8, testFirstCommentsDBCS8, testTheRestCommentsDBCS8 = loadTest(testFilename8)
 
 	testContent8Big5 = [][]*types.Rune{
-		{ //0
+		{ // 0
 			{
 
 				Big5:   []byte("\xa1\xf0\xb7\xe0\xa4l\xa4k&\xa4\xd1\xc3\xc8\xa8k\xa1\xf1\xaa\xba\xb7R\xb1\xa1\xad\xe8\xb8\xa8\xb9\xf5"),
@@ -36,14 +36,14 @@ func initTest8() {
 				DBCS:   []byte("\xa1\xf0\xb7\xe0\xa4l\xa4k&\xa4\xd1\xc3\xc8\xa8k\xa1\xf1\xaa\xba\xb7R\xb1\xa1\xad\xe8\xb8\xa8\xb9\xf5\r"),
 			},
 		},
-		{ //1
+		{ // 1
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //2
+		{ // 2
 			{
 
 				Big5:   []byte("\xa9p\xc1\xd9\xa6b\xb5S\xbf\xdd\xa6\xdb\xa4v\xaa\xba\xb7R\xb1\xa1\xc2k\xb1J\xa6b\xad\xfe\xb8\xcc\xb6\xdc\xa1H"),
@@ -52,7 +52,7 @@ func initTest8() {
 				DBCS:   []byte("\xa9p\xc1\xd9\xa6b\xb5S\xbf\xdd\xa6\xdb\xa4v\xaa\xba\xb7R\xb1\xa1\xc2k\xb1J\xa6b\xad\xfe\xb8\xcc\xb6\xdc\xa1H\r"),
 			},
 		},
-		{ //3
+		{ // 3
 			{
 
 				Big5:   []byte("                                              "),
@@ -73,7 +73,7 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //4
+		{ // 4
 			{
 
 				Big5:   []byte("\xb0\xa8\xa4W\xb5n\xa4J\xc1p\xa6X\xb3\xf8iPOST\xac\xa1\xb0\xca\xba\xf4\xaf\xb8                   "),
@@ -94,7 +94,7 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //5
+		{ // 5
 			{
 
 				Big5:   []byte("                                              "),
@@ -145,7 +145,7 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m\xa2A\r"),
 			},
 		},
-		{ //6
+		{ // 6
 			{
 
 				Big5:   []byte("\xa7\xd6\xb3t\xa4\xc0\xaaR\xb1z\xaa\xba2012\xc5\xca\xb7R\xb9B\xb6\xd5                        "),
@@ -168,7 +168,7 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m        \xa1\xbd\xa1\xd7\xa1X\xa1\xbd\r"),
 			},
 		},
-		{ //7
+		{ // 7
 			{
 
 				Big5:   []byte("                                                "),
@@ -191,7 +191,7 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m         \xa1\xbf    \xa1\xbf\r"),
 			},
 		},
-		{ //8
+		{ // 8
 			{
 
 				Big5:   []byte("\xa6P\xae\xc9\xa4\xc0\xa8\xc9\xb7R\xb1\xa1\xa5@\xac\xc9\xaa\xba\xbb\xc4\xb2\xa2\xadW\xbb\xb6                        "),
@@ -214,14 +214,14 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m          \xa2A\xa2B  \xa2A\xa2B\r"),
 			},
 		},
-		{ //9
+		{ // 9
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //10
+		{ // 10
 			{
 
 				Big5:   []byte("\xc1p\xa6X\xabK\xa7Q\xb6K"),
@@ -258,14 +258,14 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m\xa4@\xa5\xf7\r"),
 			},
 		},
-		{ //11
+		{ // 11
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //12
+		{ // 12
 			{
 
 				Big5:   []byte("\xb4\xa3\xabe\x83\xf2\xa5[\xac\xa1\xb0\xca"),
@@ -274,14 +274,14 @@ func initTest8() {
 				DBCS:   []byte("\xb4\xa3\xabe\x83\xf2\xa5[\xac\xa1\xb0\xca\r"),
 			},
 		},
-		{ //13
+		{ // 13
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //14
+		{ // 14
 			{
 
 				Big5:   []byte("\xc1\xd9\xa6\xb3\xbe\xf7\xb7|\xa9\xe2"),
@@ -304,14 +304,14 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m\xa1I\r"),
 			},
 		},
-		{ //15
+		{ // 15
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //16
+		{ // 16
 			{
 
 				Big5:   []byte("\xb3\xcc\xb2\xa2\xbbe\xb7R\xb1\xa1\xa1A\xb3\xa3\xa6b2012\xa7\xda\xaa\xba\xb7R\xb1\xa1\xa8\xd3\xa4F\xa8S\xa1I\xa1H"),
@@ -320,14 +320,14 @@ func initTest8() {
 				DBCS:   []byte("\xb3\xcc\xb2\xa2\xbbe\xb7R\xb1\xa1\xa1A\xb3\xa3\xa6b2012\xa7\xda\xaa\xba\xb7R\xb1\xa1\xa8\xd3\xa4F\xa8S\xa1I\xa1H\r"),
 			},
 		},
-		{ //17
+		{ // 17
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //18
+		{ // 18
 			{
 
 				Big5:   []byte("\xb3s\xb5\xb2\xa1Ghttp://event.udn.com/2012love/"),
@@ -336,14 +336,14 @@ func initTest8() {
 				DBCS:   []byte("\xb3s\xb5\xb2\xa1Ghttp://event.udn.com/2012love/\r"),
 			},
 		},
-		{ //19
+		{ // 19
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //20
+		{ // 20
 			{
 
 				Big5:   []byte("\xa5D\xbf\xec\xb3\xe6\xa6\xec"),
@@ -390,7 +390,7 @@ func initTest8() {
 	}
 
 	testContent8Utf8 = [][]*types.Rune{
-		{ //0
+		{ // 0
 			{
 				Utf8:   "♀獅子女&天蠍男♂的愛情剛落幕",
 				Big5:   []byte("\xa1\xf0\xb7\xe0\xa4l\xa4k&\xa4\xd1\xc3\xc8\xa8k\xa1\xf1\xaa\xba\xb7R\xb1\xa1\xad\xe8\xb8\xa8\xb9\xf5"),
@@ -399,14 +399,14 @@ func initTest8() {
 				DBCS:   []byte("\xa1\xf0\xb7\xe0\xa4l\xa4k&\xa4\xd1\xc3\xc8\xa8k\xa1\xf1\xaa\xba\xb7R\xb1\xa1\xad\xe8\xb8\xa8\xb9\xf5\r"),
 			},
 		},
-		{ //1
+		{ // 1
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //2
+		{ // 2
 			{
 				Utf8:   "妳還在猶豫自己的愛情歸宿在哪裡嗎？",
 				Big5:   []byte("\xa9p\xc1\xd9\xa6b\xb5S\xbf\xdd\xa6\xdb\xa4v\xaa\xba\xb7R\xb1\xa1\xc2k\xb1J\xa6b\xad\xfe\xb8\xcc\xb6\xdc\xa1H"),
@@ -415,7 +415,7 @@ func initTest8() {
 				DBCS:   []byte("\xa9p\xc1\xd9\xa6b\xb5S\xbf\xdd\xa6\xdb\xa4v\xaa\xba\xb7R\xb1\xa1\xc2k\xb1J\xa6b\xad\xfe\xb8\xcc\xb6\xdc\xa1H\r"),
 			},
 		},
-		{ //3
+		{ // 3
 			{
 				Utf8:   "                                              ",
 				Big5:   []byte("                                              "),
@@ -436,7 +436,7 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //4
+		{ // 4
 			{
 				Utf8:   "馬上登入聯合報iPOST活動網站                   ",
 				Big5:   []byte("\xb0\xa8\xa4W\xb5n\xa4J\xc1p\xa6X\xb3\xf8iPOST\xac\xa1\xb0\xca\xba\xf4\xaf\xb8                   "),
@@ -457,7 +457,7 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m\r"),
 			},
 		},
-		{ //5
+		{ // 5
 			{
 				Utf8:   "                                              ",
 				Big5:   []byte("                                              "),
@@ -508,7 +508,7 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m\xa2A\r"),
 			},
 		},
-		{ //6
+		{ // 6
 			{
 				Utf8:   "快速分析您的2012戀愛運勢                        ",
 				Big5:   []byte("\xa7\xd6\xb3t\xa4\xc0\xaaR\xb1z\xaa\xba2012\xc5\xca\xb7R\xb9B\xb6\xd5                        "),
@@ -531,7 +531,7 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m        \xa1\xbd\xa1\xd7\xa1X\xa1\xbd\r"),
 			},
 		},
-		{ //7
+		{ // 7
 			{
 				Utf8:   "                                                ",
 				Big5:   []byte("                                                "),
@@ -554,7 +554,7 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m         \xa1\xbf    \xa1\xbf\r"),
 			},
 		},
-		{ //8
+		{ // 8
 			{
 				Utf8:   "同時分享愛情世界的酸甜苦辣                        ",
 				Big5:   []byte("\xa6P\xae\xc9\xa4\xc0\xa8\xc9\xb7R\xb1\xa1\xa5@\xac\xc9\xaa\xba\xbb\xc4\xb2\xa2\xadW\xbb\xb6                        "),
@@ -577,14 +577,14 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m          \xa2A\xa2B  \xa2A\xa2B\r"),
 			},
 		},
-		{ //9
+		{ // 9
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //10
+		{ // 10
 			{
 				Utf8:   "聯合便利貼",
 				Big5:   []byte("\xc1p\xa6X\xabK\xa7Q\xb6K"),
@@ -621,14 +621,14 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m\xa4@\xa5\xf7\r"),
 			},
 		},
-		{ //11
+		{ // 11
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //12
+		{ // 12
 			{
 				Utf8:   "提前参加活動",
 				Big5:   []byte("\xb4\xa3\xabe\x83\xf2\xa5[\xac\xa1\xb0\xca"),
@@ -637,14 +637,14 @@ func initTest8() {
 				DBCS:   []byte("\xb4\xa3\xabe\x83\xf2\xa5[\xac\xa1\xb0\xca\r"),
 			},
 		},
-		{ //13
+		{ // 13
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //14
+		{ // 14
 			{
 				Utf8:   "還有機會抽",
 				Big5:   []byte("\xc1\xd9\xa6\xb3\xbe\xf7\xb7|\xa9\xe2"),
@@ -667,14 +667,14 @@ func initTest8() {
 				DBCS:   []byte("\x1b[m\xa1I\r"),
 			},
 		},
-		{ //15
+		{ // 15
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //16
+		{ // 16
 			{
 				Utf8:   "最甜蜜愛情，都在2012我的愛情來了沒！？",
 				Big5:   []byte("\xb3\xcc\xb2\xa2\xbbe\xb7R\xb1\xa1\xa1A\xb3\xa3\xa6b2012\xa7\xda\xaa\xba\xb7R\xb1\xa1\xa8\xd3\xa4F\xa8S\xa1I\xa1H"),
@@ -683,14 +683,14 @@ func initTest8() {
 				DBCS:   []byte("\xb3\xcc\xb2\xa2\xbbe\xb7R\xb1\xa1\xa1A\xb3\xa3\xa6b2012\xa7\xda\xaa\xba\xb7R\xb1\xa1\xa8\xd3\xa4F\xa8S\xa1I\xa1H\r"),
 			},
 		},
-		{ //17
+		{ // 17
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //18
+		{ // 18
 			{
 				Utf8:   "連結：http://event.udn.com/2012love/",
 				Big5:   []byte("\xb3s\xb5\xb2\xa1Ghttp://event.udn.com/2012love/"),
@@ -699,14 +699,14 @@ func initTest8() {
 				DBCS:   []byte("\xb3s\xb5\xb2\xa1Ghttp://event.udn.com/2012love/\r"),
 			},
 		},
-		{ //19
+		{ // 19
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //20
+		{ // 20
 			{
 				Utf8:   "主辦單位",
 				Big5:   []byte("\xa5D\xbf\xec\xb3\xe6\xa6\xec"),

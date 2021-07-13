@@ -7,7 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-//ArticleDetailSummary
+// ArticleDetailSummary
 type ArticleDetailSummary struct {
 	BBoardID   bbs.BBoardID  `bson:"bid"`
 	ArticleID  bbs.ArticleID `bson:"aid"`
@@ -35,7 +35,7 @@ type ArticleDetailSummary struct {
 	NComments            int          `bson:"n_comments"`
 	CommentsUpdateNanoTS types.NanoTS `bson:"comments_update_nano_ts"`
 
-	Rank             int          `bson:"rank"` //評價
+	Rank             int          `bson:"rank"` // 評價
 	RankUpdateNanoTS types.NanoTS `bson:"rank_update_nano_ts"`
 }
 

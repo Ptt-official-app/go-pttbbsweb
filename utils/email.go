@@ -10,7 +10,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 )
 
-//https://gist.github.com/andelf/5004821
+// https://gist.github.com/andelf/5004821
 func SendEmail(rcpts []string, title string, content string) (err error) {
 	if isTest {
 		return nil

@@ -1,8 +1,6 @@
 package utils
 
-var (
-	isTest = false
-)
+var isTest = false
 
 func SetIsTest() {
 	isTest = true

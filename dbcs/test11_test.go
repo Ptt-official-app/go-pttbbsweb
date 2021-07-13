@@ -31,7 +31,7 @@ func initTest11() {
 	testContentAll11, testContent11, testSignature11, testComment11, testFirstCommentsDBCS11, testTheRestCommentsDBCS11 = loadTest(testFilename11)
 
 	testContent11Big5 = [][]*types.Rune{
-		{ //0
+		{ // 0
 			{
 
 				Big5:   []byte("\xa7@\xaa\xcc: cheinshin (\xa8\xba\xb4N\xb3o\xbc\xcb\xa7a) \xac\xdd\xaaO: Gossiping"),
@@ -40,7 +40,7 @@ func initTest11() {
 				DBCS:   []byte("\xa7@\xaa\xcc: cheinshin (\xa8\xba\xb4N\xb3o\xbc\xcb\xa7a) \xac\xdd\xaaO: Gossiping\r"),
 			},
 		},
-		{ //1
+		{ // 1
 			{
 
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3"),
@@ -49,7 +49,7 @@ func initTest11() {
 				DBCS:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3\r"),
 			},
 		},
-		{ //2
+		{ // 2
 			{
 
 				Big5:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 19:45:20 2020"),
@@ -58,35 +58,35 @@ func initTest11() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 19:45:20 2020\r"),
 			},
 		},
-		{ //3
+		{ // 3
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //4
+		{ // 4
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //5
+		{ // 5
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //6
+		{ // 6
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //7
+		{ // 7
 			{
 
 				Big5:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:"),
@@ -95,14 +95,14 @@ func initTest11() {
 				DBCS:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:\r"),
 			},
 		},
-		{ //8
+		{ // 8
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //9
+		{ // 9
 			{
 
 				Big5:   []byte("TVBS"),
@@ -111,14 +111,14 @@ func initTest11() {
 				DBCS:   []byte("TVBS\r"),
 			},
 		},
-		{ //10
+		{ // 10
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //11
+		{ // 11
 			{
 
 				Big5:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:"),
@@ -127,14 +127,14 @@ func initTest11() {
 				DBCS:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:\r"),
 			},
 		},
-		{ //12
+		{ // 12
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //13
+		{ // 13
 			{
 
 				Big5:   []byte("\xad\xb3\xaea\xbb\xf4"),
@@ -143,14 +143,14 @@ func initTest11() {
 				DBCS:   []byte("\xad\xb3\xaea\xbb\xf4\r"),
 			},
 		},
-		{ //14
+		{ // 14
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //15
+		{ // 15
 			{
 
 				Big5:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:"),
@@ -159,14 +159,14 @@ func initTest11() {
 				DBCS:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:\r"),
 			},
 		},
-		{ //16
+		{ // 16
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //17
+		{ // 17
 			{
 
 				Big5:   []byte("TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3"),
@@ -175,14 +175,14 @@ func initTest11() {
 				DBCS:   []byte("TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3\r"),
 			},
 		},
-		{ //18
+		{ // 18
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //19
+		{ // 19
 			{
 
 				Big5:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:"),
@@ -191,21 +191,21 @@ func initTest11() {
 				DBCS:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:\r"),
 			},
 		},
-		{ //20
+		{ // 20
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //21
+		{ // 21
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //22
+		{ // 22
 			{
 
 				Big5:   []byte("2022\xbf\xef\xbe\xd4\xa7Y\xb1N\xb6}\xa5\xb4\xa1A\xa5\xc1\xb2\xb3\xa4]\xb9\xef\xa4\xbb\xb3\xa3\xa5\xab\xaa\xf8\xaa\xba\xacI\xacF\xaa\xed\xb2{\xa5\xb4\xa4F\xa4\xc0\xbc\xc6\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xa5x"),
@@ -214,7 +214,7 @@ func initTest11() {
 				DBCS:   []byte("2022\xbf\xef\xbe\xd4\xa7Y\xb1N\xb6}\xa5\xb4\xa1A\xa5\xc1\xb2\xb3\xa4]\xb9\xef\xa4\xbb\xb3\xa3\xa5\xab\xaa\xf8\xaa\xba\xacI\xacF\xaa\xed\xb2{\xa5\xb4\xa4F\xa4\xc0\xbc\xc6\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xa5x\r"),
 			},
 		},
-		{ //23
+		{ // 23
 			{
 
 				Big5:   []byte("\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xab\xe1\xa1A\xa4H\xae\xf0\xa4W\xa4\xc9\xa1A\xa4\xbb\xb3\xa3\xb1\xc6\xa6W\xb2\xc4\xa5|\xa1A\xa6\xdc\xa9\xf3\xa5h\xa6~\xa4~\xb8\xc9"),
@@ -223,7 +223,7 @@ func initTest11() {
 				DBCS:   []byte("\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xab\xe1\xa1A\xa4H\xae\xf0\xa4W\xa4\xc9\xa1A\xa4\xbb\xb3\xa3\xb1\xc6\xa6W\xb2\xc4\xa5|\xa1A\xa6\xdc\xa9\xf3\xa5h\xa6~\xa4~\xb8\xc9\r"),
 			},
 		},
-		{ //24
+		{ // 24
 			{
 
 				Big5:   []byte("\xbf\xef\xa4W\xaa\xba\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xa1A\xa5u\xae\xb3\xa4U\xb2\xc4\xa4\xad\xa6W\xa1A\xa5u\xc4\xb9\xa4F\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf5\xa1C"),
@@ -232,14 +232,14 @@ func initTest11() {
 				DBCS:   []byte("\xbf\xef\xa4W\xaa\xba\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xa1A\xa5u\xae\xb3\xa4U\xb2\xc4\xa4\xad\xa6W\xa1A\xa5u\xc4\xb9\xa4F\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf5\xa1C\r"),
 			},
 		},
-		{ //25
+		{ // 25
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
-		}, //25
-		{ //26
+		}, // 25
+		{ // 26
 			{
 
 				Big5:   []byte("\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa1G\xa1u\xa4\xa3\xa7\xc6\xb1\xe6\xa7\xda\xad\xcc\xb8\xd1\xb8T\xa6\xb3\xc3\xf6\xa9\xf3\xa1A\xa7t\xa6\xb3\xb5\xdc\xa7J\xa6h\xa4\xda\xd3i\xa1A\xa9\xce\xbdG\xa6\xd7\xba\xeb\xaa\xba\xbd\xde\xa6\xd7\xb6i\xa4f\xa1C\xa1v"),
@@ -248,14 +248,14 @@ func initTest11() {
 				DBCS:   []byte("\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa1G\xa1u\xa4\xa3\xa7\xc6\xb1\xe6\xa7\xda\xad\xcc\xb8\xd1\xb8T\xa6\xb3\xc3\xf6\xa9\xf3\xa1A\xa7t\xa6\xb3\xb5\xdc\xa7J\xa6h\xa4\xda\xd3i\xa1A\xa9\xce\xbdG\xa6\xd7\xba\xeb\xaa\xba\xbd\xde\xa6\xd7\xb6i\xa4f\xa1C\xa1v\r"),
 			},
 		},
-		{ //27
+		{ // 27
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //28
+		{ // 28
 			{
 
 				Big5:   []byte("\xb4N\xacO\xb3o\xbb\xf2\xb5L\xb9w\xc4\xb5\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xa1A\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xa1A\xc5\xfd\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa4H\xae\xf0\xf6t\xa4\xc9\xa1A\xa4]\xa4\xcf\xc0\xb3\xa8\xec"),
@@ -264,7 +264,7 @@ func initTest11() {
 				DBCS:   []byte("\xb4N\xacO\xb3o\xbb\xf2\xb5L\xb9w\xc4\xb5\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xa1A\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xa1A\xc5\xfd\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa4H\xae\xf0\xf6t\xa4\xc9\xa1A\xa4]\xa4\xcf\xc0\xb3\xa8\xec\r"),
 			},
 		},
-		{ //29
+		{ // 29
 			{
 
 				Big5:   []byte("\xa6o\xaa\xba\xa5\xc1\xbd\xd5\xa4W\xad\xb1\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xbfc\xa8q\xbfP\xaa\xba\xacI\xacF\xba\xa1\xb7N\xab\xd7\xf6t\xa8\xec56%\xa1A\xa6\xec\xa9~\xa4\xbb\xb3\xa3\xb2\xc4\xa5|\xa6W"),
@@ -273,7 +273,7 @@ func initTest11() {
 				DBCS:   []byte("\xa6o\xaa\xba\xa5\xc1\xbd\xd5\xa4W\xad\xb1\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xbfc\xa8q\xbfP\xaa\xba\xacI\xacF\xba\xa1\xb7N\xab\xd7\xf6t\xa8\xec56%\xa1A\xa6\xec\xa9~\xa4\xbb\xb3\xa3\xb2\xc4\xa5|\xa6W\r"),
 			},
 		},
-		{ //30
+		{ // 30
 			{
 
 				Big5:   []byte("\xa1A\xbb\xb7\xbb\xb7\xbb\xe2\xa5\xfd\xb3\xcc\xab\xe1\xa4@\xa6W\xaa\xba\xa1A\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf535%\xaa\xba\xa4\xe4\xab\xf9\xab\xd7\xa1A\xb8\xf2\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xaa\xba44%\xa1A\xa5x\xabn\xa5\xab"),
@@ -282,7 +282,7 @@ func initTest11() {
 				DBCS:   []byte("\xa1A\xbb\xb7\xbb\xb7\xbb\xe2\xa5\xfd\xb3\xcc\xab\xe1\xa4@\xa6W\xaa\xba\xa1A\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf535%\xaa\xba\xa4\xe4\xab\xf9\xab\xd7\xa1A\xb8\xf2\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xaa\xba44%\xa1A\xa5x\xabn\xa5\xab\r"),
 			},
 		},
-		{ //31
+		{ // 31
 			{
 
 				Big5:   []byte("\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xba\xa1\xb7N\xab\xd7\xa4\xf1\xa5h\xa6~\xa1A\xa6h\xa4F3\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa8\xd3\xa8\xec58%\xa1A\xae\xb3\xa4U\xb2\xc4\xa4T\xa6W\xa1A\xb2\xc4\xa4G\xa6W\xabh\xacO\xae\xe7\xb6\xe9\xa5\xab\xaa\xf8\xbeG\xa4\xe5"),
@@ -291,7 +291,7 @@ func initTest11() {
 				DBCS:   []byte("\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xba\xa1\xb7N\xab\xd7\xa4\xf1\xa5h\xa6~\xa1A\xa6h\xa4F3\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa8\xd3\xa8\xec58%\xa1A\xae\xb3\xa4U\xb2\xc4\xa4T\xa6W\xa1A\xb2\xc4\xa4G\xa6W\xabh\xacO\xae\xe7\xb6\xe9\xa5\xab\xaa\xf8\xbeG\xa4\xe5\r"),
 			},
 		},
-		{ //32
+		{ // 32
 			{
 
 				Big5:   []byte("\xc0\xe9\xa1A\xae\xb3\xa4U\xa4C\xa6\xa8\xaa\xba\xba\xa1\xb7N\xab\xd7\xa1A\xaba\xadx\xabh\xacO\xa5\xd1\xb1`\xb3\xd3\xadx\xaa\xba\xa1A\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa5H77%\xa6A\xab\xd7\xc2\xcd\xc1p\xa1C"),
@@ -300,14 +300,14 @@ func initTest11() {
 				DBCS:   []byte("\xc0\xe9\xa1A\xae\xb3\xa4U\xa4C\xa6\xa8\xaa\xba\xba\xa1\xb7N\xab\xd7\xa1A\xaba\xadx\xabh\xacO\xa5\xd1\xb1`\xb3\xd3\xadx\xaa\xba\xa1A\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa5H77%\xa6A\xab\xd7\xc2\xcd\xc1p\xa1C\r"),
 			},
 		},
-		{ //33
+		{ // 33
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //34
+		{ // 34
 			{
 
 				Big5:   []byte("\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa1G\xa1u\xa7\xda\xb3\xcc\xa6b\xa5G\xaa\xba\xacO\xa1A\xa7\xda\xc1\xd9\xa6\xb3\xab\xdc\xa6h\xa8\xc6\xa8S\xa6\xb3\xb3\xcc\xa6n\xaa\xba\xb3\xa1\xa4\xc0\xa1A\xadn\xa7\xf3\xa5[\xa7\xe2\xabl\xa1A\xa7\xe2\xa5\xa6\xb0\xb5"),
@@ -316,7 +316,7 @@ func initTest11() {
 				DBCS:   []byte("\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa1G\xa1u\xa7\xda\xb3\xcc\xa6b\xa5G\xaa\xba\xacO\xa1A\xa7\xda\xc1\xd9\xa6\xb3\xab\xdc\xa6h\xa8\xc6\xa8S\xa6\xb3\xb3\xcc\xa6n\xaa\xba\xb3\xa1\xa4\xc0\xa1A\xadn\xa7\xf3\xa5[\xa7\xe2\xabl\xa1A\xa7\xe2\xa5\xa6\xb0\xb5\r"),
 			},
 		},
-		{ //35
+		{ // 35
 			{
 
 				Big5:   []byte("\xb1o\xa7\xf3\xa6n\xa1A\xb3o\xa4~\xacO\xa5\xab\xaa\xf8\xaa\xba\xa5\xbb\xb3d\xa1C\xa1v"),
@@ -325,14 +325,14 @@ func initTest11() {
 				DBCS:   []byte("\xb1o\xa7\xf3\xa6n\xa1A\xb3o\xa4~\xacO\xa5\xab\xaa\xf8\xaa\xba\xa5\xbb\xb3d\xa1C\xa1v\r"),
 			},
 		},
-		{ //36
+		{ // 36
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //37
+		{ // 37
 			{
 
 				Big5:   []byte("\xb1j\xbd\xd5\xa6\xdb\xa4v\xb4N\xacO\xaeI\xc0Y\xbb{\xafu\xb0\xb5\xa1A\xbe\xa8\xba\xde\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xa1\xa4\xc0\xa1A\xac\xbd\xa5\xcf\xb0\xaa\xb6\xaf\xb8\xf2\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa1A\xc5\xfd\xa4C\xa6\xa8\xaa\xba\xb7s\xa5_"),
@@ -341,7 +341,7 @@ func initTest11() {
 				DBCS:   []byte("\xb1j\xbd\xd5\xa6\xdb\xa4v\xb4N\xacO\xaeI\xc0Y\xbb{\xafu\xb0\xb5\xa1A\xbe\xa8\xba\xde\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xa1\xa4\xc0\xa1A\xac\xbd\xa5\xcf\xb0\xaa\xb6\xaf\xb8\xf2\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa1A\xc5\xfd\xa4C\xa6\xa8\xaa\xba\xb7s\xa5_\r"),
 			},
 		},
-		{ //38
+		{ // 38
 			{
 
 				Big5:   []byte("\xa5\xab\xa5\xc1\xb7P\xa8\xec\xa5\xfa\xbaa\xa1A\xa6\xfd\xae\xe7\xb6\xe9\xb8\xf2\xa5x\xabn\xaa\xba\xa5\xab\xa5\xc1\xa1A\xb5w\xacO\xa6h\xa5X\xa4F2\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa1A\xa6\xd3\xa6\xb3\xa4K\xa6\xa8\xaa\xba\xa5x\xa4\xa4\xa5\xab\xa5\xc1\xbb{\xa6P"),
@@ -350,7 +350,7 @@ func initTest11() {
 				DBCS:   []byte("\xa5\xab\xa5\xc1\xb7P\xa8\xec\xa5\xfa\xbaa\xa1A\xa6\xfd\xae\xe7\xb6\xe9\xb8\xf2\xa5x\xabn\xaa\xba\xa5\xab\xa5\xc1\xa1A\xb5w\xacO\xa6h\xa5X\xa4F2\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa1A\xa6\xd3\xa6\xb3\xa4K\xa6\xa8\xaa\xba\xa5x\xa4\xa4\xa5\xab\xa5\xc1\xbb{\xa6P\r"),
 			},
 		},
-		{ //39
+		{ // 39
 			{
 
 				Big5:   []byte("\xa5x\xa4\xa4\xa1A\xbaa\xb5n\xa4\xbb\xb3\xa3\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xcc\xb0\xaa\xa1C"),
@@ -359,14 +359,14 @@ func initTest11() {
 				DBCS:   []byte("\xa5x\xa4\xa4\xa1A\xbaa\xb5n\xa4\xbb\xb3\xa3\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xcc\xb0\xaa\xa1C\r"),
 			},
 		},
-		{ //40
+		{ // 40
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //41
+		{ // 41
 			{
 
 				Big5:   []byte("\xa5x\xabn\xa5\xab\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xa1G\xa1u\xa6b\xbb\xdd\xadn\xc0\xcb\xb0Q\xa7\xef\xb6i\xaa\xba\xa6a\xa4\xe8\xa1A\xa7\xda\xad\xcc\xa4]\xb7|\xb5\xea\xa4\xdf\xa6a\xc0\xcb\xb0Q\xa5H\xa4\xce\xa7\xef\xb6i\xa1A\xa7\xc6\xb1\xe6\xb0\xb5\xb1o\xa7\xf3"),
@@ -375,7 +375,7 @@ func initTest11() {
 				DBCS:   []byte("\xa5x\xabn\xa5\xab\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xa1G\xa1u\xa6b\xbb\xdd\xadn\xc0\xcb\xb0Q\xa7\xef\xb6i\xaa\xba\xa6a\xa4\xe8\xa1A\xa7\xda\xad\xcc\xa4]\xb7|\xb5\xea\xa4\xdf\xa6a\xc0\xcb\xb0Q\xa5H\xa4\xce\xa7\xef\xb6i\xa1A\xa7\xc6\xb1\xe6\xb0\xb5\xb1o\xa7\xf3\r"),
 			},
 		},
-		{ //42
+		{ // 42
 			{
 
 				Big5:   []byte("\xa6n\xa1A\xc5\xfd\xa5\xab\xa5\xc1\xaaB\xa4\xcd\xad\xcc\xb9L\xb1o\xa7\xf3\xa6n\xa1C\xa1v"),
@@ -384,21 +384,21 @@ func initTest11() {
 				DBCS:   []byte("\xa6n\xa1A\xc5\xfd\xa5\xab\xa5\xc1\xaaB\xa4\xcd\xad\xcc\xb9L\xb1o\xa7\xf3\xa6n\xa1C\xa1v\r"),
 			},
 		},
-		{ //43
+		{ // 43
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
-		}, //43
-		{ //44
+		}, // 43
+		{ // 44
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
-		}, //44
-		{ //45
+		}, // 44
+		{ // 45
 			{
 
 				Big5:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):"),
@@ -407,14 +407,14 @@ func initTest11() {
 				DBCS:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):\r"),
 			},
 		},
-		{ //46
+		{ // 46
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
-		}, //46
-		{ //47
+		}, // 46
+		{ // 47
 			{
 
 				Big5:   []byte("https://reurl.cc/8nK7eo"),
@@ -423,14 +423,14 @@ func initTest11() {
 				DBCS:   []byte("https://reurl.cc/8nK7eo\r"),
 			},
 		},
-		{ //48
+		{ // 48
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //49
+		{ // 49
 			{
 
 				Big5:   []byte("6.\xb3\xc6\xb5\xf9:"),
@@ -439,14 +439,14 @@ func initTest11() {
 				DBCS:   []byte("6.\xb3\xc6\xb5\xf9:\r"),
 			},
 		},
-		{ //50
+		{ // 50
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //51
+		{ // 51
 			{
 
 				Big5:   []byte("1.\xabJ 2.\xbeG 3.\xb6\xc0 4.\xbfc 5.\xb3\xaf 6.\xac_"),
@@ -455,14 +455,14 @@ func initTest11() {
 				DBCS:   []byte("1.\xabJ 2.\xbeG 3.\xb6\xc0 4.\xbfc 5.\xb3\xaf 6.\xac_\r"),
 			},
 		},
-		{ //52
+		{ // 52
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //53
+		{ // 53
 			{
 
 				Big5:   []byte("\xaf\xf3\xa5]\xbau\xa4F \xac_\xaaG\xb5M\xb9\xd4\xa9\xb3"),
@@ -471,14 +471,14 @@ func initTest11() {
 				DBCS:   []byte("\xaf\xf3\xa5]\xbau\xa4F \xac_\xaaG\xb5M\xb9\xd4\xa9\xb3\r"),
 			},
 		},
-		{ //54
+		{ // 54
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //55
+		{ // 55
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -488,7 +488,7 @@ func initTest11() {
 	}
 
 	testContent11Utf8 = [][]*types.Rune{
-		{ //0
+		{ // 0
 			{
 				Utf8:   "作者: cheinshin (那就這樣吧) 看板: Gossiping",
 				Big5:   []byte("\xa7@\xaa\xcc: cheinshin (\xa8\xba\xb4N\xb3o\xbc\xcb\xa7a) \xac\xdd\xaaO: Gossiping"),
@@ -497,7 +497,7 @@ func initTest11() {
 				DBCS:   []byte("\xa7@\xaa\xcc: cheinshin (\xa8\xba\xb4N\xb3o\xbc\xcb\xa7a) \xac\xdd\xaaO: Gossiping\r"),
 			},
 		},
-		{ //1
+		{ // 1
 			{
 				Utf8:   "標題: [新聞] TVBS六都民調 侯奪冠、盧升第四、柯墊底",
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3"),
@@ -506,7 +506,7 @@ func initTest11() {
 				DBCS:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3\r"),
 			},
 		},
-		{ //2
+		{ // 2
 			{
 				Utf8:   "時間: Mon Dec 21 19:45:20 2020",
 				Big5:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 19:45:20 2020"),
@@ -515,35 +515,35 @@ func initTest11() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 19:45:20 2020\r"),
 			},
 		},
-		{ //3
+		{ // 3
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //4
+		{ // 4
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //5
+		{ // 5
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //6
+		{ // 6
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //7
+		{ // 7
 			{
 				Utf8:   "1.媒體來源:",
 				Big5:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:"),
@@ -552,14 +552,14 @@ func initTest11() {
 				DBCS:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:\r"),
 			},
 		},
-		{ //8
+		{ // 8
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //9
+		{ // 9
 			{
 				Utf8:   "TVBS",
 				Big5:   []byte("TVBS"),
@@ -568,14 +568,14 @@ func initTest11() {
 				DBCS:   []byte("TVBS\r"),
 			},
 		},
-		{ //10
+		{ // 10
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //11
+		{ // 11
 			{
 				Utf8:   "2.記者署名:",
 				Big5:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:"),
@@ -584,14 +584,14 @@ func initTest11() {
 				DBCS:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:\r"),
 			},
 		},
-		{ //12
+		{ // 12
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //13
+		{ // 13
 			{
 				Utf8:   "韋家齊",
 				Big5:   []byte("\xad\xb3\xaea\xbb\xf4"),
@@ -600,14 +600,14 @@ func initTest11() {
 				DBCS:   []byte("\xad\xb3\xaea\xbb\xf4\r"),
 			},
 		},
-		{ //14
+		{ // 14
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //15
+		{ // 15
 			{
 				Utf8:   "3.完整新聞標題:",
 				Big5:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:"),
@@ -616,14 +616,14 @@ func initTest11() {
 				DBCS:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:\r"),
 			},
 		},
-		{ //16
+		{ // 16
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //17
+		{ // 17
 			{
 				Utf8:   "TVBS六都民調 侯奪冠、盧升第四、柯墊底",
 				Big5:   []byte("TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3"),
@@ -632,14 +632,14 @@ func initTest11() {
 				DBCS:   []byte("TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3\r"),
 			},
 		},
-		{ //18
+		{ // 18
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //19
+		{ // 19
 			{
 				Utf8:   "4.完整新聞內文:",
 				Big5:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:"),
@@ -648,21 +648,21 @@ func initTest11() {
 				DBCS:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:\r"),
 			},
 		},
-		{ //20
+		{ // 20
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //21
+		{ // 21
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //22
+		{ // 22
 			{
 				Utf8:   "2022選戰即將開打，民眾也對六都市長的施政表現打了分數，根據TVBS最新民調顯示，台",
 				Big5:   []byte("2022\xbf\xef\xbe\xd4\xa7Y\xb1N\xb6}\xa5\xb4\xa1A\xa5\xc1\xb2\xb3\xa4]\xb9\xef\xa4\xbb\xb3\xa3\xa5\xab\xaa\xf8\xaa\xba\xacI\xacF\xaa\xed\xb2{\xa5\xb4\xa4F\xa4\xc0\xbc\xc6\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xa5x"),
@@ -671,7 +671,7 @@ func initTest11() {
 				DBCS:   []byte("2022\xbf\xef\xbe\xd4\xa7Y\xb1N\xb6}\xa5\xb4\xa1A\xa5\xc1\xb2\xb3\xa4]\xb9\xef\xa4\xbb\xb3\xa3\xa5\xab\xaa\xf8\xaa\xba\xacI\xacF\xaa\xed\xb2{\xa5\xb4\xa4F\xa4\xc0\xbc\xc6\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xa5x\r"),
 			},
 		},
-		{ //23
+		{ // 23
 			{
 				Utf8:   "中市長盧秀燕突襲AIT處長表達反萊豬立場後，人氣上升，六都排名第四，至於去年才補",
 				Big5:   []byte("\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xab\xe1\xa1A\xa4H\xae\xf0\xa4W\xa4\xc9\xa1A\xa4\xbb\xb3\xa3\xb1\xc6\xa6W\xb2\xc4\xa5|\xa1A\xa6\xdc\xa9\xf3\xa5h\xa6~\xa4~\xb8\xc9"),
@@ -680,7 +680,7 @@ func initTest11() {
 				DBCS:   []byte("\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xab\xe1\xa1A\xa4H\xae\xf0\xa4W\xa4\xc9\xa1A\xa4\xbb\xb3\xa3\xb1\xc6\xa6W\xb2\xc4\xa5|\xa1A\xa6\xdc\xa9\xf3\xa5h\xa6~\xa4~\xb8\xc9\r"),
 			},
 		},
-		{ //24
+		{ // 24
 			{
 				Utf8:   "選上的高雄市長陳其邁，只拿下第五名，只贏了墊底的台北市長柯文哲。",
 				Big5:   []byte("\xbf\xef\xa4W\xaa\xba\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xa1A\xa5u\xae\xb3\xa4U\xb2\xc4\xa4\xad\xa6W\xa1A\xa5u\xc4\xb9\xa4F\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf5\xa1C"),
@@ -689,14 +689,14 @@ func initTest11() {
 				DBCS:   []byte("\xbf\xef\xa4W\xaa\xba\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xa1A\xa5u\xae\xb3\xa4U\xb2\xc4\xa4\xad\xa6W\xa1A\xa5u\xc4\xb9\xa4F\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf5\xa1C\r"),
 			},
 		},
-		{ //25
+		{ // 25
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
-		}, //25
-		{ //26
+		}, // 25
+		{ // 26
 			{
 				Utf8:   "台中市長盧秀燕：「不希望我們解禁有關於，含有萊克多巴胺，或瘦肉精的豬肉進口。」",
 				Big5:   []byte("\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa1G\xa1u\xa4\xa3\xa7\xc6\xb1\xe6\xa7\xda\xad\xcc\xb8\xd1\xb8T\xa6\xb3\xc3\xf6\xa9\xf3\xa1A\xa7t\xa6\xb3\xb5\xdc\xa7J\xa6h\xa4\xda\xd3i\xa1A\xa9\xce\xbdG\xa6\xd7\xba\xeb\xaa\xba\xbd\xde\xa6\xd7\xb6i\xa4f\xa1C\xa1v"),
@@ -705,14 +705,14 @@ func initTest11() {
 				DBCS:   []byte("\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa1G\xa1u\xa4\xa3\xa7\xc6\xb1\xe6\xa7\xda\xad\xcc\xb8\xd1\xb8T\xa6\xb3\xc3\xf6\xa9\xf3\xa1A\xa7t\xa6\xb3\xb5\xdc\xa7J\xa6h\xa4\xda\xd3i\xa1A\xa9\xce\xbdG\xa6\xd7\xba\xeb\xaa\xba\xbd\xde\xa6\xd7\xb6i\xa4f\xa1C\xa1v\r"),
 			},
 		},
-		{ //27
+		{ // 27
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //28
+		{ // 28
 			{
 				Utf8:   "就是這麼無預警突襲AIT處長，表達反萊豬立場，讓台中市長盧秀燕人氣飆升，也反應到",
 				Big5:   []byte("\xb4N\xacO\xb3o\xbb\xf2\xb5L\xb9w\xc4\xb5\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xa1A\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xa1A\xc5\xfd\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa4H\xae\xf0\xf6t\xa4\xc9\xa1A\xa4]\xa4\xcf\xc0\xb3\xa8\xec"),
@@ -721,7 +721,7 @@ func initTest11() {
 				DBCS:   []byte("\xb4N\xacO\xb3o\xbb\xf2\xb5L\xb9w\xc4\xb5\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xa1A\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xa1A\xc5\xfd\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa4H\xae\xf0\xf6t\xa4\xc9\xa1A\xa4]\xa4\xcf\xc0\xb3\xa8\xec\r"),
 			},
 		},
-		{ //29
+		{ // 29
 			{
 				Utf8:   "她的民調上面，根據TVBS最新民調顯示，盧秀燕的施政滿意度飆到56%，位居六都第四名",
 				Big5:   []byte("\xa6o\xaa\xba\xa5\xc1\xbd\xd5\xa4W\xad\xb1\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xbfc\xa8q\xbfP\xaa\xba\xacI\xacF\xba\xa1\xb7N\xab\xd7\xf6t\xa8\xec56%\xa1A\xa6\xec\xa9~\xa4\xbb\xb3\xa3\xb2\xc4\xa5|\xa6W"),
@@ -730,7 +730,7 @@ func initTest11() {
 				DBCS:   []byte("\xa6o\xaa\xba\xa5\xc1\xbd\xd5\xa4W\xad\xb1\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xbfc\xa8q\xbfP\xaa\xba\xacI\xacF\xba\xa1\xb7N\xab\xd7\xf6t\xa8\xec56%\xa1A\xa6\xec\xa9~\xa4\xbb\xb3\xa3\xb2\xc4\xa5|\xa6W\r"),
 			},
 		},
-		{ //30
+		{ // 30
 			{
 				Utf8:   "，遠遠領先最後一名的，台北市長柯文哲35%的支持度，跟高雄市長陳其邁的44%，台南市",
 				Big5:   []byte("\xa1A\xbb\xb7\xbb\xb7\xbb\xe2\xa5\xfd\xb3\xcc\xab\xe1\xa4@\xa6W\xaa\xba\xa1A\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf535%\xaa\xba\xa4\xe4\xab\xf9\xab\xd7\xa1A\xb8\xf2\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xaa\xba44%\xa1A\xa5x\xabn\xa5\xab"),
@@ -739,7 +739,7 @@ func initTest11() {
 				DBCS:   []byte("\xa1A\xbb\xb7\xbb\xb7\xbb\xe2\xa5\xfd\xb3\xcc\xab\xe1\xa4@\xa6W\xaa\xba\xa1A\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf535%\xaa\xba\xa4\xe4\xab\xf9\xab\xd7\xa1A\xb8\xf2\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xaa\xba44%\xa1A\xa5x\xabn\xa5\xab\r"),
 			},
 		},
-		{ //31
+		{ // 31
 			{
 				Utf8:   "長黃偉哲滿意度比去年，多了3個百分點來到58%，拿下第三名，第二名則是桃園市長鄭文",
 				Big5:   []byte("\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xba\xa1\xb7N\xab\xd7\xa4\xf1\xa5h\xa6~\xa1A\xa6h\xa4F3\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa8\xd3\xa8\xec58%\xa1A\xae\xb3\xa4U\xb2\xc4\xa4T\xa6W\xa1A\xb2\xc4\xa4G\xa6W\xabh\xacO\xae\xe7\xb6\xe9\xa5\xab\xaa\xf8\xbeG\xa4\xe5"),
@@ -748,7 +748,7 @@ func initTest11() {
 				DBCS:   []byte("\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xba\xa1\xb7N\xab\xd7\xa4\xf1\xa5h\xa6~\xa1A\xa6h\xa4F3\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa8\xd3\xa8\xec58%\xa1A\xae\xb3\xa4U\xb2\xc4\xa4T\xa6W\xa1A\xb2\xc4\xa4G\xa6W\xabh\xacO\xae\xe7\xb6\xe9\xa5\xab\xaa\xf8\xbeG\xa4\xe5\r"),
 			},
 		},
-		{ //32
+		{ // 32
 			{
 				Utf8:   "燦，拿下七成的滿意度，冠軍則是由常勝軍的，新北市長侯友宜以77%再度蟬聯。",
 				Big5:   []byte("\xc0\xe9\xa1A\xae\xb3\xa4U\xa4C\xa6\xa8\xaa\xba\xba\xa1\xb7N\xab\xd7\xa1A\xaba\xadx\xabh\xacO\xa5\xd1\xb1`\xb3\xd3\xadx\xaa\xba\xa1A\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa5H77%\xa6A\xab\xd7\xc2\xcd\xc1p\xa1C"),
@@ -757,14 +757,14 @@ func initTest11() {
 				DBCS:   []byte("\xc0\xe9\xa1A\xae\xb3\xa4U\xa4C\xa6\xa8\xaa\xba\xba\xa1\xb7N\xab\xd7\xa1A\xaba\xadx\xabh\xacO\xa5\xd1\xb1`\xb3\xd3\xadx\xaa\xba\xa1A\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa5H77%\xa6A\xab\xd7\xc2\xcd\xc1p\xa1C\r"),
 			},
 		},
-		{ //33
+		{ // 33
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //34
+		{ // 34
 			{
 				Utf8:   "新北市長侯友宜：「我最在乎的是，我還有很多事沒有最好的部分，要更加把勁，把它做",
 				Big5:   []byte("\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa1G\xa1u\xa7\xda\xb3\xcc\xa6b\xa5G\xaa\xba\xacO\xa1A\xa7\xda\xc1\xd9\xa6\xb3\xab\xdc\xa6h\xa8\xc6\xa8S\xa6\xb3\xb3\xcc\xa6n\xaa\xba\xb3\xa1\xa4\xc0\xa1A\xadn\xa7\xf3\xa5[\xa7\xe2\xabl\xa1A\xa7\xe2\xa5\xa6\xb0\xb5"),
@@ -773,7 +773,7 @@ func initTest11() {
 				DBCS:   []byte("\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa1G\xa1u\xa7\xda\xb3\xcc\xa6b\xa5G\xaa\xba\xacO\xa1A\xa7\xda\xc1\xd9\xa6\xb3\xab\xdc\xa6h\xa8\xc6\xa8S\xa6\xb3\xb3\xcc\xa6n\xaa\xba\xb3\xa1\xa4\xc0\xa1A\xadn\xa7\xf3\xa5[\xa7\xe2\xabl\xa1A\xa7\xe2\xa5\xa6\xb0\xb5\r"),
 			},
 		},
-		{ //35
+		{ // 35
 			{
 				Utf8:   "得更好，這才是市長的本責。」",
 				Big5:   []byte("\xb1o\xa7\xf3\xa6n\xa1A\xb3o\xa4~\xacO\xa5\xab\xaa\xf8\xaa\xba\xa5\xbb\xb3d\xa1C\xa1v"),
@@ -782,14 +782,14 @@ func initTest11() {
 				DBCS:   []byte("\xb1o\xa7\xf3\xa6n\xa1A\xb3o\xa4~\xacO\xa5\xab\xaa\xf8\xaa\xba\xa5\xbb\xb3d\xa1C\xa1v\r"),
 			},
 		},
-		{ //36
+		{ // 36
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //37
+		{ // 37
 			{
 				Utf8:   "強調自己就是埋頭認真做，儘管城市光榮感部分，狠甩高雄跟墊底的台北，讓七成的新北",
 				Big5:   []byte("\xb1j\xbd\xd5\xa6\xdb\xa4v\xb4N\xacO\xaeI\xc0Y\xbb{\xafu\xb0\xb5\xa1A\xbe\xa8\xba\xde\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xa1\xa4\xc0\xa1A\xac\xbd\xa5\xcf\xb0\xaa\xb6\xaf\xb8\xf2\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa1A\xc5\xfd\xa4C\xa6\xa8\xaa\xba\xb7s\xa5_"),
@@ -798,7 +798,7 @@ func initTest11() {
 				DBCS:   []byte("\xb1j\xbd\xd5\xa6\xdb\xa4v\xb4N\xacO\xaeI\xc0Y\xbb{\xafu\xb0\xb5\xa1A\xbe\xa8\xba\xde\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xa1\xa4\xc0\xa1A\xac\xbd\xa5\xcf\xb0\xaa\xb6\xaf\xb8\xf2\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa1A\xc5\xfd\xa4C\xa6\xa8\xaa\xba\xb7s\xa5_\r"),
 			},
 		},
-		{ //38
+		{ // 38
 			{
 				Utf8:   "市民感到光榮，但桃園跟台南的市民，硬是多出了2個百分點，而有八成的台中市民認同",
 				Big5:   []byte("\xa5\xab\xa5\xc1\xb7P\xa8\xec\xa5\xfa\xbaa\xa1A\xa6\xfd\xae\xe7\xb6\xe9\xb8\xf2\xa5x\xabn\xaa\xba\xa5\xab\xa5\xc1\xa1A\xb5w\xacO\xa6h\xa5X\xa4F2\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa1A\xa6\xd3\xa6\xb3\xa4K\xa6\xa8\xaa\xba\xa5x\xa4\xa4\xa5\xab\xa5\xc1\xbb{\xa6P"),
@@ -807,7 +807,7 @@ func initTest11() {
 				DBCS:   []byte("\xa5\xab\xa5\xc1\xb7P\xa8\xec\xa5\xfa\xbaa\xa1A\xa6\xfd\xae\xe7\xb6\xe9\xb8\xf2\xa5x\xabn\xaa\xba\xa5\xab\xa5\xc1\xa1A\xb5w\xacO\xa6h\xa5X\xa4F2\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa1A\xa6\xd3\xa6\xb3\xa4K\xa6\xa8\xaa\xba\xa5x\xa4\xa4\xa5\xab\xa5\xc1\xbb{\xa6P\r"),
 			},
 		},
-		{ //39
+		{ // 39
 			{
 				Utf8:   "台中，榮登六都城市光榮感最高。",
 				Big5:   []byte("\xa5x\xa4\xa4\xa1A\xbaa\xb5n\xa4\xbb\xb3\xa3\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xcc\xb0\xaa\xa1C"),
@@ -816,14 +816,14 @@ func initTest11() {
 				DBCS:   []byte("\xa5x\xa4\xa4\xa1A\xbaa\xb5n\xa4\xbb\xb3\xa3\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xcc\xb0\xaa\xa1C\r"),
 			},
 		},
-		{ //40
+		{ // 40
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //41
+		{ // 41
 			{
 				Utf8:   "台南市長黃偉哲：「在需要檢討改進的地方，我們也會虛心地檢討以及改進，希望做得更",
 				Big5:   []byte("\xa5x\xabn\xa5\xab\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xa1G\xa1u\xa6b\xbb\xdd\xadn\xc0\xcb\xb0Q\xa7\xef\xb6i\xaa\xba\xa6a\xa4\xe8\xa1A\xa7\xda\xad\xcc\xa4]\xb7|\xb5\xea\xa4\xdf\xa6a\xc0\xcb\xb0Q\xa5H\xa4\xce\xa7\xef\xb6i\xa1A\xa7\xc6\xb1\xe6\xb0\xb5\xb1o\xa7\xf3"),
@@ -832,7 +832,7 @@ func initTest11() {
 				DBCS:   []byte("\xa5x\xabn\xa5\xab\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xa1G\xa1u\xa6b\xbb\xdd\xadn\xc0\xcb\xb0Q\xa7\xef\xb6i\xaa\xba\xa6a\xa4\xe8\xa1A\xa7\xda\xad\xcc\xa4]\xb7|\xb5\xea\xa4\xdf\xa6a\xc0\xcb\xb0Q\xa5H\xa4\xce\xa7\xef\xb6i\xa1A\xa7\xc6\xb1\xe6\xb0\xb5\xb1o\xa7\xf3\r"),
 			},
 		},
-		{ //42
+		{ // 42
 			{
 				Utf8:   "好，讓市民朋友們過得更好。」",
 				Big5:   []byte("\xa6n\xa1A\xc5\xfd\xa5\xab\xa5\xc1\xaaB\xa4\xcd\xad\xcc\xb9L\xb1o\xa7\xf3\xa6n\xa1C\xa1v"),
@@ -841,21 +841,21 @@ func initTest11() {
 				DBCS:   []byte("\xa6n\xa1A\xc5\xfd\xa5\xab\xa5\xc1\xaaB\xa4\xcd\xad\xcc\xb9L\xb1o\xa7\xf3\xa6n\xa1C\xa1v\r"),
 			},
 		},
-		{ //43
+		{ // 43
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
-		}, //43
-		{ //44
+		}, // 43
+		{ // 44
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
-		}, //44
-		{ //45
+		}, // 44
+		{ // 45
 			{
 				Utf8:   "5.完整新聞連結 (或短網址):",
 				Big5:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):"),
@@ -864,14 +864,14 @@ func initTest11() {
 				DBCS:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):\r"),
 			},
 		},
-		{ //46
+		{ // 46
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
-		}, //46
-		{ //47
+		}, // 46
+		{ // 47
 			{
 				Utf8:   "https://reurl.cc/8nK7eo",
 				Big5:   []byte("https://reurl.cc/8nK7eo"),
@@ -880,14 +880,14 @@ func initTest11() {
 				DBCS:   []byte("https://reurl.cc/8nK7eo\r"),
 			},
 		},
-		{ //48
+		{ // 48
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //49
+		{ // 49
 			{
 				Utf8:   "6.備註:",
 				Big5:   []byte("6.\xb3\xc6\xb5\xf9:"),
@@ -896,14 +896,14 @@ func initTest11() {
 				DBCS:   []byte("6.\xb3\xc6\xb5\xf9:\r"),
 			},
 		},
-		{ //50
+		{ // 50
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //51
+		{ // 51
 			{
 				Utf8:   "1.侯 2.鄭 3.黃 4.盧 5.陳 6.柯",
 				Big5:   []byte("1.\xabJ 2.\xbeG 3.\xb6\xc0 4.\xbfc 5.\xb3\xaf 6.\xac_"),
@@ -912,14 +912,14 @@ func initTest11() {
 				DBCS:   []byte("1.\xabJ 2.\xbeG 3.\xb6\xc0 4.\xbfc 5.\xb3\xaf 6.\xac_\r"),
 			},
 		},
-		{ //52
+		{ // 52
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //53
+		{ // 53
 			{
 				Utf8:   "草包滾了 柯果然墊底",
 				Big5:   []byte("\xaf\xf3\xa5]\xbau\xa4F \xac_\xaaG\xb5M\xb9\xd4\xa9\xb3"),
@@ -928,14 +928,14 @@ func initTest11() {
 				DBCS:   []byte("\xaf\xf3\xa5]\xbau\xa4F \xac_\xaaG\xb5M\xb9\xd4\xa9\xb3\r"),
 			},
 		},
-		{ //54
+		{ // 54
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //55
+		{ // 55
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -945,7 +945,7 @@ func initTest11() {
 	}
 
 	testFullFirstComments11 = []*schema.Comment{
-		{ //0
+		{ // 0
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4we7XsAA:dNsw21NtPwVNZNl_fVeZew"),
@@ -968,7 +968,7 @@ func initTest11() {
 			DBCS:     []byte("\x1b[1;31m\xa1\xf7 \x1b[33ms555666\x1b[0;33m: https://i.imgur.com/CrYi0Ns.jpg                       \x1b[37m 12/21 19:46\r"),
 			SortTime: 1608551160000000000,
 		},
-		{ //1
+		{ // 1
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4we7m8kA:8xhYGp0JR7bWPuXgeieXJw"),
@@ -1106,7 +1106,7 @@ func initTest11() {
 			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33ms359999\x1b[0;33m: \xbcy\xb0O\xa5\xab\xa5\xc1\xb4N\xb7R\xb6\xc2\xa6\xe2\xb9D\xb8\xf4\xb3o\xa8\xfd\xb6\xdc\xa1H                           \x1b[37m12/21 19:47\r"),
 			SortTime: 1608551220001000000,
 		},
-		{ //7
+		{ // 7
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4z-c9jIA:kyVnoF9yRMlQP0cD0fif3w"),
@@ -1129,7 +1129,7 @@ func initTest11() {
 			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33myuchihsu\x1b[0;33m: \xa9U\xa7\xa3\xac_\xa1G\xa5x\xa5_\xa4H\xa4\xa3\xc0\xb4\xb7P\xae\xa6                                \x1b[37m12/21 19:47\r"),
 			SortTime: 1608551220002000000,
 		},
-		{ //8
+		{ // 8
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4z-dMzsA:Q2BPLds3FiPA0H3MXrC8OQ"),
@@ -1152,7 +1152,7 @@ func initTest11() {
 			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33mQoo20811\x1b[0;33m: \xb6\xc0\xb3o\xbc\xcb\xc1\xd9\xa6\xb3\xb2\xc4\xa4T \xaf\xba\xa6\xba                                   \x1b[37m12/21 19:47\r"),
 			SortTime: 1608551220003000000,
 		},
-		{ //9
+		{ // 9
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4z-dcEQA:N-j9rNFkWUj4nuYGq1ixjw"),
@@ -1193,7 +1193,7 @@ func initTest11() {
 	//the-rest-comments
 	//////////
 	testFullTheRestComments11 = []*schema.Comment{
-		{ //0
+		{ // 0
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4z-drU0A:7MK-wwy_g72bIylNku9cew"),
@@ -1216,7 +1216,7 @@ func initTest11() {
 			DBCS:     []byte("\x1b[1;31m\xa1\xf7 \x1b[33ms359999\x1b[0;33m: https://i.imgur.com/LUaQ9yP.jpg                        \x1b[37m12/21 19:47\r"),
 			SortTime: 1608551220005000000,
 		},
-		{ //1
+		{ // 1
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4z-d6lYA:0rTBC1_9pgXCCWFH_I6b2A"),
@@ -1239,7 +1239,7 @@ func initTest11() {
 			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33makway\x1b[0;33m: 35%\xa4\xf1\xb7\xed\xa6~\xc1\xfa\xaf\xf3\xa5]\xc1\xd9\xa7C\xa4F\xa7a                                  \x1b[37m12/21 19:47\r"),
 			SortTime: 1608551220006000000,
 		},
-		{ //2
+		{ // 2
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4z-eJ18A:kn6-2_1PZsvngRHQu38y8Q"),
@@ -1262,7 +1262,7 @@ func initTest11() {
 			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33mb777787\x1b[0;33m: 4%\xbbQ\xa4\xe4\xa5J\xa1G\xa4\xa3\xa5i\xaf\xe0                                       \x1b[37m12/21 19:47\r"),
 			SortTime: 1608551220007000000,
 		},
-		{ //3
+		{ // 3
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4z-eZGgA:LWCD5fMJhSo3iwACW8FGfQ"),
@@ -1285,7 +1285,7 @@ func initTest11() {
 			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33mpieceiori\x1b[0;33m: \xb0\xb2\xa5\xc1\xbd\xd5! \xa7\xda\xac\xdd\xb0\xaa\xb6\xaf\xaaO\xa4\xd1\xa4\xd1\xb3\xa3\xbaq\xbbR\xaa@\xa5\xad \xa9\xaf\xba\xd6\xac\xfc\xba\xa1            \x1b[37m12/21 19:47\r"),
 			SortTime: 1608551220008000000,
 		},
-		{ //4
+		{ // 4
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4z-eoXEA:X4Pa-FYKG05udfJ6SnQLow"),
@@ -1308,7 +1308,7 @@ func initTest11() {
 			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33mproprome\x1b[0;33m: \xab\xa2 \xaf\xba\xa6\xba \xb3sTVBS\xb3\xa3\xb9\xd4\xa9\xb3                                  \x1b[37m12/21 19:47\r"),
 			SortTime: 1608551220009000000,
 		},
-		{ //5
+		{ // 5
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4z-e3noA:ic7tXU1fc7SI_B8Fo4pK6g"),
@@ -1331,7 +1331,7 @@ func initTest11() {
 			DBCS:     []byte("\x1b[1;37m\xb1\xc0 \x1b[33mfuhaho\x1b[0;33m: \xac_\xaf\xbb\xbb\xb0\xa7\xd6\xab\xe3\xac~\xa4@\xaai\xacF\xc1Z\xa8\xfa\xb7x                                \x1b[37m12/21 19:47\r"),
 			SortTime: 1608551220010000000,
 		},
-		{ //6
+		{ // 6
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK43d9mYAA:NhPch5oUn9yd7aQAMgWWxQ"),
@@ -1354,7 +1354,7 @@ func initTest11() {
 			TheDate: "12/21 19:48",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33myulis\x1b[0;33m: \xb0\xe4\xc4\xea\xa7a \xbd\xd6\xa6\xb3\xb3Q\xa5\xc1\xbd\xd5\xb0\xdd\xb9L\xaa\xba                                  \x1b[37m12/21 19:48\r"),
 		},
-		{ //7
+		{ // 7
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK43d91okA:FjJ28CxZc_-Q97pBvLvHYg"),
@@ -1377,7 +1377,7 @@ func initTest11() {
 			TheDate: "12/21 19:48",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mmrlinwng\x1b[0;33m: @.@                                                   \x1b[37m12/21 19:48\r"),
 		},
-		{ //8
+		{ // 8
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK43d-E5IA:YIIviyBSu4GFkqUTlcvnTQ"),
@@ -1400,7 +1400,7 @@ func initTest11() {
 			TheDate: "12/21 19:48",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33myoshiringo\x1b[0;33m: \\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/\\\xa7\xda\xc1\xda\xab\xc2\xaaZ/  \x1b[37m12/21 19:48\r"),
 		},
-		{ //9
+		{ // 9
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK43d-UJsA:oRh-k0pDZqxJs6PScht86A"),
@@ -1423,7 +1423,7 @@ func initTest11() {
 			TheDate: "12/21 19:48",
 			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mAidrux\x1b[0;33m: \xa5\xd5\xf2\xe7\xa9U\xa7\xa3\xb1Y\xbc\xec                                            \x1b[37m12/21 19:48\r"),
 		},
-		{ //10
+		{ // 10
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK43d-jaQA:mf6Iet5iaIlS1cg8-Fs-Sg"),
@@ -1446,7 +1446,7 @@ func initTest11() {
 			TheDate: "12/21 19:48",
 			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mStarLeauge\x1b[0;33m: \xb3\xaf\xa8\xe4\xc1\xda\xa5\xe1\xa4H                                          \x1b[37m12/21 19:48\r"),
 		},
-		{ //11
+		{ // 11
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK43d-yq0A:KITMtX7T0ZqdaCZt51AHLw"),
@@ -1469,7 +1469,7 @@ func initTest11() {
 			TheDate: "12/21 19:48",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mKEYSOLIDER\x1b[0;33m: \xb3s\xa5\xf4\xaa\xba\xaa\xfc\xa5_\xb3\xba\xb5M\xbf\xe9\xb5\xb9\xc1\xfa\xaf\xbb\xb3\xcc\xb0Q\xb9\xbd \xaa\xba\xa4H\xa4\xd7\xa8\xe4\xb3\xcc\xaa\xf1\xa6\xb3\xac\xfc\xbd\xde\xae\xc4  \x1b[37m 12/21 19:48\r"),
 		},
-		{ //12
+		{ // 12
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK43d_B7YA:hVx6dxtjwHjIukYpqyVXOg"),
@@ -1492,7 +1492,7 @@ func initTest11() {
 			TheDate: "12/21 19:48",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mpieceiori\x1b[0;33m: \xaea\xa4H\xb3Q\xb0s\xber \xa5\xab\xaa\xf8\xb5\xb9\xa4j\xb1i\xa4\xe4\xb2\xbc \xafu\xa6n                      \x1b[37m 12/21 19:48\r"),
 		},
-		{ //13
+		{ // 13
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK43d_RL8A:S5yrznntUVoPzdC71azDxA"),
@@ -1515,7 +1515,7 @@ func initTest11() {
 			TheDate: "12/21 19:48",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mgiggleboy\x1b[0;33m: \xaf\xba\xa4F \xc4l\xb4\xed\xa5\xab\xb2\xc4\xa4T\xa6W                                    \x1b[37m12/21 19:48\r"),
 		},
-		{ //14
+		{ // 14
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK43d_gcgA:RNOKtUq-Ww-9lW26TwIvFw"),
@@ -1538,7 +1538,7 @@ func initTest11() {
 			TheDate: "12/21 19:48",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mKEYSOLIDER\x1b[0;33m: \xc0\xb3                                                  \x1b[37m12/21 19:48\r"),
 		},
-		{ //15
+		{ // 15
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK43d_vtEA:5qbzNAAjjU1D3LhUNmMWaA"),
@@ -1561,7 +1561,7 @@ func initTest11() {
 			TheDate: "12/21 19:48",
 			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mOmegaWind\x1b[0;33m: \xba\xf1\xafb\xa6\xb3\xb3\xaf\xbe\xf7\xd9T   \xc1\xd9\xa6n\xb7N\xab\xe4\xaf\xba\xac_                         \x1b[37m 12/21 19:48\r"),
 		},
-		{ //16
+		{ // 16
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK469etuAA:ymz0HRfGNJIX9cdasLCyEw"),
@@ -1584,7 +1584,7 @@ func initTest11() {
 			TheDate: "12/21 19:49",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mgunng\x1b[0;33m: \xaf\xba\xa6\xba \xa4K\xa8\xf6\xc4l\xb4\xed\xac~\xa4F\xa4W\xa6\xca\xbdg \xb5\xb2\xaaG\xb6\xc0\xc1\xd9\xa4W\xa4\xc9XD                   \x1b[37m12/21 19:49\r"),
 		},
-		{ //17
+		{ // 17
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK469e8-kA:qvaVu3REh0fJL7ZBH7m6PQ"),
@@ -1607,7 +1607,7 @@ func initTest11() {
 			TheDate: "12/21 19:49",
 			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mgogobar\x1b[0;33m: \xaf\xba\xa6\xba                                                   \x1b[37m12/21 19:49\r"),
 		},
-		{ //18
+		{ // 18
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			TheType:    ptttype.COMMENT_TYPE_REPLY,
@@ -1633,7 +1633,7 @@ func initTest11() {
 			TheDate:    "12/21/2020 19:52:54",
 			DBCS:       []byte("\r\n\xac\xdd\xaa\xaf\xa7\xbe\xb1Y\xbc\xec \xaa\xba\xbdT\xc6Z\xa6n\xaf\xba\xaa\xba\r"),
 		},
-		{ //19 (20)
+		{ // 19 (20)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK469fNwyA:AsusUdGgu_XVhE9jh5QMAg"),
@@ -1656,7 +1656,7 @@ func initTest11() {
 			TheDate: "12/21 19:49",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mbluezero000\x1b[0;33m: \xa6Y\xc4l\xb4\xed\xb7P\xc1\xc2\xa5\xab\xaa\xf8                                     \x1b[37m12/21 19:49\r"),
 		},
-		{ //20 (21)
+		{ // 20 (21)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK469fdBWA:xENP4FFXDXO6amoUcs038g"),
@@ -1679,7 +1679,7 @@ func initTest11() {
 			TheDate: "12/21 19:49",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mchenchuhao\x1b[0;33m: \xac_\xa5\xc1\xbd\xd5\xc4\xb9\xa4~\xacO\xa9_\xc2\xdd\xa1A\xc2\xc5\xba\xf1\xac~\xa5L\xac~\xa6\xa8\xb3o\xbc\xcb\xad\xfe\xa6\xb3\xa5i\xaf\xe0\xb0\xaaXD      \x1b[37m12/21 19:49\r"),
 		},
-		{ //21 (22)
+		{ // 21 (22)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK469fsR6A:bd8rQDmuhL0uon7EKO37YA"),
@@ -1702,7 +1702,7 @@ func initTest11() {
 			TheDate: "12/21 19:49",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mb777787\x1b[0;33m: \xac_\xafb\xae\xf0\xa8\xec\xb5o\xa7\xdd                                           \x1b[37m12/21 19:49\r"),
 		},
-		{ //22 (23)
+		{ // 22 (23)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK469f7ieA:fTnc-D1T2UogLI79V7-gVQ"),
@@ -1725,7 +1725,7 @@ func initTest11() {
 			TheDate: "12/21 19:49",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mqweertyui891\x1b[0;33m: \xc3\xd2\xa9\xfa\xa4\xcf\xa4\xa3\xa4\xcf\xb5\xdc\xbd\xde\xb8\xf2\xa5\xc1\xbd\xd5\xb5L\xc3\xf6                          \x1b[37m12/21 19:49\r"),
 		},
-		{ //23 (24)
+		{ // 23 (24)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4-c_1EAA:6o0zsr2Rmw_IyWb5gI4hzw"),
@@ -1748,7 +1748,7 @@ func initTest11() {
 			TheDate: "12/21 19:50",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mindium111\x1b[0;33m: TVBS\xb0\xbe\xc2\xc5\xa1A\xb5\xb9\xba\xf1\xc0\xe7\xbf\xa4\xa5\xab\xaa\xf8\xaa\xba\xbc\xc6\xa6r\xa5\xbb\xa8\xd3\xb4N\xb0\xbe\xa7C\xa4F             \x1b[37m12/21 19:50\r"),
 		},
-		{ //24 (25)
+		{ // 24 (25)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4-dAEUkA:HfV9utwJvAm5UlC8hCMCAQ"),
@@ -1771,7 +1771,7 @@ func initTest11() {
 			TheDate: "12/21 19:50",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mchenchuhao\x1b[0;33m: \xa4\xa3\xb9L\xa6\xe8\xa5\xca\xad\xf5\xb3o\xbb\xf2\xb0\xaa\xafu\xaa\xba\xc6Z\xa5i\xaf\xba\xaa\xba...                     \x1b[37m12/21 19:50\r"),
 		},
-		{ //25 (26)
+		{ // 25 (26)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4-dATlIA:VoAV787V5UmqE3rWfjP6zQ"),
@@ -1794,7 +1794,7 @@ func initTest11() {
 			TheDate: "12/21 19:50",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mAidrux\x1b[0;33m: \xa6n\xa4F\xb0\xd5\xac_\xaf\xbb \xa5h\xa7\xe4\xa4p\xb3\xd3\xa4\xe5\xa8\xfa\xb7x\xb0\xd5                             \x1b[37m12/21 19:50\r"),
 		},
-		{ //26 (27)
+		{ // 26 (27)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4-dAi1sA:BK_DZPCFozgILSlXLXydfw"),
@@ -1817,7 +1817,7 @@ func initTest11() {
 			TheDate: "12/21 19:50",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mandy3580\x1b[0;33m: \xb2{\xb9\xea\xb4N\xacO4% \xa5i\xbc\xa6                                       \x1b[37m12/21 19:50\r"),
 		},
-		{ //27 (28)
+		{ // 27 (28)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4-dAyGQA:ETDoEPI4tu7gydfdU0VXDw"),
@@ -1840,7 +1840,7 @@ func initTest11() {
 			TheDate: "12/21 19:50",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mfoolfighter\x1b[0;33m: \xabn\xb3\xa1\xac_\xc1T\xbe\xe3\xa4\xd1\xa4\xdb\xb7Q\xaa\xfc\xa5_\xa6n\xb4\xceXDDD                       \x1b[37m12/21 19:50\r"),
 		},
-		{ //28 (29)
+		{ // 28 (29)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK4-dBBW0A:q024J-pzNIzR1CJv2v614w"),
@@ -1863,7 +1863,7 @@ func initTest11() {
 			TheDate: "12/21 19:50",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mberkeley5566\x1b[0;33m: \xbbO\xabn\xa4H\xafu\xa6n                                        \x1b[37m12/21 19:50\r"),
 		},
-		{ //29 (30)
+		{ // 29 (30)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5B8g8aAA:mwnGopEbEQjAB0QDa03HwA"),
@@ -1886,7 +1886,7 @@ func initTest11() {
 			TheDate: "12/21 19:51",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mindium111\x1b[0;33m: \xa6\xd2\xbc{\xa8\xec\xbe\xf7\xbac\xae\xc4\xc0\xb3\xa1A\xbeG\xb6\xc0\xb3\xaf\xa4T\xa4H\xaa\xba\xa5\xc1\xbd\xd5\xbc\xc6\xa6r\xc0\xb3\xb8\xd3\xb7|\xa7\xf3\xb0\xaa       \x1b[37m12/21 19:51\r"),
 		},
-		{ //30 (31)
+		{ // 30 (31)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5B8hLqkA:8S9fqyPjGvWH-uASU8-dgw"),
@@ -1909,7 +1909,7 @@ func initTest11() {
 			TheDate: "12/21 19:51",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mjohnwu\x1b[0;33m: \xa5x\xa5_\xa5\xab\xaa\xf8\xa4\xa3\xacO\xb6\xc033\xb6\xdc? \xac_\xa7\xbe\xbd\xd6\xb0\xda?                           \x1b[37m12/21 19:51\r"),
 		},
-		{ //31 (32)
+		{ // 31 (32)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5B8ha7IA:cyCktxdV8xZ76mWofGMjaQ"),
@@ -1932,7 +1932,7 @@ func initTest11() {
 			TheDate: "12/21 19:51",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mKEYSOLIDER\x1b[0;33m: \xc0\xb3\xb8\xd3\xacO\xc1\xda\xa5\xa2\xa8\xa5\xa6\xb8\xbc\xc6\xa4\xa3\xba\xe2\xa6h \xa4\xa3\xb5M\xbd}\xa7K\xc1\xfa\xc1`\xa6\xa8\xa5\\\xa4~\xb9L\xb4X\xad\xd3\xa4\xeb   \x1b[37m12/21 19:51\r"),
 		},
-		{ //32 (33)
+		{ // 32 (33)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5B8hqLsA:FpLsrv8smx-gy5lkG4S7fg"),
@@ -1955,7 +1955,7 @@ func initTest11() {
 			TheDate: "12/21 19:51",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mKEYSOLIDER\x1b[0;33m:  \xc1\xfa\xaf\xbb\xa4@\xa9w\xb6W\xab\xeb                                       \x1b[37m12/21 19:51\r"),
 		},
-		{ //33 (34)
+		{ // 33 (34)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5B8h5cQA:q6fRVVC5SPnnsEHByC7p4w"),
@@ -1978,7 +1978,7 @@ func initTest11() {
 			TheDate: "12/21 19:51",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mazeroth\x1b[0;33m: \xc4l\xb4\xed\xa5\xab\xa5\xc1\xafu\xaa\xba\xab\xdc\xa5\xfa\xbaaXDDDDD                               \x1b[37m12/21 19:51\r"),
 		},
-		{ //34 (35)
+		{ // 34 (35)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5B8iIs0A:11qiZDDyJEkFN_lFleo5Dw"),
@@ -2001,7 +2001,7 @@ func initTest11() {
 			TheDate: "12/21 19:51",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mnewstarisme\x1b[0;33m: \xb3o\xa7\xda\xabH                                            \x1b[37m 12/21 19:51\r"),
 		},
-		{ //35 (36)
+		{ // 35 (36)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5B8iX9YA:FzLbMSDglY8_K-jw2HeUOg"),
@@ -2024,7 +2024,7 @@ func initTest11() {
 			TheDate: "12/21 19:51",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mwhitecow\x1b[0;33m: \xbfc\xa4]\xaf\xe0\xb2\xc4\xa5|..\xc4\xea\xb3z                                     \x1b[37m 12/21 19:51\r"),
 		},
-		{ //36 (37)
+		{ // 36 (37)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5FcCDwAA:JqSIETfjIWvw1-sQoJGJVg"),
@@ -2047,7 +2047,7 @@ func initTest11() {
 			TheDate: "12/21 19:52",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mindium111\x1b[0;33m: \xa4T\xa5\xdf\xb0\xb5\xa5\xc1\xbd\xd5\xa6p\xaaG\xbfc\xa5u\xa6\xb340%\xa1A\xa7\xda\xac\xdb\xabH\xc2\xc5\xaf\xbb\xa4]\xb7|\xb3\xdb\xbe\xf7\xbac\xae\xc4\xc0\xb3\xaa\xba  \x1b[37m12/21 19:52\r"),
 		},
-		{ //37 (38)
+		{ // 37 (38)
 			BBoardID:  bbs.BBoardID("test"),
 			ArticleID: bbs.ArticleID("test11"),
 			TheType:   ptttype.COMMENT_TYPE_EDIT,
@@ -2064,7 +2064,7 @@ func initTest11() {
 			SortTime:           1608551574000000000,
 			CommentID:          "FlK5IlMqXAA:ifWDyeuSbUBW6XDNV_FUVg",
 		},
-		{ //38 (39)
+		{ // 38 (39)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5IlM5nkA:VotHH7dDQucqxEj2FOC0ig"),
@@ -2087,7 +2087,7 @@ func initTest11() {
 			TheDate: "12/21 19:52",
 			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33md86506\x1b[0;33m: \xb3\xaf\xa4\xf4\xab\xf3\xacO\xa5\xc1\xbd\xd5\xb2\xc4\xa4@\xa6\xfd\xb3s\xa5\xf4\xbf\xef\xbf\xe9\xa4~\xa6\xb3\xbf\xef\xc1`\xb2\xce\xaa\xba\xb8\xea\xae\xe6\xa1A\xa4\xa3\xaa\xbe\xb9D\xac_\xb3s \x1b[37m 12/21 19:52\r"),
 		},
-		{ //39 (40)
+		{ // 39 (40)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5IlNI4IA:9hKRfrW5maV-p0kyiZaoQg"),
@@ -2110,7 +2110,7 @@ func initTest11() {
 			TheDate: "12/21 19:52",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33md86506\x1b[0;33m: \xa5\xf4\xbf\xef\xc4\xb9\xa1A\xa6\xfd\xa5\xc1\xbd\xd5\xa6Q\xa8\xae\xa7\xc0\xa1A\xa6\xb3\xa8S\xa6\xb3\xb8\xea\xae\xe6\xbf\xef\xc1`\xb2\xce\xa1H                \x1b[37m12/21 19:52\r"),
 		},
-		{ //40 (41)
+		{ // 40 (41)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5IlNYIsA:48BL2Dd9HWBE0KFyTkx3iQ"),
@@ -2133,7 +2133,7 @@ func initTest11() {
 			TheDate: "12/21 19:52",
 			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mBlackBass\x1b[0;33m: TVB\xaa\xaf\xab\xcb                                              \x1b[37m12/21 19:52\r"),
 		},
-		{ //41 (42)
+		{ // 41 (42)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5I7jLGAA:yBPgyUXJMLN6p6EYeODktQ"),
@@ -2156,7 +2156,7 @@ func initTest11() {
 			TheDate: "12/21 19:53",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mEraKing\x1b[0;33m: \xa5x\xabn\xb0\xaa\xb6\xaf\xa8\xe2\xad\xd3\xb3o\xbc\xcb\xaa\xba\xba\xa1\xb7N\xab\xd7\xae\xda\xa5\xbb\xb6W\xc4\xea                      \x1b[37m 12/21 19:53\r"),
 		},
-		{ //42 (43)
+		{ // 42 (43)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  "FlK5I7jMnqA:x2xXuH2bvsoQ_2wOzdcr6A",
@@ -2182,7 +2182,7 @@ func initTest11() {
 			TheDate:    "12/21/2020 19:55:02",
 			DBCS:       []byte("\r\n\xb6\xc0\xa6b\xbb\xb7\xa8\xa3\xa6\xb378 \xa5\xad\xa7\xa1\xa4@\xa4U \xa4j\xac\xf968\xb3\xe1\r"),
 		},
-		{ //43 (45)
+		{ // 43 (45)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5I7jb4OA:3z12a9ih3kgrtdLxUACH1Q"),
@@ -2205,7 +2205,7 @@ func initTest11() {
 			TheDate: "12/21 19:53",
 			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mlakeisland\x1b[0;33m: \xa9U\xa7\xa3\xba\xf1\xb4C\xb0\xb2\xa5\xc1\xbd\xd5                                     \x1b[37m 12/21 19:53\r"),
 		},
-		{ //44 (46)
+		{ // 44 (46)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5MbEScAA:smfcjOjPJVDSyoTWjyENnw"),
@@ -2228,7 +2228,7 @@ func initTest11() {
 			TheDate: "12/21 19:54",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mKEYSOLIDER\x1b[0;33m: \xa4K\xa8\xf6\xbc\xf6\xa9I\xa9I \xa5\xc1\xbd\xd5\xa7N\xa6B\xa6B                              \x1b[37m 12/21 19:54\x1b[m\x1b[m\r"),
 		},
-		{ //45 (47)
+		{ // 45 (47)
 			BBoardID:  bbs.BBoardID("test"),
 			ArticleID: bbs.ArticleID("test11"),
 			TheType:   ptttype.COMMENT_TYPE_EDIT,
@@ -2246,7 +2246,7 @@ func initTest11() {
 
 			CommentID: "FlK5QCCPXAA:mYEXHou7QvmhJIJlvIFEAw",
 		},
-		{ //46 (48)
+		{ // 46 (48)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
@@ -2269,7 +2269,7 @@ func initTest11() {
 			TheDate: "12/21 19:54",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mindium111\x1b[m\x1b[33m: TVBS\xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xc5\xdc\xa6\xa8\xba\xf1\xb4C\xa4FXD                            \x1b[m 12/21 19:54\r"),
 		},
-		{ //47 (49)
+		{ // 47 (49)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5QCCt4IA:r7TpBHcfWBjUjeMypcTUIA"),
@@ -2292,7 +2292,7 @@ func initTest11() {
 			TheDate: "12/21 19:54",
 			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mbibiwei\x1b[m\x1b[33m: \xa4\xb5\xa6~\xa4~\xb8\xc9\xbf\xef\xa4W\xaa\xba\xb0\xd5,\xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xa5h\xa6~\xb8\xc9\xbf\xef\xa4W\xa4F?                \x1b[m 12/21 19:54\r"),
 		},
-		{ //48 (50)
+		{ // 48 (50)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5QCC9IsA:XwyfHMVLp1uw_UgD5HX_yg"),
@@ -2315,7 +2315,7 @@ func initTest11() {
 			TheDate: "12/21 19:54",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mAndyZer\x1b[m\x1b[33m: \xb0\xaa\xb6\xaf\xa4H\xc4\xb1\xb1o\xa4S\xbf\xef\xbf\xf9\xa4H\xa4F (\xa2\xa3\xa2X\xa1\xbc\xa2X\xa1^\xa2\xa3\xa1_ \xa2r\x9d}\xa2r           \x1b[m 12/21 19:54\r"),
 		},
-		{ //49 (51)
+		{ // 49 (51)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5QCDMZQA:_6wV6MlZUZWb0qIqx5a7tA"),
@@ -2338,7 +2338,7 @@ func initTest11() {
 			TheDate: "12/21 19:54",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mbillybbb\x1b[m\x1b[33m: \xba\xf1\xb4\xbc\xbb\xd9\xad\xcc\xa4\xa3\xacO\xbd|\xbfc\xaf}\xc3a\xbbO\xac\xfc\xc3\xf6\xabY\xb6\xdc\xa1H\xa5i\xbc\xa6\xb3\xe1\xb3Q\xa5\xc1\xbd\xd5\xac~\xc1y     \x1b[m 12/21 19:54\r"),
 		},
-		{ //50 (52)
+		{ // 50 (52)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5QCDbp0A:a1nbh9m8KYnC0QQevDRyqA"),
@@ -2361,7 +2361,7 @@ func initTest11() {
 			TheDate: "12/21 19:54",
 			DBCS:    []byte("\x1b[1;31m\xbcN \x1b[33mcarrey8\x1b[m\x1b[33m: \xb7d\xad\xd3\xc1\xe8\xa4l \xb3s\xa8\xe4\xc1\xda\xb3\xa3\xc4\xb9\xa4\xa3\xa4F?                              \x1b[m 12/21 19:54\r"),
 		},
-		{ //51 (53)
+		{ // 51 (53)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5QCDq6YA:u0m4ezxFyxG8CX56gLwr4Q"),
@@ -2384,7 +2384,7 @@ func initTest11() {
 			TheDate: "12/21 19:55",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mhyde711034\x1b[m\x1b[33m: \xa5x\xabn\xa4H\xa5i\xbc\xa6\xc1\xd9\xb6}\xa4\xdf\xab\xfc\xbc\xc6\xb3\xcc\xb0\xaa                           \x1b[m 12/21 19:55\r"),
 		},
-		{ //52 (54)
+		{ // 52 (54)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5QCD6K8A:P0aJ_OzsnWCHCW4E1dszLw"),
@@ -2407,7 +2407,7 @@ func initTest11() {
 			MD5:     "P0aJ_OzsnWCHCW4E1dszLw",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33micelaw\x1b[m\x1b[33m: \xac_\xa6b\xba\xf1\xb4C\xb0\xbe\xa7C \xa5\xbf\xb1`                                      \x1b[m 12/21 19:55\r"),
 		},
-		{ //53 (55)
+		{ // 53 (55)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5QCEJbgA:lXzclvbNv1xXqIYNFr_6fg"),
@@ -2430,7 +2430,7 @@ func initTest11() {
 			TheDate: "12/21 19:55",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mtouchbird\x1b[m\x1b[33m: \xaa\xfc\xa5_\xa8S\xa6\xb3\xbf\xe9!!!                                       \x1b[m 12/21 19:55\r"),
 		},
-		{ //54 (56)
+		{ // 54 (56)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5QCEYsEA:qNlvQ8zw4_MVcjzrLYZ9gw"),
@@ -2453,7 +2453,7 @@ func initTest11() {
 			TheDate: "12/21 19:55",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mbradpete\x1b[m\x1b[33m: \xaf\xba\xa6\xba \xab\xa2\xab\xa2\xab\xa2 \xa8\xad\xa6b\xba\xd6\xa4\xa4\xa4\xa3\xaa\xbe\xba\xd6.jpg                       \x1b[m 12/21 19:55\r"),
 		},
-		{ //55 (57)
+		{ // 55 (57)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5QCEn8oA:yFk_pNMxLmG5oVw-7Eyl5w"),
@@ -2476,7 +2476,7 @@ func initTest11() {
 			TheDate: "12/21 19:55",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mbradpete\x1b[m\x1b[33m: \xa4\xa3\xa8\xd3\xa4K\xa8\xf6\xaa\xa9\xb0\xb5\xa4@\xa4U\xa5\xc1\xbd\xd5\xb6\xdc \xac_\xaa\xd6\xa9w\xb2\xc4\xa4@\xa6W                  \x1b[m 12/21 19:55\r"),
 		},
-		{ //56 (58)
+		{ // 56 (58)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5QCE3NMA:6_xY0__4tPC8xB1k7Wt5NQ"),
@@ -2499,7 +2499,7 @@ func initTest11() {
 			TheDate: "12/21 19:55",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mamos30627\x1b[m\x1b[33m: \xaa\xfc\xa5_\xa4S\xb3Q\xba\xf1\xb4C\xa9\xd9\xb6\xc2                                    \x1b[m 12/21 19:55\r"),
 		},
-		{ //57 (59)
+		{ // 57 (59)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5TaGhIAA:HKKMDWLDUaUAwCydMIXChQ"),
@@ -2522,7 +2522,7 @@ func initTest11() {
 			TheDate: "12/21 19:56",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mNiro\x1b[m\x1b[33m: \xa4@\xaf\xeb\xb3q\xb1`\xb7|\xa6\xb3\xbbe\xa4\xeb\xb4\xc1  \xb7Q\xa4\xa3\xa8\xec\xabJ\xb6\xc0\xc1\xd9\xa8\xba\xbb\xf2\xb0\xaa                   \x1b[m 12/21 19:56\r"),
 		},
-		{ //58 (60)
+		{ // 58 (60)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5W5noeAA:1TuCV38ll-rSzuvRJ97moQ"),
@@ -2545,7 +2545,7 @@ func initTest11() {
 			TheDate: "12/21 19:57",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mVVizZ\x1b[m\x1b[33m: 4%\xaf\xba\xa6\xba                                                  \x1b[m 12/21 19:57\r"),
 		},
-		{ //59 (61)
+		{ // 59 (61)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5W5n3ukA:qyNopZVr9jmK-p7AOqXPpA"),
@@ -2568,7 +2568,7 @@ func initTest11() {
 			TheDate: "12/21 19:57",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mindium111\x1b[m\x1b[33m: \xb3o\xa5\xc1\xbd\xd5\xa6A\xab\xd7\xc5\xe3\xa5\xdc\xb2{\xa6b\xaa\xba\xa4K\xa8\xf6\xaa\xa9\xae\xda\xa5\xbb\xaa\xc0\xb7|\xa4\xcf\xab\xfc\xbc\xd0\xa4F          \x1b[m 12/21 19:57\r"),
 		},
-		{ //60 (62)
+		{ // 60 (62)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5W5oG_IA:QfUeb-goUPOrC5n7PSCKBw"),
@@ -2591,7 +2591,7 @@ func initTest11() {
 			TheDate: "12/21 19:57",
 			DBCS:    []byte("\x1b[1;31m\xa1\xf7 \x1b[33mtakeda3234\x1b[m\x1b[33m: \xb3o\xbc\xcb\xc2\xc5\xc0\xe72022\xab\xdc\xc3\xad\xaa\xfc...\xa5x\xa5_\xae\xb3\xa6^\xbe\xf7\xb2v\xa4j                \x1b[m 12/21 19:57\r"),
 		},
-		{ //61 (63)
+		{ // 61 (63)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5W5oWPsA:KLkw5UsBLsrn1DAUKxbe5g"),
@@ -2614,7 +2614,7 @@ func initTest11() {
 			TheDate: "12/21 19:57",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mNiubert\x1b[m\x1b[33m: \xc4l\xb4\xed\xa5\xab\xaa\xf8\xab\xe7\xbb\xf2\xa5i\xaf\xe0\xa4W\xa4\xc9\xa1A\xb3s\xa7\xda\xb2`\xba\xf1\xa5x\xabn\xa6P\xbe\xc7\xb3\xa3\xb5o\xa4\xe5\xa9\xea\xab\xe8\xa4F    \x1b[m 12/21 19:57\r"),
 		},
-		{ //62 (64)
+		{ // 62 (64)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5W5olgQA:bwLysalLRJbnWlE1MH9xXw"),
@@ -2637,7 +2637,7 @@ func initTest11() {
 			TheDate: "12/21 19:57",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mqweertyui891\x1b[m\x1b[33m: \xa5\xc1\xbd\xd5\xb2\xc4\xa4@\xa6\xb3\xc1`\xb2\xce\xb8\xea\xae\xe6\xa1A\xac\xdd\xa8\xd3\xabJ\xa4\xcd\xa9y\xc3\xad\xa4F               \x1b[m 12/21 19:57\r"),
 		},
-		{ //63 (65)
+		{ // 63 (65)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5aZIv0AA:klMsUdLuqHMayZ9fLs7RSg"),
@@ -2660,7 +2660,7 @@ func initTest11() {
 			TheDate: "12/21 19:58",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mirosehead\x1b[m\x1b[33m: \xac_\xa7\xbe\xb3s\xa7l\xba\xc9\xc1\xfa\xc1T\xa4\xb3\xab\xeb\xaa\xba\xb3\xaf\xa8\xe4\xc1\xda\xb3\xa3\xa5\xb4\xa4\xa3\xc4\xb9 \xafu\xbco             \x1b[m 12/21 19:58\r"),
 		},
-		{ //64 (66)
+		{ // 64 (66)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5aZI_EkA:Es26f7U0EXdr7Gp4a9N8pQ"),
@@ -2683,7 +2683,7 @@ func initTest11() {
 			TheDate: "12/21 19:58",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mfoolfighter\x1b[m\x1b[33m: \xa4g\xac_\xc1T\xb4X\xa6\xa8\xa6\xb3\xa5x\xa5_\xa5\xab\xa4\xe1\xc4y\xb0\xda\xa1H                        \x1b[m 12/21 19:58\r"),
 		},
-		{ //65 (67)
+		{ // 65 (67)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5aZJOVIA:gmrKWXE7BjV-1U89GcPqHg"),
@@ -2706,7 +2706,7 @@ func initTest11() {
 			TheDate: "12/21 19:58",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33myehpi\x1b[m\x1b[33m: \xb6\xc0\xa6\xb3\xb6W\xa4j\xa4\xe4\xb2\xbc\xa1]\xaa\xab\xb2z\xa1^                                    \x1b[m 12/21 19:58\r"),
 		},
-		{ //66 (68)
+		{ // 66 (68)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlK5aZJdlsA:cpqbGyLoF_jIyITF4bv-rQ"),
@@ -2729,7 +2729,7 @@ func initTest11() {
 			TheDate: "12/21 19:58",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mlockeyman\x1b[m\x1b[33m: \xbcP                                                  \x1b[m 12/21 19:58\r"),
 		},
-		{ //67 (69)
+		{ // 67 (69)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			TheType:    ptttype.COMMENT_TYPE_REPLY,
@@ -2786,7 +2786,7 @@ func initTest11() {
 			EditNanoTS: 0,
 			DBCS:       []byte("\r\ntest123123\r\n\r\ntest124124\r\n\r\ntest125125\r\n\r"),
 		},
-		{ //68 (76)
+		{ // 68 (76)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlLGIIse6AA:ALE6XIa5ARhXunryJTB3xg"),
@@ -2809,7 +2809,7 @@ func initTest11() {
 			TheDate: "12/21 23:51",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mdeathdancer\x1b[m\x1b[33m: \xaa\xfc\xa5_\xa4~\xa8S\xa6\xb3\xbf\xe9                                      \x1b[m 12/21 23:51\r"),
 		},
-		{ //69 (77)
+		{ // 69 (77)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlLGujYvsAA:xKzE3ZYx3C20_i3o3OMHbQ"),
@@ -2832,7 +2832,7 @@ func initTest11() {
 			TheDate: "12/22 00:02",
 			DBCS:    []byte("\x1b[1;37m\xb1\xc0 \x1b[33mjoshualiu\x1b[m\x1b[33m: \xb6\xc0\xb0\xb6\xad\xf5\xacO\xab\xe7\xbb\xf2                                        \x1b[m 12/22 00:02\r"),
 		},
-		{ //68 (78)
+		{ // 68 (78)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
 			CommentID:  types.CommentID("FlLHQI4Q-gA:E_omXaZAX9dffXNX2NAZYw"),

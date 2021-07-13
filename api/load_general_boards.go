@@ -39,18 +39,16 @@ func LoadGeneralBoardsWrapper(c *gin.Context) {
 }
 
 func LoadGeneralBoards(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	return loadGeneralBoardsCore(remoteAddr, userID, params, c, pttbbsapi.LOAD_GENERAL_BOARDS_R)
 }
 
 func loadGeneralBoardsCore(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context, url string) (result interface{}, statusCode int, err error) {
-
 	theParams, ok := params.(*LoadGeneralBoardsParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
 	}
 
-	//backend load-general-baords
+	// backend load-general-baords
 	theParams_b := &pttbbsapi.LoadGeneralBoardsParams{
 		StartIdx: theParams.StartIdx,
 		Title:    types.Utf8ToBig5(theParams.Title),
@@ -69,15 +67,14 @@ func loadGeneralBoardsCore(remoteAddr string, userID bbs.UUserID, params interfa
 }
 
 func postLoadBoards(userID bbs.UUserID, result_b *pttbbsapi.LoadGeneralBoardsResult, url string) (result *LoadGeneralBoardsResult, statusCode int, err error) {
-
-	//update to db
+	// update to db
 	updateNanoTS := types.NowNanoTS()
 	boardSummaries_db, userBoardInfoMap, err := deserializeBoardsAndUpdateDB(userID, result_b.Boards, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}
 
-	//check isRead
+	// check isRead
 	userBoardInfoMap, err = checkUserReadBoard(userID, userBoardInfoMap, boardSummaries_db)
 	if err != nil {
 		return nil, 500, err
@@ -86,10 +83,9 @@ func postLoadBoards(userID bbs.UUserID, result_b *pttbbsapi.LoadGeneralBoardsRes
 	r := NewLoadGeneralBoardsResult(boardSummaries_db, userBoardInfoMap, result_b.NextIdx, url)
 
 	return r, 200, nil
-
 }
 
-//https://github.com/ptt/pttbbs/blob/master/mbbsd/board.c#L953
+// https://github.com/ptt/pttbbs/blob/master/mbbsd/board.c#L953
 func checkUserReadBoard(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, theList []*schema.BoardSummary) (newUserBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, err error) {
 	checkBBoardIDMap := make(map[bbs.BBoardID]int)
 	queryBBoardIDs := make([]bbs.BBoardID, 0, len(theList))
@@ -115,7 +111,7 @@ func checkUserReadBoard(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*a
 			continue
 		}
 
-		//check with read-time
+		// check with read-time
 		checkBBoardIDMap[each.BBoardID] = idx
 		queryBBoardIDs = append(queryBBoardIDs, each.BBoardID)
 	}
@@ -125,9 +121,9 @@ func checkUserReadBoard(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*a
 		return nil, err
 	}
 
-	//setup read in the list
-	//no need to update db, because we don't read the newest yet.
-	//the Read flag is set based on the existing db.UpdateNanoTS
+	// setup read in the list
+	// no need to update db, because we don't read the newest yet.
+	// the Read flag is set based on the existing db.UpdateNanoTS
 	for _, each := range dbResults {
 		eachBoardID := each.BBoardID
 		eachReadNanoTS := each.UpdateNanoTS
@@ -153,7 +149,6 @@ func checkUserReadBoard(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*a
 }
 
 func NewLoadGeneralBoardsResult(boardSummaries_db []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, nextIdx string, url string) *LoadGeneralBoardsResult {
-
 	theList := make([]*apitypes.BoardSummary, len(boardSummaries_db))
 
 	isByClass := url == pttbbsapi.LOAD_GENERAL_BOARDS_BY_CLASS_R

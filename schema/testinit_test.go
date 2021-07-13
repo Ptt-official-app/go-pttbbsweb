@@ -14,7 +14,6 @@ func setupTest() {
 	types.SetIsTest("schema")
 
 	SetIsTest()
-
 }
 
 func teardownTest() {
@@ -25,5 +24,4 @@ func teardownTest() {
 	db.UnsetIsTest()
 
 	utils.UnsetIsTest()
-
 }

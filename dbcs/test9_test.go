@@ -28,7 +28,7 @@ func initTest9() {
 
 	testContent9Big5 = [][]*types.Rune{
 
-		{ //0
+		{ // 0
 			{
 
 				Big5:   []byte("\xa7@\xaa\xcc: xxFrency (\xaa\xfc\xad\xf5) \xac\xdd\xaaO: CodeJob"),
@@ -37,7 +37,7 @@ func initTest9() {
 				DBCS:   []byte("\xa7@\xaa\xcc: xxFrency (\xaa\xfc\xad\xf5) \xac\xdd\xaaO: CodeJob\r"),
 			},
 		},
-		{ //1
+		{ // 1
 			{
 
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb5o\xae\xd7] \xb1\xd0\xbe\xc7 \xb6\xb3\xba\xdd\xa5D\xbe\xf7\xc1\xca\xaa\xab\xba\xf4\xad\xb6\xba\xfb\xb9B"),
@@ -46,7 +46,7 @@ func initTest9() {
 				DBCS:   []byte("\xbc\xd0\xc3D: [\xb5o\xae\xd7] \xb1\xd0\xbe\xc7 \xb6\xb3\xba\xdd\xa5D\xbe\xf7\xc1\xca\xaa\xab\xba\xf4\xad\xb6\xba\xfb\xb9B\r"),
 			},
 		},
-		{ //2
+		{ // 2
 			{
 
 				Big5:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 14:46:08 2020"),
@@ -55,21 +55,21 @@ func initTest9() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 14:46:08 2020\r"),
 			},
 		},
-		{ //3
+		{ // 3
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //4
+		{ // 4
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //5
+		{ // 5
 			{
 
 				Big5:   []byte("        \xa1@"),
@@ -92,7 +92,7 @@ func initTest9() {
 				DBCS:   []byte("\x1b[m\xa1G\xbcB\xa5\xfd\xa5\xcd\r"),
 			},
 		},
-		{ //6
+		{ // 6
 			{
 
 				Big5:   []byte("       "),
@@ -115,7 +115,7 @@ func initTest9() {
 				DBCS:   []byte("\x1b[m\xa1Gaaaaaaaa\r"),
 			},
 		},
-		{ //7
+		{ // 7
 			{
 
 				Big5:   []byte("       \xc1p\xb5\xb8\xa4\xe8\xa6\xa12\xa1Gaaaaaaaa"),
@@ -124,7 +124,7 @@ func initTest9() {
 				DBCS:   []byte("       \xc1p\xb5\xb8\xa4\xe8\xa6\xa12\xa1Gaaaaaaaa\r"),
 			},
 		},
-		{ //8
+		{ // 8
 			{
 
 				Big5:   []byte("       \xa9\xd2\xa6b\xa6a\xb0\xcf \xa1G\xa5x\xa5_\xa5\xab"),
@@ -133,14 +133,14 @@ func initTest9() {
 				DBCS:   []byte("       \xa9\xd2\xa6b\xa6a\xb0\xcf \xa1G\xa5x\xa5_\xa5\xab\r"),
 			},
 		},
-		{ //9
+		{ // 9
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //10
+		{ // 10
 			{
 
 				Big5:   []byte("        "),
@@ -163,7 +163,7 @@ func initTest9() {
 				DBCS:   []byte("\x1b[m\xa1G12/31\r"),
 			},
 		},
-		{ //11
+		{ // 11
 			{
 
 				Big5:   []byte("        "),
@@ -186,14 +186,14 @@ func initTest9() {
 				DBCS:   []byte("\x1b[m\xa1G\r"),
 			},
 		},
-		{ //12
+		{ // 12
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //13
+		{ // 13
 			{
 
 				Big5:   []byte("               \xaa\xac\xaap\xb4y\xadz\xa1G"),
@@ -202,7 +202,7 @@ func initTest9() {
 				DBCS:   []byte("               \xaa\xac\xaap\xb4y\xadz\xa1G\r"),
 			},
 		},
-		{ //14
+		{ // 14
 			{
 
 				Big5:   []byte("               \xa5\xd8\xabe\xa4w\xb8g\xa6\xb3\xba\xf4\xaf\xb8\xb3\xa1\xc4\xdd\xa6b\xaa\xfc\xa8\xbd\xb6\xb3\xa4W(LNMP\xa1A\xa8t\xb2\xceCentOS 7.7)"),
@@ -211,7 +211,7 @@ func initTest9() {
 				DBCS:   []byte("               \xa5\xd8\xabe\xa4w\xb8g\xa6\xb3\xba\xf4\xaf\xb8\xb3\xa1\xc4\xdd\xa6b\xaa\xfc\xa8\xbd\xb6\xb3\xa4W(LNMP\xa1A\xa8t\xb2\xceCentOS 7.7)\r"),
 			},
 		},
-		{ //15
+		{ // 15
 			{
 
 				Big5:   []byte("               \xb1\xb5\xa4U\xa8\xd3\xa5i\xaf\xe0\xb7|\xad\xb1\xc1{\xa4j\xb6q\xacy\xb6q\xb3y\xb3X\xa1A\xb7Q\xb9\xef\xa6\xf8\xaaA\xbe\xb9\xb0\xb5\xc0u\xa4\xc6\xa1B\xb0t\xb8m\xa1B\xad\xb0\xa7C\xa5i\xaf\xe0"),
@@ -220,7 +220,7 @@ func initTest9() {
 				DBCS:   []byte("               \xb1\xb5\xa4U\xa8\xd3\xa5i\xaf\xe0\xb7|\xad\xb1\xc1{\xa4j\xb6q\xacy\xb6q\xb3y\xb3X\xa1A\xb7Q\xb9\xef\xa6\xf8\xaaA\xbe\xb9\xb0\xb5\xc0u\xa4\xc6\xa1B\xb0t\xb8m\xa1B\xad\xb0\xa7C\xa5i\xaf\xe0\r"),
 			},
 		},
-		{ //16
+		{ // 16
 			{
 
 				Big5:   []byte("               \xad\xb1\xc1{\xaa\xba\xad\xb7\xc0I"),
@@ -229,14 +229,14 @@ func initTest9() {
 				DBCS:   []byte("               \xad\xb1\xc1{\xaa\xba\xad\xb7\xc0I\r"),
 			},
 		},
-		{ //17
+		{ // 17
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //18
+		{ // 18
 			{
 
 				Big5:   []byte("        \xa1@\xa1@"),
@@ -259,7 +259,7 @@ func initTest9() {
 				DBCS:   []byte("\x1b[m\xa1G\xae\xc9\xc1~800\xb0_\xa1A\xa6p\xaaG\xc4\xb1\xb1o\xa4\xd3\xa7C\xa1A\xc5w\xaa\xef\xb1H\xabH\xa7i\xb6D\xa7\xda\xa7A\xaa\xba\xb8g\r"),
 			},
 		},
-		{ //19
+		{ // 19
 			{
 
 				Big5:   []byte("                               \xc5\xe7\xa1A\xa7\xda\xb8\xf2\xa4\xbd\xa5q\xb0\xd3\xb6q\xb3q\xb9L\xab\xe1\xb4N\xa5i\xa5H"),
@@ -268,14 +268,14 @@ func initTest9() {
 				DBCS:   []byte("                               \xc5\xe7\xa1A\xa7\xda\xb8\xf2\xa4\xbd\xa5q\xb0\xd3\xb6q\xb3q\xb9L\xab\xe1\xb4N\xa5i\xa5H\r"),
 			},
 		},
-		{ //20
+		{ // 20
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //21
+		{ // 21
 			{
 
 				Big5:   []byte("                \xa5\xb2\xb6\xb7\xb6\xf1\xbcg\xb9w\xba\xe2\xbdd\xb3\xf2\xa1A\xadY\xb5L\xb6\xf1\xbcg\xb9H\xa4\xcf\xaaO\xb3W"),
@@ -284,7 +284,7 @@ func initTest9() {
 				DBCS:   []byte("                \xa5\xb2\xb6\xb7\xb6\xf1\xbcg\xb9w\xba\xe2\xbdd\xb3\xf2\xa1A\xadY\xb5L\xb6\xf1\xbcg\xb9H\xa4\xcf\xaaO\xb3W\r"),
 			},
 		},
-		{ //22
+		{ // 22
 			{
 
 				Big5:   []byte("            \xb1\xb5\xae\xd7\xaa\xcc\xadn\xa8D\xa1G\xbe\xd6\xa6\xb3\xaa\xfc\xa8\xbd\xb6\xb3\xa9\xceAWS\xb9\xea\xbb\xda\xbe\xde\xa7@\xb8g\xc5\xe7\xa1A\xa8\xc3\xb4\xbf\xb8g\xb3B\xb2z\xb9L\xc0\xfe\xb6\xa1\xa4j\xb6q\xacy\xaa\xba"),
@@ -293,7 +293,7 @@ func initTest9() {
 				DBCS:   []byte("            \xb1\xb5\xae\xd7\xaa\xcc\xadn\xa8D\xa1G\xbe\xd6\xa6\xb3\xaa\xfc\xa8\xbd\xb6\xb3\xa9\xceAWS\xb9\xea\xbb\xda\xbe\xde\xa7@\xb8g\xc5\xe7\xa1A\xa8\xc3\xb4\xbf\xb8g\xb3B\xb2z\xb9L\xc0\xfe\xb6\xa1\xa4j\xb6q\xacy\xaa\xba\r"),
 			},
 		},
-		{ //23
+		{ // 23
 			{
 
 				Big5:   []byte("            \xaa\xac\xaap"),
@@ -302,7 +302,7 @@ func initTest9() {
 				DBCS:   []byte("            \xaa\xac\xaap\r"),
 			},
 		},
-		{ //24
+		{ // 24
 			{
 
 				Big5:   []byte("        \xa1@\xa1@"),
@@ -311,7 +311,7 @@ func initTest9() {
 				DBCS:   []byte("        \xa1@\xa1@\r"),
 			},
 		},
-		{ //25
+		{ // 25
 			{
 
 				Big5:   []byte("            \xaa\xfe\xb5\xf9\xa1G"),
@@ -320,14 +320,14 @@ func initTest9() {
 				DBCS:   []byte("            \xaa\xfe\xb5\xf9\xa1G\r"),
 			},
 		},
-		{ //26
+		{ // 26
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //27
+		{ // 27
 			{
 
 				Big5:   []byte("                \xb1\xd0\xbe\xc7\xad\xab\xc2I"),
@@ -336,14 +336,14 @@ func initTest9() {
 				DBCS:   []byte("                \xb1\xd0\xbe\xc7\xad\xab\xc2I\r"),
 			},
 		},
-		{ //28
+		{ // 28
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //29
+		{ // 29
 			{
 
 				Big5:   []byte("                \xa4W\xbd\xd2\xae\xc9\xb6\xa1\xa1G\xa4@\xb6g1\xa1\xe32\xa6\xb8\xa1A\xa5i\xb0Q\xbd\xd7\xa1A\xa4@\xa6\xb8\xac\xf91~2\xa4p\xae\xc9"),
@@ -352,14 +352,14 @@ func initTest9() {
 				DBCS:   []byte("                \xa4W\xbd\xd2\xae\xc9\xb6\xa1\xa1G\xa4@\xb6g1\xa1\xe32\xa6\xb8\xa1A\xa5i\xb0Q\xbd\xd7\xa1A\xa4@\xa6\xb8\xac\xf91~2\xa4p\xae\xc9\r"),
 			},
 		},
-		{ //30
+		{ // 30
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //31
+		{ // 31
 			{
 
 				Big5:   []byte("                1.\xba\xf4\xaf\xb8\xb9B\xa6\xe6\xac[\xbac\xab\xd8\xc4\xb3"),
@@ -368,7 +368,7 @@ func initTest9() {
 				DBCS:   []byte("                1.\xba\xf4\xaf\xb8\xb9B\xa6\xe6\xac[\xbac\xab\xd8\xc4\xb3\r"),
 			},
 		},
-		{ //32
+		{ // 32
 			{
 
 				Big5:   []byte("                (\xa8\xd2\xa6p\xa1GMySql\xaa\xbd\xb1\xb5\xb9B\xa6\xe6\xa6b\xa6P\xa4@\xa5x\xbe\xf7\xbe\xb9\xa4W\xa9\xce\xa8\xcf\xa5\xceRDS\xa1A\xa4\xb0\xbb\xf2\xb1\xa1\xaap\xb8\xd3\xa8\xcf\xa5\xceRDS)"),
@@ -377,14 +377,14 @@ func initTest9() {
 				DBCS:   []byte("                (\xa8\xd2\xa6p\xa1GMySql\xaa\xbd\xb1\xb5\xb9B\xa6\xe6\xa6b\xa6P\xa4@\xa5x\xbe\xf7\xbe\xb9\xa4W\xa9\xce\xa8\xcf\xa5\xceRDS\xa1A\xa4\xb0\xbb\xf2\xb1\xa1\xaap\xb8\xd3\xa8\xcf\xa5\xceRDS)\r"),
 			},
 		},
-		{ //33
+		{ // 33
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //34
+		{ // 34
 			{
 
 				Big5:   []byte("                2. Load Balancer\xadt\xb8\xfc\xa5\xad\xbf\xc5\xb3]\xa9w"),
@@ -393,7 +393,7 @@ func initTest9() {
 				DBCS:   []byte("                2. Load Balancer\xadt\xb8\xfc\xa5\xad\xbf\xc5\xb3]\xa9w\r"),
 			},
 		},
-		{ //35
+		{ // 35
 			{
 
 				Big5:   []byte("                \xaa\xbd\xb1\xb5\xb6i\xaa\xfc\xa8\xbd\xb6\xb3\xab\xe1\xa5x\xa1A\xa4\xe2\xa7\xe2\xa4\xe2\xb1\xd0\xa7\xda\xb3]\xa9wLoad Balancer\xa1A\xa6p\xaaG\xa7A\xa5u\xa6\xb3AWS"),
@@ -402,7 +402,7 @@ func initTest9() {
 				DBCS:   []byte("                \xaa\xbd\xb1\xb5\xb6i\xaa\xfc\xa8\xbd\xb6\xb3\xab\xe1\xa5x\xa1A\xa4\xe2\xa7\xe2\xa4\xe2\xb1\xd0\xa7\xda\xb3]\xa9wLoad Balancer\xa1A\xa6p\xaaG\xa7A\xa5u\xa6\xb3AWS\r"),
 			},
 		},
-		{ //36
+		{ // 36
 			{
 
 				Big5:   []byte("                Load Balancer\xb8g\xc5\xe7\xa4]\xa5i\xa5H"),
@@ -411,14 +411,14 @@ func initTest9() {
 				DBCS:   []byte("                Load Balancer\xb8g\xc5\xe7\xa4]\xa5i\xa5H\r"),
 			},
 		},
-		{ //37
+		{ // 37
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //38
+		{ // 38
 			{
 
 				Big5:   []byte("                \xa8\xe4\xa5L\xb0\xdd\xc3D\xa1G"),
@@ -427,7 +427,7 @@ func initTest9() {
 				DBCS:   []byte("                \xa8\xe4\xa5L\xb0\xdd\xc3D\xa1G\r"),
 			},
 		},
-		{ //39
+		{ // 39
 			{
 
 				Big5:   []byte("\xa1@\xa1@                    -\xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xb8\xd3\xa8\xcf\xa5\xceLoad Balancer \xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xa7\xe2\xbe\xf7\xbe\xb9\xa5[\xa4j\xb4N\xa6n"),
@@ -436,7 +436,7 @@ func initTest9() {
 				DBCS:   []byte("\xa1@\xa1@                    -\xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xb8\xd3\xa8\xcf\xa5\xceLoad Balancer \xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xa7\xe2\xbe\xf7\xbe\xb9\xa5[\xa4j\xb4N\xa6n\r"),
 			},
 		},
-		{ //40
+		{ // 40
 			{
 
 				Big5:   []byte("\xa1@\xa1@                    -\xa7\xda\xb8\xd3\xab\xe7\xbb\xf2\xaa\xbe\xb9D\xbe\xf7\xbe\xb9\xaa\xba\xa9\xd3\xb8\xfc\xaf\xe0\xa4O\xa1A\xacO\xa7_\xbb\xdd\xadn\xb0\xb5\xc0\xa3\xa4O\xb4\xfa\xb8\xd5"),
@@ -445,14 +445,14 @@ func initTest9() {
 				DBCS:   []byte("\xa1@\xa1@                    -\xa7\xda\xb8\xd3\xab\xe7\xbb\xf2\xaa\xbe\xb9D\xbe\xf7\xbe\xb9\xaa\xba\xa9\xd3\xb8\xfc\xaf\xe0\xa4O\xa1A\xacO\xa7_\xbb\xdd\xadn\xb0\xb5\xc0\xa3\xa4O\xb4\xfa\xb8\xd5\r"),
 			},
 		},
-		{ //41
+		{ // 41
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //42
+		{ // 42
 			{
 
 				Big5:   []byte("                3.\xa6\xdb\xb0\xca\xa9w\xb4\xc1\xb3\xc6\xa5\xf7"),
@@ -461,7 +461,7 @@ func initTest9() {
 				DBCS:   []byte("                3.\xa6\xdb\xb0\xca\xa9w\xb4\xc1\xb3\xc6\xa5\xf7\r"),
 			},
 		},
-		{ //43
+		{ // 43
 			{
 
 				Big5:   []byte("                \xa6P\xa4@\xa5x\xbe\xf7\xbe\xb9\xa5i\xa5H\xa7\xd6\xb7\xd3\xb3\xc6\xa5\xf7\xa1A\xa6\xfd\xa6p\xaaG\xacORDS+ECS\xaa\xba\xaa\xac\xaap\xb8\xd3\xab\xe7\xbb\xf2\xb3\xc6\xa5\xf7\xa4\xf1\xb8\xfb\xa6X\xbeA"),
@@ -470,14 +470,14 @@ func initTest9() {
 				DBCS:   []byte("                \xa6P\xa4@\xa5x\xbe\xf7\xbe\xb9\xa5i\xa5H\xa7\xd6\xb7\xd3\xb3\xc6\xa5\xf7\xa1A\xa6\xfd\xa6p\xaaG\xacORDS+ECS\xaa\xba\xaa\xac\xaap\xb8\xd3\xab\xe7\xbb\xf2\xb3\xc6\xa5\xf7\xa4\xf1\xb8\xfb\xa6X\xbeA\r"),
 			},
 		},
-		{ //44
+		{ // 44
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //45
+		{ // 45
 			{
 
 				Big5:   []byte("                4. \xb1\xd0\xa7\xda\xa8t\xb2\xce\xba\xca\xb1\xb1\xaa\xba\xb9\xee\xac\xdd\xad\xab\xc2I"),
@@ -486,14 +486,14 @@ func initTest9() {
 				DBCS:   []byte("                4. \xb1\xd0\xa7\xda\xa8t\xb2\xce\xba\xca\xb1\xb1\xaa\xba\xb9\xee\xac\xdd\xad\xab\xc2I\r"),
 			},
 		},
-		{ //46
+		{ // 46
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //47
+		{ // 47
 			{
 
 				Big5:   []byte("                5. \xa6w\xa5\xfe\xa9\xca\xa4\xce\xa8\xbe\xa4\xf5\xc0\xf0\xb3]\xb8m\xb1\xd0\xbe\xc7"),
@@ -502,14 +502,14 @@ func initTest9() {
 				DBCS:   []byte("                5. \xa6w\xa5\xfe\xa9\xca\xa4\xce\xa8\xbe\xa4\xf5\xc0\xf0\xb3]\xb8m\xb1\xd0\xbe\xc7\r"),
 			},
 		},
-		{ //48
+		{ // 48
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //49
+		{ // 49
 			{
 
 				Big5:   []byte("                6. (\xabD\xa5\xb2\xadn)NGINX\xba\xf4\xad\xb6\xa6\xf8\xaaA\xbe\xb9\xb1\xd0\xbe\xc7"),
@@ -521,7 +521,7 @@ func initTest9() {
 	}
 
 	testContent9Utf8 = [][]*types.Rune{
-		{ //0
+		{ // 0
 			{
 				Utf8:   "作者: xxFrency (阿哲) 看板: CodeJob",
 				Big5:   []byte("\xa7@\xaa\xcc: xxFrency (\xaa\xfc\xad\xf5) \xac\xdd\xaaO: CodeJob"),
@@ -530,7 +530,7 @@ func initTest9() {
 				DBCS:   []byte("\xa7@\xaa\xcc: xxFrency (\xaa\xfc\xad\xf5) \xac\xdd\xaaO: CodeJob\r"),
 			},
 		},
-		{ //1
+		{ // 1
 			{
 				Utf8:   "標題: [發案] 教學 雲端主機購物網頁維運",
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb5o\xae\xd7] \xb1\xd0\xbe\xc7 \xb6\xb3\xba\xdd\xa5D\xbe\xf7\xc1\xca\xaa\xab\xba\xf4\xad\xb6\xba\xfb\xb9B"),
@@ -539,7 +539,7 @@ func initTest9() {
 				DBCS:   []byte("\xbc\xd0\xc3D: [\xb5o\xae\xd7] \xb1\xd0\xbe\xc7 \xb6\xb3\xba\xdd\xa5D\xbe\xf7\xc1\xca\xaa\xab\xba\xf4\xad\xb6\xba\xfb\xb9B\r"),
 			},
 		},
-		{ //2
+		{ // 2
 			{
 				Utf8:   "時間: Sat Dec 19 14:46:08 2020",
 				Big5:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 14:46:08 2020"),
@@ -548,21 +548,21 @@ func initTest9() {
 				DBCS:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 14:46:08 2020\r"),
 			},
 		},
-		{ //3
+		{ // 3
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //4
+		{ // 4
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //5
+		{ // 5
 			{
 				Utf8:   "        　",
 				Big5:   []byte("        \xa1@"),
@@ -585,7 +585,7 @@ func initTest9() {
 				DBCS:   []byte("\x1b[m\xa1G\xbcB\xa5\xfd\xa5\xcd\r"),
 			},
 		},
-		{ //6
+		{ // 6
 			{
 				Utf8:   "       ",
 				Big5:   []byte("       "),
@@ -608,7 +608,7 @@ func initTest9() {
 				DBCS:   []byte("\x1b[m\xa1Gaaaaaaaa\r"),
 			},
 		},
-		{ //7
+		{ // 7
 			{
 				Utf8:   "       聯絡方式2：aaaaaaaa",
 				Big5:   []byte("       \xc1p\xb5\xb8\xa4\xe8\xa6\xa12\xa1Gaaaaaaaa"),
@@ -617,7 +617,7 @@ func initTest9() {
 				DBCS:   []byte("       \xc1p\xb5\xb8\xa4\xe8\xa6\xa12\xa1Gaaaaaaaa\r"),
 			},
 		},
-		{ //8
+		{ // 8
 			{
 				Utf8:   "       所在地區 ：台北市",
 				Big5:   []byte("       \xa9\xd2\xa6b\xa6a\xb0\xcf \xa1G\xa5x\xa5_\xa5\xab"),
@@ -626,14 +626,14 @@ func initTest9() {
 				DBCS:   []byte("       \xa9\xd2\xa6b\xa6a\xb0\xcf \xa1G\xa5x\xa5_\xa5\xab\r"),
 			},
 		},
-		{ //9
+		{ // 9
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //10
+		{ // 10
 			{
 				Utf8:   "        ",
 				Big5:   []byte("        "),
@@ -656,7 +656,7 @@ func initTest9() {
 				DBCS:   []byte("\x1b[m\xa1G12/31\r"),
 			},
 		},
-		{ //11
+		{ // 11
 			{
 				Utf8:   "        ",
 				Big5:   []byte("        "),
@@ -679,14 +679,14 @@ func initTest9() {
 				DBCS:   []byte("\x1b[m\xa1G\r"),
 			},
 		},
-		{ //12
+		{ // 12
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //13
+		{ // 13
 			{
 				Utf8:   "               狀況描述：",
 				Big5:   []byte("               \xaa\xac\xaap\xb4y\xadz\xa1G"),
@@ -695,7 +695,7 @@ func initTest9() {
 				DBCS:   []byte("               \xaa\xac\xaap\xb4y\xadz\xa1G\r"),
 			},
 		},
-		{ //14
+		{ // 14
 			{
 				Utf8:   "               目前已經有網站部屬在阿里雲上(LNMP，系統CentOS 7.7)",
 				Big5:   []byte("               \xa5\xd8\xabe\xa4w\xb8g\xa6\xb3\xba\xf4\xaf\xb8\xb3\xa1\xc4\xdd\xa6b\xaa\xfc\xa8\xbd\xb6\xb3\xa4W(LNMP\xa1A\xa8t\xb2\xceCentOS 7.7)"),
@@ -704,7 +704,7 @@ func initTest9() {
 				DBCS:   []byte("               \xa5\xd8\xabe\xa4w\xb8g\xa6\xb3\xba\xf4\xaf\xb8\xb3\xa1\xc4\xdd\xa6b\xaa\xfc\xa8\xbd\xb6\xb3\xa4W(LNMP\xa1A\xa8t\xb2\xceCentOS 7.7)\r"),
 			},
 		},
-		{ //15
+		{ // 15
 			{
 				Utf8:   "               接下來可能會面臨大量流量造訪，想對伺服器做優化、配置、降低可能",
 				Big5:   []byte("               \xb1\xb5\xa4U\xa8\xd3\xa5i\xaf\xe0\xb7|\xad\xb1\xc1{\xa4j\xb6q\xacy\xb6q\xb3y\xb3X\xa1A\xb7Q\xb9\xef\xa6\xf8\xaaA\xbe\xb9\xb0\xb5\xc0u\xa4\xc6\xa1B\xb0t\xb8m\xa1B\xad\xb0\xa7C\xa5i\xaf\xe0"),
@@ -713,7 +713,7 @@ func initTest9() {
 				DBCS:   []byte("               \xb1\xb5\xa4U\xa8\xd3\xa5i\xaf\xe0\xb7|\xad\xb1\xc1{\xa4j\xb6q\xacy\xb6q\xb3y\xb3X\xa1A\xb7Q\xb9\xef\xa6\xf8\xaaA\xbe\xb9\xb0\xb5\xc0u\xa4\xc6\xa1B\xb0t\xb8m\xa1B\xad\xb0\xa7C\xa5i\xaf\xe0\r"),
 			},
 		},
-		{ //16
+		{ // 16
 			{
 				Utf8:   "               面臨的風險",
 				Big5:   []byte("               \xad\xb1\xc1{\xaa\xba\xad\xb7\xc0I"),
@@ -722,14 +722,14 @@ func initTest9() {
 				DBCS:   []byte("               \xad\xb1\xc1{\xaa\xba\xad\xb7\xc0I\r"),
 			},
 		},
-		{ //17
+		{ // 17
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //18
+		{ // 18
 			{
 				Utf8:   "        　　",
 				Big5:   []byte("        \xa1@\xa1@"),
@@ -752,7 +752,7 @@ func initTest9() {
 				DBCS:   []byte("\x1b[m\xa1G\xae\xc9\xc1~800\xb0_\xa1A\xa6p\xaaG\xc4\xb1\xb1o\xa4\xd3\xa7C\xa1A\xc5w\xaa\xef\xb1H\xabH\xa7i\xb6D\xa7\xda\xa7A\xaa\xba\xb8g\r"),
 			},
 		},
-		{ //19
+		{ // 19
 			{
 
 				Utf8:   "                               驗，我跟公司商量通過後就可以",
@@ -762,14 +762,14 @@ func initTest9() {
 				DBCS:   []byte("                               \xc5\xe7\xa1A\xa7\xda\xb8\xf2\xa4\xbd\xa5q\xb0\xd3\xb6q\xb3q\xb9L\xab\xe1\xb4N\xa5i\xa5H\r"),
 			},
 		},
-		{ //20
+		{ // 20
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //21
+		{ // 21
 			{
 				Utf8:   "                必須填寫預算範圍，若無填寫違反板規",
 				Big5:   []byte("                \xa5\xb2\xb6\xb7\xb6\xf1\xbcg\xb9w\xba\xe2\xbdd\xb3\xf2\xa1A\xadY\xb5L\xb6\xf1\xbcg\xb9H\xa4\xcf\xaaO\xb3W"),
@@ -778,7 +778,7 @@ func initTest9() {
 				DBCS:   []byte("                \xa5\xb2\xb6\xb7\xb6\xf1\xbcg\xb9w\xba\xe2\xbdd\xb3\xf2\xa1A\xadY\xb5L\xb6\xf1\xbcg\xb9H\xa4\xcf\xaaO\xb3W\r"),
 			},
 		},
-		{ //22
+		{ // 22
 			{
 				Utf8:   "            接案者要求：擁有阿里雲或AWS實際操作經驗，並曾經處理過瞬間大量流的",
 				Big5:   []byte("            \xb1\xb5\xae\xd7\xaa\xcc\xadn\xa8D\xa1G\xbe\xd6\xa6\xb3\xaa\xfc\xa8\xbd\xb6\xb3\xa9\xceAWS\xb9\xea\xbb\xda\xbe\xde\xa7@\xb8g\xc5\xe7\xa1A\xa8\xc3\xb4\xbf\xb8g\xb3B\xb2z\xb9L\xc0\xfe\xb6\xa1\xa4j\xb6q\xacy\xaa\xba"),
@@ -787,7 +787,7 @@ func initTest9() {
 				DBCS:   []byte("            \xb1\xb5\xae\xd7\xaa\xcc\xadn\xa8D\xa1G\xbe\xd6\xa6\xb3\xaa\xfc\xa8\xbd\xb6\xb3\xa9\xceAWS\xb9\xea\xbb\xda\xbe\xde\xa7@\xb8g\xc5\xe7\xa1A\xa8\xc3\xb4\xbf\xb8g\xb3B\xb2z\xb9L\xc0\xfe\xb6\xa1\xa4j\xb6q\xacy\xaa\xba\r"),
 			},
 		},
-		{ //23
+		{ // 23
 			{
 				Utf8:   "            狀況",
 				Big5:   []byte("            \xaa\xac\xaap"),
@@ -796,7 +796,7 @@ func initTest9() {
 				DBCS:   []byte("            \xaa\xac\xaap\r"),
 			},
 		},
-		{ //24
+		{ // 24
 			{
 				Utf8:   "        　　",
 				Big5:   []byte("        \xa1@\xa1@"),
@@ -805,7 +805,7 @@ func initTest9() {
 				DBCS:   []byte("        \xa1@\xa1@\r"),
 			},
 		},
-		{ //25
+		{ // 25
 			{
 				Utf8:   "            附註：",
 				Big5:   []byte("            \xaa\xfe\xb5\xf9\xa1G"),
@@ -814,14 +814,14 @@ func initTest9() {
 				DBCS:   []byte("            \xaa\xfe\xb5\xf9\xa1G\r"),
 			},
 		},
-		{ //26
+		{ // 26
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //27
+		{ // 27
 			{
 				Utf8:   "                教學重點",
 				Big5:   []byte("                \xb1\xd0\xbe\xc7\xad\xab\xc2I"),
@@ -830,14 +830,14 @@ func initTest9() {
 				DBCS:   []byte("                \xb1\xd0\xbe\xc7\xad\xab\xc2I\r"),
 			},
 		},
-		{ //28
+		{ // 28
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //29
+		{ // 29
 			{
 				Utf8:   "                上課時間：一週1～2次，可討論，一次約1~2小時",
 				Big5:   []byte("                \xa4W\xbd\xd2\xae\xc9\xb6\xa1\xa1G\xa4@\xb6g1\xa1\xe32\xa6\xb8\xa1A\xa5i\xb0Q\xbd\xd7\xa1A\xa4@\xa6\xb8\xac\xf91~2\xa4p\xae\xc9"),
@@ -846,14 +846,14 @@ func initTest9() {
 				DBCS:   []byte("                \xa4W\xbd\xd2\xae\xc9\xb6\xa1\xa1G\xa4@\xb6g1\xa1\xe32\xa6\xb8\xa1A\xa5i\xb0Q\xbd\xd7\xa1A\xa4@\xa6\xb8\xac\xf91~2\xa4p\xae\xc9\r"),
 			},
 		},
-		{ //30
+		{ // 30
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //31
+		{ // 31
 			{
 				Utf8:   "                1.網站運行架構建議",
 				Big5:   []byte("                1.\xba\xf4\xaf\xb8\xb9B\xa6\xe6\xac[\xbac\xab\xd8\xc4\xb3"),
@@ -862,7 +862,7 @@ func initTest9() {
 				DBCS:   []byte("                1.\xba\xf4\xaf\xb8\xb9B\xa6\xe6\xac[\xbac\xab\xd8\xc4\xb3\r"),
 			},
 		},
-		{ //32
+		{ // 32
 			{
 				Utf8:   "                (例如：MySql直接運行在同一台機器上或使用RDS，什麼情況該使用RDS)",
 				Big5:   []byte("                (\xa8\xd2\xa6p\xa1GMySql\xaa\xbd\xb1\xb5\xb9B\xa6\xe6\xa6b\xa6P\xa4@\xa5x\xbe\xf7\xbe\xb9\xa4W\xa9\xce\xa8\xcf\xa5\xceRDS\xa1A\xa4\xb0\xbb\xf2\xb1\xa1\xaap\xb8\xd3\xa8\xcf\xa5\xceRDS)"),
@@ -871,14 +871,14 @@ func initTest9() {
 				DBCS:   []byte("                (\xa8\xd2\xa6p\xa1GMySql\xaa\xbd\xb1\xb5\xb9B\xa6\xe6\xa6b\xa6P\xa4@\xa5x\xbe\xf7\xbe\xb9\xa4W\xa9\xce\xa8\xcf\xa5\xceRDS\xa1A\xa4\xb0\xbb\xf2\xb1\xa1\xaap\xb8\xd3\xa8\xcf\xa5\xceRDS)\r"),
 			},
 		},
-		{ //33
+		{ // 33
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //34
+		{ // 34
 			{
 				Utf8:   "                2. Load Balancer負載平衡設定",
 				Big5:   []byte("                2. Load Balancer\xadt\xb8\xfc\xa5\xad\xbf\xc5\xb3]\xa9w"),
@@ -887,7 +887,7 @@ func initTest9() {
 				DBCS:   []byte("                2. Load Balancer\xadt\xb8\xfc\xa5\xad\xbf\xc5\xb3]\xa9w\r"),
 			},
 		},
-		{ //35
+		{ // 35
 			{
 				Utf8:   "                直接進阿里雲後台，手把手教我設定Load Balancer，如果你只有AWS",
 				Big5:   []byte("                \xaa\xbd\xb1\xb5\xb6i\xaa\xfc\xa8\xbd\xb6\xb3\xab\xe1\xa5x\xa1A\xa4\xe2\xa7\xe2\xa4\xe2\xb1\xd0\xa7\xda\xb3]\xa9wLoad Balancer\xa1A\xa6p\xaaG\xa7A\xa5u\xa6\xb3AWS"),
@@ -896,7 +896,7 @@ func initTest9() {
 				DBCS:   []byte("                \xaa\xbd\xb1\xb5\xb6i\xaa\xfc\xa8\xbd\xb6\xb3\xab\xe1\xa5x\xa1A\xa4\xe2\xa7\xe2\xa4\xe2\xb1\xd0\xa7\xda\xb3]\xa9wLoad Balancer\xa1A\xa6p\xaaG\xa7A\xa5u\xa6\xb3AWS\r"),
 			},
 		},
-		{ //36
+		{ // 36
 			{
 				Utf8:   "                Load Balancer經驗也可以",
 				Big5:   []byte("                Load Balancer\xb8g\xc5\xe7\xa4]\xa5i\xa5H"),
@@ -905,14 +905,14 @@ func initTest9() {
 				DBCS:   []byte("                Load Balancer\xb8g\xc5\xe7\xa4]\xa5i\xa5H\r"),
 			},
 		},
-		{ //37
+		{ // 37
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //38
+		{ // 38
 			{
 				Utf8:   "                其他問題：",
 				Big5:   []byte("                \xa8\xe4\xa5L\xb0\xdd\xc3D\xa1G"),
@@ -921,7 +921,7 @@ func initTest9() {
 				DBCS:   []byte("                \xa8\xe4\xa5L\xb0\xdd\xc3D\xa1G\r"),
 			},
 		},
-		{ //39
+		{ // 39
 			{
 				Utf8:   "　　                    -什麼時候該使用Load Balancer 什麼時候把機器加大就好",
 				Big5:   []byte("\xa1@\xa1@                    -\xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xb8\xd3\xa8\xcf\xa5\xceLoad Balancer \xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xa7\xe2\xbe\xf7\xbe\xb9\xa5[\xa4j\xb4N\xa6n"),
@@ -930,7 +930,7 @@ func initTest9() {
 				DBCS:   []byte("\xa1@\xa1@                    -\xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xb8\xd3\xa8\xcf\xa5\xceLoad Balancer \xa4\xb0\xbb\xf2\xae\xc9\xad\xd4\xa7\xe2\xbe\xf7\xbe\xb9\xa5[\xa4j\xb4N\xa6n\r"),
 			},
 		},
-		{ //40
+		{ // 40
 			{
 				Utf8:   "　　                    -我該怎麼知道機器的承載能力，是否需要做壓力測試",
 				Big5:   []byte("\xa1@\xa1@                    -\xa7\xda\xb8\xd3\xab\xe7\xbb\xf2\xaa\xbe\xb9D\xbe\xf7\xbe\xb9\xaa\xba\xa9\xd3\xb8\xfc\xaf\xe0\xa4O\xa1A\xacO\xa7_\xbb\xdd\xadn\xb0\xb5\xc0\xa3\xa4O\xb4\xfa\xb8\xd5"),
@@ -939,14 +939,14 @@ func initTest9() {
 				DBCS:   []byte("\xa1@\xa1@                    -\xa7\xda\xb8\xd3\xab\xe7\xbb\xf2\xaa\xbe\xb9D\xbe\xf7\xbe\xb9\xaa\xba\xa9\xd3\xb8\xfc\xaf\xe0\xa4O\xa1A\xacO\xa7_\xbb\xdd\xadn\xb0\xb5\xc0\xa3\xa4O\xb4\xfa\xb8\xd5\r"),
 			},
 		},
-		{ //41
+		{ // 41
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //42
+		{ // 42
 			{
 				Utf8:   "                3.自動定期備份",
 				Big5:   []byte("                3.\xa6\xdb\xb0\xca\xa9w\xb4\xc1\xb3\xc6\xa5\xf7"),
@@ -955,7 +955,7 @@ func initTest9() {
 				DBCS:   []byte("                3.\xa6\xdb\xb0\xca\xa9w\xb4\xc1\xb3\xc6\xa5\xf7\r"),
 			},
 		},
-		{ //43
+		{ // 43
 			{
 				Utf8:   "                同一台機器可以快照備份，但如果是RDS+ECS的狀況該怎麼備份比較合適",
 				Big5:   []byte("                \xa6P\xa4@\xa5x\xbe\xf7\xbe\xb9\xa5i\xa5H\xa7\xd6\xb7\xd3\xb3\xc6\xa5\xf7\xa1A\xa6\xfd\xa6p\xaaG\xacORDS+ECS\xaa\xba\xaa\xac\xaap\xb8\xd3\xab\xe7\xbb\xf2\xb3\xc6\xa5\xf7\xa4\xf1\xb8\xfb\xa6X\xbeA"),
@@ -964,14 +964,14 @@ func initTest9() {
 				DBCS:   []byte("                \xa6P\xa4@\xa5x\xbe\xf7\xbe\xb9\xa5i\xa5H\xa7\xd6\xb7\xd3\xb3\xc6\xa5\xf7\xa1A\xa6\xfd\xa6p\xaaG\xacORDS+ECS\xaa\xba\xaa\xac\xaap\xb8\xd3\xab\xe7\xbb\xf2\xb3\xc6\xa5\xf7\xa4\xf1\xb8\xfb\xa6X\xbeA\r"),
 			},
 		},
-		{ //44
+		{ // 44
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //45
+		{ // 45
 			{
 				Utf8:   "                4. 教我系統監控的察看重點",
 				Big5:   []byte("                4. \xb1\xd0\xa7\xda\xa8t\xb2\xce\xba\xca\xb1\xb1\xaa\xba\xb9\xee\xac\xdd\xad\xab\xc2I"),
@@ -980,14 +980,14 @@ func initTest9() {
 				DBCS:   []byte("                4. \xb1\xd0\xa7\xda\xa8t\xb2\xce\xba\xca\xb1\xb1\xaa\xba\xb9\xee\xac\xdd\xad\xab\xc2I\r"),
 			},
 		},
-		{ //46
+		{ // 46
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //47
+		{ // 47
 			{
 				Utf8:   "                5. 安全性及防火牆設置教學",
 				Big5:   []byte("                5. \xa6w\xa5\xfe\xa9\xca\xa4\xce\xa8\xbe\xa4\xf5\xc0\xf0\xb3]\xb8m\xb1\xd0\xbe\xc7"),
@@ -996,14 +996,14 @@ func initTest9() {
 				DBCS:   []byte("                5. \xa6w\xa5\xfe\xa9\xca\xa4\xce\xa8\xbe\xa4\xf5\xc0\xf0\xb3]\xb8m\xb1\xd0\xbe\xc7\r"),
 			},
 		},
-		{ //48
+		{ // 48
 			{
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
 			},
 		},
-		{ //49
+		{ // 49
 			{
 				Utf8:   "                6. (非必要)NGINX網頁伺服器教學",
 				Big5:   []byte("                6. (\xabD\xa5\xb2\xadn)NGINX\xba\xf4\xad\xb6\xa6\xf8\xaaA\xbe\xb9\xb1\xd0\xbe\xc7"),

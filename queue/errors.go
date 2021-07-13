@@ -2,6 +2,4 @@ package queue
 
 import "errors"
 
-var (
-	ErrTimeout = errors.New("timeout")
-)
+var ErrTimeout = errors.New("timeout")

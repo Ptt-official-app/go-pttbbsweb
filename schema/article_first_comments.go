@@ -24,7 +24,6 @@ var (
 )
 
 func UpdateArticleFirstComments(articleFirstComments *ArticleFirstComments) (err error) {
-
 	query := bson.M{
 		"$or": bson.A{
 			bson.M{

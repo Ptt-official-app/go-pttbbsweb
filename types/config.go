@@ -18,7 +18,7 @@ func config() {
 	BBSNAME = setStringConfig("BBSNAME", BBSNAME)
 	BBSENAME = setStringConfig("BBSENAME", BBSENAME)
 
-	//web
+	// web
 	STATIC_DIR = setStringConfig("STATIC_DIR", STATIC_DIR)
 
 	ALLOW_ORIGINS = setListStringConfig("ALLOW_ORIGINS", ALLOW_ORIGINS)
@@ -35,7 +35,7 @@ func config() {
 	ACCESS_TOKEN_NAME = setStringConfig("ACCESS_TOKEN", ACCESS_TOKEN_NAME)
 	ACCESS_TOKEN_EXPIRE_TS = setIntConfig("ACCESS_TOKEN_EXPIRE_TS", ACCESS_TOKEN_EXPIRE_TS)
 
-	//email
+	// email
 	EMAIL_TOKEN_NAME = setStringConfig("EMAIL_TOKEN_NAME", EMAIL_TOKEN_NAME)
 
 	EMAIL_FROM = setStringConfig("EMAIL_FROM", EMAIL_FROM)
@@ -56,11 +56,11 @@ func config() {
 	IS_2FA = setBoolConfig("IS_2FA", IS_2FA)
 	MAX_2FA_TOKEN = setInt64Config("MAX_2FA_TOKEN", MAX_2FA_TOKEN)
 
-	//big5
+	// big5
 	BIG5_TO_UTF8 = setStringConfig("BIG5_TO_UTF8", BIG5_TO_UTF8)
 	UTF8_TO_BIG5 = setStringConfig("UTF8_TO_BIG5", UTF8_TO_BIG5)
 	AMBCJK = setStringConfig("AMBCJK", AMBCJK)
 
-	//time-location
+	// time-location
 	TIME_LOCATION = setStringConfig("TIME_LOCATION", TIME_LOCATION)
 }

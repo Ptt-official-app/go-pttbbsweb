@@ -11,9 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-var (
-	Comment_c *db.Collection
-)
+var Comment_c *db.Collection
 
 type Comment struct {
 	BBoardID  bbs.BBoardID  `bson:"bid"`
@@ -34,28 +32,26 @@ type Comment struct {
 	DeleteReason string              `bson:"delete_reason,omitempty"`
 	CreateTime   types.NanoTS        `bson:"create_time_nano_ts"`
 	Owner        bbs.UUserID         `bson:"owner"`
-	Content      [][]*types.Rune     `bson:"content"` //content in comment is colorless.
+	Content      [][]*types.Rune     `bson:"content"` // content in comment is colorless.
 	IP           string              `bson:"ip"`
-	Host         string              `bson:"host"` //ip 的中文呈現, 外國則為國家.
+	Host         string              `bson:"host"` // ip 的中文呈現, 外國則為國家.
 	MD5          string              `bson:"md5"`
 
-	FirstCreateTime    types.NanoTS `bson:"first_create_time_nano_ts,omitempty"`    //create-time from first-comments.
-	InferredCreateTime types.NanoTS `bson:"inferred_create_time_nano_ts,omitempty"` //create-time from inferred.
-	NewCreateTime      types.NanoTS `bson:"new_create_time_nano_ts,omitempty"`      //create-time from new comment.
+	FirstCreateTime    types.NanoTS `bson:"first_create_time_nano_ts,omitempty"`    // create-time from first-comments.
+	InferredCreateTime types.NanoTS `bson:"inferred_create_time_nano_ts,omitempty"` // create-time from inferred.
+	NewCreateTime      types.NanoTS `bson:"new_create_time_nano_ts,omitempty"`      // create-time from new comment.
 
 	SortTime types.NanoTS `bson:"sort_time_nano_ts"`
 
 	TheDate string `bson:"the_date"`
 	DBCS    []byte `bson:"dbcs"`
 
-	EditNanoTS types.NanoTS `bson:"edit_nano_ts"` //for reply.
+	EditNanoTS types.NanoTS `bson:"edit_nano_ts"` // for reply.
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
 
-var (
-	EMPTY_COMMENT = &Comment{}
-)
+var EMPTY_COMMENT = &Comment{}
 
 var (
 	COMMENT_BBOARD_ID_b     = getBSONName(EMPTY_COMMENT, "BBoardID")
@@ -117,22 +113,18 @@ type CommentQuery struct {
 	IsDeleted interface{}     `bson:"deleted,omitempty"`
 }
 
-var (
-	EMPTY_COMMENT_QUERY = &CommentQuery{}
-)
+var EMPTY_COMMENT_QUERY = &CommentQuery{}
 
 type CommentArticleQuery struct {
 	BBoardID  bbs.BBoardID  `bson:"bid"`
 	ArticleID bbs.ArticleID `bson:"aid"`
 }
 
-var (
-	EMPTY_COMMENT_ARTICLE_QUERY = &CommentArticleQuery{}
-)
+var EMPTY_COMMENT_ARTICLE_QUERY = &CommentArticleQuery{}
 
-//GetComments
+// GetComments
 func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, sortNanoTS types.NanoTS, commentID types.CommentID, descending bool, limit int) (comments []*Comment, err error) {
-	//setup query
+	// setup query
 	var query bson.M
 	if sortNanoTS == 0 {
 		query = bson.M{
@@ -156,7 +148,7 @@ func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, sortNanoTS types
 			},
 		}
 	}
-	//sort opts
+	// sort opts
 	var sortOpts bson.D
 	if descending {
 		sortOpts = bson.D{
@@ -168,7 +160,7 @@ func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, sortNanoTS types
 		}
 	}
 
-	//find
+	// find
 	err = Comment_c.Find(query, int64(limit), &comments, nil, sortOpts)
 	if err != nil {
 		return nil, err
@@ -202,7 +194,6 @@ func SortCommentsBySortTime(comments []*Comment, descending bool) (newComments [
 }
 
 func CountComments(boardID bbs.BBoardID, articleID bbs.ArticleID) (nComments int, err error) {
-
 	query := bson.M{
 		COMMENT_BBOARD_ID_b:  boardID,
 		COMMENT_ARTICLE_ID_b: articleID,
@@ -262,7 +253,7 @@ func updateCommentsCore(comments []*Comment, updateNanoTS types.NanoTS) (err err
 	if err != nil {
 		return err
 	}
-	if r.UpsertedCount == int64(len(comments)) { //all are created
+	if r.UpsertedCount == int64(len(comments)) { // all are created
 		return nil
 	}
 
@@ -356,7 +347,6 @@ func (c *Comment) CleanReply() {
 }
 
 func cleanReplyPerLine(origLine []*types.Rune) (newLine []*types.Rune) {
-
 	count := 0
 	for _, each := range origLine {
 		count += len(each.Utf8)

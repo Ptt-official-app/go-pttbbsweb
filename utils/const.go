@@ -5,6 +5,4 @@ import (
 	"time"
 )
 
-var (
-	httpClient = &http.Client{Timeout: 3 * time.Second}
-)
+var httpClient = &http.Client{Timeout: 3 * time.Second}

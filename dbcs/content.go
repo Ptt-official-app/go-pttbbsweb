@@ -15,7 +15,6 @@ import (
 //3. the timestamp of the rest of the comments are able to reverse-inferred from mtime. compared as stored as nano-ts.
 //4. assuming no more than 60000 comments  (60 x 1000) in 1 minute.
 func ParseContent(contentBytes []byte, origContentMD5 string) (content [][]*types.Rune, contentMD5 string, ip string, host string, bbs string, signatureMD5 string, signatureDBCS []byte, commentsDBCS []byte) {
-
 	contentDBCS, signatureDBCS, commentsDBCS := splitArticleSignatureCommentsDBCS(contentBytes)
 
 	contentMD5 = md5sum(contentDBCS)
@@ -36,11 +35,11 @@ func ParseContent(contentBytes []byte, origContentMD5 string) (content [][]*type
 }
 
 func parseSignatureIPHostBBS(signatureUtf8 [][]*types.Rune) (ip string, host string, bbs string) {
-	if len(signatureUtf8) == 0 { //unable to parse signature.
+	if len(signatureUtf8) == 0 { // unable to parse signature.
 		return "", "", ""
 	}
 
-	//check \n
+	// check \n
 	zerothLine := signatureUtf8[0]
 	if len(zerothLine) == 0 {
 		signatureUtf8 = signatureUtf8[1:]
@@ -51,7 +50,7 @@ func parseSignatureIPHostBBS(signatureUtf8 [][]*types.Rune) (ip string, host str
 		return "", "", ""
 	}
 
-	//check --
+	// check --
 	zerothLine = signatureUtf8[0]
 	if zerothLine[0].Utf8 == "--" {
 		signatureUtf8 = signatureUtf8[1:]
@@ -61,28 +60,28 @@ func parseSignatureIPHostBBS(signatureUtf8 [][]*types.Rune) (ip string, host str
 		return "", "", ""
 	}
 
-	//check the 0th line
+	// check the 0th line
 	zerothLine = signatureUtf8[0]
-	if len(zerothLine) == 0 { //unable to get rune
+	if len(zerothLine) == 0 { // unable to get rune
 		return "", "", ""
 	}
-	//expecting only 1 rune
+	// expecting only 1 rune
 	if len(zerothLine) > 1 {
 		log.Warning("dbcs.parseIPHostBBS: multiple colors")
 	}
 	zerothRune := zerothLine[0].Utf8
 	prefix := "※ 發信站: "
-	if !strings.HasPrefix(zerothRune, prefix) { //unable to get BBS
+	if !strings.HasPrefix(zerothRune, prefix) { // unable to get BBS
 		return "", "", ""
 	}
 
 	zerothRune = zerothRune[len(prefix):]
 	theIdx := strings.Index(zerothRune, ")")
-	if theIdx == -1 { //unable to get BBS
+	if theIdx == -1 { // unable to get BBS
 		return "", "", zerothRune
 	}
 
-	//got bbs, set next zerothRune
+	// got bbs, set next zerothRune
 	bbs, zerothRune = zerothRune[:theIdx+1], zerothRune[(theIdx+1):]
 	bbs = strings.TrimSpace(bbs)
 
@@ -93,23 +92,23 @@ func parseSignatureIPHostBBS(signatureUtf8 [][]*types.Rune) (ip string, host str
 		return ip, host, bbs
 	}
 
-	//2. check the 1st line
-	if len(signatureUtf8) < 2 { //unable to find more lines
+	// 2. check the 1st line
+	if len(signatureUtf8) < 2 { // unable to find more lines
 		return "", "", bbs
 	}
 
 	firstLine := signatureUtf8[1]
-	//2.1. expecting only 1 rune
-	if len(firstLine) == 0 { //unable to get rune
+	// 2.1. expecting only 1 rune
+	if len(firstLine) == 0 { // unable to get rune
 		return "", "", bbs
 	}
 	if len(firstLine) > 1 {
 		log.Warning("dbcs.parseIPHostBBS: multiple colors")
 	}
 	firstRune := firstLine[0].Utf8
-	//2.1.1. forward
+	// 2.1.1. forward
 	forward := "※ 轉錄者: "
-	if strings.HasPrefix(firstRune, forward) { //found the forward
+	if strings.HasPrefix(firstRune, forward) { // found the forward
 		forwardStr := firstRune[len(forward):]
 		theIdx := strings.Index(forwardStr, "(")
 		if theIdx == -1 {
@@ -126,10 +125,10 @@ func parseSignatureIPHostBBS(signatureUtf8 [][]*types.Rune) (ip string, host str
 		return ipList[0], ipList[1], bbs
 	}
 
-	//2.1.2. old-form
+	// 2.1.2. old-form
 	from = "◆ From: "
 
-	if !strings.HasPrefix(firstRune, from) { //unable to find the from
+	if !strings.HasPrefix(firstRune, from) { // unable to find the from
 		return "", "", bbs
 	}
 	return firstRune[len(from):], "", bbs
@@ -137,7 +136,7 @@ func parseSignatureIPHostBBS(signatureUtf8 [][]*types.Rune) (ip string, host str
 
 func parseIPHostBBS0(str string) (ip string, host string) {
 	theIdx := strings.Index(str, " (")
-	if theIdx == -1 { //unable to find host
+	if theIdx == -1 { // unable to find host
 		return strings.TrimSpace(str), ""
 	}
 

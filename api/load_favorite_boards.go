@@ -40,7 +40,6 @@ func LoadFavoriteBoardsWrapper(c *gin.Context) {
 }
 
 func LoadFavoriteBoards(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	theParams, ok := params.(*LoadFavoriteBoardsParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -81,7 +80,6 @@ func LoadFavoriteBoards(remoteAddr string, userID bbs.UUserID, params interface{
 }
 
 func NewLoadFavoriteBoardsResult(userFavorites_db []*schema.UserFavorites, boardSummaryMap_db map[int]*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, nextIdx string) (result *LoadFavoriteBoardsResult) {
-
 	theList := make([]*apitypes.BoardSummary, len(userFavorites_db))
 	for idx, each := range userFavorites_db {
 		if each.TheType != pttbbsfav.FAVT_BOARD {

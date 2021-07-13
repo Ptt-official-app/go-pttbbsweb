@@ -23,7 +23,7 @@ type Comment struct {
 	Owner      bbs.UUserID         `json:"owner"`
 	Content    [][]*types.Rune     `json:"content"`
 	IP         string              `json:"ip"`
-	Host       string              `json:"host"` //ip 的中文呈現, 外國則為國家.
+	Host       string              `json:"host"` // ip 的中文呈現, 外國則為國家.
 	Idx        string              `json:"idx"`
 }
 
@@ -66,6 +66,5 @@ func DeserializeCommentIdx(startIdx string) (sortNanoTS types.NanoTS, commentID 
 }
 
 func SerializeCommentIdx(sortNanoTS types.NanoTS, commentID types.CommentID) string {
-
 	return fmt.Sprintf("%v@%v", sortNanoTS, commentID)
 }

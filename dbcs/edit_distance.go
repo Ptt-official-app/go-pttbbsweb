@@ -34,7 +34,7 @@ const (
 
 type EDInfo struct {
 	Op          EDOp
-	NewComment  *schema.Comment //SAME/DELETE: origComments, ADD: newComments
+	NewComment  *schema.Comment // SAME/DELETE: origComments, ADD: newComments
 	OrigComment *schema.CommentMD5
 	SortTime    types.NanoTS
 }
@@ -52,18 +52,18 @@ func NewEDInfoFromSameComment(newComment *schema.Comment, origCommentMD5 *schema
 }
 
 type EDInfoMeta struct {
-	//EDInfoMeta
+	// EDInfoMeta
 
-	//StartNanoTS (not included)
+	// StartNanoTS (not included)
 	StartNanoTS types.NanoTS
 
-	//EndNanoTS (not included except the last ed-info)
+	// EndNanoTS (not included except the last ed-info)
 	EndNanoTS types.NanoTS
 
-	//StartIdx (included)
+	// StartIdx (included)
 	StartIdx int
 
-	//EndIdx (not incldued)
+	// EndIdx (not incldued)
 	EndIdx int
 }
 
@@ -87,7 +87,7 @@ func CalcEDBlocks(newComments []*schema.Comment, origComments []*schema.CommentM
 		return []*EDBlock{{NewComments: newEDInfos, StartNanoTS: articleCreateTime, EndNanoTS: articleMTime}}, nil
 	}
 
-	//1. do edit-distance
+	// 1. do edit-distance
 
 	scoreMat := calcEditDistance(newComments, origComments)
 
@@ -130,7 +130,7 @@ func calcEditDistance(comments []*schema.Comment, allCommentMD5s []*schema.Comme
 		scoreMat[idx] = make([]int, lenOrig+1)
 	}
 
-	//1. init
+	// 1. init
 	for idx := 1; idx <= lenNew; idx++ {
 		scoreMat[idx][0] = scoreMat[idx-1][0] + 1
 	}
@@ -139,7 +139,7 @@ func calcEditDistance(comments []*schema.Comment, allCommentMD5s []*schema.Comme
 		scoreMat[0][idx] = scoreMat[0][idx-1] + 1
 	}
 
-	//2. dp.
+	// 2. dp.
 	for idx := 1; idx <= lenNew; idx++ {
 		for idx2 := 1; idx2 <= lenOrig; idx2++ {
 			minScore := scoreMat[idx-1][idx2] + 1
@@ -226,8 +226,8 @@ func reverseEDInfos(edInfos []*EDInfo) []*EDInfo {
 //Given the edInfos list, we would like to construct the EDInfoMetas
 //by separating the list with EDIT_DISTANCE_OP_SAME
 func calcEDInfoMetas(edInfos []*EDInfo, startNanoTS types.NanoTS, endNanoTS types.NanoTS) (edInfoMetas []*EDInfoMeta) {
-	//compute number of op-same
-	nEDInfoMetas := 1 //we need at least 1 meta
+	// compute number of op-same
+	nEDInfoMetas := 1 // we need at least 1 meta
 	for _, each := range edInfos {
 		if each.Op == ED_OP_SAME {
 			nEDInfoMetas++
@@ -267,7 +267,7 @@ func calcEDInfoMetas(edInfos []*EDInfo, startNanoTS types.NanoTS, endNanoTS type
 func (meta *EDInfoMeta) ToEDBlock(edInfos []*EDInfo) (edBlock *EDBlock) {
 	theEDInfos := edInfos[meta.StartIdx:meta.EndIdx]
 
-	//1. get nNewComments and nOrigComments
+	// 1. get nNewComments and nOrigComments
 	nNewComments := 0
 	nOrigComments := 0
 	for _, each := range theEDInfos {
@@ -279,7 +279,7 @@ func (meta *EDInfoMeta) ToEDBlock(edInfos []*EDInfo) (edBlock *EDBlock) {
 		}
 	}
 
-	//2. construct edblock
+	// 2. construct edblock
 	edBlock = &EDBlock{
 		StartNanoTS:  meta.StartNanoTS,
 		EndNanoTS:    meta.EndNanoTS,
@@ -347,10 +347,10 @@ func (ed *EDBlock) InferTimestamp(articleCreateTime types.NanoTS, isForwardOnly 
 		return
 	}
 
-	//1. map deleted
-	//ed.MapDeletedMessages()
+	// 1. map deleted
+	// ed.MapDeletedMessages()
 
-	//2. forward sort (with reply)
+	// 2. forward sort (with reply)
 	nextIdx := ed.ForwardInferTS(articleCreateTime)
 	if isForwardOnly {
 		isLastAlignEndNanoTS = isLastAlignEndNanoTS && (nextIdx == len(ed.NewComments))
@@ -361,7 +361,7 @@ func (ed *EDBlock) InferTimestamp(articleCreateTime types.NanoTS, isForwardOnly 
 		return
 	}
 
-	//3. backword-sort (with-reply)
+	// 3. backword-sort (with-reply)
 	ed.BackwardInferTS(nextIdx, isLastAlignEndNanoTS)
 }
 
@@ -398,9 +398,8 @@ func (ed *EDBlock) AlignEndNanoTS() {
 	lastComment.SetSortTime(sortTime)
 }
 
-//ForwardInferTS
+// ForwardInferTS
 func (ed *EDBlock) ForwardInferTS(startNanoTS types.NanoTS) (nextIdx int) {
-
 	newComments := ed.NewComments
 	currentNanoTS := ed.StartNanoTS
 	nextIdx = len(newComments)
@@ -466,9 +465,8 @@ func forwardExceedingEndNanoTS(idx int, total int, currentNanoTS types.NanoTS, e
 	return nanoTS
 }
 
-//BackwardInferTS
+// BackwardInferTS
 func (ed *EDBlock) BackwardInferTS(nextIdx int, isAlignEndNanoTS bool) {
-
 	newComments := ed.NewComments
 	startNanoTS := ed.StartNanoTS
 	if nextIdx > 0 {
@@ -488,7 +486,7 @@ func (ed *EDBlock) BackwardInferTS(nextIdx int, isAlignEndNanoTS bool) {
 			}
 		}
 
-		if newComment.TheType == ptttype.COMMENT_TYPE_REPLY { //do not do reply until the last
+		if newComment.TheType == ptttype.COMMENT_TYPE_REPLY { // do not do reply until the last
 			continue
 		}
 
@@ -511,7 +509,7 @@ func (ed *EDBlock) BackwardInferTS(nextIdx int, isAlignEndNanoTS bool) {
 		currentNanoTS = newComment.SortTime
 	}
 
-	//deal with reply
+	// deal with reply
 	currentNanoTS = startNanoTS
 	for idx := nextIdx; idx < len(newComments); idx++ {
 		newComment := newComments[idx].NewComment
@@ -549,7 +547,7 @@ func backwardExceedingStartNanoTS(idx int, total int, currentNanoTS types.NanoTS
 	return nanoTS
 }
 
-//forwardInferTS
+// forwardInferTS
 func forwardInferTSWithYear(theDate string, year int, startNanoTS types.NanoTS) (sortNanoTS types.NanoTS, createNanoTS types.NanoTS) {
 	sortNanoTS, inferType := inferTSWithYear(theDate, year)
 	createNanoTS = sortNanoTS
@@ -577,7 +575,7 @@ func forwardInferTSWithYear(theDate string, year int, startNanoTS types.NanoTS) 
 	return sortNanoTS, createNanoTS
 }
 
-//backwardInferTS
+// backwardInferTS
 func backwardInferTSWithYear(theDate string, year int, endNanoTS types.NanoTS) (sortNanoTS types.NanoTS, createNanoTS types.NanoTS) {
 	sortNanoTS, inferType := inferTSWithYear(theDate, year)
 	createNanoTS = sortNanoTS
@@ -597,7 +595,7 @@ func backwardInferTSWithYear(theDate string, year int, endNanoTS types.NanoTS) (
 		}
 	}
 
-	//unable to infer sortNanoTS
+	// unable to infer sortNanoTS
 	if sortNanoTS == COMMENT_BACKWARD_OFFSET_NANO_TS || sortNanoTS >= endNanoTS {
 		sortNanoTS = endNanoTS - COMMENT_STEP_NANO_TS
 	}
@@ -615,13 +613,13 @@ func backwardInferTSWithYear(theDate string, year int, endNanoTS types.NanoTS) (
 func inferTSWithYear(theDate string, year int) (nanoTS types.NanoTS, theType INFER_TIMESTAMP_TYPE) {
 	theDateWithYear := strconv.Itoa(year) + "/" + theDate
 
-	//1. try YYYY/MM/DD hh:mm
+	// 1. try YYYY/MM/DD hh:mm
 	theTime, err := types.DateMinStrToTime(theDateWithYear)
 	if err == nil {
 		return types.TimeToNanoTS(theTime), INFER_TIMESTAMP_YMDHM
 	}
 
-	//2. try YYYY/MM/DD
+	// 2. try YYYY/MM/DD
 	theTime, err = types.DateStrToTime(theDateWithYear)
 	if err == nil {
 		return types.TimeToNanoTS(theTime), INFER_TIMESTAMP_YMD

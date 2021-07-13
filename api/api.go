@@ -51,7 +51,6 @@ func Query(theFunc ApiFunc, params interface{}, c *gin.Context) {
 }
 
 func process(theFunc ApiFunc, params interface{}, c *gin.Context) {
-
 	remoteAddr := strings.TrimSpace(c.ClientIP())
 	if !isValidRemoteAddr(remoteAddr) {
 		processResult(c, nil, 400, ErrInvalidRemoteAddr)

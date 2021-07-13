@@ -24,7 +24,7 @@ func TestQueueCommentDBCS(t *testing.T) {
 	schema.Comment_c.Drop()
 	defer schema.Comment_c.Drop()
 
-	//move setupTest inside
+	// move setupTest inside
 	type args struct {
 		bboardID          bbs.BBoardID
 		articleID         bbs.ArticleID
@@ -84,7 +84,6 @@ func TestQueueCommentDBCS(t *testing.T) {
 
 			if err := QueueCommentDBCS(tt.args.bboardID, tt.args.articleID, tt.args.ownerID, tt.args.commentDBCS, tt.args.articleCreateTime, tt.args.articleMTime, tt.args.updateNanoTS); (err != nil) != tt.wantErr {
 				t.Errorf("QueueCommentDBCS() error = %v, wantErr %v", err, tt.wantErr)
-
 			}
 
 			time.Sleep(time.Duration(5) * time.Second)
@@ -103,7 +102,6 @@ func TestQueueCommentDBCS(t *testing.T) {
 				each.UpdateNanoTS = types.NanoTS(0)
 			}
 			testutil.TDeepEqual(t, "got", got, tt.expected)
-
 		})
 		wg.Wait()
 	}

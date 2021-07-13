@@ -7,9 +7,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
-var (
-	Article_c *db.Collection
-)
+var Article_c *db.Collection
 
 type Article struct {
 	Version    int              `bson:"version"`
@@ -29,13 +27,13 @@ type Article struct {
 
 	Idx string `bson:"pttidx"`
 
-	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"` //used by article-summary
+	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"` // used by article-summary
 
 	ContentMTime        types.NanoTS    `bson:"content_mtime_nano_ts"` //
 	ContentMD5          string          `bson:"content_md5"`
 	Content             [][]*types.Rune `bson:"content"` //
 	IP                  string          `bson:"ip"`      //
-	Host                string          `bson:"host"`    //ip 的中文呈現, 外國則為國家.
+	Host                string          `bson:"host"`    // ip 的中文呈現, 外國則為國家.
 	BBS                 string          `bson:"bbs"`     //
 	ContentUpdateNanoTS types.NanoTS    `bson:"content_update_nano_ts"`
 
@@ -49,16 +47,14 @@ type Article struct {
 	NComments            int          `bson:"n_comments"`
 	CommentsUpdateNanoTS types.NanoTS `bson:"comments_update_nano_ts"`
 
-	Rank               int          `bson:"rank"` //評價
+	Rank               int          `bson:"rank"` // 評價
 	RankToUpdateNanoTS types.NanoTS `bson:"rank_to_update_nano_ts"`
 	RankUpdateNanoTS   types.NanoTS `bson:"rank_update_nano_ts"`
 }
 
-var (
-	EMPTY_ARTICLE = &Article{}
-)
+var EMPTY_ARTICLE = &Article{}
 
-var ( //bson-name
+var ( // bson-name
 	ARTICLE_BBOARD_ID_b   = getBSONName(EMPTY_ARTICLE, "BBoardID")
 	ARTICLE_ARTICLE_ID_b  = getBSONName(EMPTY_ARTICLE, "ArticleID")
 	ARTICLE_IS_DELETED_b  = getBSONName(EMPTY_ARTICLE, "IsDeleted")
@@ -105,27 +101,27 @@ func assertArticleFields() error {
 		return err
 	}
 
-	//article_content_info
+	// article_content_info
 	if err := assertFields(EMPTY_ARTICLE, EMPTY_ARTICLE_CONTENT_INFO); err != nil {
 		return err
 	}
 
-	//article_content_mtime
+	// article_content_mtime
 	if err := assertFields(EMPTY_ARTICLE, EMPTY_ARTICLE_CONTENT_MTIME); err != nil {
 		return err
 	}
 
-	//article_detail_summary
+	// article_detail_summary
 	if err := assertFields(EMPTY_ARTICLE, EMPTY_ARTICLE_DETAIL_SUMMARY); err != nil {
 		return err
 	}
 
-	//article_first_comments
+	// article_first_comments
 	if err := assertFields(EMPTY_ARTICLE, EMPTY_ARTICLE_FIRST_COMMENTS); err != nil {
 		return err
 	}
 
-	//article_summary
+	// article_summary
 	if err := assertFields(EMPTY_ARTICLE, EMPTY_ARTICLE_SUMMARY); err != nil {
 		return err
 	}
@@ -135,7 +131,7 @@ func assertArticleFields() error {
 		return err
 	}
 
-	//article-rank
+	// article-rank
 
 	return nil
 }
@@ -146,6 +142,4 @@ type ArticleQuery struct {
 	IsDeleted interface{}   `bson:"deleted,omitempty"` //
 }
 
-var (
-	EMPTY_ARTICLE_QUERY = &ArticleQuery{}
-)
+var EMPTY_ARTICLE_QUERY = &ArticleQuery{}

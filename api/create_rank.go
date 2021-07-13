@@ -66,7 +66,7 @@ func CreateRank(remoteAddr string, userID bbs.UUserID, params interface{}, path 
 		return nil, 403, ErrInvalidUser
 	}
 
-	//update rank
+	// update rank
 	updateNanoTS := types.NowNanoTS()
 	origRank, err := schema.UpdateRank(boardID, articleID, userID, theParams.Rank, updateNanoTS)
 	if err != nil {

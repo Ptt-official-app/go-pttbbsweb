@@ -18,7 +18,7 @@ type ArticleSummary struct {
 	Owner      bbs.UUserID      `json:"owner"`       //
 	Title      string           `json:"title"`       //
 	Money      int              `json:"money"`       //
-	Class      string           `json:"class"`       //can be: R: 轉, [class]
+	Class      string           `json:"class"`       // can be: R: 轉, [class]
 	Filemode   ptttype.FileMode `json:"mode"`        //
 
 	URL  string `json:"url"`  //

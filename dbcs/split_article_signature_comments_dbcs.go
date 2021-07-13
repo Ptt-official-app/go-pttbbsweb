@@ -23,11 +23,10 @@ import (
 //2. 如果有 signature idx: 嘗試將 signature 之後的分出 comments, return article / signature, comments
 //3. 否則: 嘗試將 content 分出 comments, return article / nil, comments
 func splitArticleSignatureCommentsDBCS(content []byte) (articleDBCS []byte, signatureDBCS []byte, comments []byte) {
-
-	//1. get idx with signature
+	// 1. get idx with signature
 	idxes := tryGetSimpleSignatureIdxes(content)
 
-	//start with largest idx
+	// start with largest idx
 	reverseList(idxes)
 
 	for _, idx := range idxes {
@@ -59,15 +58,13 @@ func splitArticleSignatureCommentsDBCS(content []byte) (articleDBCS []byte, sign
 	return content[:idx], nil, comments
 }
 
-var (
-	MATCH_SIGNATURE_INIT = []byte{ //\n※  發信站: (no \n-- in forward (轉))
-		0x0a, 0xa1, 0xb0, 0x20, 0xb5,
-		0x6f, 0xab, 0x48, 0xaf, 0xb8, 0x3a, 0x20,
-	}
-)
+var MATCH_SIGNATURE_INIT = []byte{ //\n※  發信站: (no \n-- in forward (轉))
+	0x0a, 0xa1, 0xb0, 0x20, 0xb5,
+	0x6f, 0xab, 0x48, 0xaf, 0xb8, 0x3a, 0x20,
+}
 
 func tryGetSimpleSignatureIdxes(content []byte) []int {
-	idxes := make([]int, 0, 5) //pre-allocated possible 5 candidate idxes.
+	idxes := make([]int, 0, 5) // pre-allocated possible 5 candidate idxes.
 
 	p_content := content
 	offsetIdx := 0
@@ -135,9 +132,9 @@ func isSimpleSignatureWithFrom(p_content []byte) (isValid bool, nBytes int) {
 		nBytes += 1
 	}
 
-	//check 來自 in the 1st line.
+	// check 來自 in the 1st line.
 	idxNewLine := bytes.Index(p_content, []byte{'\n'})
-	line := p_content //unable to find '\n'
+	line := p_content // unable to find '\n'
 	if idxNewLine != -1 {
 		line = p_content[:idxNewLine]
 	}
@@ -148,12 +145,12 @@ func isSimpleSignatureWithFrom(p_content []byte) (isValid bool, nBytes int) {
 		return true, nBytes
 	}
 
-	//check From in the 2nd line.
+	// check From in the 2nd line.
 	nBytes += idxNewLine + 1
 	p_content = p_content[(idxNewLine + 1):]
 
 	idxNewLine = bytes.Index(p_content, []byte{'\n'})
-	line = p_content //unable to find '\n'
+	line = p_content // unable to find '\n'
 	if idxNewLine != -1 {
 		line = p_content[:idxNewLine]
 	}
@@ -163,7 +160,7 @@ func isSimpleSignatureWithFrom(p_content []byte) (isValid bool, nBytes int) {
 		return true, nBytes
 	}
 
-	//check 轉錄者 in the 2nd line.
+	// check 轉錄者 in the 2nd line.
 	if bytes.HasPrefix(line, MATCH_SIGNATURE_FORWARD) {
 		nBytes += idxNewLine + 1
 		return true, nBytes

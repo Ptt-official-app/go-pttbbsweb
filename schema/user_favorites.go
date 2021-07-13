@@ -13,9 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-var (
-	UserFavorites_c *db.Collection
-)
+var UserFavorites_c *db.Collection
 
 const (
 	N_USER_FAVORITES_DOUBLE_BUFFER = 2
@@ -27,9 +25,9 @@ func SetLevelIdx(prefix LevelIdx, idx int) LevelIdx {
 	return prefix + ":" + LevelIdx(strconv.Itoa(idx))
 }
 
-//favorites is bounded by 1024 items.
-//each item can be at most 100 bytes.
-//We should be able to have all the favorites inside 1 document.
+// favorites is bounded by 1024 items.
+// each item can be at most 100 bytes.
+// We should be able to have all the favorites inside 1 document.
 type UserFavorites struct {
 	UserID          bbs.UUserID  `bson:"user_id"`
 	DoubleBufferIdx int          `bson:"dbuffer_idx"`
@@ -43,7 +41,7 @@ type UserFavorites struct {
 	Attr    pttbbsfav.Favh `bson:"attr"`
 	TheID   int            `bson:"the_id"`
 
-	//for folder
+	// for folder
 	FolderTitle string      `bson:"folder_title"`
 	FolderMeta  *FolderMeta `bson:"folder_meta"`
 }
@@ -55,9 +53,7 @@ type FolderMeta struct {
 	NFolders int `bson:"n_folders"`
 }
 
-var (
-	EMPTY_USER_FAVORITES = &UserFavorites{}
-)
+var EMPTY_USER_FAVORITES = &UserFavorites{}
 
 var (
 	USER_FAVORITES_USER_ID_b           = getBSONName(EMPTY_USER_FAVORITES, "UserID")
@@ -80,9 +76,7 @@ type UserFavoritesQuery struct {
 	FavIdx          int         `bson:"fav_idx"`
 }
 
-var (
-	EMPTY_USER_FAVORITES_QUERY = &UserFavoritesQuery{}
-)
+var EMPTY_USER_FAVORITES_QUERY = &UserFavoritesQuery{}
 
 func assertUserFavorites() error {
 	if err := assertFields(EMPTY_USER_FAVORITES, EMPTY_USER_FAVORITES_QUERY); err != nil {
@@ -93,7 +87,6 @@ func assertUserFavorites() error {
 }
 
 func GetUserFavorites(userID bbs.UUserID, doubleBufferIdx int, levelIdx LevelIdx, startIdx int, ascending bool, limit int, mTime types.NanoTS) (userFavorites []*UserFavorites, err error) {
-
 	var queryIdx bson.M
 	var sortOpts bson.D
 	if ascending {
@@ -135,7 +128,7 @@ func UpdateUserFavorites(userID bbs.UUserID, doubleBufferIdx int, userFavorites 
 		return nil
 	}
 
-	//bulk-create-only
+	// bulk-create-only
 	theList := make([]*db.UpdatePair, len(userFavorites))
 	for idx, each := range userFavorites {
 		query := &UserFavoritesQuery{
@@ -153,11 +146,11 @@ func UpdateUserFavorites(userID bbs.UUserID, doubleBufferIdx int, userFavorites 
 	if err != nil {
 		return err
 	}
-	if r.UpsertedCount == int64(len(userFavorites)) { //all are created
+	if r.UpsertedCount == int64(len(userFavorites)) { // all are created
 		return nil
 	}
 
-	//bulk-update-update-one-only
+	// bulk-update-update-one-only
 	upsertedIDs := r.UpsertedIDs
 	updateUserFavories := make([]*db.UpdatePair, 0, len(theList))
 	for idx, each := range theList {
@@ -184,7 +177,6 @@ func UpdateUserFavorites(userID bbs.UUserID, doubleBufferIdx int, userFavorites 
 }
 
 func SortUserFavoritesByFavIdx(userFavorites []*UserFavorites, ascending bool) (newUserFavorites []*UserFavorites) {
-
 	if ascending {
 		sort.SliceStable(userFavorites, func(i, j int) bool {
 			return userFavorites[i].FavIdx < userFavorites[j].FavIdx
@@ -277,7 +269,6 @@ func userFavoritesToFavType(userFavorites *UserFavorites) (ft *fav.FavType) {
 }
 
 func FavToUserFavorites(f *fav.Fav, userID bbs.UUserID, doubleBufferIdx int, updateNanoTS types.NanoTS, mTime types.NanoTS) (meta *UserFavoritesMeta, userFavorites []*UserFavorites) {
-
 	f.SetFavTypeFavIdx(0)
 
 	meta = &UserFavoritesMeta{

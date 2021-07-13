@@ -8,7 +8,6 @@ import (
 )
 
 func Set2FA(userID bbs.UUserID, email string, token string, expireTSDuration time.Duration) (err error) {
-
 	ctx, cancel := context.WithTimeout(context.Background(), REDIS_TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {
 		ctxErr := ctx.Err()
@@ -28,7 +27,6 @@ func Set2FA(userID bbs.UUserID, email string, token string, expireTSDuration tim
 	}
 
 	return nil
-
 }
 
 func TwoFactorSerializeValue(email string, token string) string {

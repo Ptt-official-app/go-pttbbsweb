@@ -27,7 +27,6 @@ func LoginRequiredPathQuery(theFunc LoginRequiredPathApiFunc, params interface{}
 }
 
 func loginRequiredPathProcess(theFunc LoginRequiredPathApiFunc, params interface{}, path interface{}, c *gin.Context) {
-
 	err := c.ShouldBindUri(path)
 	if err != nil {
 		processResult(c, nil, 400, err)
@@ -52,5 +51,4 @@ func loginRequiredPathProcess(theFunc LoginRequiredPathApiFunc, params interface
 
 	result, statusCode, err := theFunc(remoteAddr, userID, params, path, c)
 	processResult(c, result, statusCode, err)
-
 }

@@ -62,7 +62,6 @@ func TestIndexHtmlWrapper(t *testing.T) {
 					}
 				}
 			}
-
 		})
 	}
 }

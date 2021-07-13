@@ -10,9 +10,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-//ArticleSummary
+// ArticleSummary
 type ArticleSummary struct {
-	//ArticleSummary
+	// ArticleSummary
 	BBoardID   bbs.BBoardID  `bson:"bid"`
 	ArticleID  bbs.ArticleID `bson:"aid"`
 	IsDeleted  bool          `bson:"deleted,omitempty"`
@@ -31,9 +31,9 @@ type ArticleSummary struct {
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 
-	NComments int `bson:"n_comments,omitempty"` //n_comments is read-only in article-summary.
+	NComments int `bson:"n_comments,omitempty"` // n_comments is read-only in article-summary.
 
-	Rank int `bson:"rank,omitempty"` //評價, read-only
+	Rank int `bson:"rank,omitempty"` // 評價, read-only
 }
 
 var (
@@ -63,9 +63,8 @@ func GetArticleSummary(bboardID bbs.BBoardID, articleID bbs.ArticleID) (result *
 //
 //no n_comments in bbs.ArticleSummary from backend.
 func NewArticleSummary(a_b *bbs.ArticleSummary, updateNanoTS types.NanoTS) *ArticleSummary {
-
-	//XXX we use Title[6:] for now.
-	//TODO: rely on go-pttbbs Title.ToRealTitle()
+	// XXX we use Title[6:] for now.
+	// TODO: rely on go-pttbbs Title.ToRealTitle()
 	fullTitle := ptttypes.CstrToBytes(a_b.Title)
 	title := fullTitle
 	if len(a_b.Class) > 0 {
@@ -96,7 +95,7 @@ func UpdateArticleSummaries(articleSummaries []*ArticleSummary, updateNanoTS typ
 		return nil
 	}
 
-	//create items which do not exists yet.
+	// create items which do not exists yet.
 	theList := make([]*db.UpdatePair, len(articleSummaries))
 	for idx, each := range articleSummaries {
 		query := &ArticleQuery{
@@ -114,7 +113,7 @@ func UpdateArticleSummaries(articleSummaries []*ArticleSummary, updateNanoTS typ
 	if err != nil {
 		return err
 	}
-	if r.UpsertedCount == int64(len(articleSummaries)) { //all are created
+	if r.UpsertedCount == int64(len(articleSummaries)) { // all are created
 		return nil
 	}
 
@@ -153,7 +152,7 @@ func UpdateArticleSummaries(articleSummaries []*ArticleSummary, updateNanoTS typ
 		updateArticleSummaries = append(updateArticleSummaries, each)
 	}
 
-	//update items with comparing update-nano-ts
+	// update items with comparing update-nano-ts
 	_, err = Article_c.BulkUpdateOneOnly(updateArticleSummaries)
 
 	return err

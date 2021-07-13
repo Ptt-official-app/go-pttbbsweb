@@ -11,9 +11,9 @@ import (
 )
 
 type Rune struct {
-	Utf8   string `json:"text" bson:"utf8"` //utf8-string
-	Big5   []byte `json:"-" bson:"big5"`    //big5-bytes, stored in db for debugging.
-	DBCS   []byte `json:"-" bson:"dbcs"`    //dbcs-bytes, stored in db for concat and debugging.
+	Utf8   string `json:"text" bson:"utf8"` // utf8-string
+	Big5   []byte `json:"-" bson:"big5"`    // big5-bytes, stored in db for debugging.
+	DBCS   []byte `json:"-" bson:"dbcs"`    // dbcs-bytes, stored in db for concat and debugging.
 	Color0 Color  `json:"color0" bson:"color0"`
 	Color1 Color  `json:"color1" bson:"color1"`
 }
@@ -38,7 +38,7 @@ func initBig5() (err error) {
 }
 
 func initB2U() error {
-	if len(big5ToUTF8) > 0 { //already loaded
+	if len(big5ToUTF8) > 0 { // already loaded
 		return nil
 	}
 
@@ -79,7 +79,7 @@ func initB2U() error {
 }
 
 func initU2B() error {
-	if len(utf8ToBig5) > 0 { //already loaded
+	if len(utf8ToBig5) > 0 { // already loaded
 		return nil
 	}
 
@@ -155,7 +155,6 @@ func initToUtf8(ucsCode string) []byte {
 		theBytes[2] = byte(0x80 | ((ucs2) & 0x3F))
 		return theBytes
 	}
-
 }
 
 func (r *Rune) Big5ToUtf8() {
@@ -171,7 +170,7 @@ func Big5ToUtf8(big5 []byte) (utf8 string) {
 			p_big5 = p_big5[1:]
 		} else {
 			if len(p_big5) < 2 {
-				//log.Warningf("Big5ToUtf8: unable to parse big5: p_big5: %v", p_big5)
+				// log.Warningf("Big5ToUtf8: unable to parse big5: p_big5: %v", p_big5)
 				break
 			}
 			eachUtf8 := big5ToUTF8[string(p_big5[:2])]

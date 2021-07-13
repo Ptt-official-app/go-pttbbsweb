@@ -7,7 +7,6 @@ import (
 )
 
 func CreateArticle(params *api.CreateArticleParams) (ret api.CreateArticleResult) {
-
 	ret = api.CreateArticleResult(&bbs.ArticleSummary{
 		BBoardID:   bbs.BBoardID("10_WhoAmI"),
 		ArticleID:  bbs.ArticleID("1VrooM21"),
@@ -17,7 +16,7 @@ func CreateArticle(params *api.CreateArticleParams) (ret api.CreateArticleResult
 		MTime:      types.Time4(1607937100),
 		Recommend:  0,
 		Owner:      bbs.UUserID("SYSOP"),
-		Class:      []byte{0xb4, 0xfa, 0xb8, 0xd5}, //測試
+		Class:      []byte{0xb4, 0xfa, 0xb8, 0xd5}, // 測試
 		Title:      []byte("[\xb4\xfa\xb8\xd5]this is a test"),
 		Money:      0,
 		Filemode:   0,

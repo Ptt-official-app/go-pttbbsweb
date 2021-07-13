@@ -33,7 +33,6 @@ func LoadPopularArticlesWrapper(c *gin.Context) {
 }
 
 func LoadPopularArticles(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	result = mock.ArticleListResult
 	return result, 200, nil
 }

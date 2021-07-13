@@ -85,6 +85,5 @@ func TestUpdateArticleContentMTime(t *testing.T) {
 
 			testutil.TDeepEqual(t, "got", got, tt.expected)
 		})
-
 	}
 }

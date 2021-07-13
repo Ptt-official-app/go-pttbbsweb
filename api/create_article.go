@@ -32,7 +32,6 @@ func CreateArticleWrapper(c *gin.Context) {
 }
 
 func CreateArticle(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	theParams, ok := params.(*CreateArticleParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -53,7 +52,7 @@ func CreateArticle(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 	theTitle := types.Utf8ToBig5(theParams.Title)
 	contentDBCS := dbcs.Utf8ToDBCS(theParams.Content)
 
-	//backend
+	// backend
 	theParams_b := &pttbbsapi.CreateArticleParams{
 		PostType: theType,
 		Title:    theTitle,
@@ -70,7 +69,7 @@ func CreateArticle(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 		return nil, statusCode, err
 	}
 
-	//update to db
+	// update to db
 	theList_b := []*bbs.ArticleSummary{(*bbs.ArticleSummary)(result_b)}
 	updateNanoTS := types.NowNanoTS()
 	articleSummaries_db, _, err := deserializeArticlesAndUpdateDB(userID, boardID, theList_b, updateNanoTS)

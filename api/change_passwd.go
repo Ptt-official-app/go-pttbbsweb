@@ -37,7 +37,6 @@ func ChangePasswdWrapper(c *gin.Context) {
 }
 
 func ChangePasswd(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	theParams, ok := params.(*ChangePasswdParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -78,13 +77,13 @@ func ChangePasswd(remoteAddr string, userID bbs.UUserID, params interface{}, pat
 		return nil, statusCode, err
 	}
 
-	//update db
+	// update db
 	updateNanoTS := types.NowNanoTS()
 	accessToken_db, err := deserializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}
-	//result
+	// result
 	result = NewChangePasswdResult(accessToken_db)
 
 	setTokenToCookie(c, accessToken_db.AccessToken)

@@ -2,6 +2,4 @@ package db
 
 import "time"
 
-var (
-	TIMEOUT_MILLI_TS = time.Duration(500)
-)
+var TIMEOUT_MILLI_TS = time.Duration(500)

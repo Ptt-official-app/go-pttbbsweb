@@ -29,13 +29,12 @@ func LoadAutoCompleteBoardsWrapper(c *gin.Context) {
 }
 
 func LoadAutoCompleteBoards(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-
 	theParams, ok := params.(*LoadAutoCompleteBoardsParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
 	}
 
-	//backend load-general-baords
+	// backend load-general-baords
 	theParams_b := &pttbbsapi.LoadAutoCompleteBoardsParams{
 		StartIdx: theParams.StartIdx,
 		Keyword:  theParams.Keyword,

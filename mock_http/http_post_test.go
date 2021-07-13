@@ -2,11 +2,10 @@ package mock_http
 
 import (
 	"reflect"
+	"testing"
 
 	"github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
-
-	"testing"
 )
 
 func Test_parseResult(t *testing.T) {

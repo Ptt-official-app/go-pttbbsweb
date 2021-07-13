@@ -7,9 +7,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
-var (
-	Board_c *db.Collection
-)
+var Board_c *db.Collection
 
 type Board struct {
 	Version   int             `bson:"version"`
@@ -34,7 +32,7 @@ type Board struct {
 
 	Parent bbs.BBoardID `bson:"parent"`
 
-	//NVote             int         `bson:"vote"` /* use db-count to get current #vote */
+	// NVote             int         `bson:"vote"` /* use db-count to get current #vote */
 	VoteClosingTime types.NanoTS `bson:"vtime_nano_ts"`
 
 	Level              ptttype.PERM `bson:"perm"`
@@ -54,9 +52,7 @@ type Board struct {
 	IdxByClass string      `bson:"pttidxclass"`
 }
 
-var (
-	EMPTY_BOARD = &Board{}
-)
+var EMPTY_BOARD = &Board{}
 
 var (
 	BOARD_BBOARD_ID_b      = getBSONName(EMPTY_BOARD, "BBoardID")
@@ -112,6 +108,4 @@ type BoardQuery struct {
 	IsDeleted interface{} `bson:"deleted,omitempty"`
 }
 
-var (
-	EMPTY_BOARD_QUERY = &BoardQuery{}
-)
+var EMPTY_BOARD_QUERY = &BoardQuery{}

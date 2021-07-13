@@ -8,7 +8,6 @@ import (
 )
 
 func deserializeAccessTokenAndUpdateDB(userID bbs.UUserID, jwt string, updateNanoTS types.NanoTS) (accessToken *schema.AccessToken, err error) {
-
 	accessToken = schema.NewAccessToken(userID, jwt, updateNanoTS)
 
 	if string(userID) == pttbbsapi.GUEST {

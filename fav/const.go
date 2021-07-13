@@ -12,8 +12,6 @@ const (
 	NEW_FAV_THRESHOLD = 12
 )
 
-const ()
-
 const (
 	FAV   = ".fav"
 	FAV4  = ".fav4"

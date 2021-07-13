@@ -52,7 +52,7 @@ func ChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path
 
 	clientInfo := getClientInfo(client)
 
-	//get email token info
+	// get email token info
 	queryUserID, email, queryClientInfo, statusCode, err := getEmailTokenInfo(theParams.Jwt, pttbbsapi.CONTEXT_CHANGE_EMAIL, c)
 	if err != nil {
 		return nil, statusCode, err
@@ -66,14 +66,14 @@ func ChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path
 		return nil, 403, ErrInvalidUser
 	}
 
-	//create db-record first to avoid race-condition
+	// create db-record first to avoid race-condition
 	updateNanoTS := types.NowNanoTS()
 	err = schema.CreateUserEmail(queryUserID, email, updateNanoTS)
 	if err != nil {
 		return nil, 403, err
 	}
 
-	//get backend data
+	// get backend data
 	theParams_b := &pttbbsapi.ChangeEmailParams{
 		Jwt: theParams.Jwt,
 	}
@@ -90,15 +90,14 @@ func ChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path
 		return nil, statusCode, err
 	}
 
-	//update db-record to complete the record.
+	// update db-record to complete the record.
 	updateNanoTS = types.NowNanoTS()
 	err = schema.UpdateUserEmailIsSet(queryUserID, result_b.Email, true, updateNanoTS)
 	if err != nil {
 		return nil, statusCode, err
 	}
 
-	//update user-info
+	// update user-info
 
 	return &ChangeEmailResult{Email: result_b.Email}, 200, nil
-
 }

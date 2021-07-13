@@ -20,14 +20,14 @@ type CommentMD5 struct {
 	CreateTime types.NanoTS `bson:"create_time_nano_ts"`
 	MD5        string       `bson:"md5"`
 
-	FirstCreateTime    types.NanoTS `bson:"first_create_time_nano_ts,omitempty"`    //create-time from first-comments.
-	InferredCreateTime types.NanoTS `bson:"inferred_create_time_nano_ts,omitempty"` //create-time from inferred.
-	NewCreateTime      types.NanoTS `bson:"new_create_time_nano_ts,omitempty"`      //create-time from new comment.
+	FirstCreateTime    types.NanoTS `bson:"first_create_time_nano_ts,omitempty"`    // create-time from first-comments.
+	InferredCreateTime types.NanoTS `bson:"inferred_create_time_nano_ts,omitempty"` // create-time from inferred.
+	NewCreateTime      types.NanoTS `bson:"new_create_time_nano_ts,omitempty"`      // create-time from new comment.
 
 	SortTime types.NanoTS `bson:"sort_time_nano_ts"`
 	TheDate  string       `bson:"the_date"`
 
-	EditNanoTS types.NanoTS `bson:"edit_nano_ts"` //for reply.
+	EditNanoTS types.NanoTS `bson:"edit_nano_ts"` // for reply.
 }
 
 var (
@@ -36,7 +36,6 @@ var (
 )
 
 func GetAllCommentMD5s(boardID bbs.BBoardID, articleID bbs.ArticleID) (commentMD5s []*CommentMD5, err error) {
-
 	query := bson.M{
 		COMMENT_BBOARD_ID_b:  boardID,
 		COMMENT_ARTICLE_ID_b: articleID,
@@ -49,7 +48,7 @@ func GetAllCommentMD5s(boardID bbs.BBoardID, articleID bbs.ArticleID) (commentMD
 		{Key: COMMENT_SORT_TIME_b, Value: 1},
 		{Key: COMMENT_COMMENT_ID_b, Value: 1},
 	}
-	//find
+	// find
 	err = Comment_c.Find(query, 0, &commentMD5s, commentMD5Fields, sortOpts)
 	if err != nil {
 		return nil, err

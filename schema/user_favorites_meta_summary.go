@@ -18,7 +18,6 @@ var (
 )
 
 func GetUserFavoritesMetaSummary(userID bbs.UUserID) (result *UserFavoritesMetaSummary, err error) {
-
 	query := bson.M{
 		USER_FAVORITES_META_USER_ID_b: userID,
 	}

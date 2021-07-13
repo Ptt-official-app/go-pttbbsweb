@@ -7,9 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-var (
-	Rank_c *db.Collection
-)
+var Rank_c *db.Collection
 
 type Rank struct {
 	BBoardID  bbs.BBoardID  `bson:"bid"`
@@ -21,9 +19,7 @@ type Rank struct {
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
 
-var (
-	EMPTY_RANK = &Rank{}
-)
+var EMPTY_RANK = &Rank{}
 
 var (
 	RANK_BBOARD_ID_b      = getBSONName(EMPTY_RANK, "BBoardID")
@@ -110,7 +106,6 @@ func SumRank(boardID bbs.BBoardID, articleID bbs.ArticleID) (total int, err erro
 }
 
 func UpdateRank(boardID bbs.BBoardID, articleID bbs.ArticleID, ownerID bbs.UUserID, rank int, updateNanoTS types.NanoTS) (origRank int, err error) {
-
 	query := bson.M{
 		RANK_BBOARD_ID_b:  boardID,
 		RANK_ARTICLE_ID_b: articleID,
