@@ -110,7 +110,7 @@ func CreateUserIDEmail(userID bbs.UUserID, email string, updateNanoTS types.Nano
 		"$lt": updateNanoTS,
 	}
 
-	r, err = UserIDEmail_c.UpdateOneOnly(query, userIDEmail)
+	_, err = UserIDEmail_c.UpdateOneOnly(query, userIDEmail)
 	if err != nil {
 		return err
 	}

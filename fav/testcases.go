@@ -37,7 +37,7 @@ var (
 		},
 	}
 
-	testFav0 = &Fav{
+	testFav0 = &Fav{ // nolint // possible use in the future
 		NBoards:  3,
 		NLines:   2,
 		NFolders: 1,
@@ -80,7 +80,7 @@ var (
 		},
 	}
 
-	testFav1 = &Fav{
+	testFav1 = &Fav{ // nolint // possible use in the future.
 		FavNum:   8,
 		NBoards:  2,
 		NLines:   2,

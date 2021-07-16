@@ -110,7 +110,7 @@ func CreateUserEmail(userID bbs.UUserID, email string, updateNanoTS types.NanoTS
 		"$lt": updateNanoTS,
 	}
 
-	r, err = UserEmail_c.UpdateOneOnly(query, userEmail)
+	_, err = UserEmail_c.UpdateOneOnly(query, userEmail)
 	if err != nil {
 		return err
 	}

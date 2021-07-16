@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/mock_http"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/mockhttp"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/gin-gonic/gin"
 	"github.com/google/go-querystring/query"
@@ -27,7 +27,7 @@ import (
 //    BackendPost(c, url, postData, nil, &result)
 func BackendPost(c *gin.Context, url string, postData interface{}, headers map[string]string, result interface{}) (statusCode int, err error) {
 	if isTest {
-		return mock_http.HttpPost(url, postData, result)
+		return mockhttp.HTTPPost(url, postData, result)
 	}
 
 	url = withBackendPrefix(url)
@@ -56,7 +56,7 @@ func BackendPost(c *gin.Context, url string, postData interface{}, headers map[s
 
 func BackendGet(c *gin.Context, url string, params interface{}, headers map[string]string, result interface{}) (statusCode int, err error) {
 	if isTest {
-		return mock_http.HttpPost(url, params, result)
+		return mockhttp.HTTPPost(url, params, result)
 	}
 
 	url = withBackendPrefix(url)

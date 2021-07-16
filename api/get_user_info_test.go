@@ -1,6 +1,7 @@
 package api
 
 import (
+	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -35,8 +36,11 @@ func TestGetUserInfo(t *testing.T) {
 			expectedStatusCode: 200,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			gotResult, gotStatusCode, err := GetUserInfo(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetUserInfo() error = %v, wantErr %v", err, tt.wantErr)
@@ -53,4 +57,5 @@ func TestGetUserInfo(t *testing.T) {
 			}
 		})
 	}
+	wg.Wait()
 }

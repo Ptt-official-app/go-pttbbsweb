@@ -20,7 +20,7 @@ type ArticleComments struct {
 
 var (
 	EMPTY_ARTICLE_COMMENTS = &ArticleComments{}
-	articleCommentsFields  = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_COMMENTS)
+	articleCommentsFields  = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_COMMENTS) // nolint // consistent with programming pattern
 )
 
 func UpdateArticleCommentsByArticleID(boardID bbs.BBoardID, articleID bbs.ArticleID, updateNanoTS types.NanoTS) {

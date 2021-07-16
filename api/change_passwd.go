@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const CHANGE_PASSWD_R = "/user/:user_id/updatepasswd"
+const CHANGE_PASSWD_R = "/user/:user_id/updatepasswd" // nolint // passwd as route
 
 type ChangePasswdParams struct {
 	ClientID     string `json:"client_id" form:"client_id"`

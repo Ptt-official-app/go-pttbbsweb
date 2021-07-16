@@ -262,7 +262,7 @@ func calcEDInfoMetas(edInfos []*EDInfo, startNanoTS types.NanoTS, endNanoTS type
 
 //ToEDBlock
 //
-//Given the list of edInfos, where NewComments are OrigComments are already separatedly sorted,
+//Given the list of edInfos, where NewComments are OrigComments are already separately sorted,
 //construct the corresponding ed-block.
 func (meta *EDInfoMeta) ToEDBlock(edInfos []*EDInfo) (edBlock *EDBlock) {
 	theEDInfos := edInfos[meta.StartIdx:meta.EndIdx]

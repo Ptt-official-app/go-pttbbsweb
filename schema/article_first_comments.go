@@ -20,7 +20,7 @@ type ArticleFirstComments struct {
 var (
 	EMPTY_ARTICLE_FIRST_COMMENTS = &ArticleFirstComments{}
 
-	articleFirstCommentsFields = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_FIRST_COMMENTS)
+	articleFirstCommentsFields = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_FIRST_COMMENTS) // nolint // consistent with programming pattern
 )
 
 func UpdateArticleFirstComments(articleFirstComments *ArticleFirstComments) (err error) {

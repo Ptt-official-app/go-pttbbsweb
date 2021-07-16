@@ -3,6 +3,7 @@ package api
 import (
 	"net/http"
 	"regexp"
+	"sync"
 	"testing"
 
 	"github.com/gin-gonic/gin"
@@ -26,8 +27,11 @@ func TestIndexHtmlWrapper(t *testing.T) {
 			expected: "<document>\n  <body>\n    Hello World\n  </body>\n</document>",
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			w, c, r := testSetRequest(
 				"/",
 				"/",
@@ -36,7 +40,7 @@ func TestIndexHtmlWrapper(t *testing.T) {
 				"",
 				tt.header,
 				"GET",
-				IndexHtmlWrapper,
+				IndexHTMLWrapper,
 			)
 
 			r.ServeHTTP(w, c.Request)
@@ -64,4 +68,5 @@ func TestIndexHtmlWrapper(t *testing.T) {
 			}
 		})
 	}
+	wg.Wait()
 }

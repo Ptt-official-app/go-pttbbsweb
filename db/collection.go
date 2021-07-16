@@ -499,7 +499,6 @@ func (c *Collection) CreateIndex(keys *bson.D, opts *options.IndexOptions) (err 
 	if opts == nil {
 		opts = options.Index()
 	}
-	opts = opts.SetBackground(true)
 
 	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {
@@ -524,8 +523,8 @@ func (c *Collection) CreateUniqueIndex(keys *bson.D) (err error) {
 
 func (c *Collection) Aggregate(filter interface{}, group interface{}) (ret []bson.M, err error) {
 	pipeline := mongo.Pipeline{
-		{{"$match", filter}},
-		{{"$group", group}},
+		{{Key: "$match", Value: filter}},
+		{{Key: "$group", Value: group}},
 	}
 
 	opts := options.Aggregate().SetMaxTime(TIMEOUT_MILLI_TS * time.Millisecond)

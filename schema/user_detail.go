@@ -78,7 +78,7 @@ type UserDetail struct {
 
 var (
 	EMPTY_USER_DETAIL = &UserDetail{}
-	userDetailFields  = getFields(EMPTY_USER, EMPTY_USER_DETAIL)
+	userDetailFields  = getFields(EMPTY_USER, EMPTY_USER_DETAIL) // nolint // consistent with programming pattern
 )
 
 func NewUserDetail(user_b pttbbsapi.GetUserResult, updateNanoTS types.NanoTS) (user *UserDetail) {

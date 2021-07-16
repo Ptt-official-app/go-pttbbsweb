@@ -50,7 +50,7 @@ func (ft *FavType) CastLine() *FavLine {
 	return favLine
 }
 
-func (ft *FavType) isValid() bool {
+func (ft *FavType) isValid() bool { // nolint
 	return ft.Attr&pttbbsfav.FAVH_FAV != 0
 }
 

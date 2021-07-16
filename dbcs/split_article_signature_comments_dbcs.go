@@ -77,7 +77,7 @@ func tryGetSimpleSignatureIdxes(content []byte) []int {
 		} else if idx >= 3 && p_content[idx-3] == '\n' && p_content[idx-2] == '-' && p_content[idx-1] == '-' {
 			theIdx -= 3
 		} else if idx >= 1 && p_content[idx-1] == '\r' {
-			theIdx -= 1
+			theIdx -= 1 // nolint // consistent with programming pattern
 		}
 		idxes = append(idxes, theIdx)
 
@@ -129,7 +129,7 @@ func isSimpleSignatureWithFrom(p_content []byte) (isValid bool, nBytes int) {
 		nBytes += 2
 	} else if len(p_content) >= 1 && p_content[0] == '\n' { //\n
 		p_content = p_content[1:]
-		nBytes += 1
+		nBytes += 1 // nolint // consistent with programming pattern
 	}
 
 	// check 來自 in the 1st line.

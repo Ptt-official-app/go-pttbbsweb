@@ -2,12 +2,13 @@ package api
 
 import (
 	"reflect"
+	"sync"
 	"testing"
 )
 
 func TestIndex(t *testing.T) {
-	// setupTest moves inside for-loop
-	// teardownTest moves inside for-loop
+	setupTest()
+	defer teardownTest()
 
 	params := &IndexParams{}
 
@@ -26,10 +27,11 @@ func TestIndex(t *testing.T) {
 			expected: &IndexResult{Data: params},
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
-			setupTest()
-			defer teardownTest()
+			defer wg.Done()
 
 			got, _, err := Index(testIP, tt.args.params, nil)
 			if (err != nil) != tt.wantErr {
@@ -41,4 +43,5 @@ func TestIndex(t *testing.T) {
 			}
 		})
 	}
+	wg.Wait()
 }

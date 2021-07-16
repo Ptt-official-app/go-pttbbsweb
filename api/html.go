@@ -16,7 +16,7 @@ const (
 	INDEX_HTML_R = "/index.html"
 )
 
-func IndexHtmlWrapper(c *gin.Context) {
+func IndexHTMLWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "home.html")
 
 	maxAge := htmlMaxAge()
@@ -35,7 +35,7 @@ const ARTICLE_HTML_R = "/board/:bid/article/:aid"
 
 const CREATE_ARTICLE_HTML_R = "/board/:bid/post"
 
-func AllHtmlWrapper(c *gin.Context) {
+func AllHTMLWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "all.html")
 
 	maxAge := htmlMaxAge()
@@ -44,7 +44,7 @@ func AllHtmlWrapper(c *gin.Context) {
 
 const LOGIN_HTML_R = "/login"
 
-func LoginHtmlWrapper(c *gin.Context) {
+func LoginHTMLWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "login.html")
 
 	maxAge := htmlMaxAge()
@@ -53,7 +53,7 @@ func LoginHtmlWrapper(c *gin.Context) {
 
 const REGISTER_HTML_R = "/register"
 
-func RegisterHtmlWrapper(c *gin.Context) {
+func RegisterHTMLWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "register.html")
 
 	maxAge := htmlMaxAge()
@@ -62,16 +62,16 @@ func RegisterHtmlWrapper(c *gin.Context) {
 
 const USER_HTML_R = "/user/:user_id"
 
-func UserHtmlWrapper(c *gin.Context) {
+func UserHTMLWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "user-info.html")
 
 	maxAge := htmlMaxAge()
 	processCSRFContent(filename, maxAge, c)
 }
 
-const USER_CHANGE_PASSWD_HTML_R = "/user/:user_id/resetpassword"
+const USER_CHANGE_PASSWD_HTML_R = "/user/:user_id/resetpassword" // nolint // passwd as route
 
-func UserChangePasswdHtmlWrapper(c *gin.Context) {
+func UserChangePasswdHTMLWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "change-passwd.html")
 
 	maxAge := htmlMaxAge()
@@ -80,7 +80,7 @@ func UserChangePasswdHtmlWrapper(c *gin.Context) {
 
 const USER_ATTEMPT_CHANGE_EMAIL_HTML_R = "/user/:user_id/attemptchangeemail"
 
-func UserAttemptChangeEmailHtmlWrapper(c *gin.Context) {
+func UserAttemptChangeEmailHTMLWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "attempt-change-email.html")
 
 	maxAge := htmlMaxAge()
@@ -89,7 +89,7 @@ func UserAttemptChangeEmailHtmlWrapper(c *gin.Context) {
 
 const USER_CHANGE_EMAIL_HTML_R = "/user/:user_id/changeemail"
 
-func UserChangeEmailHtmlWrapper(c *gin.Context) {
+func UserChangeEmailHTMLWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "change-email.html")
 
 	maxAge := htmlMaxAge()
@@ -98,7 +98,7 @@ func UserChangeEmailHtmlWrapper(c *gin.Context) {
 
 const USER_ATTEMPT_SET_ID_EMAIL_HTML_R = "/user/:user_id/attemptsetidemail"
 
-func UserAttemptSetIDEmailHtmlWrapper(c *gin.Context) {
+func UserAttemptSetIDEmailHTMLWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "attempt-set-id-email.html")
 
 	maxAge := htmlMaxAge()
@@ -107,7 +107,7 @@ func UserAttemptSetIDEmailHtmlWrapper(c *gin.Context) {
 
 const USER_SET_ID_EMAIL_HTML_R = "/user/:user_id/setidemail"
 
-func UserSetIDEmailHtmlWrapper(c *gin.Context) {
+func UserSetIDEmailHTMLWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "set-id-email.html")
 
 	maxAge := htmlMaxAge()

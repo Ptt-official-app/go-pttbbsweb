@@ -3,6 +3,7 @@ package api
 import (
 	"net/http"
 	"reflect"
+	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -94,7 +95,10 @@ func TestRegisterClientWrapper(t *testing.T) {
 		ClientType: "web",
 	}
 
-	accessTokenSYSOP2 := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGkiOiIiLCJleHAiOjk0OTM0MjI4MTIsInN1YiI6IlNZU09QMiJ9.VbixNBxg4h5FCyTmvhtVzBJ4HsE5_va-MPZzR8TLaY8"
+	accessTokenSYSOP := "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGkiOiJ7XCJjXCI6IFwidGVzdHdlYlwiLCBcInRcIjogMX0iLCJleHAiOjE5NDE5MjYxOTIsInN1YiI6IlNZU09QIn0.cs5tp85Y6ECeysMjW3o5HSX3HkTCVMgSsLQ3EHQuQkI"
+
+	csrfToken, _ := createCSRFToken()
+
 	type args struct {
 		params *RegisterClientParams
 	}
@@ -113,9 +117,12 @@ func TestRegisterClientWrapper(t *testing.T) {
 			expected: types.CLIENT_TYPE_WEB,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
-			w, c, r := testSetRequest(REGISTER_CLIENT_R, REGISTER_CLIENT_R, tt.args.params, accessTokenSYSOP2, "", nil, "POST", RegisterClientWrapper)
+			defer wg.Done()
+			w, c, r := testSetRequest(REGISTER_CLIENT_R, REGISTER_CLIENT_R, tt.args.params, accessTokenSYSOP, csrfToken, nil, "POST", RegisterClientWrapper)
 			logrus.Infof("RegisterClientWrapper: remote-addr: %v", c.Request.RemoteAddr)
 			r.ServeHTTP(w, c.Request)
 
@@ -132,4 +139,5 @@ func TestRegisterClientWrapper(t *testing.T) {
 			}
 		})
 	}
+	wg.Wait()
 }

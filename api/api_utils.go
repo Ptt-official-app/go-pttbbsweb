@@ -14,9 +14,9 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
 	"github.com/gin-gonic/gin"
-	"gopkg.in/square/go-jose.v2"
-	"gopkg.in/square/go-jose.v2/jwt"
+	"github.com/golang-jwt/jwt"
 )
 
 func verifyJwt(c *gin.Context) (userID bbs.UUserID, err error) {
@@ -33,6 +33,9 @@ func verifyJwt(c *gin.Context) (userID bbs.UUserID, err error) {
 
 	clientInfo := &ClientInfo{}
 	err = json.Unmarshal([]byte(clientInfoStr), clientInfo)
+	if err != nil {
+		return "", err
+	}
 
 	if clientInfo.ClientType == CLIENT_TYPE_APP {
 		return userID, nil
@@ -59,19 +62,12 @@ func verifyJwt(c *gin.Context) (userID bbs.UUserID, err error) {
 	return userID, nil
 }
 
-func createCSRFToken() (string, error) {
-	var err error
+func createCSRFToken() (raw string, err error) {
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"exp": int(pttbbstypes.NowTS()) + types.CSRF_TOKEN_TS,
+	})
 
-	sig, err := jose.NewSigner(jose.SigningKey{Algorithm: jose.HS256, Key: types.CSRF_SECRET}, (&jose.SignerOptions{}).WithType("JWT"))
-	if err != nil {
-		return "", err
-	}
-
-	cl := &pttbbsapi.JwtClaim{
-		Expire: jwt.NewNumericDate(time.Now().Add(types.CSRF_TOKEN_TS_DURATION)),
-	}
-
-	raw, err := jwt.Signed(sig).Claims(cl).CompactSerialize()
+	raw, err = token.SignedString(types.CSRF_SECRET)
 	if err != nil {
 		return "", err
 	}
@@ -80,22 +76,24 @@ func createCSRFToken() (string, error) {
 }
 
 func isValidCSRFToken(raw string) bool {
-	tok, err := jwt.ParseSigned(raw)
+	tok, err := pttbbsapi.ParseJwt(raw, types.CSRF_SECRET)
 	if err != nil {
 		return false
 	}
 
-	cl := &pttbbsapi.JwtClaim{}
-	if err := tok.Claims(types.CSRF_SECRET, cl); err != nil {
+	claim, ok := tok.Claims.(jwt.MapClaims)
+	if !ok {
 		return false
 	}
 
-	currentNanoTS := jwt.NewNumericDate(time.Now())
-	if *currentNanoTS > *cl.Expire {
+	exp, err := pttbbsapi.ParseClaimInt(claim, "exp")
+	if err != nil {
 		return false
 	}
 
-	return true
+	nowTS := int(pttbbstypes.NowTS())
+
+	return nowTS <= exp
 }
 
 func processCSRFContent(filename string, cacheControlMaxAge int, c *gin.Context) {
@@ -118,7 +116,7 @@ func processCSRFContent(filename string, cacheControlMaxAge int, c *gin.Context)
 	}
 
 	ext := filepath.Ext(filename)
-	mimeType, _ := MIME_TYPE_MAP[ext]
+	mimeType := MIME_TYPE_MAP[ext]
 
 	content := string(contentBytes)
 
@@ -134,7 +132,7 @@ func processCSRFContent(filename string, cacheControlMaxAge int, c *gin.Context)
 	processStringResult(c, content, mimeType)
 }
 
-func setCookie(c *gin.Context, name string, value string, expireDuration time.Duration, isHttpOnly bool) {
+func setCookie(c *gin.Context, name string, value string, expireDuration time.Duration, isHTTPOnly bool) {
 	if c == nil {
 		return
 	}
@@ -144,7 +142,7 @@ func setCookie(c *gin.Context, name string, value string, expireDuration time.Du
 		expiresStr := expires.Format("Mon, Jan 2 2006 15:04:05 MST")
 		setCookie += "Expires=" + expiresStr + ";"
 	}
-	if isHttpOnly {
+	if isHTTPOnly {
 		setCookie += "HttpOnly;"
 	}
 

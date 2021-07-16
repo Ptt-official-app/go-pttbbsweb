@@ -3,7 +3,7 @@ package db
 import (
 	"time"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/config_util"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/configutil"
 )
 
 const configPrefix = "go-openbbsmiddleware:db"
@@ -14,5 +14,5 @@ func InitConfig() error {
 }
 
 func setDurationConfig(idx string, orig time.Duration) time.Duration {
-	return config_util.SetDurationConfig(configPrefix, idx, orig)
+	return configutil.SetDurationConfig(configPrefix, idx, orig)
 }

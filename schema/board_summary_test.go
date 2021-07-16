@@ -3,7 +3,7 @@ package schema
 import (
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/mock_http"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/mockhttp"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
@@ -15,7 +15,7 @@ func TestUpdateBoardSummaries(t *testing.T) {
 
 	defer Board_c.Drop()
 
-	ret := mock_http.LoadGeneralBoards(nil)
+	ret := mockhttp.LoadGeneralBoards(nil)
 
 	updateNanoTS := types.NowNanoTS()
 

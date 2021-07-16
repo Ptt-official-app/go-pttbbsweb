@@ -94,7 +94,7 @@ func UpdateUserReadBoards(userReadBoards []*UserReadBoard, updateNanoTS types.Na
 			continue
 		}
 
-		origFilter, ok := each.Filter.(*UserReadBoardQuery)
+		origFilter := each.Filter.(*UserReadBoardQuery)
 		filter := bson.M{
 			USER_READ_BOARD_USER_ID_b:   origFilter.UserID,
 			USER_READ_BOARD_BBOARD_ID_b: origFilter.BBoardID,

@@ -9,4 +9,4 @@
 * `dbcs/` 處理 dbcs (double-byte-color-system) 相關的 module.
 * `db/` db 的基本 wrapping functions.
 * `mock/` go-openbbsmiddleware 給 frontend 的假資料.
-* `mock_http/` 測試時的 go-pttbbs 的假資料.
+* `mockhttp/` 測試時的 go-pttbbs 的假資料.
