@@ -73,6 +73,8 @@ github.com/Ptt-official-app/go-pttbbs v0.15.1 h1:vkTaQ3wiJB7lWTZMFiqRCfsNBgzzz7f
 github.com/Ptt-official-app/go-pttbbs v0.15.1/go.mod h1:s7qH1BVzv8cQM/+Sz3paujTSrWlBKmKseMTEH+/H9PY=
 github.com/Ptt-official-app/go-pttbbs v0.15.2 h1:HlzFSiVAdceSekTGLXTmP4dMOz5/z3TsOg+h8dRUKpw=
 github.com/Ptt-official-app/go-pttbbs v0.15.2/go.mod h1:s7qH1BVzv8cQM/+Sz3paujTSrWlBKmKseMTEH+/H9PY=
+github.com/Ptt-official-app/go-pttbbs v0.15.3 h1:XCYaMVNqJn9XI1d1LSlPoKCpbdXzJSC/HAzLBPdAyyU=
+github.com/Ptt-official-app/go-pttbbs v0.15.3/go.mod h1:s7qH1BVzv8cQM/+Sz3paujTSrWlBKmKseMTEH+/H9PY=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
