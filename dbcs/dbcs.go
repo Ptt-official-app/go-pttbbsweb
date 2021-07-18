@@ -122,7 +122,7 @@ func big5ToUtf8(a [][]*types.Rune) [][]*types.Rune {
 //
 //The conditions:
 //if not encountered the color: assuming same color and put to same big5str (endIdx++)
-//if encountered the color(continuos-colors as parsed-1-color), we need to determine separator and the color:
+//if encountered the color(continuous-colors as parsed-1-color), we need to determine separator and the color:
 //
 //    if in DBCS_STAT_LEAD (the previous char is the 0th Big5):
 //       ended with previous-char,
@@ -318,7 +318,7 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 			DBCS:   eachDBCS,
 		}
 		big5 = append(big5, r)
-		startIdx = len(dbcs)
+		startIdx = len(dbcs) // nolint // consistent with programming pattern
 	}
 
 	if isCarriage {

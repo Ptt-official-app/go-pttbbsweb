@@ -39,17 +39,17 @@ func setupTest() {
 }
 
 func teardownTest() {
-	UnsetIsTest()
+	defer utils.UnsetIsTest()
 
-	queue.UnsetIsTest()
+	defer db.UnsetIsTest()
 
-	schema.UnsetIsTest()
+	defer types.UnsetIsTest("api")
 
-	types.UnsetIsTest("api")
+	defer schema.UnsetIsTest()
 
-	db.UnsetIsTest()
+	defer queue.UnsetIsTest()
 
-	utils.UnsetIsTest()
+	defer UnsetIsTest()
 }
 
 func testSetRequest(reqPath string, pathPattern string, params interface{}, jwt string, csrfToken string, headers map[string]string, method string, f gin.HandlerFunc) (*httptest.ResponseRecorder, *gin.Context, *gin.Engine) {
@@ -82,6 +82,7 @@ func testSetRequest(reqPath string, pathPattern string, params interface{}, jwt 
 
 	if csrfToken != "" {
 		req.Header.Set("X-CSRFToken", csrfToken)
+		req.Header.Set("Cookie", "csrftoken="+csrfToken)
 	}
 
 	for key, val := range headers {

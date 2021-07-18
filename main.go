@@ -67,26 +67,26 @@ func initGin() (*gin.Engine, error) {
 	router.POST(withPrefix(api.CREATE_RANK_R), api.CreateRankWrapper)
 
 	// html
-	router.GET(api.ROOT_HTML_R, api.IndexHtmlWrapper)
-	router.GET(api.INDEX_HTML_R, api.IndexHtmlWrapper)
+	router.GET(api.ROOT_HTML_R, api.IndexHTMLWrapper)
+	router.GET(api.INDEX_HTML_R, api.IndexHTMLWrapper)
 
-	router.GET(api.REGISTER_HTML_R, api.RegisterHtmlWrapper)
-	router.GET(api.LOGIN_HTML_R, api.LoginHtmlWrapper)
+	router.GET(api.REGISTER_HTML_R, api.RegisterHTMLWrapper)
+	router.GET(api.LOGIN_HTML_R, api.LoginHTMLWrapper)
 
-	router.GET(api.USER_HTML_R, api.UserHtmlWrapper)
-	router.GET(api.USER_CHANGE_PASSWD_HTML_R, api.UserChangePasswdHtmlWrapper)
-	router.GET(api.USER_ATTEMPT_CHANGE_EMAIL_HTML_R, api.UserAttemptChangeEmailHtmlWrapper)
-	router.GET(api.USER_CHANGE_EMAIL_HTML_R, api.UserChangeEmailHtmlWrapper)
-	router.GET(api.USER_ATTEMPT_SET_ID_EMAIL_HTML_R, api.UserAttemptSetIDEmailHtmlWrapper)
-	router.GET(api.USER_SET_ID_EMAIL_HTML_R, api.UserSetIDEmailHtmlWrapper)
+	router.GET(api.USER_HTML_R, api.UserHTMLWrapper)
+	router.GET(api.USER_CHANGE_PASSWD_HTML_R, api.UserChangePasswdHTMLWrapper)
+	router.GET(api.USER_ATTEMPT_CHANGE_EMAIL_HTML_R, api.UserAttemptChangeEmailHTMLWrapper)
+	router.GET(api.USER_CHANGE_EMAIL_HTML_R, api.UserChangeEmailHTMLWrapper)
+	router.GET(api.USER_ATTEMPT_SET_ID_EMAIL_HTML_R, api.UserAttemptSetIDEmailHTMLWrapper)
+	router.GET(api.USER_SET_ID_EMAIL_HTML_R, api.UserSetIDEmailHTMLWrapper)
 
-	router.GET(api.BOARDS_FAVORITES_HTML_R, api.AllHtmlWrapper)
-	router.GET(api.BOARDS_POPULAR_HTML_R, api.AllHtmlWrapper)
-	router.GET(api.BOARDS_HTML_R, api.AllHtmlWrapper)
+	router.GET(api.BOARDS_FAVORITES_HTML_R, api.AllHTMLWrapper)
+	router.GET(api.BOARDS_POPULAR_HTML_R, api.AllHTMLWrapper)
+	router.GET(api.BOARDS_HTML_R, api.AllHTMLWrapper)
 
-	router.GET(api.ARTICLES_HTML_R, api.AllHtmlWrapper)
-	router.GET(api.ARTICLE_HTML_R, api.AllHtmlWrapper)
-	router.GET(api.CREATE_ARTICLE_HTML_R, api.AllHtmlWrapper)
+	router.GET(api.ARTICLES_HTML_R, api.AllHTMLWrapper)
+	router.GET(api.ARTICLE_HTML_R, api.AllHTMLWrapper)
+	router.GET(api.CREATE_ARTICLE_HTML_R, api.AllHTMLWrapper)
 
 	router.Static("/static", filepath.Join(types.STATIC_DIR, "static"))
 

@@ -265,7 +265,7 @@ func updateCommentsCore(comments []*Comment, updateNanoTS types.NanoTS) (err err
 			continue
 		}
 
-		origFilter, ok := each.Filter.(*CommentQuery)
+		origFilter := each.Filter.(*CommentQuery)
 		filter := bson.M{
 			"$or": bson.A{
 				bson.M{

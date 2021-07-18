@@ -91,7 +91,7 @@ func ParseComments(
 					comments = append(comments, reply)
 				}
 
-				p_allCommentsDBCS = p_allCommentsDBCS[len(p_commentsDBCS):]
+				p_allCommentsDBCS = p_allCommentsDBCS[len(p_commentsDBCS):] // nolint // consistent with programming pattern
 				p_commentsDBCS = nil
 			}
 			break
@@ -306,7 +306,7 @@ func parseCommentForwardIPCreateTime(commentDBCS []byte) (ip string, dateStr str
 //\x1b[1;30m(teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3)\x1b[m
 func parseCommentDeleted(commentDBCS []byte, origCommentDBCS []byte) (comment *schema.Comment) {
 	ownerID, commentDBCS := parseCommentDeletedOwnerID(commentDBCS)
-	contentDBCS, commentDBCS := parseCommentDeletedContent(commentDBCS)
+	contentDBCS, _ := parseCommentDeletedContent(commentDBCS)
 	contentBig5 := dbcsToBig5(contentDBCS) // the last 11 chars are the dates
 	contentUtf8 := big5ToUtf8(contentBig5)
 	commentMD5 := md5sum(origCommentDBCS)

@@ -15,7 +15,7 @@ type CommentIsDeleted struct {
 
 var (
 	EMPTY_COMMENT_IS_DELETED = &CommentIsDeleted{}
-	commentIsDeletedFields   = getFields(EMPTY_COMMENT, EMPTY_COMMENT_IS_DELETED)
+	commentIsDeletedFields   = getFields(EMPTY_COMMENT, EMPTY_COMMENT_IS_DELETED) // nolint // consistent with programming pattern
 )
 
 //RemoveCommentIDs

@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/config_util"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/configutil"
 )
 
 const configPrefix = "go-openbbsmiddleware:types"
@@ -26,27 +26,27 @@ func InitConfig() (err error) {
 }
 
 func setStringConfig(idx string, orig string) string {
-	return config_util.SetStringConfig(configPrefix, idx, orig)
+	return configutil.SetStringConfig(configPrefix, idx, orig)
 }
 
 func setListStringConfig(idx string, orig []string) []string {
-	return config_util.SetListStringConfig(configPrefix, idx, orig)
+	return configutil.SetListStringConfig(configPrefix, idx, orig)
 }
 
 func setBytesConfig(idx string, orig []byte) []byte {
-	return config_util.SetBytesConfig(configPrefix, idx, orig)
+	return configutil.SetBytesConfig(configPrefix, idx, orig)
 }
 
 func setBoolConfig(idx string, orig bool) bool {
-	return config_util.SetBoolConfig(configPrefix, idx, orig)
+	return configutil.SetBoolConfig(configPrefix, idx, orig)
 }
 
 func setIntConfig(idx string, orig int) int {
-	return config_util.SetIntConfig(configPrefix, idx, orig)
+	return configutil.SetIntConfig(configPrefix, idx, orig)
 }
 
 func setInt64Config(idx string, orig int64) int64 {
-	return config_util.SetInt64Config(configPrefix, idx, orig)
+	return configutil.SetInt64Config(configPrefix, idx, orig)
 }
 
 func postConfig() (err error) {

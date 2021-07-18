@@ -2,6 +2,7 @@ package api
 
 import (
 	"reflect"
+	"sync"
 	"testing"
 
 	"github.com/gin-gonic/gin"
@@ -39,8 +40,11 @@ func TestCheckExistsUser(t *testing.T) {
 			expectedStatusCode: 200,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			gotResult, gotStatusCode, err := CheckExistsUser(tt.args.remoteAddr, tt.args.params, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CheckExistsUser() error = %v, wantErr %v", err, tt.wantErr)
@@ -54,4 +58,5 @@ func TestCheckExistsUser(t *testing.T) {
 			}
 		})
 	}
+	wg.Wait()
 }

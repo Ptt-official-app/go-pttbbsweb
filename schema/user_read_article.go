@@ -102,7 +102,7 @@ func UpdateUserReadArticles(userReadArticles []*UserReadArticle, updateNanoTS ty
 			continue
 		}
 
-		origFilter, ok := each.Filter.(*UserReadArticleQuery)
+		origFilter := each.Filter.(*UserReadArticleQuery)
 		filter := bson.M{
 			USER_READ_ARTICLE_USER_ID_b:    origFilter.UserID,
 			USER_READ_ARTICLE_ARTICLE_ID_b: origFilter.ArticleID,

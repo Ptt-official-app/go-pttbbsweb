@@ -81,6 +81,9 @@ func processCommentQueue(q *CommentQueue) {
 
 	// 2. integrate comments.
 	toAddComments, toDeleteComments, err := dbcs.IntegrateComments(q.BBoardID, q.ArticleID, comments, q.ArticleCreateTime, q.ArticleMTime, false, true)
+	if err != nil {
+		return
+	}
 
 	// 3. remove comment-ids first.
 	toRemoveCommentIDs := make([]types.CommentID, len(toDeleteComments))

@@ -1,0 +1,44 @@
+run:
+  timeout: 30m
+  tests: false
+  skip-files:
+    - testinit.go
+    - cmsys/fnv_hash.go
+    - 00-config.go
+linters-settings:
+
+  misspell:
+    locale: US
+    ignore-words:
+      - visable
+  gofmt:
+  goimports:
+  nolintlint:
+    allow-unused: true
+linters:
+  enable:
+    - gosec
+    - misspell
+    - gofmt
+    - goimports
+    - revive
+    - nolintlint
+issues:
+  exclude:
+    # we use underscores only for _postfix
+    - don't use underscores
+    # we use ALL_CAPS for constants
+    - don't use ALL_CAPS
+    # Simplify returning boolean expression (https://staticcheck.io/docs/checks#S1008)
+    - S1008
+    # A function argument is overwritten before its first use (https://staticcheck.io/docs/checks#SA4009)
+    - SA4009
+    # Skip weak rnd for now.
+    - G404
+    - G401
+    - G501
+    - 'indent-error-flow:'
+    - 'if-return:'
+    - 'exported:'
+  exclude-rules:
+  exclude-use-default: true

@@ -4,7 +4,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/mock_http"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/mockhttp"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
@@ -16,7 +16,7 @@ func TestUpdateArticleSummaries(t *testing.T) {
 
 	defer Article_c.Drop()
 
-	ret := mock_http.LoadGeneralArticles(nil)
+	ret := mockhttp.LoadGeneralArticles(nil)
 
 	updateNanoTS := types.NowNanoTS() - 200
 

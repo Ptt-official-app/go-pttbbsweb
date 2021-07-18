@@ -184,7 +184,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		updateNanoTS = types.NowNanoTS()
 		return contentInfo.Content, contentInfo.IP, contentInfo.Host, contentInfo.BBS, articleDetailSummary_db, 200, nil
 	}
-	defer schema.Unlock(lockKey)
+	defer func() { _ = schema.Unlock(lockKey) }()
 
 	// 5. get article from pttbbs
 	theParams_b := &pttbbsapi.GetArticleParams{

@@ -1,7 +1,6 @@
 package schema
 
 import (
-	"errors"
 	"fmt"
 	"reflect"
 	"strings"
@@ -268,11 +267,11 @@ func assertFields(empty interface{}, fields_i interface{}) error {
 		fieldName := fieldsType.Field(idx).Name
 		emptyBSONName := getBSONName(empty, fieldName)
 		if emptyBSONName == "" {
-			return errors.New(fmt.Sprintf("invalid fieldName: (%v/%v): field: %v", fieldsType.Name(), emptyType.Name(), fieldName))
+			return fmt.Errorf("invalid fieldName: (%v/%v): field: %v", fieldsType.Name(), emptyType.Name(), fieldName)
 		}
 		bsonName := getBSONName(fields_i, fieldName)
 		if emptyBSONName != bsonName {
-			return errors.New(fmt.Sprintf("invalid bsonName: (%v/%v): field: %v bson: %v expected: %v ", fieldsType.Name(), emptyType.Name(), fieldName, bsonName, emptyBSONName))
+			return fmt.Errorf("invalid bsonName: (%v/%v): field: %v bson: %v expected: %v ", fieldsType.Name(), emptyType.Name(), fieldName, bsonName, emptyBSONName)
 		}
 	}
 

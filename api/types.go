@@ -5,13 +5,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ApiFunc func(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error)
+type APIFunc func(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error)
 
-type LoginRequiredApiFunc func(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error)
+type LoginRequiredAPIFunc func(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error)
 
-type LoginRequiredPathApiFunc func(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error)
+type LoginRequiredPathAPIFunc func(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error)
 
-type RedirectPathApiFunc func(remoteAddr string, params interface{}, path interface{}, c *gin.Context) (redirectPath string, statusCode int)
+type RedirectPathAPIFunc func(remoteAddr string, params interface{}, path interface{}, c *gin.Context) (redirectPath string, statusCode int)
 
 type errResult struct {
 	Msg string

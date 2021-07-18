@@ -1,7 +1,7 @@
 package queue
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/config_util"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/configutil"
 )
 
 const configPrefix = "go-openbbsmiddleware:queue"
@@ -12,5 +12,5 @@ func InitConfig() error {
 }
 
 func setIntConfig(idx string, orig int) int {
-	return config_util.SetIntConfig(configPrefix, idx, orig)
+	return configutil.SetIntConfig(configPrefix, idx, orig)
 }

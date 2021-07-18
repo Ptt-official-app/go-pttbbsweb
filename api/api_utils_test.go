@@ -1,6 +1,7 @@
 package api
 
 import (
+	"sync"
 	"testing"
 )
 
@@ -12,8 +13,11 @@ func Test_createCSRFToken(t *testing.T) {
 		// TODO: Add test cases.
 		{},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			got, err := createCSRFToken()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("createCSRFToken() error = %v, wantErr %v", err, tt.wantErr)
@@ -25,6 +29,7 @@ func Test_createCSRFToken(t *testing.T) {
 			}
 		})
 	}
+	wg.Wait()
 }
 
 func Test_isValidCSRFToken(t *testing.T) {
@@ -48,11 +53,15 @@ func Test_isValidCSRFToken(t *testing.T) {
 			args: args{raw: "invalid-raw"},
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			if got := isValidCSRFToken(tt.args.raw); got != tt.expected {
 				t.Errorf("isValidCSRFToken() = %v, want %v", got, tt.expected)
 			}
 		})
 	}
+	wg.Wait()
 }
