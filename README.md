@@ -43,6 +43,18 @@ curl 指令測試.
     MAX_BOARD = 8192 /* 最大開板個數 */
 ```
 
+## Coding Convention
+
+We use the following libraries for coding convention:
+
+* [gotests](https://github.com/cweill/gotests) for test-generation
+* [gofumpt](https://github.com/mvdan/gofumpt) for formatting
+
+我們使用以下 library 幫助 coding convention:
+
+* [gotests](https://github.com/cweill/gotests) for test-generation
+* [gofumpt](https://github.com/mvdan/gofumpt) for formatting
+
 ## Docker-compose
 
 You can do the following to start with docker-compose:
