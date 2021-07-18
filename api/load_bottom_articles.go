@@ -13,7 +13,7 @@ import (
 const LOAD_BOTTOM_ARTICLES_R = "/board/:bid/articles/bottom"
 
 type LoadBottomArticlesPath struct {
-	FBoardID apitypes.FBoardID `json:"bid"`
+	FBoardID apitypes.FBoardID `uri:"bid"`
 }
 
 type LoadBottomArticlesResult struct {
