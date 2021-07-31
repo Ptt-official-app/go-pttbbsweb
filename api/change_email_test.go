@@ -17,7 +17,7 @@ func TestChangeEmail(t *testing.T) {
 
 	defer schema.UserEmail_c.Drop()
 
-	jwt0, _ := pttbbsai.CreateEmailToken("SYSOP", "app", "test@ptt.test", pttbbsai.CONTEXT_CHANGE_EMAIL)
+	jwt0, _ := pttbbsai.CreateEmailToken("SYSOP", "{\"c\":\"default_client_id\",\"t\":\"app\"}", "test@ptt.test", pttbbsai.CONTEXT_CHANGE_EMAIL)
 
 	params0 := &ChangeEmailParams{
 		ClientID:     "default_client_id",

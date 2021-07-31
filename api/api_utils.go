@@ -37,7 +37,7 @@ func verifyJwt(c *gin.Context) (userID bbs.UUserID, err error) {
 		return "", err
 	}
 
-	if clientInfo.ClientType == CLIENT_TYPE_APP {
+	if clientInfo.ClientType == types.CLIENT_TYPE_APP {
 		return userID, nil
 	}
 
