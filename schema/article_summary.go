@@ -59,6 +59,53 @@ func GetArticleSummary(bboardID bbs.BBoardID, articleID bbs.ArticleID) (result *
 	return result, nil
 }
 
+func GetArticleSummariesByOwnerID(ownerID bbs.UUserID, startCreateTime types.NanoTS, descending bool, limit int) (result []*ArticleSummary, err error) {
+	// setup query
+	var query bson.M
+	if startCreateTime == 0 {
+		query = bson.M{
+			ARTICLE_OWNER_b: ownerID,
+			ARTICLE_IS_DELETED_b: bson.M{
+				"$exists": false,
+			},
+		}
+	} else {
+		theDirCommentID := "$gte"
+		if descending {
+			theDirCommentID = "$lte"
+		}
+
+		query = bson.M{
+			ARTICLE_OWNER_b: ownerID,
+			ARTICLE_CREATE_TIME_b: bson.M{
+				theDirCommentID: startCreateTime,
+			},
+			ARTICLE_IS_DELETED_b: bson.M{
+				"$exists": false,
+			},
+		}
+	}
+	// sort opts
+	var sortOpts bson.D
+	if descending {
+		sortOpts = bson.D{
+			{Key: ARTICLE_CREATE_TIME_b, Value: -1},
+		}
+	} else {
+		sortOpts = bson.D{
+			{Key: ARTICLE_CREATE_TIME_b, Value: 1},
+		}
+	}
+
+	// find
+	err = Article_c.Find(query, int64(limit), &result, nil, sortOpts)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
 //NewARticleSummary
 //
 //no n_comments in bbs.ArticleSummary from backend.

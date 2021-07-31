@@ -1,7 +1,6 @@
 package schema
 
 import (
-	"sort"
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
@@ -166,31 +165,7 @@ func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, sortNanoTS types
 		return nil, err
 	}
 
-	comments = SortCommentsBySortTime(comments, descending)
-
 	return comments, nil
-}
-
-func SortCommentsBySortTime(comments []*Comment, descending bool) (newComments []*Comment) {
-	if descending {
-		sort.SliceStable(comments, func(i, j int) bool {
-			if comments[i].SortTime == comments[j].SortTime {
-				return strings.Compare(string(comments[i].CommentID), string(comments[j].CommentID)) > 0
-			} else {
-				return comments[i].SortTime-comments[j].SortTime > 0
-			}
-		})
-	} else {
-		sort.SliceStable(comments, func(i, j int) bool {
-			if comments[i].SortTime == comments[j].SortTime {
-				return strings.Compare(string(comments[i].CommentID), string(comments[j].CommentID)) < 0
-			} else {
-				return comments[i].SortTime-comments[j].SortTime < 0
-			}
-		})
-	}
-
-	return comments
 }
 
 func CountComments(boardID bbs.BBoardID, articleID bbs.ArticleID) (nComments int, err error) {

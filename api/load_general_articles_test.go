@@ -18,11 +18,6 @@ func TestLoadGeneralArticles(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer func() {
-		schema.UserReadArticle_c.Drop()
-		schema.UserReadBoard_c.Drop()
-	}()
-
 	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
 	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
 
@@ -50,6 +45,7 @@ func TestLoadGeneralArticles(t *testing.T) {
 				Filemode:   0,
 				URL:        "http://localhost:3457/bbs/WhoAmI/M.1607937174.A.081.html",
 				Read:       false,
+				Idx:        "1607937174@1VrooM21",
 			},
 			{
 				FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -65,6 +61,7 @@ func TestLoadGeneralArticles(t *testing.T) {
 				Filemode:   0,
 				URL:        "http://localhost:3457/bbs/WhoAmI/M.1234567890.A.123.html",
 				Read:       true,
+				Idx:        "1234567890@19bWBI4Z",
 			},
 		},
 		NextIdx:        "1234560000@19bUG021",
