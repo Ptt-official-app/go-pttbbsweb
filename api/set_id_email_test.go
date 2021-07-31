@@ -18,7 +18,7 @@ func TestSetIDEmail(t *testing.T) {
 
 	defer schema.UserIDEmail_c.Drop()
 
-	jwt0, _ := pttbbsai.CreateEmailToken("SYSOP", "app", "test@ptt.test", pttbbsai.CONTEXT_SET_ID_EMAIL)
+	jwt0, _ := pttbbsai.CreateEmailToken("SYSOP", "{\"c\":\"default_client_id\",\"t\":\"app\"}", "test@ptt.test", pttbbsai.CONTEXT_SET_ID_EMAIL)
 
 	params0 := &SetIDEmailParams{
 		ClientID:     "default_client_id",

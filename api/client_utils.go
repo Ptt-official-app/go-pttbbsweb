@@ -1,6 +1,8 @@
 package api
 
 import (
+	"encoding/json"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 )
 
@@ -21,5 +23,10 @@ func checkClient(clientID string, clientSecret string) (isValid bool, client *sc
 }
 
 func getClientInfo(client *schema.Client) string {
-	return string(client.ClientType)
+	clientInfo := &ClientInfo{
+		ClientID:   client.ClientID,
+		ClientType: client.ClientType,
+	}
+	str, _ := json.Marshal(clientInfo)
+	return string(str)
 }

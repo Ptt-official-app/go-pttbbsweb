@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
@@ -18,13 +19,6 @@ type errResult struct {
 }
 
 type ClientInfo struct {
-	ClientID   string     `json:"c"`
-	ClientType ClientType `json:"t"`
+	ClientID   string           `json:"c"`
+	ClientType types.ClientType `json:"t"`
 }
-
-type ClientType int
-
-const (
-	CLIENT_TYPE_APP ClientType = 0
-	CLIENT_TYPE_WEB ClientType = 1
-)
