@@ -18,4 +18,4 @@ responses:
     description:
     schema:
       '$id': https://json-schema.org/draft/2019-09/output/schema
-      '$ref': '#/definitions/CommentList'
+      '$ref': '#/definitions/ArticleCommentList'

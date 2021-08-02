@@ -1,0 +1,9 @@
+ArticleCommentList:
+  type: object
+  properties:
+    list:
+      type: array
+      items:
+        '$ref': '#/definitions/ArticleComment'
+    next_idx:
+      '$ref': '#/definitions/RespNextIdx'

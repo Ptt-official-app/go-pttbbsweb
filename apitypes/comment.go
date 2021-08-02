@@ -51,8 +51,8 @@ func NewComment(comment_db *schema.Comment) (comment *Comment) {
 	return comment
 }
 
-func DeserializeCommentIdx(startIdx string) (sortNanoTS types.NanoTS, commentID types.CommentID) {
-	theList := strings.Split(startIdx, "@")
+func DeserializeCommentIdx(theIdx string) (sortNanoTS types.NanoTS, commentID types.CommentID) {
+	theList := strings.Split(theIdx, "@")
 	if len(theList) != 2 {
 		return 0, ""
 	}
