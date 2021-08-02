@@ -24,7 +24,7 @@ func GetBoardID(brdname string) (boardID bbs.BBoardID, err error) {
 	result := &BoardID{}
 	err = Board_c.FindOne(query, result, boardIDFields)
 	if err != nil {
-		logrus.Infof("schema.GetBoardID: unable to FindOne: query: %v e: %v", query, err)
+		logrus.Warnf("schema.GetBoardID: unable to FindOne: query: %v e: %v", query, err)
 		return "", err
 	}
 

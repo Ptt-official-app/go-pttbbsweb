@@ -23,6 +23,7 @@ func LoadGeneralArticles(params *api.LoadGeneralArticlesParams) (ret *api.LoadGe
 				Money:      12,
 				Filemode:   0,
 				Read:       false,
+				Idx:        "1607937174@1VrooM21",
 			},
 			{
 				BBoardID:   bbs.BBoardID("10_WhoAmI"),
@@ -38,6 +39,7 @@ func LoadGeneralArticles(params *api.LoadGeneralArticlesParams) (ret *api.LoadGe
 				Money:      3,
 				Filemode:   0,
 				Read:       false,
+				Idx:        "1234567890@19bWBI4Z",
 			},
 		},
 		IsNewest:       true,

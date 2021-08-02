@@ -41,6 +41,7 @@ func TestUpdateArticleSummaries(t *testing.T) {
 		Class:        "問題",
 		Filemode:     0,
 		UpdateNanoTS: updateNanoTS,
+		Idx:          "1234567890@19bWBI4Z",
 	}
 
 	articleSummary1 := &ArticleSummary{
@@ -58,6 +59,7 @@ func TestUpdateArticleSummaries(t *testing.T) {
 		Class:        "問題",
 		Filemode:     0,
 		UpdateNanoTS: updateNanoTS,
+		Idx:          "1607937174@1VrooM21",
 	}
 
 	updateNanoTS = types.NowNanoTS() - 100
@@ -77,6 +79,7 @@ func TestUpdateArticleSummaries(t *testing.T) {
 		Class:        "問題",
 		Filemode:     0,
 		UpdateNanoTS: updateNanoTS,
+		Idx:          "1607937174@1VrooM21",
 	}
 
 	updateNanoTS1 := types.NowNanoTS()
@@ -95,6 +98,7 @@ func TestUpdateArticleSummaries(t *testing.T) {
 		Class:        "問題",
 		Filemode:     0,
 		UpdateNanoTS: updateNanoTS1,
+		Idx:          "1607937174@1VrooM21",
 	}
 
 	articleSummaries1 := []*ArticleSummary{articleSummary2}

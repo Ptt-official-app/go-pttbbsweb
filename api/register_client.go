@@ -5,7 +5,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
 const REGISTER_CLIENT_R = "/client/register"
@@ -66,7 +65,6 @@ func NewRegisterClientResult(client *schema.Client) *RegisterClientResult {
 }
 
 func isRegisterClientValidRemoteAddr(remoteAddr string) bool {
-	logrus.Infof("isRegisterClientValidRemoteAddr: remoteAddr: %v isTest: %v", remoteAddr, IsTest)
 	if IsTest {
 		return true
 	}

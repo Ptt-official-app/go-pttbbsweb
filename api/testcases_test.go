@@ -118,6 +118,25 @@ var (
 		IdxByName:  "WhoAmI",
 		IdxByClass: "vFSt-Q@WhoAmI",
 	}
+
+	testBoardSummarySYSOP_b = &bbs.BoardSummary{
+		Gid:      2,
+		Bid:      1,
+		BBoardID: bbs.BBoardID("1_SYSOP"),
+		StatAttr: ptttype.NBRD_FAV,
+		Brdname:  "SYSOP",
+		BoardClass: []byte{
+			0xbc, 0x54, 0xad, 0xf9,
+		},
+		RealTitle: []byte{
+			0xa1, 0xb7, 0xaf, 0xb8, 0xaa,
+			0xf8, 0xa6, 0x6e, 0x21,
+		},
+		BoardType:  []byte{0xa1, 0xb7},
+		BM:         []bbs.UUserID{},
+		IdxByName:  "SYSOP",
+		IdxByClass: "vFSt-Q@SYSOP",
+	}
 )
 
 func initTest() {

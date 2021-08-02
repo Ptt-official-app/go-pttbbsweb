@@ -7,17 +7,55 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func LoadGeneralArticles2(params *api.LoadGeneralArticlesParams) (ret *api.LoadGeneralArticlesResult) {
-	logrus.Infof("mockhttp.LoadGeneralArticles2: params: %v", params)
+func LoadGeneralArticles3(params *api.LoadGeneralArticlesParams) (ret *api.LoadGeneralArticlesResult) {
+	logrus.Infof("mockhttp.LoadGeneralArticles3: params: %v", params)
 	if params.StartIdx == "" {
-		return LoadGeneralArticles(params)
+		return &api.LoadGeneralArticlesResult{
+			Articles: []*bbs.ArticleSummary{
+				{
+					BBoardID:   bbs.BBoardID("1_SYSOP"),
+					ArticleID:  bbs.ArticleID("1VrooO21"),
+					IsDeleted:  false,
+					Filename:   "M.1607937176.A.081",
+					CreateTime: types.Time4(1607937176),
+					MTime:      types.Time4(1607937100),
+					Recommend:  10,
+					Owner:      bbs.UUserID("teemo"),
+					Class:      []byte{0xb0, 0xdd, 0xc3, 0x44},
+					Title:      []byte{0x5b, 0xb0, 0xdd, 0xc3, 0x44, 0x5d, 0xa6, 0x41, 0xa8, 0xd3, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3}, //[問題]再來呢？～
+					Money:      12,
+					Filemode:   0,
+					Read:       false,
+					Idx:        "1607937176@1VrooO21",
+				},
+				{
+					BBoardID:   bbs.BBoardID("1_SYSOP"),
+					ArticleID:  bbs.ArticleID("19bWBK4Z"),
+					IsDeleted:  false,
+					Filename:   "M.1234567892.A.123",
+					CreateTime: types.Time4(1234567892),
+					MTime:      types.Time4(1234567889),
+					Recommend:  24,
+					Owner:      bbs.UUserID("teemo"),
+					Class:      []byte{0xb0, 0xdd, 0xc3, 0x44},
+					Title:      []byte{0x5b, 0xb0, 0xdd, 0xc3, 0x44, 0x5d, 0xb5, 0x4d, 0xab, 0xe1, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3}, //[問題]然後呢？～
+					Money:      3,
+					Filemode:   0,
+					Read:       false,
+					Idx:        "1234567892@19bWBK4Z",
+				},
+			},
+			IsNewest:       true,
+			NextIdx:        "1234560000@19bUG021",
+			NextCreateTime: 1234560000,
+		}
 	}
 
 	var articleSummary *bbs.ArticleSummary
 
 	if params.StartIdx == "1607937174@1VrooM21" {
 		articleSummary = &bbs.ArticleSummary{
-			BBoardID:   bbs.BBoardID("10_WhoAmI"),
+			BBoardID:   bbs.BBoardID("1_SYSOP"),
 			ArticleID:  bbs.ArticleID("1VrooM21"),
 			IsDeleted:  false,
 			Filename:   "M.1607937174.A.081",
@@ -34,7 +72,7 @@ func LoadGeneralArticles2(params *api.LoadGeneralArticlesParams) (ret *api.LoadG
 		}
 	} else if params.StartIdx == "1608386280@1VtWRel9" {
 		articleSummary = &bbs.ArticleSummary{
-			BBoardID:   bbs.BBoardID("10_WhoAmI"),
+			BBoardID:   bbs.BBoardID("1_SYSOP"),
 			ArticleID:  bbs.ArticleID("1VtWRel9"),
 			IsDeleted:  false,
 			Filename:   "M.1234567890.A.123",
