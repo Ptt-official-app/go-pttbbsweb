@@ -59,6 +59,22 @@ func GetArticleSummary(bboardID bbs.BBoardID, articleID bbs.ArticleID) (result *
 	return result, nil
 }
 
+func GetArticleSummariesByArticleIDs(articleIDs []bbs.ArticleID) (result []*ArticleSummary, err error) {
+	query := bson.M{
+		ARTICLE_ARTICLE_ID_b: bson.M{
+			"$in": articleIDs,
+		},
+	}
+
+	// find
+	err = Article_c.Find(query, 0, &result, articleSummaryFields, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
 func GetArticleSummariesByOwnerID(ownerID bbs.UUserID, startCreateTime types.NanoTS, descending bool, limit int) (result []*ArticleSummary, err error) {
 	// setup query
 	var query bson.M
@@ -98,7 +114,7 @@ func GetArticleSummariesByOwnerID(ownerID bbs.UUserID, startCreateTime types.Nan
 	}
 
 	// find
-	err = Article_c.Find(query, int64(limit), &result, nil, sortOpts)
+	err = Article_c.Find(query, int64(limit), &result, articleSummaryFields, sortOpts)
 	if err != nil {
 		return nil, err
 	}

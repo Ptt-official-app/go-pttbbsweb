@@ -148,6 +148,7 @@ var (
 			TheType:    ptttype.COMMENT_TYPE_BOO,
 			Owner:      bbs.UUserID("carrey8"),
 			CreateTime: types.NanoTS(1261396440004000000),
+			SortTime:   types.NanoTS(1261396440004000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -168,6 +169,7 @@ var (
 			TheType:    ptttype.COMMENT_TYPE_RECOMMEND,
 			Owner:      bbs.UUserID("hyde711034"),
 			CreateTime: types.NanoTS(1261396500000000000),
+			SortTime:   types.NanoTS(1261396500000000000),
 			Content: [][]*types.Rune{
 				{
 					{
@@ -317,29 +319,123 @@ var (
 
 	testCommentSummaries0 = []*CommentSummary{
 		{
+			BBoardID:     "test",
+			ArticleID:    "test",
+			Owner:        "hyde711034",
+			TheType:      ptttype.COMMENT_TYPE_RECOMMEND,
 			CommentID:    types.CommentID("EYFhbv9ryAA:u0m4ezxFyxG8CX56gLwr4Q"),
 			CreateTime:   types.NanoTS(1261396500000000000),
 			UpdateNanoTS: types.NanoTS(1334567890000000000),
+			SortTime:     types.NanoTS(1261396500000000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "台南人可憐還開心指數最高",
+						Big5:   []byte("\xa5x\xabn\xa4H\xa5i\xbc\xa6\xc1\xd9\xb6}\xa4\xdf\xab\xfc\xbc\xc6\xb3\xcc\xb0\xaa                           "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+					},
+				},
+			},
 		},
 		{
+			BBoardID:     "test",
+			ArticleID:    "test",
+			Owner:        "foolfighter",
+			TheType:      ptttype.COMMENT_TYPE_RECOMMEND,
 			CommentID:    types.CommentID("EYFhmOhREkA:Es26f7U0EXdr7Gp4a9N8pQ"),
 			CreateTime:   types.NanoTS(1261396680001000000),
 			UpdateNanoTS: types.NanoTS(1334567890000000000),
+			SortTime:     types.NanoTS(1261396680001000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "土柯糞幾成有台北市戶籍啊？",
+						Big5:   []byte("\xa4g\xac_\xc1T\xb4X\xa6\xa8\xa6\xb3\xa5x\xa5_\xa5\xab\xa4\xe1\xc4y\xb0\xda\xa1H                        "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+					},
+				},
+			},
 		},
 		{
+			BBoardID:     "test",
+			ArticleID:    "test",
+			TheType:      ptttype.COMMENT_TYPE_RECOMMEND,
+			Owner:        "yehpi",
 			CommentID:    types.CommentID("EYFhmOhgVIA:gmrKWXE7BjV-1U89GcPqHg"),
 			CreateTime:   types.NanoTS(1261396680002000000),
 			UpdateNanoTS: types.NanoTS(1334567890000000000),
+			SortTime:     types.NanoTS(1261396680002000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "黃有超大支票（物理）",
+						Big5:   []byte("\xb6\xc0\xa6\xb3\xb6W\xa4j\xa4\xe4\xb2\xbc\xa1]\xaa\xab\xb2z\xa1^                                    "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+					},
+				},
+			},
 		},
 		{
+			BBoardID:     "test",
+			ArticleID:    "test",
+			TheType:      ptttype.COMMENT_TYPE_RECOMMEND,
+			Owner:        "lockeyman",
 			CommentID:    types.CommentID("EYFhmOhvlsA:cpqbGyLoF_jIyITF4bv-rQ"),
 			CreateTime:   types.NanoTS(1261396680003000000),
 			UpdateNanoTS: types.NanoTS(1334567890000000000),
+			SortTime:     types.NanoTS(1261396680003000000),
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "噗",
+						Big5:   []byte("\xbcP                                                  "),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+					},
+				},
+			},
 		},
 		{
+			BBoardID:     "test",
+			ArticleID:    "test",
+			TheType:      ptttype.COMMENT_TYPE_REPLY,
+			Owner:        "cheinshin",
 			CommentID:    types.CommentID("EYFhmOhvlsA:cpqbGyLoF_jIyITF4bv-rQ:R"),
 			CreateTime:   types.NanoTS(1261396680003100000),
 			UpdateNanoTS: types.NanoTS(1334567890000000000),
+			SortTime:     types.NanoTS(1261396680003100000),
+			Content: [][]*types.Rune{
+				{},
+				{
+					{
+						Utf8:   "test123123",
+						Big5:   []byte("test123123"),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+					},
+				},
+				{},
+				{
+					{
+						Utf8:   "test124124",
+						Big5:   []byte("test124124"),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+					},
+				},
+				{},
+				{
+					{
+						Utf8:   "test125125",
+						Big5:   []byte("test125125"),
+						Color0: types.DefaultColor,
+						Color1: types.DefaultColor,
+					},
+				},
+			},
 		},
 	}
 

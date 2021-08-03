@@ -14,8 +14,6 @@ func TestGetCommentSummaries(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer Comment_c.Drop()
-
 	_ = UpdateComments(testComments0, types.NanoTS(1234567890000000000))
 	_ = UpdateComments(testComments1, types.NanoTS(1234567890000000000))
 
@@ -54,9 +52,7 @@ func TestGetCommentSummaries(t *testing.T) {
 				return gotCommentSummaries[i].CreateTime <= gotCommentSummaries[j].CreateTime
 			})
 
-			if !reflect.DeepEqual(gotCommentSummaries, tt.expectedCommentSummaries) {
-				t.Errorf("GetCommentSummaries() = %v, want %v", gotCommentSummaries, tt.expectedCommentSummaries)
-			}
+			testutil.TDeepEqual(t, "got", gotCommentSummaries, tt.expectedCommentSummaries)
 		})
 	}
 }
@@ -64,8 +60,6 @@ func TestGetCommentSummaries(t *testing.T) {
 func TestUpdateCommentSummaries(t *testing.T) {
 	setupTest()
 	defer teardownTest()
-
-	defer Comment_c.Drop()
 
 	_ = UpdateComments(testComments0, types.NanoTS(1234567890000000000))
 	_ = UpdateComments(testComments1, types.NanoTS(1234567890000000000))
@@ -106,6 +100,50 @@ func TestUpdateCommentSummaries(t *testing.T) {
 			})
 
 			testutil.TDeepEqual(t, "got", gotCommentSummaries, tt.expected)
+		})
+	}
+}
+
+func TestGetCommentSummariesByOwnerID(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	_ = UpdateComments(testComments0, types.NanoTS(1234567890000000000))
+	_ = UpdateComments(testComments1, types.NanoTS(1234567890000000000))
+
+	testCommentSummaries0 := []*CommentSummary{testCommentSummaries0[3]}
+
+	type args struct {
+		ownerID       bbs.UUserID
+		startSortTime types.NanoTS
+		descending    bool
+		limit         int
+	}
+	tests := []struct {
+		name           string
+		args           args
+		expectedResult []*CommentSummary
+		wantErr        bool
+	}{
+		// TODO: Add test cases.
+		{
+			args: args{
+				ownerID: "lockeyman",
+				limit:   200,
+			},
+			expectedResult: testCommentSummaries0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotResult, err := GetBasicCommentSummariesByOwnerID(tt.args.ownerID, tt.args.startSortTime, tt.args.descending, tt.args.limit)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetCommentSummariesByOwnerID() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResult, tt.expectedResult) {
+				t.Errorf("GetCommentSummariesByOwnerID() = %v, want %v", gotResult, tt.expectedResult)
+			}
 		})
 	}
 }

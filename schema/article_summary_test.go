@@ -14,8 +14,6 @@ func TestUpdateArticleSummaries(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer Article_c.Drop()
-
 	ret := mockhttp.LoadGeneralArticles(nil)
 
 	updateNanoTS := types.NowNanoTS() - 200
@@ -155,5 +153,57 @@ func TestUpdateArticleSummaries(t *testing.T) {
 			testutil.TDeepEqual(t, "got", got, tt.expected)
 		})
 		wg.Wait()
+	}
+}
+
+func TestGetArticleSummariesByOwnerID(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	ret := mockhttp.LoadGeneralArticles(nil)
+
+	updateNanoTS := types.NowNanoTS() - 200
+
+	articleSummaries0 := make([]*ArticleSummary, len(ret.Articles))
+	for idx, each_b := range ret.Articles {
+		articleSummaries0[idx] = NewArticleSummary(each_b, updateNanoTS)
+	}
+
+	UpdateArticleSummaries(articleSummaries0, updateNanoTS)
+
+	expected0 := []*ArticleSummary{articleSummaries0[0]}
+	expected1 := []*ArticleSummary{articleSummaries0[1]}
+
+	type args struct {
+		ownerID         bbs.UUserID
+		startCreateTime types.NanoTS
+		descending      bool
+		limit           int
+	}
+	tests := []struct {
+		name           string
+		args           args
+		expectedResult []*ArticleSummary
+		wantErr        bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:           args{ownerID: "teemo", limit: 200},
+			expectedResult: expected0,
+		},
+		{
+			args:           args{ownerID: "okcool", limit: 200},
+			expectedResult: expected1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotResult, err := GetArticleSummariesByOwnerID(tt.args.ownerID, tt.args.startCreateTime, tt.args.descending, tt.args.limit)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetArticleSummariesByOwnerID() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			testutil.TDeepEqual(t, "got", gotResult, tt.expectedResult)
+		})
 	}
 }

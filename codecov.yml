@@ -1,8 +1,9 @@
 ignore:
   - mock
-  - mock_http
+  - mockhttp
   - apidoc
   - etc
   - scripts
   - testcase
-  
+  - utils
+  - queue

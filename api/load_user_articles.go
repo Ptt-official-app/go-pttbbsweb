@@ -106,7 +106,11 @@ func loadUserArticles(ownerID bbs.UUserID, startIdx string, descending bool, max
 
 		// append
 		if len(validArticleSummaries_db) > remaining {
+			nextArticleSummary := validArticleSummaries_db[remaining]
 			validArticleSummaries_db = validArticleSummaries_db[:remaining]
+
+			nextCreateTime = nextArticleSummary.CreateTime
+			nextIdx = nextArticleSummary.Idx
 		}
 
 		articleSummaries_db = append(articleSummaries_db, validArticleSummaries_db...)

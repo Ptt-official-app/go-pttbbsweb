@@ -8,6 +8,30 @@ import (
 	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
 )
 
+type ReadStatus uint8
+
+const (
+	READ_STATUS_UNREAD       ReadStatus = 0
+	READ_STATUS_CREATE_TIME  ReadStatus = 1
+	READ_STATUS_COMMENT_TIME ReadStatus = 2
+	READ_STATUS_MTIME        ReadStatus = 3
+)
+
+func (r ReadStatus) String() string {
+	switch r {
+	case READ_STATUS_UNREAD:
+		return "unread"
+	case READ_STATUS_CREATE_TIME:
+		return "read-create"
+	case READ_STATUS_MTIME:
+		return "read-mtime"
+	case READ_STATUS_COMMENT_TIME:
+		return "read-comment"
+	default:
+		return "unread"
+	}
+}
+
 //CommentID
 //
 //XXX currently it's very hard to maintain the comment-id.
