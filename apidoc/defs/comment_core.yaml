@@ -1,6 +1,6 @@
 type:
   type: string
-  description: "推/噓/→"
+  description: <a href="https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/comment_type.go">推文種類</a>
 refid:
   type: string
   description: 發推文的 user

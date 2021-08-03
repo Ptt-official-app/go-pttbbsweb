@@ -67,7 +67,14 @@ func LoadUserComments(remoteAddr string, userID bbs.UUserID, params interface{},
 func loadUserComments(ownerID bbs.UUserID, startIdx string, descending bool, max int) (commentSummaries_db []*schema.CommentSummary, nextIdx string, err error) {
 	commentSummaries_db = make([]*schema.CommentSummary, 0, max+1)
 
-	nextSortTime, _ := apitypes.DeserializeCommentIdx(startIdx)
+	var nextSortTime types.NanoTS
+	if startIdx != "" {
+		_, startIdx, err = apitypes.DeserializeArticleCommentIdx(startIdx)
+		if err != nil {
+			return nil, "", err
+		}
+		nextSortTime, _ = apitypes.DeserializeCommentIdx(startIdx)
+	}
 
 	isEndLoop := false
 	remaining := max
