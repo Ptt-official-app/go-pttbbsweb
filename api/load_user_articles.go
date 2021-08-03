@@ -18,7 +18,7 @@ type LoadUserArticlesParams struct {
 }
 
 type LoadUserArticlesPath struct {
-	UserID bbs.UUserID `json:"user_id"`
+	UserID bbs.UUserID `uri:"user_id"`
 }
 
 type LoadUserArticlesResult struct {
