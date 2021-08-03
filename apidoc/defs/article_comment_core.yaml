@@ -32,7 +32,7 @@ type:
 
 ctype:
   type: number
-  description: 推文種類 https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/comment_type.go
+  description: <a href="https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/comment_type.go">推文種類</a>
 ctime:
   type: number
   description: 推文時間
