@@ -17,7 +17,7 @@ type LoadUserCommentsParams struct {
 }
 
 type LoadUserCommentsPath struct {
-	UserID bbs.UUserID `json:"user_id"`
+	UserID bbs.UUserID `uri:"user_id"`
 }
 
 type LoadUserCommentsResult struct {
