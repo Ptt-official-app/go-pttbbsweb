@@ -13,7 +13,7 @@ const LOAD_USER_COMMENTS_R = "/user/:user_id/comments"
 type LoadUserCommentsParams struct {
 	StartIdx   string `json:"start_idx,omitempty" form:"start_idx,omitempty" url:"start_idx,omitempty"`
 	Descending bool   `json:"desc,omitempty"  form:"desc,omitempty" url:"desc,omitempty"`
-	Max        int    `json:"max,omitempty" form:"max,omitempty" url:"max,omitempty"`
+	Max        int    `json:"limit,omitempty" form:"limit,omitempty" url:"limit,omitempty"`
 }
 
 type LoadUserCommentsPath struct {
@@ -192,6 +192,8 @@ func NewLoadUserCommentsResult(
 			comments[idx].Read = types.READ_STATUS_UNREAD
 		}
 	}
+
+	nextIdx = apitypes.SerializeArticleCommentIdx(apitypes.ARTICLE_COMMENT_TYPE_COMMENT, nextIdx)
 
 	result = &LoadUserCommentsResult{
 		List:    comments,
