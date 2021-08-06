@@ -35,13 +35,13 @@ func QueueCommentDBCS(bboardID bbs.BBoardID, articleID bbs.ArticleID, ownerID bb
 		UpdateNanoTS:      updateNanoTS,
 	}
 
-	timeout := time.After(100 * time.Millisecond)
-
 	// log.Infof("QueueCommentDBCS: to send to queue: bboardID: %v articleID: %v", bboardID, articleID)
 	select {
 	case theQueue <- commentQueue:
-	case <-timeout:
-		err = ErrTimeout
+	case <-time.After(defaultTimeout):
+		err = ErrTimeout{
+			timeout: defaultTimeout,
+		}
 	}
 
 	// log.Infof("QueueCommentDBCS: after send to queue: bboardID: %v articleID: %v e: %v", bboardID, articleID, err)
@@ -50,20 +50,18 @@ func QueueCommentDBCS(bboardID bbs.BBoardID, articleID bbs.ArticleID, ownerID bb
 }
 
 func ProcessCommentQueue(idx int, quit chan struct{}) {
-	// log.Infof("ProcessCommentQueue: (%v) start", idx)
-	isQuit := false
-	for !isQuit {
+	for {
 		select {
 		case commentQueue, ok := <-theQueue:
-			// log.Infof("ProcessCommentQueue: (%v): received: commentQueue: (%v/%v) ok: %v", idx, commentQueue.BBoardID, commentQueue.ArticleID, ok)
-			if ok {
-				processCommentQueue(commentQueue)
+			if !ok {
+				return
 			}
+
+			processCommentQueue(commentQueue)
 		case <-quit:
-			isQuit = true
+			return
 		}
 	}
-	// log.Infof("ProcessCommentQueue: (%v) done", idx)
 }
 
 //processCommentQueue
