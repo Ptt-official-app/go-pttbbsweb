@@ -1,6 +1,7 @@
 package schema
 
 import (
+	"reflect"
 	"sync"
 	"testing"
 
@@ -8,6 +9,9 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
+	"github.com/sirupsen/logrus"
+	"github.com/stretchr/testify/assert"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 func TestUpdateArticleSummaries(t *testing.T) {
@@ -204,6 +208,224 @@ func TestGetArticleSummariesByOwnerID(t *testing.T) {
 				return
 			}
 			testutil.TDeepEqual(t, "got", gotResult, tt.expectedResult)
+		})
+	}
+}
+
+func Test_getArticleSummariesByRegexPatternList(t *testing.T) {
+	keywords0 := [][]rune{[]rune("abc"), []rune("defgh"), []rune("ijklmnop")}
+	expected0 := bson.A{
+		bson.M{ARTICLE_TITLE_REGEX_b: "abc"},
+		bson.M{ARTICLE_TITLE_REGEX_b: "defgh"},
+		bson.M{ARTICLE_TITLE_REGEX_b: "ijklm"},
+		bson.M{ARTICLE_TITLE_REGEX_b: "lmnop"},
+	}
+
+	type args struct {
+		keywordList [][]rune
+	}
+	tests := []struct {
+		name                string
+		args                args
+		expectedPatternList bson.A
+	}{
+		// TODO: Add test cases.
+		{
+			args:                args{keywordList: keywords0},
+			expectedPatternList: expected0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotPatternList := getArticleSummariesByRegexPatternList(tt.args.keywordList); !reflect.DeepEqual(gotPatternList, tt.expectedPatternList) {
+				t.Errorf("getArticleSummariesByRegexPatternList() = %v, want %v", gotPatternList, tt.expectedPatternList)
+			}
+		})
+	}
+}
+
+func Test_getArticleSummariesByRegexSetQuery(t *testing.T) {
+	patternList0 := bson.A{
+		bson.M{ARTICLE_TITLE_REGEX_b: "abc"},
+		bson.M{ARTICLE_TITLE_REGEX_b: "defgh"},
+		bson.M{ARTICLE_TITLE_REGEX_b: "ijklm"},
+	}
+	expected0 := bson.M{
+		"$and": bson.A{
+			bson.M{
+				ARTICLE_BBOARD_ID_b: bbs.BBoardID("bid0"),
+				ARTICLE_IS_DELETED_b: bson.M{
+					"$exists": false,
+				},
+			},
+			bson.M{ARTICLE_TITLE_REGEX_b: "abc"},
+			bson.M{ARTICLE_TITLE_REGEX_b: "defgh"},
+			bson.M{ARTICLE_TITLE_REGEX_b: "ijklm"},
+		},
+	}
+
+	expected1 := bson.M{
+		"$or": bson.A{
+			bson.M{
+				"$and": bson.A{
+					bson.M{
+						ARTICLE_BBOARD_ID_b: bbs.BBoardID("bid0"),
+						ARTICLE_IS_DELETED_b: bson.M{
+							"$exists": false,
+						},
+						ARTICLE_CREATE_TIME_b: bson.M{
+							"$lt": types.NanoTS(1234567890000000000),
+						},
+					},
+					bson.M{ARTICLE_TITLE_REGEX_b: "abc"},
+					bson.M{ARTICLE_TITLE_REGEX_b: "defgh"},
+					bson.M{ARTICLE_TITLE_REGEX_b: "ijklm"},
+				},
+			},
+			bson.M{
+				"$and": bson.A{
+					bson.M{
+						ARTICLE_BBOARD_ID_b: bbs.BBoardID("bid0"),
+						ARTICLE_IS_DELETED_b: bson.M{
+							"$exists": false,
+						},
+						ARTICLE_CREATE_TIME_b: types.NanoTS(1234567890000000000),
+						ARTICLE_ARTICLE_ID_b: bson.M{
+							"$lte": bbs.ArticleID("aid0"),
+						},
+					},
+					bson.M{ARTICLE_TITLE_REGEX_b: "abc"},
+					bson.M{ARTICLE_TITLE_REGEX_b: "defgh"},
+					bson.M{ARTICLE_TITLE_REGEX_b: "ijklm"},
+				},
+			},
+		},
+	}
+	type args struct {
+		boardID      bbs.BBoardID
+		patternList  bson.A
+		createNanoTS types.NanoTS
+		articleID    bbs.ArticleID
+		descending   bool
+	}
+	tests := []struct {
+		name          string
+		args          args
+		expectedQuery bson.M
+	}{
+		// TODO: Add test cases.
+		{
+			args:          args{boardID: "bid0", patternList: patternList0, descending: false},
+			expectedQuery: expected0,
+		},
+		{
+			args:          args{boardID: "bid0", patternList: patternList0, descending: true, createNanoTS: 1234567890000000000, articleID: "aid0"},
+			expectedQuery: expected1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotQuery := getArticleSummariesByRegexSetQuery(tt.args.boardID, tt.args.patternList, tt.args.createNanoTS, tt.args.articleID, tt.args.descending)
+
+			assert.Equal(t, tt.expectedQuery, gotQuery)
+		})
+	}
+}
+
+func TestGetArticleSummariesByRegex(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	ret := mockhttp.LoadGeneralArticles(nil)
+
+	updateNanoTS := types.NowNanoTS() - 200
+
+	articleSummaries0 := make([]*ArticleSummary, len(ret.Articles))
+	for idx, each_b := range ret.Articles {
+		articleSummaries0[idx] = NewArticleSummary(each_b, updateNanoTS)
+	}
+
+	articleSummaryWithRegexes0 := make([]*ArticleSummaryWithRegex, len(ret.Articles))
+	for idx, each_b := range ret.Articles {
+		articleSummaryWithRegexes0[idx] = NewArticleSummaryWithRegex(each_b, updateNanoTS)
+	}
+
+	UpdateArticleSummaryWithRegexes(articleSummaryWithRegexes0, updateNanoTS)
+
+	title1 := "有沒有這一些事情的八卦呢？～"
+	class1 := "問題"
+	articleSummaryWithRegex1 := &ArticleSummaryWithRegex{
+		BBoardID:     "10_WhoAmI",
+		ArticleID:    "testAid0",
+		CreateTime:   1234567890000000000,
+		MTime:        1234567890000000000,
+		Title:        title1,
+		Class:        class1,
+		TitleRegex:   articleTitleToTitleRegex(title1, class1),
+		UpdateNanoTS: 1234567890000000000,
+	}
+	articleSummary1 := &ArticleSummary{
+		BBoardID:     "10_WhoAmI",
+		ArticleID:    "testAid0",
+		CreateTime:   1234567890000000000,
+		MTime:        1234567890000000000,
+		Title:        title1,
+		Class:        class1,
+		UpdateNanoTS: 1234567890000000000,
+	}
+
+	UpdateArticleSummaryWithRegexes([]*ArticleSummaryWithRegex{articleSummaryWithRegex1}, updateNanoTS)
+
+	article0, _ := GetArticleSummaryWithRegex("10_WhoAmI", "1VrooM21")
+	logrus.Infof("article0: (%v/%v)", article0.Title, article0.TitleRegex)
+
+	expected0 := []*ArticleSummary{articleSummaries0[0]}
+	expected1 := []*ArticleSummary{articleSummaries0[1]}
+	expected2 := []*ArticleSummary{}
+	expected3 := []*ArticleSummary{articleSummary1}
+
+	type args struct {
+		boardID      bbs.BBoardID
+		keywordList  []string
+		createNanoTS types.NanoTS
+		articleID    bbs.ArticleID
+		descending   bool
+		limit        int
+	}
+	tests := []struct {
+		name           string
+		args           args
+		expectedResult []*ArticleSummary
+		wantErr        bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:           args{boardID: "10_WhoAmI", keywordList: []string{"再來"}, descending: true, limit: 200},
+			expectedResult: expected0,
+		},
+		{
+			args:           args{boardID: "10_WhoAmI", keywordList: []string{"然後"}, descending: true, limit: 200},
+			expectedResult: expected1,
+		},
+		{
+			args:           args{boardID: "10_WhoAmI", keywordList: []string{"然後", "再來"}, descending: true, limit: 200},
+			expectedResult: expected2,
+		},
+		{
+			args:           args{boardID: "10_WhoAmI", keywordList: []string{"有沒有這一些", "八卦"}, descending: true, limit: 200},
+			expectedResult: expected3,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotResult, err := GetArticleSummariesByRegex(tt.args.boardID, tt.args.keywordList, tt.args.createNanoTS, tt.args.articleID, tt.args.descending, tt.args.limit)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetArticleSummariesByRegex() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResult, tt.expectedResult) {
+				t.Errorf("GetArticleSummariesByRegex() = %v, want %v", gotResult, tt.expectedResult)
+			}
 		})
 	}
 }

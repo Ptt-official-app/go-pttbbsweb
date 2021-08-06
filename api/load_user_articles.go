@@ -65,8 +65,8 @@ func LoadUserArticles(remoteAddr string, userID bbs.UUserID, params interface{},
 }
 
 // loadUserArticles
-func loadUserArticles(ownerID bbs.UUserID, startIdx string, descending bool, max int) (articleSummaries_db []*schema.ArticleSummary, nextIdx string, err error) {
-	articleSummaries_db = make([]*schema.ArticleSummary, 0, max+1)
+func loadUserArticles(ownerID bbs.UUserID, startIdx string, descending bool, limit int) (articleSummaries_db []*schema.ArticleSummary, nextIdx string, err error) {
+	articleSummaries_db = make([]*schema.ArticleSummary, 0, limit+1)
 
 	var nextCreateTime4 pttbbstypes.Time4
 	if startIdx != "" {
@@ -78,17 +78,18 @@ func loadUserArticles(ownerID bbs.UUserID, startIdx string, descending bool, max
 	nextCreateTime := types.Time4ToNanoTS(nextCreateTime4)
 
 	isEndLoop := false
-	remaining := max
+	remaining := limit
 	for !isEndLoop && remaining > 0 {
-		eachArticleSummaries_db, err := schema.GetArticleSummariesByOwnerID(ownerID, nextCreateTime, descending, max+1)
+		eachArticleSummaries_db, err := schema.GetArticleSummariesByOwnerID(ownerID, nextCreateTime, descending, limit+1)
 		if err != nil {
 			return nil, "", err
 		}
 
 		// check is-last query
-		if len(eachArticleSummaries_db) < max+1 {
+		if len(eachArticleSummaries_db) < limit+1 {
 			isEndLoop = true
 			nextCreateTime = 0
+			nextIdx = ""
 		} else {
 			// setup next
 			nextArticleSummary := eachArticleSummaries_db[len(eachArticleSummaries_db)-1]

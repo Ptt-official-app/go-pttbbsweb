@@ -83,7 +83,7 @@ func CreateArticle(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 
 	setUserReadArticle(dummyContent, userID, articleSummary_db.ArticleID, updateNanoTS)
 
-	articleSummary := apitypes.NewArticleSummary(articleSummary_db)
+	articleSummary := apitypes.NewArticleSummaryFromWithRegex(articleSummary_db)
 
 	return CreateArticleResult(articleSummary), 200, nil
 }

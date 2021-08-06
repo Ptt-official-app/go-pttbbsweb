@@ -65,10 +65,10 @@ func LoadBottomArticles(remoteAddr string, userID bbs.UUserID, params interface{
 	return r, 200, nil
 }
 
-func NewLoadBottomArticlesResult(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool, result_b *pttbbsapi.LoadBottomArticlesResult) *LoadBottomArticlesResult {
+func NewLoadBottomArticlesResult(a_db []*schema.ArticleSummaryWithRegex, userReadArticleMap map[bbs.ArticleID]bool, result_b *pttbbsapi.LoadBottomArticlesResult) *LoadBottomArticlesResult {
 	theList := make([]*apitypes.ArticleSummary, len(a_db))
 	for i, each_db := range a_db {
-		theList[i] = apitypes.NewArticleSummary(each_db)
+		theList[i] = apitypes.NewArticleSummaryFromWithRegex(each_db)
 		articleID := each_db.ArticleID
 		isRead, ok := userReadArticleMap[articleID]
 		if ok && isRead {

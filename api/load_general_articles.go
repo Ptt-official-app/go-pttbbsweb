@@ -7,7 +7,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
 )
 
@@ -25,10 +24,8 @@ type LoadGeneralArticlesPath struct {
 }
 
 type LoadGeneralArticlesResult struct {
-	List           []*apitypes.ArticleSummary `json:"list"`
-	NextIdx        string                     `json:"next_idx"`
-	NextCreateTime types.Time8                `json:"next_create_time"`
-	StartNumIdx    ptttype.SortIdx            `json:"start_num_idx"`
+	List    []*apitypes.ArticleSummary `json:"list"`
+	NextIdx string                     `json:"next_idx"`
 }
 
 func NewLoadGeneralArticlesParams() *LoadGeneralArticlesParams {
@@ -53,6 +50,10 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 	thePath, ok := path.(*LoadGeneralArticlesPath)
 	if !ok {
 		return nil, 400, ErrInvalidPath
+	}
+
+	if theParams.Keyword != "" {
+		return LoadGeneralArticlesByKeyword(remoteAddr, userID, params, path, c)
 	}
 
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
@@ -102,7 +103,7 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 	return r, 200, nil
 }
 
-func checkReadArticles(userID bbs.UUserID, boardID bbs.BBoardID, userReadArticleMap map[bbs.ArticleID]bool, theList []*schema.ArticleSummary) (newUserReadArticleMap map[bbs.ArticleID]bool, err error) {
+func checkReadArticles(userID bbs.UUserID, boardID bbs.BBoardID, userReadArticleMap map[bbs.ArticleID]bool, theList []*schema.ArticleSummaryWithRegex) (newUserReadArticleMap map[bbs.ArticleID]bool, err error) {
 	queryArticleIDs := make([]bbs.ArticleID, 0, len(theList))
 	checkArticleIDMap := make(map[bbs.ArticleID]int)
 	for idx, each := range theList {
@@ -153,10 +154,10 @@ func updateUserReadBoard(userID bbs.UUserID, boardID bbs.BBoardID, updateNanoTS 
 	return nil
 }
 
-func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool, result_b *pttbbsapi.LoadGeneralArticlesResult) *LoadGeneralArticlesResult {
+func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummaryWithRegex, userReadArticleMap map[bbs.ArticleID]bool, result_b *pttbbsapi.LoadGeneralArticlesResult) *LoadGeneralArticlesResult {
 	theList := make([]*apitypes.ArticleSummary, len(a_db))
 	for i, each_db := range a_db {
-		theList[i] = apitypes.NewArticleSummary(each_db)
+		theList[i] = apitypes.NewArticleSummaryFromWithRegex(each_db)
 		articleID := each_db.ArticleID
 		isRead, ok := userReadArticleMap[articleID]
 		if ok && isRead {
@@ -165,9 +166,7 @@ func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummary, userReadArticle
 	}
 
 	return &LoadGeneralArticlesResult{
-		List:           theList,
-		NextIdx:        result_b.NextIdx,
-		NextCreateTime: types.Time8(result_b.NextCreateTime),
-		StartNumIdx:    result_b.StartNumIdx,
+		List:    theList,
+		NextIdx: result_b.NextIdx,
 	}
 }

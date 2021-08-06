@@ -1,6 +1,8 @@
 package schema
 
 import (
+	"strings"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -86,15 +88,15 @@ func GetArticleSummariesByOwnerID(ownerID bbs.UUserID, startCreateTime types.Nan
 			},
 		}
 	} else {
-		theDirCommentID := "$gte"
+		theDir := "$gte"
 		if descending {
-			theDirCommentID = "$lte"
+			theDir = "$lte"
 		}
 
 		query = bson.M{
 			ARTICLE_OWNER_b: ownerID,
 			ARTICLE_CREATE_TIME_b: bson.M{
-				theDirCommentID: startCreateTime,
+				theDir: startCreateTime,
 			},
 			ARTICLE_IS_DELETED_b: bson.M{
 				"$exists": false,
@@ -120,6 +122,212 @@ func GetArticleSummariesByOwnerID(ownerID bbs.UUserID, startCreateTime types.Nan
 	}
 
 	return result, nil
+}
+
+func GetArticleSummariesByRegex(boardID bbs.BBoardID, keywordList []string, createNanoTS types.NanoTS, articleID bbs.ArticleID, descending bool, limit int) (result []*ArticleSummary, err error) {
+	result = make([]*ArticleSummary, 0, limit)
+
+	// keyword-list
+	runeList := make([][]rune, len(keywordList))
+	for idx, each := range keywordList {
+		runeList[idx] = []rune(each)
+	}
+	isToValidate := getArticleSummariesByRegexIsToValidate(runeList)
+
+	patternList := getArticleSummariesByRegexPatternList(runeList)
+
+	query := getArticleSummariesByRegexSetQuery(boardID, patternList, createNanoTS, articleID, descending)
+
+	// sort opts
+	var sortOpts bson.D
+	if descending {
+		sortOpts = bson.D{
+			{Key: ARTICLE_CREATE_TIME_b, Value: -1},
+			{Key: ARTICLE_ARTICLE_ID_b, Value: -1},
+		}
+	} else {
+		sortOpts = bson.D{
+			{Key: ARTICLE_CREATE_TIME_b, Value: 1},
+			{Key: ARTICLE_ARTICLE_ID_b, Value: 1},
+		}
+	}
+
+	nextCreateTS := createNanoTS
+	nextArticleID := articleID
+
+	isEndLoop := false
+	remaining := limit
+	for !isEndLoop && remaining > 0 {
+		// find
+		var eachResult []*ArticleSummary
+		err = Article_c.Find(query, int64(limit+1), &eachResult, articleSummaryFields, sortOpts)
+		if err != nil {
+			return nil, err
+		}
+		if len(eachResult) < limit+1 {
+			isEndLoop = true
+		} else {
+			nextArticleSummary := eachResult[limit]
+			eachResult = eachResult[:limit]
+
+			nextCreateTS = nextArticleSummary.CreateTime
+			nextArticleID = nextArticleSummary.ArticleID
+		}
+
+		validResult := eachResult
+		if isToValidate {
+			validResult = getArticleSummariesByRegexIsValidResult(eachResult, keywordList, runeList)
+		}
+
+		// append
+		if len(validResult) > remaining {
+			validResult = validResult[:remaining]
+		}
+
+		result = append(result, validResult...)
+		remaining -= len(validResult)
+
+		query = getArticleSummariesByRegexSetQuery(boardID, patternList, nextCreateTS, nextArticleID, descending)
+	}
+
+	return result, nil
+}
+
+func getArticleSummariesByRegexSetQuery(boardID bbs.BBoardID, patternList bson.A, createNanoTS types.NanoTS, articleID bbs.ArticleID, descending bool) (query bson.M) {
+	if createNanoTS == 0 {
+		firstQuery := bson.M{
+			ARTICLE_BBOARD_ID_b: boardID,
+			ARTICLE_IS_DELETED_b: bson.M{
+				"$exists": false,
+			},
+		}
+
+		theList := make(bson.A, 0, len(patternList)+1)
+		theList = append(theList, firstQuery)
+		theList = append(theList, patternList...)
+
+		return bson.M{
+			"$and": theList,
+		}
+	}
+
+	theDir := "$gt"
+	if descending {
+		theDir = "$lt"
+	}
+
+	firstQuery := bson.M{
+		ARTICLE_BBOARD_ID_b: boardID,
+		ARTICLE_IS_DELETED_b: bson.M{
+			"$exists": false,
+		},
+		ARTICLE_CREATE_TIME_b: bson.M{
+			theDir: createNanoTS,
+		},
+	}
+
+	theList := make(bson.A, 0, len(patternList)+1)
+	theList = append(theList, firstQuery)
+	theList = append(theList, patternList...)
+
+	theDir2 := "$gte"
+	if descending {
+		theDir2 = "$lte"
+	}
+
+	secondQuery := bson.M{
+		ARTICLE_BBOARD_ID_b: boardID,
+		ARTICLE_IS_DELETED_b: bson.M{
+			"$exists": false,
+		},
+		ARTICLE_CREATE_TIME_b: createNanoTS,
+		ARTICLE_ARTICLE_ID_b: bson.M{
+			theDir2: articleID,
+		},
+	}
+
+	theList2 := make(bson.A, 0, len(patternList)+1)
+	theList2 = append(theList2, secondQuery)
+	theList2 = append(theList2, patternList...)
+
+	return bson.M{
+		"$or": bson.A{
+			bson.M{
+				"$and": theList,
+			},
+			bson.M{
+				"$and": theList2,
+			},
+		},
+	}
+}
+
+func getArticleSummariesByRegexIsToValidate(keywordList [][]rune) (isToValidate bool) {
+	for _, each := range keywordList {
+		if len(each) > TITLE_REGEX_N_GRAM {
+			return true
+		}
+	}
+
+	return false
+}
+
+func getArticleSummariesByRegexPatternList(keywordList [][]rune) (patternList bson.A) {
+	estimateLen := 0
+	for _, each := range keywordList {
+		estimateLen += len(each) / TITLE_REGEX_N_GRAM
+		if len(each)%TITLE_REGEX_N_GRAM != 0 {
+			estimateLen++
+		}
+	}
+
+	patternList = make(bson.A, 0, estimateLen)
+	for _, each := range keywordList {
+		for idx := 0; idx < len(each); idx += TITLE_REGEX_N_GRAM {
+			// end = min(idx+TITLE_REGEX_N_GRAM, len(each))
+			end := idx + TITLE_REGEX_N_GRAM
+			if end > len(each) {
+				end = len(each)
+
+				// idx = max(end-TITLE_REGEX_N_GRAM, 0)
+				idx = end - TITLE_REGEX_N_GRAM
+				if idx < 0 {
+					idx = 0
+				}
+			}
+			patternList = append(patternList, bson.M{ARTICLE_TITLE_REGEX_b: string(each[idx:end])})
+		}
+	}
+
+	return patternList
+}
+
+// getArticleSummariesByRegexIsValidResult
+//
+// Assume:
+func getArticleSummariesByRegexIsValidResult(articleSummaries []*ArticleSummary, keywordList []string, runeList [][]rune) (validArticleSummaries []*ArticleSummary) {
+	validArticleSummaries = make([]*ArticleSummary, 0, len(articleSummaries))
+	for _, each := range articleSummaries {
+		if getArticleSummariesByRegexIsValidTitle(each.Title, keywordList, runeList) {
+			validArticleSummaries = append(validArticleSummaries, each)
+		}
+	}
+
+	return validArticleSummaries
+}
+
+func getArticleSummariesByRegexIsValidTitle(title string, keywordList []string, runeList [][]rune) bool {
+	for idx, each := range runeList {
+		if len(each) <= TITLE_REGEX_N_GRAM {
+			continue
+		}
+
+		if !strings.Contains(title, keywordList[idx]) {
+			return false
+		}
+	}
+
+	return true
 }
 
 //NewARticleSummary

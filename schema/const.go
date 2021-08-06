@@ -5,6 +5,10 @@ import (
 	redis "github.com/go-redis/redis/v8"
 )
 
+const (
+	TITLE_REGEX_N_GRAM = 5
+)
+
 var (
 	client *db.Client
 

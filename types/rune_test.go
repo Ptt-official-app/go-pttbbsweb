@@ -2,6 +2,7 @@ package types
 
 import (
 	"bytes"
+	"reflect"
 	"testing"
 )
 
@@ -208,6 +209,47 @@ func TestRune_Big5ToUtf8(t *testing.T) {
 
 			if r.Utf8 != tt.expectedUtf8 {
 				t.Errorf("Rune.Big5ToUtf8: Utf8: %v expected: %v", r.Utf8, expected1)
+			}
+		})
+	}
+}
+
+func TestStringsSplitAsRune(t *testing.T) {
+	type args struct {
+		str string
+		sep string
+	}
+	tests := []struct {
+		name         string
+		args         args
+		expectedStrs []string
+	}{
+		// TODO: Add test cases.
+		{
+			args:         args{str: "再來 然後", sep: " "},
+			expectedStrs: []string{"再來", "然後"},
+		},
+		{
+			args:         args{str: "再來", sep: " "},
+			expectedStrs: []string{"再來"},
+		},
+		{
+			args:         args{str: "再來 然後 ", sep: " "},
+			expectedStrs: []string{"再來", "然後", ""},
+		},
+		{
+			args:         args{str: " 再來 然後", sep: " "},
+			expectedStrs: []string{"", "再來", "然後"},
+		},
+		{
+			args:         args{str: " 再來 然後 ", sep: " "},
+			expectedStrs: []string{"", "再來", "然後", ""},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotStrs := StringsSplitAsRune(tt.args.str, tt.args.sep); !reflect.DeepEqual(gotStrs, tt.expectedStrs) {
+				t.Errorf("StringsSplitAsRune() = %v, want %v", gotStrs, tt.expectedStrs)
 			}
 		})
 	}

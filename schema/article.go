@@ -25,6 +25,8 @@ type Article struct {
 	Class      string           `bson:"class"` //
 	Filemode   ptttype.FileMode `bson:"mode"`  //
 
+	TitleRegex []string `bson:"title_regex"`
+
 	Idx string `bson:"pttidx"`
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"` // used by article-summary
@@ -68,6 +70,7 @@ var ( // bson-name
 	ARTICLE_MONEY_b       = getBSONName(EMPTY_ARTICLE, "Money")
 	ARTICLE_CLASS_b       = getBSONName(EMPTY_ARTICLE, "Class")
 	ARTICLE_FILEMODE_b    = getBSONName(EMPTY_ARTICLE, "Filemode")
+	ARTICLE_TITLE_REGEX_b = getBSONName(EMPTY_ARTICLE, "TitleRegex")
 
 	ARTICLE_UPDATE_NANO_TS_b = getBSONName(EMPTY_ARTICLE, "UpdateNanoTS")
 
@@ -123,6 +126,11 @@ func assertArticleFields() error {
 
 	// article_summary
 	if err := assertFields(EMPTY_ARTICLE, EMPTY_ARTICLE_SUMMARY); err != nil {
+		return err
+	}
+
+	// article_summary_with_regex
+	if err := assertFields(EMPTY_ARTICLE, EMPTY_ARTICLE_SUMMARY_WITH_REGEX); err != nil {
 		return err
 	}
 
