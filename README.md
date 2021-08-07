@@ -9,8 +9,8 @@ go implementation of [openbbs-middleware](https://hackmd.io/@twbbs/Root#%E6%9E%B
 
 ## Demo Site
 
-[dev](https://www.devptt.site)
-[term (PttChrome)](https://term.devptt.site)
+* [dev](https://www.devptt.site)
+* [term (PttChrome)](https://term.devptt.site)
 
 ## Getting Started
 
