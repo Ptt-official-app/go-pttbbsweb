@@ -16,5 +16,5 @@
 /go-openbbsmiddleware
 /apidoc/template.json
 /static
-/docker_compose.env
+/docker/docker_compose.env
 /swagger
