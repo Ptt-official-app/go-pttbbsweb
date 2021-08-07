@@ -1,4 +1,5 @@
 # go-openbbsmiddleware
+
 [![GoDoc](https://pkg.go.dev/badge/github.com/Ptt-official-app/go-openbbsmiddleware?status.svg)](https://pkg.go.dev/github.com/Ptt-official-app/go-openbbsmiddleware?tab=doc)
 [![codecov](https://codecov.io/gh/Ptt-official-app/go-openbbsmiddleware/branch/main/graph/badge.svg)](https://codecov.io/gh/Ptt-official-app/go-openbbsmiddleware)
 
@@ -23,9 +24,10 @@ You can go to [https://term.devptt.site](https://term.devptt.site) and check how
 
 The test data (/home/bbs, adopted from [OCF PttID Data](https://ocf.tw/p/pttid/)) can be accessed [here](https://drive.google.com/file/d/1lHuqOYpPDmKayYAaf3UIiLRV1wCjF6bc/view?usp=sharing).
 Please setup the following config in pttbbs.conf to use the test data:
-```
-    MAX_USERS = 200000 /* 最高註冊人數 */
-    MAX_BOARD = 8192 /* 最大開板個數 */
+
+```sh
+MAX_USERS = 200000 /* 最高註冊人數 */
+MAX_BOARD = 8192 /* 最大開板個數 */
 ```
 
 您可以到 [swagger api](https://api.devptt.site:5000/)
@@ -38,9 +40,10 @@ curl 指令測試.
 
 使用的測試資料 (/home/bbs, 從 [OCF PttID Data](https://ocf.tw/p/pttid/) 更改而來) 在[這裡](https://drive.google.com/file/d/1lHuqOYpPDmKayYAaf3UIiLRV1wCjF6bc/view?usp=sharing).
 當使用測試資料時, 請在 pttbbs.conf 做以下的設定:
-```
-    MAX_USERS = 200000 /* 最高註冊人數 */
-    MAX_BOARD = 8192 /* 最大開板個數 */
+
+```sh
+MAX_USERS = 200000 /* 最高註冊人數 */
+MAX_BOARD = 8192 /* 最大開板個數 */
 ```
 
 ## Coding Convention
@@ -55,28 +58,28 @@ We use the following libraries for coding convention:
 * [gotests](https://github.com/cweill/gotests) for test-generation
 * [gofumpt](https://github.com/mvdan/gofumpt) for formatting
 
-## Docker-compose
+## docker-compose
 
 You can do the following to start with docker-compose:
 
-* copy `docker_compose.env.template` to `docker_compose.env` and modify the settings.
+* copy `docker/docker_compose.env.template` to `docker/docker_compose.env` and modify the settings.
 * `./scripts/docker_initbbs.sh [BBSHOME] pttofficialapps/go-pttbbs:latest`
-* `docker-compose --env-file docker_compose.env -f docker-compose.yaml up -d`
+* `docker-compose --env-file docker/docker_compose.env -f docker/docker-compose.yaml up -d`
 * register at `http://localhost:3457/account/register`
 * login at `http://localhost:3457/account/login`
 * `telnet localhost 8888` and use the account that you registered.
 
 您可以使用以下方式來使用 docker-compose:
 
-* 將 `./docker_compose.env.template` copy 到 `./docker_compose.env` 並且更改 BBSHOME 到您所希望的位置.
+* 將 `docker/docker/docker_compose.env.template` copy 到 `docker/docker_compose.env` 並且更改 BBSHOME 到您所希望的位置.
 * `./scripts/docker_initbbs.sh [BBSHOME] pttofficialapps/go-pttbbs:latest`
-* `docker-compose --env-file docker_compose.env -f docker-compose.yaml up -d`
+* `docker-compose --env-file docker/docker_compose.env -f docker/docker-compose.yaml up -d`
 * 在 `http://localhost:3457/account/register` 做 register
 * 在 `http://localhost:3457/account/login` 做 login
 * `telnet localhost 8888` 並且使用您剛剛登錄的帳號使用.
 * 第一次使用時. 須先將 SYSOP 和 pttguest 建立起來.
 
-## Discussing / Reviewing / Questioning the code.
+## Discussing / Reviewing / Questioning the code
 
 Besides creating issues, you can do the following
 to discuss / review / question the code:
