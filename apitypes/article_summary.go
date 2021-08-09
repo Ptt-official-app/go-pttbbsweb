@@ -56,3 +56,31 @@ func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
 		Rank: a_db.Rank,
 	}
 }
+
+func NewArticleSummaryFromWithRegex(a_db *schema.ArticleSummaryWithRegex) *ArticleSummary {
+	fboardID := ToFBoardID(a_db.BBoardID)
+	farticleID := ToFArticleID(a_db.ArticleID)
+
+	url := ToURL(fboardID, farticleID)
+
+	return &ArticleSummary{
+		FBoardID:   fboardID,                  //
+		ArticleID:  farticleID,                //
+		IsDeleted:  a_db.IsDeleted,            //
+		CreateTime: a_db.CreateTime.ToTime8(), //
+		MTime:      a_db.MTime.ToTime8(),      //
+		Recommend:  a_db.Recommend,            //
+		NComments:  a_db.NComments,            //
+		Owner:      a_db.Owner,                //
+		Title:      a_db.Title,                //
+		Money:      a_db.Money,                //
+		Filemode:   a_db.Filemode,             //
+		Class:      a_db.Class,                //
+
+		URL: url, //
+
+		Idx: a_db.Idx,
+
+		Rank: a_db.Rank,
+	}
+}

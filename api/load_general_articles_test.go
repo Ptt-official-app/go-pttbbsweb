@@ -27,9 +27,9 @@ func TestLoadGeneralArticles(t *testing.T) {
 	_, _ = schema.UserReadArticle_c.Update(update0, update0)
 	_, _ = schema.UserReadArticle_c.Update(update1, update1)
 
-	params := NewLoadGeneralArticlesParams()
+	params0 := NewLoadGeneralArticlesParams()
 	path := &LoadGeneralArticlesPath{FBoardID: "WhoAmI"}
-	expectedResult := &LoadGeneralArticlesResult{
+	expected0 := &LoadGeneralArticlesResult{
 		List: []*apitypes.ArticleSummary{
 			{
 				FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -64,8 +64,33 @@ func TestLoadGeneralArticles(t *testing.T) {
 				Idx:        "1234567890@19bWBI4Z",
 			},
 		},
-		NextIdx:        "1234560000@19bUG021",
-		NextCreateTime: 1234560000,
+		NextIdx: "1234560000@19bUG021",
+	}
+
+	params1 := &LoadGeneralArticlesParams{
+		Keyword:    "然後",
+		Max:        200,
+		Descending: true,
+	}
+	expected1 := &LoadGeneralArticlesResult{
+		List: []*apitypes.ArticleSummary{
+			{
+				FBoardID:   apitypes.FBoardID("WhoAmI"),
+				ArticleID:  apitypes.FArticleID("M.1234567890.A.123"),
+				IsDeleted:  false,
+				CreateTime: types.Time8(1234567890),
+				MTime:      types.Time8(1234567889),
+				Recommend:  8,
+				Owner:      "okcool",
+				Title:      "然後呢？～",
+				Class:      "問題",
+				Money:      3,
+				Filemode:   0,
+				URL:        "http://localhost:3457/bbs/WhoAmI/M.1234567890.A.123.html",
+				Read:       true,
+				Idx:        "1234567890@19bWBI4Z",
+			},
+		},
 	}
 
 	c := &gin.Context{}
@@ -86,8 +111,13 @@ func TestLoadGeneralArticles(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{
-			args:               args{remoteAddr: "localhost", userID: "SYSOP", params: params, path: path, c: &gin.Context{}},
-			expectedResult:     expectedResult,
+			args:               args{remoteAddr: "localhost", userID: "SYSOP", params: params0, path: path, c: &gin.Context{}},
+			expectedResult:     expected0,
+			expectedStatusCode: 200,
+		},
+		{
+			args:               args{remoteAddr: "localhost", userID: "SYSOP", params: params1, path: path, c: &gin.Context{}},
+			expectedResult:     expected1,
 			expectedStatusCode: 200,
 		},
 	}
@@ -109,6 +139,6 @@ func TestLoadGeneralArticles(t *testing.T) {
 				t.Errorf("LoadGeneralArticles() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
 		})
+		wg.Wait()
 	}
-	wg.Wait()
 }

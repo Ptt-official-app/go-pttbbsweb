@@ -41,17 +41,17 @@ func updateArticleContentInfo(
 	return err
 }
 
-func deserializeArticlesAndUpdateDB(userID bbs.UUserID, bboardID bbs.BBoardID, articleSummaries_b []*bbs.ArticleSummary, updateNanoTS types.NanoTS) (articleSummaries []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool, err error) {
+func deserializeArticlesAndUpdateDB(userID bbs.UUserID, bboardID bbs.BBoardID, articleSummaries_b []*bbs.ArticleSummary, updateNanoTS types.NanoTS) (articleSummaries []*schema.ArticleSummaryWithRegex, userReadArticleMap map[bbs.ArticleID]bool, err error) {
 	if len(articleSummaries_b) == 0 {
 		return nil, nil, nil
 	}
 
-	articleSummaries = make([]*schema.ArticleSummary, len(articleSummaries_b))
+	articleSummaries = make([]*schema.ArticleSummaryWithRegex, len(articleSummaries_b))
 	for idx, each_b := range articleSummaries_b {
-		articleSummaries[idx] = schema.NewArticleSummary(each_b, updateNanoTS)
+		articleSummaries[idx] = schema.NewArticleSummaryWithRegex(each_b, updateNanoTS)
 	}
 
-	err = schema.UpdateArticleSummaries(articleSummaries, updateNanoTS)
+	err = schema.UpdateArticleSummaryWithRegexes(articleSummaries, updateNanoTS)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -82,7 +82,7 @@ func deserializeArticlesAndUpdateDB(userID bbs.UUserID, bboardID bbs.BBoardID, a
 	return articleSummaries, userReadArticleMap, err
 }
 
-func updateArticleNComments(bboardID bbs.BBoardID, articleSummaries []*schema.ArticleSummary) {
+func updateArticleNComments(bboardID bbs.BBoardID, articleSummaries []*schema.ArticleSummaryWithRegex) {
 	if len(articleSummaries) == 0 {
 		return
 	}

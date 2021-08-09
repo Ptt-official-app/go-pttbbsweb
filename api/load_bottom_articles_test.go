@@ -59,8 +59,7 @@ func TestLoadBottomArticles(t *testing.T) {
 				Read:       true,
 			},
 		},
-		NextIdx:        "1234560000@19bUG021",
-		NextCreateTime: 1234560000,
+		NextIdx: "1234560000@19bUG021",
 	}
 
 	type args struct {

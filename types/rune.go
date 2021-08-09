@@ -235,3 +235,33 @@ func Utf8ToBig5(utf8 string) (big5 []byte) {
 
 	return big5
 }
+
+// StringsSplitAsRune
+//
+// sep: single-rune string
+func StringsSplitAsRune(str string, sep string) (strs []string) {
+	theRune := []rune(str)
+	sepRunes := []rune(sep)
+	sepRune := sepRunes[0]
+	count := 1
+	for _, each := range theRune {
+		if each == sepRune {
+			count++
+		}
+	}
+
+	strs = make([]string, count)
+	startIdx := 0
+	strIdx := 0
+	for idx, each := range theRune {
+		if each == sepRune {
+			strs[strIdx] = string(theRune[startIdx:idx])
+			strIdx++
+			startIdx = idx + 1
+		}
+	}
+	// the last
+	strs[strIdx] = string(theRune[startIdx:])
+
+	return strs
+}
