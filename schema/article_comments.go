@@ -23,7 +23,7 @@ var (
 	articleCommentsFields  = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_COMMENTS) // nolint // consistent with programming pattern
 )
 
-func UpdateArticleCommentsByArticleID(boardID bbs.BBoardID, articleID bbs.ArticleID, updateNanoTS types.NanoTS) {
+func UpdateArticleCommentsByArticleID(boardID bbs.BBoardID, articleID bbs.ArticleID, updateNanoTS types.NanoTS) (err error) {
 	nComments, _ := CountComments(boardID, articleID)
 
 	articleComments := &ArticleComments{
@@ -33,7 +33,7 @@ func UpdateArticleCommentsByArticleID(boardID bbs.BBoardID, articleID bbs.Articl
 		CommentsUpdateNanoTS: updateNanoTS,
 	}
 
-	_ = UpdateArticleComments(articleComments)
+	return UpdateArticleComments(articleComments)
 }
 
 //UpdateArticleComments

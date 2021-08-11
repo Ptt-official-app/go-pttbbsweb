@@ -9,7 +9,7 @@ func Init() {
 
 	for idx := 0; idx < N_COMMENT_QUEUE; idx++ {
 		theQuit[idx] = make(chan struct{})
-		go ProcessCommentQueue(idx, theQuit[idx])
+		go ProcessCommentQueueLoop(idx, theQuit[idx])
 	}
 }
 

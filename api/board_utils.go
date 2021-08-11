@@ -31,11 +31,10 @@ func toBoardID(fboardID apitypes.FBoardID, remoteAddr string, userID bbs.UUserID
 	return fboardID.ToBBoardID()
 }
 
-func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.BoardSummary, updateNanoTS types.NanoTS) (boardSummaries []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, err error) {
-	if len(boardSummaries_b) == 0 {
-		return nil, nil, nil
-	}
-
+// DeserializeBoards
+//
+// each_b.Reason happens only with invalid permission.
+func DeserializeBoardsAndUpdateDB(boardSummaries_b []*bbs.BoardSummary, updateNanoTS types.NanoTS) (boardSummaries []*schema.BoardSummary, err error) {
 	boardSummaries = make([]*schema.BoardSummary, 0, len(boardSummaries_b))
 	for _, each_b := range boardSummaries_b {
 		if each_b.Reason != 0 {
@@ -45,8 +44,24 @@ func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.Bo
 
 		boardSummaries = append(boardSummaries, each)
 	}
+	if len(boardSummaries) == 0 {
+		return nil, nil
+	}
 
 	err = schema.UpdateBoardSummaries(boardSummaries, updateNanoTS)
+	if err != nil {
+		return nil, err
+	}
+
+	return boardSummaries, nil
+}
+
+func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.BoardSummary, updateNanoTS types.NanoTS) (boardSummaries []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, err error) {
+	if len(boardSummaries_b) == 0 {
+		return nil, nil, nil
+	}
+
+	boardSummaries, err = DeserializeBoardsAndUpdateDB(boardSummaries_b, updateNanoTS)
 	if err != nil {
 		return nil, nil, err
 	}

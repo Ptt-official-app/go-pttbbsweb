@@ -75,7 +75,7 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 	}
 
 	// ensure that we do have the article.
-	content, ip, host, bbs, articleDetailSummary, statusCode, err := tryGetArticleContentInfo(userID, boardID, articleID, c)
+	content, ip, host, bbs, articleDetailSummary, statusCode, err := tryGetArticleContentInfo(userID, boardID, articleID, c, false)
 	if err != nil {
 		return nil, statusCode, err
 	}
@@ -126,7 +126,7 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 //7. parse article 為 content / comments.
 //8. 將 comments parse 為 firstComments / theRestComments.
 //9. 將 theRestComments 丟進 queue 裡.
-func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context) (content [][]*types.Rune, ip string, host string, bbs string, articleDetailSummary *schema.ArticleDetailSummary, statusCode int, err error) {
+func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context, isSystem bool) (content [][]*types.Rune, ip string, host string, bbs string, articleDetailSummary *schema.ArticleDetailSummary, statusCode int, err error) {
 	updateNanoTS := types.NanoTS(0)
 
 	// set user-read-article-id
@@ -148,7 +148,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	// get from backend with content-mtime
 	// estimated max 500ms + 3 seconds
 
-	articleDetailSummary_db, statusCode, err := tryGetArticleDetailSummary(userID, bboardID, articleID, articleCreateTime, c)
+	articleDetailSummary_db, statusCode, err := TryGetArticleDetailSummary(userID, bboardID, articleID, articleCreateTime, c, isSystem)
 	if err != nil {
 		return nil, "", "", "", nil, statusCode, err
 	}
@@ -162,7 +162,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		articleDetailSummary_db.CreateTime = articleCreateTimeNanoTS
 	}
 
-	if tryGetArticleContentInfoTooSoon(articleDetailSummary_db.ContentUpdateNanoTS) {
+	if TryGetArticleContentInfoTooSoon(articleDetailSummary_db.ContentUpdateNanoTS) {
 
 		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID)
 		if err != nil {
@@ -174,7 +174,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	ownerID := articleDetailSummary_db.Owner
 
 	// 4. do lock. if failed, return the data in db.
-	lockKey := string(bboardID) + ":" + string(articleID)
+	lockKey := ArticleLockKey(bboardID, articleID)
 	err = schema.TryLock(lockKey, ARTICLE_LOCK_TS_DURATION)
 	if err != nil {
 		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID)
@@ -227,7 +227,7 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	// because it's possible that there is no first-comments.
 	// only article-content is guaranteed.
 
-	err = updateArticleContentInfo(bboardID, articleID, content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, updateNanoTS)
+	err = UpdateArticleContentInfo(bboardID, articleID, content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, updateNanoTS)
 
 	if err != nil {
 		return nil, "", "", "", nil, 500, err
@@ -282,12 +282,12 @@ func tryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	return content, ip, host, bbs, articleDetailSummary_db, 200, nil
 }
 
-func tryGetArticleContentInfoTooSoon(updateNanoTS types.NanoTS) bool {
+func TryGetArticleContentInfoTooSoon(updateNanoTS types.NanoTS) bool {
 	nowNanoTS := types.NowNanoTS()
 	return nowNanoTS-updateNanoTS < GET_ARTICLE_CONTENT_INFO_TOO_SOON_NANO_TS
 }
 
-func tryGetArticleDetailSummary(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, articleCreateTime pttbbstypes.Time4, c *gin.Context) (articleDetailSummary *schema.ArticleDetailSummary, statusCode int, err error) {
+func TryGetArticleDetailSummary(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, articleCreateTime pttbbstypes.Time4, c *gin.Context, isSystem bool) (articleDetailSummary *schema.ArticleDetailSummary, statusCode int, err error) {
 	articleDetailSummary, err = schema.GetArticleDetailSummary(boardID, articleID)
 	if err != nil { // something went wrong with db.
 		return nil, 500, err
@@ -305,6 +305,7 @@ func tryGetArticleDetailSummary(userID bbs.UUserID, boardID bbs.BBoardID, articl
 		StartIdx:  startIdx,
 		NArticles: 1,
 		Desc:      false,
+		IsSystem:  isSystem,
 	}
 	var result_b *pttbbsapi.LoadGeneralArticlesResult
 

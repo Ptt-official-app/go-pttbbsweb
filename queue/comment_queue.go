@@ -49,7 +49,7 @@ func QueueCommentDBCS(bboardID bbs.BBoardID, articleID bbs.ArticleID, ownerID bb
 	return err
 }
 
-func ProcessCommentQueue(idx int, quit chan struct{}) {
+func ProcessCommentQueueLoop(idx int, quit chan struct{}) {
 	for {
 		select {
 		case commentQueue, ok := <-theQueue:
@@ -57,30 +57,30 @@ func ProcessCommentQueue(idx int, quit chan struct{}) {
 				return
 			}
 
-			processCommentQueue(commentQueue)
+			_ = ProcessCommentQueue(commentQueue)
 		case <-quit:
 			return
 		}
 	}
 }
 
-//processCommentQueue
+//ProcessCommentQueue
 //
 //We use LastTime as the reference time to obtain stable timestamp.
 //(lastTime is from firstComments, assuming not change a lot.)
 //(mtime changes frequently and may result in unstable timestamp.)
-func processCommentQueue(q *CommentQueue) {
+func ProcessCommentQueue(q *CommentQueue) (err error) {
 	// 1. parse comments.
 	comments := dbcs.ParseComments(q.OwnerID, q.CommentDBCS, q.CommentDBCS)
 	// log.Infof("processCommentQueue: after parseComments: comments: %v", len(comments))
 	if len(comments) == 0 {
-		return
+		return nil
 	}
 
 	// 2. integrate comments.
 	toAddComments, toDeleteComments, err := dbcs.IntegrateComments(q.BBoardID, q.ArticleID, comments, q.ArticleCreateTime, q.ArticleMTime, false, true)
 	if err != nil {
-		return
+		return err
 	}
 
 	// 3. remove comment-ids first.
@@ -91,15 +91,15 @@ func processCommentQueue(q *CommentQueue) {
 
 	err = schema.RemoveCommentIDs(q.BBoardID, q.ArticleID, toRemoveCommentIDs, q.UpdateNanoTS, "not-in-file")
 	if err != nil {
-		return
+		return err
 	}
 
 	// 4. update comments.
 	err = schema.UpdateComments(toAddComments, q.UpdateNanoTS)
 	if err != nil {
-		return
+		return err
 	}
 
 	// 5. update article comments.
-	schema.UpdateArticleCommentsByArticleID(q.BBoardID, q.ArticleID, q.UpdateNanoTS)
+	return schema.UpdateArticleCommentsByArticleID(q.BBoardID, q.ArticleID, q.UpdateNanoTS)
 }
