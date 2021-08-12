@@ -45,7 +45,7 @@ func LoadGeneralArticlesByKeyword(remoteAddr string, userID bbs.UUserID, params 
 		createNanoTS = types.Time4ToNanoTS(createTSTime4)
 	}
 
-	articleSummaries_db, err := schema.GetArticleSummariesByRegex(boardID, keywordList, createNanoTS, articleID, theParams.Descending, theParams.Max)
+	articleSummaries_db, err := schema.GetArticleSummariesByRegex(boardID, keywordList, createNanoTS, articleID, theParams.Descending, theParams.Max+1)
 	if err != nil {
 		return nil, 500, err
 	}
