@@ -30,6 +30,10 @@ func LoadGeneralArticles(board *schema.BoardSummary) (err error) {
 			}
 		}
 
+		if len(articleSummaries) > 0 {
+			logrus.Infof("cron.LoadGeneralArticles: bid: %v count: %v", board.BBoardID, count)
+		}
+
 		if newNextIdx == "" {
 			logrus.Infof("cron.LoadGeneralArticles: bid: %v load %v articles", board.BBoardID, count)
 			return nil
