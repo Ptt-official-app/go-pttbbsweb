@@ -6,7 +6,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
-func updateArticleContentInfo(
+func UpdateArticleContentInfo(
 	boardID bbs.BBoardID,
 	articleID bbs.ArticleID,
 	content [][]*types.Rune,
@@ -41,17 +41,29 @@ func updateArticleContentInfo(
 	return err
 }
 
-func deserializeArticlesAndUpdateDB(userID bbs.UUserID, bboardID bbs.BBoardID, articleSummaries_b []*bbs.ArticleSummary, updateNanoTS types.NanoTS) (articleSummaries []*schema.ArticleSummaryWithRegex, userReadArticleMap map[bbs.ArticleID]bool, err error) {
+func DeserializeArticlesAndUpdateDB(articleSummaries_b []*bbs.ArticleSummary, updateNanoTS types.NanoTS) (articleSummaries []*schema.ArticleSummaryWithRegex, err error) {
 	if len(articleSummaries_b) == 0 {
-		return nil, nil, nil
+		return nil, nil
 	}
-
 	articleSummaries = make([]*schema.ArticleSummaryWithRegex, len(articleSummaries_b))
 	for idx, each_b := range articleSummaries_b {
 		articleSummaries[idx] = schema.NewArticleSummaryWithRegex(each_b, updateNanoTS)
 	}
 
 	err = schema.UpdateArticleSummaryWithRegexes(articleSummaries, updateNanoTS)
+	if err != nil {
+		return nil, err
+	}
+
+	return articleSummaries, nil
+}
+
+func deserializeArticlesAndUpdateDB(userID bbs.UUserID, bboardID bbs.BBoardID, articleSummaries_b []*bbs.ArticleSummary, updateNanoTS types.NanoTS) (articleSummaries []*schema.ArticleSummaryWithRegex, userReadArticleMap map[bbs.ArticleID]bool, err error) {
+	if len(articleSummaries_b) == 0 {
+		return nil, nil, nil
+	}
+
+	articleSummaries, err = DeserializeArticlesAndUpdateDB(articleSummaries_b, updateNanoTS)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -111,4 +123,8 @@ func updateArticleNComments(bboardID bbs.BBoardID, articleSummaries []*schema.Ar
 		each.NComments = eachArticleNComments.NComments
 		each.Rank = eachArticleNComments.Rank
 	}
+}
+
+func ArticleLockKey(boardID bbs.BBoardID, articleID bbs.ArticleID) (key string) {
+	return string(boardID) + ":" + string(articleID)
 }

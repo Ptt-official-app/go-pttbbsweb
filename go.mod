@@ -3,7 +3,7 @@ module github.com/Ptt-official-app/go-openbbsmiddleware
 go 1.16
 
 require (
-	github.com/Ptt-official-app/go-pttbbs v0.15.3
+	github.com/Ptt-official-app/go-pttbbs v0.15.5
 	github.com/gin-gonic/gin v1.7.2
 	github.com/go-redis/redis/v8 v8.11.0
 	github.com/golang-jwt/jwt v3.2.1+incompatible // indirect

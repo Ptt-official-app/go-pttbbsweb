@@ -4,6 +4,7 @@ import (
 	"path/filepath"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/cron"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -116,6 +117,9 @@ func main() {
 	if err != nil {
 		return
 	}
+
+	// retry load general boards
+	go cron.RetryLoadGeneralBoards()
 
 	_ = router.Run(types.HTTP_HOST)
 }
