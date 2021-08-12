@@ -11,7 +11,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/gin-gonic/gin"
 )
 
 func TryGetArticleContentInfo(boardID bbs.BBoardID, articleID bbs.ArticleID) (err error) {
@@ -55,8 +54,7 @@ func TryGetArticleContentInfo(boardID bbs.BBoardID, articleID bbs.ArticleID) (er
 	}
 	url := utils.MergeURL(urlMap, pttbbsapi.GET_ARTICLE_R)
 
-	c := &gin.Context{}
-	statusCode, err := utils.BackendGet(c, url, theParams_b, nil, &result_b)
+	statusCode, err := utils.BackendGet(nil, url, theParams_b, nil, &result_b)
 	if err != nil {
 		return err
 	}

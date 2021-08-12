@@ -9,7 +9,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
 
@@ -55,8 +54,7 @@ func loadGeneralArticles(boardID bbs.BBoardID, startIdx string) (articleSummarie
 	}
 	url := utils.MergeURL(urlMap, pttbbsapi.LOAD_GENERAL_ARTICLES_R)
 
-	c := &gin.Context{}
-	statusCode, err := utils.BackendGet(c, url, theParams_b, nil, &result_b)
+	statusCode, err := utils.BackendGet(nil, url, theParams_b, nil, &result_b)
 	if err != nil {
 		return nil, "", err
 	}
