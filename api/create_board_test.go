@@ -76,6 +76,6 @@ func TestCreateBoard(t *testing.T) {
 				t.Errorf("CreateBoard() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
 		})
+		wg.Wait()
 	}
-	wg.Wait()
 }

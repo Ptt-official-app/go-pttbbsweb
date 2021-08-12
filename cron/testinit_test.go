@@ -23,6 +23,8 @@ func setupTest() {
 
 	api.SetIsTest()
 
+	SetIsTest()
+
 	params := &api.RegisterClientParams{ClientID: "default_client_id", ClientType: types.CLIENT_TYPE_APP}
 	_, _, _ = api.RegisterClient("localhost", bbs.UUserID("SYSOP"), params, nil)
 	// logrus.Infof("api.setupTest: after RegisterClient: status: %v e: %v", statusCode, err)
@@ -40,4 +42,6 @@ func teardownTest() {
 	defer queue.UnsetIsTest()
 
 	defer api.UnsetIsTest()
+
+	defer UnsetIsTest()
 }

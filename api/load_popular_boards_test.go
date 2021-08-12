@@ -95,6 +95,6 @@ func TestLoadPopularBoards(t *testing.T) {
 				t.Errorf("LoadPopularBoards() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
 		})
+		wg.Wait()
 	}
-	wg.Wait()
 }
