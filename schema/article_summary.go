@@ -134,9 +134,9 @@ func GetArticleSummariesByRegex(boardID bbs.BBoardID, keywordList []string, crea
 	}
 	isToValidate := getArticleSummariesByRegexIsToValidate(runeList)
 
-	patternList := getArticleSummariesByRegexPatternList(runeList)
+	firstPattern, patternList := getArticleSummariesByRegexPatternList(boardID, runeList)
 
-	query := getArticleSummariesByRegexSetQuery(boardID, patternList, createNanoTS, articleID, descending)
+	query := getArticleSummariesByRegexSetQuery(boardID, firstPattern, patternList, createNanoTS, articleID, descending)
 
 	// sort opts
 	var sortOpts bson.D
@@ -187,16 +187,17 @@ func GetArticleSummariesByRegex(boardID bbs.BBoardID, keywordList []string, crea
 		result = append(result, validResult...)
 		remaining -= len(validResult)
 
-		query = getArticleSummariesByRegexSetQuery(boardID, patternList, nextCreateTS, nextArticleID, descending)
+		query = getArticleSummariesByRegexSetQuery(boardID, firstPattern, patternList, nextCreateTS, nextArticleID, descending)
 	}
 
 	return result, nil
 }
 
-func getArticleSummariesByRegexSetQuery(boardID bbs.BBoardID, patternList bson.A, createNanoTS types.NanoTS, articleID bbs.ArticleID, descending bool) (query bson.M) {
+func getArticleSummariesByRegexSetQuery(boardID bbs.BBoardID, firstPattern string, patternList bson.A, createNanoTS types.NanoTS, articleID bbs.ArticleID, descending bool) (query bson.M) {
 	if createNanoTS == 0 {
 		firstQuery := bson.M{
-			ARTICLE_BBOARD_ID_b: boardID,
+			ARTICLE_BBOARD_ID_b:   boardID,
+			ARTICLE_TITLE_REGEX_b: firstPattern,
 			ARTICLE_IS_DELETED_b: bson.M{
 				"$exists": false,
 			},
@@ -217,12 +218,13 @@ func getArticleSummariesByRegexSetQuery(boardID bbs.BBoardID, patternList bson.A
 	}
 
 	firstQuery := bson.M{
-		ARTICLE_BBOARD_ID_b: boardID,
-		ARTICLE_IS_DELETED_b: bson.M{
-			"$exists": false,
-		},
+		ARTICLE_BBOARD_ID_b:   boardID,
+		ARTICLE_TITLE_REGEX_b: firstPattern,
 		ARTICLE_CREATE_TIME_b: bson.M{
 			theDir: createNanoTS,
+		},
+		ARTICLE_IS_DELETED_b: bson.M{
+			"$exists": false,
 		},
 	}
 
@@ -236,13 +238,14 @@ func getArticleSummariesByRegexSetQuery(boardID bbs.BBoardID, patternList bson.A
 	}
 
 	secondQuery := bson.M{
-		ARTICLE_BBOARD_ID_b: boardID,
-		ARTICLE_IS_DELETED_b: bson.M{
-			"$exists": false,
-		},
+		ARTICLE_BBOARD_ID_b:   boardID,
+		ARTICLE_TITLE_REGEX_b: firstPattern,
 		ARTICLE_CREATE_TIME_b: createNanoTS,
 		ARTICLE_ARTICLE_ID_b: bson.M{
 			theDir2: articleID,
+		},
+		ARTICLE_IS_DELETED_b: bson.M{
+			"$exists": false,
 		},
 	}
 
@@ -272,34 +275,28 @@ func getArticleSummariesByRegexIsToValidate(keywordList [][]rune) (isToValidate 
 	return false
 }
 
-func getArticleSummariesByRegexPatternList(keywordList [][]rune) (patternList bson.A) {
-	estimateLen := 0
-	for _, each := range keywordList {
-		estimateLen += len(each) / TITLE_REGEX_N_GRAM
-		if len(each)%TITLE_REGEX_N_GRAM != 0 {
-			estimateLen++
-		}
+func getArticleSummariesByRegexPatternList(boardID bbs.BBoardID, keywordList [][]rune) (firstPattern string, patternList bson.A) {
+	if len(keywordList) == 0 {
+		return "", nil
 	}
 
-	patternList = make(bson.A, 0, estimateLen)
-	for _, each := range keywordList {
-		for idx := 0; idx < len(each); idx += TITLE_REGEX_N_GRAM {
-			// end = min(idx+TITLE_REGEX_N_GRAM, len(each))
-			end := idx + TITLE_REGEX_N_GRAM
-			if end > len(each) {
-				end = len(each)
+	lenFirst := len(keywordList[0])
+	if lenFirst > TITLE_REGEX_N_GRAM {
+		lenFirst = TITLE_REGEX_N_GRAM
+	}
+	firstPattern = string(keywordList[0][:lenFirst])
 
-				// idx = max(end-TITLE_REGEX_N_GRAM, 0)
-				idx = end - TITLE_REGEX_N_GRAM
-				if idx < 0 {
-					idx = 0
-				}
-			}
-			patternList = append(patternList, bson.M{ARTICLE_TITLE_REGEX_b: string(each[idx:end])})
+	patternList = make(bson.A, 0, len(keywordList)-1)
+	for _, each := range keywordList[1:] {
+		lenEach := len(each)
+		if lenEach > TITLE_REGEX_N_GRAM {
+			lenEach = TITLE_REGEX_N_GRAM
 		}
+
+		patternList = append(patternList, bson.M{ARTICLE_BBOARD_ID_b: boardID, ARTICLE_TITLE_REGEX_b: string(each[:lenEach])})
 	}
 
-	return patternList
+	return firstPattern, patternList
 }
 
 // getArticleSummariesByRegexIsValidResult

@@ -84,7 +84,7 @@ func Test_articleTitleToTitleRegex(t *testing.T) {
 
 	title3 := "abcdef"
 	class3 := "test"
-	expected3 := []string{"a", "b", "c", "d", "e", "f", "ab", "bc", "cd", "de", "ef", "abc", "bcd", "cde", "def", "abcd", "bcde", "cdef", "abcde", "bcdef", "t", "e", "s", "t", "te", "es", "st", "tes", "est", "test"}
+	expected3 := []string{"a", "b", "c", "d", "e", "f", "ab", "bc", "cd", "de", "ef", "abc", "bcd", "cde", "def", "abcd", "bcde", "cdef", "abcde", "bcdef"}
 
 	type args struct {
 		title    string
