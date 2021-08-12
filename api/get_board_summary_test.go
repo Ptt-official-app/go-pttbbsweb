@@ -80,6 +80,6 @@ func TestGetBoardSummary(t *testing.T) {
 				t.Errorf("GetBoardSummary() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
 		})
+		wg.Wait()
 	}
-	wg.Wait()
 }

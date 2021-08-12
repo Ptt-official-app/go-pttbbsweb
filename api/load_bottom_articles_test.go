@@ -103,6 +103,6 @@ func TestLoadBottomArticles(t *testing.T) {
 				t.Errorf("LoadBottomArticles() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
 		})
+		wg.Wait()
 	}
-	wg.Wait()
 }

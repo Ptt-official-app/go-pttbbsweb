@@ -96,6 +96,6 @@ func TestLoadFavoriteBoards(t *testing.T) {
 				t.Errorf("LoadFavoriteBoards() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
 		})
+		wg.Wait()
 	}
-	wg.Wait()
 }

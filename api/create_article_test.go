@@ -94,6 +94,6 @@ func TestCreateArticle(t *testing.T) {
 				t.Errorf("CreateArticle() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
 		})
+		wg.Wait()
 	}
-	wg.Wait()
 }

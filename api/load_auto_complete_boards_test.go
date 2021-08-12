@@ -97,6 +97,6 @@ func TestLoadAutoCompleteBoards(t *testing.T) {
 				t.Errorf("LoadGeneralBoards() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
 		})
+		wg.Wait()
 	}
-	wg.Wait()
 }

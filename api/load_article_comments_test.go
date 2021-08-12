@@ -225,6 +225,6 @@ func TestLoadArticleComments(t *testing.T) {
 				t.Errorf("LoadArticleComments() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
 		})
+		wg.Wait()
 	}
-	wg.Wait()
 }

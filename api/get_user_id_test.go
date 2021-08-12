@@ -48,6 +48,6 @@ func TestGetUserID(t *testing.T) {
 				t.Errorf("GetUserID() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
 		})
+		wg.Wait()
 	}
-	wg.Wait()
 }
