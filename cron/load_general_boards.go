@@ -9,7 +9,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
-	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
 
@@ -59,8 +58,7 @@ func loadGeneralBoards(startIdx string) (boardSummaries []*schema.BoardSummary, 
 	}
 	var result_b *pttbbsapi.LoadGeneralBoardsResult
 
-	c := &gin.Context{}
-	statusCode, err := utils.BackendGet(c, pttbbsapi.LOAD_GENERAL_BOARDS_R, theParams_b, nil, &result_b)
+	statusCode, err := utils.BackendGet(nil, pttbbsapi.LOAD_GENERAL_BOARDS_R, theParams_b, nil, &result_b)
 	if err != nil {
 		return nil, "", err
 	}
