@@ -81,8 +81,12 @@ func BackendGet(c *gin.Context, url string, params interface{}, headers map[stri
 
 func httpUpdateHeaders(headers map[string]string, c *gin.Context) {
 	if c == nil {
+		headers["Content-Type"] = "application/json"
+		headers["Host"] = types.HTTP_HOST
+		headers["X-Forwarded-For"] = "127.0.0.1"
 		return
 	}
+
 	remoteAddr := c.ClientIP()
 
 	headers["Content-Type"] = "application/json"
