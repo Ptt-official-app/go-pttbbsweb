@@ -214,53 +214,56 @@ func TestGetArticleSummariesByOwnerID(t *testing.T) {
 
 func Test_getArticleSummariesByRegexPatternList(t *testing.T) {
 	keywords0 := [][]rune{[]rune("abc"), []rune("defgh"), []rune("ijklmnop")}
+	expectedFirstPattern0 := "abc"
 	expected0 := bson.A{
-		bson.M{ARTICLE_TITLE_REGEX_b: "abc"},
-		bson.M{ARTICLE_TITLE_REGEX_b: "defgh"},
-		bson.M{ARTICLE_TITLE_REGEX_b: "ijklm"},
-		bson.M{ARTICLE_TITLE_REGEX_b: "lmnop"},
+		bson.M{ARTICLE_BBOARD_ID_b: bbs.BBoardID("test"), ARTICLE_TITLE_REGEX_b: "defgh"},
+		bson.M{ARTICLE_BBOARD_ID_b: bbs.BBoardID("test"), ARTICLE_TITLE_REGEX_b: "ijklm"},
 	}
 
 	type args struct {
 		keywordList [][]rune
 	}
 	tests := []struct {
-		name                string
-		args                args
-		expectedPatternList bson.A
+		name                 string
+		args                 args
+		expectedFirstPattern string
+		expectedPatternList  bson.A
 	}{
 		// TODO: Add test cases.
 		{
-			args:                args{keywordList: keywords0},
-			expectedPatternList: expected0,
+			args:                 args{keywordList: keywords0},
+			expectedFirstPattern: expectedFirstPattern0,
+			expectedPatternList:  expected0,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotPatternList := getArticleSummariesByRegexPatternList(tt.args.keywordList); !reflect.DeepEqual(gotPatternList, tt.expectedPatternList) {
-				t.Errorf("getArticleSummariesByRegexPatternList() = %v, want %v", gotPatternList, tt.expectedPatternList)
+			gotFirstPattern, gotPatternList := getArticleSummariesByRegexPatternList("test", tt.args.keywordList)
+
+			if gotFirstPattern != tt.expectedFirstPattern {
+				t.Errorf("GetArticleSummariesByRegex: firstPattern: %v expected: %v", gotFirstPattern, tt.expectedFirstPattern)
 			}
+			assert.Equal(t, tt.expectedPatternList, gotPatternList)
 		})
 	}
 }
 
 func Test_getArticleSummariesByRegexSetQuery(t *testing.T) {
 	patternList0 := bson.A{
-		bson.M{ARTICLE_TITLE_REGEX_b: "abc"},
-		bson.M{ARTICLE_TITLE_REGEX_b: "defgh"},
-		bson.M{ARTICLE_TITLE_REGEX_b: "ijklm"},
+		bson.M{ARTICLE_BBOARD_ID_b: "test", ARTICLE_TITLE_REGEX_b: "defgh"},
+		bson.M{ARTICLE_BBOARD_ID_b: "test", ARTICLE_TITLE_REGEX_b: "ijklm"},
 	}
 	expected0 := bson.M{
 		"$and": bson.A{
 			bson.M{
-				ARTICLE_BBOARD_ID_b: bbs.BBoardID("bid0"),
+				ARTICLE_BBOARD_ID_b:   bbs.BBoardID("test"),
+				ARTICLE_TITLE_REGEX_b: "abc",
 				ARTICLE_IS_DELETED_b: bson.M{
 					"$exists": false,
 				},
 			},
-			bson.M{ARTICLE_TITLE_REGEX_b: "abc"},
-			bson.M{ARTICLE_TITLE_REGEX_b: "defgh"},
-			bson.M{ARTICLE_TITLE_REGEX_b: "ijklm"},
+			bson.M{ARTICLE_BBOARD_ID_b: "test", ARTICLE_TITLE_REGEX_b: "defgh"},
+			bson.M{ARTICLE_BBOARD_ID_b: "test", ARTICLE_TITLE_REGEX_b: "ijklm"},
 		},
 	}
 
@@ -269,7 +272,8 @@ func Test_getArticleSummariesByRegexSetQuery(t *testing.T) {
 			bson.M{
 				"$and": bson.A{
 					bson.M{
-						ARTICLE_BBOARD_ID_b: bbs.BBoardID("bid0"),
+						ARTICLE_BBOARD_ID_b:   bbs.BBoardID("test"),
+						ARTICLE_TITLE_REGEX_b: "abc",
 						ARTICLE_IS_DELETED_b: bson.M{
 							"$exists": false,
 						},
@@ -277,15 +281,15 @@ func Test_getArticleSummariesByRegexSetQuery(t *testing.T) {
 							"$lt": types.NanoTS(1234567890000000000),
 						},
 					},
-					bson.M{ARTICLE_TITLE_REGEX_b: "abc"},
-					bson.M{ARTICLE_TITLE_REGEX_b: "defgh"},
-					bson.M{ARTICLE_TITLE_REGEX_b: "ijklm"},
+					bson.M{ARTICLE_BBOARD_ID_b: "test", ARTICLE_TITLE_REGEX_b: "defgh"},
+					bson.M{ARTICLE_BBOARD_ID_b: "test", ARTICLE_TITLE_REGEX_b: "ijklm"},
 				},
 			},
 			bson.M{
 				"$and": bson.A{
 					bson.M{
-						ARTICLE_BBOARD_ID_b: bbs.BBoardID("bid0"),
+						ARTICLE_BBOARD_ID_b:   bbs.BBoardID("test"),
+						ARTICLE_TITLE_REGEX_b: "abc",
 						ARTICLE_IS_DELETED_b: bson.M{
 							"$exists": false,
 						},
@@ -294,15 +298,15 @@ func Test_getArticleSummariesByRegexSetQuery(t *testing.T) {
 							"$lte": bbs.ArticleID("aid0"),
 						},
 					},
-					bson.M{ARTICLE_TITLE_REGEX_b: "abc"},
-					bson.M{ARTICLE_TITLE_REGEX_b: "defgh"},
-					bson.M{ARTICLE_TITLE_REGEX_b: "ijklm"},
+					bson.M{ARTICLE_BBOARD_ID_b: "test", ARTICLE_TITLE_REGEX_b: "defgh"},
+					bson.M{ARTICLE_BBOARD_ID_b: "test", ARTICLE_TITLE_REGEX_b: "ijklm"},
 				},
 			},
 		},
 	}
 	type args struct {
 		boardID      bbs.BBoardID
+		firstPattern string
 		patternList  bson.A
 		createNanoTS types.NanoTS
 		articleID    bbs.ArticleID
@@ -315,17 +319,17 @@ func Test_getArticleSummariesByRegexSetQuery(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{
-			args:          args{boardID: "bid0", patternList: patternList0, descending: false},
+			args:          args{boardID: "test", firstPattern: "abc", patternList: patternList0, descending: false},
 			expectedQuery: expected0,
 		},
 		{
-			args:          args{boardID: "bid0", patternList: patternList0, descending: true, createNanoTS: 1234567890000000000, articleID: "aid0"},
+			args:          args{boardID: "test", firstPattern: "abc", patternList: patternList0, descending: true, createNanoTS: 1234567890000000000, articleID: "aid0"},
 			expectedQuery: expected1,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotQuery := getArticleSummariesByRegexSetQuery(tt.args.boardID, tt.args.patternList, tt.args.createNanoTS, tt.args.articleID, tt.args.descending)
+			gotQuery := getArticleSummariesByRegexSetQuery(tt.args.boardID, tt.args.firstPattern, tt.args.patternList, tt.args.createNanoTS, tt.args.articleID, tt.args.descending)
 
 			assert.Equal(t, tt.expectedQuery, gotQuery)
 		})

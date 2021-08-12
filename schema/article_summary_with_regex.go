@@ -94,19 +94,10 @@ func articleTitleToTitleRegex(title string, theClass string) (titleRegex []strin
 		nGramTitleRegex = len(titleRune)
 	}
 
-	classRune := []rune(theClass)
-	nGramClassRegex := 0
-	if len(classRune) > 0 {
-		nGramClassRegex = len(classRune)
-	}
-	lenTitleRegex := nGramTitleRegex*len(titleRune) + nGramClassRegex*len(classRune)
+	lenTitleRegex := nGramTitleRegex * len(titleRune)
 
 	titleRegex = make([]string, 0, lenTitleRegex)
 	titleRegex = articleTitleToTitleRegexCore(titleRune, titleRegex, nGramTitleRegex)
-
-	if theClass != "" {
-		titleRegex = articleTitleToTitleRegexCore(classRune, titleRegex, nGramClassRegex)
-	}
 
 	return titleRegex
 }
