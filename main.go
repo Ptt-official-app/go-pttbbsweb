@@ -1,17 +1,42 @@
 package main
 
 import (
+	"context"
+	"net/http"
+	"os"
+	"os/signal"
 	"path/filepath"
+	"syscall"
+	"time"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/cron"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"golang.org/x/sync/errgroup"
 )
 
 func withPrefix(path string) string {
 	return types.API_PREFIX + path
+}
+
+func withContextFunc(ctx context.Context, f func()) context.Context {
+	ctx, cancel := context.WithCancel(ctx)
+	go func() {
+		c := make(chan os.Signal, 1)
+		signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
+		defer signal.Stop(c)
+
+		select {
+		case <-ctx.Done():
+		case <-c:
+			cancel()
+			f()
+		}
+	}()
+
+	return ctx
 }
 
 func initGin() (*gin.Engine, error) {
@@ -108,18 +133,60 @@ func initGin() (*gin.Engine, error) {
 }
 
 func main() {
+	finished := make(chan struct{})
+	// ctrl + c
+	ctx := withContextFunc(
+		context.Background(),
+		func() {
+			// handle graceful shutdown
+			log.Info("interrupt received, terminating process")
+			close(finished)
+		},
+	)
+
 	err := initMain()
 	if err != nil {
-		log.Errorf("unable to initMain: e: %v", err)
-		return
+		log.Fatalf("unable to initMain: e: %v", err)
 	}
+
 	router, err := initGin()
 	if err != nil {
-		return
+		log.Fatal(err)
 	}
 
 	// retry load general boards
 	go cron.RetryLoadGeneralBoards()
 
-	_ = router.Run(types.HTTP_HOST)
+	s := &http.Server{
+		Addr:    types.HTTP_HOST,
+		Handler: router,
+	}
+
+	var g errgroup.Group
+
+	// graceful shutdown
+	g.Go(func() error {
+		<-ctx.Done()
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		return s.Shutdown(ctx)
+	})
+
+	// start the server
+	g.Go(func() error {
+		if err := s.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			return err
+		}
+		return nil
+	})
+
+	// wait all job are complete.
+	g.Go(func() error {
+		<-finished
+		return nil
+	})
+
+	if err := g.Wait(); err != nil {
+		log.Fatal(err)
+	}
 }

@@ -18,3 +18,4 @@
 /static
 /docker/docker_compose.env
 /swagger
+/bin/
