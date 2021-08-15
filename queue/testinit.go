@@ -5,7 +5,7 @@ var IsTest = false
 func SetIsTest() {
 	IsTest = true
 
-	Init()
+	Start()
 }
 
 func UnsetIsTest() {

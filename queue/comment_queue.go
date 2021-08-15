@@ -1,17 +1,12 @@
 package queue
 
 import (
-	"time"
+	"encoding/json"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/dbcs"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-)
-
-var (
-	theQueue chan *CommentQueue
-	theQuit  []chan struct{}
 )
 
 type CommentQueue struct {
@@ -22,6 +17,14 @@ type CommentQueue struct {
 	ArticleCreateTime types.NanoTS
 	ArticleMTime      types.NanoTS
 	UpdateNanoTS      types.NanoTS
+}
+
+func (c *CommentQueue) Bytes() []byte {
+	b, err := json.Marshal(c)
+	if err != nil {
+		panic(err)
+	}
+	return b
 }
 
 func QueueCommentDBCS(bboardID bbs.BBoardID, articleID bbs.ArticleID, ownerID bbs.UUserID, commentDBCS []byte, articleCreateTime types.NanoTS, articleMTime types.NanoTS, updateNanoTS types.NanoTS) (err error) {
@@ -35,33 +38,7 @@ func QueueCommentDBCS(bboardID bbs.BBoardID, articleID bbs.ArticleID, ownerID bb
 		UpdateNanoTS:      updateNanoTS,
 	}
 
-	// log.Infof("QueueCommentDBCS: to send to queue: bboardID: %v articleID: %v", bboardID, articleID)
-	select {
-	case theQueue <- commentQueue:
-	case <-time.After(defaultTimeout):
-		err = ErrTimeout{
-			timeout: defaultTimeout,
-		}
-	}
-
-	// log.Infof("QueueCommentDBCS: after send to queue: bboardID: %v articleID: %v e: %v", bboardID, articleID, err)
-
-	return err
-}
-
-func ProcessCommentQueueLoop(idx int, quit chan struct{}) {
-	for {
-		select {
-		case commentQueue, ok := <-theQueue:
-			if !ok {
-				return
-			}
-
-			_ = ProcessCommentQueue(commentQueue)
-		case <-quit:
-			return
-		}
-	}
+	return client.Queue(commentQueue)
 }
 
 //ProcessCommentQueue

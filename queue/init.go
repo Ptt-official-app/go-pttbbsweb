@@ -1,25 +1,41 @@
 package queue
 
-func Init() {
-	if theQueue != nil {
-		return
-	}
-	theQueue = make(chan *CommentQueue, N_COMMENT_QUEUE)
-	theQuit = make([]chan struct{}, N_COMMENT_QUEUE)
+import (
+	"context"
 
-	for idx := 0; idx < N_COMMENT_QUEUE; idx++ {
-		theQuit[idx] = make(chan struct{})
-		go ProcessCommentQueueLoop(idx, theQuit[idx])
+	"github.com/appleboy/queue"
+	"github.com/appleboy/queue/simple"
+)
+
+var client *queue.Queue
+
+func Start() error {
+	var err error
+	// define the worker
+	w := simple.NewWorker(
+		simple.WithQueueNum(N_COMMENT_QUEUE),
+		simple.WithRunFunc(func(ctx context.Context, m queue.QueuedMessage) error {
+			return ProcessCommentQueue(m.(*CommentQueue))
+		}),
+	)
+
+	// define the queue
+	client, err = queue.NewQueue(
+		queue.WithWorker(w),
+	)
+	if err != nil {
+		return err
 	}
+
+	// start the worker
+	client.Start()
+
+	return nil
 }
 
 func Close() {
-	for idx := 0; idx < N_COMMENT_QUEUE; idx++ {
-		theQuit[idx] <- struct{}{}
-	}
-
-	close(theQueue)
-
-	theQueue = nil
-	theQuit = nil
+	// shutdown the service and notify all the worker
+	client.Shutdown()
+	// wait all jobs are complete.
+	client.Wait()
 }
