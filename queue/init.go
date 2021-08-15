@@ -2,6 +2,7 @@ package queue
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/appleboy/queue"
 	"github.com/appleboy/queue/simple"
@@ -15,7 +16,13 @@ func Start() error {
 	w := simple.NewWorker(
 		simple.WithQueueNum(N_COMMENT_QUEUE),
 		simple.WithRunFunc(func(ctx context.Context, m queue.QueuedMessage) error {
-			return ProcessCommentQueue(m.(*CommentQueue))
+			v, ok := m.(*CommentQueue)
+			if !ok {
+				if err := json.Unmarshal(m.Bytes(), &v); err != nil {
+					return err
+				}
+			}
+			return ProcessCommentQueue(v)
 		}),
 	)
 
