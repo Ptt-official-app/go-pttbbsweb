@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/appleboy/queue"
-	"github.com/appleboy/queue/simple"
+	"github.com/golang-queue/queue"
+	"github.com/golang-queue/queue/simple"
 )
 
 var client *queue.Queue
