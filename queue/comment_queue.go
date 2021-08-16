@@ -1,6 +1,7 @@
 package queue
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/dbcs"
@@ -38,7 +39,9 @@ func QueueCommentDBCS(bboardID bbs.BBoardID, articleID bbs.ArticleID, ownerID bb
 		UpdateNanoTS:      updateNanoTS,
 	}
 
-	return client.Queue(commentQueue)
+	return client.QueueTask(func(c context.Context) error {
+		return ProcessCommentQueue(commentQueue)
+	})
 }
 
 //ProcessCommentQueue

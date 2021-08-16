@@ -1,9 +1,6 @@
 package queue
 
 import (
-	"context"
-	"encoding/json"
-
 	"github.com/golang-queue/queue"
 	"github.com/golang-queue/queue/simple"
 )
@@ -15,15 +12,6 @@ func Start() error {
 	// define the worker
 	w := simple.NewWorker(
 		simple.WithQueueNum(N_COMMENT_QUEUE),
-		simple.WithRunFunc(func(ctx context.Context, m queue.QueuedMessage) error {
-			v, ok := m.(*CommentQueue)
-			if !ok {
-				if err := json.Unmarshal(m.Bytes(), &v); err != nil {
-					return err
-				}
-			}
-			return ProcessCommentQueue(v)
-		}),
 	)
 
 	// define the queue
