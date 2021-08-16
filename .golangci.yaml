@@ -23,6 +23,8 @@ linters:
     - goimports
     - revive
     - nolintlint
+    - unused
+    - typecheck
 issues:
   exclude:
     # we use underscores only for _postfix

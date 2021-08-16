@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/spf13/viper"
@@ -86,8 +85,6 @@ func initMain() error {
 	if err != nil {
 		return err
 	}
-
-	queue.Init()
 
 	return nil
 }

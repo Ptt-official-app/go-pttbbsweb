@@ -11,6 +11,7 @@ import (
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/cron"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -134,12 +135,18 @@ func initGin() (*gin.Engine, error) {
 
 func main() {
 	finished := make(chan struct{})
+
+	if err := queue.Start(); err != nil {
+		log.Fatal(err)
+	}
+
 	// ctrl + c
 	ctx := withContextFunc(
 		context.Background(),
 		func() {
 			// handle graceful shutdown
 			log.Info("interrupt received, terminating process")
+			queue.Close()
 			close(finished)
 		},
 	)
