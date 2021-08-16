@@ -10,4 +10,6 @@ func SetIsTest() {
 
 func UnsetIsTest() {
 	IsTest = false
+
+	Close()
 }
