@@ -43,6 +43,9 @@ jobs:
     - name: Build
       run: make
 
+    - name: TestQueueCommentDBCS
+      run: go test -v ./... -run TestQueueCommentDBCS -tags queue
+
     - name: Testing
       run: make test
       env:
