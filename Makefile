@@ -3,7 +3,7 @@ GOFMT ?= gofumpt -l -s
 GO ?= go
 BUILD_DATE ?= $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 GOFILES := $(shell find . -name "*.go")
-TAGS ?=
+TAGS ?= ""
 GOPATH ?= $(shell $(GO) env GOPATH)
 
 ifneq ($(shell uname), Darwin)
@@ -30,3 +30,7 @@ build: $(SERVICE)
 
 $(SERVICE): $(GOFILES)
 	$(GO) build -v -tags '$(TAGS)' -ldflags '$(EXTLDFLAGS)-s -w $(LDFLAGS)' -o bin/$@ .
+
+.PHONY: test
+test:
+	$(GO) test -v -cover -tags $(TAGS) -coverprofile coverage.txt ./... && echo "\n==>\033[32m Ok\033[m\n" || exit 1

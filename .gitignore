@@ -19,3 +19,4 @@
 /docker/docker_compose.env
 /swagger
 /bin/
+coverage.txt

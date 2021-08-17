@@ -41,21 +41,15 @@ jobs:
         version: v1.41.1
 
     - name: Build
-      run: go build -v ./...
+      run: make
 
-    - name: TestQueueCommentDBCS
-      run: go test -v ./... -run TestQueueCommentDBCS
+    - name: Testing
+      run: make test
 
-    - name: Test
-      run: go test -v ./... -tags noqueue
-
-    - name: Coverage-queue
-      run: go test ./... -run TestQueueCommentDBCS -cover
-
-    - name: Coverage
-      run: go test ./... -tags noqueue -cover -coverprofile cover.out
+    - name: Testing with noqueue tag
+      run: make test
+      env:
+        TAGS: noqueue
 
     - name: Upload coverage report
       uses: codecov/codecov-action@v1
-      with:
-        file: cover.out
