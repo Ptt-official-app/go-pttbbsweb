@@ -1,5 +1,3 @@
-// +build !noqueue
-
 package queue
 
 import (

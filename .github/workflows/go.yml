@@ -46,10 +46,5 @@ jobs:
     - name: Testing
       run: make test
 
-    - name: Testing with noqueue tag
-      run: make test
-      env:
-        TAGS: noqueue
-
     - name: Upload coverage report
       uses: codecov/codecov-action@v1
