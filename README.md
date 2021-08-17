@@ -1,5 +1,6 @@
 # go-openbbsmiddleware
 
+[![Go](https://github.com/Ptt-official-app/go-openbbsmiddleware/actions/workflows/go.yml/badge.svg)](https://github.com/Ptt-official-app/go-openbbsmiddleware/actions/workflows/go.yml)
 [![GoDoc](https://pkg.go.dev/badge/github.com/Ptt-official-app/go-openbbsmiddleware?status.svg)](https://pkg.go.dev/github.com/Ptt-official-app/go-openbbsmiddleware?tab=doc)
 [![codecov](https://codecov.io/gh/Ptt-official-app/go-openbbsmiddleware/branch/main/graph/badge.svg)](https://codecov.io/gh/Ptt-official-app/go-openbbsmiddleware)
 
