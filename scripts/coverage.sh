@@ -1,5 +1,4 @@
 #!/bin/bash
 
-gotest ./... -coverprofile cover.out -tags noqueue
-
+gotest ./... -coverprofile cover.out
 go tool cover -html=cover.out
