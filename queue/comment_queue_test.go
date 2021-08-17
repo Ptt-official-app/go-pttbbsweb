@@ -1,3 +1,5 @@
+// +build queue
+
 package queue
 
 import (
