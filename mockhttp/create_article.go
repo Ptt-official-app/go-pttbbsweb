@@ -17,10 +17,11 @@ func CreateArticle(params *api.CreateArticleParams) (ret api.CreateArticleResult
 		Recommend:  0,
 		Owner:      bbs.UUserID("SYSOP"),
 		Class:      []byte{0xb4, 0xfa, 0xb8, 0xd5}, // 測試
-		Title:      []byte("[\xb4\xfa\xb8\xd5]this is a test"),
+		FullTitle:  []byte("[\xb4\xfa\xb8\xd5]this is a test"),
 		Money:      0,
 		Filemode:   0,
 		Read:       false,
+		RealTitle:  []byte("this is a test"),
 	})
 
 	return ret

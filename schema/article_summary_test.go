@@ -365,7 +365,7 @@ func TestGetArticleSummariesByRegex(t *testing.T) {
 		MTime:        1234567890000000000,
 		Title:        title1,
 		Class:        class1,
-		TitleRegex:   articleTitleToTitleRegex(title1, class1),
+		TitleRegex:   articleTitleToTitleRegex(title1),
 		UpdateNanoTS: 1234567890000000000,
 	}
 	articleSummary1 := &ArticleSummary{

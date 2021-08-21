@@ -5,7 +5,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
-	ptttypes "github.com/Ptt-official-app/go-pttbbs/types"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -36,6 +35,8 @@ type ArticleSummaryWithRegex struct {
 	NComments int `bson:"n_comments,omitempty"` // n_comments is read-only in article-summary.
 
 	Rank int `bson:"rank,omitempty"` // 評價, read-only
+
+	SubjectType ptttype.SubjectType `bson:"subject_type"`
 }
 
 var (
@@ -47,19 +48,9 @@ var (
 //
 //no n_comments in bbs.ArticleSummary from backend.
 func NewArticleSummaryWithRegex(a_b *bbs.ArticleSummary, updateNanoTS types.NanoTS) *ArticleSummaryWithRegex {
-	// XXX we use Title[6:] for now.
-	// TODO: rely on go-pttbbs Title.ToRealTitle()
-	fullTitleBig5 := ptttypes.CstrToBytes(a_b.Title)
-	titleBig5 := fullTitleBig5
-	if len(a_b.Class) > 0 {
-		titleBig5 = titleBig5[6:]
-	}
+	title := types.Big5ToUtf8(a_b.RealTitle)
 
-	fullTitle := types.Big5ToUtf8(fullTitleBig5)
-	title := types.Big5ToUtf8(titleBig5)
-	theClass := types.Big5ToUtf8(a_b.Class)
-
-	titleRegex := articleTitleToTitleRegex(title, theClass)
+	titleRegex := articleTitleToTitleRegex(title)
 	return &ArticleSummaryWithRegex{
 		BBoardID:   a_b.BBoardID,
 		ArticleID:  a_b.ArticleID,
@@ -68,10 +59,10 @@ func NewArticleSummaryWithRegex(a_b *bbs.ArticleSummary, updateNanoTS types.Nano
 		MTime:      types.Time4ToNanoTS(a_b.MTime),
 		Recommend:  int(a_b.Recommend),
 		Owner:      a_b.Owner,
-		FullTitle:  fullTitle,
+		FullTitle:  types.Big5ToUtf8(a_b.FullTitle),
 		Title:      title,
 		Money:      int(a_b.Money),
-		Class:      theClass,
+		Class:      types.Big5ToUtf8(a_b.Class),
 		Filemode:   a_b.Filemode,
 
 		TitleRegex: titleRegex,
@@ -79,6 +70,8 @@ func NewArticleSummaryWithRegex(a_b *bbs.ArticleSummary, updateNanoTS types.Nano
 		UpdateNanoTS: updateNanoTS,
 
 		Idx: a_b.Idx,
+
+		SubjectType: a_b.SubjectType,
 	}
 }
 
@@ -87,7 +80,7 @@ func NewArticleSummaryWithRegex(a_b *bbs.ArticleSummary, updateNanoTS types.Nano
 // params:
 //    title:
 //    theClass: (with 4-byte length)
-func articleTitleToTitleRegex(title string, theClass string) (titleRegex []string) {
+func articleTitleToTitleRegex(title string) (titleRegex []string) {
 	titleRune := []rune(title)
 	nGramTitleRegex := TITLE_REGEX_N_GRAM
 	if len(titleRune) < TITLE_REGEX_N_GRAM {
