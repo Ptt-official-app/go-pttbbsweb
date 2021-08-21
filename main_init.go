@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/spf13/viper"
@@ -60,6 +61,11 @@ func initAllConfig(filename string) error {
 	}
 
 	err = pttbbstypes.InitConfig()
+	if err != nil {
+		return err
+	}
+
+	err = queue.InitConfig()
 	if err != nil {
 		return err
 	}
