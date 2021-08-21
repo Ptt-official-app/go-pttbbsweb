@@ -2,7 +2,6 @@ package queue
 
 import (
 	"context"
-	"encoding/json"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/dbcs"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -18,14 +17,6 @@ type CommentQueue struct {
 	ArticleCreateTime types.NanoTS
 	ArticleMTime      types.NanoTS
 	UpdateNanoTS      types.NanoTS
-}
-
-func (c *CommentQueue) Bytes() []byte {
-	b, err := json.Marshal(c)
-	if err != nil {
-		panic(err)
-	}
-	return b
 }
 
 func QueueCommentDBCS(bboardID bbs.BBoardID, articleID bbs.ArticleID, ownerID bbs.UUserID, commentDBCS []byte, articleCreateTime types.NanoTS, articleMTime types.NanoTS, updateNanoTS types.NanoTS) (err error) {

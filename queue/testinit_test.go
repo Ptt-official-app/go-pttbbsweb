@@ -7,6 +7,20 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 )
 
+var IsTest = false
+
+func SetIsTest() {
+	IsTest = true
+
+	Start()
+}
+
+func UnsetIsTest() {
+	IsTest = false
+
+	Close()
+}
+
 func setupTest() {
 	utils.SetIsTest()
 
