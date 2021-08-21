@@ -1,8 +1,6 @@
 package queue
 
 import (
-	"runtime"
-
 	"github.com/golang-queue/queue"
 )
 
@@ -10,8 +8,8 @@ var client *queue.Queue
 
 func Start() error {
 	client = queue.NewPool(
-		runtime.NumCPU(),
-		queue.WithQueueSize(N_COMMENT_QUEUE),
+		workerNum,
+		queue.WithQueueSize(queueSize),
 	)
 
 	// start the worker

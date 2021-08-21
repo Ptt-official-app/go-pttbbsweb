@@ -1,7 +1,13 @@
 package queue
 
-var N_COMMENT_QUEUE = 4096
+import "runtime"
+
+var (
+	queueSize = 4096
+	workerNum = runtime.NumCPU()
+)
 
 func config() {
-	N_COMMENT_QUEUE = setIntConfig("N_COMMENT_QUEUE", N_COMMENT_QUEUE)
+	queueSize = setIntConfig("QUEUE_SIZE", queueSize)
+	workerNum = setIntConfig("WORKER_NUM", workerNum)
 }
