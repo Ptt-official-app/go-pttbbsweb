@@ -10,13 +10,10 @@ require (
 	github.com/golang-queue/queue v0.0.7
 	github.com/google/go-querystring v1.1.0
 	github.com/google/uuid v1.3.0
-	github.com/klauspost/compress v1.11.12 // indirect
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/jwalterweatherman v1.1.0
 	github.com/spf13/viper v1.8.1
 	github.com/stretchr/testify v1.7.0
 	go.mongodb.org/mongo-driver v1.6.0
-	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	google.golang.org/protobuf v1.27.1 // indirect
 )
