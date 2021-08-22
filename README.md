@@ -63,6 +63,8 @@ We use the following libraries for coding convention:
 
 You can do the following to start with docker-compose:
 
+* copy `docs/etc/` to some etc directory (ex: `/etc/go-pttbbs`).
+* copy `docs/config/01-config.docker.ini` to the etc directory as production.ini (ex: `cp 01-config.docker.ini /etc/go-openbbsmiddleware/production.ini`).
 * copy `docker/docker_compose.env.template` to `docker/docker_compose.env` and modify the settings.
 * `./scripts/docker_initbbs.sh [BBSHOME] pttofficialapps/go-pttbbs:latest`
 * `docker-compose --env-file docker/docker_compose.env -f docker/docker-compose.yaml up -d`

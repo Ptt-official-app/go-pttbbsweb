@@ -45,6 +45,7 @@ func TryGetArticleContentInfo(boardID bbs.BBoardID, articleID bbs.ArticleID) (er
 	// 5. get article from pttbbs
 	theParams_b := &pttbbsapi.GetArticleParams{
 		RetrieveTS: articleDetailSummary.ContentMTime.ToTime4(),
+		IsSystem:   true,
 	}
 	var result_b *pttbbsapi.GetArticleResult
 
