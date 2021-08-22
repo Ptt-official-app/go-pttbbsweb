@@ -271,6 +271,15 @@ def _create_comment(bid, aid):
     return ''
 
 
+@app.route(_with_app_prefix('/board/<bid>/article/<aid>/crosspost'), methods=['POST'])
+def _create_comment(bid, aid):
+    """
+    swagger_from_file: apidoc/cross_post.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/board/<bid>/article/<aid>/rank'), methods=['POST'])
 def _create_rank(bid, aid):
     """

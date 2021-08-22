@@ -39,3 +39,6 @@ idx:
   type: string
 rank:
   type: number
+subject_type:
+  type: string
+  description: https://github.com/Ptt-official-app/go-pttbbs/blob/v0.16.2/ptttype/subject_type.go

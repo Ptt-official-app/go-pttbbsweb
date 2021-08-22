@@ -7,7 +7,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
-	ptttypes "github.com/Ptt-official-app/go-pttbbs/types"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -36,6 +35,8 @@ type ArticleSummary struct {
 	NComments int `bson:"n_comments,omitempty"` // n_comments is read-only in article-summary.
 
 	Rank int `bson:"rank,omitempty"` // 評價, read-only
+
+	SubjectType ptttype.SubjectType `bson:"subject_type"`
 }
 
 var (
@@ -331,13 +332,6 @@ func getArticleSummariesByRegexIsValidTitle(title string, keywordList []string, 
 //
 //no n_comments in bbs.ArticleSummary from backend.
 func NewArticleSummary(a_b *bbs.ArticleSummary, updateNanoTS types.NanoTS) *ArticleSummary {
-	// XXX we use Title[6:] for now.
-	// TODO: rely on go-pttbbs Title.ToRealTitle()
-	fullTitle := ptttypes.CstrToBytes(a_b.Title)
-	title := fullTitle
-	if len(a_b.Class) > 0 {
-		title = title[6:]
-	}
 	return &ArticleSummary{
 		BBoardID:   a_b.BBoardID,
 		ArticleID:  a_b.ArticleID,
@@ -346,8 +340,8 @@ func NewArticleSummary(a_b *bbs.ArticleSummary, updateNanoTS types.NanoTS) *Arti
 		MTime:      types.Time4ToNanoTS(a_b.MTime),
 		Recommend:  int(a_b.Recommend),
 		Owner:      a_b.Owner,
-		FullTitle:  types.Big5ToUtf8(fullTitle),
-		Title:      types.Big5ToUtf8(title),
+		FullTitle:  types.Big5ToUtf8(a_b.FullTitle),
+		Title:      types.Big5ToUtf8(a_b.RealTitle),
 		Money:      int(a_b.Money),
 		Class:      types.Big5ToUtf8(a_b.Class),
 		Filemode:   a_b.Filemode,
@@ -355,6 +349,8 @@ func NewArticleSummary(a_b *bbs.ArticleSummary, updateNanoTS types.NanoTS) *Arti
 		UpdateNanoTS: updateNanoTS,
 
 		Idx: a_b.Idx,
+
+		SubjectType: a_b.SubjectType,
 	}
 }
 

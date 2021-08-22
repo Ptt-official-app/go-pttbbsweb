@@ -27,6 +27,8 @@ type ArticleSummary struct {
 	Idx string `json:"idx"`
 
 	Rank int `json:"rank"`
+
+	SubjectType ptttype.SubjectType `json:"subject_type"`
 }
 
 func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
@@ -54,6 +56,8 @@ func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
 		Idx: a_db.Idx,
 
 		Rank: a_db.Rank,
+
+		SubjectType: a_db.SubjectType,
 	}
 }
 
@@ -82,5 +86,7 @@ func NewArticleSummaryFromWithRegex(a_db *schema.ArticleSummaryWithRegex) *Artic
 		Idx: a_db.Idx,
 
 		Rank: a_db.Rank,
+
+		SubjectType: a_db.SubjectType,
 	}
 }
