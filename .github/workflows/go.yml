@@ -38,7 +38,7 @@ jobs:
       uses: golangci/golangci-lint-action@v2
       with:
         args: --verbose
-        version: v1.41.1
+        version: v1.42.0
 
     - name: Build
       run: make
