@@ -63,7 +63,7 @@ We use the following libraries for coding convention:
 
 You can do the following to start with docker-compose:
 
-* copy `docs/etc/` to some etc directory (ex: `/etc/go-pttbbs`).
+* copy `docs/etc/` to some etc directory (ex: `/etc/go-openbbsmiddleware`).
 * copy `docs/config/01-config.docker.ini` to the etc directory as production.ini (ex: `cp 01-config.docker.ini /etc/go-openbbsmiddleware/production.ini`).
 * copy `docker/docker_compose.env.template` to `docker/docker_compose.env` and modify the settings.
 * `./scripts/docker_initbbs.sh [BBSHOME] pttofficialapps/go-pttbbs:latest`
@@ -71,16 +71,19 @@ You can do the following to start with docker-compose:
 * register at `http://localhost:3457/account/register`
 * login at `http://localhost:3457/account/login`
 * `telnet localhost 8888` and use the account that you registered.
+*  register SYSOP and guest.
 
 您可以使用以下方式來使用 docker-compose:
 
-* 將 `docker/docker/docker_compose.env.template` copy 到 `docker/docker_compose.env` 並且更改 BBSHOME 到您所希望的位置.
+* 將 `docs/etc/` copy 到你自訂的 etc directory (ex: `/etc/go-openbbsmiddleware`).
+* 將 `docs/config/01-config.docker.ini` copy 到你自訂的 etc directory 為 production.ini (ex: `cp 01-config.docker.ini /etc/go-openbbsmiddleware/production.ini`).
+* 將 `docker/docker/docker_compose.env.template` copy 到 `docker/docker_compose.env` 並且更改相對應的設定.
 * `./scripts/docker_initbbs.sh [BBSHOME] pttofficialapps/go-pttbbs:latest`
 * `docker-compose --env-file docker/docker_compose.env -f docker/docker-compose.yaml up -d`
 * 在 `http://localhost:3457/account/register` 做 register
 * 在 `http://localhost:3457/account/login` 做 login
 * `telnet localhost 8888` 並且使用您剛剛登錄的帳號使用.
-* 第一次使用時. 須先將 SYSOP 和 pttguest 建立起來.
+* 第一次使用時. 須先將 SYSOP 和 guest 建立起來.
 
 ## Discussing / Reviewing / Questioning the code
 
