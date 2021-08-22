@@ -24,7 +24,7 @@ parameters:
       properties:
         xbid:
           type: string
-          description: 'string'
+          description: 'cross post board-id'
 responses:
   200:
     description:
