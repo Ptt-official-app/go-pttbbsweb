@@ -9,6 +9,7 @@ services:
     restart: always
     volumes:
       - ${BBSHOME}:/home/bbs
+      - ${ETC}:/etc/go-pttbbs
   mongo:
     image: mongo:4.4.2
     restart: always
@@ -35,4 +36,5 @@ services:
     volumes:
       - ${STATIC_DIR}:/static
       - ${ETC}:/etc/go-openbbsmiddleware
+      - ${ETC}:/etc/go-pttbbs
     restart: always
