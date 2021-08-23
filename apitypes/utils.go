@@ -5,5 +5,8 @@ import (
 )
 
 func ToURL(fbboardID FBoardID, farticleID FArticleID) string {
-	return types.URL_PREFIX + "/" + string(fbboardID) + "/" + string(farticleID) + ".html"
+	if fbboardID == "" || farticleID == "" {
+		return ""
+	}
+	return types.URL_PREFIX + "/" + "board" + "/" + string(fbboardID) + "/" + "article" + "/" + string(farticleID)
 }

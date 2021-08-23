@@ -52,7 +52,7 @@ func TestCreateArticle(t *testing.T) {
 		Owner:      "SYSOP",
 		Title:      "this is a test",
 		Class:      "測試",
-		URL:        "http://localhost:3457/bbs/WhoAmI/M.1607937174.A.081.html",
+		URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.081",
 		Read:       false,
 	})
 

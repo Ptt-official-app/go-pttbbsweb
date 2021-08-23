@@ -40,7 +40,7 @@ func TestLoadBottomArticles(t *testing.T) {
 				Class:      "問題",
 				Money:      12,
 				Filemode:   0,
-				URL:        "http://localhost:3457/bbs/WhoAmI/M.1607937174.A.081.html",
+				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.081",
 				Read:       false,
 			},
 			{
@@ -55,7 +55,7 @@ func TestLoadBottomArticles(t *testing.T) {
 				Class:      "問題",
 				Money:      3,
 				Filemode:   0,
-				URL:        "http://localhost:3457/bbs/WhoAmI/M.1234567890.A.123.html",
+				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1234567890.A.123",
 				Read:       true,
 			},
 		},
