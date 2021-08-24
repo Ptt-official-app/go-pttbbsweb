@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
@@ -34,13 +35,13 @@ type LoginResult struct {
 // LoginLog record user login info, no matter success or not
 type LoginLog struct {
 	ClientInfo
-	LoginId      	string
-	LoginTime 		types.NanoTS
-	LoginIP			string
-	IsSuccess		bool
+	LoginId   string
+	LoginTime types.NanoTS
+	LoginIP   string
+	IsSuccess bool
 }
 
-func (l LoginLog) Stringer() string  {
+func (l LoginLog) Stringer() string {
 	var success string
 	if l.IsSuccess {
 		success = "\033[97;42mSuccess\033[0m"
@@ -58,19 +59,18 @@ func LoginWrapper(c *gin.Context) {
 func Login(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoginParams)
 	// record user login
-	var loginLog = LoginLog{
+	loginLog := LoginLog{
 		ClientInfo: ClientInfo{
-			ClientID:   theParams.ClientID,
+			ClientID: theParams.ClientID,
 		},
-		LoginId: theParams.Username,
-		LoginIP: remoteAddr,
+		LoginId:   theParams.Username,
+		LoginIP:   remoteAddr,
 		LoginTime: types.NowNanoTS(),
 		IsSuccess: false, // default is false
 	}
 	defer func() {
 		logrus.Info(loginLog.Stringer())
 	}()
-
 
 	if !ok {
 		return nil, 400, ErrInvalidParams

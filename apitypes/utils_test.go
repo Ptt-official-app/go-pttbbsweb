@@ -1,8 +1,9 @@
 package apitypes
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"testing"
+
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 )
 
 func TestToURL(t *testing.T) {
@@ -18,7 +19,7 @@ func TestToURL(t *testing.T) {
 		{
 			name: "should be {URL}/board/Baseball/article/M.1629685889.A.AEB",
 			args: args{fbboardID: "Baseball", farticleID: "M.1629685889.A.AEB"},
-			want: types.URL_PREFIX+"/board/Baseball/article/M.1629685889.A.AEB",
+			want: types.URL_PREFIX + "/board/Baseball/article/M.1629685889.A.AEB",
 		},
 		{
 			name: "null board should return empty string",
@@ -30,7 +31,6 @@ func TestToURL(t *testing.T) {
 			args: args{fbboardID: "Baseball", farticleID: ""},
 			want: "",
 		},
-
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
