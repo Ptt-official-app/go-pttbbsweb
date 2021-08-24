@@ -35,7 +35,7 @@ type LoginResult struct {
 // LoginLog record user login info, no matter success or not
 type LoginLog struct {
 	ClientInfo
-	LoginId   string
+	LoginID   string
 	LoginTime types.NanoTS
 	LoginIP   string
 	IsSuccess bool
@@ -48,7 +48,7 @@ func (l LoginLog) Stringer() string {
 	} else {
 		success = "\033[97;41mFail\033[0m"
 	}
-	return fmt.Sprintf("ID: %s login %s from %s at %v Client: %v \n", l.LoginId, success, l.LoginIP, l.LoginTime.ToTime(), l.ClientInfo)
+	return fmt.Sprintf("ID: %s login %s from %s at %v Client: %v \n", l.LoginID, success, l.LoginIP, l.LoginTime.ToTime(), l.ClientInfo)
 }
 
 func LoginWrapper(c *gin.Context) {
@@ -63,7 +63,7 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 		ClientInfo: ClientInfo{
 			ClientID: theParams.ClientID,
 		},
-		LoginId:   theParams.Username,
+		LoginID:   theParams.Username,
 		LoginIP:   remoteAddr,
 		LoginTime: types.NowNanoTS(),
 		IsSuccess: false, // default is false
