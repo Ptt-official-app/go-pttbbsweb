@@ -1,12 +1,15 @@
 package api
 
 import (
+	"fmt"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 const LOGIN_R = "/account/login"
@@ -29,6 +32,25 @@ type LoginResult struct {
 	TokenType   string      `json:"token_type"`
 }
 
+// LoginLog record user login info, no matter success or not
+type LoginLog struct {
+	ClientInfo
+	LoginID   string
+	LoginTime types.NanoTS
+	LoginIP   string
+	IsSuccess bool
+}
+
+func (l LoginLog) String() string {
+	var success string
+	if l.IsSuccess {
+		success = "\033[97;42mSuccess\033[0m"
+	} else {
+		success = "\033[97;41mFail\033[0m"
+	}
+	return fmt.Sprintf("ID: %s login %s from %s at %v Client: %v \n", l.LoginID, success, l.LoginIP, l.LoginTime.ToTime(), l.ClientInfo)
+}
+
 func LoginWrapper(c *gin.Context) {
 	params := NewLoginParams()
 	FormJSON(Login, params, c)
@@ -36,6 +58,20 @@ func LoginWrapper(c *gin.Context) {
 
 func Login(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoginParams)
+	// record user login
+	loginLog := LoginLog{
+		ClientInfo: ClientInfo{
+			ClientID: theParams.ClientID,
+		},
+		LoginID:   theParams.Username,
+		LoginIP:   remoteAddr,
+		LoginTime: types.NowNanoTS(),
+		IsSuccess: false, // default is false
+	}
+	defer func() {
+		logrus.Infof("%v", loginLog)
+	}()
+
 	if !ok {
 		return nil, 400, ErrInvalidParams
 	}
@@ -59,9 +95,12 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 
 	url := pttbbsapi.LOGIN_R
 	statusCode, err = utils.BackendPost(c, url, theParams_b, nil, &result_b)
+
 	if err != nil || statusCode != 200 {
 		return nil, statusCode, err
 	}
+	// update: loginLog success login
+	loginLog.IsSuccess = true
 
 	// update db
 	updateNanoTS := types.NowNanoTS()
