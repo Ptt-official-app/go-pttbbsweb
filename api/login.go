@@ -41,7 +41,7 @@ type LoginLog struct {
 	IsSuccess bool
 }
 
-func (l LoginLog) Stringer() string {
+func (l LoginLog) String() string {
 	var success string
 	if l.IsSuccess {
 		success = "\033[97;42mSuccess\033[0m"
@@ -69,7 +69,7 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 		IsSuccess: false, // default is false
 	}
 	defer func() {
-		logrus.Info(loginLog.Stringer())
+		logrus.Infof("%v", loginLog)
 	}()
 
 	if !ok {
