@@ -3,10 +3,10 @@ module github.com/Ptt-official-app/go-openbbsmiddleware
 go 1.16
 
 require (
-	github.com/Ptt-official-app/go-pttbbs v0.16.3
+	github.com/Ptt-official-app/go-pttbbs v0.16.4-0.20210828150006-4017bf7acaf7
 	github.com/gin-gonic/gin v1.7.2
 	github.com/go-redis/redis/v8 v8.11.0
-	github.com/golang-jwt/jwt v3.2.1+incompatible
+	github.com/golang-jwt/jwt/v4 v4.0.0
 	github.com/golang-queue/queue v0.0.7
 	github.com/google/go-querystring v1.1.0
 	github.com/google/uuid v1.3.0
