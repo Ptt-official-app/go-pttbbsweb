@@ -16,7 +16,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 func verifyJwt(c *gin.Context) (userID bbs.UUserID, err error) {
