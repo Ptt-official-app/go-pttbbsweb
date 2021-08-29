@@ -42,6 +42,9 @@ func TestLoadGeneralBoards(t *testing.T) {
 
 				LastPostTime: 1234567890,
 				StatAttr:     ptttype.NBRD_BOARD,
+				Gid:          3,
+				Bid:          1,
+				Idx:          "test1",
 			},
 			{
 				FBoardID:  "test2",
@@ -57,6 +60,9 @@ func TestLoadGeneralBoards(t *testing.T) {
 
 				LastPostTime: 1300000000,
 				StatAttr:     ptttype.NBRD_BOARD,
+				Gid:          3,
+				Bid:          2,
+				Idx:          "test2",
 			},
 		},
 		NextIdx: "test3",

@@ -22,6 +22,12 @@ func LoadGeneralBoards(params *api.LoadGeneralBoardsParams) (ret *api.LoadGenera
 				LastPostTime: types.Time4(1234567890),
 				NUser:        100,
 				Total:        123,
+
+				Gid: 3,
+				Bid: 1,
+
+				IdxByName:  "test1",
+				IdxByClass: "tPq41Q@test1",
 			},
 			{
 				BBoardID:     "2_test2",
@@ -35,6 +41,11 @@ func LoadGeneralBoards(params *api.LoadGeneralBoardsParams) (ret *api.LoadGenera
 				LastPostTime: types.Time4(1300000000),
 				NUser:        101,
 				Total:        124,
+
+				Gid:        3,
+				Bid:        2,
+				IdxByName:  "test2",
+				IdxByClass: "tPq41Q@test2",
 			},
 		},
 		NextIdx: "test3",

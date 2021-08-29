@@ -17,7 +17,7 @@ func TestGetBoardSummary(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer schema.UserReadBoard_c.Drop()
+	LoadAutoCompleteBoards("", "SYSOP", NewLoadAutoCompleteBoardsParams(), nil)
 
 	update0 := &schema.UserReadBoard{UserID: "SYSOP", BBoardID: "1_test1", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
 

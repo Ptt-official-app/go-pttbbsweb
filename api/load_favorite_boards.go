@@ -5,6 +5,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	pttbbsfav "github.com/Ptt-official-app/go-pttbbs/ptt/fav"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
 )
 
@@ -79,7 +80,7 @@ func LoadFavoriteBoards(remoteAddr string, userID bbs.UUserID, params interface{
 	return r, 200, nil
 }
 
-func NewLoadFavoriteBoardsResult(userFavorites_db []*schema.UserFavorites, boardSummaryMap_db map[int]*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, nextIdx string) (result *LoadFavoriteBoardsResult) {
+func NewLoadFavoriteBoardsResult(userFavorites_db []*schema.UserFavorites, boardSummaryMap_db map[ptttype.Bid]*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, nextIdx string) (result *LoadFavoriteBoardsResult) {
 	theList := make([]*apitypes.BoardSummary, len(userFavorites_db))
 	for idx, each := range userFavorites_db {
 		if each.TheType != pttbbsfav.FAVT_BOARD {
@@ -87,7 +88,7 @@ func NewLoadFavoriteBoardsResult(userFavorites_db []*schema.UserFavorites, board
 			continue
 		}
 
-		boardSummary_db, ok := boardSummaryMap_db[each.TheID]
+		boardSummary_db, ok := boardSummaryMap_db[ptttype.Bid(each.TheID)]
 		if !ok {
 			continue
 		}

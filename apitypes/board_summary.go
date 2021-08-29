@@ -28,6 +28,7 @@ type BoardSummary struct {
 	LevelIdx schema.LevelIdx       `json:"level_idx,omitempty"`
 
 	Gid ptttype.Bid `json:"gid"`
+	Bid ptttype.Bid `json:"pttbid"`
 
 	Idx string `json:"idx"`
 }
@@ -49,6 +50,7 @@ func NewBoardSummary(b_db *schema.BoardSummary, idx string, userBoardInfo *UserB
 		NUser:        b_db.NUser,
 
 		Gid: b_db.Gid,
+		Bid: b_db.Bid,
 
 		Idx: idx,
 

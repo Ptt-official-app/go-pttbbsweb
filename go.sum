@@ -47,6 +47,8 @@ github.com/Ptt-official-app/go-pttbbs v0.16.2 h1:WH7TzvBUPxAFw0Ab7cl6Tv23gZ8J7Is
 github.com/Ptt-official-app/go-pttbbs v0.16.2/go.mod h1:s7qH1BVzv8cQM/+Sz3paujTSrWlBKmKseMTEH+/H9PY=
 github.com/Ptt-official-app/go-pttbbs v0.16.3 h1:GzZJUNmdzWsqeIucuc8LSc6A+7Os8RgvNkgBGmAad1A=
 github.com/Ptt-official-app/go-pttbbs v0.16.3/go.mod h1:s7qH1BVzv8cQM/+Sz3paujTSrWlBKmKseMTEH+/H9PY=
+github.com/Ptt-official-app/go-pttbbs v0.17.0 h1:yg1AcXAMiiMjyRnl+Jj3IlaBA44bZZcWcdjTHENFoJQ=
+github.com/Ptt-official-app/go-pttbbs v0.17.0/go.mod h1:24z+LT3SYYB53B35EWYzfIcu+zTaAN2dLkId57vSv/Q=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=
 github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da/go.mod h1:Q73ZrmVTwzkszR9V5SSuryQ31EELlFMUz1kKyl939pY=
@@ -129,6 +131,8 @@ github.com/godbus/dbus/v5 v5.0.4/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5x
 github.com/gogo/protobuf v1.3.2/go.mod h1:P1XiOD3dCwIKUDQYPy72D8LYyHL2YPYrpS2s69NZV8Q=
 github.com/golang-jwt/jwt v3.2.1+incompatible h1:73Z+4BJcrTC+KczS6WvTPvRGOp1WmfEP4Q1lOd9Z/+c=
 github.com/golang-jwt/jwt v3.2.1+incompatible/go.mod h1:8pz2t5EyA70fFQQSrl6XZXzqecmYZeUEB8OUGHkxJ+I=
+github.com/golang-jwt/jwt/v4 v4.0.0 h1:RAqyYixv1p7uEnocuy8P1nru5wprCh/MH2BIlW5z5/o=
+github.com/golang-jwt/jwt/v4 v4.0.0/go.mod h1:/xlHOz8bRuivTWchD4jCa+NbatV+wEUSzwAxVc6locg=
 github.com/golang-queue/queue v0.0.7 h1:WENCPyPBcIWYgBFSAZ8USGtwmxeCeMkhjwuyM0MAi84=
 github.com/golang-queue/queue v0.0.7/go.mod h1:JS5tYJacahCjafcplU5idNLX2vkYioqh6wEDX5o9Nms=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b/go.mod h1:SBH7ygxi8pfUlaOkMMuAQtPIUF8ecWP5IEl/CR7VP2Q=

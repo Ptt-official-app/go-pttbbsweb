@@ -73,6 +73,8 @@ var (
 		LastPostTime: 1234567890,
 		StatAttr:     ptttype.NBRD_BOARD,
 		Idx:          "3",
+		Gid:          3,
+		Bid:          9,
 	}
 
 	testBoardSummary8 = &apitypes.BoardSummary{
@@ -89,6 +91,8 @@ var (
 		LastPostTime: 1300000000,
 		StatAttr:     ptttype.NBRD_BOARD,
 		Idx:          "5",
+		Gid:          3,
+		Bid:          8,
 	}
 
 	testFavoriteBoards0 = []*apitypes.BoardSummary{

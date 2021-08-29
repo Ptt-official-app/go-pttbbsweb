@@ -96,6 +96,9 @@ func loadUserComments(ownerID bbs.UUserID, startIdx string, descending bool, max
 			nextSortTime = nextCommentSummary.SortTime
 			nextIdx = apitypes.SerializeCommentIdx(nextSortTime, nextCommentSummary.CommentID)
 		}
+		if len(eachCommentSummaries_db) == 0 {
+			break
+		}
 
 		// is-valid
 		validCommentSummaries_db, err := isValidCommentSummaries(eachCommentSummaries_db)

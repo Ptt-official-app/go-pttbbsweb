@@ -142,3 +142,57 @@ func GetBoardSummary(bboardID bbs.BBoardID) (result *BoardSummary, err error) {
 
 	return result, nil
 }
+
+func GetBoardSummariesByClsID(clsID ptttype.Bid, startIdx string, isAsc bool, limit int, sortBy ptttype.BSortBy) (boardSummaries []*BoardSummary, err error) {
+	idx := ""
+	switch sortBy {
+	case ptttype.BSORT_BY_NAME:
+		idx = BOARD_IDX_BY_NAME_b
+	case ptttype.BSORT_BY_CLASS:
+		idx = BOARD_IDX_BY_CLASS_b
+	}
+
+	var query bson.M
+	if startIdx == "" {
+		query = bson.M{
+			BOARD_GID_b: clsID,
+			BOARD_IS_DELETED_b: bson.M{
+				"$exists": false,
+			},
+		}
+	} else {
+		theDIR := "$lte"
+		if isAsc {
+			theDIR = "$gte"
+		}
+
+		query = bson.M{
+			BOARD_GID_b: clsID,
+			idx: bson.M{
+				theDIR: startIdx,
+			},
+			BOARD_IS_DELETED_b: bson.M{
+				"$exists": false,
+			},
+		}
+	}
+
+	// sort opts
+	var sortOpts bson.D
+	if isAsc {
+		sortOpts = bson.D{
+			{Key: idx, Value: 1},
+		}
+	} else {
+		sortOpts = bson.D{
+			{Key: idx, Value: -1},
+		}
+	}
+
+	err = Board_c.Find(query, int64(limit), &boardSummaries, boardSummaryFields, sortOpts)
+	if err != nil {
+		return nil, err
+	}
+
+	return boardSummaries, nil
+}

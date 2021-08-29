@@ -66,6 +66,7 @@ func initGin() (*gin.Engine, error) {
 	router.GET(withPrefix(api.LOAD_GENERAL_BOARDS_BY_CLASS_R), api.LoadGeneralBoardsByClassWrapper)
 	router.GET(withPrefix(api.LOAD_AUTO_COMPLETE_BOARDS_R), api.LoadAutoCompleteBoardsWrapper)
 	router.POST(withPrefix(api.CREATE_BOARD_R), api.CreateBoardWrapper)
+	router.GET(withPrefix(api.LOAD_CLASS_BOARDS_R), api.LoadClassBoardsWrapper)
 
 	// article
 	router.GET(withPrefix(api.LOAD_GENERAL_ARTICLES_R), api.LoadGeneralArticlesWrapper)
@@ -164,6 +165,9 @@ func main() {
 
 	// retry load general boards
 	go cron.RetryLoadGeneralBoards()
+
+	// retry load full class boards
+	go cron.RetryLoadFullClassBoards()
 
 	s := &http.Server{
 		Addr:    types.HTTP_HOST,

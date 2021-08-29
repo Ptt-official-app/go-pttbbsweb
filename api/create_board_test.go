@@ -37,6 +37,7 @@ func TestCreateBoard(t *testing.T) {
 		Gid:       2,
 		Idx:       "",
 		Read:      true,
+		Bid:       13,
 	}
 
 	type args struct {
