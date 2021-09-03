@@ -148,38 +148,10 @@ func getUserFavoritesFromDB(userID bbs.UUserID, levelIdx schema.LevelIdx, startI
 	return userFavorites, nextIdx, nil
 }
 
-func tryGetBoardSummaryMapFromUserFavorites(userID bbs.UUserID, userFavorites_db []*schema.UserFavorites, c *gin.Context) (boardSummaryMap_db map[int]*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, statusCode int, err error) {
+func tryGetBoardSummaryMapFromUserFavorites(userID bbs.UUserID, userFavorites_db []*schema.UserFavorites, c *gin.Context) (boardSummaryMap_db map[ptttype.Bid]*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, statusCode int, err error) {
 	bids := bidsInUserFavorites(userFavorites_db)
 
-	// backend get boards by bids
-	theParams_b := &pttbbsapi.LoadBoardsByBidsParams{
-		Bids: bids,
-	}
-	var result_b *pttbbsapi.LoadBoardsByBidsResult
-
-	url := pttbbsapi.LOAD_BOARDS_BY_BIDS_R
-	statusCode, err = utils.BackendPost(c, url, theParams_b, nil, &result_b)
-	if err != nil || statusCode != 200 {
-		return nil, nil, statusCode, err
-	}
-
-	// update to db
-	updateNanoTS := types.NowNanoTS()
-	boardSummaries_db, userBoardInfoMap, err := deserializeBoardsAndUpdateDB(userID, result_b.Boards, updateNanoTS)
-	if err != nil {
-		return nil, nil, 500, err
-	}
-
-	boardSummaryMap_db = map[int]*schema.BoardSummary{}
-	for _, each := range boardSummaries_db {
-		theID, _, err := each.BBoardID.ToRaw()
-		if err != nil {
-			continue
-		}
-		boardSummaryMap_db[int(theID)] = each
-	}
-
-	return boardSummaryMap_db, userBoardInfoMap, 200, nil
+	return getBoardSummaryMapFromBids(userID, bids, c)
 }
 
 func bidsInUserFavorites(userFavorites []*schema.UserFavorites) (bids []ptttype.Bid) {

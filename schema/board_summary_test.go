@@ -1,19 +1,19 @@
 package schema
 
 import (
+	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/mockhttp"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 )
 
 func TestUpdateBoardSummaries(t *testing.T) {
 	setupTest()
 	defer teardownTest()
-
-	defer Board_c.Drop()
 
 	ret := mockhttp.LoadGeneralBoards(nil)
 
@@ -39,6 +39,12 @@ func TestUpdateBoardSummaries(t *testing.T) {
 		LastPostTime: types.NanoTS(1234567890000000000),
 
 		UpdateNanoTS: updateNanoTS,
+
+		Gid: 3,
+		Bid: 1,
+
+		IdxByName:  "test1",
+		IdxByClass: "tPq41Q@test1",
 	}
 
 	query1 := &BoardQuery{BBoardID: "2_test2"}
@@ -56,6 +62,12 @@ func TestUpdateBoardSummaries(t *testing.T) {
 		LastPostTime: types.NanoTS(1300000000000000000),
 
 		UpdateNanoTS: updateNanoTS,
+
+		Gid: 3,
+		Bid: 2,
+
+		IdxByName:  "test2",
+		IdxByClass: "tPq41Q@test2",
 	}
 
 	boardSummary2 := &BoardSummary{
@@ -72,6 +84,12 @@ func TestUpdateBoardSummaries(t *testing.T) {
 		LastPostTime: types.NanoTS(1300000000000000000),
 
 		UpdateNanoTS: updateNanoTS,
+
+		Gid: 3,
+		Bid: 3,
+
+		IdxByName:  "test3",
+		IdxByClass: "tPq41Q@test3",
 	}
 
 	query2 := &BoardQuery{BBoardID: "3_test3"}
@@ -91,6 +109,12 @@ func TestUpdateBoardSummaries(t *testing.T) {
 		LastPostTime: types.NanoTS(1300000000000000000),
 
 		UpdateNanoTS: updateNanoTS,
+
+		Gid: 3,
+		Bid: 2,
+
+		IdxByName:  "test2",
+		IdxByClass: "tPq41Q@test2",
 	}
 	boardSummaries2 := []*BoardSummary{boardSummary2, boardSummary3}
 
@@ -109,6 +133,12 @@ func TestUpdateBoardSummaries(t *testing.T) {
 		LastPostTime: types.NanoTS(1300000000000000000),
 
 		UpdateNanoTS: updateNanoTS1,
+
+		Gid: 3,
+		Bid: 2,
+
+		IdxByName:  "test2",
+		IdxByClass: "tPq41Q@test2",
 	}
 	boardSummaries3 := []*BoardSummary{boardSummary2, boardSummary4}
 
@@ -150,8 +180,11 @@ func TestUpdateBoardSummaries(t *testing.T) {
 			expected: boardSummary4,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			if err := UpdateBoardSummaries(tt.args.boardSummaries, tt.args.updateNanoTS); (err != nil) != tt.wantErr {
 				t.Errorf("UpdateBoardSummaries() error = %v, wantErr %v", err, tt.wantErr)
 			}
@@ -159,5 +192,109 @@ func TestUpdateBoardSummaries(t *testing.T) {
 			got, _ := GetBoardSummary(tt.query.BBoardID)
 			testutil.TDeepEqual(t, "got", got, tt.expected)
 		})
+		wg.Wait()
+	}
+}
+
+func TestGetBoardSummariesByClsID(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	ret := mockhttp.LoadGeneralBoards(nil)
+
+	updateNanoTS := types.NowNanoTS()
+
+	boardSummaries0 := make([]*BoardSummary, len(ret.Boards))
+	for idx, each_b := range ret.Boards {
+		boardSummaries0[idx] = NewBoardSummary(each_b, updateNanoTS)
+	}
+
+	_ = UpdateBoardSummaries(boardSummaries0, updateNanoTS)
+
+	boardSummary0 := &BoardSummary{
+		BBoardID:  "1_test1",
+		Brdname:   "test1",
+		Title:     "測試1",
+		BrdAttr:   0,
+		BoardType: "◎",
+		Category:  "測試",
+		BMs:       []bbs.UUserID{"okcool", "teemo"},
+		Total:     123,
+		NUser:     100,
+
+		LastPostTime: types.NanoTS(1234567890000000000),
+
+		UpdateNanoTS: updateNanoTS,
+		Gid:          3,
+		Bid:          1,
+
+		IdxByName:  "test1",
+		IdxByClass: "tPq41Q@test1",
+	}
+
+	boardSummary1 := &BoardSummary{
+		BBoardID:  "2_test2",
+		Brdname:   "test2",
+		Title:     "測試2",
+		BrdAttr:   0,
+		BoardType: "◎",
+		Category:  "測試",
+		BMs:       []bbs.UUserID{"okcool2", "teemo2"},
+		Total:     124,
+		NUser:     101,
+
+		LastPostTime: types.NanoTS(1300000000000000000),
+
+		UpdateNanoTS: updateNanoTS,
+		Gid:          3,
+		Bid:          2,
+
+		IdxByName:  "test2",
+		IdxByClass: "tPq41Q@test2",
+	}
+
+	expected0 := []*BoardSummary{boardSummary0, boardSummary1}
+	expected1 := []*BoardSummary{boardSummary0}
+
+	type args struct {
+		clsID    ptttype.Bid
+		startIdx string
+		isAsc    bool
+		limit    int
+		sortBy   ptttype.BSortBy
+	}
+	tests := []struct {
+		name                   string
+		args                   args
+		expectedBoardSummaries []*BoardSummary
+		wantErr                bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:                   args{clsID: 3, limit: 100, sortBy: ptttype.BSORT_BY_CLASS, isAsc: true},
+			expectedBoardSummaries: expected0,
+		},
+		{
+			args:                   args{clsID: 3, limit: 100, startIdx: "test1", sortBy: ptttype.BSORT_BY_NAME, isAsc: true},
+			expectedBoardSummaries: expected0,
+		},
+		{
+			args:                   args{clsID: 3, limit: 100, startIdx: "test1", sortBy: ptttype.BSORT_BY_NAME, isAsc: false},
+			expectedBoardSummaries: expected1,
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			gotBoardSummaries, err := GetBoardSummariesByClsID(tt.args.clsID, tt.args.startIdx, tt.args.isAsc, tt.args.limit, tt.args.sortBy)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetBoardSummariesByClsID() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			testutil.TDeepEqual(t, "got", gotBoardSummaries, tt.expectedBoardSummaries)
+		})
+		wg.Wait()
 	}
 }

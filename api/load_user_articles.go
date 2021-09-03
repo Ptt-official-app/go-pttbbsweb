@@ -98,6 +98,9 @@ func loadUserArticles(ownerID bbs.UUserID, startIdx string, descending bool, lim
 			nextCreateTime = nextArticleSummary.CreateTime
 			nextIdx = nextArticleSummary.Idx
 		}
+		if len(eachArticleSummaries_db) == 0 {
+			break
+		}
 
 		// is-valid
 		validArticleSummaries_db, err := isValidArticleSummaries(eachArticleSummaries_db)

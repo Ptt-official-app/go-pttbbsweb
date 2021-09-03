@@ -6,29 +6,18 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
 
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 )
 
 func toBoardID(fboardID apitypes.FBoardID, remoteAddr string, userID bbs.UUserID, c *gin.Context) (boardID bbs.BBoardID, err error) {
-	boardID, err = fboardID.ToBBoardID()
-	if err == nil {
-		return boardID, nil
-	}
-
-	params := &LoadAutoCompleteBoardsParams{
-		Keyword:   string(fboardID),
-		Ascending: true,
-		Max:       1,
-	}
-
-	_, _, err = LoadAutoCompleteBoards(remoteAddr, userID, params, c)
-	if err != nil {
-		return "", err
-	}
-
 	return fboardID.ToBBoardID()
+}
+
+func bidToBoardID(bid ptttype.Bid) (boardID bbs.BBoardID, err error) {
+	return schema.GetBoardIDByBid(bid)
 }
 
 // DeserializeBoards
@@ -112,4 +101,63 @@ func isBoardValidUser(boardID bbs.BBoardID, c *gin.Context) (isValid bool, statu
 	}
 
 	return true, 200, nil
+}
+
+//nolint
+func isBoardSummariesValidUser(boardSummaries []*schema.BoardSummary, c *gin.Context) (validBoardSummaries []*schema.BoardSummary, err error) {
+	boardIDs := make([]bbs.BBoardID, len(boardSummaries))
+	for idx, each := range boardSummaries {
+		boardIDs[idx] = each.BBoardID
+	}
+
+	var result_b *pttbbsapi.IsBoardsValidUserResult
+
+	params := &pttbbsapi.IsBoardsValidUserParams{
+		BoardIDs: boardIDs,
+	}
+
+	url := pttbbsapi.IS_BOARDS_VALID_USER_R
+	statusCode, err := utils.BackendGet(c, url, params, nil, &result_b)
+	if err != nil || statusCode != 200 {
+		return nil, err
+	}
+
+	validBoardSummaries = make([]*schema.BoardSummary, 0, len(boardSummaries))
+	for _, each := range boardSummaries {
+		isValid, ok := result_b.IsValid[each.BBoardID]
+		if !ok || !isValid {
+			continue
+		}
+		validBoardSummaries = append(validBoardSummaries, each)
+	}
+
+	return validBoardSummaries, nil
+}
+
+func getBoardSummaryMapFromBids(userID bbs.UUserID, bids []ptttype.Bid, c *gin.Context) (boardSummaryMap_db map[ptttype.Bid]*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, statusCode int, err error) {
+	// backend get boards by bids
+	theParams_b := &pttbbsapi.LoadBoardsByBidsParams{
+		Bids: bids,
+	}
+	var result_b *pttbbsapi.LoadBoardsByBidsResult
+
+	url := pttbbsapi.LOAD_BOARDS_BY_BIDS_R
+	statusCode, err = utils.BackendPost(c, url, theParams_b, nil, &result_b)
+	if err != nil || statusCode != 200 {
+		return nil, nil, statusCode, err
+	}
+
+	// update to db
+	updateNanoTS := types.NowNanoTS()
+	boardSummaries_db, userBoardInfoMap, err := deserializeBoardsAndUpdateDB(userID, result_b.Boards, updateNanoTS)
+	if err != nil {
+		return nil, nil, 500, err
+	}
+
+	boardSummaryMap_db = map[ptttype.Bid]*schema.BoardSummary{}
+	for _, each := range boardSummaries_db {
+		boardSummaryMap_db[each.Bid] = each
+	}
+
+	return boardSummaryMap_db, userBoardInfoMap, 200, nil
 }

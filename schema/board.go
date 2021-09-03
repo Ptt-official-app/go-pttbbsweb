@@ -84,6 +84,11 @@ var (
 	BOARD_FAST_RECOMMEND_PAUSE_b = getBSONName(EMPTY_BOARD, "FastRecommendPause")
 	BOARD_IS_DELETED_b           = getBSONName(EMPTY_BOARD, "IsDeleted")
 	BOARD_UPDATE_NANO_TS_b       = getBSONName(EMPTY_BOARD, "UpdateNanoTS")
+
+	BOARD_GID_b          = getBSONName(EMPTY_BOARD, "Gid")
+	BOARD_BID_b          = getBSONName(EMPTY_BOARD, "Bid")
+	BOARD_IDX_BY_NAME_b  = getBSONName(EMPTY_BOARD, "IdxByName")
+	BOARD_IDX_BY_CLASS_b = getBSONName(EMPTY_BOARD, "IdxByClass")
 )
 
 func assertBoardFields() error {
@@ -96,6 +101,10 @@ func assertBoardFields() error {
 	}
 
 	if err := assertFields(EMPTY_BOARD, EMPTY_BOARD_ID); err != nil {
+		return err
+	}
+
+	if err := assertFields(EMPTY_BOARD, EMPTY_BOARD_BID); err != nil {
 		return err
 	}
 

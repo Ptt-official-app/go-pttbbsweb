@@ -17,8 +17,6 @@ func TestLoadGeneralBoards(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer schema.UserReadBoard_c.Drop()
-
 	update0 := &schema.UserReadBoard{UserID: "SYSOP", BBoardID: "1_test1", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
 	update1 := &schema.UserReadBoard{UserID: "SYSOP", BBoardID: "2_test2", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
 
@@ -42,6 +40,9 @@ func TestLoadGeneralBoards(t *testing.T) {
 
 				LastPostTime: 1234567890,
 				StatAttr:     ptttype.NBRD_BOARD,
+				Gid:          3,
+				Bid:          1,
+				Idx:          "test1",
 			},
 			{
 				FBoardID:  "test2",
@@ -57,6 +58,9 @@ func TestLoadGeneralBoards(t *testing.T) {
 
 				LastPostTime: 1300000000,
 				StatAttr:     ptttype.NBRD_BOARD,
+				Gid:          3,
+				Bid:          2,
+				Idx:          "test2",
 			},
 		},
 		NextIdx: "test3",

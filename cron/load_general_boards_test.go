@@ -26,6 +26,10 @@ func Test_loadGeneralBoards(t *testing.T) {
 			Total:     123,
 
 			LastPostTime: 1234567890000000000,
+			Gid:          3,
+			Bid:          1,
+			IdxByName:    "test1",
+			IdxByClass:   "tPq41Q@test1",
 		},
 		{
 			BBoardID:  "2_test2",
@@ -39,6 +43,10 @@ func Test_loadGeneralBoards(t *testing.T) {
 			Total:     124,
 
 			LastPostTime: 1300000000000000000,
+			Gid:          3,
+			Bid:          2,
+			IdxByName:    "test2",
+			IdxByClass:   "tPq41Q@test2",
 		},
 	}
 	type args struct {
