@@ -122,6 +122,15 @@ def _load_popular_boards():
     return ''
 
 
+@app.route(_with_app_prefix('/cls/<clsid>'))
+def _load_class_boards():
+    """
+    swagger_from_file: apidoc/load_class_boards.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/user/<user_id>'))
 def _get_user_info(user_id):
     """
