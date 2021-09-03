@@ -103,6 +103,7 @@ func isBoardValidUser(boardID bbs.BBoardID, c *gin.Context) (isValid bool, statu
 	return true, 200, nil
 }
 
+//nolint
 func isBoardSummariesValidUser(boardSummaries []*schema.BoardSummary, c *gin.Context) (validBoardSummaries []*schema.BoardSummary, err error) {
 	boardIDs := make([]bbs.BBoardID, len(boardSummaries))
 	for idx, each := range boardSummaries {

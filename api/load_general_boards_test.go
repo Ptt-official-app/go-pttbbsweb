@@ -17,8 +17,6 @@ func TestLoadGeneralBoards(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer schema.UserReadBoard_c.Drop()
-
 	update0 := &schema.UserReadBoard{UserID: "SYSOP", BBoardID: "1_test1", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
 	update1 := &schema.UserReadBoard{UserID: "SYSOP", BBoardID: "2_test2", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
 

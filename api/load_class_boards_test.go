@@ -1,6 +1,7 @@
 package api
 
 import (
+	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
@@ -122,8 +123,11 @@ func TestLoadClassBoards(t *testing.T) {
 			expectedStatusCode: 200,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			gotResult, gotStatusCode, err := LoadClassBoards(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("LoadClassBoards() error = %v, wantErr %v", err, tt.wantErr)
@@ -134,10 +138,13 @@ func TestLoadClassBoards(t *testing.T) {
 				t.Errorf("LoadClassBoards() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}
 		})
+		wg.Wait()
 	}
 }
 
 func Test_loadClassBoards(t *testing.T) {
+	setupTest()
+	defer teardownTest()
 	type args struct {
 		userID   bbs.UUserID
 		clsID    ptttype.Bid
@@ -157,8 +164,11 @@ func Test_loadClassBoards(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			gotBoardSummaries_db, gotUserBoardInfoMap, gotNextIdx, err := loadClassBoards(tt.args.userID, tt.args.clsID, tt.args.startIdx, tt.args.asc, tt.args.max, tt.args.sortBy, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("loadClassBoards() error = %v, wantErr %v", err, tt.wantErr)
@@ -170,5 +180,6 @@ func Test_loadClassBoards(t *testing.T) {
 				t.Errorf("loadClassBoards() gotNextIdx = %v, want %v", gotNextIdx, tt.expectedNextIdx)
 			}
 		})
+		wg.Wait()
 	}
 }

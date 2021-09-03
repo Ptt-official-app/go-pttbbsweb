@@ -8,8 +8,9 @@ import (
 func IsBoardsValidUser(params *api.IsBoardsValidUserParams) (ret *api.IsBoardsValidUserResult) {
 	ret = &api.IsBoardsValidUserResult{
 		IsValid: map[bbs.BBoardID]bool{
-			"1_test1": true,
-			"2_test2": true,
+			"1_test1":   true,
+			"2_test2":   true,
+			"10_WhoAmI": true,
 		},
 	}
 	return ret
