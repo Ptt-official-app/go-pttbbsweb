@@ -78,7 +78,7 @@ func Test_loadFullClassBoards(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotNextBid, err := loadFullClassBoards(tt.args.startBid)
+			_, gotNextBid, err := loadFullClassBoards(tt.args.startBid)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("loadFullClassBoards() error = %v, wantErr %v", err, tt.wantErr)
 				return
