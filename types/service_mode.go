@@ -14,4 +14,7 @@ const (
 
 	// in DEBUG mode, log set to DEBUG
 	DEBUG ServiceMode = "DEBUG"
+
+	// in test mode
+	TEST ServiceMode = "TEST"
 )

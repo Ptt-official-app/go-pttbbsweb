@@ -31,6 +31,15 @@ type ArticleSummary struct {
 	SubjectType ptttype.SubjectType `json:"subject_type"`
 }
 
+func ToFTitle(title string) string {
+	switch types.SERVICE_MODE {
+	case types.DEV:
+		return "[測試]" + title
+	default:
+		return title
+	}
+}
+
 func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
 	fboardID := ToFBoardID(a_db.BBoardID)
 	farticleID := ToFArticleID(a_db.ArticleID)
@@ -46,7 +55,7 @@ func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
 		Recommend:  a_db.Recommend,            //
 		NComments:  a_db.NComments,            //
 		Owner:      a_db.Owner,                //
-		Title:      a_db.Title,                //
+		Title:      ToFTitle(a_db.Title),      //
 		Money:      a_db.Money,                //
 		Filemode:   a_db.Filemode,             //
 		Class:      a_db.Class,                //
@@ -76,7 +85,7 @@ func NewArticleSummaryFromWithRegex(a_db *schema.ArticleSummaryWithRegex) *Artic
 		Recommend:  a_db.Recommend,            //
 		NComments:  a_db.NComments,            //
 		Owner:      a_db.Owner,                //
-		Title:      a_db.Title,                //
+		Title:      ToFTitle(a_db.Title),      //
 		Money:      a_db.Money,                //
 		Filemode:   a_db.Filemode,             //
 		Class:      a_db.Class,                //

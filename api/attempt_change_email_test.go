@@ -5,7 +5,6 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
@@ -13,8 +12,6 @@ import (
 func TestAttemptChangeEmail(t *testing.T) {
 	setupTest()
 	defer teardownTest()
-
-	defer schema.UserEmail_c.Drop()
 
 	params0 := &AttemptChangeEmailParams{
 		ClientID:     "default_client_id",

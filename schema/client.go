@@ -87,7 +87,7 @@ func GetClient(clientID string) (ret *Client, err error) {
 }
 
 func genClientSecret() string {
-	if types.SERVICE_MODE == types.DEV {
+	if types.SERVICE_MODE == types.TEST {
 		return "test_client_secret"
 	}
 
