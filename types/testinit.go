@@ -9,6 +9,8 @@ var (
 	origIDEmailTokenTemplate        = ""
 	origAttemptRegisterUserTemplate = ""
 
+	origServiceMode = SERVICE_MODE
+
 	lock sync.Mutex
 )
 
@@ -22,6 +24,8 @@ func teardownTest() {
 
 func SetIsTest(pkgName string) {
 	lock.Lock()
+
+	SERVICE_MODE = TEST
 	if pkgName != "main" {
 		origBig5ToUtf8 = BIG5_TO_UTF8
 		origUtf8ToBig5 = UTF8_TO_BIG5
@@ -44,6 +48,7 @@ func SetIsTest(pkgName string) {
 func UnsetIsTest(pkgName string) {
 	defer lock.Unlock()
 
+	SERVICE_MODE = origServiceMode
 	if pkgName != "main" {
 		BIG5_TO_UTF8 = origBig5ToUtf8
 		UTF8_TO_BIG5 = origUtf8ToBig5
