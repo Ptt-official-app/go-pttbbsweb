@@ -5,7 +5,7 @@ import (
 	"encoding/base64"
 )
 
-func md5sum(theBytes []byte) string {
+func Md5sum(theBytes []byte) string {
 	if len(theBytes) == 0 {
 		return ""
 	}

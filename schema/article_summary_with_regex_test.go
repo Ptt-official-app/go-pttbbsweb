@@ -2,7 +2,11 @@ package schema
 
 import (
 	"reflect"
+	"sync"
 	"testing"
+
+	"github.com/Ptt-official-app/go-openbbsmiddleware/mockhttp"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 )
 
 func Test_articleTitleToTitleRegexCore(t *testing.T) {
@@ -118,5 +122,54 @@ func Test_articleTitleToTitleRegex(t *testing.T) {
 				t.Errorf("articleTitleToTitleRegex() = %v, want %v", gotTitleRegex, tt.expectedTitleRegex)
 			}
 		})
+	}
+}
+
+func TestUpdateArticleSummaryWithRegexes(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	ret := mockhttp.LoadGeneralArticles(nil)
+
+	updateNanoTS0 := types.NowNanoTS() - 200
+
+	articleSummaryWithRegexes0 := make([]*ArticleSummaryWithRegex, len(ret.Articles))
+	for idx, each_b := range ret.Articles {
+		articleSummaryWithRegexes0[idx] = NewArticleSummaryWithRegex(each_b, updateNanoTS0)
+	}
+
+	updateNanoTS1 := types.NowNanoTS()
+	articleSummaryWithRegexes1 := make([]*ArticleSummaryWithRegex, len(ret.Articles))
+	for idx, each_b := range ret.Articles {
+		articleSummaryWithRegexes1[idx] = NewArticleSummaryWithRegex(each_b, updateNanoTS1)
+	}
+
+	type args struct {
+		articleSummaryWithRegexes []*ArticleSummaryWithRegex
+		updateNanoTS              types.NanoTS
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+		{
+			args: args{articleSummaryWithRegexes: articleSummaryWithRegexes0, updateNanoTS: updateNanoTS0},
+		},
+		{
+			args: args{articleSummaryWithRegexes: articleSummaryWithRegexes1, updateNanoTS: updateNanoTS1},
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			if err := UpdateArticleSummaryWithRegexes(tt.args.articleSummaryWithRegexes, tt.args.updateNanoTS); (err != nil) != tt.wantErr {
+				t.Errorf("UpdateArticleSummaryWithRegexes() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+		wg.Wait()
 	}
 }

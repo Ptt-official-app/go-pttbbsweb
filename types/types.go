@@ -3,6 +3,7 @@ package types
 import (
 	"encoding/base64"
 	"encoding/binary"
+	"strings"
 	"time"
 
 	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
@@ -50,6 +51,10 @@ func ToCommentID(nanoTS NanoTS, md5 string) CommentID {
 
 func ToReplyID(commentID CommentID) CommentID {
 	return commentID + ":R"
+}
+
+func IsReplyID(commentID CommentID) bool {
+	return strings.HasSuffix(string(commentID), ":R")
 }
 
 const (

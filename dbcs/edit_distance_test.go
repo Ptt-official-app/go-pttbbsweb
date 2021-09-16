@@ -1276,7 +1276,7 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 					TheType:    ptttype.COMMENT_TYPE_REPLY,
 					MD5:        "m2",
 					TheDate:    "04/14/2009 10:30",
-					CommentID:  "ESqy8fjyFqA:m2",
+					CommentID:  "ESqy8fjwkAA:m1:R",
 					CreateTime: 1239676320000000000,
 					SortTime:   1236997800000100000,
 				},
@@ -2244,7 +2244,7 @@ func TestEDBlock_BackwardInferTS(t *testing.T) {
 				NewComment: &schema.Comment{
 					TheType:    ptttype.COMMENT_TYPE_REPLY,
 					MD5:        "m1",
-					CommentID:  "EZq801SBV6A:m1",
+					CommentID:  "EZq801R_0QA:m1:R",
 					CreateTime: 1268533860900100000,
 					SortTime:   1268533860900100000,
 				},

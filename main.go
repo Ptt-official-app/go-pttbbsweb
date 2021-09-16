@@ -75,6 +75,9 @@ func initGin() (*gin.Engine, error) {
 	router.GET(withPrefix(api.LOAD_POPULAR_ARTICLES_R), api.LoadPopularArticlesWrapper)
 	router.POST(withPrefix(api.CREATE_ARTICLE_R), api.CreateArticleWrapper)
 	router.GET(withPrefix(api.CROSS_POST_R), api.CrossPostWrapper)
+	router.POST(withPrefix(api.EDIT_ARTICLE_R), api.EditArticleDetailWrapper)
+	router.POST(withPrefix(api.REPLY_COMMENTS_R), api.ReplyCommentsWrapper)
+	router.POST(withPrefix(api.DELETE_COMMENTS_R), api.DeleteCommentsWrapper)
 
 	// user
 	router.GET(withPrefix(api.GET_USER_INFO_R), api.GetUserInfoWrapper)

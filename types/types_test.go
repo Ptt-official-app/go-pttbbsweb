@@ -47,6 +47,30 @@ func TestNanoTS_Base64(t *testing.T) {
 			tr:       NanoTS(-1),
 			expected: "__________8",
 		},
+		{
+			tr:       1037679702000000000,
+			expected: "DmaUMOxX3AA",
+		},
+		{
+			tr:       1271476830000000000,
+			expected: "EaUxcLhKLAA",
+		},
+		{
+			tr:       1303012830000000000,
+			expected: "EhU7Q-XtLAA",
+		},
+		{
+			tr:       1608375447000000000,
+			expected: "FlIY8o_lJgA",
+		},
+		{
+			tr:       1607624123000000000,
+			expected: "Fk9tn0_DjgA",
+		},
+		{
+			tr:       1583512020002100000,
+			expected: "FfnDytnJUyA",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -285,6 +309,10 @@ func TestBase64ToNanoTS(t *testing.T) {
 		{
 			args:     args{b64: "__________8"},
 			expected: NanoTS(-1),
+		},
+		{
+			args:     args{b64: "DmaUMLDbloA"},
+			expected: NanoTS(1037679701002000000),
 		},
 	}
 	for _, tt := range tests {

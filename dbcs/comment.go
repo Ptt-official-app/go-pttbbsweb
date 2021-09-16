@@ -143,7 +143,7 @@ func parseComment(commentDBCS []byte) (comment *schema.Comment) {
 func parseCommentEdit(commentDBCS []byte, origCommentDBCS []byte) (comment *schema.Comment) {
 	ownerID, commentDBCS := parseCommentEditOwnerID(commentDBCS)
 	ip, host, theDateStr := parseCommentEditIPCreateTime(commentDBCS)
-	commentMD5 := md5sum(origCommentDBCS)
+	commentMD5 := Md5sum(origCommentDBCS)
 
 	createNanoTS := types.NanoTS(0)
 	commentID := types.CommentID("")
@@ -236,7 +236,7 @@ func parseCommentForward(commentDBCS []byte, origCommentDBCS []byte) (comment *s
 	contentBig5 := dbcsToBig5(contentDBCS) // the last 11 chars are the dates
 	contentUtf8 := big5ToUtf8(contentBig5)
 	ip, theDateStr := parseCommentForwardIPCreateTime(commentDBCS)
-	commentMD5 := md5sum(origCommentDBCS)
+	commentMD5 := Md5sum(origCommentDBCS)
 
 	comment = &schema.Comment{
 		TheType: ptttype.COMMENT_TYPE_FORWARD,
@@ -309,7 +309,7 @@ func parseCommentDeleted(commentDBCS []byte, origCommentDBCS []byte) (comment *s
 	contentDBCS, _ := parseCommentDeletedContent(commentDBCS)
 	contentBig5 := dbcsToBig5(contentDBCS) // the last 11 chars are the dates
 	contentUtf8 := big5ToUtf8(contentBig5)
-	commentMD5 := md5sum(origCommentDBCS)
+	commentMD5 := Md5sum(origCommentDBCS)
 
 	comment = &schema.Comment{
 		TheType: ptttype.COMMENT_TYPE_DELETED,
@@ -324,21 +324,26 @@ func parseCommentDeleted(commentDBCS []byte, origCommentDBCS []byte) (comment *s
 }
 
 func parseCommentDeletedOwnerID(commentDBCS []byte) (ownerID bbs.UUserID, newCommentDBCS []byte) {
+	origCommentDBCS := commentDBCS
+	startIdx := bytes.Index(commentDBCS, MATCH_COMMENT_DELETED_INFIX0)
+	if startIdx == -1 {
+		return "", commentDBCS
+	}
+	commentDBCS = commentDBCS[startIdx+len(MATCH_COMMENT_DELETED_INFIX0):]
 	idx := bytes.Index(commentDBCS, []byte{' '})
 	if idx == -1 {
 		return "", commentDBCS
 	}
 
 	ownerID = bbs.UUserID(string(commentDBCS[:idx]))
-	newCommentDBCS = commentDBCS[idx+len(MATCH_COMMENT_DELETED_INFIX0):]
 
-	return ownerID, newCommentDBCS
+	return ownerID, origCommentDBCS
 }
 
 func parseCommentDeletedContent(commentDBCS []byte) (contentDBCS []byte, newCommentDBCS []byte) {
 	idx := bytes.Index(commentDBCS, MATCH_COMMENT_DELETED_POSTFIX)
 	if idx == -1 {
-		return nil, commentDBCS
+		return commentDBCS, nil
 	}
 
 	return commentDBCS[:idx], commentDBCS[idx:]
@@ -351,7 +356,7 @@ func parseCommentDefault(theType ptttype.CommentType, commentDBCS []byte, origCo
 	contentBig5 := dbcsToBig5(contentDBCS) // the last 11 chars are the dates
 	contentUtf8 := big5ToUtf8(contentBig5)
 	ip, theDateStr := parseCommentDefaultIPCreateTime(commentDBCS)
-	commentMD5 := md5sum(origCommentDBCS)
+	commentMD5 := Md5sum(origCommentDBCS)
 
 	comment = &schema.Comment{
 		TheType: theType,
@@ -480,7 +485,7 @@ func parseReply(replyDBCS []byte, editDBCS []byte, ownerID bbs.UUserID) (reply *
 		return nil
 	}
 
-	replyMD5 := md5sum(origReplyDBCS)
+	replyMD5 := Md5sum(origReplyDBCS)
 	replyBig5 := dbcsToBig5(replyDBCS)
 	replyUtf8 := big5ToUtf8(replyBig5)
 

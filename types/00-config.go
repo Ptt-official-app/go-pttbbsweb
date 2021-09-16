@@ -78,4 +78,7 @@ var (
 
 	// time-location
 	TIME_LOCATION = "Asia/Taipei"
+
+	// carriage-return
+	IS_CARRIAGE_RETURN = true
 )

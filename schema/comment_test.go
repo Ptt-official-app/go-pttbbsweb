@@ -1,6 +1,7 @@
 package schema
 
 import (
+	"fmt"
 	"sync"
 	"testing"
 
@@ -13,8 +14,6 @@ import (
 func TestUpdateComments(t *testing.T) {
 	setupTest()
 	defer teardownTest()
-
-	defer Comment_c.Drop()
 
 	type args struct {
 		comments     []*Comment
@@ -191,65 +190,112 @@ func TestGetComments(t *testing.T) {
 }
 
 func TestComment_SetSortTime(t *testing.T) {
-	type fields struct {
-		BBoardID           bbs.BBoardID
-		ArticleID          bbs.ArticleID
-		CommentID          types.CommentID
-		TheType            ptttype.CommentType
-		RefIDs             []types.CommentID
-		IsDeleted          bool
-		DeleteReason       string
-		CreateTime         types.NanoTS
-		Owner              bbs.UUserID
-		Content            [][]*types.Rune
-		IP                 string
-		Host               string
-		MD5                string
-		FirstCreateTime    types.NanoTS
-		InferredCreateTime types.NanoTS
-		NewCreateTime      types.NanoTS
-		SortTime           types.NanoTS
-		TheDate            string
-		DBCS               []byte
-		EditNanoTS         types.NanoTS
-		UpdateNanoTS       types.NanoTS
+	setupTest()
+	defer teardownTest()
+	c0 := &Comment{
+		CommentID: "test0",
+		TheType:   ptttype.COMMENT_TYPE_BOO,
+		MD5:       "md50",
 	}
+
+	expected0 := &Comment{
+		CommentID: "ESIQ9HaNtAA:md50",
+		TheType:   ptttype.COMMENT_TYPE_BOO,
+		MD5:       "md50",
+		SortTime:  1234567890000000000,
+	}
+
+	c1 := &Comment{
+		CommentID: "test1:R",
+		TheType:   ptttype.COMMENT_TYPE_REPLY,
+		MD5:       "md50",
+	}
+
+	expected1 := &Comment{
+		CommentID: "test1:R",
+		TheType:   ptttype.COMMENT_TYPE_REPLY,
+		MD5:       "md50",
+		SortTime:  1234567890000000000,
+	}
+
 	type args struct {
 		nanoTS types.NanoTS
 	}
 	tests := []struct {
-		name   string
-		fields fields
-		args   args
+		name     string
+		c        *Comment
+		args     args
+		expected *Comment
 	}{
 		// TODO: Add test cases.
+		{
+			c:        c0,
+			args:     args{nanoTS: 1234567890000000000},
+			expected: expected0,
+		},
+		{
+			c:        c1,
+			args:     args{nanoTS: 1234567890000000000},
+			expected: expected1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			c := &Comment{
-				BBoardID:           tt.fields.BBoardID,
-				ArticleID:          tt.fields.ArticleID,
-				CommentID:          tt.fields.CommentID,
-				TheType:            tt.fields.TheType,
-				RefIDs:             tt.fields.RefIDs,
-				IsDeleted:          tt.fields.IsDeleted,
-				DeleteReason:       tt.fields.DeleteReason,
-				CreateTime:         tt.fields.CreateTime,
-				Owner:              tt.fields.Owner,
-				Content:            tt.fields.Content,
-				IP:                 tt.fields.IP,
-				Host:               tt.fields.Host,
-				MD5:                tt.fields.MD5,
-				FirstCreateTime:    tt.fields.FirstCreateTime,
-				InferredCreateTime: tt.fields.InferredCreateTime,
-				NewCreateTime:      tt.fields.NewCreateTime,
-				SortTime:           tt.fields.SortTime,
-				TheDate:            tt.fields.TheDate,
-				DBCS:               tt.fields.DBCS,
-				EditNanoTS:         tt.fields.EditNanoTS,
-				UpdateNanoTS:       tt.fields.UpdateNanoTS,
-			}
+			c := tt.c
 			c.SetSortTime(tt.args.nanoTS)
+			testutil.TDeepEqual(t, "c", c, tt.expected)
 		})
+	}
+}
+
+func TestGetCommentMapByCommentIDs(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	_ = UpdateComments(testComments0, types.NanoTS(1334567890000000000))
+
+	commentIDs0 := []types.CommentID{
+		"EYFhmOhREkA:Es26f7U0EXdr7Gp4a9N8pQ",
+		"EYFhmOhgVIA:gmrKWXE7BjV-1U89GcPqHg",
+	}
+	expected0 := map[types.CommentID]*Comment{
+		"EYFhmOhREkA:Es26f7U0EXdr7Gp4a9N8pQ": testComments0[0],
+		"EYFhmOhgVIA:gmrKWXE7BjV-1U89GcPqHg": testComments0[1],
+	}
+
+	type args struct {
+		boardID    bbs.BBoardID
+		articleID  bbs.ArticleID
+		commentIDs []types.CommentID
+	}
+	tests := []struct {
+		name               string
+		args               args
+		expectedCommentMap map[types.CommentID]*Comment
+		wantErr            bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:               args{boardID: "test", articleID: "test", commentIDs: commentIDs0},
+			expectedCommentMap: expected0,
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			gotCommentMap, err := GetCommentMapByCommentIDs(tt.args.boardID, tt.args.articleID, tt.args.commentIDs)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetCommentMapByCommentIDs() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			for idx, each := range tt.expectedCommentMap {
+				got := gotCommentMap[idx]
+				testutil.TDeepEqual(t, fmt.Sprintf("got-%v", (idx)), got, each)
+			}
+		})
+		wg.Wait()
 	}
 }

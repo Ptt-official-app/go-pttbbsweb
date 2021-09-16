@@ -46,3 +46,5 @@ definitions:
   !include defs/article_comment_list.yaml
   !include defs/article_comment.yaml
   !include defs/params_sortby.yaml
+  !include defs/delete_comment_params.yaml
+  !include defs/reply_comment_params.yaml

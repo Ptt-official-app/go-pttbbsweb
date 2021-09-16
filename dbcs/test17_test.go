@@ -298,11 +298,11 @@ func initTest17() {
 			Content: [][]*types.Rune{
 				{
 					{
-						Utf8:   "teemocogs 的推文: 誤植",
-						Big5:   []byte("teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3"),
+						Utf8:   "teemocogs 刪除 teemocogs 的推文: 誤植",
+						Big5:   []byte("teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3"),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
-						DBCS:   []byte("teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3"),
+						DBCS:   []byte("teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3"),
 					},
 				},
 			},
@@ -320,11 +320,11 @@ func initTest17() {
 			Content: [][]*types.Rune{
 				{
 					{
-						Utf8:   "teemocogs 的推文: 誤植",
-						Big5:   []byte("teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3"),
+						Utf8:   "teemocogs 刪除 teemocogs 的推文: 誤植",
+						Big5:   []byte("teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3"),
 						Color0: types.DefaultColor,
 						Color1: types.DefaultColor,
-						DBCS:   []byte("teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3"),
+						DBCS:   []byte("teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3"),
 					},
 				},
 			},

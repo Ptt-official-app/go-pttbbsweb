@@ -1,6 +1,7 @@
 package dbcs
 
 import (
+	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -234,12 +235,16 @@ func TestParseComments(t *testing.T) {
 			expectedComments: testFirstComments19,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			logrus.Infof("%v: to ParseComments", tt.name)
 			gotComments := ParseComments(tt.args.ownerID, tt.args.commentsDBCS, tt.args.allCommentsDBCS)
 
 			testutil.TDeepEqual(t, "comments", gotComments, tt.expectedComments)
 		})
+		wg.Wait()
 	}
 }

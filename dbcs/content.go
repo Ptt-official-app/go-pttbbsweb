@@ -17,7 +17,7 @@ import (
 func ParseContent(contentBytes []byte, origContentMD5 string) (content [][]*types.Rune, contentMD5 string, ip string, host string, bbs string, signatureMD5 string, signatureDBCS []byte, commentsDBCS []byte) {
 	contentDBCS, signatureDBCS, commentsDBCS := splitArticleSignatureCommentsDBCS(contentBytes)
 
-	contentMD5 = md5sum(contentDBCS)
+	contentMD5 = Md5sum(contentDBCS)
 
 	if contentMD5 == origContentMD5 {
 		return nil, "", "", "", "", "", nil, commentsDBCS
@@ -29,7 +29,7 @@ func ParseContent(contentBytes []byte, origContentMD5 string) (content [][]*type
 	signatureBig5 := dbcsToBig5(signatureDBCS)
 	signatureUtf8 := big5ToUtf8(signatureBig5)
 	ip, host, bbs = parseSignatureIPHostBBS(signatureUtf8)
-	signatureMD5 = md5sum(signatureDBCS)
+	signatureMD5 = Md5sum(signatureDBCS)
 
 	return content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, commentsDBCS
 }

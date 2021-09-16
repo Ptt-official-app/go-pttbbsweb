@@ -26,10 +26,20 @@ func HTTPPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(GetArticleDetail(data.(*api.GetArticleParams)), result)
 	case "/board/10_WhoAmI/article/1VrooM21":
 		return parseResult(GetArticleDetail2(data.(*api.GetArticleParams)), result)
+	case "/board/10_WhoAmI/article/1VrooM21/edit":
+		return parseResult(EditArticleDetail2(data.(*api.EditArticleParams)), result)
 	case "/board/10_WhoAmI/article":
 		return parseResult(CreateArticle(data.(*api.CreateArticleParams)), result)
 	case "/board/10_WhoAmI/articles":
 		return parseResult(LoadGeneralArticles2(data.(*api.LoadGeneralArticlesParams)), result)
+	case "/board/1_SYSOP/article":
+		return parseResult(CreateArticle2(data.(*api.CreateArticleParams)), result)
+	case "/board/1_SYSOP/article/1VrooM21":
+		return parseResult(GetArticleDetail3(data.(*api.GetArticleParams)), result)
+	case "/board/1_SYSOP/article/1VrooM21/edit":
+		return parseResult(EditArticleDetail3(data.(*api.EditArticleParams)), result)
+	case "/board/1_SYSOP/article/1VrooM21/comment":
+		return parseResult(CreateComment2(data.(*api.CreateCommentParams)), result)
 	case "/board/1_SYSOP/articles":
 		return parseResult(LoadGeneralArticles3(data.(*api.LoadGeneralArticlesParams)), result)
 	case "/board/1_SYSOP/article/1VtWRel9/crosspost":

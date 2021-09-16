@@ -1,6 +1,7 @@
 package schema
 
 import (
+	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
@@ -12,8 +13,6 @@ import (
 func TestUpdateArticleComments(t *testing.T) {
 	setupTest()
 	defer teardownTest()
-
-	defer Article_c.Drop()
 
 	articleContent := &ArticleContentInfo{
 		ContentMD5:          "test1",
@@ -54,8 +53,11 @@ func TestUpdateArticleComments(t *testing.T) {
 			wantErr: true,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			err := UpdateArticleComments(tt.args.articleComments)
 
 			if (err != nil) != tt.wantErr {
@@ -75,5 +77,61 @@ func TestUpdateArticleComments(t *testing.T) {
 
 			testutil.TDeepEqual(t, "CommentsUpdateNanoTS", article.CommentsUpdateNanoTS, tt.args.articleComments.CommentsUpdateNanoTS)
 		})
+		wg.Wait()
+	}
+}
+
+func TestUpdateArticleCommentsByArticleID(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	articleSummaries0 := []*ArticleSummary{
+		{
+			BBoardID:     "test",
+			ArticleID:    "test",
+			UpdateNanoTS: 1234567890000000000,
+		},
+	}
+	UpdateArticleSummaries(articleSummaries0, 1234567890000000000)
+
+	_ = UpdateComments(testComments0, types.NanoTS(1334567890000000000))
+
+	expected0 := &ArticleSummary{
+		BBoardID:     "test",
+		ArticleID:    "test",
+		NComments:    5,
+		UpdateNanoTS: 1234567890000000000,
+	}
+
+	type args struct {
+		boardID      bbs.BBoardID
+		articleID    bbs.ArticleID
+		updateNanoTS types.NanoTS
+	}
+	tests := []struct {
+		name     string
+		args     args
+		expected *ArticleSummary
+		wantErr  bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:     args{boardID: "test", articleID: "test", updateNanoTS: 1334567890000000000},
+			expected: expected0,
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			if err := UpdateArticleCommentsByArticleID(tt.args.boardID, tt.args.articleID, tt.args.updateNanoTS); (err != nil) != tt.wantErr {
+				t.Errorf("UpdateArticleCommentsByArticleID() error = %v, wantErr %v", err, tt.wantErr)
+			}
+
+			got, _ := GetArticleSummary(tt.args.boardID, tt.args.articleID)
+			testutil.TDeepEqual(t, "got", got, tt.expected)
+		})
+		wg.Wait()
 	}
 }
