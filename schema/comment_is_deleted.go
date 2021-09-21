@@ -9,7 +9,6 @@ import (
 
 type CommentIsDeleted struct {
 	IsDeleted    bool         `bson:"deleted,omitempty"`
-	DeleteReason string       `bson:"delete_reason"`
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
 
@@ -36,7 +35,6 @@ func RemoveCommentIDs(bboardID bbs.BBoardID, articleID bbs.ArticleID, toRemoveCo
 
 	update := &CommentIsDeleted{
 		IsDeleted:    true,
-		DeleteReason: reason,
 		UpdateNanoTS: updateNanoTS,
 	}
 
