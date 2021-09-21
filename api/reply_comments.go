@@ -76,6 +76,9 @@ func replyCommentsUpdateReplies(userID bbs.UUserID, remoteAddr string, boardID b
 		commentIDs[idx] = each.CommentID
 	}
 	sortTimeMap, err := schema.GetCommentSortTimeMapByCommentIDs(boardID, articleID, commentIDs)
+	if err != nil {
+		return err
+	}
 
 	for idx, each := range replies {
 		sortTime := sortTimeMap[each.CommentID]

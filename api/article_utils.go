@@ -302,6 +302,9 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 			commentsDBCS,
 			articleDetailSummary_db.FirstCommentsMD5,
 		)
+		if err != nil {
+			return content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, articleDetailSummary_db, fileSize, hash, 200, nil
+		}
 
 		// update first-comments
 		// possibly err because the data is too old.
