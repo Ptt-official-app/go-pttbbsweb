@@ -5,7 +5,6 @@ import (
 	"strconv"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/sirupsen/logrus"
 )
 
 func Utf8ToDBCS(utf8 [][]*types.Rune) (dbcs [][]byte) {
@@ -26,8 +25,9 @@ func utf8ToDBCSByLine(line []*types.Rune, color *types.Color) (lineDBCS []byte, 
 	lineDBCS = make([]byte, 0, DEFAULT_LINE_BYTES)
 	newColor = color
 	var eachDBCS []byte
-	for _, each := range line {
-		eachDBCS, newColor = utf8ToDBCSByRune(each, newColor)
+	for idx, each := range line {
+		isAddCR := types.IS_CARRIAGE_RETURN && (idx == len(line)-1)
+		eachDBCS, newColor = utf8ToDBCSByRune(each, newColor, isAddCR)
 		lineDBCS = append(lineDBCS, eachDBCS...)
 	}
 
@@ -37,7 +37,7 @@ func utf8ToDBCSByLine(line []*types.Rune, color *types.Color) (lineDBCS []byte, 
 //utf8ToDBCSByRune
 //
 //1. check whether we've already have the DBCS (already parsed)
-func utf8ToDBCSByRune(theRune *types.Rune, color *types.Color) (theDBCS []byte, newColor *types.Color) {
+func utf8ToDBCSByRune(theRune *types.Rune, color *types.Color, isAddCR bool) (theDBCS []byte, newColor *types.Color) {
 	if len(theRune.DBCS) > 0 {
 		return theRune.DBCS, &theRune.Color1
 	}
@@ -48,7 +48,8 @@ func utf8ToDBCSByRune(theRune *types.Rune, color *types.Color) (theDBCS []byte, 
 		theDBCS = append(theDBCS, color0Bytes...)
 	}
 	color1Bytes := theRune.Color1.BytesWithPreColor(&theRune.Color0, false)
-	big5 := types.Utf8ToBig5(theRune.Utf8)
+	theRune.Utf8ToBig5()
+	big5 := theRune.Big5
 	if len(big5) > 0 {
 		// Need to deal with color1Bytes
 		if len(color1Bytes) > 0 {
@@ -65,6 +66,11 @@ func utf8ToDBCSByRune(theRune *types.Rune, color *types.Color) (theDBCS []byte, 
 			theDBCS = append(theDBCS, color1Bytes...)
 		}
 	}
+
+	if isAddCR {
+		theDBCS = append(theDBCS, '\r')
+	}
+
 	theRune.DBCS = theDBCS
 
 	newColor = &theRune.Color1
@@ -309,7 +315,6 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 	}
 	// defensive programming
 	if startIdx < len(dbcs) {
-		logrus.Warnf("dbcs.dbcsToBig5PerLine: still with some dbcs: startIdx: %v dbcs: %v dbcsStat: %v", startIdx, len(dbcs), dbcsStat)
 		eachDBCS := dbcs[startIdx:]
 		r := &types.Rune{
 			Big5:   dbcsToBig5PurifyColor(eachDBCS),

@@ -28,7 +28,7 @@ func ParseFirstComments(
 	firstCommentsDBCS, theRestCommentsDBCS := splitFirstComments(commentsDBCS)
 
 	// check md5
-	firstCommentsMD5 = md5sum(firstCommentsDBCS)
+	firstCommentsMD5 = Md5sum(firstCommentsDBCS)
 	if firstCommentsMD5 == origFirstCommentsMD5 {
 		return nil, origFirstCommentsMD5, theRestCommentsDBCS, nil
 	}

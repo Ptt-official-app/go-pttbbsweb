@@ -1,0 +1,89 @@
+package api
+
+import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/gin-gonic/gin"
+)
+
+const REPLY_COMMENTS_R = "/board/:bid/article/:aid/replycomments"
+
+type ReplyCommentsParams struct {
+	TheList []*apitypes.ReplyCommentParams `json:"list" form:"list" url:"list"`
+}
+
+type ReplyCommentsPath struct {
+	FBoardID   apitypes.FBoardID   `uri:"bid"`
+	FArticleID apitypes.FArticleID `uri:"aid"`
+}
+
+type ReplyCommentsResult struct {
+	Success bool `json:"success"`
+}
+
+func ReplyCommentsWrapper(c *gin.Context) {
+	params := &ReplyCommentsParams{}
+	path := &ReplyCommentsPath{}
+	LoginRequiredPathJSON(ReplyComments, params, path, c)
+}
+
+func ReplyComments(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+	theParams, ok := params.(*ReplyCommentsParams)
+	if !ok {
+		return nil, 400, ErrInvalidParams
+	}
+
+	thePath, ok := path.(*ReplyCommentsPath)
+	if !ok {
+		return nil, 400, ErrInvalidPath
+	}
+
+	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
+	if err != nil {
+		return nil, 500, err
+	}
+	articleID := thePath.FArticleID.ToArticleID()
+
+	oldContent, oldSignatureDBCS, articleDetailSummary_db, oldSZ, oldsum, statusCode, err := editArticleGetArticleContentInfo(userID, boardID, articleID, c)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	err = replyCommentsUpdateReplies(userID, remoteAddr, boardID, articleID, theParams.TheList)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	statusCode, err = postUpdateComments(userID, remoteAddr, boardID, articleID, oldContent, oldSignatureDBCS, articleDetailSummary_db, oldSZ, oldsum, c)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	result = &ReplyCommentsResult{
+		Success: true,
+	}
+	return result, 200, nil
+}
+
+func replyCommentsUpdateReplies(userID bbs.UUserID, remoteAddr string, boardID bbs.BBoardID, articleID bbs.ArticleID, replies []*apitypes.ReplyCommentParams) (err error) {
+	updateNanoTS := types.NowNanoTS()
+	replyComments := make([]*schema.Comment, len(replies))
+
+	commentIDs := make([]types.CommentID, len(replies))
+	for idx, each := range replies {
+		commentIDs[idx] = each.CommentID
+	}
+	sortTimeMap, err := schema.GetCommentSortTimeMapByCommentIDs(boardID, articleID, commentIDs)
+	if err != nil {
+		return err
+	}
+
+	for idx, each := range replies {
+		sortTime := sortTimeMap[each.CommentID]
+		replyComments[idx] = each.ToComment(userID, remoteAddr, boardID, articleID, sortTime, updateNanoTS)
+	}
+
+	return schema.UpdateComments(replyComments, updateNanoTS)
+}

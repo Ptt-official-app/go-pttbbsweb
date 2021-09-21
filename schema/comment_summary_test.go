@@ -3,6 +3,7 @@ package schema
 import (
 	"reflect"
 	"sort"
+	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
@@ -40,8 +41,11 @@ func TestGetCommentSummaries(t *testing.T) {
 			expectedCommentSummaries: testCommentSummaries0,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			gotCommentSummaries, err := GetCommentSummaries(tt.args.bboardID, tt.args.articleID, tt.args.startNanoTS, tt.args.endNanoTS)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetCommentSummaries() error = %v, wantErr %v", err, tt.wantErr)
@@ -54,6 +58,7 @@ func TestGetCommentSummaries(t *testing.T) {
 
 			testutil.TDeepEqual(t, "got", gotCommentSummaries, tt.expectedCommentSummaries)
 		})
+		wg.Wait()
 	}
 }
 
@@ -134,8 +139,11 @@ func TestGetCommentSummariesByOwnerID(t *testing.T) {
 			expectedResult: testCommentSummaries0,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			gotResult, err := GetBasicCommentSummariesByOwnerID(tt.args.ownerID, tt.args.startSortTime, tt.args.descending, tt.args.limit)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetCommentSummariesByOwnerID() error = %v, wantErr %v", err, tt.wantErr)
@@ -145,5 +153,6 @@ func TestGetCommentSummariesByOwnerID(t *testing.T) {
 				t.Errorf("GetCommentSummariesByOwnerID() = %v, want %v", gotResult, tt.expectedResult)
 			}
 		})
+		wg.Wait()
 	}
 }

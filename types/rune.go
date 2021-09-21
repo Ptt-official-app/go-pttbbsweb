@@ -178,6 +178,9 @@ func initToUtf8(ucsCode string) (theBytes []byte, err error) {
 }
 
 func (r *Rune) Big5ToUtf8() {
+	if r.Utf8 != "" {
+		return
+	}
 	r.Utf8 = Big5ToUtf8(r.Big5)
 }
 
@@ -204,6 +207,9 @@ func Big5ToUtf8(big5 []byte) (utf8 string) {
 }
 
 func (r *Rune) Utf8ToBig5() {
+	if r.Big5 != nil {
+		return
+	}
 	r.Big5 = Utf8ToBig5(r.Utf8)
 }
 
@@ -231,6 +237,9 @@ func Utf8ToBig5(utf8 string) (big5 []byte) {
 			big5 = append(big5, eachBig5...)
 			p_utf8 = p_utf8[3:]
 		}
+	}
+	if len(big5) == 0 {
+		return nil
 	}
 
 	return big5

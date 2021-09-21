@@ -336,6 +336,7 @@ func Test_utf8ToBig5ByRune(t *testing.T) {
 	type args struct {
 		theRune *types.Rune
 		color   *types.Color
+		isAddCR bool
 	}
 	tests := []struct {
 		name             string
@@ -377,7 +378,7 @@ func Test_utf8ToBig5ByRune(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotTheBig5, gotNewColor := utf8ToDBCSByRune(tt.args.theRune, tt.args.color)
+			gotTheBig5, gotNewColor := utf8ToDBCSByRune(tt.args.theRune, tt.args.color, tt.args.isAddCR)
 			logrus.Infof("gotTheBig5: %x", gotTheBig5)
 			testutil.TDeepEqual(t, "got", gotTheBig5, tt.expectedTheBig5)
 
@@ -412,7 +413,7 @@ func Test_utf8ToBig5ByLine(t *testing.T) {
 
 	line0 := []*types.Rune{rune0, rune1}
 	color0 := &types.DefaultColor
-	expected0 := []byte("\xb4\xfa\xb8\xd50\x1b[33;44m\xb4\xfa\xb8\xd51")
+	expected0 := []byte("\xb4\xfa\xb8\xd50\x1b[33;44m\xb4\xfa\xb8\xd51\r")
 	expectedColor0 := &rune1.Color1
 
 	type args struct {
@@ -490,8 +491,8 @@ func TestUtf8ToDBCS(t *testing.T) {
 		{rune2, rune3},
 	}
 	expected0 := [][]byte{
-		[]byte("\xb4\xfa\xb8\xd50\x1b[33;44m\xb4\xfa\xb8\xd51"),
-		[]byte("\x1b[37;40m\xb4\xfa\xb8\xd52\x1b[33;44m\xb4\xfa\xb8\xd53"),
+		[]byte("\xb4\xfa\xb8\xd50\x1b[33;44m\xb4\xfa\xb8\xd51\r"),
+		[]byte("\x1b[37;40m\xb4\xfa\xb8\xd52\x1b[33;44m\xb4\xfa\xb8\xd53\r"),
 	}
 
 	type args struct {

@@ -7,6 +7,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -102,6 +103,14 @@ func assertCommentFields() error {
 		return err
 	}
 
+	if err := assertFields(EMPTY_COMMENT, EMPTY_COMMENT_DBCS); err != nil {
+		return err
+	}
+
+	if err := assertFields(EMPTY_COMMENT, EMPTY_COMMENT_SORT_TIME); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -120,6 +129,30 @@ type CommentArticleQuery struct {
 }
 
 var EMPTY_COMMENT_ARTICLE_QUERY = &CommentArticleQuery{}
+
+func GetCommentMapByCommentIDs(boardID bbs.BBoardID, articleID bbs.ArticleID, commentIDs []types.CommentID) (commentMap map[types.CommentID]*Comment, err error) {
+	query := bson.M{
+		COMMENT_BBOARD_ID_b:  boardID,
+		COMMENT_ARTICLE_ID_b: articleID,
+		COMMENT_COMMENT_ID_b: bson.M{
+			"$in": commentIDs,
+		},
+	}
+
+	// find
+	var comments []*Comment
+	err = Comment_c.Find(query, 0, &comments, nil, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	commentMap = make(map[types.CommentID]*Comment)
+	for _, each := range comments {
+		commentMap[each.CommentID] = each
+	}
+
+	return commentMap, nil
+}
 
 // GetComments
 func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, sortNanoTS types.NanoTS, commentID types.CommentID, descending bool, limit int) (comments []*Comment, err error) {
@@ -223,8 +256,10 @@ func updateCommentsCore(comments []*Comment, updateNanoTS types.NanoTS) (err err
 			Filter: filter,
 			Update: each,
 		}
+		logrus.Infof("updateCommentsCore: (%v/%v) to BulkCreateOnly: each: %v", idx, len(comments), each)
 	}
 	r, err := Comment_c.BulkCreateOnly(theList)
+	logrus.Infof("updateCommentsCore: after BulkCreateOnly: r: %v e: %v", r, err)
 	if err != nil {
 		return err
 	}
@@ -267,8 +302,7 @@ func updateCommentsCore(comments []*Comment, updateNanoTS types.NanoTS) (err err
 		each.Update = bson.M{
 			"$set": origUpdate,
 			"$unset": bson.M{
-				COMMENT_IS_DELETED_b:    true,
-				COMMENT_DELETE_REASON_b: true,
+				COMMENT_IS_DELETED_b: true,
 			},
 		}
 		updateComments = append(updateComments, each)
@@ -279,13 +313,18 @@ func updateCommentsCore(comments []*Comment, updateNanoTS types.NanoTS) (err err
 }
 
 func (c *Comment) CleanComment() {
+	trimStr := " \t\r"
+	if c.TheType == ptttype.COMMENT_TYPE_REPLY {
+		trimStr = "\t\r"
+	}
+
 	for _, each := range c.Content {
 		lenEach := len(each)
 		if lenEach == 0 {
 			continue
 		}
 		lastRune := each[lenEach-1]
-		lastRune.Utf8 = strings.TrimRight(lastRune.Utf8, " \t\r")
+		lastRune.Utf8 = strings.TrimRight(lastRune.Utf8, trimStr)
 	}
 }
 
@@ -335,5 +374,8 @@ func cleanReplyPerLine(origLine []*types.Rune) (newLine []*types.Rune) {
 
 func (c *Comment) SetSortTime(sortTime types.NanoTS) {
 	c.SortTime = sortTime
+	if c.TheType == ptttype.COMMENT_TYPE_REPLY && types.IsReplyID(c.CommentID) { // special treat for reply
+		return
+	}
 	c.CommentID = types.ToCommentID(sortTime, c.MD5)
 }

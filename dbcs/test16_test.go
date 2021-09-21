@@ -728,7 +728,7 @@ func initTest16() {
 			EditNanoTS: 1583512190000000000,
 			Host:       "香港",
 			DBCS:       []byte("\xa7\xda\xafu\xaa\xba\xa7\xc6\xb1\xe6\xa4\xa3\xadn\xa6A\xc5\xfdMere\xb7d\xb9\xef\xb6H\xa4F\xa1A\xb4N\xc5\xfd\xa6o\xb4\xb6\xb3q\xaa\xba\xb7\xed\xc2\xe5\xa5\xcd\xa9M\xb0\xb5\xb3\xe6\xbf\xcb\xb6\xfd\xb6\xfd\xa7a\xa1I\r"),
-			CommentID:  "FfnDytnJUyA:7tkvXPK6iHO5IzFBfJCOwA",
+			CommentID:  "FfnDytnHzIA:KFYDlvlUcGYwnxMH-3YMxA:R",
 			SortTime:   1583512020002100000,
 		},
 	}

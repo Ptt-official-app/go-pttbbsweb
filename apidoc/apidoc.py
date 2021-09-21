@@ -298,6 +298,33 @@ def _create_rank(bid, aid):
     return ''
 
 
+@app.route(_with_app_prefix('/board/<bid>/article/<aid>/edit'), methods=['POST'])
+def _edit_article(bid, aid):
+    """
+    swagger_from_file: apidoc/edit_article.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/board/<bid>/article/<aid>/replycomments'), methods=['POST'])
+def _replycomments(bid, aid):
+    """
+    swagger_from_file: apidoc/reply_comments.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/board/<bid>/article/<aid>/deletecomments'), methods=['POST'])
+def _deletecomments(bid, aid):
+    """
+    swagger_from_file: apidoc/delete_comments.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/board/<bid>'))
 def _get_board_detail(bid):
     """

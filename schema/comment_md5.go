@@ -1,9 +1,6 @@
 package schema
 
 import (
-	"sort"
-	"strings"
-
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
@@ -54,19 +51,5 @@ func GetAllCommentMD5s(boardID bbs.BBoardID, articleID bbs.ArticleID) (commentMD
 		return nil, err
 	}
 
-	commentMD5s = SortCommentMD5sBySortTime(commentMD5s)
-
 	return commentMD5s, nil
-}
-
-func SortCommentMD5sBySortTime(commentMD5s []*CommentMD5) (newCommentMD5s []*CommentMD5) {
-	sort.SliceStable(commentMD5s, func(i, j int) bool {
-		if commentMD5s[i].SortTime == commentMD5s[j].SortTime {
-			return strings.Compare(string(commentMD5s[i].CommentID), string(commentMD5s[j].CommentID)) < 0
-		} else {
-			return commentMD5s[i].SortTime-commentMD5s[j].SortTime < 0
-		}
-	})
-
-	return commentMD5s
 }

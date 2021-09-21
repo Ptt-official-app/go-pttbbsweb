@@ -63,4 +63,7 @@ func config() {
 
 	// time-location
 	TIME_LOCATION = setStringConfig("TIME_LOCATION", TIME_LOCATION)
+
+	// carriage-return
+	IS_CARRIAGE_RETURN = setBoolConfig("IS_CARRIAGE_RETURN", IS_CARRIAGE_RETURN)
 }

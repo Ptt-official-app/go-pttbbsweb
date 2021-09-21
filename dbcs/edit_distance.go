@@ -403,6 +403,7 @@ func (ed *EDBlock) ForwardInferTS(startNanoTS types.NanoTS) (nextIdx int) {
 	newComments := ed.NewComments
 	currentNanoTS := ed.StartNanoTS
 	nextIdx = len(newComments)
+	var preComment *schema.Comment
 
 	for idx, each := range newComments {
 
@@ -425,8 +426,13 @@ func (ed *EDBlock) ForwardInferTS(startNanoTS types.NanoTS) (nextIdx int) {
 				theNanoTS = forwardExceedingEndNanoTS(idx, len(newComments), currentNanoTS, ed.EndNanoTS)
 			}
 
+			if preComment != nil {
+				newComment.CommentID = types.ToReplyID(preComment.CommentID)
+			}
+
 			newComment.SetSortTime(theNanoTS)
 			currentNanoTS = newComment.SortTime
+			preComment = newComment
 			continue
 		}
 
@@ -452,6 +458,7 @@ func (ed *EDBlock) ForwardInferTS(startNanoTS types.NanoTS) (nextIdx int) {
 		}
 
 		currentNanoTS = newComment.SortTime
+		preComment = newComment
 	}
 
 	return nextIdx
@@ -511,10 +518,12 @@ func (ed *EDBlock) BackwardInferTS(nextIdx int, isAlignEndNanoTS bool) {
 
 	// deal with reply
 	currentNanoTS = startNanoTS
+	var preComment *schema.Comment
 	for idx := nextIdx; idx < len(newComments); idx++ {
 		newComment := newComments[idx].NewComment
 		if newComment.TheType != ptttype.COMMENT_TYPE_REPLY {
 			currentNanoTS = newComment.SortTime
+			preComment = newComment
 			continue
 		}
 		theNanoTS := currentNanoTS + REPLY_STEP_NANO_TS
@@ -530,8 +539,16 @@ func (ed *EDBlock) BackwardInferTS(nextIdx int, isAlignEndNanoTS bool) {
 		if theNanoTS >= endNanoTS {
 			theNanoTS = forwardExceedingEndNanoTS(idx, idx+1, currentNanoTS, endNanoTS)
 		}
+
+		if preComment != nil {
+			newComment.CommentID = types.ToReplyID(preComment.CommentID)
+		} else {
+			newComment.CommentID = ""
+		}
 		newComment.SetSortTime(theNanoTS)
+
 		currentNanoTS = newComment.SortTime
+		preComment = newComment
 	}
 
 	if isAlignEndNanoTS {

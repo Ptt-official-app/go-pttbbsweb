@@ -1614,7 +1614,7 @@ func initTest11() {
 			ArticleID:  bbs.ArticleID("test11"),
 			TheType:    ptttype.COMMENT_TYPE_REPLY,
 			Owner:      bbs.UUserID("cheinshin"),
-			CommentID:  "FlK469e-gOA:ARcE42l2555xJ93dwcK0YQ",
+			CommentID:  "FlK469e8-kA:qvaVu3REh0fJL7ZBH7m6PQ:R",
 			CreateTime: types.NanoTS(1608551574000000000),
 			SortTime:   1608551340001100000,
 			Content: [][]*types.Rune{
@@ -2161,7 +2161,7 @@ func initTest11() {
 		{ // 42 (43)
 			BBoardID:   bbs.BBoardID("test"),
 			ArticleID:  bbs.ArticleID("test11"),
-			CommentID:  "FlK5I7jMnqA:x2xXuH2bvsoQ_2wOzdcr6A",
+			CommentID:  "FlK5I7jLGAA:yBPgyUXJMLN6p6EYeODktQ:R",
 			TheType:    ptttype.COMMENT_TYPE_REPLY,
 			Owner:      bbs.UUserID("cheinshin"),
 			CreateTime: types.NanoTS(1608551702000000000),
@@ -2736,7 +2736,7 @@ func initTest11() {
 			ArticleID:  bbs.ArticleID("test11"),
 			TheType:    ptttype.COMMENT_TYPE_REPLY,
 			Owner:      bbs.UUserID("testOwner"),
-			CommentID:  "FlK5aZJfHWA:VMu8YlVFJ4k06pYnUILy4w",
+			CommentID:  "FlK5aZJdlsA:cpqbGyLoF_jIyITF4bv-rQ:R",
 			CreateTime: types.NanoTS(1608551880003100000),
 			SortTime:   1608551880003100000,
 			Content: [][]*types.Rune{
