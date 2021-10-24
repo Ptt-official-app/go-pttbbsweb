@@ -38,15 +38,16 @@ func TestGetArticleDetail(t *testing.T) {
 		URL:  "http://localhost:3457/bbs/board/WhoAmI/article/M.1608386280.A.BC9",
 		Read: true,
 
-		Title:     "然後呢？～",
-		Money:     3,
-		Recommend: 8,
-		Class:     "問題",
-		Brdname:   "WhoAmI",
-		Content:   testContent3Utf8,
-		IP:        "172.22.0.1",
-		Host:      "",
-		BBS:       "批踢踢 docker(pttdocker.test)",
+		Title:         "然後呢？～",
+		Money:         3,
+		Recommend:     8,
+		Class:         "問題",
+		Brdname:       "WhoAmI",
+		Content:       testContent3Utf8[4:],
+		ContentPrefix: testContent3Utf8[:4],
+		IP:            "172.22.0.1",
+		Host:          "",
+		BBS:           "批踢踢 docker(pttdocker.test)",
 	}
 
 	expectedArticleDetailSummary0 := &schema.ArticleDetailSummary{
@@ -96,16 +97,17 @@ func TestGetArticleDetail(t *testing.T) {
 		URL:  "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.081",
 		Read: true,
 
-		Title:     "再來呢？～",
-		Money:     12,
-		Recommend: 3,
-		Class:     "問題",
-		Brdname:   "WhoAmI",
-		Content:   testContent4Utf8,
-		IP:        "172.22.0.1",
-		Host:      "",
-		BBS:       "批踢踢 docker(pttdocker.test)",
-		NComments: 3,
+		Title:         "再來呢？～",
+		Money:         12,
+		Recommend:     3,
+		Class:         "問題",
+		Brdname:       "WhoAmI",
+		Content:       testContent4Utf8[4:],
+		ContentPrefix: testContent4Utf8[:4],
+		IP:            "172.22.0.1",
+		Host:          "",
+		BBS:           "批踢踢 docker(pttdocker.test)",
+		NComments:     3,
 	}
 
 	expectedArticleDetailSummary1 := &schema.ArticleDetailSummary{

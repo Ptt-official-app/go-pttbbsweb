@@ -11,8 +11,6 @@ func TestGetUserInfoSummary(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer User_c.Drop()
-
 	testUserDetail0.UpdateNanoTS = testUserInfoSummary0.UpdateNanoTS
 	UpdateUserDetail(testUserDetail0)
 

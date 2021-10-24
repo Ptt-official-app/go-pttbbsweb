@@ -46,7 +46,7 @@ func ReplyComments(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
-	oldContent, oldSignatureDBCS, articleDetailSummary_db, oldSZ, oldsum, statusCode, err := editArticleGetArticleContentInfo(userID, boardID, articleID, c)
+	oldContent, oldContentPrefix, oldSignatureDBCS, articleDetailSummary_db, oldSZ, oldsum, statusCode, err := editArticleGetArticleContentInfo(userID, boardID, articleID, c)
 	if err != nil {
 		return nil, statusCode, err
 	}
@@ -56,7 +56,7 @@ func ReplyComments(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 		return nil, 500, err
 	}
 
-	statusCode, err = postUpdateComments(userID, remoteAddr, boardID, articleID, oldContent, oldSignatureDBCS, articleDetailSummary_db, oldSZ, oldsum, c)
+	statusCode, err = postUpdateComments(userID, remoteAddr, boardID, articleID, oldContent, oldContentPrefix, oldSignatureDBCS, articleDetailSummary_db, oldSZ, oldsum, c)
 	if err != nil {
 		return nil, statusCode, err
 	}

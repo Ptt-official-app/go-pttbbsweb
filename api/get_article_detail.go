@@ -30,22 +30,25 @@ type GetArticleDetailResult struct {
 	Recommend  int                 `json:"recommend"`   //
 	NComments  int                 `json:"n_comments"`  //
 	Owner      bbs.UUserID         `json:"owner"`       //
-	Title      string              `json:"title"`       //
-	Money      int                 `json:"money"`       //
-	Class      string              `json:"class"`       // can be: R: 轉, [class]
-	Filemode   ptttype.FileMode    `json:"mode"`        //
+	Nickname   string              `json:"nickname"`
+	Title      string              `json:"title"` //
+	Money      int                 `json:"money"` //
+	Class      string              `json:"class"` // can be: R: 轉, [class]
+	Filemode   ptttype.FileMode    `json:"mode"`  //
 
 	URL  string `json:"url"`  //
 	Read bool   `json:"read"` //
 
-	Brdname string          `json:"brdname"`
-	Content [][]*types.Rune `json:"content"`
-	IP      string          `json:"ip"`
-	Host    string          `json:"host"` // ip 的中文呈現, 外國則為國家.
-	BBS     string          `json:"bbs"`
+	Brdname string `json:"brdname"`
+
+	Content       [][]*types.Rune `json:"content"`
+	ContentPrefix [][]*types.Rune `json:"prefix"`
+
+	IP   string `json:"ip"`
+	Host string `json:"host"` // ip 的中文呈現, 外國則為國家.
+	BBS  string `json:"bbs"`
 
 	Rank int `json:"rank"` // 評價
-
 }
 
 func GetArticleDetailWrapper(c *gin.Context) {
@@ -73,12 +76,17 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 	}
 
 	// ensure that we do have the article.
-	content, _, ip, host, bbs, _, _, articleDetailSummary, _, _, statusCode, err := TryGetArticleContentInfo(userID, boardID, articleID, c, false, false)
+	content, contentPrefix, _, ip, host, bbs, _, _, articleDetailSummary, _, _, statusCode, err := TryGetArticleContentInfo(userID, boardID, articleID, c, false, false)
 	if err != nil {
 		return nil, statusCode, err
 	}
 
 	url := apitypes.ToURL(thePath.FBoardID, thePath.FArticleID)
+
+	nickname, err := schema.GetUserNickname(articleDetailSummary.Owner)
+	if err != nil {
+		return nil, statusCode, err
+	}
 
 	result = &GetArticleDetailResult{
 		BBoardID:   apitypes.ToFBoardID(articleDetailSummary.BBoardID),
@@ -88,6 +96,7 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 		Recommend:  articleDetailSummary.Recommend,
 		NComments:  articleDetailSummary.NComments,
 		Owner:      articleDetailSummary.Owner,
+		Nickname:   nickname,
 		Title:      apitypes.ToFTitle(articleDetailSummary.Title),
 		Money:      articleDetailSummary.Money,
 		Class:      articleDetailSummary.Class,
@@ -99,10 +108,11 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 
 		Brdname: boardID.ToBrdname(),
 
-		Content: content,
-		IP:      ip,
-		Host:    host,
-		BBS:     bbs,
+		Content:       content,
+		ContentPrefix: contentPrefix,
+		IP:            ip,
+		Host:          host,
+		BBS:           bbs,
 	}
 
 	return result, 200, nil

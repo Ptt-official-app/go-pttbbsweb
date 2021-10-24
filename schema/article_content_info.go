@@ -12,6 +12,7 @@ type ArticleContentInfo struct {
 	ContentMD5 string `bson:"content_md5"`
 
 	Content             [][]*types.Rune `bson:"content"`
+	ContentPrefix       [][]*types.Rune `bson:"content_prefix"` //
 	IP                  string          `bson:"ip"`
 	Host                string          `bson:"host"` // ip 的中文呈現, 外國則為國家.
 	BBS                 string          `bson:"bbs"`

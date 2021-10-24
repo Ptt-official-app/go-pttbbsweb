@@ -14,13 +14,13 @@ import (
 //2. the timestamp of the 1st-comments (around 10 comments, including the last-same-min comments) are within 1-year of the createTime.
 //3. the timestamp of the rest of the comments are able to reverse-inferred from mtime. compared as stored as nano-ts.
 //4. assuming no more than 60000 comments  (60 x 1000) in 1 minute.
-func ParseContent(contentBytes []byte, origContentMD5 string) (content [][]*types.Rune, contentMD5 string, ip string, host string, bbs string, signatureMD5 string, signatureDBCS []byte, commentsDBCS []byte) {
+func ParseContent(contentBytes []byte, origContentMD5 string) (content [][]*types.Rune, contentPrefix [][]*types.Rune, contentMD5 string, ip string, host string, bbs string, signatureMD5 string, signatureDBCS []byte, commentsDBCS []byte) {
 	contentDBCS, signatureDBCS, commentsDBCS := splitArticleSignatureCommentsDBCS(contentBytes)
 
 	contentMD5 = Md5sum(contentDBCS)
 
 	if contentMD5 == origContentMD5 {
-		return nil, "", "", "", "", "", nil, commentsDBCS
+		return nil, nil, "", "", "", "", "", nil, commentsDBCS
 	}
 
 	contentBig5 := dbcsToBig5(contentDBCS)
@@ -31,7 +31,42 @@ func ParseContent(contentBytes []byte, origContentMD5 string) (content [][]*type
 	ip, host, bbs = parseSignatureIPHostBBS(signatureUtf8)
 	signatureMD5 = Md5sum(signatureDBCS)
 
-	return content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, commentsDBCS
+	content, contentPrefix = parseContentPrefix(content)
+
+	return content, contentPrefix, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, commentsDBCS
+}
+
+func parseContentPrefix(content [][]*types.Rune) (newContent [][]*types.Rune, prefix [][]*types.Rune) {
+	if len(content) < 3 {
+		return content, nil
+	}
+
+	// owner / nickname / board
+	content0 := content[0][0].Utf8
+	if !strings.HasPrefix(content0, "作者: ") {
+		return content, nil
+	}
+
+	// title
+	content1 := content[1][0].Utf8
+	if !strings.HasPrefix(content1, "標題: ") {
+		return content, nil
+	}
+
+	// createTime
+	content2 := content[2][0].Utf8
+	if !strings.HasPrefix(content2, "時間: ") {
+		return content, nil
+	}
+
+	idxContent := 3
+	if len(content) >= 4 && (len(content[3]) == 0 || len(content[3]) == 1 && content[3][0].Utf8 == "") {
+		idxContent = 4
+	}
+
+	prefix, content = content[:idxContent], content[idxContent:]
+
+	return content, prefix
 }
 
 func parseSignatureIPHostBBS(signatureUtf8 [][]*types.Rune) (ip string, host string, bbs string) {

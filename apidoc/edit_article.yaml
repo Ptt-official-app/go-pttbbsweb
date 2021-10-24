@@ -40,6 +40,8 @@ responses:
           description: mtime
         content:
           '$ref': '#/definitions/Content'
+        prefix:
+          '$ref': '#/definitions/Content'
         title:
           type: string
         class:

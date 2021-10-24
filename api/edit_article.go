@@ -28,10 +28,11 @@ type EditArticlePath struct {
 }
 
 type EditArticleResult struct {
-	MTime   types.Time8     `json:"modified"` //
-	Content [][]*types.Rune `json:"content"`
-	Title   string          `json:"title"` //
-	Class   string          `json:"class"` // can be: R: 轉, [class]
+	MTime         types.Time8     `json:"modified"` //
+	Content       [][]*types.Rune `json:"content"`
+	ContentPrefix [][]*types.Rune `json:"prefix"`
+	Title         string          `json:"title"` //
+	Class         string          `json:"class"` // can be: R: 轉, [class]
 }
 
 func EditArticleDetailWrapper(c *gin.Context) {
@@ -57,12 +58,12 @@ func EditArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
-	_, oldSignatureDBCS, _, oldSZ, oldsum, statusCode, err := editArticleGetArticleContentInfo(userID, boardID, articleID, c)
+	_, oldContentPrefix, oldSignatureDBCS, _, oldSZ, oldsum, statusCode, err := editArticleGetArticleContentInfo(userID, boardID, articleID, c)
 	if err != nil {
 		return nil, statusCode, err
 	}
 
-	allContentDBCS, err := editArticleCompileContent(boardID, articleID, theParams.Content, oldSignatureDBCS)
+	allContentDBCS, err := editArticleCompileContent(boardID, articleID, theParams.Content, oldContentPrefix, oldSignatureDBCS)
 	if err != nil {
 		return nil, 500, err
 	}
@@ -103,14 +104,14 @@ func EditArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}
 	}
 
 	updateNanoTS := types.NowNanoTS()
-	content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, _ := dbcs.ParseContent(result_b.Content, "")
+	content, contentPrefix, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, _ := dbcs.ParseContent(result_b.Content, "")
 
 	// update article
 	// we need update-article-content be the 1st to upload,
 	// because it's possible that there is no first-comments.
 	// only article-content is guaranteed.
 
-	err = UpdateArticleContentInfo(boardID, articleID, content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, updateNanoTS)
+	err = UpdateArticleContentInfo(boardID, articleID, content, contentPrefix, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}
@@ -134,13 +135,13 @@ func EditArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}
 	return result, 200, nil
 }
 
-func editArticleGetArticleContentInfo(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context) (oldContent [][]*types.Rune, signatureDBCS []byte, articleDetailSummary_db *schema.ArticleDetailSummary, sz int, hash cmsys.Fnv64_t, statusCode int, err error) {
-	oldContent, _, _, _, _, _, signatureDBCS, articleDetailSummary_db, sz, hash, statusCode, err = TryGetArticleContentInfo(userID, boardID, articleID, c, false, true)
+func editArticleGetArticleContentInfo(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context) (oldContent [][]*types.Rune, oldContentPrefix [][]*types.Rune, signatureDBCS []byte, articleDetailSummary_db *schema.ArticleDetailSummary, sz int, hash cmsys.Fnv64_t, statusCode int, err error) {
+	oldContent, oldContentPrefix, _, _, _, _, _, signatureDBCS, articleDetailSummary_db, sz, hash, statusCode, err = TryGetArticleContentInfo(userID, boardID, articleID, c, false, true)
 
-	return oldContent, signatureDBCS, articleDetailSummary_db, sz, hash, statusCode, err
+	return oldContent, oldContentPrefix, signatureDBCS, articleDetailSummary_db, sz, hash, statusCode, err
 }
 
-func editArticleCompileContent(boardID bbs.BBoardID, articleID bbs.ArticleID, content [][]*types.Rune, signatureDBCS []byte) (allContentDBCS [][]byte, err error) {
+func editArticleCompileContent(boardID bbs.BBoardID, articleID bbs.ArticleID, content [][]*types.Rune, prefix [][]*types.Rune, signatureDBCS []byte) (allContentDBCS [][]byte, err error) {
 	commentDBCSs, err := schema.GetAllCommentDBCSs(boardID, articleID)
 	if err != nil {
 		return nil, err
@@ -148,12 +149,15 @@ func editArticleCompileContent(boardID bbs.BBoardID, articleID bbs.ArticleID, co
 
 	commentsDBCS := commentDBCSsToCommentsDBCS(commentDBCSs)
 
+	prefixDBCS := dbcs.Utf8ToDBCS(prefix)
+
 	contentDBCS := dbcs.Utf8ToDBCS(content)
 
 	signaturesDBCS := bytes.Split(signatureDBCS, []byte{'\n'})
 
-	lenAllContentDBCS := len(contentDBCS) + len(commentsDBCS) + len(signaturesDBCS)
+	lenAllContentDBCS := len(prefixDBCS) + len(contentDBCS) + len(commentsDBCS) + len(signaturesDBCS)
 	allContentDBCS = make([][]byte, 0, lenAllContentDBCS)
+	allContentDBCS = append(allContentDBCS, prefixDBCS...)
 	allContentDBCS = append(allContentDBCS, contentDBCS...)
 	allContentDBCS = append(allContentDBCS, signaturesDBCS...)
 	allContentDBCS = append(allContentDBCS, commentsDBCS...)
