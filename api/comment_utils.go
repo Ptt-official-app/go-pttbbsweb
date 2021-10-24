@@ -72,8 +72,8 @@ func commentDBCSsToCommentsDBCS(commentDBCSs []*schema.CommentDBCS) (commentsDBC
 	return commentsDBCS
 }
 
-func postUpdateComments(userID bbs.UUserID, remoteAddr string, boardID bbs.BBoardID, articleID bbs.ArticleID, oldContent [][]*types.Rune, oldSignatureDBCS []byte, articleDetailSummary *schema.ArticleDetailSummary, oldSZ int, oldsum cmsys.Fnv64_t, c *gin.Context) (statusCode int, err error) {
-	allContentDBCS, err := editArticleCompileContent(boardID, articleID, oldContent, oldSignatureDBCS)
+func postUpdateComments(userID bbs.UUserID, remoteAddr string, boardID bbs.BBoardID, articleID bbs.ArticleID, oldContent [][]*types.Rune, oldContentPrefix [][]*types.Rune, oldSignatureDBCS []byte, articleDetailSummary *schema.ArticleDetailSummary, oldSZ int, oldsum cmsys.Fnv64_t, c *gin.Context) (statusCode int, err error) {
+	allContentDBCS, err := editArticleCompileContent(boardID, articleID, oldContent, oldContentPrefix, oldSignatureDBCS)
 	if err != nil {
 		return 500, err
 	}
@@ -107,9 +107,9 @@ func postUpdateComments(userID bbs.UUserID, remoteAddr string, boardID bbs.BBoar
 	}
 
 	updateNanoTS := types.NowNanoTS()
-	content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, commentsDBCS := dbcs.ParseContent(result_b.Content, "")
+	content, contentPrefix, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, commentsDBCS := dbcs.ParseContent(result_b.Content, "")
 
-	err = UpdateArticleContentInfo(boardID, articleID, content, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, updateNanoTS)
+	err = UpdateArticleContentInfo(boardID, articleID, content, contentPrefix, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, updateNanoTS)
 	if err != nil {
 		return 500, err
 	}

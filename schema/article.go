@@ -31,13 +31,15 @@ type Article struct {
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"` // used by article-summary
 
-	ContentMTime        types.NanoTS    `bson:"content_mtime_nano_ts"` //
-	ContentMD5          string          `bson:"content_md5"`
-	Content             [][]*types.Rune `bson:"content"` //
-	IP                  string          `bson:"ip"`      //
-	Host                string          `bson:"host"`    // ip 的中文呈現, 外國則為國家.
-	BBS                 string          `bson:"bbs"`     //
-	ContentUpdateNanoTS types.NanoTS    `bson:"content_update_nano_ts"`
+	ContentMTime  types.NanoTS    `bson:"content_mtime_nano_ts"` //
+	ContentMD5    string          `bson:"content_md5"`
+	Content       [][]*types.Rune `bson:"content"`        //
+	ContentPrefix [][]*types.Rune `bson:"content_prefix"` //
+
+	IP                  string       `bson:"ip"`   //
+	Host                string       `bson:"host"` // ip 的中文呈現, 外國則為國家.
+	BBS                 string       `bson:"bbs"`  //
+	ContentUpdateNanoTS types.NanoTS `bson:"content_update_nano_ts"`
 
 	SignatureDBCS []byte `bson:"signature_dbcs"`
 	SignatureMD5  string `bson:"signature_md5"`
@@ -76,12 +78,14 @@ var ( // bson-name
 
 	ARTICLE_UPDATE_NANO_TS_b = getBSONName(EMPTY_ARTICLE, "UpdateNanoTS")
 
-	ARTICLE_CONTENT_MTIME_b = getBSONName(EMPTY_ARTICLE, "ContentMTime")
-	ARTICLE_CONTENT_MD5_B   = getBSONName(EMPTY_ARTICLE, "ContentMD5")
-	ARTICLE_CONTENT_b       = getBSONName(EMPTY_ARTICLE, "Content")
-	ARTICLE_IP_b            = getBSONName(EMPTY_ARTICLE, "IP")
-	ARTICLE_HOST_b          = getBSONName(EMPTY_ARTICLE, "Host")
-	ARTICLE_BBS_b           = getBSONName(EMPTY_ARTICLE, "BBS")
+	ARTICLE_CONTENT_MTIME_b  = getBSONName(EMPTY_ARTICLE, "ContentMTime")
+	ARTICLE_CONTENT_MD5_B    = getBSONName(EMPTY_ARTICLE, "ContentMD5")
+	ARTICLE_CONTENT_b        = getBSONName(EMPTY_ARTICLE, "Content")
+	ARTICLE_CONTENT_PREFIX_b = getBSONName(EMPTY_ARTICLE, "ContentPrefix")
+
+	ARTICLE_IP_b   = getBSONName(EMPTY_ARTICLE, "IP")
+	ARTICLE_HOST_b = getBSONName(EMPTY_ARTICLE, "Host")
+	ARTICLE_BBS_b  = getBSONName(EMPTY_ARTICLE, "BBS")
 
 	ARTICLE_CONTENT_UPDATE_NANO_TS_b = getBSONName(EMPTY_ARTICLE, "ContentUpdateNanoTS")
 

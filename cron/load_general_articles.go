@@ -24,7 +24,7 @@ func LoadGeneralArticles(board *schema.BoardSummary) (err error) {
 		}
 
 		for _, each := range articleSummaries {
-			_, _, _, _, _, _, _, _, _, _, _, err = api.TryGetArticleContentInfo("SYSOP", each.BBoardID, each.ArticleID, nil, true, false)
+			_, _, _, _, _, _, _, _, _, _, _, _, err = api.TryGetArticleContentInfo("SYSOP", each.BBoardID, each.ArticleID, nil, true, false)
 			if err == nil {
 				count++
 			}

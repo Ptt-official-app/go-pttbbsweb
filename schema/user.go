@@ -175,6 +175,10 @@ func assertUserFields() error {
 		return err
 	}
 
+	if err := assertFields(EMPTY_USER, EMPTY_USER_NICKNAME); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -4,6 +4,12 @@ brdname:
 content:
   '$ref': '#/definitions/Content'
   description: 本文
+prefix:
+  '$ref': '#/definitions/Content'
+  description: 前三行 (作者/暱稱/標題/時間)
+nickname:
+  type: string
+  description: 作者暱稱
 ip:
   type: string
   description: 作者 ip.
