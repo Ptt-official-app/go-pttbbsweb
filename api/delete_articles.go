@@ -1,7 +1,12 @@
 package api
 
 import (
+	"fmt"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
@@ -45,6 +50,28 @@ func DeleteArticles(remoteAddr string, userID bbs.UUserID, params interface{}, p
 	for _, articleID := range theParams.ArticleIDs {
 		articleIDs = append(articleIDs, articleID.ToArticleID())
 	}
+
+	// to go-pttbbs
+	theParams_b := &pttbbsapi.DeleteArticlesParams{
+		ArticleIDs: articleIDs,
+	}
+	var result_b *pttbbsapi.DeleteArticlesResult
+
+	urlMap := map[string]string{
+		"bid": string(boardID),
+	}
+	fmt.Println(theParams_b, result_b, urlMap)
+
+	url := utils.MergeURL(urlMap, pttbbsapi.DELETE_ARTICLES_R)
+	statusCode, err = utils.BackendPost(c, url, theParams_b, nil, &result_b)
+	if err != nil || statusCode != 200 {
+		return nil, statusCode, err
+	}
+
+	// update to db
+	// TODO backend response success deleted articles, if any failed, we should not delete failed one.
+	updateNanoTS := types.NowNanoTS()
+	err = schema.DeleteArticles(boardID, articleIDs, updateNanoTS)
 
 	result = &DeleteArticlesResult{
 		Success: true,
