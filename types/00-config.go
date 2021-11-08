@@ -50,9 +50,9 @@ var (
 	IDEMAILTOKEN_TITLE          = "更換 " + BBSNAME + " 的認證信箱 (Updating " + BBSENAME + " Identity Email)"
 	ATTEMPT_REGISTER_USER_TITLE = "註冊 " + BBSNAME + " 的確認碼 (Registering " + BBSENAME + " Confirmation Code)"
 
-	EMAILTOKEN_TEMPLATE                    = "/etc/go-openbbsmiddleware/emailtoken.template"
-	IDEMAILTOKEN_TEMPLATE                  = "/etc/go-openbbsmiddleware/idemailtoken.template"
-	ATTEMPT_REGISTER_USER_TEMPLATE         = "/etc/go-openbbsmiddleware/attemptregister.template"
+	EMAILTOKEN_TEMPLATE                    = "/Users/matt/bbs/go-openbbsmiddleware/emailtoken.template"
+	IDEMAILTOKEN_TEMPLATE                  = "/Users/matt/bbs/go-openbbsmiddleware/idemailtoken.template"
+	ATTEMPT_REGISTER_USER_TEMPLATE         = "/Users/matt/bbs/go-openbbsmiddleware/attemptregister.template"
 	ATTEMPT_REGISTER_USER_TEMPLATE_CONTENT = "__USER__, __TOKEN__"
 
 	EMAILTOKEN_TEMPLATE_CONTENT   = "__EMAIL__, __USER__, __URL__"
