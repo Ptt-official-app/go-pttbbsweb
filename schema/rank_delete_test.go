@@ -1,9 +1,10 @@
 package schema
 
 import (
+	"testing"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"testing"
 )
 
 func TestDeleteRanks(t *testing.T) {
@@ -13,8 +14,8 @@ func TestDeleteRanks(t *testing.T) {
 	// boardID: "test",
 	// articleID: "test",
 	// ownerID: "test",
-	//rank: 1,
-	//updateNanoTS: 1234567890000000000
+	// rank: 1,
+	// updateNanoTS: 1234567890000000000
 	_, _ = UpdateRank("test", "test", "test", 1, 1234567890000000000)
 
 	type args struct {

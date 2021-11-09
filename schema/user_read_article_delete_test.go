@@ -1,9 +1,10 @@
 package schema
 
 import (
+	"testing"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"testing"
 )
 
 func TestDeleteUserReadArticles(t *testing.T) {
@@ -20,7 +21,7 @@ func TestDeleteUserReadArticles(t *testing.T) {
 		},
 	}
 
-	_ = UpdateUserReadArticles(userReadArticles,types.NanoTS(1234567890000000000))
+	_ = UpdateUserReadArticles(userReadArticles, types.NanoTS(1234567890000000000))
 	type args struct {
 		boardID      bbs.BBoardID
 		articleIDs   []bbs.ArticleID

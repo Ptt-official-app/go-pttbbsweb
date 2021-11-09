@@ -1,6 +1,5 @@
 package schema
 
-
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -15,7 +14,7 @@ type UserReadArticleIsDeleted struct {
 // DeleteUserReadArticles deletes user_read_articles in Database
 func DeleteUserReadArticles(boardID bbs.BBoardID, articleIDs []bbs.ArticleID, updateNanoTS types.NanoTS) (err error) {
 	query := bson.M{
-		ARTICLE_BBOARD_ID_b:  boardID,
+		ARTICLE_BBOARD_ID_b:      boardID,
 		ARTICLE_ARTICLE_ID_b:     bson.M{"$in": articleIDs},
 		ARTICLE_UPDATE_NANO_TS_b: bson.M{"$lt": updateNanoTS},
 	}
@@ -26,4 +25,3 @@ func DeleteUserReadArticles(boardID bbs.BBoardID, articleIDs []bbs.ArticleID, up
 	_, err = UserReadArticle_c.UpdateManyOnly(query, update)
 	return nil
 }
-

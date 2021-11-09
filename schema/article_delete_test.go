@@ -1,9 +1,10 @@
 package schema
 
 import (
+	"testing"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"testing"
 )
 
 func TestDeleteArticles(t *testing.T) {

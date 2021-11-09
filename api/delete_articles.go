@@ -17,7 +17,7 @@ type DeleteArticlesParams struct {
 }
 
 type DeleteArticlesPath struct {
-	FBoardID   apitypes.FBoardID   `uri:"bid"`
+	FBoardID apitypes.FBoardID `uri:"bid"`
 }
 
 type DeleteArticlesResult struct {
@@ -29,6 +29,7 @@ func DeleteArticlesWrapper(c *gin.Context) {
 	path := &DeleteArticlesPath{}
 	LoginRequiredPathJSON(DeleteArticles, params, path, c)
 }
+
 // DeleteArticles provides function from api /board/:bid/deletearticles
 // it will call backend api (go-pttbbs) and deleting all components like:
 // comments, ranks, user_read_records about this articles

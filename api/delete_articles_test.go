@@ -1,12 +1,13 @@
 package api
 
 import (
+	"reflect"
+	"testing"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
-	"reflect"
-	"testing"
 )
 
 func TestDeleteArticles(t *testing.T) {
@@ -61,11 +62,11 @@ func TestDeleteArticles(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{
-			name: "test delete article success",
-			args:               args{remoteAddr: testIP, userID: "SYSOP", params: params0, path: path0},
+			name:           "test delete article success",
+			args:           args{remoteAddr: testIP, userID: "SYSOP", params: params0, path: path0},
 			wantResult:     expected0,
 			wantStatusCode: 200,
-			wantErr: false,
+			wantErr:        false,
 		},
 	}
 	for _, tt := range tests {
