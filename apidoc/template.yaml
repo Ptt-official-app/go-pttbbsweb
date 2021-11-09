@@ -1,5 +1,5 @@
 info:
-  version: '0.22.1'
+  version: '0.23.0'
   title: openbbs-middleware
 definitions:
   !include defs/access_token.yaml
@@ -48,3 +48,4 @@ definitions:
   !include defs/params_sortby.yaml
   !include defs/delete_comment_params.yaml
   !include defs/reply_comment_params.yaml
+  !include defs/delete_articles_params.yaml
