@@ -79,3 +79,41 @@ func TestRemoveCommentIDs(t *testing.T) {
 	}
 	wg.Wait()
 }
+
+func TestDeleteCommentsByArticles(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+	defer Comment_c.Drop()
+
+	// BBoardID:   bbs.BBoardID("test"),
+	// ArticleID:  bbs.ArticleID("test"),
+	_ = UpdateComments(testComments0, types.NanoTS(1334567890000000000))
+
+	type args struct {
+		boardID      bbs.BBoardID
+		articleIDs   []bbs.ArticleID
+		updateNanoTS types.NanoTS
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "test deleting comments by articles",
+			args: args{
+				bbs.BBoardID("test"),
+				[]bbs.ArticleID{bbs.ArticleID("test")},
+				types.NowNanoTS(),
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := DeleteCommentsByArticles(tt.args.boardID, tt.args.articleIDs, tt.args.updateNanoTS); (err != nil) != tt.wantErr {
+				t.Errorf("DeleteCommentsByArticles() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}

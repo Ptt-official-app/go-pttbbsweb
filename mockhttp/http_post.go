@@ -44,6 +44,8 @@ func HTTPPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(LoadGeneralArticles3(data.(*api.LoadGeneralArticlesParams)), result)
 	case "/board/1_SYSOP/article/1VtWRel9/crosspost":
 		return parseResult(CrossPost(data.(*api.CrossPostParams)), result)
+	case "/board/10_WhoAmI/deletearticles":
+		return parseResult(DeleteArticles(data.(*api.DeleteArticlesParams)), result)
 	case "/board/10_WhoAmI/articles/bottom":
 		return parseResult(LoadBottomArticles(nil), result)
 	case "/user/SYSOP/information":
