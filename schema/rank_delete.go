@@ -23,5 +23,5 @@ func DeleteRanks(boardID bbs.BBoardID, articleIDs []bbs.ArticleID, updateNanoTS 
 		UpdateNanoTS: updateNanoTS,
 	}
 	_, err = Rank_c.UpdateManyOnly(query, update)
-	return nil
+	return err
 }

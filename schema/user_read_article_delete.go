@@ -23,5 +23,5 @@ func DeleteUserReadArticles(boardID bbs.BBoardID, articleIDs []bbs.ArticleID, up
 		UpdateNanoTS: updateNanoTS,
 	}
 	_, err = UserReadArticle_c.UpdateManyOnly(query, update)
-	return nil
+	return err
 }

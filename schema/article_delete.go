@@ -23,5 +23,5 @@ func DeleteArticles(boardID bbs.BBoardID, articleIDs []bbs.ArticleID, updateNano
 		UpdateNanoTS: updateNanoTS,
 	}
 	_, err = Article_c.UpdateManyOnly(query, update)
-	return nil
+	return err
 }
