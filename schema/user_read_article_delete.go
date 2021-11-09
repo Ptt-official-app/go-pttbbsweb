@@ -1,27 +1,29 @@
 package schema
 
+
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-type ArticleIsDeleted struct {
+type UserReadArticleIsDeleted struct {
 	IsDeleted    bool         `bson:"deleted,omitempty"`
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
 
-// DeleteArticles deletes articles in Database
-func DeleteArticles(boardID bbs.BBoardID, articleIDs []bbs.ArticleID, updateNanoTS types.NanoTS) (err error) {
+// DeleteUserReadArticles deletes user_read_articles in Database
+func DeleteUserReadArticles(boardID bbs.BBoardID, articleIDs []bbs.ArticleID, updateNanoTS types.NanoTS) (err error) {
 	query := bson.M{
 		ARTICLE_BBOARD_ID_b:  boardID,
 		ARTICLE_ARTICLE_ID_b:     bson.M{"$in": articleIDs},
 		ARTICLE_UPDATE_NANO_TS_b: bson.M{"$lt": updateNanoTS},
 	}
-	update := &ArticleIsDeleted{
+	update := &UserReadArticleIsDeleted{
 		IsDeleted:    true,
 		UpdateNanoTS: updateNanoTS,
 	}
-	_, err = Article_c.UpdateManyOnly(query, update)
+	_, err = UserReadArticle_c.UpdateManyOnly(query, update)
 	return nil
 }
+

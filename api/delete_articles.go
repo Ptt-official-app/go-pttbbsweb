@@ -29,7 +29,9 @@ func DeleteArticlesWrapper(c *gin.Context) {
 	path := &DeleteArticlesPath{}
 	LoginRequiredPathJSON(DeleteArticles, params, path, c)
 }
-
+// DeleteArticles provides function from api /board/:bid/deletearticles
+// it will call backend api (go-pttbbs) and deleting all components like:
+// comments, ranks, user_read_records about this articles
 func DeleteArticles(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*DeleteArticlesParams)
 	if !ok {
@@ -70,7 +72,18 @@ func DeleteArticles(remoteAddr string, userID bbs.UUserID, params interface{}, p
 	// TODO backend response success deleted articles, if any failed, we should not delete failed one.
 	updateNanoTS := types.NowNanoTS()
 	err = schema.DeleteArticles(boardID, result_b.ArticleIDs, updateNanoTS)
-
+	if err != nil {
+		return nil, 500, err
+	}
+	err = schema.DeleteCommentsByArticles(boardID, result_b.ArticleIDs, updateNanoTS)
+	if err != nil {
+		return nil, 500, err
+	}
+	err = schema.DeleteRanks(boardID, result_b.ArticleIDs, updateNanoTS)
+	if err != nil {
+		return nil, 500, err
+	}
+	err = schema.DeleteUserReadArticles(boardID, result_b.ArticleIDs, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}

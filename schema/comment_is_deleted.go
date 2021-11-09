@@ -64,3 +64,19 @@ func RecoverCommentIDs(commentQueries []*CommentQuery) (err error) {
 
 	return err
 }
+
+// DeleteCommentsByArticles deletes all comments in deleted articles
+func DeleteCommentsByArticles (boardID bbs.BBoardID, articleIDs []bbs.ArticleID, updateNanoTS types.NanoTS) (err error) {
+	query := bson.M{
+		ARTICLE_BBOARD_ID_b:  boardID,
+		ARTICLE_ARTICLE_ID_b:     bson.M{"$in": articleIDs},
+		ARTICLE_UPDATE_NANO_TS_b: bson.M{"$lt": updateNanoTS},
+	}
+	update := &CommentIsDeleted{
+		IsDeleted:    true,
+		UpdateNanoTS: updateNanoTS,
+	}
+	_, err = Comment_c.UpdateManyOnly(query, update)
+	return err
+}
+
