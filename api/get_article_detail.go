@@ -88,6 +88,10 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 		return nil, statusCode, err
 	}
 
+	if articleDetailSummary.IsDeleted && userID != articleDetailSummary.Owner {
+		return nil, 404, ErrArticleDeleted
+	}
+
 	result = &GetArticleDetailResult{
 		BBoardID:   apitypes.ToFBoardID(articleDetailSummary.BBoardID),
 		ArticleID:  apitypes.ToFArticleID(articleDetailSummary.ArticleID),

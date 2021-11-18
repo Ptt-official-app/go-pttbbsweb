@@ -42,7 +42,18 @@ func ToFTitle(title string) string {
 
 func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
 	fboardID := ToFBoardID(a_db.BBoardID)
-	farticleID := ToFArticleID(a_db.ArticleID)
+	// if article is deleted, hide articleId
+	// https://github.com/Ptt-official-app/go-openbbsmiddleware/issues/253#issuecomment-971526173
+	var fTitle string
+	var farticleID FArticleID
+	if a_db.IsDeleted {
+		farticleID = ""
+		fTitle = "本文已被刪除"
+	} else {
+		fTitle =  ToFTitle(a_db.Title)
+		farticleID = ToFArticleID(a_db.ArticleID)
+	}
+
 
 	url := ToURL(fboardID, farticleID)
 
@@ -55,7 +66,7 @@ func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
 		Recommend:  a_db.Recommend,            //
 		NComments:  a_db.NComments,            //
 		Owner:      a_db.Owner,                //
-		Title:      ToFTitle(a_db.Title),      //
+		Title:      fTitle,      //
 		Money:      a_db.Money,                //
 		Filemode:   a_db.Filemode,             //
 		Class:      a_db.Class,                //
@@ -72,7 +83,17 @@ func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
 
 func NewArticleSummaryFromWithRegex(a_db *schema.ArticleSummaryWithRegex) *ArticleSummary {
 	fboardID := ToFBoardID(a_db.BBoardID)
-	farticleID := ToFArticleID(a_db.ArticleID)
+	// if article is deleted, hide articleId
+	// https://github.com/Ptt-official-app/go-openbbsmiddleware/issues/253#issuecomment-971526173
+	var fTitle string
+	var farticleID FArticleID
+	if a_db.IsDeleted {
+		farticleID = ""
+		fTitle = "本文已被刪除"
+	} else {
+		fTitle =  ToFTitle(a_db.Title)
+		farticleID = ToFArticleID(a_db.ArticleID)
+	}
 
 	url := ToURL(fboardID, farticleID)
 
@@ -85,7 +106,7 @@ func NewArticleSummaryFromWithRegex(a_db *schema.ArticleSummaryWithRegex) *Artic
 		Recommend:  a_db.Recommend,            //
 		NComments:  a_db.NComments,            //
 		Owner:      a_db.Owner,                //
-		Title:      ToFTitle(a_db.Title),      //
+		Title:      fTitle,      //
 		Money:      a_db.Money,                //
 		Filemode:   a_db.Filemode,             //
 		Class:      a_db.Class,                //

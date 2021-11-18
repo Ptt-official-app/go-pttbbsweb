@@ -14,6 +14,7 @@ var (
 	ErrInvalidBackendStatusCode = errors.New("invalid backend status code")
 	ErrNoBoard                  = errors.New("no board")
 	ErrNoArticle                = errors.New("no article")
+	ErrArticleDeleted           = errors.New("article is deleted")
 	ErrAlreadyDeleted           = errors.New("already deleted")
 	ErrFileNotFound             = errors.New("file not found")
 
