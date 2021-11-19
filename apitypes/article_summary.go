@@ -50,10 +50,9 @@ func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
 		farticleID = ""
 		fTitle = "本文已被刪除"
 	} else {
-		fTitle =  ToFTitle(a_db.Title)
+		fTitle = ToFTitle(a_db.Title)
 		farticleID = ToFArticleID(a_db.ArticleID)
 	}
-
 
 	url := ToURL(fboardID, farticleID)
 
@@ -66,7 +65,7 @@ func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
 		Recommend:  a_db.Recommend,            //
 		NComments:  a_db.NComments,            //
 		Owner:      a_db.Owner,                //
-		Title:      fTitle,      //
+		Title:      fTitle,                    //
 		Money:      a_db.Money,                //
 		Filemode:   a_db.Filemode,             //
 		Class:      a_db.Class,                //
@@ -91,7 +90,7 @@ func NewArticleSummaryFromWithRegex(a_db *schema.ArticleSummaryWithRegex) *Artic
 		farticleID = ""
 		fTitle = "本文已被刪除"
 	} else {
-		fTitle =  ToFTitle(a_db.Title)
+		fTitle = ToFTitle(a_db.Title)
 		farticleID = ToFArticleID(a_db.ArticleID)
 	}
 
@@ -106,7 +105,7 @@ func NewArticleSummaryFromWithRegex(a_db *schema.ArticleSummaryWithRegex) *Artic
 		Recommend:  a_db.Recommend,            //
 		NComments:  a_db.NComments,            //
 		Owner:      a_db.Owner,                //
-		Title:      fTitle,      //
+		Title:      fTitle,                    //
 		Money:      a_db.Money,                //
 		Filemode:   a_db.Filemode,             //
 		Class:      a_db.Class,                //
