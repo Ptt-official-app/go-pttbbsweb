@@ -178,6 +178,15 @@ func Init() (err error) {
 	// UserReject
 	UserReject_c = client.Collection("user_reject")
 
+	//  UserVisit
+	UserVisit_c = client.Collection("user_visit")
+	keys = &bson.D{
+		{Key: USER_READ_BOARD_USER_ID_b, Value: 1},
+	}
+	err = UserVisit_c.CreateIndex(keys, nil)
+	if err != nil {
+		return err
+	}
 	// userIDEmail
 	UserIDEmail_c = client.Collection("user_id_email")
 	keys = &bson.D{
