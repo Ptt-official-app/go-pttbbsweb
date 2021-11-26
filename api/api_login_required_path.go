@@ -55,7 +55,7 @@ func loginRequiredPathProcess(theFunc LoginRequiredPathAPIFunc, params interface
 	}
 	userVisit := &schema.UserVisit{
 		UserID:       userID,
-		Action:       c.Request.URL.Path,
+		Action:       c.Request.Method + ":" + c.Request.URL.Path,
 		UpdateNanoTS: types.NowNanoTS(),
 	}
 	_ = schema.UpdateUserVisit(userVisit)
