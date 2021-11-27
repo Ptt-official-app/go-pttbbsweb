@@ -1,6 +1,8 @@
 package schema
 
 import (
+	"time"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -33,4 +35,19 @@ func UpdateUserVisit(userVisit *UserVisit) (err error) {
 		return err
 	}
 	return
+}
+
+func CalculateAllUserVisitCounts() (int64, error) {
+	query := bson.M{
+		USER_VISIT_UPDATE_NANO_TS_b: bson.M{
+			"$gte": types.TimeToNanoTS(time.Now().Add(-10 * time.Minute)),
+		},
+	}
+
+	count, err := UserVisit_c.Count(query, 0)
+	if err != nil {
+		return 0, err
+	}
+
+	return count, nil
 }
