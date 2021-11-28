@@ -25,6 +25,7 @@ var (
 	USER_VISIT_UPDATE_NANO_TS_b = getBSONName(EMPTY_USER_VISIT, "UpdateNanoTS")
 )
 
+// UpdateUserVisit updates user_visit's document data
 func UpdateUserVisit(userVisit *UserVisit) (err error) {
 	query := bson.M{
 		USER_VISIT_USER_ID_b: userVisit.UserID,
@@ -37,6 +38,7 @@ func UpdateUserVisit(userVisit *UserVisit) (err error) {
 	return
 }
 
+// CalculateAllUserVisitCounts count recent 10 mins users who are calling login_required_api
 func CalculateAllUserVisitCounts() (int64, error) {
 	query := bson.M{
 		USER_VISIT_UPDATE_NANO_TS_b: bson.M{

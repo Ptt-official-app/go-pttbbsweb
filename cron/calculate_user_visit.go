@@ -8,6 +8,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// RetryCalculateUserVisit make loop job to call CalculateUserVisit per 10 mins
 func RetryCalculateUserVisit() {
 	for {
 		logrus.Infof("RetryCalculateUserVisit: to calculate user visit")
@@ -17,12 +18,13 @@ func RetryCalculateUserVisit() {
 	}
 }
 
+// CalculateUserVisit get user visit count from db
+// and set to redis
 func CalculateUserVisit() {
 	count, err := schema.CalculateAllUserVisitCounts()
 	if err != nil {
 		logrus.Printf("get error in calculate user visit count %v", err)
 	}
-	logrus.Infof("user visit %d", count)
 	// set to redis
 	err = schema.SetUserVisitCount(count)
 	if err != nil {
