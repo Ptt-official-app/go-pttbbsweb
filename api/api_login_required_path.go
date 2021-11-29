@@ -3,6 +3,10 @@ package api
 import (
 	"strings"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+
+	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
+
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
@@ -49,6 +53,12 @@ func loginRequiredPathProcess(theFunc LoginRequiredPathAPIFunc, params interface
 	if err != nil {
 		userID = bbs.UUserID(pttbbsapi.GUEST)
 	}
+	userVisit := &schema.UserVisit{
+		UserID:       userID,
+		Action:       c.Request.Method + ":" + c.Request.URL.Path,
+		UpdateNanoTS: types.NowNanoTS(),
+	}
+	_ = schema.UpdateUserVisit(userVisit)
 
 	result, statusCode, err := theFunc(remoteAddr, userID, params, path, c)
 	processResult(c, result, statusCode, err)
