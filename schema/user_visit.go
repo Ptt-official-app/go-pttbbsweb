@@ -42,7 +42,7 @@ func UpdateUserVisit(userVisit *UserVisit) (err error) {
 func CalculateAllUserVisitCounts() (int64, error) {
 	query := bson.M{
 		USER_VISIT_UPDATE_NANO_TS_b: bson.M{
-			"$gte": types.TimeToNanoTS(time.Now().Add(-10 * time.Minute)),
+			"$gte": types.TimeToNanoTS(time.Now().Add(TIME_CALC_ALL_USER_VISIT_COUNTS)),
 		},
 	}
 
