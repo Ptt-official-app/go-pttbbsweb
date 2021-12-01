@@ -24,9 +24,10 @@ type ArticleDetailSummary struct {
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 
-	ContentMTime        types.NanoTS `bson:"content_mtime_nano_ts"`
-	ContentMD5          string       `bson:"content_md5"`
-	ContentUpdateNanoTS types.NanoTS `bson:"content_update_nano_ts"`
+	ContentMTime        types.NanoTS    `bson:"content_mtime_nano_ts"`
+	ContentMD5          string          `bson:"content_md5"`
+	ContentID           types.ContentID `bson:"content_id"`
+	ContentUpdateNanoTS types.NanoTS    `bson:"content_update_nano_ts"`
 
 	FirstCommentsMD5          string       `bson:"first_comments_md5"`
 	FirstCommentsLastTime     types.NanoTS `bson:"first_comments_last_time_nano_ts"`
@@ -34,6 +35,10 @@ type ArticleDetailSummary struct {
 
 	NComments            int          `bson:"n_comments"`
 	CommentsUpdateNanoTS types.NanoTS `bson:"comments_update_nano_ts"`
+
+	IP   string `bson:"ip"`   //
+	Host string `bson:"host"` // ip 的中文呈現, 外國則為國家.
+	BBS  string `bson:"bbs"`  //
 
 	Rank             int          `bson:"rank"` // 評價
 	RankUpdateNanoTS types.NanoTS `bson:"rank_update_nano_ts"`

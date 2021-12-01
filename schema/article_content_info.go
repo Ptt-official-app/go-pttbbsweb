@@ -11,6 +11,7 @@ import (
 type ArticleContentInfo struct {
 	ContentMD5 string `bson:"content_md5"`
 
+	ContentID           types.ContentID `bson:"content_id"`
 	Content             [][]*types.Rune `bson:"content"`
 	ContentPrefix       [][]*types.Rune `bson:"content_prefix"` //
 	IP                  string          `bson:"ip"`
@@ -29,7 +30,7 @@ var (
 	articleContentInfoFields   = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_CONTENT_INFO)
 )
 
-func GetArticleContentInfo(bboardID bbs.BBoardID, articleID bbs.ArticleID) (contentInfo *ArticleContentInfo, err error) {
+func GetArticleContentInfo(bboardID bbs.BBoardID, articleID bbs.ArticleID, isContent bool) (contentInfo *ArticleContentInfo, err error) {
 	query := &ArticleQuery{
 		BBoardID:  bboardID,
 		ArticleID: articleID,
@@ -44,7 +45,35 @@ func GetArticleContentInfo(bboardID bbs.BBoardID, articleID bbs.ArticleID) (cont
 		return nil, err
 	}
 
+	if contentInfo.ContentID == "" || !isContent {
+		return contentInfo, nil
+	}
+
+	contentBlocks, err := GetAllContentBlocks(bboardID, articleID, contentInfo.ContentID)
+	if err != nil {
+		return nil, err
+	}
+
+	content := contentBlocksToContent(contentBlocks)
+	contentInfo.Content = content
+
 	return contentInfo, nil
+}
+
+func contentBlocksToContent(contentBlocks []*ContentBlock) (content [][]*types.Rune) {
+	// 1. count nRows
+	nRows := 0
+	for _, each := range contentBlocks {
+		nRows += len(each.Content)
+	}
+
+	content = make([][]*types.Rune, 0, nRows)
+
+	for _, each := range contentBlocks {
+		content = append(content, each.Content...)
+	}
+
+	return content
 }
 
 func UpdateArticleContentInfo(bboardID bbs.BBoardID, articleID bbs.ArticleID, contentInfo *ArticleContentInfo) (err error) {

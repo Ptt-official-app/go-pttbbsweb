@@ -1,11 +1,11 @@
 package schema
 
 import (
-	"reflect"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/testutil"
 )
 
 func TestGetArticleDetailSummary(t *testing.T) {
@@ -60,6 +60,9 @@ func TestGetArticleDetailSummary(t *testing.T) {
 
 		ContentMD5:          "testmd5",
 		ContentUpdateNanoTS: types.NanoTS(1234567890000000000),
+		IP:                  "127.0.0.1",
+		Host:                "localhost",
+		BBS:                 "ptt",
 	}
 
 	type args struct {
@@ -92,9 +95,7 @@ func TestGetArticleDetailSummary(t *testing.T) {
 			if err != tt.err {
 				t.Errorf("GetArticleDetailSummary: e: %v expected: %v", err, tt.err)
 			}
-			if !reflect.DeepEqual(gotResult, tt.expectedResult) {
-				t.Errorf("GetArticleDetailSummary() = %v, want %v", gotResult, tt.expectedResult)
-			}
+			testutil.TDeepEqual(t, "got", gotResult, tt.expectedResult)
 		})
 	}
 }

@@ -9,6 +9,7 @@ import (
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/cmsys"
+	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
 	"github.com/gin-gonic/gin"
 )
 
@@ -29,10 +30,17 @@ func UpdateArticleContentInfo(
 		return nil
 	}
 
+	contentID, contentBlocks := dbcs.ParseContentBlocks(boardID, articleID, content, contentMD5, updateNanoTS)
+
+	err = schema.UpdateContentBlocks(contentBlocks, updateNanoTS)
+	if err != nil {
+		return err
+	}
+
 	contentInfo := &schema.ArticleContentInfo{
 		ContentMD5: contentMD5,
 
-		Content:       content,
+		ContentID:     contentID,
 		ContentPrefix: contentPrefix,
 		IP:            ip,
 		Host:          host,
@@ -153,11 +161,11 @@ func ArticleLockKey(boardID bbs.BBoardID, articleID bbs.ArticleID) (key string) 
 //7. parse article 為 content / comments.
 //8. 將 comments parse 為 firstComments / theRestComments.
 //9. 將 theRestComments 丟進 queue 裡.
-func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context, isSystem bool, isHash bool) (content [][]*types.Rune, contentPrefix [][]*types.Rune, contentMD5 string, ip string, host string, bbs string, signatureMD5 string, signatureDBCS []byte, articleDetailSummary *schema.ArticleDetailSummary, fileSize int, hash cmsys.Fnv64_t, statusCode int, err error) {
+func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context, isSystem bool, isHash bool, isContent bool) (content [][]*types.Rune, contentPrefix [][]*types.Rune, contentMD5 string, ip string, host string, bbs string, signatureMD5 string, signatureDBCS []byte, articleDetailSummary *schema.ArticleDetailSummary, fileSize int, hash cmsys.Fnv64_t, statusCode int, err error) {
 	updateNanoTS := types.NanoTS(0)
 	// set user-read-article-id
 	defer func() {
-		if err == nil {
+		if err == nil && !isSystem {
 			setUserReadArticle(content, userID, articleID, updateNanoTS)
 		}
 	}()
@@ -165,12 +173,14 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	isForce := false
 	isQueue := true
 
-	// if not isForce => not isHash
+	// if isHash => force to receive the new article
+	//              and re-calc hash. (and no queue.)
 	if isHash {
 		isForce = true
 		isQueue = false
 	}
 
+	// if isSystem (cron) => no queue.
 	if isSystem {
 		isQueue = false
 	}
@@ -187,7 +197,7 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	// get from backend with content-mtime
 	// estimated max 500ms + 3 seconds
 
-	articleDetailSummary_db, statusCode, err := TryGetArticleDetailSummary(userID, bboardID, articleID, articleCreateTime, c, isSystem)
+	articleDetailSummary_db, statusCode, err := tryGetArticleDetailSummary(userID, bboardID, articleID, articleCreateTime, c, isSystem)
 	if err != nil {
 		return nil, nil, "", "", "", "", "", nil, nil, 0, 0, statusCode, err
 	}
@@ -201,9 +211,9 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		articleDetailSummary_db.CreateTime = articleCreateTimeNanoTS
 	}
 
-	if !isForce && TryGetArticleContentInfoTooSoon(articleDetailSummary_db.ContentUpdateNanoTS) {
+	if !isForce && tryGetArticleContentInfoTooSoon(articleDetailSummary_db.ContentUpdateNanoTS) {
 
-		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID)
+		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID, isContent)
 		if err != nil {
 			return nil, nil, "", "", "", "", "", nil, nil, 0, 0, 500, err
 		}
@@ -220,7 +230,7 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 			return nil, nil, "", "", "", "", "", nil, nil, 0, 0, 500, err
 		}
 
-		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID)
+		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID, isContent)
 		if err != nil {
 			return nil, nil, "", "", "", "", "", nil, nil, 0, 0, 500, err
 		}
@@ -253,7 +263,7 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	// 6. check content-mtime (no modify from backend, no need to parse again)
 	contentMTime := types.Time4ToNanoTS(result_b.MTime)
 	if articleDetailSummary_db.ContentMTime >= contentMTime {
-		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID)
+		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID, isContent)
 		if err != nil {
 			return nil, nil, "", "", "", "", "", nil, nil, 0, 0, 500, err
 		}
@@ -281,7 +291,7 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	}
 
 	if contentMD5 == "" {
-		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID)
+		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID, isContent)
 		if err != nil {
 			return nil, nil, "", "", "", "", "", nil, nil, 0, 0, 500, err
 		}
@@ -347,4 +357,94 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	_ = schema.UpdateArticleContentMTime(bboardID, articleID, contentMTime)
 
 	return content, contentPrefix, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, articleDetailSummary_db, fileSize, hash, 200, nil
+}
+
+func tryGetArticleContentInfoTooSoon(updateNanoTS types.NanoTS) bool {
+	nowNanoTS := types.NowNanoTS()
+	return nowNanoTS-updateNanoTS < GET_ARTICLE_CONTENT_INFO_TOO_SOON_NANO_TS
+}
+
+func tryGetArticleDetailSummary(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, articleCreateTime pttbbstypes.Time4, c *gin.Context, isSystem bool) (articleDetailSummary *schema.ArticleDetailSummary, statusCode int, err error) {
+	articleDetailSummary, err = schema.GetArticleDetailSummary(boardID, articleID)
+	if err != nil { // something went wrong with db.
+		return nil, 500, err
+	}
+	if articleDetailSummary != nil {
+		return articleDetailSummary, 200, nil
+	}
+
+	// init startIdx
+	articleSummary := &bbs.ArticleSummary{ArticleID: articleID, CreateTime: articleCreateTime}
+	startIdx := bbs.SerializeArticleIdxStr(articleSummary)
+
+	// backend load-general-articles
+	theParams_b := &pttbbsapi.LoadGeneralArticlesParams{
+		StartIdx:  startIdx,
+		NArticles: 1,
+		Desc:      false,
+		IsSystem:  isSystem,
+	}
+	var result_b *pttbbsapi.LoadGeneralArticlesResult
+
+	urlMap := map[string]string{
+		"bid": string(boardID),
+	}
+	url := utils.MergeURL(urlMap, pttbbsapi.LOAD_GENERAL_ARTICLES_R)
+	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
+	if err != nil || statusCode != 200 {
+		return nil, statusCode, err
+	}
+	if len(result_b.Articles) == 0 {
+		return nil, 500, ErrNoArticle
+	}
+
+	article_b := result_b.Articles[0]
+	if article_b.ArticleID != articleID {
+		return nil, 500, ErrNoArticle
+	}
+
+	// update to db
+	updateNanoTS := types.NowNanoTS()
+	articleSummaries_db, _, err := deserializeArticlesAndUpdateDB(userID, boardID, result_b.Articles, updateNanoTS)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	articleSummary_db := articleSummaries_db[0]
+
+	articleDetailSummary = &schema.ArticleDetailSummary{
+		BBoardID:     boardID,
+		ArticleID:    articleID,
+		CreateTime:   articleSummary_db.CreateTime,
+		MTime:        articleSummary_db.MTime,
+		Recommend:    articleSummary_db.Recommend,
+		Owner:        articleSummary_db.Owner,
+		Title:        articleSummary_db.Title,
+		Money:        articleSummary_db.Money,
+		Class:        articleSummary_db.Class,
+		Filemode:     articleSummary_db.Filemode,
+		UpdateNanoTS: articleSummary_db.UpdateNanoTS,
+	}
+
+	return articleDetailSummary, 200, nil
+}
+
+func setUserReadArticle(content [][]*types.Rune, userID bbs.UUserID, articleID bbs.ArticleID, updateNanoTS types.NanoTS) {
+	if content == nil {
+		return
+	}
+
+	// user read article
+	userReadArticle := &schema.UserReadArticle{
+		UserID:       userID,
+		ArticleID:    articleID,
+		UpdateNanoTS: updateNanoTS,
+	}
+	_ = schema.UpdateUserReadArticle(userReadArticle)
+}
+
+func editArticleGetArticleContentInfo(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context, isContent bool) (oldContent [][]*types.Rune, oldContentPrefix [][]*types.Rune, signatureDBCS []byte, articleDetailSummary_db *schema.ArticleDetailSummary, sz int, hash cmsys.Fnv64_t, statusCode int, err error) {
+	oldContent, oldContentPrefix, _, _, _, _, _, signatureDBCS, articleDetailSummary_db, sz, hash, statusCode, err = TryGetArticleContentInfo(userID, boardID, articleID, c, false, true, isContent)
+
+	return oldContent, oldContentPrefix, signatureDBCS, articleDetailSummary_db, sz, hash, statusCode, err
 }

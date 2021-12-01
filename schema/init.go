@@ -107,6 +107,19 @@ func Init() (err error) {
 		return err
 	}
 
+	// content-block
+	ContentBlock_c = client.Collection("content_block")
+	keys = &bson.D{
+		{Key: CONTENT_BLOCK_BBOARD_ID_b, Value: 1},
+		{Key: CONTENT_BLOCK_ARTICLE_ID_b, Value: 1},
+		{Key: CONTENT_BLOCK_CONTENT_ID_b, Value: 1},
+		{Key: CONTENT_BLOCK_IDX_b, Value: 1},
+	}
+	err = ContentBlock_c.CreateIndex(keys, nil)
+	if err != nil {
+		return err
+	}
+
 	// rank
 	Rank_c = client.Collection("rank")
 	keys = &bson.D{
@@ -337,6 +350,10 @@ func assertAllFields() error {
 	}
 
 	if err := assertUserFavorites(); err != nil {
+		return err
+	}
+
+	if err := assertContentBlockFields(); err != nil {
 		return err
 	}
 

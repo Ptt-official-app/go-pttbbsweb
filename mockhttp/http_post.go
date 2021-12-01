@@ -28,6 +28,8 @@ func HTTPPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(GetArticleDetail2(data.(*api.GetArticleParams)), result)
 	case "/board/10_WhoAmI/article/1VrooM21/edit":
 		return parseResult(EditArticleDetail2(data.(*api.EditArticleParams)), result)
+	case "/board/10_WhoAmI/article/1Vo_N0CD": // M.1607202240.A.30D
+		return parseResult(GetArticleDetail4(data.(*api.GetArticleParams)), result)
 	case "/board/10_WhoAmI/article":
 		return parseResult(CreateArticle(data.(*api.CreateArticleParams)), result)
 	case "/board/10_WhoAmI/articles":

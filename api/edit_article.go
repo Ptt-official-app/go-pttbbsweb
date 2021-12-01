@@ -10,7 +10,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/Ptt-official-app/go-pttbbs/cmsys"
 	"github.com/gin-gonic/gin"
 )
 
@@ -58,7 +57,7 @@ func EditArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
-	_, oldContentPrefix, oldSignatureDBCS, _, oldSZ, oldsum, statusCode, err := editArticleGetArticleContentInfo(userID, boardID, articleID, c)
+	_, oldContentPrefix, oldSignatureDBCS, _, oldSZ, oldsum, statusCode, err := editArticleGetArticleContentInfo(userID, boardID, articleID, c, false)
 	if err != nil {
 		return nil, statusCode, err
 	}
@@ -133,12 +132,6 @@ func EditArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}
 		Class:   articleEditSummary.Class,
 	}
 	return result, 200, nil
-}
-
-func editArticleGetArticleContentInfo(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context) (oldContent [][]*types.Rune, oldContentPrefix [][]*types.Rune, signatureDBCS []byte, articleDetailSummary_db *schema.ArticleDetailSummary, sz int, hash cmsys.Fnv64_t, statusCode int, err error) {
-	oldContent, oldContentPrefix, _, _, _, _, _, signatureDBCS, articleDetailSummary_db, sz, hash, statusCode, err = TryGetArticleContentInfo(userID, boardID, articleID, c, false, true)
-
-	return oldContent, oldContentPrefix, signatureDBCS, articleDetailSummary_db, sz, hash, statusCode, err
 }
 
 func editArticleCompileContent(boardID bbs.BBoardID, articleID bbs.ArticleID, content [][]*types.Rune, prefix [][]*types.Rune, signatureDBCS []byte) (allContentDBCS [][]byte, err error) {

@@ -33,6 +33,13 @@ func (r ReadStatus) String() string {
 	}
 }
 
+// ContentID
+type ContentID string
+
+func ToContentID(nanoTS NanoTS, md5 string) ContentID {
+	return ContentID(nanoTS.Base64() + ":" + md5)
+}
+
 //CommentID
 //
 //XXX currently it's very hard to maintain the comment-id.

@@ -1,6 +1,7 @@
 package apitypes
 
 import (
+	"strconv"
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -15,6 +16,8 @@ const (
 	ARTICLE_COMMENT_TYPE_ARTICLE ArticleCommentType = "a"
 	ARTICLE_COMMENT_TYPE_COMMENT ArticleCommentType = "c"
 )
+
+type ArticleCommentIdx string
 
 type ArticleComment struct {
 	FBoardID   FBoardID    `json:"bid"`         //
@@ -124,4 +127,22 @@ func DeserializeArticleCommentIdx(theIdx string) (theType ArticleCommentType, su
 	subIdx = strings.Join(theList[1:], "#")
 
 	return theType, subIdx, nil
+}
+
+func SerializeArticleIdx(contentID types.ContentID, contentIdx int) (theIdx string) {
+	return string(contentID) + "^" + strconv.Itoa(contentIdx)
+}
+
+func DeserializeArticleIdx(theIdx string) (contentID types.ContentID, contentIdx int, err error) {
+	theList := strings.Split(theIdx, "^")
+	if len(theList) != 2 {
+		return "", 0, ErrInvalidIdx
+	}
+
+	contentIdx, err = strconv.Atoi(theList[1])
+	if err != nil {
+		return "", 0, ErrInvalidIdx
+	}
+
+	return types.ContentID(theList[0]), contentIdx, nil
 }
