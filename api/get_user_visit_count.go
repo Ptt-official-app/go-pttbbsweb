@@ -28,6 +28,6 @@ func GetUserVisitCount(remoteAddr string, params interface{}, c *gin.Context) (r
 	// get openbbsmiddleware user count
 	currentUserVisitCount := schema.GetUserVisitCount()
 	// total user
-	result = GetUserVisitCountResult{int64(result_b.Total) + currentUserVisitCount}
+	result = GetUserVisitCountResult{Total: int64(result_b.Total) + currentUserVisitCount}
 	return result, 200, nil
 }
