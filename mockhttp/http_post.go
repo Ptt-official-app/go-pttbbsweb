@@ -84,6 +84,8 @@ func HTTPPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(IsBoardsValidUser(data.(*api.IsBoardsValidUserParams)), result)
 	case api.LOAD_FULL_CLASS_BOARDS_R:
 		return parseResult(LoadFullClassBoards(data.(*api.LoadFullClassBoardsParams)), result)
+	case api.GET_USER_VISIT_COUNT_R:
+		return parseResult(GetUserVisitCount(), result)
 	default:
 		return 500, ErrURL
 	}

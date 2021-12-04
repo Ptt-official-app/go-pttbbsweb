@@ -49,6 +49,7 @@ func initGin() (*gin.Engine, error) {
 	// index
 	router.GET(withPrefix(api.INDEX_R), api.IndexWrapper)
 
+	router.GET(withPrefix(api.GET_USER_VISIT_COUNT_R), api.GetUserVisitCountWrapper)
 	router.GET(withPrefix(api.GET_VERSION_R), api.GetVersionWrapper)
 
 	// register/login

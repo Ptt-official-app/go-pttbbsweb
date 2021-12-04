@@ -377,3 +377,11 @@ def _get_verion():
 
     """
     return ''
+
+@app.route(_with_app_prefix('/uservisitcount'), methods=['GET'])
+def _get_user_visit_count():
+    """
+    swagger_from_file: apidoc/get_user_visit_count.yaml
+
+    """
+    return ''

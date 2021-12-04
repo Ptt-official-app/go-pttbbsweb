@@ -41,6 +41,8 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/Ptt-official-app/go-pttbbs v0.19.1 h1:Gu3PJ571Uu2WljW/nFCgJq/1wzrdZGMD6cZEMV28WMY=
 github.com/Ptt-official-app/go-pttbbs v0.19.1/go.mod h1:24z+LT3SYYB53B35EWYzfIcu+zTaAN2dLkId57vSv/Q=
+github.com/Ptt-official-app/go-pttbbs v0.19.2 h1:mZDe+43mreMYUHPvqWKngg0yYRfJDcA6R5WAZ4VmDe8=
+github.com/Ptt-official-app/go-pttbbs v0.19.2/go.mod h1:24z+LT3SYYB53B35EWYzfIcu+zTaAN2dLkId57vSv/Q=
 github.com/antihax/optional v1.0.0/go.mod h1:uupD/76wgC+ih3iEmQUL+0Ugr19nfwCT1kdvxnR2qWY=
 github.com/armon/circbuf v0.0.0-20150827004946-bbbad097214e/go.mod h1:3U/XgcO3hCbHZ8TKRvWD2dDTCfh9M9ya+I9JpbB7O8o=
 github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da/go.mod h1:Q73ZrmVTwzkszR9V5SSuryQ31EELlFMUz1kKyl939pY=

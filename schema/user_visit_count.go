@@ -19,3 +19,12 @@ func SetUserVisitCount(count int64) error {
 	}
 	return nil
 }
+
+func GetUserVisitCount() (total int64) {
+	ctx := context.Background()
+	val, err := rdb.Get(ctx, REDIS_USER_VISIT_COUNT).Int64()
+	if err != nil {
+		return 0
+	}
+	return val
+}
