@@ -26,7 +26,7 @@ func TestGetUserVisitCount(t *testing.T) {
 		{
 			name:           "test get user visit count is available",
 			args:           args{testIP, nil, nil},
-			wantResult:     GetUserVisitCountResult{},
+			wantResult:     &GetUserVisitCountResult{},
 			wantStatusCode: 200,
 			wantErr:        false,
 		},
