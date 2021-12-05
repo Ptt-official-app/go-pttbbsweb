@@ -141,6 +141,12 @@ func initGin() (*gin.Engine, error) {
 }
 
 func main() {
+        err := initMain()
+        if err != nil {
+                log.Fatalf("unable to initMain: e: %v", err)
+		return
+        }
+
 	finished := make(chan struct{})
 
 	if err := queue.Start(); err != nil {
@@ -157,11 +163,6 @@ func main() {
 			close(finished)
 		},
 	)
-
-	err := initMain()
-	if err != nil {
-		log.Fatalf("unable to initMain: e: %v", err)
-	}
 
 	router, err := initGin()
 	if err != nil {
