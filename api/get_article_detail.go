@@ -4,11 +4,8 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
-	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
-	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
 	"github.com/gin-gonic/gin"
 )
 
@@ -76,7 +73,7 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 	}
 
 	// ensure that we do have the article.
-	content, contentPrefix, _, ip, host, bbs, _, _, articleDetailSummary, _, _, statusCode, err := TryGetArticleContentInfo(userID, boardID, articleID, c, false, false)
+	content, contentPrefix, _, ip, host, bbs, _, _, articleDetailSummary, _, _, statusCode, err := TryGetArticleContentInfo(userID, boardID, articleID, c, false, false, true)
 	if err != nil {
 		return nil, statusCode, err
 	}
@@ -89,115 +86,29 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 	}
 
 	result = &GetArticleDetailResult{
-		BBoardID:   apitypes.ToFBoardID(articleDetailSummary.BBoardID),
-		ArticleID:  apitypes.ToFArticleID(articleDetailSummary.ArticleID),
-		CreateTime: articleDetailSummary.CreateTime.ToTime8(),
-		MTime:      articleDetailSummary.MTime.ToTime8(),
-		Recommend:  articleDetailSummary.Recommend,
-		NComments:  articleDetailSummary.NComments,
-		Owner:      articleDetailSummary.Owner,
-		Nickname:   nickname,
-		Title:      apitypes.ToFTitle(articleDetailSummary.Title),
-		Money:      articleDetailSummary.Money,
-		Class:      articleDetailSummary.Class,
-		Filemode:   articleDetailSummary.Filemode,
-		Rank:       articleDetailSummary.Rank,
-
-		URL:  url,
-		Read: true,
-
-		Brdname: boardID.ToBrdname(),
-
+		BBoardID:      apitypes.ToFBoardID(articleDetailSummary.BBoardID),
+		ArticleID:     apitypes.ToFArticleID(articleDetailSummary.ArticleID),
+		IsDeleted:     false,
+		CreateTime:    articleDetailSummary.CreateTime.ToTime8(),
+		MTime:         articleDetailSummary.MTime.ToTime8(),
+		Recommend:     articleDetailSummary.Recommend,
+		NComments:     articleDetailSummary.NComments,
+		Owner:         articleDetailSummary.Owner,
+		Nickname:      nickname,
+		Title:         apitypes.ToFTitle(articleDetailSummary.Title),
+		Money:         articleDetailSummary.Money,
+		Class:         articleDetailSummary.Class,
+		Filemode:      articleDetailSummary.Filemode,
+		URL:           url,
+		Read:          true,
+		Brdname:       boardID.ToBrdname(),
 		Content:       content,
 		ContentPrefix: contentPrefix,
 		IP:            ip,
 		Host:          host,
 		BBS:           bbs,
+		Rank:          articleDetailSummary.Rank,
 	}
 
 	return result, 200, nil
-}
-
-func TryGetArticleContentInfoTooSoon(updateNanoTS types.NanoTS) bool {
-	nowNanoTS := types.NowNanoTS()
-	return nowNanoTS-updateNanoTS < GET_ARTICLE_CONTENT_INFO_TOO_SOON_NANO_TS
-}
-
-func TryGetArticleDetailSummary(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, articleCreateTime pttbbstypes.Time4, c *gin.Context, isSystem bool) (articleDetailSummary *schema.ArticleDetailSummary, statusCode int, err error) {
-	articleDetailSummary, err = schema.GetArticleDetailSummary(boardID, articleID)
-	if err != nil { // something went wrong with db.
-		return nil, 500, err
-	}
-	if articleDetailSummary != nil {
-		return articleDetailSummary, 200, nil
-	}
-
-	// init startIdx
-	articleSummary := &bbs.ArticleSummary{ArticleID: articleID, CreateTime: articleCreateTime}
-	startIdx := bbs.SerializeArticleIdxStr(articleSummary)
-
-	// backend load-general-articles
-	theParams_b := &pttbbsapi.LoadGeneralArticlesParams{
-		StartIdx:  startIdx,
-		NArticles: 1,
-		Desc:      false,
-		IsSystem:  isSystem,
-	}
-	var result_b *pttbbsapi.LoadGeneralArticlesResult
-
-	urlMap := map[string]string{
-		"bid": string(boardID),
-	}
-	url := utils.MergeURL(urlMap, pttbbsapi.LOAD_GENERAL_ARTICLES_R)
-	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
-	if err != nil || statusCode != 200 {
-		return nil, statusCode, err
-	}
-	if len(result_b.Articles) == 0 {
-		return nil, 500, ErrNoArticle
-	}
-
-	article_b := result_b.Articles[0]
-	if article_b.ArticleID != articleID {
-		return nil, 500, ErrNoArticle
-	}
-
-	// update to db
-	updateNanoTS := types.NowNanoTS()
-	articleSummaries_db, _, err := deserializeArticlesAndUpdateDB(userID, boardID, result_b.Articles, updateNanoTS)
-	if err != nil {
-		return nil, 500, err
-	}
-
-	articleSummary_db := articleSummaries_db[0]
-
-	articleDetailSummary = &schema.ArticleDetailSummary{
-		BBoardID:     boardID,
-		ArticleID:    articleID,
-		CreateTime:   articleSummary_db.CreateTime,
-		MTime:        articleSummary_db.MTime,
-		Recommend:    articleSummary_db.Recommend,
-		Owner:        articleSummary_db.Owner,
-		Title:        articleSummary_db.Title,
-		Money:        articleSummary_db.Money,
-		Class:        articleSummary_db.Class,
-		Filemode:     articleSummary_db.Filemode,
-		UpdateNanoTS: articleSummary_db.UpdateNanoTS,
-	}
-
-	return articleDetailSummary, 200, nil
-}
-
-func setUserReadArticle(content [][]*types.Rune, userID bbs.UUserID, articleID bbs.ArticleID, updateNanoTS types.NanoTS) {
-	if content == nil {
-		return
-	}
-
-	// user read article
-	userReadArticle := &schema.UserReadArticle{
-		UserID:       userID,
-		ArticleID:    articleID,
-		UpdateNanoTS: updateNanoTS,
-	}
-	_ = schema.UpdateUserReadArticle(userReadArticle)
 }

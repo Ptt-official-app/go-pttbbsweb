@@ -33,6 +33,7 @@ type Article struct {
 
 	ContentMTime  types.NanoTS    `bson:"content_mtime_nano_ts"` //
 	ContentMD5    string          `bson:"content_md5"`
+	ContentID     types.ContentID `bson:"content_id"`
 	Content       [][]*types.Rune `bson:"content"`        //
 	ContentPrefix [][]*types.Rune `bson:"content_prefix"` //
 

@@ -14,6 +14,8 @@ func setupTest() {
 	types.SetIsTest("schema")
 
 	SetIsTest()
+
+	initTest11()
 }
 
 func teardownTest() {

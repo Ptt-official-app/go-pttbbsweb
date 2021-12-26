@@ -118,7 +118,6 @@ type CommentQuery struct {
 	BBoardID  bbs.BBoardID    `bson:"bid"`
 	ArticleID bbs.ArticleID   `bson:"aid"`
 	CommentID types.CommentID `bson:"cid"`
-	IsDeleted interface{}     `bson:"deleted,omitempty"`
 }
 
 var EMPTY_COMMENT_QUERY = &CommentQuery{}

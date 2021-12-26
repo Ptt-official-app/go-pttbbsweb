@@ -55,6 +55,8 @@ func testResetDB() {
 	_ = UserIDEmail_c.Drop()
 	_ = UserEmail_c.Drop()
 	_ = Rank_c.Drop()
+	_ = UserVisit_c.Drop()
+	_ = ContentBlock_c.Drop()
 
 	ctx, cancel := context.WithTimeout(context.Background(), REDIS_TIMEOUT_MILLI_TS*time.Millisecond)
 	defer func() {

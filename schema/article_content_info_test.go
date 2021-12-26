@@ -1,7 +1,7 @@
 package schema
 
 import (
-	"reflect"
+	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
@@ -12,8 +12,6 @@ import (
 func TestUpdateArticleContentInfo(t *testing.T) {
 	setupTest()
 	defer teardownTest()
-
-	defer Article_c.Drop()
 
 	contentInfo0 := &ArticleContentInfo{
 		ContentMD5:          "test1",
@@ -83,7 +81,7 @@ func TestUpdateArticleContentInfo(t *testing.T) {
 				t.Errorf("UpdateArticleContentInfo: err: %v expected: %v", err, tt.err)
 			}
 
-			contentInfo, err := GetArticleContentInfo(tt.args.bboardID, tt.args.articleID)
+			contentInfo, err := GetArticleContentInfo(tt.args.bboardID, tt.args.articleID, true)
 			if err != nil {
 				t.Errorf("UpdateArticleContentInfo: unable to get: e: %v", err)
 			}
@@ -97,7 +95,45 @@ func TestGetArticleContentInfo(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer Article_c.Drop()
+	contentBlocks := []*ContentBlock{
+		{
+			BBoardID:     "boardID0",
+			ArticleID:    "articleID0",
+			ContentID:    "ESIQ9HaNtAA:IKCj3KzpwP5pcJxOAPNDNQ",
+			Idx:          0,
+			Content:      testContent11Utf8[:50],
+			UpdateNanoTS: 1234567890000000000,
+		},
+		{
+			BBoardID:     "boardID0",
+			ArticleID:    "articleID0",
+			ContentID:    "ESIQ9HaNtAA:IKCj3KzpwP5pcJxOAPNDNQ",
+			Idx:          1,
+			Content:      testContent11Utf8[50:],
+			UpdateNanoTS: 1234567890000000000,
+		},
+	}
+
+	contentInfo := &ArticleContentInfo{
+		ContentMD5: "IKCj3KzpwP5pcJxOAPNDNQ",
+
+		ContentID:           "ESIQ9HaNtAA:IKCj3KzpwP5pcJxOAPNDNQ",
+		IP:                  "127.0.0.2",
+		Host:                "localhost3",
+		BBS:                 "ptt2",
+		ContentUpdateNanoTS: types.NanoTS(1234567890000000001),
+	}
+
+	expectedContentInfo := &ArticleContentInfo{
+		ContentMD5: "IKCj3KzpwP5pcJxOAPNDNQ",
+
+		Content:             testContent11Utf8,
+		ContentID:           "ESIQ9HaNtAA:IKCj3KzpwP5pcJxOAPNDNQ",
+		IP:                  "127.0.0.2",
+		Host:                "localhost3",
+		BBS:                 "ptt2",
+		ContentUpdateNanoTS: types.NanoTS(1234567890000000001),
+	}
 
 	type args struct {
 		bboardID  bbs.BBoardID
@@ -105,6 +141,8 @@ func TestGetArticleContentInfo(t *testing.T) {
 	}
 	tests := []struct {
 		name                string
+		contentInfo         *ArticleContentInfo
+		contentBlocks       []*ContentBlock
 		args                args
 		expectedContentInfo *ArticleContentInfo
 		wantErr             bool
@@ -113,17 +151,33 @@ func TestGetArticleContentInfo(t *testing.T) {
 		{
 			args: args{bboardID: bbs.BBoardID("test-non-exists"), articleID: bbs.ArticleID("test-article0")},
 		},
+		{
+			name:                "with content-blocks",
+			contentInfo:         contentInfo,
+			contentBlocks:       contentBlocks,
+			args:                args{bboardID: bbs.BBoardID("boardID0"), articleID: bbs.ArticleID("articleID0")},
+			expectedContentInfo: expectedContentInfo,
+		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
-			gotContentInfo, err := GetArticleContentInfo(tt.args.bboardID, tt.args.articleID)
+			defer wg.Done()
+			if tt.contentInfo != nil {
+				_ = UpdateArticleContentInfo(tt.args.bboardID, tt.args.articleID, tt.contentInfo)
+			}
+			if tt.contentBlocks != nil {
+				_ = UpdateContentBlocks(tt.contentBlocks, 1234567890000000000)
+			}
+
+			gotContentInfo, err := GetArticleContentInfo(tt.args.bboardID, tt.args.articleID, true)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetArticleContentInfo() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(gotContentInfo, tt.expectedContentInfo) {
-				t.Errorf("GetArticleContentInfo() = %v, want %v", gotContentInfo, tt.expectedContentInfo)
-			}
+			testutil.TDeepEqual(t, "got", gotContentInfo, tt.expectedContentInfo)
 		})
+		wg.Wait()
 	}
 }

@@ -46,7 +46,7 @@ func DeleteComments(remoteAddr string, userID bbs.UUserID, params interface{}, p
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
-	oldContent, oldContentPrefix, oldSignatureDBCS, articleDetailSummary_db, oldSZ, oldsum, statusCode, err := editArticleGetArticleContentInfo(userID, boardID, articleID, c)
+	oldContent, oldContentPrefix, oldSignatureDBCS, articleDetailSummary_db, oldSZ, oldsum, statusCode, err := editArticleGetArticleContentInfo(userID, boardID, articleID, c, true)
 	if err != nil {
 		return nil, statusCode, err
 	}

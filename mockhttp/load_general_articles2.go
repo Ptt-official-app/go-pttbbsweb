@@ -51,6 +51,24 @@ func LoadGeneralArticles2(params *api.LoadGeneralArticlesParams) (ret *api.LoadG
 			Idx:        "1234567890@1VtWRel9",
 			RealTitle:  []byte{0xb5, 0x4d, 0xab, 0xe1, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3},
 		}
+	} else if params.StartIdx == "1607202240@1Vo_N0CD" {
+		articleSummary = &bbs.ArticleSummary{
+			BBoardID:   bbs.BBoardID("10_WhoAmI"),
+			ArticleID:  bbs.ArticleID("1Vo_N0CD"),
+			IsDeleted:  false,
+			Filename:   "M.1607202240.A.30D",
+			CreateTime: types.Time4(1608386280),
+			MTime:      types.Time4(1608386280),
+			Recommend:  8,
+			Owner:      bbs.UUserID("SYSOP"),
+			Class:      []byte{0xb0, 0xdd, 0xc3, 0x44},
+			FullTitle:  []byte{0x5b, 0xb0, 0xdd, 0xc3, 0x44, 0x5d, 0xb5, 0x4d, 0xab, 0xe1, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3}, //[問題]然後呢？～
+			Money:      3,
+			Filemode:   0,
+			Read:       false,
+			Idx:        "11607202240@1Vo_N0CD",
+			RealTitle:  []byte{0xb5, 0x4d, 0xab, 0xe1, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3},
+		}
 	}
 	ret = &api.LoadGeneralArticlesResult{
 		Articles: []*bbs.ArticleSummary{

@@ -51,10 +51,10 @@ func TestGetArticleDetail(t *testing.T) {
 	}
 
 	expectedArticleDetailSummary0 := &schema.ArticleDetailSummary{
-		BBoardID:              bbs.BBoardID("10_WhoAmI"),
-		ArticleID:             bbs.ArticleID("1VtWRel9"),
-		ContentMD5:            "L6QISYJFt-Y5g4Thl-roaw",
-		ContentMTime:          types.NanoTS(1608386280000000000),
+		BBoardID:   bbs.BBoardID("10_WhoAmI"),
+		ArticleID:  bbs.ArticleID("1VtWRel9"),
+		ContentMD5: "L6QISYJFt-Y5g4Thl-roaw",
+		// ContentMTime:          types.NanoTS(1608386280000000000),
 		FirstCommentsLastTime: types.NanoTS(0),
 
 		CreateTime: types.NanoTS(1608386280000000000),
@@ -64,13 +64,16 @@ func TestGetArticleDetail(t *testing.T) {
 		Title:      "然後呢？～",
 		Money:      3,
 		Class:      "問題",
+
+		IP:  "172.22.0.1",
+		BBS: "批踢踢 docker(pttdocker.test)",
 	}
 
 	expectedArticleDetailSummary02 := &schema.ArticleDetailSummary{
-		BBoardID:              bbs.BBoardID("10_WhoAmI"),
-		ArticleID:             bbs.ArticleID("1VtWRel9"),
-		ContentMD5:            "L6QISYJFt-Y5g4Thl-roaw",
-		ContentMTime:          types.NanoTS(1608386300000000000),
+		BBoardID:   bbs.BBoardID("10_WhoAmI"),
+		ArticleID:  bbs.ArticleID("1VtWRel9"),
+		ContentMD5: "L6QISYJFt-Y5g4Thl-roaw",
+		// ContentMTime:          types.NanoTS(1608386300000000000),
 		FirstCommentsLastTime: types.NanoTS(0),
 
 		CreateTime: types.NanoTS(1608386280000000000),
@@ -80,6 +83,9 @@ func TestGetArticleDetail(t *testing.T) {
 		Title:      "然後呢？～",
 		Money:      3,
 		Class:      "問題",
+
+		IP:  "172.22.0.1",
+		BBS: "批踢踢 docker(pttdocker.test)",
 	}
 
 	path1 := &GetArticleDetailPath{
@@ -105,17 +111,16 @@ func TestGetArticleDetail(t *testing.T) {
 		Content:       testContent4Utf8[4:],
 		ContentPrefix: testContent4Utf8[:4],
 		IP:            "172.22.0.1",
-		Host:          "",
 		BBS:           "批踢踢 docker(pttdocker.test)",
 		NComments:     3,
 	}
 
 	expectedArticleDetailSummary1 := &schema.ArticleDetailSummary{
-		BBoardID:     bbs.BBoardID("10_WhoAmI"),
-		ArticleID:    bbs.ArticleID("1VrooM21"),
-		ContentMTime: types.NanoTS(1608388624000000000),
-		ContentMD5:   "riiRuKCZzG0gAGpQiq4GJA",
-		Owner:        "SYSOP",
+		BBoardID:  bbs.BBoardID("10_WhoAmI"),
+		ArticleID: bbs.ArticleID("1VrooM21"),
+		// ContentMTime: types.NanoTS(1608388624000000000),
+		ContentMD5: "riiRuKCZzG0gAGpQiq4GJA",
+		Owner:      "SYSOP",
 
 		FirstCommentsMD5: "3fjMk__1yvzpuEgq8jfdmg",
 		NComments:        0,
@@ -127,6 +132,9 @@ func TestGetArticleDetail(t *testing.T) {
 		Money:     12,
 		Recommend: 3,
 		Class:     "問題",
+
+		IP:  "172.22.0.1",
+		BBS: "批踢踢 docker(pttdocker.test)",
 	}
 	c := &gin.Context{}
 	// c.Request = &http.Request{URL: &url.URL{Path: "/api/boards/WhoAmI/article/M.1607937174.A.081"}}
@@ -286,6 +294,8 @@ func TestGetArticleDetail(t *testing.T) {
 				gotArticleDetailSummary.UpdateNanoTS = 0
 			}
 
+			gotArticleDetailSummary.ContentID = ""
+			gotArticleDetailSummary.ContentMTime = 0
 			testutil.TDeepEqual(t, "article-detail-summary", gotArticleDetailSummary, tt.expectedArticleDetailSummary)
 		})
 		wg.Wait()

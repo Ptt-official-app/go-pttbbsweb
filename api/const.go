@@ -7,9 +7,10 @@ import (
 )
 
 const (
-	DEFAULT_MAX_LIST   = 200
-	DEFAULT_DESCENDING = true
-	DEFAULT_ASCENDING  = true
+	DEFAULT_MAX_ARTICLE_BLOCK_LIST = 1
+	DEFAULT_MAX_LIST               = 200
+	DEFAULT_DESCENDING             = true
+	DEFAULT_ASCENDING              = true
 
 	ARTICLE_LOCK_TS          = 10
 	ARTICLE_LOCK_TS_DURATION = time.Duration(ARTICLE_LOCK_TS) * time.Second
