@@ -71,7 +71,7 @@ You can do the following to start with docker-compose:
 * register at `http://localhost:3457/account/register`
 * login at `http://localhost:3457/account/login`
 * `telnet localhost 8888` and use the account that you registered.
-*  register SYSOP and guest.
+* register SYSOP and guest.
 
 您可以使用以下方式來使用 docker-compose:
 
