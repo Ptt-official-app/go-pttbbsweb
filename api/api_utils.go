@@ -149,3 +149,11 @@ func setCookie(c *gin.Context, name string, value string, expireDuration time.Du
 	setCookie += "SameSite=Lax;" + types.TOKEN_COOKIE_SUFFIX
 	c.Header("Set-Cookie", setCookie)
 }
+
+func removeCookie(c *gin.Context, name string, isHTTPOnly bool) {
+	setCookie := name + "=" + ";Domain=" + types.COOKIE_DOMAIN + ";Path=/;"
+	if isHTTPOnly {
+		setCookie += "HttpOnly;"
+	}
+	c.Header("Set-Cookie", setCookie)
+}
