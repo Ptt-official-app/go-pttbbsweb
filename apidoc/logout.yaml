@@ -1,0 +1,8 @@
+Logout
+---
+tags:
+  - user
+
+responses:
+  303:
+    description: redirect to /

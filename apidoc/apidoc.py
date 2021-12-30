@@ -44,6 +44,15 @@ def _login():
     return ''
 
 
+@app.route(_with_app_prefix('/account/logout'), methods=['POST'])
+def _logout():
+    """
+    swagger_from_file: apidoc/logout.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/account/register'), methods=['POST'])
 def _register_user():
     """
