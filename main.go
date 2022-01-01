@@ -172,13 +172,13 @@ func main() {
 	}
 
 	// retry load general boards
-	go cron.RetryLoadGeneralBoards()
+	go cron.RetryLoadGeneralBoards(ctx)
 
 	// retry load full class boards
-	go cron.RetryLoadFullClassBoards()
+	go cron.RetryLoadFullClassBoards(ctx)
 
 	// retry to calculate user visit count
-	go cron.RetryCalculateUserVisit()
+	go cron.RetryCalculateUserVisit(ctx)
 	s := &http.Server{
 		Addr:    types.HTTP_HOST,
 		Handler: router,
