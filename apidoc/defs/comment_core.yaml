@@ -3,7 +3,7 @@ type:
   description: <a href="https://github.com/Ptt-official-app/go-pttbbs/blob/main/ptttype/comment_type.go">推文種類</a>
 refid:
   type: string
-  description: 發推文的 user
+  description: 相對應的文章(轉錄) 或 comment (reply)
 deleted:
   type: boolean
   description: is deleted
@@ -16,6 +16,9 @@ create_time:
 sort_time:
   type: number
   description: 排序時間
+owner:
+  type: string
+  description: 發推文的 user
 content:
   '$ref': '#/definitions/Content'
 ip:
