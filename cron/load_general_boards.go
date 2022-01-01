@@ -1,6 +1,7 @@
 package cron
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -12,12 +13,17 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func RetryLoadGeneralBoards() {
+func RetryLoadGeneralBoards(ctx context.Context) {
 	for {
-		logrus.Infof("RetryLoadGeneralBoards: to LoadGeneralBoards")
-		_ = LoadGeneralBoards()
-		logrus.Infof("RetryLoadGeneralBoards: to sleep 1 min")
-		time.Sleep(1 * time.Minute)
+		select {
+		case <-ctx.Done():
+			return
+		default:
+			logrus.Infof("RetryLoadGeneralBoards: to LoadGeneralBoards")
+			_ = LoadGeneralBoards()
+			logrus.Infof("RetryLoadGeneralBoards: to sleep 1 min")
+			time.Sleep(1 * time.Minute)
+		}
 	}
 }
 

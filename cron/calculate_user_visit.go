@@ -1,6 +1,7 @@
 package cron
 
 import (
+	"context"
 	"time"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -9,12 +10,17 @@ import (
 )
 
 // RetryCalculateUserVisit make loop job to call CalculateUserVisit per 10 mins
-func RetryCalculateUserVisit() {
+func RetryCalculateUserVisit(ctx context.Context) {
 	for {
-		logrus.Infof("RetryCalculateUserVisit: to calculate user visit")
-		CalculateUserVisit()
-		logrus.Infof("RetryCalculateUserVisit: to sleep 10 mins")
-		time.Sleep(10 * time.Minute)
+		select {
+		case <-ctx.Done():
+			return
+		default:
+			logrus.Infof("RetryCalculateUserVisit: to calculate user visit")
+			CalculateUserVisit()
+			logrus.Infof("RetryCalculateUserVisit: to sleep 10 mins")
+			time.Sleep(10 * time.Minute)
+		}
 	}
 }
 

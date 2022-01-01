@@ -1,6 +1,7 @@
 package cron
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -13,12 +14,17 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func RetryLoadFullClassBoards() {
+func RetryLoadFullClassBoards(ctx context.Context) {
 	for {
-		logrus.Infof("RetryLoadFullClassBoards: to LoadFullClassBoards")
-		_ = LoadFullClassBoards()
-		logrus.Infof("RetryLoadFullClassBoards: to sleep 1 hr")
-		time.Sleep(1 * time.Hour)
+		select {
+		case <-ctx.Done():
+			return
+		default:
+			logrus.Infof("RetryLoadFullClassBoards: to LoadFullClassBoards")
+			_ = LoadFullClassBoards()
+			logrus.Infof("RetryLoadFullClassBoards: to sleep 1 hr")
+			time.Sleep(1 * time.Hour)
+		}
 	}
 }
 
