@@ -3,41 +3,21 @@ package main
 import (
 	"context"
 	"net/http"
-	"os"
-	"os/signal"
 	"path/filepath"
-	"syscall"
 	"time"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/cron"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+
+	"github.com/appleboy/graceful"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-	"golang.org/x/sync/errgroup"
 )
 
 func withPrefix(path string) string {
 	return types.API_PREFIX + path
-}
-
-func withContextFunc(ctx context.Context, f func()) context.Context {
-	ctx, cancel := context.WithCancel(ctx)
-	go func() {
-		c := make(chan os.Signal, 1)
-		signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
-		defer signal.Stop(c)
-
-		select {
-		case <-ctx.Done():
-		case <-c:
-			cancel()
-			f()
-		}
-	}()
-
-	return ctx
 }
 
 func initGin() (*gin.Engine, error) {
@@ -149,66 +129,48 @@ func main() {
 		return
 	}
 
-	finished := make(chan struct{})
-
 	if err := queue.Start(); err != nil {
 		log.Fatal(err)
 	}
 
-	// ctrl + c
-	ctx := withContextFunc(
-		context.Background(),
-		func() {
-			// handle graceful shutdown
-			log.Info("interrupt received, terminating process")
-			queue.Close()
-			close(finished)
-		},
-	)
-
-	router, err := initGin()
+	r, err := initGin()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// retry load general boards
-	go cron.RetryLoadGeneralBoards(ctx)
-
-	// retry load full class boards
-	go cron.RetryLoadFullClassBoards(ctx)
-
-	// retry to calculate user visit count
-	go cron.RetryCalculateUserVisit(ctx)
 	s := &http.Server{
 		Addr:    types.HTTP_HOST,
-		Handler: router,
+		Handler: r,
 	}
 
-	var g errgroup.Group
+	g := graceful.NewManager()
+	g.AddShutdownJob(func() error {
+		queue.Close()
+		return nil
+	})
 
-	// graceful shutdown
-	g.Go(func() error {
+	// retry load general boards
+	g.AddRunningJob(cron.RetryLoadGeneralBoards)
+
+	// retry load full class boards
+	g.AddRunningJob(cron.RetryLoadFullClassBoards)
+
+	// retry to calculate user visit count
+	g.AddRunningJob(cron.RetryCalculateUserVisit)
+
+	g.AddRunningJob(func(ctx context.Context) error {
 		<-ctx.Done()
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
 		return s.Shutdown(ctx)
 	})
 
-	// start the server
-	g.Go(func() error {
+	g.AddRunningJob(func(ctx context.Context) error {
 		if err := s.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			return err
 		}
 		return nil
 	})
 
-	// wait all job are complete.
-	g.Go(func() error {
-		<-finished
-		return nil
-	})
-
-	if err := g.Wait(); err != nil {
-		log.Fatal(err)
-	}
+	<-g.Done()
 }

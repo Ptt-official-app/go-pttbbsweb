@@ -14,16 +14,21 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func RetryLoadFullClassBoards(ctx context.Context) {
+func RetryLoadFullClassBoards(ctx context.Context) error {
 	for {
 		select {
 		case <-ctx.Done():
-			return
+			return nil
 		default:
 			logrus.Infof("RetryLoadFullClassBoards: to LoadFullClassBoards")
 			_ = LoadFullClassBoards()
-			logrus.Infof("RetryLoadFullClassBoards: to sleep 1 hr")
-			time.Sleep(1 * time.Hour)
+			select {
+			case <-ctx.Done():
+				return nil
+			default:
+				logrus.Infof("RetryLoadFullClassBoards: to sleep 1 hr")
+				time.Sleep(1 * time.Hour)
+			}
 		}
 	}
 }

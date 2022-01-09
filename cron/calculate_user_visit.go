@@ -10,16 +10,21 @@ import (
 )
 
 // RetryCalculateUserVisit make loop job to call CalculateUserVisit per 10 mins
-func RetryCalculateUserVisit(ctx context.Context) {
+func RetryCalculateUserVisit(ctx context.Context) error {
 	for {
 		select {
 		case <-ctx.Done():
-			return
+			return nil
 		default:
 			logrus.Infof("RetryCalculateUserVisit: to calculate user visit")
 			CalculateUserVisit()
-			logrus.Infof("RetryCalculateUserVisit: to sleep 10 mins")
-			time.Sleep(10 * time.Minute)
+			select {
+			case <-ctx.Done():
+				return nil
+			default:
+				logrus.Infof("RetryCalculateUserVisit: to sleep 10 mins")
+				time.Sleep(10 * time.Minute)
+			}
 		}
 	}
 }
