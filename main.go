@@ -116,6 +116,8 @@ func initGin() (*gin.Engine, error) {
 	router.GET(api.USER_ATTEMPT_SET_ID_EMAIL_HTML_R, api.UserAttemptSetIDEmailHTMLWrapper)
 	router.GET(api.USER_SET_ID_EMAIL_HTML_R, api.UserSetIDEmailHTMLWrapper)
 
+	router.GET(api.CLS_BOARDS_HTML_R, api.AllHTMLWrapper)
+
 	router.GET(api.BOARDS_FAVORITES_HTML_R, api.AllHTMLWrapper)
 	router.GET(api.BOARDS_POPULAR_HTML_R, api.AllHTMLWrapper)
 	router.GET(api.BOARDS_HTML_R, api.AllHTMLWrapper)

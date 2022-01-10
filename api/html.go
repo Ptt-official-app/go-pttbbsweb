@@ -23,6 +23,8 @@ func IndexHTMLWrapper(c *gin.Context) {
 	processCSRFContent(filename, maxAge, c)
 }
 
+const CLS_BOARDS_HTML_R = "/cls/:cls_id"
+
 const BOARDS_HTML_R = "/boards"
 
 const BOARDS_POPULAR_HTML_R = "/boards/popular"
