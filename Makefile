@@ -3,7 +3,7 @@ GOFMT ?= gofumpt -l -s
 GO ?= go
 BUILD_DATE ?= $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 GOFILES := $(shell find . -name "*.go")
-TAGS ?= ""
+TAGS ?=
 GOPATH ?= $(shell $(GO) env GOPATH)
 
 ifneq ($(shell uname), Darwin)
