@@ -1,0 +1,3 @@
+[submodule "pttbbs"]
+	path = pttbbs
+	url = https://github.com/ptt/pttbbs.git

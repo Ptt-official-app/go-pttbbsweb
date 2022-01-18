@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http/httptest"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -29,6 +30,8 @@ func setupTest() {
 
 	queue.SetIsTest()
 
+	boardd.SetIsTest()
+
 	SetIsTest()
 
 	initTest()
@@ -48,6 +51,8 @@ func teardownTest() {
 	defer schema.UnsetIsTest()
 
 	defer queue.UnsetIsTest()
+
+	defer boardd.UnsetIsTest()
 
 	defer UnsetIsTest()
 }

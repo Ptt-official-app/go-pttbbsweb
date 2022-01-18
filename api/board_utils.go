@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
@@ -85,6 +86,51 @@ func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.Bo
 	return boardSummaries, userBoardInfoMap, err
 }
 
+// DeserializePBBoardsAndUpdateDB
+func DeserializePBBoardsAndUpdateDB(boardSummaries_b []*boardd.Board, updateNanoTS types.NanoTS) (boardSummaries []*schema.BoardSummary, err error) {
+	boardSummaries = make([]*schema.BoardSummary, 0, len(boardSummaries_b))
+	for _, each_b := range boardSummaries_b {
+		each := schema.NewBoardSummaryFromPBBoard(each_b, updateNanoTS)
+
+		boardSummaries = append(boardSummaries, each)
+	}
+	if len(boardSummaries) == 0 {
+		return nil, nil
+	}
+
+	err = schema.UpdateBoardSummaries(boardSummaries, updateNanoTS)
+	if err != nil {
+		return nil, err
+	}
+
+	return boardSummaries, nil
+}
+
+func deserializePBBoardsAndUpdateDB(boardSummaries_b []*boardd.Board, updateNanoTS types.NanoTS) (boardSummaries []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, err error) {
+	if len(boardSummaries_b) == 0 {
+		return nil, nil, nil
+	}
+
+	boardSummaries, err = DeserializePBBoardsAndUpdateDB(boardSummaries_b, updateNanoTS)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	// fav or folder
+	userBoardInfoMap = make(map[bbs.BBoardID]*apitypes.UserBoardInfo)
+	for _, each := range boardSummaries {
+		brdStat := ptttype.NBRD_BOARD
+		if each.BrdAttr.HasPerm(ptttype.BRD_GROUPBOARD) {
+			brdStat = ptttype.NBRD_FOLDER
+		}
+		userBoardInfoMap[each.BBoardID] = &apitypes.UserBoardInfo{
+			Stat: brdStat,
+		}
+	}
+
+	return boardSummaries, userBoardInfoMap, err
+}
+
 func isBoardValidUser(boardID bbs.BBoardID, c *gin.Context) (isValid bool, statusCode int, err error) {
 	var result_b *pttbbsapi.IsBoardValidUserResult
 
@@ -160,4 +206,67 @@ func getBoardSummaryMapFromBids(userID bbs.UUserID, bids []ptttype.Bid, c *gin.C
 	}
 
 	return boardSummaryMap_db, userBoardInfoMap, 200, nil
+}
+
+// https://github.com/ptt/pttbbs/blob/master/mbbsd/board.c#L953
+func checkUserReadBoard(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, theList []*schema.BoardSummary) (newUserBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, err error) {
+	checkBBoardIDMap := make(map[bbs.BBoardID]int)
+	queryBBoardIDs := make([]bbs.BBoardID, 0, len(theList))
+	for idx, each := range theList {
+		if each == nil {
+			continue
+		}
+
+		eachBoardInfo, ok := userBoardInfoMap[each.BBoardID]
+		if (eachBoardInfo.Stat&ptttype.NBRD_LINE != 0) || (eachBoardInfo.Stat&ptttype.NBRD_FOLDER != 0) {
+			continue
+		}
+
+		if ok && eachBoardInfo.Read {
+			continue
+		}
+
+		if each.BrdAttr&(ptttype.BRD_GROUPBOARD|ptttype.BRD_SYMBOLIC) != 0 {
+			continue
+		}
+
+		if each.Total == 0 {
+			continue
+		}
+
+		// check with read-time
+		checkBBoardIDMap[each.BBoardID] = idx
+		queryBBoardIDs = append(queryBBoardIDs, each.BBoardID)
+	}
+
+	dbResults, err := schema.FindUserReadBoards(userID, queryBBoardIDs)
+	if err != nil {
+		return nil, err
+	}
+
+	// setup read in the list
+	// no need to update db, because we don't read the newest yet.
+	// the Read flag is set based on the existing db.UpdateNanoTS
+	for _, each := range dbResults {
+		eachBoardID := each.BBoardID
+		eachReadNanoTS := each.UpdateNanoTS
+
+		eachBoardInfo, ok := userBoardInfoMap[eachBoardID]
+		if !ok {
+			continue
+		}
+
+		listIdx, ok := checkBBoardIDMap[eachBoardID]
+		if !ok {
+			continue
+		}
+
+		eachInTheList := theList[listIdx]
+		eachLastPostNanoTS := eachInTheList.LastPostTime
+
+		isRead := eachReadNanoTS > eachLastPostNanoTS
+		eachBoardInfo.Read = isRead
+	}
+
+	return userBoardInfoMap, nil
 }
