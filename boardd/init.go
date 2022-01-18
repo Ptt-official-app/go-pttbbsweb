@@ -19,7 +19,7 @@ func Init(isLocked bool) (err error) {
 		mockConn := NewMockClientConn()
 		Cli = NewBoardServiceClient(mockConn)
 	} else {
-		conn, err = grpc.Dial("localhost:5150", grpc.WithTransportCredentials(insecure.NewCredentials()))
+		conn, err = grpc.Dial(GRPC_HOST, grpc.WithTransportCredentials(insecure.NewCredentials()))
 		if err != nil {
 			return err
 		}
