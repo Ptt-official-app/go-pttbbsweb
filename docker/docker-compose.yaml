@@ -30,7 +30,7 @@ services:
       - ${POSTFIX_MASTER_CF}:/etc/postfix/master.cf
     restart: always
   openbbs-middleware:
-    image: pttofficialapps/go-openbbsmiddleware:v0.25.1
+    image: pttofficialapps/go-openbbsmiddleware:v0.25.2
     ports:
       - "127.0.0.1:3457:3457"
     volumes:
