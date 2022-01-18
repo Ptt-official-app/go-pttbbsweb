@@ -98,5 +98,10 @@ func initMain() error {
 		return err
 	}
 
+	err = boardd.Init(false)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
