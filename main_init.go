@@ -4,6 +4,7 @@ import (
 	"flag"
 	"strings"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -66,6 +67,11 @@ func initAllConfig(filename string) error {
 	}
 
 	err = queue.InitConfig()
+	if err != nil {
+		return err
+	}
+
+	err = boardd.InitConfig()
 	if err != nil {
 		return err
 	}

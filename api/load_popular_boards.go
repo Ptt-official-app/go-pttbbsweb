@@ -1,11 +1,12 @@
 package api
 
 import (
+	"context"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
-	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
@@ -22,17 +23,16 @@ func LoadPopularBoardsWrapper(c *gin.Context) {
 
 func LoadPopularBoards(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	// get data
-	var result_b *pttbbsapi.LoadHotBoardsResult
-
-	url := pttbbsapi.LOAD_HOT_BOARDS_R
-	statusCode, err = utils.BackendGet(c, url, nil, nil, &result_b)
-	if err != nil || statusCode != 200 {
-		return nil, statusCode, err
+	ctx := context.Background()
+	req := &boardd.HotboardRequest{}
+	resp, err := boardd.Cli.Hotboard(ctx, req)
+	if err != nil {
+		return nil, 500, err
 	}
 
 	// update to db
 	updateNanoTS := types.NowNanoTS()
-	boardSummaries_db, userBoardInfoMap, err := deserializeBoardsAndUpdateDB(userID, result_b.Boards, updateNanoTS)
+	boardSummaries_db, userBoardInfoMap, err := deserializePBBoardsAndUpdateDB(resp.Boards, updateNanoTS)
 	if err != nil {
 		return nil, 500, err
 	}

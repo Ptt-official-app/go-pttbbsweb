@@ -1,6 +1,9 @@
 package schema
 
 import (
+	"strings"
+
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -58,6 +61,52 @@ func NewBoardSummary(b_b *bbs.BoardSummary, updateNanoTS types.NanoTS) *BoardSum
 		Bid:        b_b.Bid,
 		IdxByName:  b_b.IdxByName,
 		IdxByClass: b_b.IdxByClass,
+	}
+}
+
+func NewBoardSummaryFromPBBoard(b_b *boardd.Board, updateNanoTS types.NanoTS) *BoardSummary {
+	rawModerators := strings.Split(b_b.RawModerators, "/")
+	bms := make([]bbs.UUserID, 0, len(rawModerators))
+	for _, each := range rawModerators {
+		each = strings.TrimSpace(each)
+		if each == "" {
+			continue
+		}
+		bms = append(bms, bbs.UUserID(each))
+	}
+
+	idxByName := bbs.SerializeBoardIdxByNameStr(b_b.Name)
+	clsBig5 := types.Utf8ToBig5(b_b.Bclass)
+	idxByClass := bbs.SerializeBoardIdxByClassStr(clsBig5, idxByName)
+
+	boardIDRaw := &ptttype.BoardID_t{}
+	copy(boardIDRaw[:], []byte(b_b.Name))
+	bboardID := bbs.ToBBoardID(ptttype.Bid(b_b.Bid), boardIDRaw)
+
+	brdAttr := ptttype.BrdAttr(b_b.Attributes)
+	boardType := "◎"
+	if brdAttr.HasPerm(ptttype.BRD_GROUPBOARD) {
+		boardType = "Σ"
+	}
+
+	return &BoardSummary{
+		BBoardID: bboardID,
+		Brdname:  b_b.Name,
+		Title:    b_b.Title,
+		BrdAttr:  ptttype.BrdAttr(b_b.Attributes),
+		Category: b_b.Bclass,
+		BMs:      bms,
+		Total:    int(b_b.NumPosts),
+		NUser:    int(b_b.NumUsers),
+
+		UpdateNanoTS: updateNanoTS,
+
+		Gid:        ptttype.Bid(b_b.Parent),
+		Bid:        ptttype.Bid(b_b.Bid),
+		IdxByName:  idxByName,
+		IdxByClass: idxByClass,
+
+		BoardType: boardType,
 	}
 }
 

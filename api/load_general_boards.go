@@ -7,7 +7,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
 )
 
@@ -83,69 +82,6 @@ func postLoadBoards(userID bbs.UUserID, result_b *pttbbsapi.LoadGeneralBoardsRes
 	r := NewLoadGeneralBoardsResult(boardSummaries_db, userBoardInfoMap, result_b.NextIdx, url)
 
 	return r, 200, nil
-}
-
-// https://github.com/ptt/pttbbs/blob/master/mbbsd/board.c#L953
-func checkUserReadBoard(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, theList []*schema.BoardSummary) (newUserBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, err error) {
-	checkBBoardIDMap := make(map[bbs.BBoardID]int)
-	queryBBoardIDs := make([]bbs.BBoardID, 0, len(theList))
-	for idx, each := range theList {
-		if each == nil {
-			continue
-		}
-
-		eachBoardInfo, ok := userBoardInfoMap[each.BBoardID]
-		if (eachBoardInfo.Stat&ptttype.NBRD_LINE != 0) || (eachBoardInfo.Stat&ptttype.NBRD_FOLDER != 0) {
-			continue
-		}
-
-		if ok && eachBoardInfo.Read {
-			continue
-		}
-
-		if each.BrdAttr&(ptttype.BRD_GROUPBOARD|ptttype.BRD_SYMBOLIC) != 0 {
-			continue
-		}
-
-		if each.Total == 0 {
-			continue
-		}
-
-		// check with read-time
-		checkBBoardIDMap[each.BBoardID] = idx
-		queryBBoardIDs = append(queryBBoardIDs, each.BBoardID)
-	}
-
-	dbResults, err := schema.FindUserReadBoards(userID, queryBBoardIDs)
-	if err != nil {
-		return nil, err
-	}
-
-	// setup read in the list
-	// no need to update db, because we don't read the newest yet.
-	// the Read flag is set based on the existing db.UpdateNanoTS
-	for _, each := range dbResults {
-		eachBoardID := each.BBoardID
-		eachReadNanoTS := each.UpdateNanoTS
-
-		eachBoardInfo, ok := userBoardInfoMap[eachBoardID]
-		if !ok {
-			continue
-		}
-
-		listIdx, ok := checkBBoardIDMap[eachBoardID]
-		if !ok {
-			continue
-		}
-
-		eachInTheList := theList[listIdx]
-		eachLastPostNanoTS := eachInTheList.LastPostTime
-
-		isRead := eachReadNanoTS > eachLastPostNanoTS
-		eachBoardInfo.Read = isRead
-	}
-
-	return userBoardInfoMap, nil
 }
 
 func NewLoadGeneralBoardsResult(boardSummaries_db []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, nextIdx string, url string) *LoadGeneralBoardsResult {
