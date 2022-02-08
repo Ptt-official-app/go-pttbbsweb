@@ -6,6 +6,7 @@ import (
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/dbcs"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
@@ -72,6 +73,11 @@ func initAllConfig(filename string) error {
 	}
 
 	err = boardd.InitConfig()
+	if err != nil {
+		return err
+	}
+
+	err = dbcs.InitConfig()
 	if err != nil {
 		return err
 	}

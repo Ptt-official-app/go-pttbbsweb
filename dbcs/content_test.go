@@ -280,6 +280,19 @@ func TestParseContent(t *testing.T) {
 			expectedSignatureDBCS: testSignature19,
 			expectedSignatureMD5:  "pb5CrQyA7VIojpebuMeSFg",
 		},
+		{
+			name:                  "20_" + testFilename20,
+			args:                  args{content: testContentAll20},
+			expectedCommentsDBCS:  testComment20,
+			expectedContent:       testContent20Utf8[4:],
+			expectedContentPrefix: testContent20Utf8[:4],
+			expectedContentMD5:    "I9JnkkDkbah8LQkK-1tRJg",
+			expectedIp:            "101.12.88.158",
+			expectedHost:          "臺灣",
+			expectedBbs:           "批踢踢實業坊(ptt.cc)",
+			expectedSignatureDBCS: testSignature20,
+			expectedSignatureMD5:  "xPzHbdq9WmLIs6j7JxPaeg",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
