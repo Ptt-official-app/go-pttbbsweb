@@ -15,6 +15,8 @@ go implementation of [openbbs-middleware](https://hackmd.io/@twbbs/Root#%E6%9E%B
 
 ## Getting Started
 
+You can try the [1-script setup by @tingyuchang](https://github.com/tingyuchang/demo-bbs-docker)
+
 You can start with the [swagger api](https://api.devptt.site:5000)
 and try the api.
 
@@ -30,6 +32,8 @@ Please setup the following config in pttbbs.conf to use the test data:
 MAX_USERS = 200000 /* 最高註冊人數 */
 MAX_BOARD = 8192 /* 最大開板個數 */
 ```
+
+您可以試著使用 [@tingyuchang 所開發的 1-script setup](https://github.com/tingyuchang/demo-bbs-docker)
 
 您可以到 [swagger api](https://api.devptt.site:5000/)
 並且試著使用 api.

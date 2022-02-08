@@ -33,7 +33,7 @@ var (
 
 	CSRF_SECRET            = []byte("test_csrf_secret")
 	CSRF_TOKEN             = "csrftoken"
-	CSRF_TOKEN_TS          = 0
+	CSRF_TOKEN_TS          = 3600 // csrf-token expires in 1 hour.
 	CSRF_TOKEN_TS_DURATION = time.Duration(CSRF_TOKEN_TS) * time.Second
 
 	ACCESS_TOKEN_NAME               = "token" // access-token-name in cookie
