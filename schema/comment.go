@@ -7,7 +7,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
-	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -255,10 +254,8 @@ func updateCommentsCore(comments []*Comment, updateNanoTS types.NanoTS) (err err
 			Filter: filter,
 			Update: each,
 		}
-		logrus.Infof("updateCommentsCore: (%v/%v) to BulkCreateOnly: each: %v", idx, len(comments), each)
 	}
 	r, err := Comment_c.BulkCreateOnly(theList)
-	logrus.Infof("updateCommentsCore: after BulkCreateOnly: r: %v e: %v", r, err)
 	if err != nil {
 		return err
 	}

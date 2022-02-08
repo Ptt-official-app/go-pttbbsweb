@@ -234,6 +234,15 @@ func TestParseComments(t *testing.T) {
 			},
 			expectedComments: testFirstComments19,
 		},
+		{
+			name: "20_" + testFilename20,
+			args: args{
+				ownerID:         "testOwner",
+				commentsDBCS:    testFirstCommentsDBCS20,
+				allCommentsDBCS: testComment20,
+			},
+			expectedComments: testFirstComments20,
+		},
 	}
 	var wg sync.WaitGroup
 	for _, tt := range tests {

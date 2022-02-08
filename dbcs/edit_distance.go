@@ -399,9 +399,9 @@ func (ed *EDBlock) AlignEndNanoTS() {
 }
 
 // ForwardInferTS
-func (ed *EDBlock) ForwardInferTS(startNanoTS types.NanoTS) (nextIdx int) {
+func (ed *EDBlock) ForwardInferTS(articleCreateTime types.NanoTS) (nextIdx int) {
 	newComments := ed.NewComments
-	currentNanoTS := ed.StartNanoTS
+	preNanoTS := ed.StartNanoTS
 	nextIdx = len(newComments)
 	var preComment *schema.Comment
 
@@ -409,55 +409,66 @@ func (ed *EDBlock) ForwardInferTS(startNanoTS types.NanoTS) (nextIdx int) {
 
 		newComment := each.NewComment
 
+		// 1. already setup, and within expectation.
 		if newComment.SortTime != 0 {
-			if newComment.SortTime > currentNanoTS && newComment.SortTime < ed.EndNanoTS {
-				currentNanoTS = newComment.SortTime
+			if newComment.SortTime > preNanoTS && newComment.SortTime < ed.EndNanoTS {
+				preNanoTS = newComment.SortTime
 				continue
 			}
 		}
 
+		// 2. with reply, but unable to infer the timestamp from edit.
 		if newComment.TheType == ptttype.COMMENT_TYPE_REPLY {
-			theNanoTS := currentNanoTS + REPLY_STEP_NANO_TS
+			// 2.1 (assuming that currentNanoTS refers to the corresponding content/comment of the reply)
+			theNanoTS := preNanoTS + REPLY_STEP_NANO_TS
 			if newComment.CreateTime == 0 {
 				newComment.CreateTime = theNanoTS
 			}
 
+			// 2.2 dealing with exceedingEndNanoTS
 			if theNanoTS >= ed.EndNanoTS {
-				theNanoTS = forwardExceedingEndNanoTS(idx, len(newComments), currentNanoTS, ed.EndNanoTS)
+				theNanoTS = forwardExceedingEndNanoTS(idx, len(newComments), preNanoTS, ed.EndNanoTS)
 			}
 
+			// 2.3 set reply id.
 			if preComment != nil {
 				newComment.CommentID = types.ToReplyID(preComment.CommentID)
 			}
 
+			// 2.4 set sort-time.
 			newComment.SetSortTime(theNanoTS)
-			currentNanoTS = newComment.SortTime
+			preNanoTS = newComment.SortTime
 			preComment = newComment
 			continue
 		}
 
 		sortNanoTS := newComment.SortTime
 		createNanoTS := newComment.CreateTime
-		currentYear := currentNanoTS.ToTime().Year()
-		if sortNanoTS <= currentNanoTS {
-			sortNanoTS, createNanoTS = forwardInferTSWithYear(newComment.TheDate, currentYear, currentNanoTS)
+		currentYear := preNanoTS.ToTime().Year()
+
+		// 3. if sortNanoTS <= preNanoTS
+		if sortNanoTS <= preNanoTS {
+			sortNanoTS, createNanoTS = forwardInferTSWithYear(newComment.TheDate, currentYear, preNanoTS)
 		}
 
+		// 4. if sortNanoTS > endNanoTS
 		if sortNanoTS >= ed.EndNanoTS {
-			sortNanoTS = forwardExceedingEndNanoTS(idx, len(newComments), currentNanoTS, ed.EndNanoTS)
+			sortNanoTS = forwardExceedingEndNanoTS(idx, len(newComments), preNanoTS, ed.EndNanoTS)
 		}
 
-		if sortNanoTS >= startNanoTS+types.YEAR_NANO_TS {
+		// 5. if sortNanoTS is 1-year after article-create-time
+		if sortNanoTS >= articleCreateTime+types.YEAR_NANO_TS {
 			nextIdx = idx
 			break
 		}
 
+		// 6. set sort-time.
 		newComment.SetSortTime(sortNanoTS)
 		if newComment.CreateTime == 0 {
 			newComment.CreateTime = createNanoTS
 		}
 
-		currentNanoTS = newComment.SortTime
+		preNanoTS = newComment.SortTime
 		preComment = newComment
 	}
 
@@ -566,18 +577,23 @@ func backwardExceedingStartNanoTS(idx int, total int, currentNanoTS types.NanoTS
 
 // forwardInferTS
 func forwardInferTSWithYear(theDate string, year int, startNanoTS types.NanoTS) (sortNanoTS types.NanoTS, createNanoTS types.NanoTS) {
+	// 1. infer TS
 	sortNanoTS, inferType := inferTSWithYear(theDate, year)
 	createNanoTS = sortNanoTS
 
+	// 2. if sortNanoTS < startNanoTS
 	if sortNanoTS <= startNanoTS {
+		// 2.1. setup infer-diff
 		inferDiff := COMMENT_STEP_DIFF_NANO_TS
 		if inferType == INFER_TIMESTAMP_YMD {
 			inferDiff = COMMENT_STEP_DIFF2_NANO_TS
 		}
 
+		// 2.2. if the differences is < inferDiff (very close to the startNanoTS / endNanoTS):
 		if startNanoTS-sortNanoTS < inferDiff {
 			sortNanoTS = startNanoTS + COMMENT_STEP_NANO_TS
 		} else {
+			// 2.3. else: add 1 more year.
 			sortNanoTS, _ = inferTSWithYear(theDate, year+1)
 			createNanoTS = sortNanoTS
 		}

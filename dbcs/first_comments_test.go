@@ -23,6 +23,9 @@ func TestParseFirstComments(t *testing.T) {
 		articleMTime         types.NanoTS
 		commentsDBCS         []byte
 		origFirstCommentsMD5 string
+
+		commentStepDiffNanoTS  types.NanoTS
+		commentStepDiff2NanoTS types.NanoTS
 	}
 	tests := []struct {
 		name                     string
@@ -363,6 +366,24 @@ func TestParseFirstComments(t *testing.T) {
 			expectedFirstCommentsMD5: "JgrCKJjnw7GYaBXAbkD0uA",
 			expectedTheRestComments:  testTheRestCommentsDBCS19,
 		},
+		{
+			name: "20_" + testFilename20,
+			args: args{
+				bboardID:          "test",
+				articleID:         "test20",
+				ownerID:           "testOwner",
+				articleCreateTime: types.NanoTS(1621089154000000000),
+				articleMTime:      types.NanoTS(1622153366000000000),
+				commentsDBCS:      testComment20,
+
+				commentStepDiffNanoTS:  2 * 7 * 86400 * types.TS_TO_NANO_TS,
+				commentStepDiff2NanoTS: 2 * 7 * 86400 * types.TS_TO_NANO_TS,
+			},
+			updateNanoTS:             types.NanoTS(1688435524000000000),
+			expectedFirstComments:    testFullFirstComments20,
+			expectedFirstCommentsMD5: "-g3s5iLyigT7iVzqA7K4LQ",
+			expectedTheRestComments:  testTheRestCommentsDBCS20,
+		},
 	}
 
 	var wg sync.WaitGroup
@@ -370,6 +391,24 @@ func TestParseFirstComments(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
+			if tt.args.commentStepDiffNanoTS != 0 {
+				origCommentStepDiffNanoTS := COMMENT_STEP_DIFF_NANO_TS
+				COMMENT_STEP_DIFF_NANO_TS = tt.args.commentStepDiffNanoTS
+
+				defer func() {
+					COMMENT_STEP_DIFF_NANO_TS = origCommentStepDiffNanoTS
+				}()
+			}
+
+			if tt.args.commentStepDiff2NanoTS != 0 {
+				origCommentStepDiff2NanoTS := COMMENT_STEP_DIFF2_NANO_TS
+				COMMENT_STEP_DIFF2_NANO_TS = tt.args.commentStepDiff2NanoTS
+
+				defer func() {
+					COMMENT_STEP_DIFF2_NANO_TS = origCommentStepDiff2NanoTS
+				}()
+			}
+
 			gotFirstComments, gotFirstCommentsMD5, gotTheRestComments, err := ParseFirstComments(tt.args.bboardID, tt.args.articleID, tt.args.ownerID, tt.args.articleCreateTime, tt.args.articleMTime, tt.args.commentsDBCS, tt.args.origFirstCommentsMD5)
 
 			if (err != nil) != tt.wantErr {
