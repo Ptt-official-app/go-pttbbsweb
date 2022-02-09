@@ -3,7 +3,7 @@ module github.com/Ptt-official-app/go-openbbsmiddleware
 go 1.16
 
 require (
-	github.com/Ptt-official-app/go-pttbbs v0.20.3
+	github.com/Ptt-official-app/go-pttbbs v0.20.4
 	github.com/appleboy/graceful v0.0.3
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-playground/validator/v10 v10.10.0 // indirect
