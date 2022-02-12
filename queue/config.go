@@ -1,13 +1,11 @@
 package queue
 
-import "runtime"
-
 var (
-	queueSize = 4096
-	workerNum = runtime.NumCPU()
+	QUEUE_SIZE = 4096
+	WORKER_NUM = 2
 )
 
 func config() {
-	queueSize = setIntConfig("QUEUE_SIZE", queueSize)
-	workerNum = setIntConfig("WORKER_NUM", workerNum)
+	QUEUE_SIZE = setIntConfig("QUEUE_SIZE", QUEUE_SIZE)
+	WORKER_NUM = setIntConfig("WORKER_NUM", WORKER_NUM)
 }

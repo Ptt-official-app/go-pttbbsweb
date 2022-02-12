@@ -43,7 +43,8 @@ type Comment struct {
 	SortTime types.NanoTS `bson:"sort_time_nano_ts"`
 
 	TheDate string `bson:"the_date"`
-	DBCS    []byte `bson:"dbcs"`
+	DBCS    []byte `json:"-" bson:"dbcs"`
+	DBCSStr string `json:"-" bson:"dbcsstr"`
 
 	EditNanoTS types.NanoTS `bson:"edit_nano_ts"` // for reply.
 
@@ -160,6 +161,9 @@ func GetComments(boardID bbs.BBoardID, articleID bbs.ArticleID, sortNanoTS types
 		query = bson.M{
 			COMMENT_BBOARD_ID_b:  boardID,
 			COMMENT_ARTICLE_ID_b: articleID,
+			COMMENT_IS_DELETED_b: bson.M{
+				"$exists": false,
+			},
 		}
 	} else {
 		theDirCommentID := "$gte"
@@ -301,6 +305,7 @@ func updateCommentsCore(comments []*Comment, updateNanoTS types.NanoTS) (err err
 				COMMENT_IS_DELETED_b: true,
 			},
 		}
+
 		updateComments = append(updateComments, each)
 	}
 	_, err = Comment_c.BulkUpdateOneOnlyNoSet(updateComments)

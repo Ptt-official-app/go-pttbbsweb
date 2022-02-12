@@ -7,21 +7,21 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 )
 
-func Utf8ToDBCS(utf8 [][]*types.Rune) (dbcs [][]byte) {
-	dbcs = make([][]byte, len(utf8))
-	color := &types.Color{}
-	*color = types.DefaultColor
+func Utf8ToDBCS(utf8 [][]*types.Rune) (dbcsBytes [][]byte) {
+	dbcsBytes = make([][]byte, len(utf8))
+
+	color := types.DefaultColor
 	for idx, eachLine := range utf8 {
-		dbcs[idx], color = utf8ToDBCSByLine(eachLine, color)
+		dbcsBytes[idx], color = utf8ToDBCSByLine(eachLine, color)
 	}
 
-	return dbcs
+	return dbcsBytes
 }
 
 //utf8ToDBCSByLine
 //
 //We can directly concat the DBCS within line
-func utf8ToDBCSByLine(line []*types.Rune, color *types.Color) (lineDBCS []byte, newColor *types.Color) {
+func utf8ToDBCSByLine(line []*types.Rune, color types.Color) (lineDBCS []byte, newColor types.Color) {
 	lineDBCS = make([]byte, 0, DEFAULT_LINE_BYTES)
 	newColor = color
 	var eachDBCS []byte
@@ -37,45 +37,9 @@ func utf8ToDBCSByLine(line []*types.Rune, color *types.Color) (lineDBCS []byte, 
 //utf8ToDBCSByRune
 //
 //1. check whether we've already have the DBCS (already parsed)
-func utf8ToDBCSByRune(theRune *types.Rune, color *types.Color, isAddCR bool) (theDBCS []byte, newColor *types.Color) {
-	if len(theRune.DBCS) > 0 {
-		return theRune.DBCS, &theRune.Color1
-	}
-
-	theDBCS = make([]byte, 0, DEFAULT_LINE_BYTES)
-	color0Bytes := theRune.Color0.BytesWithPreColor(color, true)
-	if len(color0Bytes) > 0 {
-		theDBCS = append(theDBCS, color0Bytes...)
-	}
-	color1Bytes := theRune.Color1.BytesWithPreColor(&theRune.Color0, false)
-	theRune.Utf8ToBig5()
-	big5 := theRune.Big5
-	if len(big5) > 0 {
-		// Need to deal with color1Bytes
-		if len(color1Bytes) > 0 {
-			lastBig5 := big5[len(big5)-1]
-			big5 = big5[:len(big5)-1]
-			theDBCS = append(theDBCS, big5...)
-			theDBCS = append(theDBCS, color1Bytes...)
-			theDBCS = append(theDBCS, lastBig5)
-		} else {
-			theDBCS = append(theDBCS, big5...)
-		}
-	} else {
-		if len(color1Bytes) > 0 {
-			theDBCS = append(theDBCS, color1Bytes...)
-		}
-	}
-
-	if isAddCR {
-		theDBCS = append(theDBCS, '\r')
-	}
-
-	theRune.DBCS = theDBCS
-
-	newColor = &theRune.Color1
-
-	return theDBCS, newColor
+func utf8ToDBCSByRune(theRune *types.Rune, origColor types.Color, isAddCR bool) (theDBCS []byte, newColor types.Color) {
+	theRune.Utf8ToDBCS(origColor, isAddCR)
+	return theRune.DBCS, theRune.Color1
 }
 
 //dbcsToBig5

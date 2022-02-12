@@ -1,14 +1,17 @@
 package api
 
 import (
+	"context"
 	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func TestGetArticleBlocks(t *testing.T) {
@@ -18,6 +21,25 @@ func TestGetArticleBlocks(t *testing.T) {
 	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
 	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
 
+	// load articles
+	ctx := context.Background()
+	brdname := &boardd.BoardRef_Name{Name: "WhoAmI"}
+	req := &boardd.ListRequest{
+		Ref:          &boardd.BoardRef{Ref: brdname},
+		IncludePosts: true,
+		Offset:       0,
+		Length:       100 + 1,
+	}
+	resp, _ := boardd.Cli.List(ctx, req)
+
+	posts := resp.Posts
+
+	logrus.Infof("TestGetArticleDetail: posts: %v", len(posts))
+
+	updateNanoTS := types.NowNanoTS()
+	_, _ = DeserializePBArticlesAndUpdateDB("10_WhoAmI", posts, updateNanoTS, false)
+
+	//
 	params0 := NewGetArticleBlocksParams()
 	path0 := &GetArticleBlocksPath{
 		FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -30,10 +52,10 @@ func TestGetArticleBlocks(t *testing.T) {
 		CreateTime: types.Time8(1608386280),
 		MTime:      types.Time8(1608386280),
 
-		Title:     "然後呢？～",
-		Money:     3,
-		Recommend: 8,
-		Class:     "問題",
+		Title:     "測試一下特殊字～",
+		Money:     0,
+		Recommend: 9,
+		Class:     "心得",
 		IP:        "172.22.0.1",
 		Host:      "",
 		BBS:       "批踢踢 docker(pttdocker.test)",
@@ -47,14 +69,14 @@ func TestGetArticleBlocks(t *testing.T) {
 
 	expected1 := &GetArticleBlocksResult{
 		Content:    testContent11Utf8[4:54],
-		Owner:      bbs.UUserID("SYSOP"),
-		CreateTime: types.Time8(1608386280),
-		MTime:      types.Time8(1608386280),
+		Owner:      bbs.UUserID("cheinshin"),
+		CreateTime: types.Time8(1607202240),
+		MTime:      types.Time8(1607202240),
 
-		Title:     "然後呢？～",
-		Money:     3,
-		Recommend: 8,
-		Class:     "問題",
+		Title:     "TVBS六都民調 侯奪冠、盧升第四、柯墊底",
+		Money:     0,
+		Recommend: 23,
+		Class:     "新聞",
 		IP:        "49.216.65.39",
 		Host:      "臺灣",
 		BBS:       "批踢踢實業坊(ptt.cc)",

@@ -17,6 +17,7 @@ func IntegrateComments(boardID bbs.BBoardID, articleID bbs.ArticleID, comments [
 	}
 
 	nBlock := InferTimestamp(edBlocks, isForwardOnly, isLastAlignEndNanoTS, articleCreateTime)
+
 	// count new comments
 	nNewComments := 0
 	for idx, each := range edBlocks {

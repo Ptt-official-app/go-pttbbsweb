@@ -154,9 +154,6 @@ func main() {
 	// retry load general boards
 	g.AddRunningJob(cron.RetryLoadGeneralBoards)
 
-	// retry load full class boards
-	g.AddRunningJob(cron.RetryLoadFullClassBoards)
-
 	// retry load general articles
 	g.AddRunningJob(cron.RetryLoadGeneralArticles)
 

@@ -25,6 +25,8 @@ var (
 		0xa1, 0xf7, 0x20, 0x1b, 0x5b, 0x33, 0x33, 0x6d,
 	}
 
+	MATCH_COMMENT_INFIX = []byte("\x1b[m\x1b[33m:")
+
 	//※ 編輯: abcd (1.2.3.4 臺灣), 03/21/2021 03:04:47
 	//\xa1\xb0 \xbds\xbf\xe8: abcd (1.2.3.4 \xbbO\xc6W), 03/18/2021 12:07:22
 	MATCH_COMMENT_EDIT_BYTES = []byte("\xa1\xb0 \xbds\xbf\xe8: ")
@@ -39,6 +41,8 @@ var (
 	MATCH_COMMENT_FORWARD_BOARD_BYTES = []byte("\xac\xdd\xaaO ")
 
 	MATCH_COMMENT_FORWARD_PREFIX = []byte("\xa1\xb0 \x1b[1;32m")
+
+	MATCH_COMMENT_FORWARD_HIDDEN_BYTES = []byte("\xacY\xc1\xf4\xa7\xce\xac\xdd\xaaO")
 
 	//(teemocogs 刪除 teemocogs 的推文: 誤植)
 	//\x1b[1;30m(teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3)\x1b[m

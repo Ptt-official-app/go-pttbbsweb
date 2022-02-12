@@ -70,7 +70,6 @@ func TestReplyCommentParams_ToComment(t *testing.T) {
 		{
 			{
 				Utf8:   "test123123",
-				Big5:   []byte("test123123"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("test123123\r"),
@@ -86,7 +85,6 @@ func TestReplyCommentParams_ToComment(t *testing.T) {
 		{
 			{
 				Utf8:   "test124124",
-				Big5:   []byte("test124124"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("test124124\r"),
@@ -102,7 +100,6 @@ func TestReplyCommentParams_ToComment(t *testing.T) {
 		{
 			{
 				Utf8:   "test125125",
-				Big5:   []byte("test125125"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("test125125\r"),

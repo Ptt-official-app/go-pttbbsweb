@@ -24,7 +24,7 @@ func main() {
 	brdref := &boardd.BoardRef{Ref: brdname}
 	req := &boardd.ContentRequest{
 		BoardRef: brdref,
-		Filename: filename,
+		Filename: filenameList[1],
 		PartialOptions: &boardd.PartialOptions{
 			SelectType: boardd.PartialOptions_SELECT_FULL,
 		},

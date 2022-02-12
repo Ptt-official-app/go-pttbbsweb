@@ -9,9 +9,9 @@ import (
 func CreateArticle2(params *api.CreateArticleParams) (ret api.CreateArticleResult) {
 	ret = api.CreateArticleResult(&bbs.ArticleSummary{
 		BBoardID:   bbs.BBoardID("1_SYSOP"),
-		ArticleID:  bbs.ArticleID("1VrooM21"),
+		ArticleID:  bbs.ArticleID("1VrooM23"),
 		IsDeleted:  false,
-		Filename:   "M.1607937174.A.081",
+		Filename:   "M.1607937174.A.083",
 		CreateTime: types.Time4(1607937174),
 		MTime:      types.Time4(1607937100),
 		Recommend:  0,
