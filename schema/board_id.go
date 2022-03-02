@@ -46,3 +46,47 @@ func GetBoardIDByBid(bid ptttype.Bid) (boardID bbs.BBoardID, err error) {
 
 	return result.BBoardID, nil
 }
+
+func GetBoardIDs(startBrdname string, descending bool, limit int, withDeleted bool) (result []*BoardID, err error) {
+	// setup query
+	var query bson.M
+	if startBrdname == "" {
+		query = bson.M{}
+	} else {
+		theDir := "$gte"
+		if descending {
+			theDir = "$lte"
+		}
+		query = bson.M{
+			BOARD_BRDNAME_b: bson.M{
+				theDir: startBrdname,
+			},
+		}
+
+	}
+
+	if !withDeleted {
+		query[BOARD_IS_DELETED_b] = bson.M{
+			"$exists": false,
+		}
+	}
+	// sort opts
+	var sortOpts bson.D
+	if descending {
+		sortOpts = bson.D{
+			{Key: BOARD_BRDNAME_b, Value: -1},
+		}
+	} else {
+		sortOpts = bson.D{
+			{Key: BOARD_BRDNAME_b, Value: 1},
+		}
+	}
+
+	// find
+	err = Board_c.Find(query, int64(limit), &result, boardIDFields, sortOpts)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}

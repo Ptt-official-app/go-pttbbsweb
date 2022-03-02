@@ -1,16 +1,19 @@
 package api
 
 import (
+	"context"
 	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func TestLoadUserComments(t *testing.T) {
@@ -28,6 +31,42 @@ func TestLoadUserComments(t *testing.T) {
 	_, _ = schema.UserReadArticle_c.Update(update0, update0)
 	_, _ = schema.UserReadArticle_c.Update(update1, update1)
 
+	// load articles
+	ctx := context.Background()
+	brdname := &boardd.BoardRef_Name{Name: "WhoAmI"}
+	req := &boardd.ListRequest{
+		Ref:          &boardd.BoardRef{Ref: brdname},
+		IncludePosts: true,
+		Offset:       0,
+		Length:       100 + 1,
+	}
+	resp, _ := boardd.Cli.List(ctx, req)
+
+	posts := resp.Posts
+
+	logrus.Infof("TestLoadUserArticles: posts: %v", len(posts))
+
+	updateNanoTS := types.NowNanoTS()
+	_, _ = DeserializePBArticlesAndUpdateDB("10_WhoAmI", posts, updateNanoTS, false)
+
+	ctx = context.Background()
+	brdname = &boardd.BoardRef_Name{Name: "SYSOP"}
+	req = &boardd.ListRequest{
+		Ref:          &boardd.BoardRef{Ref: brdname},
+		IncludePosts: true,
+		Offset:       0,
+		Length:       100 + 1,
+	}
+	resp, _ = boardd.Cli.List(ctx, req)
+
+	posts = resp.Posts
+
+	logrus.Infof("TestLoadUserArticles: posts: %v", len(posts))
+
+	updateNanoTS = types.NowNanoTS()
+	_, _ = DeserializePBArticlesAndUpdateDB("1_SYSOP", posts, updateNanoTS, false)
+
+	// params
 	paramsLoadGeneralArticles := NewLoadGeneralArticlesParams()
 	pathLoadGeneralArticles := &LoadGeneralArticlesPath{FBoardID: "WhoAmI"}
 	LoadGeneralArticles("localhost", "SYSOP", paramsLoadGeneralArticles, pathLoadGeneralArticles, &gin.Context{})
@@ -60,7 +99,7 @@ func TestLoadUserComments(t *testing.T) {
 				NComments:         3,
 				Owner:             "teemo",
 				Title:             "再來呢？～",
-				Money:             12,
+				Money:             0,
 				Class:             "問題",
 				URL:               "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.081",
 				Read:              types.READ_STATUS_MTIME,
@@ -90,7 +129,7 @@ func TestLoadUserComments(t *testing.T) {
 				NComments:         3,
 				Owner:             "teemo",
 				Title:             "再來呢？～",
-				Money:             12,
+				Money:             0,
 				Class:             "問題",
 				URL:               "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.081",
 				Read:              types.READ_STATUS_MTIME,

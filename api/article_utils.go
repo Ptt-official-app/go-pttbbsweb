@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/dbcs"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -11,6 +12,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/cmsys"
 	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func UpdateArticleContentInfo(
@@ -108,6 +110,24 @@ func deserializeArticlesAndUpdateDB(userID bbs.UUserID, bboardID bbs.BBoardID, a
 	updateArticleNComments(bboardID, articleSummaries)
 
 	return articleSummaries, userReadArticleMap, err
+}
+
+func DeserializePBArticlesAndUpdateDB(boardID bbs.BBoardID, articleSummaries_b []*boardd.Post, updateNanoTS types.NanoTS, isBottom bool) (articleSummaries []*schema.ArticleSummaryWithRegex, err error) {
+	if len(articleSummaries_b) == 0 {
+		return nil, nil
+	}
+	articleSummaries = make([]*schema.ArticleSummaryWithRegex, len(articleSummaries_b))
+	for idx, each_b := range articleSummaries_b {
+		articleSummaries[idx] = schema.NewArticleSummaryWithRegexFromPBArticle(boardID, each_b, updateNanoTS, isBottom)
+	}
+
+	err = schema.UpdateArticleSummaryWithRegexes(articleSummaries, updateNanoTS)
+	logrus.Infof("DeserializePBArticlesAndUpdateDB: boardID: %v articleSummaries: %v after update: e: %v", boardID, len(articleSummaries), err)
+	if err != nil {
+		return nil, err
+	}
+
+	return articleSummaries, nil
 }
 
 func updateArticleNComments(bboardID bbs.BBoardID, articleSummaries []*schema.ArticleSummaryWithRegex) {

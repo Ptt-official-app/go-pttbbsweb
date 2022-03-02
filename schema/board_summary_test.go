@@ -4,6 +4,7 @@ import (
 	"sync"
 	"testing"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/mockhttp"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -294,6 +295,61 @@ func TestGetBoardSummariesByClsID(t *testing.T) {
 				return
 			}
 			testutil.TDeepEqual(t, "got", gotBoardSummaries, tt.expectedBoardSummaries)
+		})
+		wg.Wait()
+	}
+}
+
+func TestNewBoardSummaryFromPBBoard(t *testing.T) {
+	board0 := &boardd.Board{
+		RawModerators: "okcool/teemo",
+		Name:          "test",
+		Bclass:        "測試",
+		Bid:           7,
+		Title:         "這裡是測試板",
+		NumUsers:      12345,
+		NumPosts:      234,
+		Parent:        1,
+	}
+	expected0 := &BoardSummary{
+		BBoardID: "7_test",
+		Brdname:  "test",
+		Title:    "這裡是測試板",
+		Category: "測試",
+		BMs:      []bbs.UUserID{"okcool", "teemo"},
+		Total:    234,
+		NUser:    12345,
+
+		Gid:          1,
+		Bid:          7,
+		IdxByName:    "test",
+		IdxByClass:   "tPq41Q@test",
+		BoardType:    "◎",
+		UpdateNanoTS: 1234567890000000000,
+	}
+
+	type args struct {
+		b_b          *boardd.Board
+		updateNanoTS types.NanoTS
+	}
+	tests := []struct {
+		name     string
+		args     args
+		expected *BoardSummary
+	}{
+		// TODO: Add test cases.
+		{
+			args:     args{b_b: board0, updateNanoTS: 1234567890000000000},
+			expected: expected0,
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			got := NewBoardSummaryFromPBBoard(tt.args.b_b, tt.args.updateNanoTS)
+			testutil.TDeepEqual(t, "got", got, tt.expected)
 		})
 		wg.Wait()
 	}

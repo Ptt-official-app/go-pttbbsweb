@@ -4,10 +4,9 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
-	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 const LOAD_GENERAL_ARTICLES_R = "/board/:bid/articles"
@@ -62,38 +61,33 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 	}
 
 	// backend load-general-articles
-	theParams_b := &pttbbsapi.LoadGeneralArticlesParams{
-		StartIdx:  theParams.StartIdx,
-		NArticles: theParams.Max,
-		Desc:      theParams.Descending,
-	}
-	var result_b *pttbbsapi.LoadGeneralArticlesResult
+	articleSummaries_db, err := schema.GetArticleSummaries(boardID, theParams.StartIdx, theParams.Descending, theParams.Max+1)
 
-	urlMap := map[string]string{
-		"bid": string(boardID),
-	}
-	url := utils.MergeURL(urlMap, pttbbsapi.LOAD_GENERAL_ARTICLES_R)
-	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
-	if err != nil || statusCode != 200 {
-		return nil, statusCode, err
-	}
-
-	// update to db
-	updateNanoTS := types.NowNanoTS()
-	articleSummaries_db, userReadArticleMap, err := deserializeArticlesAndUpdateDB(userID, boardID, result_b.Articles, updateNanoTS)
+	logrus.Infof("LoadGeneralArticles: after GetArticleSummaries: baordID: %v startIdx: %v articleSummaries_db: %v e: %v", boardID, theParams.StartIdx, len(articleSummaries_db), err)
 	if err != nil {
 		return nil, 500, err
 	}
 
+	nextIdx := ""
+	if len(articleSummaries_db) == theParams.Max+1 {
+		nextArticleSummary := articleSummaries_db[theParams.Max]
+		nextIdx = nextArticleSummary.Idx
+
+		articleSummaries_db = articleSummaries_db[:theParams.Max]
+	}
+
+	userReadArticleMap := make(map[bbs.ArticleID]bool)
 	userReadArticleMap, err = checkReadArticles(userID, boardID, userReadArticleMap, articleSummaries_db)
 	if err != nil {
 		return nil, 500, err
 	}
 
-	r := NewLoadGeneralArticlesResult(articleSummaries_db, userReadArticleMap, result_b)
+	r := NewLoadGeneralArticlesResult(articleSummaries_db, userReadArticleMap, nextIdx)
 
-	// update user_read_board
-	if result_b.IsNewest {
+	// update user_read_board if is-newest
+	if theParams.Descending && theParams.StartIdx == "" || !theParams.Descending && nextIdx == "" {
+
+		updateNanoTS := types.NowNanoTS()
 		err = updateUserReadBoard(userID, boardID, updateNanoTS)
 		if err != nil {
 			return nil, 500, err
@@ -103,7 +97,7 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 	return r, 200, nil
 }
 
-func checkReadArticles(userID bbs.UUserID, boardID bbs.BBoardID, userReadArticleMap map[bbs.ArticleID]bool, theList []*schema.ArticleSummaryWithRegex) (newUserReadArticleMap map[bbs.ArticleID]bool, err error) {
+func checkReadArticles(userID bbs.UUserID, boardID bbs.BBoardID, userReadArticleMap map[bbs.ArticleID]bool, theList []*schema.ArticleSummary) (newUserReadArticleMap map[bbs.ArticleID]bool, err error) {
 	queryArticleIDs := make([]bbs.ArticleID, 0, len(theList))
 	checkArticleIDMap := make(map[bbs.ArticleID]int)
 	for idx, each := range theList {
@@ -154,10 +148,10 @@ func updateUserReadBoard(userID bbs.UUserID, boardID bbs.BBoardID, updateNanoTS 
 	return nil
 }
 
-func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummaryWithRegex, userReadArticleMap map[bbs.ArticleID]bool, result_b *pttbbsapi.LoadGeneralArticlesResult) *LoadGeneralArticlesResult {
+func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool, nextIdx string) *LoadGeneralArticlesResult {
 	theList := make([]*apitypes.ArticleSummary, len(a_db))
 	for i, each_db := range a_db {
-		theList[i] = apitypes.NewArticleSummaryFromWithRegex(each_db)
+		theList[i] = apitypes.NewArticleSummary(each_db)
 		articleID := each_db.ArticleID
 		isRead, ok := userReadArticleMap[articleID]
 		if ok && isRead {
@@ -167,6 +161,6 @@ func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummaryWithRegex, userRe
 
 	return &LoadGeneralArticlesResult{
 		List:    theList,
-		NextIdx: result_b.NextIdx,
+		NextIdx: nextIdx,
 	}
 }

@@ -1,6 +1,9 @@
 package schema
 
 import (
+	"strings"
+
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -37,12 +40,143 @@ type ArticleSummaryWithRegex struct {
 	Rank int `bson:"rank,omitempty"` // 評價, read-only
 
 	SubjectType ptttype.SubjectType `bson:"subject_type"`
+
+	IsBottom bool `bson:"is_bottom"`
 }
 
 var (
 	EMPTY_ARTICLE_SUMMARY_WITH_REGEX = &ArticleSummaryWithRegex{}
 	articleSummaryWithRegexFields    = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_SUMMARY_WITH_REGEX)
 )
+
+//NewArticleSummaryWithRegexFromPBArticle
+//
+//no n_comments in bbs.ArticleSummary from backend.
+func NewArticleSummaryWithRegexFromPBArticle(boardID bbs.BBoardID, a_b *boardd.Post, updateNanoTS types.NanoTS, isBottom bool) *ArticleSummaryWithRegex {
+	filename := &ptttype.Filename_t{}
+	copy(filename[:], []byte(a_b.Filename))
+	articleID := bbs.ToArticleID(filename)
+
+	createTime, err := filename.CreateTime()
+	if err != nil {
+		return nil
+	}
+
+	subjectType, realTitleWithClass := parseSubjectEx(a_b.Title)
+	theClass, title := parseTitle(realTitleWithClass)
+	pttbbsArticleSummary := &bbs.ArticleSummary{
+		ArticleID:  articleID,
+		CreateTime: createTime,
+	}
+	idx := bbs.SerializeArticleIdxStr(pttbbsArticleSummary)
+
+	titleRegex := articleTitleToTitleRegex(title)
+	return &ArticleSummaryWithRegex{
+		BBoardID:   boardID,
+		ArticleID:  articleID,
+		IsDeleted:  false,
+		CreateTime: types.Time4ToNanoTS(createTime),
+		MTime:      types.NanoTS(a_b.ModifiedNsec),
+		Recommend:  int(a_b.NumRecommends),
+		Owner:      bbs.UUserID(a_b.Owner),
+		FullTitle:  a_b.Title,
+		Title:      title,
+		Class:      theClass,
+		Filemode:   ptttype.FileMode(a_b.Filemode),
+
+		TitleRegex: titleRegex,
+
+		SubjectType: subjectType,
+
+		UpdateNanoTS: updateNanoTS,
+		Idx:          idx,
+		IsBottom:     isBottom,
+	}
+}
+
+func parseSubjectEx(fullTitle string) (subjectType ptttype.SubjectType, realTitleWithClass string) {
+	subjectType = ptttype.SUBJECT_NORMAL
+
+	fullTitle = strings.TrimSpace(fullTitle)
+
+	isSet := false
+	for {
+		if len(fullTitle) == 0 {
+			break
+		}
+
+		prefixLower := strings.ToLower(fullTitle[:len(STR_REPLY)])
+		if strings.HasPrefix(prefixLower, STR_REPLY_LOWER) {
+			if !isSet {
+				isSet = true
+				subjectType = ptttype.SUBJECT_REPLY
+			}
+			fullTitle = strings.TrimSpace(fullTitle[len(STR_REPLY):])
+			continue
+		}
+
+		prefixLower = strings.ToLower(fullTitle[:len(STR_FORWARD)])
+		if strings.HasPrefix(prefixLower, STR_FORWARD_LOWER) {
+			if !isSet {
+				isSet = true
+				subjectType = ptttype.SUBJECT_FORWARD
+			}
+			fullTitle = strings.TrimSpace(fullTitle[len(STR_FORWARD):])
+			continue
+		}
+
+		if strings.HasPrefix(fullTitle, STR_LEGACY_FORWARD) {
+			if !isSet {
+				isSet = true
+				subjectType = ptttype.SUBJECT_FORWARD
+			}
+
+			fullTitle = strings.TrimSpace(fullTitle[len(STR_LEGACY_FORWARD):])
+			continue
+		}
+
+		break
+	}
+
+	return subjectType, fullTitle
+}
+
+func parseTitle(realTitleWithClass string) (theClass string, title string) {
+	realTitleWithClass = strings.TrimSpace(realTitleWithClass)
+	if !strings.HasPrefix(realTitleWithClass, "[") {
+		return "", realTitleWithClass
+	}
+
+	count := 0
+	for idx, each := range realTitleWithClass {
+		if idx == 0 {
+			continue
+		}
+
+		// count > 4
+		if count > 4 {
+			return "", strings.TrimSpace(realTitleWithClass)
+		}
+
+		// count == 4
+		if count == 4 {
+			if each != rune(']') {
+				return "", realTitleWithClass
+			}
+
+			return strings.TrimSpace(realTitleWithClass[1:idx]), strings.TrimSpace(realTitleWithClass[(idx + 1):])
+		}
+
+		// count < 4
+		if each < 0x80 {
+			count++
+		} else {
+			count += 2
+		}
+	}
+
+	return "", realTitleWithClass
+}
 
 //NewArticleSummaryWithRegex
 //

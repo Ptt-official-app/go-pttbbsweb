@@ -42,13 +42,7 @@ func LoadGeneralBoards() (err error) {
 			return err
 		}
 
-		for idx, each := range boardSummaries {
-			logrus.Infof("cron.LoadGeneralBoards: (%v/%v) to LoadGeneralArticles: %v", idx, len(boardSummaries), each.BBoardID)
-			err = LoadGeneralArticles(each)
-			if err == nil {
-				count++
-			}
-		}
+		count += len(boardSummaries)
 
 		if newNextIdx == "" {
 			logrus.Infof("cron.LoadGeneralBoards: load %v boards", count)

@@ -1,17 +1,20 @@
 package api
 
 import (
+	"context"
 	"net/http"
 	"net/url"
 	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func TestLoadGeneralArticles(t *testing.T) {
@@ -27,7 +30,27 @@ func TestLoadGeneralArticles(t *testing.T) {
 	_, _ = schema.UserReadArticle_c.Update(update0, update0)
 	_, _ = schema.UserReadArticle_c.Update(update1, update1)
 
+	// load articles
+	ctx := context.Background()
+	brdname := &boardd.BoardRef_Name{Name: "WhoAmI"}
+	req := &boardd.ListRequest{
+		Ref:          &boardd.BoardRef{Ref: brdname},
+		IncludePosts: true,
+		Offset:       0,
+		Length:       100 + 1,
+	}
+	resp, _ := boardd.Cli.List(ctx, req)
+
+	posts := resp.Posts
+
+	logrus.Infof("TestLoadGeneralArticles: posts: %v", len(posts))
+
+	updateNanoTS := types.NowNanoTS()
+	_, _ = DeserializePBArticlesAndUpdateDB("10_WhoAmI", posts, updateNanoTS, false)
+
+	// params
 	params0 := NewLoadGeneralArticlesParams()
+	params0.Max = 2
 	path := &LoadGeneralArticlesPath{FBoardID: "WhoAmI"}
 	expected0 := &LoadGeneralArticlesResult{
 		List: []*apitypes.ArticleSummary{
@@ -41,7 +64,7 @@ func TestLoadGeneralArticles(t *testing.T) {
 				Owner:      "teemo",
 				Title:      "再來呢？～",
 				Class:      "問題",
-				Money:      12,
+				Money:      0,
 				Filemode:   0,
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.081",
 				Read:       false,
@@ -57,7 +80,7 @@ func TestLoadGeneralArticles(t *testing.T) {
 				Owner:      "okcool",
 				Title:      "然後呢？～",
 				Class:      "問題",
-				Money:      3,
+				Money:      0,
 				Filemode:   0,
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1234567890.A.123",
 				Read:       true,
@@ -84,7 +107,7 @@ func TestLoadGeneralArticles(t *testing.T) {
 				Owner:      "okcool",
 				Title:      "然後呢？～",
 				Class:      "問題",
-				Money:      3,
+				Money:      0,
 				Filemode:   0,
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1234567890.A.123",
 				Read:       true,

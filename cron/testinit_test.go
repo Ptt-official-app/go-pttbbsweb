@@ -2,6 +2,7 @@ package cron
 
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -20,6 +21,8 @@ func setupTest() {
 	schema.SetIsTest()
 
 	queue.SetIsTest()
+
+	boardd.SetIsTest()
 
 	api.SetIsTest()
 
@@ -40,6 +43,8 @@ func teardownTest() {
 	defer schema.UnsetIsTest()
 
 	defer queue.UnsetIsTest()
+
+	defer boardd.UnsetIsTest()
 
 	defer api.UnsetIsTest()
 

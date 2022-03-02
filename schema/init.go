@@ -48,11 +48,38 @@ func Init() (err error) {
 		return err
 	}
 
-	Article_c = client.Collection("article")
 	keys = &bson.D{
 		{Key: ARTICLE_BBOARD_ID_b, Value: 1},
 		{Key: ARTICLE_TITLE_REGEX_b, Value: 1},
 		{Key: ARTICLE_CREATE_TIME_b, Value: 1},
+	}
+	err = Article_c.CreateIndex(keys, nil)
+	if err != nil {
+		return err
+	}
+
+	keys = &bson.D{
+		{Key: ARTICLE_BBOARD_ID_b, Value: 1},
+		{Key: ARTICLE_TITLE_REGEX_b, Value: 1},
+		{Key: ARTICLE_IDX_b, Value: 1},
+	}
+	err = Article_c.CreateIndex(keys, nil)
+	if err != nil {
+		return err
+	}
+
+	keys = &bson.D{
+		{Key: ARTICLE_BBOARD_ID_b, Value: 1},
+		{Key: ARTICLE_IDX_b, Value: 1},
+	}
+	err = Article_c.CreateIndex(keys, nil)
+	if err != nil {
+		return err
+	}
+
+	keys = &bson.D{
+		{Key: ARTICLE_BBOARD_ID_b, Value: 1},
+		{Key: ARTICLE_IS_BOTTOM_b, Value: 1},
 	}
 	err = Article_c.CreateIndex(keys, nil)
 	if err != nil {
@@ -71,6 +98,22 @@ func Init() (err error) {
 
 	keys = &bson.D{
 		{Key: BOARD_BRDNAME_b, Value: 1},
+	}
+	err = Board_c.CreateIndex(keys, nil)
+	if err != nil {
+		return err
+	}
+
+	keys = &bson.D{
+		{Key: BOARD_IDX_BY_CLASS_b, Value: 1},
+	}
+	err = Board_c.CreateIndex(keys, nil)
+	if err != nil {
+		return err
+	}
+
+	keys = &bson.D{
+		{Key: BOARD_IDX_BY_NAME_b, Value: 1},
 	}
 	err = Board_c.CreateIndex(keys, nil)
 	if err != nil {

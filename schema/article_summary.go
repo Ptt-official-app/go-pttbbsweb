@@ -37,6 +37,8 @@ type ArticleSummary struct {
 	Rank int `bson:"rank,omitempty"` // 評價, read-only
 
 	SubjectType ptttype.SubjectType `bson:"subject_type"`
+
+	IsBottom bool `bson:"is_bottom"`
 }
 
 var (
@@ -113,6 +115,68 @@ func GetArticleSummariesByOwnerID(ownerID bbs.UUserID, startCreateTime types.Nan
 	} else {
 		sortOpts = bson.D{
 			{Key: ARTICLE_CREATE_TIME_b, Value: 1},
+		}
+	}
+
+	// find
+	err = Article_c.Find(query, int64(limit), &result, articleSummaryFields, sortOpts)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
+func GetBottomArticleSummaries(boardID bbs.BBoardID) (result []*ArticleSummary, err error) {
+	query := bson.M{
+		ARTICLE_BBOARD_ID_b: boardID,
+		ARTICLE_IS_BOTTOM_b: true,
+	}
+	sortOpts := bson.D{
+		{Key: ARTICLE_CREATE_TIME_b, Value: 1},
+		{Key: ARTICLE_ARTICLE_ID_b, Value: 1},
+	}
+	err = Article_c.Find(query, 0, &result, articleSummaryFields, sortOpts)
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
+func GetArticleSummaries(boardID bbs.BBoardID, startIdx string, descending bool, limit int) (result []*ArticleSummary, err error) {
+	var query bson.M
+	if startIdx == "" {
+		query = bson.M{
+			ARTICLE_BBOARD_ID_b: boardID,
+		}
+	} else {
+		theDir := "$gte"
+		if descending {
+			theDir = "$lte"
+		}
+		query = bson.M{
+			ARTICLE_BBOARD_ID_b: boardID,
+			ARTICLE_IDX_b: bson.M{
+				theDir: startIdx,
+			},
+		}
+	}
+	query[ARTICLE_IS_DELETED_b] = bson.M{
+		"$exists": false,
+	}
+
+	// sort opts
+	var sortOpts bson.D
+	if descending {
+		sortOpts = bson.D{
+			{Key: ARTICLE_IDX_b, Value: -1},
+			{Key: ARTICLE_ARTICLE_ID_b, Value: -1},
+		}
+	} else {
+		sortOpts = bson.D{
+			{Key: ARTICLE_IDX_b, Value: 1},
+			{Key: ARTICLE_ARTICLE_ID_b, Value: 1},
 		}
 	}
 
