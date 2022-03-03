@@ -17,6 +17,23 @@ func (c *MockClientConn) Invoke(ctx context.Context, method string, args interfa
 	case "/pttbbs.api.BoardService/Hotboard":
 		r := reply.(*HotboardReply)
 		r.Boards = []*Board{testBoard10, testBoard1, testBoard8}
+	case "/pttbbs.api.BoardService/List":
+		params := args.(*ListRequest)
+		r := reply.(*ListReply)
+		ref := params.Ref.Ref.(*BoardRef_Name)
+		if params.IncludePosts {
+			switch ref.Name {
+			case "WhoAmI":
+				r.Posts = []*Post{testArticle0, testArticle1, testArticle2}
+			case "SYSOP":
+				r.Posts = []*Post{testArticle3, testArticle4}
+			}
+		} else {
+			switch ref.Name {
+			case "WhoAmI":
+				r.Posts = []*Post{testArticle0, testArticle1, testArticle2}
+			}
+		}
 	}
 	return nil
 }

@@ -8,6 +8,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/mockhttp"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
@@ -200,8 +201,11 @@ func TestGetArticleSummariesByOwnerID(t *testing.T) {
 			expectedResult: expected1,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			gotResult, err := GetArticleSummariesByOwnerID(tt.args.ownerID, tt.args.startCreateTime, tt.args.descending, tt.args.limit)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetArticleSummariesByOwnerID() error = %v, wantErr %v", err, tt.wantErr)
@@ -209,6 +213,7 @@ func TestGetArticleSummariesByOwnerID(t *testing.T) {
 			}
 			testutil.TDeepEqual(t, "got", gotResult, tt.expectedResult)
 		})
+		wg.Wait()
 	}
 }
 
@@ -420,8 +425,11 @@ func TestGetArticleSummariesByRegex(t *testing.T) {
 			expectedResult: expected3,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
 			gotResult, err := GetArticleSummariesByRegex(tt.args.boardID, tt.args.keywordList, tt.args.createNanoTS, tt.args.articleID, tt.args.descending, tt.args.limit)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetArticleSummariesByRegex() error = %v, wantErr %v", err, tt.wantErr)
@@ -431,5 +439,153 @@ func TestGetArticleSummariesByRegex(t *testing.T) {
 				t.Errorf("GetArticleSummariesByRegex() = %v, want %v", gotResult, tt.expectedResult)
 			}
 		})
+		wg.Wait()
+	}
+}
+
+func TestGetBottomArticleSummaries(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	articleSummary0 := &ArticleSummaryWithRegex{
+		BBoardID:     "board0",
+		ArticleID:    "1VtW-QXT",
+		CreateTime:   1608388506000000000,
+		MTime:        1608388508000000000,
+		Recommend:    12,
+		Owner:        "SYSOP",
+		FullTitle:    "Re:Re:Re: Fw:[轉錄] [爆卦]這裡是八卦板",
+		Title:        "這裡是八卦板",
+		Class:        "爆卦",
+		TitleRegex:   []string{"這", "裡", "是", "八", "卦", "板", "這裡", "裡是", "是八", "八卦", "卦板", "這裡是", "裡是八", "是八卦", "八卦板", "這裡是八", "裡是八卦", "是八卦板", "這裡是八卦", "裡是八卦板"},
+		SubjectType:  ptttype.SUBJECT_REPLY,
+		Idx:          "1608388506@1VtW-QXT",
+		UpdateNanoTS: 1734567890000000000,
+		IsBottom:     true,
+	}
+
+	expected0 := &ArticleSummary{
+		BBoardID:     "board0",
+		ArticleID:    "1VtW-QXT",
+		CreateTime:   1608388506000000000,
+		MTime:        1608388508000000000,
+		Recommend:    12,
+		Owner:        "SYSOP",
+		FullTitle:    "Re:Re:Re: Fw:[轉錄] [爆卦]這裡是八卦板",
+		Title:        "這裡是八卦板",
+		Class:        "爆卦",
+		SubjectType:  ptttype.SUBJECT_REPLY,
+		Idx:          "1608388506@1VtW-QXT",
+		UpdateNanoTS: 1734567890000000000,
+		IsBottom:     true,
+	}
+
+	_ = UpdateArticleSummaryWithRegexes([]*ArticleSummaryWithRegex{articleSummary0}, 1734567890000000000)
+
+	type args struct {
+		boardID bbs.BBoardID
+	}
+	tests := []struct {
+		name           string
+		args           args
+		expectedResult []*ArticleSummary
+		wantErr        bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:           args{boardID: "board0"},
+			expectedResult: []*ArticleSummary{expected0},
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			gotResult, err := GetBottomArticleSummaries(tt.args.boardID)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetBottomArticleSummaries() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResult, tt.expectedResult) {
+				t.Errorf("GetBottomArticleSummaries() = %v, want %v", gotResult, tt.expectedResult)
+			}
+		})
+		wg.Wait()
+	}
+}
+
+func TestGetArticleSummaries(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	articleSummary0 := &ArticleSummaryWithRegex{
+		BBoardID:     "board0",
+		ArticleID:    "1VtW-QXT",
+		CreateTime:   1608388506000000000,
+		MTime:        1608388508000000000,
+		Recommend:    12,
+		Owner:        "SYSOP",
+		FullTitle:    "Re:Re:Re: Fw:[轉錄] [爆卦]這裡是八卦板",
+		Title:        "這裡是八卦板",
+		Class:        "爆卦",
+		TitleRegex:   []string{"這", "裡", "是", "八", "卦", "板", "這裡", "裡是", "是八", "八卦", "卦板", "這裡是", "裡是八", "是八卦", "八卦板", "這裡是八", "裡是八卦", "是八卦板", "這裡是八卦", "裡是八卦板"},
+		SubjectType:  ptttype.SUBJECT_REPLY,
+		Idx:          "1608388506@1VtW-QXT",
+		UpdateNanoTS: 1734567890000000000,
+		IsBottom:     true,
+	}
+
+	expected0 := &ArticleSummary{
+		BBoardID:     "board0",
+		ArticleID:    "1VtW-QXT",
+		CreateTime:   1608388506000000000,
+		MTime:        1608388508000000000,
+		Recommend:    12,
+		Owner:        "SYSOP",
+		FullTitle:    "Re:Re:Re: Fw:[轉錄] [爆卦]這裡是八卦板",
+		Title:        "這裡是八卦板",
+		Class:        "爆卦",
+		SubjectType:  ptttype.SUBJECT_REPLY,
+		Idx:          "1608388506@1VtW-QXT",
+		UpdateNanoTS: 1734567890000000000,
+		IsBottom:     true,
+	}
+
+	_ = UpdateArticleSummaryWithRegexes([]*ArticleSummaryWithRegex{articleSummary0}, 1734567890000000000)
+
+	type args struct {
+		boardID    bbs.BBoardID
+		startIdx   string
+		descending bool
+		limit      int
+	}
+	tests := []struct {
+		name           string
+		args           args
+		expectedResult []*ArticleSummary
+		wantErr        bool
+	}{
+		// TODO: Add test cases.
+		{
+			args:           args{boardID: "board0"},
+			expectedResult: []*ArticleSummary{expected0},
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			gotResult, err := GetArticleSummaries(tt.args.boardID, tt.args.startIdx, tt.args.descending, tt.args.limit)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetArticleSummaries() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResult, tt.expectedResult) {
+				t.Errorf("GetArticleSummaries() = %v, want %v", gotResult, tt.expectedResult)
+			}
+		})
+		wg.Wait()
 	}
 }

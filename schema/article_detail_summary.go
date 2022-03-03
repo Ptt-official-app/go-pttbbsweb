@@ -4,6 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -42,6 +43,8 @@ type ArticleDetailSummary struct {
 
 	Rank             int          `bson:"rank"` // 評價
 	RankUpdateNanoTS types.NanoTS `bson:"rank_update_nano_ts"`
+
+	Idx string `bson:"pttidx"`
 }
 
 var (
@@ -60,6 +63,54 @@ func GetArticleDetailSummary(bboardID bbs.BBoardID, articleID bbs.ArticleID) (re
 	if err == mongo.ErrNoDocuments {
 		return nil, nil
 	}
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
+}
+
+func GetArticleDetailSummaries(boardID bbs.BBoardID, startIdx string, descending bool, limit int, withDeleted bool) (result []*ArticleDetailSummary, err error) {
+	// setup query
+	var query bson.M
+	if startIdx == "" {
+		query = bson.M{
+			ARTICLE_BBOARD_ID_b: boardID,
+		}
+	} else {
+		theDir := "$gte"
+		if descending {
+			theDir = "$lte"
+		}
+		query = bson.M{
+			ARTICLE_BBOARD_ID_b: boardID,
+			ARTICLE_IDX_b: bson.M{
+				theDir: startIdx,
+			},
+		}
+	}
+	if !withDeleted {
+		query[ARTICLE_IS_DELETED_b] = bson.M{
+			"$exists": false,
+		}
+	}
+
+	// sort opts
+	var sortOpts bson.D
+	if descending {
+		sortOpts = bson.D{
+			{Key: ARTICLE_IDX_b, Value: -1},
+			{Key: ARTICLE_ARTICLE_ID_b, Value: -1},
+		}
+	} else {
+		sortOpts = bson.D{
+			{Key: ARTICLE_IDX_b, Value: 1},
+			{Key: ARTICLE_ARTICLE_ID_b, Value: 1},
+		}
+	}
+
+	// find
+	err = Article_c.Find(query, int64(limit), &result, articleDetailSummaryFields, sortOpts)
 	if err != nil {
 		return nil, err
 	}

@@ -5,8 +5,12 @@ import (
 	"sync"
 	"testing"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/mockhttp"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbs/testutil"
 )
 
 func Test_articleTitleToTitleRegexCore(t *testing.T) {
@@ -169,6 +173,176 @@ func TestUpdateArticleSummaryWithRegexes(t *testing.T) {
 			if err := UpdateArticleSummaryWithRegexes(tt.args.articleSummaryWithRegexes, tt.args.updateNanoTS); (err != nil) != tt.wantErr {
 				t.Errorf("UpdateArticleSummaryWithRegexes() error = %v, wantErr %v", err, tt.wantErr)
 			}
+		})
+		wg.Wait()
+	}
+}
+
+func Test_parseTitle(t *testing.T) {
+	type args struct {
+		fullTitle string
+	}
+	tests := []struct {
+		name             string
+		args             args
+		expectedTheClass string
+		expectedTitle    string
+	}{
+		// TODO: Add test cases.
+		{
+			args:             args{fullTitle: "[CPBL] 這裡是棒球板"},
+			expectedTheClass: "CPBL",
+			expectedTitle:    "這裡是棒球板",
+		},
+		{
+			args:             args{fullTitle: "[八卦] 這裡是八卦板"},
+			expectedTheClass: "八卦",
+			expectedTitle:    "這裡是八卦板",
+		},
+		{
+			args:             args{fullTitle: "[a一d]abcd"},
+			expectedTheClass: "a一d",
+			expectedTitle:    "abcd",
+		},
+		{
+			args:             args{fullTitle: "[ad一]abcd"},
+			expectedTheClass: "ad一",
+			expectedTitle:    "abcd",
+		},
+		{
+			args:             args{fullTitle: "[ad  ]abcd"},
+			expectedTheClass: "ad",
+			expectedTitle:    "abcd",
+		},
+		{
+			args:             args{fullTitle: "[NBA ]這裡是 NBA 板"},
+			expectedTheClass: "NBA",
+			expectedTitle:    "這裡是 NBA 板",
+		},
+		{
+			args:             args{fullTitle: "[0123]這裡是 NBA 板"},
+			expectedTheClass: "0123",
+			expectedTitle:    "這裡是 NBA 板",
+		},
+		{
+			args:             args{fullTitle: "[0123 ]這裡是 NBA 板"},
+			expectedTheClass: "",
+			expectedTitle:    "[0123 ]這裡是 NBA 板",
+		},
+		{
+			args:             args{fullTitle: "[NBA  ]這裡是 NBA 板"},
+			expectedTheClass: "",
+			expectedTitle:    "[NBA  ]這裡是 NBA 板",
+		},
+		{
+			args:             args{fullTitle: "[NBA 這裡是 NBA 板"},
+			expectedTheClass: "",
+			expectedTitle:    "[NBA 這裡是 NBA 板",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotTheClass, gotTitle := parseTitle(tt.args.fullTitle)
+			if gotTheClass != tt.expectedTheClass {
+				t.Errorf("parseTitle() gotTheClass = %v, want %v", gotTheClass, tt.expectedTheClass)
+			}
+			if gotTitle != tt.expectedTitle {
+				t.Errorf("parseTitle() gotTitle = %v, want %v", gotTitle, tt.expectedTitle)
+			}
+		})
+	}
+}
+
+func Test_parseSubjectEx(t *testing.T) {
+	type args struct {
+		fullTitle string
+	}
+	tests := []struct {
+		name                       string
+		args                       args
+		expectedSubjectType        ptttype.SubjectType
+		expectedRealTitleWithClass string
+	}{
+		// TODO: Add test cases.
+		{
+			args:                       args{fullTitle: "Re: Fw: [轉錄] [NBA ] 這裡是 NBA 板"},
+			expectedSubjectType:        ptttype.SUBJECT_REPLY,
+			expectedRealTitleWithClass: "[NBA ] 這裡是 NBA 板",
+		},
+		{
+			args:                       args{fullTitle: "Fw: [轉錄] Re: [NBA ] 這裡是 NBA 板"},
+			expectedSubjectType:        ptttype.SUBJECT_FORWARD,
+			expectedRealTitleWithClass: "[NBA ] 這裡是 NBA 板",
+		},
+
+		{
+			args:                       args{fullTitle: "[轉錄] Re:Re:Re: [NBA ] 這裡是 NBA 板"},
+			expectedSubjectType:        ptttype.SUBJECT_FORWARD,
+			expectedRealTitleWithClass: "[NBA ] 這裡是 NBA 板",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotSubjectType, gotRealTitleWithClass := parseSubjectEx(tt.args.fullTitle)
+			if !reflect.DeepEqual(gotSubjectType, tt.expectedSubjectType) {
+				t.Errorf("parseSubjectEx() gotSubjectType = %v, want %v", gotSubjectType, tt.expectedSubjectType)
+			}
+			if gotRealTitleWithClass != tt.expectedRealTitleWithClass {
+				t.Errorf("parseSubjectEx() gotRealTitleWithClass = %v, want %v", gotRealTitleWithClass, tt.expectedRealTitleWithClass)
+			}
+		})
+	}
+}
+
+func TestNewArticleSummaryWithRegexFromPBArticle(t *testing.T) {
+	pbArticle0 := &boardd.Post{
+		Filename:      "M.1608388506.A.85D",
+		Title:         "Re:Re:Re: Fw:[轉錄] [爆卦]這裡是八卦板",
+		ModifiedNsec:  1608388508000000000,
+		NumRecommends: 12,
+		Owner:         "SYSOP",
+	}
+	expected0 := &ArticleSummaryWithRegex{
+		BBoardID:     "board0",
+		ArticleID:    "1VtW-QXT",
+		CreateTime:   1608388506000000000,
+		MTime:        1608388508000000000,
+		Recommend:    12,
+		Owner:        "SYSOP",
+		FullTitle:    "Re:Re:Re: Fw:[轉錄] [爆卦]這裡是八卦板",
+		Title:        "這裡是八卦板",
+		Class:        "爆卦",
+		TitleRegex:   []string{"這", "裡", "是", "八", "卦", "板", "這裡", "裡是", "是八", "八卦", "卦板", "這裡是", "裡是八", "是八卦", "八卦板", "這裡是八", "裡是八卦", "是八卦板", "這裡是八卦", "裡是八卦板"},
+		SubjectType:  ptttype.SUBJECT_REPLY,
+		Idx:          "1608388506@1VtW-QXT",
+		UpdateNanoTS: 1734567890000000000,
+	}
+
+	type args struct {
+		boardID      bbs.BBoardID
+		a_b          *boardd.Post
+		updateNanoTS types.NanoTS
+		isBottom     bool
+	}
+	tests := []struct {
+		name     string
+		args     args
+		expected *ArticleSummaryWithRegex
+	}{
+		// TODO: Add test cases.
+		{
+			args:     args{boardID: "board0", a_b: pbArticle0, updateNanoTS: 1734567890000000000},
+			expected: expected0,
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			got := NewArticleSummaryWithRegexFromPBArticle(tt.args.boardID, tt.args.a_b, tt.args.updateNanoTS, tt.args.isBottom)
+
+			testutil.TDeepEqual(t, "got", got, tt.expected)
 		})
 		wg.Wait()
 	}

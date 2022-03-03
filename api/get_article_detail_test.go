@@ -1,11 +1,13 @@
 package api
 
 import (
+	"context"
 	"sort"
 	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -22,6 +24,25 @@ func TestGetArticleDetail(t *testing.T) {
 	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
 	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
 
+	// load articles
+	ctx := context.Background()
+	brdname := &boardd.BoardRef_Name{Name: "WhoAmI"}
+	req := &boardd.ListRequest{
+		Ref:          &boardd.BoardRef{Ref: brdname},
+		IncludePosts: true,
+		Offset:       0,
+		Length:       100 + 1,
+	}
+	resp, _ := boardd.Cli.List(ctx, req)
+
+	posts := resp.Posts
+
+	logrus.Infof("TestGetArticleDetail: posts: %v", len(posts))
+
+	updateNanoTS := types.NowNanoTS()
+	_, _ = DeserializePBArticlesAndUpdateDB("10_WhoAmI", posts, updateNanoTS, false)
+
+	// params
 	params := &GetArticleDetailParams{}
 	path0 := &GetArticleDetailPath{
 		FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -67,6 +88,8 @@ func TestGetArticleDetail(t *testing.T) {
 
 		IP:  "172.22.0.1",
 		BBS: "批踢踢 docker(pttdocker.test)",
+
+		Idx: "1234567890@1VtWRel9",
 	}
 
 	expectedArticleDetailSummary02 := &schema.ArticleDetailSummary{
@@ -86,6 +109,8 @@ func TestGetArticleDetail(t *testing.T) {
 
 		IP:  "172.22.0.1",
 		BBS: "批踢踢 docker(pttdocker.test)",
+
+		Idx: "1234567890@1VtWRel9",
 	}
 
 	path1 := &GetArticleDetailPath{
@@ -96,7 +121,7 @@ func TestGetArticleDetail(t *testing.T) {
 	expectedResult1 := &GetArticleDetailResult{
 		BBoardID:   apitypes.FBoardID("WhoAmI"),
 		ArticleID:  apitypes.FArticleID("M.1607937174.A.081"),
-		Owner:      bbs.UUserID("SYSOP"),
+		Owner:      bbs.UUserID("teemo"),
 		CreateTime: types.Time8(1607937174),
 		MTime:      types.Time8(1607937100),
 
@@ -104,7 +129,7 @@ func TestGetArticleDetail(t *testing.T) {
 		Read: true,
 
 		Title:         "再來呢？～",
-		Money:         12,
+		Money:         0,
 		Recommend:     3,
 		Class:         "問題",
 		Brdname:       "WhoAmI",
@@ -120,7 +145,7 @@ func TestGetArticleDetail(t *testing.T) {
 		ArticleID: bbs.ArticleID("1VrooM21"),
 		// ContentMTime: types.NanoTS(1608388624000000000),
 		ContentMD5: "riiRuKCZzG0gAGpQiq4GJA",
-		Owner:      "SYSOP",
+		Owner:      "teemo",
 
 		FirstCommentsMD5: "3fjMk__1yvzpuEgq8jfdmg",
 		NComments:        0,
@@ -129,12 +154,14 @@ func TestGetArticleDetail(t *testing.T) {
 		MTime:      types.NanoTS(1607937100000000000),
 
 		Title:     "再來呢？～",
-		Money:     12,
+		Money:     0,
 		Recommend: 3,
 		Class:     "問題",
 
 		IP:  "172.22.0.1",
 		BBS: "批踢踢 docker(pttdocker.test)",
+
+		Idx: "1607937174@1VrooM21",
 	}
 	c := &gin.Context{}
 	// c.Request = &http.Request{URL: &url.URL{Path: "/api/boards/WhoAmI/article/M.1607937174.A.081"}}
@@ -292,10 +319,10 @@ func TestGetArticleDetail(t *testing.T) {
 				gotArticleDetailSummary.CommentsUpdateNanoTS = 0
 				gotArticleDetailSummary.NComments = 0
 				gotArticleDetailSummary.UpdateNanoTS = 0
-			}
 
-			gotArticleDetailSummary.ContentID = ""
-			gotArticleDetailSummary.ContentMTime = 0
+				gotArticleDetailSummary.ContentID = ""
+				gotArticleDetailSummary.ContentMTime = 0
+			}
 			testutil.TDeepEqual(t, "article-detail-summary", gotArticleDetailSummary, tt.expectedArticleDetailSummary)
 		})
 		wg.Wait()

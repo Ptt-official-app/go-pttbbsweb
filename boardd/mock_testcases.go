@@ -68,4 +68,54 @@ var (
 		Bclass:        "嘰哩",
 		RawModerators: "",
 	}
+
+	testArticle0 = &Post{
+		Index:         0,
+		Filename:      "M.1607937174.A.081",
+		RawDate:       "2020/12/14 17:12:54",
+		NumRecommends: 3,
+		Owner:         "teemo",
+		Title:         "[問題]再來呢？～",
+		ModifiedNsec:  1607937100000000000,
+	}
+
+	testArticle1 = &Post{
+		Index:         1,
+		Filename:      "M.1234567890.A.123",
+		RawDate:       "2009/02/14 07:30:00",
+		NumRecommends: 8,
+		Owner:         "okcool",
+		Title:         "[問題]然後呢？～",
+		ModifiedNsec:  1234567889000000000,
+	}
+
+	testArticle2 = &Post{
+		Index:         2,
+		Filename:      "M.1234560000.A.081",
+		RawDate:       "2009/02/14 05:20:00",
+		NumRecommends: 13,
+		Owner:         "SYSOP",
+		Title:         "[問題]這是 SYSOP",
+		ModifiedNsec:  1234560000000000000,
+	}
+
+	testArticle3 = &Post{
+		Index:         2,
+		Filename:      "M.1607937176.A.081",
+		RawDate:       "2020/12/14 17:12:54",
+		NumRecommends: 13,
+		Owner:         "teemo",
+		Title:         "[問題]再來呢？～",
+		ModifiedNsec:  1607937100000000000,
+	}
+
+	testArticle4 = &Post{
+		Index:         2,
+		Filename:      "M.1234567892.A.123",
+		RawDate:       "2009/02/14 07:30:02",
+		NumRecommends: 24,
+		Owner:         "teemo",
+		Title:         "[問題]然後呢？～",
+		ModifiedNsec:  1234567889000000000,
+	}
 )

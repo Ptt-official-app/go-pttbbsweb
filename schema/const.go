@@ -14,6 +14,14 @@ const (
 	MAX_CONTENT_BLOCK = 5
 
 	MAX_ALL_CONTENT_BLOCK = 2000
+
+	STR_REPLY       = "Re:"
+	STR_REPLY_LOWER = "re:"
+
+	STR_FORWARD       = "Fw:"
+	STR_FORWARD_LOWER = "fw:"
+
+	STR_LEGACY_FORWARD = "[轉錄]"
 )
 
 var (

@@ -194,6 +194,32 @@ func (c *Collection) UpdateManyOnly(filter interface{}, update interface{}) (r *
 	return r, nil
 }
 
+//UpdateManyOnly
+//
+//Mongo update-many with set + no-upsert operation
+func (c *Collection) UpdateManyOnlyNoSet(filter interface{}, update interface{}) (r *mongo.UpdateResult, err error) {
+	opts := &options.UpdateOptions{}
+	opts.SetUpsert(false)
+
+	ctx, cancel := context.WithTimeout(context.Background(), TIMEOUT_MILLI_TS*time.Millisecond)
+	defer func() {
+		ctxErr := ctx.Err()
+		cancel()
+		if err == nil {
+			err = ctxErr
+		}
+	}()
+
+	r, err = c.coll.UpdateMany(ctx, filter, update, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	time.Sleep(1 * time.Millisecond)
+
+	return r, nil
+}
+
 //Update
 //
 //Mongo update with set + upsert operation

@@ -157,6 +157,12 @@ func main() {
 	// retry load full class boards
 	g.AddRunningJob(cron.RetryLoadFullClassBoards)
 
+	// retry load general articles
+	g.AddRunningJob(cron.RetryLoadGeneralArticles)
+
+	// retry load article details
+	g.AddRunningJob(cron.RetryLoadArticleDetails)
+
 	// retry to calculate user visit count
 	g.AddRunningJob(cron.RetryCalculateUserVisit)
 

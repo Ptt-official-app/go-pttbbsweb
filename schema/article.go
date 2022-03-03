@@ -5,6 +5,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 var Article_c *db.Collection
@@ -57,6 +58,8 @@ type Article struct {
 	RankUpdateNanoTS   types.NanoTS `bson:"rank_update_nano_ts"`
 
 	SubjectType ptttype.SubjectType `bson:"subject_type"`
+
+	IsBottom bool `bson:"is_bottom"`
 }
 
 var EMPTY_ARTICLE = &Article{}
@@ -76,6 +79,8 @@ var ( // bson-name
 	ARTICLE_CLASS_b       = getBSONName(EMPTY_ARTICLE, "Class")
 	ARTICLE_FILEMODE_b    = getBSONName(EMPTY_ARTICLE, "Filemode")
 	ARTICLE_TITLE_REGEX_b = getBSONName(EMPTY_ARTICLE, "TitleRegex")
+
+	ARTICLE_IDX_b = getBSONName(EMPTY_ARTICLE, "Idx")
 
 	ARTICLE_UPDATE_NANO_TS_b = getBSONName(EMPTY_ARTICLE, "UpdateNanoTS")
 
@@ -106,6 +111,8 @@ var ( // bson-name
 	ARTICLE_RANK_UPDATE_NANO_TS_b    = getBSONName(EMPTY_ARTICLE, "RankUpdateNanoTS")
 
 	ARTICLE_SUBJECT_TYPE_b = getBSONName(EMPTY_ARTICLE, "SubjectType")
+
+	ARTICLE_IS_BOTTOM_b = getBSONName(EMPTY_ARTICLE, "IsBottom")
 )
 
 func assertArticleFields() error {
@@ -160,3 +167,19 @@ type ArticleQuery struct {
 }
 
 var EMPTY_ARTICLE_QUERY = &ArticleQuery{}
+
+func ResetArticleIsBottom(boardID bbs.BBoardID) (err error) {
+	query := bson.M{
+		ARTICLE_BBOARD_ID_b: boardID,
+		ARTICLE_IS_BOTTOM_b: true,
+	}
+	update := bson.M{
+		"$unset": bson.M{
+			ARTICLE_IS_BOTTOM_b: true,
+		},
+	}
+
+	_, err = Article_c.UpdateManyOnlyNoSet(query, update)
+
+	return err
+}

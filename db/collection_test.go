@@ -1783,3 +1783,101 @@ func TestCollection_FindOneAndUpdate(t *testing.T) {
 		wg.Wait()
 	}
 }
+
+func TestCollection_UpdateManyOnlyNoSet(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	client, err := NewClient("mongodb", "localhost", 27017, "test")
+	if err != nil {
+		return
+	}
+	defer client.Close()
+
+	coll := client.Collection("test")
+	defer coll.Drop()
+
+	type testUpdate struct {
+		Test1 string `bson:"test1"`
+		Test3 bool   `bson:"test3"`
+	}
+
+	filter0 := make(map[string]interface{})
+	filter0["test"] = 1
+	filter0["test1"] = "4"
+
+	update0 := &testUpdate{Test1: "4"}
+
+	_, _ = coll.Update(filter0, update0)
+
+	filter1 := make(map[string]interface{})
+	filter1["test"] = 1
+	filter1["test1"] = "3"
+
+	update1 := bson.M{
+		"$set": &testUpdate{Test1: "2", Test3: true},
+	}
+
+	expected1 := &mongo.UpdateResult{}
+	expected1.MatchedCount = 0
+	expected1.ModifiedCount = 0
+	expected1.UpsertedCount = 0
+
+	filter2 := make(map[string]interface{})
+	filter2["test"] = 1
+
+	update2 := bson.M{
+		"$set": &testUpdate{Test1: "2", Test3: true},
+	}
+
+	expected2 := &mongo.UpdateResult{}
+	expected2.MatchedCount = 1
+	expected2.ModifiedCount = 1
+	expected2.UpsertedCount = 0
+
+	type fields struct {
+		coll *mongo.Collection
+	}
+	type args struct {
+		filter interface{}
+		update interface{}
+	}
+	tests := []struct {
+		name      string
+		fields    fields
+		args      args
+		expectedR *mongo.UpdateResult
+		wantErr   bool
+	}{
+		// TODO: Add test cases.
+		{
+			fields:    fields{coll: coll.coll},
+			args:      args{filter: filter1, update: update1},
+			expectedR: expected1,
+		},
+		{
+			fields:    fields{coll: coll.coll},
+			args:      args{filter: filter2, update: update2},
+			expectedR: expected2,
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			c := &Collection{
+				coll: tt.fields.coll,
+			}
+			gotR, err := c.UpdateManyOnlyNoSet(tt.args.filter, tt.args.update)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Collection.UpdateManyOnlyNoSet() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotR, tt.expectedR) {
+				t.Errorf("Collection.UpdateManyOnlyNoSet() = %v, want %v", gotR, tt.expectedR)
+			}
+		})
+		wg.Wait()
+	}
+}
