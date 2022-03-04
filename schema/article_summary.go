@@ -171,12 +171,10 @@ func GetArticleSummaries(boardID bbs.BBoardID, startIdx string, descending bool,
 	if descending {
 		sortOpts = bson.D{
 			{Key: ARTICLE_IDX_b, Value: -1},
-			{Key: ARTICLE_ARTICLE_ID_b, Value: -1},
 		}
 	} else {
 		sortOpts = bson.D{
 			{Key: ARTICLE_IDX_b, Value: 1},
-			{Key: ARTICLE_ARTICLE_ID_b, Value: 1},
 		}
 	}
 
