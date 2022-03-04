@@ -79,7 +79,7 @@ func loadGeneralArticles(boardID bbs.BBoardID) (err error) {
 
 		logrus.Infof("cron.LoadGeneralArticles: bid: %v count: %v", boardID, count)
 
-		if newNextIdx == 0 {
+		if newNextIdx == INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX {
 			logrus.Infof("cron.LoadGeneralArticles: bid: %v load %v articles", boardID, count)
 			break
 		}
@@ -97,7 +97,7 @@ func loadGeneralArticles(boardID bbs.BBoardID) (err error) {
 }
 
 func loadGeneralArticlesCore(boardID bbs.BBoardID, startIdx int32) (articleSummaries []*schema.ArticleSummaryWithRegex, nextIdx int32, err error) {
-	nextIdx = -1
+	nextIdx = INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX
 	brdnameStr := boardID.ToBrdname()
 	// backend load-general-articles
 	ctx := context.Background()
@@ -110,7 +110,7 @@ func loadGeneralArticlesCore(boardID bbs.BBoardID, startIdx int32) (articleSumma
 	}
 	resp, err := boardd.Cli.List(ctx, req)
 	if err != nil {
-		return nil, -1, err
+		return nil, INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX, err
 	}
 
 	posts := resp.Posts
@@ -123,7 +123,7 @@ func loadGeneralArticlesCore(boardID bbs.BBoardID, startIdx int32) (articleSumma
 	updateNanoTS := types.NowNanoTS()
 	articleSummaries, err = api.DeserializePBArticlesAndUpdateDB(boardID, posts, updateNanoTS, false)
 	if err != nil {
-		return nil, -1, err
+		return nil, INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX, err
 	}
 
 	return articleSummaries, nextIdx, nil
