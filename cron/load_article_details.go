@@ -16,13 +16,13 @@ func RetryLoadArticleDetails(ctx context.Context) error {
 		case <-ctx.Done():
 			return nil
 		default:
-			logrus.Infof("RetryLoadGeneralArticles: to LoadGeneralArticles")
+			logrus.Infof("RetryLoadArticleDetails: to LoadGeneralArticles")
 			_ = LoadArticleDetails()
 			select {
 			case <-ctx.Done():
 				return nil
 			default:
-				logrus.Infof("RetryLoadGeneralArticles: to sleep 1 min")
+				logrus.Infof("RetryLoadArticleDetails: to sleep 1 min")
 				time.Sleep(1 * time.Minute)
 			}
 		}
@@ -82,7 +82,7 @@ func loadArticleDetails(boardID bbs.BBoardID) (err error) {
 
 		origCount := count
 		for _, each := range articleDetailSummaries {
-			if each.MTime < each.ContentMTime {
+			if each.MTime <= each.ContentMTime && each.MTime < each.ContentUpdateNanoTS {
 				continue
 			}
 
