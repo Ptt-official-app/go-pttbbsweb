@@ -33,4 +33,4 @@ $(SERVICE): $(GOFILES)
 
 .PHONY: test
 test:
-	$(GO) test -v -cover -tags $(TAGS) -coverprofile coverage.txt ./... && echo "\n==>\033[32m Ok\033[m\n" || exit 1
+	$(GO) test -p 1 -v -cover -tags $(TAGS) -coverprofile coverage.txt ./... && echo "\n==>\033[32m Ok\033[m\n" || exit 1
