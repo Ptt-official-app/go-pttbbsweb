@@ -7,6 +7,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func TestEditArticleDetail(t *testing.T) {
@@ -74,7 +75,6 @@ func TestEditArticleDetail(t *testing.T) {
 				Utf8:   "測試2",
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
-				Big5:   []byte("\xb4\xfa\xb8\xd52"),
 				DBCS:   []byte("\xb4\xfa\xb8\xd52\r"),
 			},
 		},
@@ -83,7 +83,6 @@ func TestEditArticleDetail(t *testing.T) {
 				Utf8:   "測試3",
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
-				Big5:   []byte("\xb4\xfa\xb8\xd53"),
 				DBCS:   []byte("\xb4\xfa\xb8\xd53\r"),
 			},
 		},
@@ -119,6 +118,7 @@ func TestEditArticleDetail(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotResult, gotStatusCode, err := EditArticleDetail(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+			logrus.Infof("TestEditArticleDetail: got: %v statusCode: %v e: %v", gotResult, gotStatusCode, err)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("EditArticleDetail() error = %v, wantErr %v", err, tt.wantErr)
 				return

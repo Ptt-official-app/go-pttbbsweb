@@ -315,6 +315,9 @@ func InferTimestamp(edBlocks []*EDBlock, isForwardOnly bool, isLastAlignEndNanoT
 	for idx, each := range edBlocks {
 		isAlignEndNanoTS := isLastAlignEndNanoTS && (idx == len(edBlocks)-1)
 		lenBeforeComments := len(each.NewComments)
+		if lenBeforeComments == 0 {
+			continue
+		}
 		each.InferTimestamp(articleCreateTime, isForwardOnly, isAlignEndNanoTS)
 		lenAfterComments := len(each.NewComments)
 		if lenAfterComments == 0 {

@@ -4,6 +4,8 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+
+	"github.com/sirupsen/logrus"
 )
 
 func initTest() {
@@ -32,6 +34,15 @@ func initTest() {
 	initTest18()
 	initTest19()
 	initTest20()
+	initTestUtf80()
+	initTestUtf81()
+	initTestUtf82()
+	initTestUtf83()
+	initTestUtf84()
+	initTestUtf85()
+	initTestUtf86()
+	initTestUtf87()
+	initTestUtf88()
 }
 
 func loadTest(filename string) (contentAll []byte, content []byte, signature []byte, recommend []byte, firstComments []byte, theRestComments []byte) {
@@ -39,6 +50,7 @@ func loadTest(filename string) (contentAll []byte, content []byte, signature []b
 	fullFilename := "testcase/" + filename
 	file0, err := os.Open(fullFilename)
 	if err != nil {
+		logrus.Errorf("loadTest: unable to open: filename: %v e: %v", filename, err)
 		return nil, nil, nil, nil, nil, nil
 	}
 	defer file0.Close()
@@ -50,6 +62,7 @@ func loadTest(filename string) (contentAll []byte, content []byte, signature []b
 	fullFilename = "testcase/" + filename + ".content"
 	file1, err := os.Open(fullFilename)
 	if err != nil {
+		logrus.Errorf("loadTest: unable to open content: filename : %v e: %v", filename, err)
 		return nil, nil, nil, nil, nil, nil
 	}
 	defer file1.Close()
@@ -65,6 +78,7 @@ func loadTest(filename string) (contentAll []byte, content []byte, signature []b
 	fullFilename = "testcase/" + filename + ".signature"
 	file2, err := os.Open(fullFilename)
 	if err != nil {
+		logrus.Errorf("loadTest: unable to open signature: filename : %v e: %v", filename, err)
 		return nil, nil, nil, nil, nil, nil
 	}
 	defer file2.Close()

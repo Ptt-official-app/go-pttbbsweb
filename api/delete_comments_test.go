@@ -47,6 +47,8 @@ func TestDeleteComments(t *testing.T) {
 	gotCreateArticleResult0, _, _ := CreateArticle(testIP, "SYSOP", createArticleParams0, createArticlePath0, nil)
 	gotCreateArticle0, _ := gotCreateArticleResult0.(CreateArticleResult)
 
+	logrus.Infof("TestDeleteComments: gotCreateArticle0: %v", gotCreateArticle0)
+
 	createCommentParams0 := &CreateCommentParams{
 		CommentType: ptttype.COMMENT_TYPE_RECOMMEND,
 		Content:     "test123",
@@ -104,6 +106,7 @@ func TestDeleteComments(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
 			gotResult, gotStatusCode, err := DeleteComments(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+			logrus.Infof("TestDeleteComments: got: %v statusCode: %v e: %v", gotResult, gotStatusCode, err)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("DeleteComments() error = %v, wantErr %v", err, tt.wantErr)
 				return

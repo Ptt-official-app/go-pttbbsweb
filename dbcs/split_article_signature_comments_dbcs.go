@@ -31,7 +31,7 @@ func splitArticleSignatureCommentsDBCS(content []byte) (articleDBCS []byte, sign
 
 	for _, idx := range idxes {
 		// 2. validate signature idx and nBytes of signature
-		isValid, nBytes := isValidSimpleSignaure(content, idx)
+		isValid, nBytes := isValidSimpleSignature(content, idx)
 		if !isValid {
 			continue
 		}
@@ -89,7 +89,7 @@ func tryGetSimpleSignatureIdxes(content []byte) []int {
 	return idxes
 }
 
-func isValidSimpleSignaure(content []byte, idx int) (isValid bool, nBytes int) {
+func isValidSimpleSignature(content []byte, idx int) (isValid bool, nBytes int) {
 	p_content := content[idx:]
 
 	return isSimpleSignatureWithFrom(p_content)
@@ -100,7 +100,7 @@ var (
 		0x29, 0x2c, 0x20, 0xa8, 0xd3, 0xa6, 0xdb, 0x3a, 0x20,
 	}
 
-	MATCH_SIGNATURE_FROM_OLD = []byte{ //◆  From:
+	MATCH_SIGNATURE_FROM_OLD = []byte{ //◆ From:
 		0xa1, 0xbb, 0x20, 0x46, 0x72, 0x6f, 0x6d, 0x3a, 0x20,
 	}
 

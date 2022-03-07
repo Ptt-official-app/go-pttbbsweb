@@ -1,13 +1,14 @@
 package api
 
 import (
-	"reflect"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func TestDeleteArticles(t *testing.T) {
@@ -72,13 +73,14 @@ func TestDeleteArticles(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotResult, gotStatusCode, err := DeleteArticles(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+			logrus.Infof("TestDeleteArticles: got: %v statusCode: %v e: %v", gotResult, gotStatusCode, err)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("DeleteArticles() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(gotResult, tt.wantResult) {
-				t.Errorf("DeleteArticles() gotResult = %v, want %v", gotResult, tt.wantResult)
-			}
+
+			testutil.TDeepEqual(t, "got", gotResult, tt.wantResult)
+
 			if gotStatusCode != tt.wantStatusCode {
 				t.Errorf("DeleteArticles() gotStatusCode = %v, want %v", gotStatusCode, tt.wantStatusCode)
 			}

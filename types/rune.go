@@ -11,11 +11,12 @@ import (
 )
 
 type Rune struct {
-	Utf8   string `json:"text" bson:"utf8"` // utf8-string
-	Big5   []byte `json:"-" bson:"big5"`    // big5-bytes, stored in db for debugging.
-	DBCS   []byte `json:"-" bson:"dbcs"`    // dbcs-bytes, stored in db for concat and debugging.
-	Color0 Color  `json:"color0" bson:"color0"`
-	Color1 Color  `json:"color1" bson:"color1"`
+	Utf8    string `json:"text" bson:"utf8"` // utf8-string
+	Big5    []byte `json:"-" bson:"big5"`    // big5-bytes, stored in db for debugging.
+	DBCS    []byte `json:"-" bson:"dbcs"`    // dbcs-bytes, stored in db for concat and debugging.
+	DBCSStr string `json:"-" bson:"dbcsstr"` // dbcs-str, stored in db for concat and debugging.
+	Color0  Color  `json:"color0" bson:"color0"`
+	Color1  Color  `json:"color1" bson:"color1"`
 }
 
 var (
@@ -211,6 +212,40 @@ func (r *Rune) Utf8ToBig5() {
 		return
 	}
 	r.Big5 = Utf8ToBig5(r.Utf8)
+}
+
+func (r *Rune) Utf8ToDBCS(origColor Color, isAddCR bool) {
+	if len(r.DBCS) != 0 {
+		return
+	}
+
+	estimatedNBytes := len(r.Utf8)*2/3 + 2*DEFAULT_LEN_COLOR_BYTES
+	theBytes := make([]byte, 0, estimatedNBytes)
+	colorBytes := r.Color0.BytesWithPreColor(&origColor)
+	theBytes = append(theBytes, colorBytes...)
+
+	big5Bytes := Utf8ToBig5(r.Utf8)
+	var big5BytesPrefix []byte
+	var big5BytesPostfix []byte
+	if len(big5Bytes) >= 1 {
+		big5BytesPrefix = big5Bytes[:len(big5Bytes)-1]
+		big5BytesPostfix = big5Bytes[len(big5Bytes)-1:]
+	}
+	theBytes = append(theBytes, big5BytesPrefix...)
+
+	colorBytes = r.Color1.BytesWithPreColor(&r.Color0)
+	theBytes = append(theBytes, colorBytes...)
+
+	theBytes = append(theBytes, big5BytesPostfix...)
+	if isAddCR {
+		theBytes = append(theBytes, '\r')
+	}
+
+	if len(theBytes) == 0 {
+		theBytes = nil
+	}
+
+	r.DBCS = theBytes
 }
 
 func Utf8ToBig5(utf8 string) (big5 []byte) {

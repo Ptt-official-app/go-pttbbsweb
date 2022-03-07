@@ -22,6 +22,8 @@ const (
 	STR_FORWARD_LOWER = "fw:"
 
 	STR_LEGACY_FORWARD = "[轉錄]"
+
+	MAX_COMMENT_BYTES = 90
 )
 
 var (

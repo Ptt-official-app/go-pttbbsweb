@@ -29,7 +29,6 @@ func TestLoadBottomArticles(t *testing.T) {
 	_, _ = schema.UserReadArticle_c.Update(update1, update1)
 
 	// load articles
-	// load articles
 	ctx := context.Background()
 	brdname := &boardd.BoardRef_Name{Name: "WhoAmI"}
 	req := &boardd.ListRequest{
@@ -93,8 +92,8 @@ func TestLoadBottomArticles(t *testing.T) {
 				MTime:      types.Time8(1607937100),
 				Recommend:  3,
 				Owner:      "teemo",
-				Title:      "再來呢？～",
-				Class:      "問題",
+				Title:      "新書的情報",
+				Class:      "閒聊",
 				Money:      0,
 				Filemode:   0,
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.081",

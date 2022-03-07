@@ -253,7 +253,7 @@ func Test_utf8ToBig5ByRune(t *testing.T) {
 		Color0: types.DefaultColor,
 		Color1: types.DefaultColor,
 	}
-	color0 := &types.DefaultColor
+	color0 := types.DefaultColor
 	expected0 := []byte("\xb4\xfa\xb8\xd50")
 
 	rune1 := &types.Rune{
@@ -267,9 +267,9 @@ func Test_utf8ToBig5ByRune(t *testing.T) {
 			Background: types.COLOR_BACKGROUND_BLUE,
 		},
 	}
-	color1 := &types.DefaultColor
+	color1 := types.DefaultColor
 	expected1 := []byte("\x1b[33;44m\xb4\xfa\xb8\xd50")
-	expectedColor1 := &rune1.Color1
+	expectedColor1 := rune1.Color1
 
 	rune2 := &types.Rune{
 		Utf8: "測試0",
@@ -282,9 +282,9 @@ func Test_utf8ToBig5ByRune(t *testing.T) {
 			Background: types.COLOR_BACKGROUND_BLACK,
 		},
 	}
-	color2 := &types.DefaultColor
+	color2 := types.DefaultColor
 	expected2 := []byte("\x1b[33m\xb4\xfa\xb8\xd50")
-	expectedColor2 := &rune2.Color1
+	expectedColor2 := rune2.Color1
 
 	rune3 := &types.Rune{
 		Utf8: "測試0",
@@ -297,9 +297,9 @@ func Test_utf8ToBig5ByRune(t *testing.T) {
 			Background: types.COLOR_BACKGROUND_BLUE,
 		},
 	}
-	color3 := &types.DefaultColor
+	color3 := types.DefaultColor
 	expected3 := []byte("\x1b[33m\xb4\xfa\xb8\xd5\x1b[44m0")
-	expectedColor3 := &rune3.Color1
+	expectedColor3 := rune3.Color1
 
 	rune4 := &types.Rune{
 		Utf8: "",
@@ -314,9 +314,9 @@ func Test_utf8ToBig5ByRune(t *testing.T) {
 			IsReset:    true,
 		},
 	}
-	color4 := &types.DefaultColor
+	color4 := types.DefaultColor
 	expected4 := []byte("\x1b[m")
-	expectedColor4 := &rune4.Color1
+	expectedColor4 := rune4.Color1
 
 	rune5 := &types.Rune{
 		Utf8: "",
@@ -329,25 +329,25 @@ func Test_utf8ToBig5ByRune(t *testing.T) {
 			Background: types.COLOR_BACKGROUND_GREEN,
 		},
 	}
-	color5 := &types.DefaultColor
+	color5 := types.DefaultColor
 	expected5 := []byte("\x1b[33;44m\x1b[42m")
-	expectedColor5 := &rune5.Color1
+	expectedColor5 := rune5.Color1
 
 	type args struct {
 		theRune *types.Rune
-		color   *types.Color
+		color   types.Color
 		isAddCR bool
 	}
 	tests := []struct {
 		name             string
 		args             args
 		expectedTheBig5  []byte
-		expectedNewColor *types.Color
+		expectedNewColor types.Color
 	}{
 		// TODO: Add test cases.
 		{
 			args:             args{theRune: rune0, color: color0},
-			expectedNewColor: &types.DefaultColor,
+			expectedNewColor: types.DefaultColor,
 			expectedTheBig5:  expected0,
 		},
 		{
@@ -412,19 +412,19 @@ func Test_utf8ToBig5ByLine(t *testing.T) {
 	}
 
 	line0 := []*types.Rune{rune0, rune1}
-	color0 := &types.DefaultColor
+	color0 := types.DefaultColor
 	expected0 := []byte("\xb4\xfa\xb8\xd50\x1b[33;44m\xb4\xfa\xb8\xd51\r")
-	expectedColor0 := &rune1.Color1
+	expectedColor0 := rune1.Color1
 
 	type args struct {
 		line  []*types.Rune
-		color *types.Color
+		color types.Color
 	}
 	tests := []struct {
 		name             string
 		args             args
 		expectedLineBig5 []byte
-		expectedNewColor *types.Color
+		expectedNewColor types.Color
 	}{
 		// TODO: Add test cases.
 		{

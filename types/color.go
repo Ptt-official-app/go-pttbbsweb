@@ -96,35 +96,31 @@ var colorBytesMap = map[ColorMap][]byte{
 	COLOR_BACKGROUND_WHITE:   {'4', '7'},
 }
 
-const (
-	DEFAULT_LEN_COLOR_BYTES = 20 //\x1b[0;1;5;37;40m
-)
+func (c *Color) BytesWithPreColor(color *Color) (theBytes []byte) {
+	if *c == *color { // 2 colors are the same
+		return nil
+	}
 
-func (c *Color) BytesWithPreColor(color *Color, isForceReset bool) (theBytes []byte) {
-	if c.IsReset {
-		if color.IsReset && !isForceReset {
-			return nil
-		}
+	if c.IsReset { // do reset
 		return []byte("\x1b[m")
 	}
 
-	if color.IsReset {
+	if color.IsReset { // origin is reset
 		color = &DefaultColor
 	}
 
-	if *c == *color {
+	if *c == *color { // 2 colors are the same
 		return nil
 	}
 
 	theBytes = make([]byte, 0, DEFAULT_LEN_COLOR_BYTES)
-	theBytes = append(theBytes, []byte{'\x1b', '['}...)
+	theBytes = append(theBytes, COLOR_PREFIX_BYTES...)
 
 	isFirst := true
-	isReset := false
-	if c.Highlight != color.Highlight && !c.Highlight ||
-		c.Blink != color.Blink && !c.Blink {
+	if color.Highlight && !c.Highlight ||
+		color.Blink && !c.Blink {
 		theBytes = append(theBytes, '0')
-		isReset = true
+		color = &DefaultColor
 		isFirst = false
 	}
 
@@ -146,7 +142,7 @@ func (c *Color) BytesWithPreColor(color *Color, isForceReset bool) (theBytes []b
 		theBytes = append(theBytes, '5')
 	}
 
-	if c.Foreground != color.Foreground || isReset && c.Foreground != DefaultColor.Foreground {
+	if c.Foreground != color.Foreground {
 		if !isFirst {
 			theBytes = append(theBytes, ';')
 		} else {
@@ -155,14 +151,14 @@ func (c *Color) BytesWithPreColor(color *Color, isForceReset bool) (theBytes []b
 		theBytes = append(theBytes, colorBytesMap[c.Foreground]...)
 	}
 
-	if c.Background != color.Background || isReset && c.Background != DefaultColor.Background {
+	if c.Background != color.Background {
 		if !isFirst {
 			theBytes = append(theBytes, ';')
 		}
 		theBytes = append(theBytes, colorBytesMap[c.Background]...)
 	}
 
-	theBytes = append(theBytes, 'm')
+	theBytes = append(theBytes, COLOR_POSTFIX_BYTES...)
 
 	return theBytes
 }

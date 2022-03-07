@@ -24,10 +24,12 @@ func HTTPPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(LoadHotBoards(), result)
 	case "/board/10_WhoAmI/article/1VtWRel9":
 		return parseResult(GetArticleDetail(data.(*api.GetArticleParams)), result)
-	case "/board/10_WhoAmI/article/1VrooM21":
+	case "/board/10_WhoAmI/article/1VrooM22":
 		return parseResult(GetArticleDetail2(data.(*api.GetArticleParams)), result)
-	case "/board/10_WhoAmI/article/1VrooM21/edit":
+	case "/board/10_WhoAmI/article/1VrooM22/edit":
 		return parseResult(EditArticleDetail2(data.(*api.EditArticleParams)), result)
+	case "/board/10_WhoAmI/article/1VrooM22/comment":
+		return parseResult(CreateComment(data.(*api.CreateCommentParams)), result)
 	case "/board/10_WhoAmI/article/1Vo_N0CD": // M.1607202240.A.30D
 		return parseResult(GetArticleDetail4(data.(*api.GetArticleParams)), result)
 	case "/board/10_WhoAmI/article":
@@ -36,11 +38,11 @@ func HTTPPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(LoadGeneralArticles2(data.(*api.LoadGeneralArticlesParams)), result)
 	case "/board/1_SYSOP/article":
 		return parseResult(CreateArticle2(data.(*api.CreateArticleParams)), result)
-	case "/board/1_SYSOP/article/1VrooM21":
+	case "/board/1_SYSOP/article/1VrooM23":
 		return parseResult(GetArticleDetail3(data.(*api.GetArticleParams)), result)
-	case "/board/1_SYSOP/article/1VrooM21/edit":
+	case "/board/1_SYSOP/article/1VrooM23/edit":
 		return parseResult(EditArticleDetail3(data.(*api.EditArticleParams)), result)
-	case "/board/1_SYSOP/article/1VrooM21/comment":
+	case "/board/1_SYSOP/article/1VrooM23/comment":
 		return parseResult(CreateComment2(data.(*api.CreateCommentParams)), result)
 	case "/board/1_SYSOP/articles":
 		return parseResult(LoadGeneralArticles3(data.(*api.LoadGeneralArticlesParams)), result)
@@ -80,8 +82,6 @@ func HTTPPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(IsBoardValidUser(), result)
 	case "/board/3_3........../isvalid":
 		return parseResult(IsBoardValidUser(), result)
-	case "/board/10_WhoAmI/article/1VrooM21/comment":
-		return parseResult(CreateComment(data.(*api.CreateCommentParams)), result)
 	case "/boards/isvalid":
 		return parseResult(IsBoardsValidUser(data.(*api.IsBoardsValidUserParams)), result)
 	case api.LOAD_FULL_CLASS_BOARDS_R:

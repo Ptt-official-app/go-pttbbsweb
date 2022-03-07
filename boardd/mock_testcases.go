@@ -71,16 +71,56 @@ var (
 
 	testArticle0 = &Post{
 		Index:         0,
-		Filename:      "M.1607937174.A.081",
-		RawDate:       "2020/12/14 17:12:54",
-		NumRecommends: 3,
-		Owner:         "teemo",
-		Title:         "[問題]再來呢？～",
-		ModifiedNsec:  1607937100000000000,
+		Filename:      "M.1584665022.A.ED0",
+		RawDate:       "2020/03/20 09:43:42",
+		NumRecommends: 17,
+		Owner:         "hellohiro",
+		Title:         "[問卦] 為何打麻將叫賭博但買股票叫投資？",
+		ModifiedNsec:  1644506386000000000,
 	}
 
 	testArticle1 = &Post{
 		Index:         1,
+		Filename:      "M.1608386280.A.BC9",
+		RawDate:       "2020/12/19 21:58:00",
+		NumRecommends: 9,
+		Owner:         "SYSOP",
+		Title:         "[心得] 測試一下特殊字～",
+		ModifiedNsec:  1608386280000000000,
+	}
+
+	testArticle2 = &Post{
+		Index:         2,
+		Filename:      "M.1608388506.A.85D",
+		RawDate:       "2020/12/19 22:35:06",
+		NumRecommends: 9,
+		Owner:         "SYSOP",
+		Title:         "[閒聊] 所以特殊字真的是有綠色的∼",
+		ModifiedNsec:  1608386280000000000,
+	}
+
+	testArticle3 = &Post{
+		Index:         3,
+		Filename:      "M.1607202240.A.30D",
+		RawDate:       "2020/12/06 05:04:00",
+		NumRecommends: 23,
+		Owner:         "cheinshin",
+		Title:         "[新聞] TVBS六都民調 侯奪冠、盧升第四、柯墊底",
+		ModifiedNsec:  1607202240000000000,
+	}
+
+	testArticle4 = &Post{
+		Index:         4,
+		Filename:      "M.1607937174.A.081",
+		RawDate:       "2020/12/14 17:12:54",
+		NumRecommends: 3,
+		Owner:         "teemo",
+		Title:         "[閒聊] 新書的情報",
+		ModifiedNsec:  1607937100000000000,
+	}
+
+	testArticle5 = &Post{
+		Index:         5,
 		Filename:      "M.1234567890.A.123",
 		RawDate:       "2009/02/14 07:30:00",
 		NumRecommends: 8,
@@ -89,8 +129,8 @@ var (
 		ModifiedNsec:  1234567889000000000,
 	}
 
-	testArticle2 = &Post{
-		Index:         2,
+	testArticle6 = &Post{
+		Index:         6,
 		Filename:      "M.1234560000.A.081",
 		RawDate:       "2009/02/14 05:20:00",
 		NumRecommends: 13,
@@ -99,18 +139,18 @@ var (
 		ModifiedNsec:  1234560000000000000,
 	}
 
-	testArticle3 = &Post{
-		Index:         2,
+	testArticle7 = &Post{
+		Index:         7,
 		Filename:      "M.1607937176.A.081",
 		RawDate:       "2020/12/14 17:12:54",
 		NumRecommends: 13,
-		Owner:         "teemo",
-		Title:         "[問題]再來呢？～",
+		Owner:         "SYSOP",
+		Title:         "[心得] 測試一下特殊字～",
 		ModifiedNsec:  1607937100000000000,
 	}
 
-	testArticle4 = &Post{
-		Index:         2,
+	testArticle8 = &Post{
+		Index:         8,
 		Filename:      "M.1234567892.A.123",
 		RawDate:       "2009/02/14 07:30:02",
 		NumRecommends: 24,

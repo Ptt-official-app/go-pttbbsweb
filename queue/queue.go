@@ -2,17 +2,19 @@ package queue
 
 import (
 	"github.com/golang-queue/queue"
+	"github.com/sirupsen/logrus"
 )
 
 var client *queue.Queue
 
 func Start() error {
 	client = queue.NewPool(
-		workerNum,
-		queue.WithQueueSize(queueSize),
+		WORKER_NUM,
+		queue.WithQueueSize(QUEUE_SIZE),
 	)
 
 	// start the worker
+	logrus.Infof("queue.Start: client start")
 	client.Start()
 
 	return nil
@@ -21,5 +23,6 @@ func Start() error {
 func Close() {
 	// shutdown the service and notify all the worker
 	// wait all jobs are complete.
+	defer logrus.Infof("queue.Close: done")
 	client.Release()
 }

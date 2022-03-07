@@ -1,14 +1,15 @@
 package api
 
 import (
-	"reflect"
 	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func TestCreateArticle(t *testing.T) {
@@ -44,7 +45,7 @@ func TestCreateArticle(t *testing.T) {
 
 	expected0 := CreateArticleResult(&apitypes.ArticleSummary{
 		FBoardID:   apitypes.FBoardID("WhoAmI"),
-		ArticleID:  apitypes.FArticleID("M.1607937174.A.081"),
+		ArticleID:  apitypes.FArticleID("M.1607937174.A.082"),
 		IsDeleted:  false,
 		CreateTime: types.Time8(1607937174),
 		MTime:      types.Time8(1607937100),
@@ -52,7 +53,7 @@ func TestCreateArticle(t *testing.T) {
 		Owner:      "SYSOP",
 		Title:      "this is a test",
 		Class:      "測試",
-		URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.081",
+		URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.082",
 		Read:       false,
 	})
 
@@ -83,13 +84,14 @@ func TestCreateArticle(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
 			gotResult, gotStatusCode, err := CreateArticle(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+
+			logrus.Infof("TestCreateArticle: got: %v statusCode: %v e: %v", gotResult, gotStatusCode, err)
+
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CreateArticle() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(gotResult, tt.expectedResult) {
-				t.Errorf("CreateArticle() gotResult = %v, want %v", gotResult, tt.expectedResult)
-			}
+			testutil.TDeepEqual(t, "got", gotResult, tt.expectedResult)
 			if gotStatusCode != tt.expectedStatusCode {
 				t.Errorf("CreateArticle() gotStatusCode = %v, want %v", gotStatusCode, tt.expectedStatusCode)
 			}

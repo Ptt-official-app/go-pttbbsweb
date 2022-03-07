@@ -1,8 +1,9 @@
 package types
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/Ptt-official-app/go-pttbbs/testutil"
 )
 
 func TestColor_BytesWithPreColor(t *testing.T) {
@@ -151,8 +152,7 @@ func TestColor_BytesWithPreColor(t *testing.T) {
 	var expected12 []byte
 
 	type args struct {
-		color        *Color
-		isForceReset bool
+		color *Color
 	}
 	tests := []struct {
 		name             string
@@ -164,88 +164,88 @@ func TestColor_BytesWithPreColor(t *testing.T) {
 		{
 			name:             "same color",
 			c:                c0,
-			args:             args{color: color0, isForceReset: true},
+			args:             args{color: color0},
 			expectedTheBytes: expected0,
 		},
 		{
 			name:             "with highlight",
 			c:                c1,
-			args:             args{color: color1, isForceReset: true},
+			args:             args{color: color1},
 			expectedTheBytes: expected1,
 		},
 		{
 			name:             "with no highlight",
 			c:                c2,
-			args:             args{color: color2, isForceReset: true},
+			args:             args{color: color2},
 			expectedTheBytes: expected2,
 		},
 		{
 			name:             "with blink",
 			c:                c3,
-			args:             args{color: color3, isForceReset: true},
+			args:             args{color: color3},
 			expectedTheBytes: expected3,
 		},
 		{
 			name:             "with no blink",
 			c:                c4,
-			args:             args{color: color4, isForceReset: true},
+			args:             args{color: color4},
 			expectedTheBytes: expected4,
 		},
 		{
 			name:             "reset",
 			c:                c5,
-			args:             args{color: color5, isForceReset: true},
+			args:             args{color: color5},
 			expectedTheBytes: expected5,
 		},
 		{
 			name:             "pre-reset",
 			c:                c6,
-			args:             args{color: color6, isForceReset: true},
+			args:             args{color: color6},
 			expectedTheBytes: expected6,
 		},
 		{
 			name:             "with highlight/blink",
 			c:                c7,
-			args:             args{color: color7, isForceReset: true},
+			args:             args{color: color7},
 			expectedTheBytes: expected7,
 		},
 		{
 			name:             "with highlight/no blink",
 			c:                c8,
-			args:             args{color: color8, isForceReset: true},
+			args:             args{color: color8},
 			expectedTheBytes: expected8,
 		},
 		{
 			name:             "with highlight/no blink (color)",
 			c:                c9,
-			args:             args{color: color9, isForceReset: true},
+			args:             args{color: color9},
 			expectedTheBytes: expected9,
 		},
 		{
 			name:             "with blink/no highlight (color)",
 			c:                c10,
-			args:             args{color: color10, isForceReset: true},
+			args:             args{color: color10},
 			expectedTheBytes: expected10,
 		},
 		{
 			name:             "with no blink/no highlight (color)",
 			c:                c11,
-			args:             args{color: color11, isForceReset: true},
+			args:             args{color: color11},
 			expectedTheBytes: expected11,
 		},
 		{
 			name:             "with both reset",
 			c:                c12,
-			args:             args{color: color12, isForceReset: false},
+			args:             args{color: color12},
 			expectedTheBytes: expected12,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := tt.c
-			if gotTheBytes := c.BytesWithPreColor(tt.args.color, tt.args.isForceReset); !reflect.DeepEqual(gotTheBytes, tt.expectedTheBytes) {
-				t.Errorf("Color.BytesWithPreColor() = %v, want %v", gotTheBytes, tt.expectedTheBytes)
-			}
+			gotTheBytes := c.BytesWithPreColor(tt.args.color)
+
+			testutil.TDeepEqual(t, "got", gotTheBytes, tt.expectedTheBytes)
 		})
 	}
 }

@@ -2,6 +2,7 @@ package dbcs
 
 import (
 	"bytes"
+	"fmt"
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -177,7 +178,7 @@ func parseCommentEditOwnerID(commentDBCS []byte) (ownerID bbs.UUserID, newCommen
 
 	theIdx := bytes.Index(p_commentDBCS, []byte(" "))
 	if theIdx == -1 {
-		return "", commentDBCS[len(MATCH_COMMENT_EDIT_BYTES):]
+		return "", commentDBCS
 	}
 
 	ownerID = bbs.UUserID(string(p_commentDBCS[:theIdx]))
@@ -332,7 +333,7 @@ func parseCommentDeletedOwnerID(commentDBCS []byte) (ownerID bbs.UUserID, newCom
 	commentDBCS = commentDBCS[startIdx+len(MATCH_COMMENT_DELETED_INFIX0):]
 	idx := bytes.Index(commentDBCS, []byte{' '})
 	if idx == -1 {
-		return "", commentDBCS
+		return "", origCommentDBCS
 	}
 
 	ownerID = bbs.UUserID(string(commentDBCS[:idx]))
@@ -378,7 +379,7 @@ func parseCommentDefaultOwnerID(p_commmentDBCS []byte) (ownerID bbs.UUserID, nex
 	}
 	theIdx := bytes.Index(p_commmentDBCS, []byte{'\x1b'})
 	if theIdx == -1 {
-		return bbs.UUserID(""), nil
+		return "", nil
 	}
 
 	ownerID = bbs.UUserID(strings.TrimSpace(string(p_commmentDBCS[:theIdx])))
@@ -528,13 +529,13 @@ func parseReply(replyDBCS []byte, editDBCS []byte, ownerID bbs.UUserID) (reply *
 func parseReplyUserIPHost(editDBCS []byte) (editUserID bbs.UUserID, editNanoTS types.NanoTS, editDateTimeStr string, editIP string, editHost string) {
 	// 1.  get EDIT_PREFIX
 	p_editDBCS := editDBCS
-	theIdx := bytes.Index(p_editDBCS, MATCH_COMMENT_EDIT_BYTES[1:])
+	theIdx := bytes.Index(p_editDBCS, MATCH_COMMENT_EDIT_BYTES)
 	if theIdx == -1 {
 		return "", 0, "", "", ""
 	}
 
 	// 2. get (
-	p_editDBCS = p_editDBCS[theIdx+len(MATCH_COMMENT_EDIT_BYTES)-1:]
+	p_editDBCS = p_editDBCS[theIdx+len(MATCH_COMMENT_EDIT_BYTES):]
 
 	theIdx = bytes.Index(p_editDBCS, []byte{'('})
 	if theIdx == -1 {
@@ -573,4 +574,53 @@ func parseReplyUserIPHost(editDBCS []byte) (editUserID bbs.UUserID, editNanoTS t
 	}
 
 	return editUserID, editNanoTS, editDateTimeStr, editIP, editHost
+}
+
+func CommentUtf8ToDBCS(c *schema.Comment) {
+	contentBytes := bytes.Join(Utf8ToDBCS(c.Content), []byte("\n"))
+	switch c.TheType {
+	case ptttype.COMMENT_TYPE_RECOMMEND:
+		c.DBCS = commentUtf8ToDBCSBasic(c, contentBytes, MATCH_COMMENT_RECOMMEND_BYTES)
+	case ptttype.COMMENT_TYPE_BOO:
+		c.DBCS = commentUtf8ToDBCSBasic(c, contentBytes, MATCH_COMMENT_BOO_BYTES)
+	case ptttype.COMMENT_TYPE_COMMENT:
+		c.DBCS = commentUtf8ToDBCSBasic(c, contentBytes, MATCH_COMMENT_ARROW_BYTES)
+	case ptttype.COMMENT_TYPE_REPLY:
+		c.DBCS = contentBytes
+	case ptttype.COMMENT_TYPE_EDIT:
+		commentBytes := make([]byte, 0, MAX_COMMENT_BYTES)
+		commentBytes = append(commentBytes, MATCH_COMMENT_EDIT_BYTES...)
+		createTime4 := c.CreateTime.ToTime4()
+		theStr := fmt.Sprintf("%s (%s %s), %s", c.Owner, c.IP, c.Host, createTime4.Cdatelite())
+		commentBytes = append(commentBytes, []byte(theStr)...)
+		c.DBCS = commentBytes
+	case ptttype.COMMENT_TYPE_FORWARD:
+		commentBytes := make([]byte, 0, MAX_COMMENT_BYTES)
+		commentBytes = append(commentBytes, MATCH_COMMENT_FORWARD_PREFIX...)
+		commentBytes = append(commentBytes, []byte(c.Owner)...)
+		commentBytes = append(commentBytes, MATCH_COMMENT_FORWARD_BYTES...)
+		if bytes.Equal(contentBytes, MATCH_COMMENT_FORWARD_HIDDEN_BYTES) {
+			commentBytes = append(commentBytes, contentBytes...)
+		} else {
+			commentBytes = append(commentBytes, MATCH_COMMENT_FORWARD_BOARD_BYTES...)
+			commentBytes = append(commentBytes, contentBytes...)
+		}
+		c.DBCS = commentBytes
+	case ptttype.COMMENT_TYPE_DELETED:
+		commentBytes := make([]byte, 0, MAX_COMMENT_BYTES)
+		commentBytes = append(commentBytes, MATCH_COMMENT_DELETED_PREFIX...)
+		commentBytes = append(commentBytes, contentBytes...)
+		commentBytes = append(commentBytes, MATCH_COMMENT_DELETED_POSTFIX...)
+		c.DBCS = commentBytes
+	}
+}
+
+func commentUtf8ToDBCSBasic(c *schema.Comment, contentBytes []byte, prefix []byte) (commentBytes []byte) {
+	commentBytes = make([]byte, 0, MAX_COMMENT_BYTES)
+	commentBytes = append(commentBytes, prefix...)
+	commentBytes = append(commentBytes, []byte(c.Owner)...)
+	commentBytes = append(commentBytes, MATCH_COMMENT_INFIX...)
+	commentBytes = append(commentBytes, contentBytes...)
+
+	return commentBytes
 }

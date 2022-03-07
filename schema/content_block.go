@@ -4,7 +4,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -131,7 +130,6 @@ func updateContentBlocksCore(contentBlocks []*ContentBlock, updateNanoTS types.N
 		}
 	}
 	r, err := ContentBlock_c.BulkCreateOnly(theList)
-	logrus.Infof("updateContentBlocksCore: after BulkCreateOnly: r: %v e: %v", r, err)
 	if err != nil {
 		return err
 	}

@@ -32,7 +32,6 @@ func TestDeleteCommentParams_ToComment(t *testing.T) {
 					Utf8:   "teemocogs 刪除 foolfighter 的推文: 誤植",
 					Color0: types.DefaultColor,
 					Color1: types.DefaultColor,
-					Big5:   []byte("teemocogs \xa7R\xb0\xa3 foolfighter \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3"),
 					DBCS:   []byte("teemocogs \xa7R\xb0\xa3 foolfighter \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3"),
 				},
 			},

@@ -6,7 +6,6 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
 const LOAD_GENERAL_ARTICLES_R = "/board/:bid/articles"
@@ -62,8 +61,6 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 
 	// backend load-general-articles
 	articleSummaries_db, err := schema.GetArticleSummaries(boardID, theParams.StartIdx, theParams.Descending, theParams.Max+1)
-
-	logrus.Infof("LoadGeneralArticles: after GetArticleSummaries: baordID: %v startIdx: %v articleSummaries_db: %v e: %v", boardID, theParams.StartIdx, len(articleSummaries_db), err)
 	if err != nil {
 		return nil, 500, err
 	}
