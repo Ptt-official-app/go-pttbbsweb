@@ -7,6 +7,7 @@ import (
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/mand"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
@@ -32,6 +33,8 @@ func setupTest() {
 
 	boardd.SetIsTest()
 
+	mand.SetIsTest()
+
 	SetIsTest()
 
 	initTest()
@@ -53,6 +56,8 @@ func teardownTest() {
 	defer queue.UnsetIsTest()
 
 	defer boardd.UnsetIsTest()
+
+	defer mand.UnsetIsTest()
 
 	defer UnsetIsTest()
 }

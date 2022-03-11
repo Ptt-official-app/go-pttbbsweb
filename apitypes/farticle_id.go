@@ -1,6 +1,7 @@
 package apitypes
 
 import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
@@ -17,4 +18,12 @@ func (f FArticleID) ToArticleID() bbs.ArticleID {
 	copy(filename[:], f[:])
 
 	return bbs.ToArticleID(filename)
+}
+
+func ToFArticleIDFromManArticleID(articleID types.ManArticleID) FArticleID {
+	return FArticleID(articleID)
+}
+
+func (f FArticleID) ToManArticleID() types.ManArticleID {
+	return types.ManArticleID(f)
 }

@@ -16,7 +16,7 @@ func RetryLoadArticleDetails(ctx context.Context) error {
 		case <-ctx.Done():
 			return nil
 		default:
-			logrus.Infof("RetryLoadArticleDetails: to LoadGeneralArticles")
+			logrus.Infof("RetryLoadArticleDetails: to LoadArticleDetails")
 			_ = LoadArticleDetails()
 			select {
 			case <-ctx.Done():

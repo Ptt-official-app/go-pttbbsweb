@@ -471,3 +471,24 @@ func TestNewDateTime(t *testing.T) {
 		})
 	}
 }
+
+func TestManArticleID_ToCreateTime(t *testing.T) {
+	tests := []struct {
+		name               string
+		m                  ManArticleID
+		expectedCreateTime NanoTS
+	}{
+		// TODO: Add test cases.
+		{
+			m:                  "M.1234567890.A.ABC",
+			expectedCreateTime: 1234567890000000000,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotCreateTime := tt.m.ToCreateTime(); gotCreateTime != tt.expectedCreateTime {
+				t.Errorf("ManArticleID.ToCreateTime() = %v, want %v", gotCreateTime, tt.expectedCreateTime)
+			}
+		})
+	}
+}

@@ -129,11 +129,11 @@ func DeserializeArticleCommentIdx(theIdx string) (theType ArticleCommentType, su
 	return theType, subIdx, nil
 }
 
-func SerializeArticleIdx(contentID types.ContentID, contentIdx int) (theIdx string) {
+func SerializeContentIdx(contentID types.ContentID, contentIdx int) (theIdx string) {
 	return string(contentID) + "^" + strconv.Itoa(contentIdx)
 }
 
-func DeserializeArticleIdx(theIdx string) (contentID types.ContentID, contentIdx int, err error) {
+func DeserializeContentIdx(theIdx string) (contentID types.ContentID, contentIdx int, err error) {
 	theList := strings.Split(theIdx, "^")
 	if len(theList) != 2 {
 		return "", 0, ErrInvalidIdx

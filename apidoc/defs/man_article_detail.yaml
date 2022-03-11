@@ -1,0 +1,7 @@
+ManArticleDetail:
+  type: object
+  properties:
+    !include bid_core.yaml
+    !include aid_core.yaml
+    !include man_article_summary_core.yaml
+    !include man_article_detail_core.yaml

@@ -3,6 +3,7 @@ package types
 import (
 	"encoding/base64"
 	"encoding/binary"
+	"strconv"
 	"strings"
 	"time"
 
@@ -31,6 +32,25 @@ func (r ReadStatus) String() string {
 	default:
 		return "unread"
 	}
+}
+
+// ManArticleID
+type ManArticleID string
+
+func (m ManArticleID) ToCreateTime() (createTime NanoTS) {
+	// XXX https://github.com/ptt/pttbbs/blob/master/mbbsd/record.c#L487
+	// XXX we don't deal with man-dir.
+	if m[0] == 'D' {
+		return 0
+	}
+
+	theList := strings.Split(string(m), "/")
+	basename := theList[len(theList)-1]
+	createTime_i, err := strconv.Atoi(basename[2:12])
+	if err != nil {
+		return 0
+	}
+	return Time8(createTime_i).ToNanoTS()
 }
 
 // ContentID

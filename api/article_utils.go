@@ -162,7 +162,7 @@ func updateArticleNComments(bboardID bbs.BBoardID, articleSummaries []*schema.Ar
 }
 
 func ArticleLockKey(boardID bbs.BBoardID, articleID bbs.ArticleID) (key string) {
-	return string(boardID) + ":" + string(articleID)
+	return "a:" + string(boardID) + ":" + string(articleID)
 }
 
 //TryGetArticleContentInfo
@@ -231,7 +231,7 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	}
 
 	// already got the most updated content.
-	if !isForce && (articleDetailSummary.ContentMTime > articleDetailSummary.MTime+OFFSET_MTIME_NANO_TS) {
+	if !isForce && (articleDetailSummary.MTime <= articleDetailSummary.ContentMTime && articleDetailSummary.MTime < articleDetailSummary.ContentUpdateNanoTS) {
 		contentInfo, err := schema.GetArticleContentInfo(bboardID, articleID, isContent)
 		if err != nil {
 			return nil, nil, "", "", "", "", "", nil, nil, 0, 0, 500, err
@@ -273,13 +273,14 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 		Filename: filenameStr,
 		PartialOptions: &boardd.PartialOptions{
 			SelectType: boardd.PartialOptions_SELECT_FULL,
+			MaxLength:  -1,
 		},
 	}
 
 	resp, err := boardd.Cli.Content(ctx, req)
 	if err != nil {
 		logrus.Errorf("TryGetArticleContentInfo: unable to get content: boardID: %v articleID: %v e: %v", bboardID, articleID, err)
-		return
+		return nil, nil, "", "", "", "", "", nil, nil, 0, 0, 500, err
 	}
 
 	// 6. check content-mtime (no modify from backend, no need to parse again)
@@ -293,7 +294,7 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 
 	contentStr := string(resp.Content.Content)
 
-	content, contentPrefix, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, commentsDBCS := dbcs.ParseContentStr(contentStr, articleDetailSummary.ContentMD5)
+	content, contentPrefix, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, commentsDBCS := dbcs.ParseContentStr(contentStr, articleDetailSummary.ContentMD5, true)
 
 	signatureDBCSByte = []byte(signatureDBCS)
 
@@ -314,6 +315,7 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 			return nil, nil, "", "", "", "", "", nil, nil, 0, 0, 500, err
 		}
 		content = contentInfo.Content
+		contentMD5 = contentInfo.ContentMD5
 		contentPrefix = contentInfo.ContentPrefix
 		ip = contentInfo.IP
 		host = contentInfo.Host
@@ -378,7 +380,7 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 }
 
 /*
-func tryGetArticleContentInfoTooSoon(updateNanoTS types.NanoTS) bool {
+func articleContentInfoTooSoon(updateNanoTS types.NanoTS) bool {
 	nowNanoTS := types.NowNanoTS()
 	return nowNanoTS-updateNanoTS < GET_ARTICLE_CONTENT_INFO_TOO_SOON_NANO_TS
 }

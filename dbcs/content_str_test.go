@@ -152,7 +152,7 @@ func TestParseContentStr(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotContent, gotContentPrefix, gotContentMD5, gotIp, gotHost, gotBbs, gotSignatureMD5, gotSignatureDBCS, gotCommentsDBCS := ParseContentStr(tt.args.contentStr, tt.args.origContentMD5)
+			gotContent, gotContentPrefix, gotContentMD5, gotIp, gotHost, gotBbs, gotSignatureMD5, gotSignatureDBCS, gotCommentsDBCS := ParseContentStr(tt.args.contentStr, tt.args.origContentMD5, true)
 			testutil.TDeepEqual(t, "content", gotContent, tt.expectedContent)
 			testutil.TDeepEqual(t, "prefix", gotContentPrefix, tt.expectedContentPrefix)
 			if gotContentMD5 != tt.expectedContentMD5 {

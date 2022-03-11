@@ -1,0 +1,21 @@
+精華區的文章的詳細資訊
+---
+tags:
+  - article
+  - manual
+description: get manual article info.
+parameters:
+  - '$ref': '#/definitions/ParamsAuthorization'
+  - name: 'bid'
+    in: path
+    type: string
+  - name: 'aid'
+    in: path
+    type: string
+  - '$ref': '#/definitions/ParamsFields'
+responses:
+  200:
+    description:
+    schema:
+      '$id': https://json-schema.org/draft/2019-09/output/schema
+      '$ref': '#/definitions/ManArticleDetail'

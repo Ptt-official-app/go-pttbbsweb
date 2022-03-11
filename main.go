@@ -63,6 +63,11 @@ func initGin() (*gin.Engine, error) {
 	router.POST(withPrefix(api.DELETE_COMMENTS_R), api.DeleteCommentsWrapper)
 	router.POST(withPrefix(api.DELETE_ARTICLES_R), api.DeleteArticlesWrapper)
 
+	// manual
+	router.GET(withPrefix(api.LOAD_MAN_ARTICLES_R), api.LoadManArticlesWrapper)
+	router.GET(withPrefix(api.GET_MAN_ARTICLE_R), api.GetManArticleDetailWrapper)
+	router.GET(withPrefix(api.GET_MAN_ARTICLE_BLOCKS_R), api.GetManArticleBlocksWrapper)
+
 	// user
 	router.GET(withPrefix(api.GET_USER_INFO_R), api.GetUserInfoWrapper)
 	router.GET(withPrefix(api.LOAD_FAVORITE_BOARDS_R), api.LoadFavoriteBoardsWrapper)
@@ -96,16 +101,6 @@ func initGin() (*gin.Engine, error) {
 	router.GET(api.USER_ATTEMPT_SET_ID_EMAIL_HTML_R, api.UserAttemptSetIDEmailHTMLWrapper)
 	router.GET(api.USER_SET_ID_EMAIL_HTML_R, api.UserSetIDEmailHTMLWrapper)
 
-	router.GET(api.CLS_BOARDS_HTML_R, api.AllHTMLWrapper)
-
-	router.GET(api.BOARDS_FAVORITES_HTML_R, api.AllHTMLWrapper)
-	router.GET(api.BOARDS_POPULAR_HTML_R, api.AllHTMLWrapper)
-	router.GET(api.BOARDS_HTML_R, api.AllHTMLWrapper)
-
-	router.GET(api.ARTICLES_HTML_R, api.AllHTMLWrapper)
-	router.GET(api.ARTICLE_HTML_R, api.AllHTMLWrapper)
-	router.GET(api.CREATE_ARTICLE_HTML_R, api.AllHTMLWrapper)
-
 	router.Static("/static", filepath.Join(types.STATIC_DIR, "static"))
 
 	staticFiles := []string{
@@ -120,6 +115,8 @@ func initGin() (*gin.Engine, error) {
 	for _, each := range staticFiles {
 		router.StaticFile("/"+each, filepath.Join(types.STATIC_DIR, each))
 	}
+
+	router.NoRoute(api.AllHTMLWrapper)
 
 	return router, nil
 }
@@ -162,6 +159,12 @@ func main() {
 
 	// retry to calculate user visit count
 	g.AddRunningJob(cron.RetryCalculateUserVisit)
+
+	// retry load man articles
+	g.AddRunningJob(cron.RetryLoadManArticles)
+
+	// retry load man article details
+	g.AddRunningJob(cron.RetryLoadManArticleDetails)
 
 	g.AddRunningJob(func(ctx context.Context) error {
 		<-ctx.Done()
