@@ -7,6 +7,7 @@ import (
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
 	redis "github.com/go-redis/redis/v8"
+	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -16,6 +17,7 @@ func Init() (err error) {
 	}
 	client, err = db.NewClient(MONGO_PROTOCOL, MONGO_HOST, MONGO_PORT, MONGO_DBNAME)
 	if err != nil {
+		logrus.Errorf("unable to new client: e: %v", err)
 		return err
 	}
 
@@ -25,6 +27,7 @@ func Init() (err error) {
 	keys := &bson.D{{Key: ACCESS_TOKEN_USER_ID_b, Value: 1}}
 	err = AccessToken_c.CreateIndex(keys, nil)
 	if err != nil {
+		logrus.Errorf("AccessToken_c: unable to create idx: e: %v", err)
 		return err
 	}
 
@@ -36,6 +39,7 @@ func Init() (err error) {
 	}
 	err = Article_c.CreateIndex(keys, nil)
 	if err != nil {
+		logrus.Errorf("Article_c: unable to create idx: e: %v", err)
 		return err
 	}
 
@@ -45,6 +49,7 @@ func Init() (err error) {
 	}
 	err = Article_c.CreateIndex(keys, nil)
 	if err != nil {
+		logrus.Errorf("Article_c: unable to create idx (2): e: %v", err)
 		return err
 	}
 
@@ -55,6 +60,7 @@ func Init() (err error) {
 	}
 	err = Article_c.CreateIndex(keys, nil)
 	if err != nil {
+		logrus.Errorf("Article_c: unable to create idx (3): e: %v", err)
 		return err
 	}
 
@@ -65,6 +71,7 @@ func Init() (err error) {
 	}
 	err = Article_c.CreateIndex(keys, nil)
 	if err != nil {
+		logrus.Errorf("Article_c: unable to create idx (4): e: %v", err)
 		return err
 	}
 
@@ -74,6 +81,7 @@ func Init() (err error) {
 	}
 	err = Article_c.CreateIndex(keys, nil)
 	if err != nil {
+		logrus.Errorf("Article_c: unable to create idx (5): e: %v", err)
 		return err
 	}
 
@@ -83,6 +91,63 @@ func Init() (err error) {
 	}
 	err = Article_c.CreateIndex(keys, nil)
 	if err != nil {
+		logrus.Errorf("Article_c: unable to create idx (6): e: %v", err)
+		return err
+	}
+
+	// content-block
+	ContentBlock_c = client.Collection("content_block")
+	keys = &bson.D{
+		{Key: CONTENT_BLOCK_BBOARD_ID_b, Value: 1},
+		{Key: CONTENT_BLOCK_ARTICLE_ID_b, Value: 1},
+		{Key: CONTENT_BLOCK_CONTENT_ID_b, Value: 1},
+		{Key: CONTENT_BLOCK_IDX_b, Value: 1},
+	}
+	err = ContentBlock_c.CreateIndex(keys, nil)
+	if err != nil {
+		logrus.Errorf("ContentBlock_c: unable to create idx: e: %v", err)
+		return err
+	}
+
+	// man-article
+	// 1. GetManArticleDetailSummary
+	ManArticle_c = client.Collection("man_article")
+	keys = &bson.D{
+		{Key: MAN_ARTICLE_BBOARD_ID_b, Value: 1},
+		{Key: MAN_ARTICLE_ARTICLE_ID_b, Value: 1},
+	}
+	err = ManArticle_c.CreateIndex(keys, nil)
+	if err != nil {
+		logrus.Errorf("ManArticle_c: unable to create idx: e: %v", err)
+		return err
+	}
+
+	// 1. GetManArticleDetailSummaries
+	// 2. RemoveManArticleSummaries
+	// 3. GetManArticleSummaries
+	// 4. UpdateManArticleSummaries
+	keys = &bson.D{
+		{Key: MAN_ARTICLE_BBOARD_ID_b, Value: 1},
+		{Key: MAN_ARTICLE_LEVEL_IDX_b, Value: 1},
+		{Key: MAN_ARTICLE_IDX_b, Value: 1},
+	}
+	err = ManArticle_c.CreateIndex(keys, nil)
+	if err != nil {
+		logrus.Errorf("ManArticle_c: unable to create idx (2): e: %v", err)
+		return err
+	}
+
+	// man-content-block
+	ManContentBlock_c = client.Collection("man_content_block")
+	keys = &bson.D{
+		{Key: CONTENT_BLOCK_BBOARD_ID_b, Value: 1},
+		{Key: CONTENT_BLOCK_ARTICLE_ID_b, Value: 1},
+		{Key: CONTENT_BLOCK_CONTENT_ID_b, Value: 1},
+		{Key: CONTENT_BLOCK_IDX_b, Value: 1},
+	}
+	err = ManContentBlock_c.CreateIndex(keys, nil)
+	if err != nil {
+		logrus.Errorf("ManContentBlock_c: unable to create idx (2): e: %v", err)
 		return err
 	}
 
@@ -146,19 +211,6 @@ func Init() (err error) {
 		{Key: COMMENT_UPDATE_NANO_TS_b, Value: 1},
 	}
 	err = Comment_c.CreateIndex(keys, nil)
-	if err != nil {
-		return err
-	}
-
-	// content-block
-	ContentBlock_c = client.Collection("content_block")
-	keys = &bson.D{
-		{Key: CONTENT_BLOCK_BBOARD_ID_b, Value: 1},
-		{Key: CONTENT_BLOCK_ARTICLE_ID_b, Value: 1},
-		{Key: CONTENT_BLOCK_CONTENT_ID_b, Value: 1},
-		{Key: CONTENT_BLOCK_IDX_b, Value: 1},
-	}
-	err = ContentBlock_c.CreateIndex(keys, nil)
 	if err != nil {
 		return err
 	}
@@ -397,6 +449,10 @@ func assertAllFields() error {
 	}
 
 	if err := assertContentBlockFields(); err != nil {
+		return err
+	}
+
+	if err := assertManArticleFields(); err != nil {
 		return err
 	}
 

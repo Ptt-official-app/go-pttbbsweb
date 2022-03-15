@@ -1,0 +1,73 @@
+package api
+
+import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/gin-gonic/gin"
+)
+
+const GET_MAN_ARTICLE_R = "/board/:bid/manual/*aid"
+
+type GetManArticleDetailPath struct {
+	FBoardID   apitypes.FBoardID   `uri:"bid"`
+	FArticleID apitypes.FArticleID `uri:"aid"`
+}
+
+type GetManArticleDetailResult struct {
+	BBoardID   apitypes.FBoardID   `json:"bid"` //
+	ArticleID  apitypes.FArticleID `json:"aid"` //
+	LevelIdx   apitypes.FArticleID `json:"level_idx"`
+	IsDeleted  bool                `json:"deleted"`     //
+	CreateTime types.Time8         `json:"create_time"` //
+	MTime      types.Time8         `json:"modified"`    //
+	Title      string              `json:"title"`       //
+	IsDir      bool                `json:"is_dir"`
+
+	Content [][]*types.Rune `json:"content"`
+}
+
+func GetManArticleDetailWrapper(c *gin.Context) {
+	path := &GetManArticleDetailPath{}
+	LoginRequiredPathQuery(GetManArticleDetail, nil, path, c)
+}
+
+func GetManArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+	thePath, ok := path.(*GetManArticleDetailPath)
+	if !ok {
+		return nil, 400, ErrInvalidPath
+	}
+
+	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
+	if err != nil {
+		return nil, 500, err
+	}
+	articleID := thePath.FArticleID.ToManArticleID()
+
+	// validate user
+	_, statusCode, err = isBoardValidUser(boardID, c)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	// ensure that we do have the article.
+	content, _, articleDetailSummary, err := TryGetManArticleContentInfo(userID, boardID, articleID, c, false, true)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	result = &GetManArticleDetailResult{
+		BBoardID:   thePath.FBoardID,
+		ArticleID:  thePath.FArticleID,
+		LevelIdx:   apitypes.ToFArticleIDFromManArticleID(articleDetailSummary.LevelIdx),
+		IsDeleted:  articleDetailSummary.IsDeleted,
+		CreateTime: articleDetailSummary.CreateTime.ToTime8(),
+		MTime:      articleDetailSummary.CreateTime.ToTime8(),
+		Title:      articleDetailSummary.Title,
+		IsDir:      articleDetailSummary.IsDir,
+
+		Content: content,
+	}
+
+	return result, 200, nil
+}

@@ -15,6 +15,7 @@ var (
 	testTheRestCommentsDBCS3 []byte
 	testContent3Big5         [][]*types.Rune
 	testContent3Utf8         [][]*types.Rune
+	testSignature3Utf8       [][]*types.Rune
 
 	testFirstComments3 []*schema.Comment
 
@@ -64,6 +65,25 @@ func initTest3() {
 				Color0:  types.DefaultColor,
 				Color1:  types.DefaultColor,
 				DBCSStr: "※ 發信站",
+			},
+		},
+	}
+	testSignature3Utf8 = [][]*types.Rune{
+		{},
+		{
+			{
+				Utf8:    "--",
+				Color0:  types.DefaultColor,
+				Color1:  types.DefaultColor,
+				DBCSStr: "--",
+			},
+		},
+		{
+			{
+				Utf8:    "※ 發信站: 批踢踢 docker(pttdocker.test), 來自: 172.22.0.1",
+				Color0:  types.DefaultColor,
+				Color1:  types.DefaultColor,
+				DBCSStr: "※ 發信站: 批踢踢 docker(pttdocker.test), 來自: 172.22.0.1",
 			},
 		},
 	}

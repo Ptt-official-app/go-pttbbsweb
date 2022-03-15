@@ -478,7 +478,7 @@ func (c *Collection) FindOne(filter interface{}, ret interface{}, project interf
 //
 //Params:
 //    filter: filter. Must pass with non-empty map.
-func (c *Collection) Remove(filter map[string]interface{}) (err error) {
+func (c *Collection) Remove(filter bson.M) (err error) {
 	if len(filter) == 0 {
 		return ErrEmptyInRemove
 	}

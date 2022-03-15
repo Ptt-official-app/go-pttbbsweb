@@ -235,6 +235,33 @@ def _set_id_email(user_id):
     return ''
 
 
+@app.route(_with_app_prefix('/board/<bid>/manuals'))
+def _load_man_articles(bid):
+    """
+    swagger_from_file: apidoc/load_man_articles.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/board/<bid>/manual/<path:aid>'))
+def _get_man_article_detail(bid, aid):
+    """
+    swagger_from_file: apidoc/get_man_article_detail.yaml
+
+    """
+    return ''
+
+
+@app.route(_with_app_prefix('/board/<bid>/manualblocks/<path:aid>'))
+def _get_man_article_blocks(bid, aid):
+    """
+    swagger_from_file: apidoc/get_man_article_blocks.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/board/<bid>/articles'))
 def _load_general_articles(bid):
     """
@@ -262,7 +289,7 @@ def _get_article_detail(bid, aid):
     return ''
 
 
-@app.route(_with_app_prefix('/board/<bid>/article/<aid>/blocks'))
+@app.route(_with_app_prefix('/board/<bid>/articleblocks/<aid>'))
 def _get_article_blocks(bid, aid):
     """
     swagger_from_file: apidoc/get_article_blocks.yaml

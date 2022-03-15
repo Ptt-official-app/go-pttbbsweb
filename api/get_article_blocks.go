@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const GET_ARTICLE_BLOCKS_R = "/board/:bid/article/:aid/blocks"
+const GET_ARTICLE_BLOCKS_R = "/board/:bid/articleblocks/:aid"
 
 type GetArticleBlocksParams struct {
 	StartIdx string `json:"start_idx,omitempty" form:"start_idx,omitempty" url:"start_idx,omitempty"`
@@ -87,7 +87,7 @@ func GetArticleBlocks(remoteAddr string, userID bbs.UUserID, params interface{},
 		}
 	}
 
-	contentID, contentIdx, articleDetailSummary, err := getArticleBlocksContentBlocksDeserializeArticleIdx(boardID, articleID, theParams.StartIdx)
+	contentID, contentIdx, articleDetailSummary, err := getArticleBlocksContentBlocksDeserializeContentIdx(boardID, articleID, theParams.StartIdx)
 	if err != nil {
 		return nil, 400, err
 	}
@@ -101,7 +101,7 @@ func GetArticleBlocks(remoteAddr string, userID bbs.UUserID, params interface{},
 	if len(contentBlocks) > theParams.Max {
 		nextBlock := contentBlocks[theParams.Max]
 		contentBlocks = contentBlocks[:theParams.Max]
-		nextIdx = apitypes.SerializeArticleIdx(contentID, nextBlock.Idx)
+		nextIdx = apitypes.SerializeContentIdx(contentID, nextBlock.Idx)
 	}
 
 	content := getArticleBlocksContentBlocksToContent(contentBlocks)
@@ -130,9 +130,9 @@ func GetArticleBlocks(remoteAddr string, userID bbs.UUserID, params interface{},
 	return ret, 200, nil
 }
 
-func getArticleBlocksContentBlocksDeserializeArticleIdx(boardID bbs.BBoardID, articleID bbs.ArticleID, theIdx string) (contentID types.ContentID, contentIdx int, articleDetailSummary *schema.ArticleDetailSummary, err error) {
+func getArticleBlocksContentBlocksDeserializeContentIdx(boardID bbs.BBoardID, articleID bbs.ArticleID, theIdx string) (contentID types.ContentID, contentIdx int, articleDetailSummary *schema.ArticleDetailSummary, err error) {
 	if theIdx != "" {
-		contentID, contentIdx, err = apitypes.DeserializeArticleIdx(theIdx)
+		contentID, contentIdx, err = apitypes.DeserializeContentIdx(theIdx)
 		return contentID, contentIdx, nil, err
 	}
 

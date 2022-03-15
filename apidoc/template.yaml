@@ -50,3 +50,6 @@ definitions:
   !include defs/reply_comment_params.yaml
   !include defs/delete_articles_params.yaml
   !include defs/article_block.yaml
+  !include defs/man_article_summary.yaml
+  !include defs/man_article_list.yaml
+  !include defs/man_article_block.yaml
