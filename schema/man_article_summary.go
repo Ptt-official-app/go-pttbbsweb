@@ -5,6 +5,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/mand"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -75,6 +76,7 @@ func UpdateManArticleSummaries(articleSummaries []*ManArticleSummary, updateNano
 	if err != nil {
 		return err
 	}
+	logrus.Infof("UpdateManArticleSummaries: after BulkCreateaOnly: count: %v, theList: %v", r.UpsertedCount, theList)
 	if r.UpsertedCount == int64(len(articleSummaries)) { // all are created
 		return nil
 	}
@@ -102,6 +104,7 @@ func UpdateManArticleSummaries(articleSummaries []*ManArticleSummary, updateNano
 				},
 				bson.M{
 					MAN_ARTICLE_BBOARD_ID_b: origFilter.BBoardID,
+					MAN_ARTICLE_LEVEL_IDX_b: origFilter.LevelIdx,
 					MAN_ARTICLE_IDX_b:       origFilter.Idx,
 					MAN_ARTICLE_UPDATE_NANO_TS_b: bson.M{
 						"$lt": updateNanoTS,
