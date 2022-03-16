@@ -268,7 +268,7 @@ func (c *Collection) BulkCreateOnly(theList []*UpdatePair) (r *mongo.BulkWriteRe
 		}
 	}()
 
-	opts := options.BulkWrite().SetOrdered(true)
+	opts := options.BulkWrite().SetOrdered(false)
 
 	r, err = c.coll.BulkWrite(ctx, theList_b, opts)
 	if err != nil {
@@ -298,7 +298,7 @@ func (c *Collection) BulkUpdateOneOnly(theList []*UpdatePair) (r *mongo.BulkWrit
 		}
 	}()
 
-	opts := options.BulkWrite().SetOrdered(true)
+	opts := options.BulkWrite().SetOrdered(false)
 
 	r, err = c.coll.BulkWrite(ctx, theList_b, opts)
 	if err != nil {
@@ -327,7 +327,7 @@ func (c *Collection) BulkUpdateOneOnlyNoSet(theList []*UpdatePair) (r *mongo.Bul
 		}
 	}()
 
-	opts := options.BulkWrite().SetOrdered(true)
+	opts := options.BulkWrite().SetOrdered(false)
 
 	r, err = c.coll.BulkWrite(ctx, theList_b, opts)
 	if err != nil {
@@ -358,7 +358,7 @@ func (c *Collection) BulkUpdate(theList []*UpdatePair) (r *mongo.BulkWriteResult
 		}
 	}()
 
-	opts := options.BulkWrite().SetOrdered(true)
+	opts := options.BulkWrite().SetOrdered(false)
 
 	r, err = c.coll.BulkWrite(ctx, theList_b, opts)
 	if err != nil {

@@ -58,7 +58,11 @@ func GetManArticleBlocks(remoteAddr string, userID bbs.UUserID, params interface
 	if err != nil {
 		return nil, 500, err
 	}
-	articleID := thePath.FArticleID.ToManArticleID()
+	farticleID := thePath.FArticleID
+	if farticleID[0] == '/' {
+		farticleID = farticleID[1:]
+	}
+	articleID := farticleID.ToManArticleID()
 
 	// validate user
 	_, statusCode, err = isBoardValidUser(boardID, c)

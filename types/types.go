@@ -8,6 +8,7 @@ import (
 	"time"
 
 	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
+	"github.com/sirupsen/logrus"
 )
 
 type ReadStatus uint8
@@ -46,6 +47,10 @@ func (m ManArticleID) ToCreateTime() (createTime NanoTS) {
 
 	theList := strings.Split(string(m), "/")
 	basename := theList[len(theList)-1]
+	if len(basename) < 12 {
+		logrus.Warnf("ManArticleID.ToCreateTime: invalid basename: m: %v", m)
+		return 0
+	}
 	createTime_i, err := strconv.Atoi(basename[2:12])
 	if err != nil {
 		return 0

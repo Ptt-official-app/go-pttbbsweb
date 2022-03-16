@@ -42,7 +42,12 @@ func GetManArticleDetail(remoteAddr string, userID bbs.UUserID, params interface
 	if err != nil {
 		return nil, 500, err
 	}
-	articleID := thePath.FArticleID.ToManArticleID()
+
+	farticleID := thePath.FArticleID
+	if farticleID[0] == '/' {
+		farticleID = farticleID[1:]
+	}
+	articleID := farticleID.ToManArticleID()
 
 	// validate user
 	_, statusCode, err = isBoardValidUser(boardID, c)
@@ -58,7 +63,7 @@ func GetManArticleDetail(remoteAddr string, userID bbs.UUserID, params interface
 
 	result = &GetManArticleDetailResult{
 		BBoardID:   thePath.FBoardID,
-		ArticleID:  thePath.FArticleID,
+		ArticleID:  farticleID,
 		LevelIdx:   apitypes.ToFArticleIDFromManArticleID(articleDetailSummary.LevelIdx),
 		IsDeleted:  articleDetailSummary.IsDeleted,
 		CreateTime: articleDetailSummary.CreateTime.ToTime8(),

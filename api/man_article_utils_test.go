@@ -14,7 +14,7 @@ import (
 func TestDeserializePBManArticlesAndUpdateDB(t *testing.T) {
 	type args struct {
 		boardID      bbs.BBoardID
-		parentID     types.ManArticleID
+		levelIdx     types.ManArticleID
 		entries      []*mand.Entry
 		updateNanoTS types.NanoTS
 	}
@@ -28,7 +28,7 @@ func TestDeserializePBManArticlesAndUpdateDB(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotArticleSummaries, err := DeserializePBManArticlesAndUpdateDB(tt.args.boardID, tt.args.parentID, tt.args.entries, tt.args.updateNanoTS)
+			gotArticleSummaries, err := DeserializePBManArticlesAndUpdateDB(tt.args.boardID, tt.args.levelIdx, tt.args.entries, tt.args.updateNanoTS)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("DeserializePBManArticlesAndUpdateDB() error = %v, wantErr %v", err, tt.wantErr)
 				return
