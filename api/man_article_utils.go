@@ -43,11 +43,11 @@ func UpdateManArticleContentInfo(
 	return err
 }
 
-func DeserializePBManArticlesAndUpdateDB(boardID bbs.BBoardID, parentID types.ManArticleID, entries []*mand.Entry, updateNanoTS types.NanoTS) (articleSummaries []*schema.ManArticleSummary, err error) {
+func DeserializePBManArticlesAndUpdateDB(boardID bbs.BBoardID, levelIdx types.ManArticleID, entries []*mand.Entry, updateNanoTS types.NanoTS) (articleSummaries []*schema.ManArticleSummary, err error) {
 	articleSummaries = make([]*schema.ManArticleSummary, 0, len(entries))
 
 	for idx, each := range entries {
-		each := schema.NewManArticleSummaryFromPB(each, boardID, parentID, updateNanoTS, idx)
+		each := schema.NewManArticleSummaryFromPB(each, boardID, levelIdx, updateNanoTS, idx)
 		if each == nil {
 			continue
 		}

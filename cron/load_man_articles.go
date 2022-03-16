@@ -2,6 +2,7 @@ package cron
 
 import (
 	"context"
+	"runtime/debug"
 	"time"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
@@ -13,6 +14,11 @@ import (
 )
 
 func RetryLoadManArticles(ctx context.Context) error {
+	defer func() {
+		if r := recover(); r != nil {
+			logrus.Errorf("RetryLoadManArticles: Recovered r: %v stack: %v", r, string(debug.Stack()))
+		}
+	}()
 	for {
 		select {
 		case <-ctx.Done():
@@ -56,7 +62,7 @@ func LoadManArticles() (err error) {
 		}
 
 		if newNextBrdname == "" {
-			logrus.Infof("cron.LoadManArticle: load %v boards", count)
+			logrus.Infof("cron.LoadManArticles: load %v boards", count)
 			return nil
 
 		}
@@ -66,11 +72,9 @@ func LoadManArticles() (err error) {
 }
 
 func loadManArticles(boardID bbs.BBoardID) (err error) {
-	nextIdx := int32(0)
-
 	count, err := loadManArticlesCore(boardID, "")
 	if err != nil {
-		logrus.Errorf("cron.loadManArticles: unable to loadManArticles: nextIdx: %v e: %v", nextIdx, err)
+		logrus.Errorf("cron.loadManArticles: unable to loadManArticles: e: %v", err)
 		return err
 	}
 
@@ -79,13 +83,13 @@ func loadManArticles(boardID bbs.BBoardID) (err error) {
 	return nil
 }
 
-func loadManArticlesCore(boardID bbs.BBoardID, parentID types.ManArticleID) (count int, err error) {
+func loadManArticlesCore(boardID bbs.BBoardID, levelIdx types.ManArticleID) (count int, err error) {
 	// backend load-general-articles
 	brdname := boardID.ToBrdname()
 	ctx := context.Background()
 	req := &mand.ListRequest{
 		BoardName: brdname,
-		Path:      string(parentID),
+		Path:      string(levelIdx),
 	}
 	resp, err := mand.Cli.List(ctx, req)
 	if err != nil {
@@ -96,7 +100,7 @@ func loadManArticlesCore(boardID bbs.BBoardID, parentID types.ManArticleID) (cou
 
 	// update to db
 	updateNanoTS := types.NowNanoTS()
-	articleSummaries, err := api.DeserializePBManArticlesAndUpdateDB(boardID, parentID, entries, updateNanoTS)
+	articleSummaries, err := api.DeserializePBManArticlesAndUpdateDB(boardID, levelIdx, entries, updateNanoTS)
 	if err != nil {
 		return 0, err
 	}
@@ -110,7 +114,7 @@ func loadManArticlesCore(boardID bbs.BBoardID, parentID types.ManArticleID) (cou
 		}
 		eachCount, err := loadManArticlesCore(boardID, each.ArticleID)
 		if err != nil {
-			logrus.Errorf("cron.loadManArticlesCore: unable to loadManArticlesCore: boardID: %v path: %v each: %v e: %v", boardID, parentID, each.ArticleID, err)
+			logrus.Errorf("cron.loadManArticlesCore: unable to loadManArticlesCore: boardID: %v path: %v each: %v e: %v", boardID, levelIdx, each.ArticleID, err)
 		}
 
 		count += eachCount

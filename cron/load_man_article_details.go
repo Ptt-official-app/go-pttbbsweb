@@ -2,6 +2,7 @@ package cron
 
 import (
 	"context"
+	"runtime/debug"
 	"time"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
@@ -12,13 +13,18 @@ import (
 )
 
 func RetryLoadManArticleDetails(ctx context.Context) error {
+	defer func() {
+		if r := recover(); r != nil {
+			logrus.Errorf("RetryLoadManArticleDetails: Recovered r: %v stack: %v", r, string(debug.Stack()))
+		}
+	}()
 	for {
 		select {
 		case <-ctx.Done():
 			return nil
 		default:
 			logrus.Infof("RetryLoadManArticleDetails: to LoadManArticleDetails")
-			_ = LoadArticleDetails()
+			_ = LoadManArticleDetails()
 			select {
 			case <-ctx.Done():
 				return nil
@@ -30,7 +36,7 @@ func RetryLoadManArticleDetails(ctx context.Context) error {
 	}
 }
 
-func LoadMainArticleDetails() (err error) {
+func LoadManArticleDetails() (err error) {
 	nextBrdname := ""
 	count := 0
 
