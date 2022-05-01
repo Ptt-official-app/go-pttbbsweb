@@ -111,7 +111,22 @@ func TestCreateUserIDEmail(t *testing.T) {
 				t.Errorf("CreateUserIDEmail() error = %v, wantErr %v", err, tt.wantErr)
 			}
 
-			assert.Equal(t, err, tt.expectedErr)
+			switch err.(type) {
+			case mongo.WriteException:
+				err2, ok := err.(mongo.WriteException)
+				if ok {
+					err2.Raw = nil
+					writeErrors := make([]mongo.WriteError, 0, len(err2.WriteErrors))
+					for _, each := range err2.WriteErrors {
+						each.Raw = nil
+						writeErrors = append(writeErrors, each)
+					}
+					err2.WriteErrors = writeErrors
+					assert.Equal(t, tt.expectedErr, err2)
+				}
+			default:
+				assert.Equal(t, tt.expectedErr, err)
+			}
 
 			got, _ := GetUserIDEmailByEmail(tt.args.email, tt.args.updateNanoTS)
 			testutil.TDeepEqual(t, "got", got, tt.expected)
