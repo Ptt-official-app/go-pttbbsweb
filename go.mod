@@ -6,7 +6,8 @@ require (
 	github.com/Ptt-official-app/go-pttbbs v0.21.5
 	github.com/appleboy/graceful v0.0.4
 	github.com/gin-gonic/gin v1.7.7
-	github.com/go-redis/redis/v8 v8.11.4
+
+	github.com/go-redis/redis/v8 v8.11.5
 	github.com/golang-jwt/jwt/v4 v4.4.1
 	github.com/golang-queue/queue v0.1.1
 	github.com/google/go-querystring v1.1.0
