@@ -40,6 +40,8 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/Ptt-official-app/go-pttbbs v0.21.8 h1:E9n/YYh+UEYSj29sDZ87+m9rV24fSYIDWqem0p0TJVw=
 github.com/Ptt-official-app/go-pttbbs v0.21.8/go.mod h1:uSLTo4sDhL7lT5XMKnEAbO37hPCBRf1us6GptF0lLLw=
+github.com/Ptt-official-app/go-pttbbs v0.21.9 h1:il3hbEUow0uqe3kx5sQQ6PLJrSZtLRnQBVjQ/+NysR4=
+github.com/Ptt-official-app/go-pttbbs v0.21.9/go.mod h1:uSLTo4sDhL7lT5XMKnEAbO37hPCBRf1us6GptF0lLLw=
 github.com/appleboy/graceful v0.0.4 h1:Q4LCeq4DFy59qiACLtuH+mSqDERtUzwkQbCWpRaWwvQ=
 github.com/appleboy/graceful v0.0.4/go.mod h1:Q2mVx0t+N0lCDZc5MJudbcpTm6cgGM/J2gZCZIqD9dc=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
