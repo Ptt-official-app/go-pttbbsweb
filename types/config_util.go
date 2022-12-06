@@ -1,7 +1,7 @@
 package types
 
 import (
-	"io/ioutil"
+	"os"
 	"strings"
 	"time"
 
@@ -88,9 +88,7 @@ func postConfig() (err error) {
 	return nil
 }
 
-//setTimeLocation
-//
-//
+// setTimeLocation
 func setTimeLocation(timeLocation string) (origTimeLocation string, err error) {
 	origTimeLocation = TIME_LOCATION
 	TIME_LOCATION = timeLocation
@@ -163,7 +161,7 @@ func setEmailTokenTemplate(emailTokenTemplate string) (origEmailTokenTemplate st
 	origEmailTokenTemplate = EMAILTOKEN_TEMPLATE
 	EMAILTOKEN_TEMPLATE = emailTokenTemplate
 
-	contentBytes, err := ioutil.ReadFile(EMAILTOKEN_TEMPLATE)
+	contentBytes, err := os.ReadFile(EMAILTOKEN_TEMPLATE)
 	if err != nil {
 		return "", err
 	}
@@ -181,7 +179,7 @@ func setIDEmailTokenTemplate(idEmailTokenTemplate string) (origIDEmailTokenTempl
 	origIDEmailTokenTemplate = IDEMAILTOKEN_TEMPLATE
 	IDEMAILTOKEN_TEMPLATE = idEmailTokenTemplate
 
-	contentBytes, err := ioutil.ReadFile(IDEMAILTOKEN_TEMPLATE)
+	contentBytes, err := os.ReadFile(IDEMAILTOKEN_TEMPLATE)
 	if err != nil {
 		return "", err
 	}
@@ -199,7 +197,7 @@ func setAttemptRegisterUserTemplate(attemptRegisterUserTemplate string) (origAtt
 	origAttemptRegisterUserTemplate = ATTEMPT_REGISTER_USER_TEMPLATE
 	ATTEMPT_REGISTER_USER_TEMPLATE = attemptRegisterUserTemplate
 
-	contentBytes, err := ioutil.ReadFile(ATTEMPT_REGISTER_USER_TEMPLATE)
+	contentBytes, err := os.ReadFile(ATTEMPT_REGISTER_USER_TEMPLATE)
 	if err != nil {
 		return "", err
 	}

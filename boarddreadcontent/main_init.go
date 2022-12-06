@@ -18,11 +18,13 @@ import (
 	jww "github.com/spf13/jwalterweatherman"
 )
 
-//Params
-//      filename: ini filename
+// Params
 //
-//Return
-//      error: err
+//	filename: ini filename
+//
+// Return
+//
+//	error: err
 func initAllConfig(filename string) error {
 	filenameList := strings.Split(filename, ".")
 	if len(filenameList) == 1 {

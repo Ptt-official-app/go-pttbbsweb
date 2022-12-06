@@ -138,8 +138,10 @@ func main() {
 	}
 
 	s := &http.Server{
-		Addr:    types.HTTP_HOST,
-		Handler: r,
+		Addr:              types.HTTP_HOST,
+		Handler:           r,
+		ReadHeaderTimeout: time.Duration(180 * time.Second),
+		ReadTimeout:       time.Duration(180 * time.Second),
 	}
 
 	g := graceful.NewManager()

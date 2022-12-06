@@ -347,9 +347,9 @@ func Init() (err error) {
 	return nil
 }
 
-//Close
+// Close
 //
-//XXX do not really close to avoid db connection-error in tests.
+// XXX do not really close to avoid db connection-error in tests.
 func Close() (err error) {
 	return nil
 	/*

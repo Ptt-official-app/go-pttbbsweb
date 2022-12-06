@@ -7,13 +7,13 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-//ParseContent
+// ParseContent
 //
-//Assume:
-//1. the content is with chars >= 32 and '\x1b', '\r', \n'
-//2. the timestamp of the 1st-comments (around 10 comments, including the last-same-min comments) are within 1-year of the createTime.
-//3. the timestamp of the rest of the comments are able to reverse-inferred from mtime. compared as stored as nano-ts.
-//4. assuming no more than 60000 comments  (60 x 1000) in 1 minute.
+// Assume:
+// 1. the content is with chars >= 32 and '\x1b', '\r', \n'
+// 2. the timestamp of the 1st-comments (around 10 comments, including the last-same-min comments) are within 1-year of the createTime.
+// 3. the timestamp of the rest of the comments are able to reverse-inferred from mtime. compared as stored as nano-ts.
+// 4. assuming no more than 60000 comments  (60 x 1000) in 1 minute.
 func ParseContent(contentBytes []byte, origContentMD5 string) (content [][]*types.Rune, contentPrefix [][]*types.Rune, contentMD5 string, ip string, host string, bbs string, signatureMD5 string, signatureDBCS []byte, commentsDBCS []byte) {
 	contentDBCS, signatureDBCS, commentsDBCS := splitArticleSignatureCommentsDBCS(contentBytes)
 

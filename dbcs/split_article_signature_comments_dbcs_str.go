@@ -4,25 +4,25 @@ import (
 	"strings"
 )
 
-//splitArticleSignatureCommentsDBCSStr
+// splitArticleSignatureCommentsDBCSStr
 //
-//given content, try to split as article / bbs-signature / comments
-//expecting articleDBCS / signatureDBCS / comments as the sub-string of content.
+// given content, try to split as article / bbs-signature / comments
+// expecting articleDBCS / signatureDBCS / comments as the sub-string of content.
 //
-//在 edit 之後, 整個 content 有可能會被擾亂.
-//我們只能盡可能的根據得到的資訊來決定是否是屬於 signature 或是 comments.
+// 在 edit 之後, 整個 content 有可能會被擾亂.
+// 我們只能盡可能的根據得到的資訊來決定是否是屬於 signature 或是 comments.
 //
-//rules:
-//1. 整個 content 只會被分成 3 種可能: article / bbs-signature / comments
-//2. bbs-signature 辨識方式: 最後 1 個 ※  發信站:
-//3. comments 辨識方式: 符合顏色的推/噓/→
-//4. 如果有 bbs-signature, comments 一定是在 bbs-signature 之後.
-//5. 一旦出現 comments, 之後的 content 都會是 comments 或 reply.
+// rules:
+// 1. 整個 content 只會被分成 3 種可能: article / bbs-signature / comments
+// 2. bbs-signature 辨識方式: 最後 1 個 ※  發信站:
+// 3. comments 辨識方式: 符合顏色的推/噓/→
+// 4. 如果有 bbs-signature, comments 一定是在 bbs-signature 之後.
+// 5. 一旦出現 comments, 之後的 content 都會是 comments 或 reply.
 //
-//Implementation:
-//1. 嘗試拿到 signature 的 idx.
-//2. 如果有 signature idx: 嘗試將 signature 之後的分出 comments, return article / signature, comments
-//3. 否則: 嘗試將 content 分出 comments, return article / nil, comments
+// Implementation:
+// 1. 嘗試拿到 signature 的 idx.
+// 2. 如果有 signature idx: 嘗試將 signature 之後的分出 comments, return article / signature, comments
+// 3. 否則: 嘗試將 content 分出 comments, return article / nil, comments
 func splitArticleSignatureCommentsDBCSStr(content string) (articleDBCS string, signatureDBCS string, comments string) {
 	// 1. get idx with signature
 	idxes := tryGetSimpleSignatureIdxesStr(content)
@@ -75,7 +75,7 @@ func tryGetSimpleSignatureIdxesStr(content string) []int {
 		} else if idx >= 3 && p_content[idx-3] == '\n' && p_content[idx-2] == '-' && p_content[idx-1] == '-' {
 			theIdx -= 3
 		} else if idx >= 1 && p_content[idx-1] == '\r' {
-			theIdx -= 1 // nolint // consistent with programming pattern
+			theIdx -= 1 //nolint // consistent with programming pattern
 		}
 
 		idxes = append(idxes, theIdx)
@@ -119,7 +119,7 @@ func isSimpleSignatureWithFromStr(p_content string) (isValid bool, nBytes int) {
 		nBytes += 2
 	} else if len(p_content) >= 1 && p_content[0] == '\n' { //\n
 		p_content = p_content[1:]
-		nBytes += 1 // nolint // consistent with programming pattern
+		nBytes += 1 //nolint // consistent with programming pattern
 	}
 
 	// check 來自 in the 1st line.
@@ -168,9 +168,9 @@ func isSimpleSignatureWithFromStr(p_content string) (isValid bool, nBytes int) {
 	return false, 0
 }
 
-//simpleSignatureWithFromRange
+// simpleSignatureWithFromRange
 //
-//※  文章網址: https://www.ptt.cc/bbs
+// ※  文章網址: https://www.ptt.cc/bbs
 func simpleSignatureWithFromRangeStr(content string) int {
 	if !strings.HasPrefix(content, MATCH_SIGNATURE_URL_STR) {
 		return 0

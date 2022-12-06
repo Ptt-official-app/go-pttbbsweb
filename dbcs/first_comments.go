@@ -8,9 +8,9 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
-//ParseFirstComments
+// ParseFirstComments
 //
-//Check with origFirstCommentsMD5, if exists, return nil and requires getting firstComments and lastTime from db.
+// Check with origFirstCommentsMD5, if exists, return nil and requires getting firstComments and lastTime from db.
 func ParseFirstComments(
 	bboardID bbs.BBoardID,
 	articleID bbs.ArticleID,
@@ -42,9 +42,9 @@ func ParseFirstComments(
 	return firstComments, firstCommentsMD5, theRestCommentsDBCS, err
 }
 
-//splitFirstComments
+// splitFirstComments
 //
-//match the first N_FIRST_COMMENTS comments
+// match the first N_FIRST_COMMENTS comments
 func splitFirstComments(commentsDBCS []byte) (firstCommentsDBCS []byte, theRestComments []byte) {
 	p_commentsDBCS := commentsDBCS
 

@@ -29,9 +29,9 @@ var (
 	commentSummaryFields  = getFields(EMPTY_COMMENT, EMPTY_COMMENT_SUMMARY)
 )
 
-//GetCommentSummaries
+// GetCommentSummaries
 //
-//get comment summaries with startNanoTS <= createTime  < endNanoTS (excluding endNanoTS)
+// get comment summaries with startNanoTS <= createTime  < endNanoTS (excluding endNanoTS)
 func GetCommentSummaries(bboardID bbs.BBoardID, articleID bbs.ArticleID, startNanoTS types.NanoTS, endNanoTS types.NanoTS) (commentSummaries []*CommentSummary, err error) {
 	query := bson.M{
 		COMMENT_BBOARD_ID_b:  bboardID,

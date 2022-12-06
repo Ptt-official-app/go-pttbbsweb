@@ -220,10 +220,11 @@ func CountComments(boardID bbs.BBoardID, articleID bbs.ArticleID) (nComments int
 	return int(count), nil
 }
 
-//UpdateComments
+// UpdateComments
 //
-//XXX hack in updateCommentsCore:
-//    treat all the comments as non-deleted and unset IsDeleted.
+// XXX hack in updateCommentsCore:
+//
+//	treat all the comments as non-deleted and unset IsDeleted.
 func UpdateComments(comments []*Comment, updateNanoTS types.NanoTS) (err error) {
 	if len(comments) == 0 {
 		return nil

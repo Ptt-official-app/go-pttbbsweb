@@ -11,27 +11,28 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 )
 
-//ParseComments
+// ParseComments
 //
-//有可能 reply-edit-info (編輯) 不在 commentsDBCS 裡
-//但是會在 allCommentsDBCS 裡 (firstComments)
-//只考慮:
-//1. appropriately split comments.
-//2. 對於每個 comment 裡的 DBCS Parse 成 Utf8.
-//3. type / IP / Host / MD5 / TheDate
+// 有可能 reply-edit-info (編輯) 不在 commentsDBCS 裡
+// 但是會在 allCommentsDBCS 裡 (firstComments)
+// 只考慮:
+//  1. appropriately split comments.
+//  2. 對於每個 comment 裡的 DBCS Parse 成 Utf8.
+//  3. type / IP / Host / MD5 / TheDate
 //
-//不考慮:
-//1. boardID / articleID / commentID.
-//2. createTime / firstCreateTime / InferredCreateTime / AddCreateTime (除了編輯以外)
+// 不考慮:
+//  1. boardID / articleID / commentID.
+//  2. createTime / firstCreateTime / InferredCreateTime / AddCreateTime (除了編輯以外)
 //
-//1. 根據 '\n' 估計 nComments
-//2. 找出 pre-comment reply.
-//3. 對於每個 comment-leading newline for-loop:
-//   3.0. parse comment
-//   3.1. 找下一個 comment
-//   3.1.1. 如果沒有更多 comment: 假設剩下 text 的都是 reply.
-//   3.2. 假設下一個 comment 之前的 text 都是 reply.
-//4. (outside for-loop): 處理最後一個沒有 '\n' 的 comment.
+// steps:
+//  1. 根據 '\n' 估計 nComments
+//  2. 找出 pre-comment reply.
+//  3. 對於每個 comment-leading newline for-loop:
+//     3.0. parse comment
+//     3.1. 找下一個 comment
+//     3.1.1. 如果沒有更多 comment: 假設剩下 text 的都是 reply.
+//     3.2. 假設下一個 comment 之前的 text 都是 reply.
+//  4. (outside for-loop): 處理最後一個沒有 '\n' 的 comment.
 func ParseComments(
 	ownerID bbs.UUserID,
 	commentsDBCS []byte,
@@ -92,7 +93,7 @@ func ParseComments(
 					comments = append(comments, reply)
 				}
 
-				p_allCommentsDBCS = p_allCommentsDBCS[len(p_commentsDBCS):] // nolint // consistent with programming pattern
+				p_allCommentsDBCS = p_allCommentsDBCS[len(p_commentsDBCS):] //nolint // consistent with programming pattern
 				p_commentsDBCS = nil
 			}
 			break
@@ -301,10 +302,10 @@ func parseCommentForwardIPCreateTime(commentDBCS []byte) (ip string, dateStr str
 	return "", strings.TrimSpace(string(commentDBCS[theIdx:]))
 }
 
-//parseCommentDeleted
+// parseCommentDeleted
 //
-//(teemocogs 刪除 teemocogs 的推文: 誤植)
-//\x1b[1;30m(teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3)\x1b[m
+// (teemocogs 刪除 teemocogs 的推文: 誤植)
+// \x1b[1;30m(teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3)\x1b[m
 func parseCommentDeleted(commentDBCS []byte, origCommentDBCS []byte) (comment *schema.Comment) {
 	ownerID, commentDBCS := parseCommentDeletedOwnerID(commentDBCS)
 	contentDBCS, _ := parseCommentDeletedContent(commentDBCS)
@@ -423,10 +424,10 @@ func parseCommentContent(p_commmentDBCS []byte) (contentDBCS []byte, nextComment
 	return contentDBCS, nextCommentDBCS
 }
 
-//parseCommentDefaultIPCreateTime
+// parseCommentDefaultIPCreateTime
 //
-//Already separate the data by color.
-//There are only ip/create-time information in p_commentDBCS.
+// Already separate the data by color.
+// There are only ip/create-time information in p_commentDBCS.
 func parseCommentDefaultIPCreateTime(p_commentDBCS []byte) (ip string, dateStr string) {
 	if len(p_commentDBCS) == 0 {
 		return "", ""
@@ -460,9 +461,9 @@ func parseCommentDefaultIPCreateTime(p_commentDBCS []byte) (ip string, dateStr s
 	return ip, dateStr
 }
 
-//parseReply
+// parseReply
 //
-//只考慮parse
+// 只考慮parse
 func parseReply(replyDBCS []byte, editDBCS []byte, ownerID bbs.UUserID) (reply *schema.Comment) {
 	if len(replyDBCS) == 0 {
 		return nil
@@ -519,13 +520,13 @@ func parseReply(replyDBCS []byte, editDBCS []byte, ownerID bbs.UUserID) (reply *
 	return reply
 }
 
-//parseReplyUserIPHost
-//※ 編輯: abcd (1.2.3.4 臺灣), 03/21/2021 03:04:47
+// parseReplyUserIPHost
+// ※ 編輯: abcd (1.2.3.4 臺灣), 03/21/2021 03:04:47
 //
-//1. 找到 EDIT_PREFIX
-//2. 找到 (, 設定 userID
-//3. 找到 ), 設定 ip/host
-//4. 設定時間.
+// 1. 找到 EDIT_PREFIX
+// 2. 找到 (, 設定 userID
+// 3. 找到 ), 設定 ip/host
+// 4. 設定時間.
 func parseReplyUserIPHost(editDBCS []byte) (editUserID bbs.UUserID, editNanoTS types.NanoTS, editDateTimeStr string, editIP string, editHost string) {
 	// 1.  get EDIT_PREFIX
 	p_editDBCS := editDBCS

@@ -14,13 +14,13 @@ type CommentIsDeleted struct {
 
 var (
 	EMPTY_COMMENT_IS_DELETED = &CommentIsDeleted{}
-	commentIsDeletedFields   = getFields(EMPTY_COMMENT, EMPTY_COMMENT_IS_DELETED) // nolint // consistent with programming pattern
+	commentIsDeletedFields   = getFields(EMPTY_COMMENT, EMPTY_COMMENT_IS_DELETED) //nolint // consistent with programming pattern
 )
 
-//RemoveCommentIDs
+// RemoveCommentIDs
 //
-//Assuming that the data already exists,
-//no need to check that update-nano-ts does not exists.
+// Assuming that the data already exists,
+// no need to check that update-nano-ts does not exists.
 func RemoveCommentIDs(bboardID bbs.BBoardID, articleID bbs.ArticleID, toRemoveCommentIDs []types.CommentID, updateNanoTS types.NanoTS, reason string) (err error) {
 	if len(toRemoveCommentIDs) == 0 {
 		return nil
@@ -43,10 +43,10 @@ func RemoveCommentIDs(bboardID bbs.BBoardID, articleID bbs.ArticleID, toRemoveCo
 	return err
 }
 
-//RecoverCommentIDs
+// RecoverCommentIDs
 //
-//We need to use $unset to remove IS_DELETED
-//IS_DELETED should never be false. (we use omitempty to avoid this issue.)
+// We need to use $unset to remove IS_DELETED
+// IS_DELETED should never be false. (we use omitempty to avoid this issue.)
 func RecoverCommentIDs(commentQueries []*CommentQuery) (err error) {
 	theList := make([]*db.UpdatePair, len(commentQueries))
 

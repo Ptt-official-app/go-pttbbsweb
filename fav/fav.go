@@ -10,11 +10,11 @@ import (
 	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
 )
 
-//Fav
+// Fav
 //
-//It's with it's own serialize method and does not directly copy by struct.
-//We can add MTime in FavRaw.
-//The content of FavFolder
+// It's with it's own serialize method and does not directly copy by struct.
+// We can add MTime in FavRaw.
+// The content of FavFolder
 type Fav struct {
 	FavNum int
 	Depth  int
@@ -139,14 +139,14 @@ func (f *Fav) WriteFavrec(file io.Writer) error {
 	return nil
 }
 
-//ReadFavrec
+// ReadFavrec
 //
-//We need to:
-//1. read version because calling ReadFavrec
-//2. run root.SetFavTypeFavIdx(0)
+// We need to:
+// 1. read version because calling ReadFavrec
+// 2. run root.SetFavTypeFavIdx(0)
 //
-//because ReadFavrec is a recursive-call,
-//and the above 2 happens only in the 1st-call.
+// because ReadFavrec is a recursive-call,
+// and the above 2 happens only in the 1st-call.
 func ReadFavrec(file io.ReadSeeker, parent *Fav, root *Fav, depth int) (favrec *Fav, err error) {
 	// https://github.com/ptt/pttbbs/blob/master/mbbsd/fav.c
 	favrec, err = NewFav(parent, root, depth)
@@ -353,10 +353,10 @@ func (f *Fav) GetFavItem(theID int, theType pttbbsfav.FavT) (favType *FavType) {
 	return nil
 }
 
-//PreAppend
+// PreAppend
 //
-//https://github.com/ptt/pttbbs/blob/master/mbbsd/fav.c#L804
-//Although it is named PreAppend, actually it appends to DataTail
+// https://github.com/ptt/pttbbs/blob/master/mbbsd/fav.c#L804
+// Although it is named PreAppend, actually it appends to DataTail
 func (f *Fav) PreAppend(theType pttbbsfav.FavT, fp interface{}) (favType *FavType, err error) {
 	favt := &FavType{
 		TheType: theType,

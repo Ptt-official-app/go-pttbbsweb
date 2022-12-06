@@ -54,9 +54,9 @@ var (
 	MATCH_COMMENT_GREEN_PREFIX = []byte("\xa1\xb0 ") //※
 )
 
-//MatchComment
+// MatchComment
 //
-//TODO: record the idxes of each condition, rematch only the condition with the smallest idx.
+// TODO: record the idxes of each condition, rematch only the condition with the smallest idx.
 func MatchComment(content []byte) int {
 	theIdx := -1
 

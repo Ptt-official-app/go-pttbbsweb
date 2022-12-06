@@ -20,7 +20,7 @@ type ArticleComments struct {
 
 var (
 	EMPTY_ARTICLE_COMMENTS = &ArticleComments{}
-	articleCommentsFields  = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_COMMENTS) // nolint // consistent with programming pattern
+	articleCommentsFields  = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_COMMENTS) //nolint // consistent with programming pattern
 )
 
 func UpdateArticleCommentsByArticleID(boardID bbs.BBoardID, articleID bbs.ArticleID, updateNanoTS types.NanoTS) (err error) {
@@ -36,9 +36,9 @@ func UpdateArticleCommentsByArticleID(boardID bbs.BBoardID, articleID bbs.Articl
 	return UpdateArticleComments(articleComments)
 }
 
-//UpdateArticleComments
+// UpdateArticleComments
 //
-//We've already have article-content-info, we don't do create UpdateArticleComments
+// We've already have article-content-info, we don't do create UpdateArticleComments
 func UpdateArticleComments(articleComments *ArticleComments) (err error) {
 	query := bson.M{
 		"$or": bson.A{

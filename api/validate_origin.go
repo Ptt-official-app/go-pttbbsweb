@@ -7,13 +7,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//isValidOriginReferer
+// isValidOriginReferer
 //
-//origin: have origin when CORS or POST.
-//referer: <a href> or ajax.
+// origin: have origin when CORS or POST.
+// referer: <a href> or ajax.
 //
-//need to check origin and referer when they are not empty strings.
-//origin as white-list, referer as black-list for now.
+// need to check origin and referer when they are not empty strings.
+// origin as white-list, referer as black-list for now.
 func isValidOriginReferer(c *gin.Context) bool {
 	origin := c.GetHeader("Origin")
 	if origin == "" {
