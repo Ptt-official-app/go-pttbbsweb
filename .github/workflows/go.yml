@@ -13,26 +13,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v3
+
     - name: Start Redis
       uses: supercharge/redis-github-action@1.4.0
       with:
         redis-version: 6
 
     - name: MongoDB in GitHub Actions
-      uses: supercharge/mongodb-github-action@1.7.0
+      uses: supercharge/mongodb-github-action@1.8.0
       with:
-       mongodb-version: 4.4
+        mongodb-version: 4.4
+        mongodb-replica-set: test-rs
+        mongodb-port: 27017
 
     - name: check mongo
-      run: mongo localhost:27017 --eval "db.test.find()"
+      run: docker exec -t mongodb mongo --eval "db.test.find()"
 
     - name: Set up Go 1.x
       uses: actions/setup-go@v3
       with:
         go-version: ^1.16
-
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v3
 
     - name: golangci-lint
       uses: golangci/golangci-lint-action@v3
