@@ -165,22 +165,22 @@ func ArticleLockKey(boardID bbs.BBoardID, articleID bbs.ArticleID) (key string) 
 	return "a:" + string(boardID) + ":" + string(articleID)
 }
 
-//TryGetArticleContentInfo
+// TryGetArticleContentInfo
 //
-//嘗試拿到 article-content
+// 嘗試拿到 article-content
 //
-//1. 根據 article-id 得到相對應的 filename, ownerid, create-time.
-//2. 嘗試從 schema 拿到 db summary 資訊. (create-time)
-//3. 如果可以從 schema 拿到 db 資訊:
-//   3.1. 如果已經 deleted: return deleted.
-//   3.2. 如果距離上次跟 pttbbs 拿的時間太近: 從 schema 拿到 content, return schema-content.
-//4. 嘗試做 lock.
-//   4.1. 如果 lock 失敗: 從 schema 拿到 content, return schema-content.
-//5. 從 pttbbs 拿到 article
-//6. 如果從 pttbbs 拿到的時間比 schema 裡拿到的時間舊的話: return schema-content.
-//7. parse article 為 content / comments.
-//8. 將 comments parse 為 firstComments / theRestComments.
-//9. 將 theRestComments 丟進 queue 裡.
+//  1. 根據 article-id 得到相對應的 filename, ownerid, create-time.
+//  2. 嘗試從 schema 拿到 db summary 資訊. (create-time)
+//  3. 如果可以從 schema 拿到 db 資訊:
+//     3.1. 如果已經 deleted: return deleted.
+//     3.2. 如果距離上次跟 pttbbs 拿的時間太近: 從 schema 拿到 content, return schema-content.
+//  4. 嘗試做 lock.
+//     4.1. 如果 lock 失敗: 從 schema 拿到 content, return schema-content.
+//  5. 從 pttbbs 拿到 article
+//  6. 如果從 pttbbs 拿到的時間比 schema 裡拿到的時間舊的話: return schema-content.
+//  7. parse article 為 content / comments.
+//  8. 將 comments parse 為 firstComments / theRestComments.
+//  9. 將 theRestComments 丟進 queue 裡.
 func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context, isSystem bool, isHash bool, isContent bool) (content [][]*types.Rune, contentPrefix [][]*types.Rune, contentMD5 string, ip string, host string, bbs string, signatureMD5 string, signatureDBCSByte []byte, articleDetailSummary *schema.ArticleDetailSummary, fileSize int, hash cmsys.Fnv64_t, statusCode int, err error) {
 	updateNanoTS := types.NanoTS(0)
 	// set user-read-article-id

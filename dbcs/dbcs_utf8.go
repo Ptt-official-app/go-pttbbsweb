@@ -169,9 +169,9 @@ func dbcsToUtf8PerLine(contentDBCS string, color0 types.Color) (line []*types.Ru
 	return line, color0
 }
 
-//dbcsToUtf8PerLineParseColor
+// dbcsToUtf8PerLineParseColor
 //
-//colorDBCS: includes "\x1b[" and "m"
+// colorDBCS: includes "\x1b[" and "m"
 func dbcsToUtf8PerLineParseColor(colorDBCS string, origColor types.Color) (color types.Color, isColor1 bool, err error) {
 	colorDBCS = colorDBCS[2 : len(colorDBCS)-1]
 

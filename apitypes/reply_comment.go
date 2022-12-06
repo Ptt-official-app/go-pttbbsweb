@@ -15,11 +15,12 @@ type ReplyCommentParams struct {
 	Content   [][]*types.Rune `json:"content" form:"content" url:"content"`
 }
 
-//ToComment
+// ToComment
 //
-//referring to:
-//    dbcs.parseReply
-//    dbcs.EDBlock.ForwardInferTS
+// referring to:
+//
+//	dbcs.parseReply
+//	dbcs.EDBlock.ForwardInferTS
 func (r *ReplyCommentParams) ToComment(userID bbs.UUserID, remoteAddr string, boardID bbs.BBoardID, articleID bbs.ArticleID, commentSortTime types.NanoTS, updateNanoTS types.NanoTS) (replyComment *schema.Comment) {
 	color := &types.Color{}
 	*color = types.DefaultColor

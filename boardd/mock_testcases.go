@@ -3,7 +3,7 @@ package boardd
 import "github.com/Ptt-official-app/go-pttbbs/ptttype"
 
 var (
-	testBoard6 = &Board{ // nolint
+	testBoard6 = &Board{ //nolint
 		Parent:        5,
 		Bid:           6,
 		Attributes:    uint32(ptttype.BRD_POSTMASK),
@@ -13,7 +13,7 @@ var (
 		RawModerators: "",
 	}
 
-	testBoard7 = &Board{ // nolint
+	testBoard7 = &Board{ //nolint
 		Parent:        5,
 		Bid:           7,
 		Name:          "deleted",
@@ -22,7 +22,7 @@ var (
 		RawModerators: "",
 	}
 
-	testBoard11 = &Board{ // nolint
+	testBoard11 = &Board{ //nolint
 		Parent:        5,
 		Bid:           11,
 		Name:          "EditExp",
@@ -50,7 +50,7 @@ var (
 		RawModerators: "",
 	}
 
-	testBoard9 = &Board{ // nolint
+	testBoard9 = &Board{ //nolint
 		Parent:        5,
 		Bid:           9,
 		Attributes:    uint32(ptttype.BRD_POSTMASK),

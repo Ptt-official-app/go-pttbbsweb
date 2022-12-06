@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 
@@ -14,17 +14,19 @@ import (
 	"github.com/google/go-querystring/query"
 )
 
-//BackendPost
+// BackendPost
 //
-//Params
-//  postData: http-post data
-//  result: resp-data, requires pointer of pointer to malloc.
+// Params
 //
-//Ex:
-//    url := backend.LOGIN_R
-//    postData := &backend.LoginParams{}
-//    result := &backend.LoginResult{}
-//    BackendPost(c, url, postData, nil, &result)
+//	postData: http-post data
+//	result: resp-data, requires pointer of pointer to malloc.
+//
+// Ex:
+//
+//	url := backend.LOGIN_R
+//	postData := &backend.LoginParams{}
+//	result := &backend.LoginResult{}
+//	BackendPost(c, url, postData, nil, &result)
 func BackendPost(c *gin.Context, url string, postData interface{}, headers map[string]string, result interface{}) (statusCode int, err error) {
 	if isTest {
 		return mockhttp.HTTPPost(url, postData, result)
@@ -120,7 +122,7 @@ func httpProcess(req *http.Request, headers map[string]string, result interface{
 
 	statusCode = resp.StatusCode
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return 501, err
 	}

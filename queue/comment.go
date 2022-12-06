@@ -35,11 +35,11 @@ func QueueCommentDBCS(bboardID bbs.BBoardID, articleID bbs.ArticleID, ownerID bb
 	})
 }
 
-//ProcessCommentQueue
+// ProcessCommentQueue
 //
-//We use LastTime as the reference time to obtain stable timestamp.
-//(lastTime is from firstComments, assuming not change a lot.)
-//(mtime changes frequently and may result in unstable timestamp.)
+// We use LastTime as the reference time to obtain stable timestamp.
+// (lastTime is from firstComments, assuming not change a lot.)
+// (mtime changes frequently and may result in unstable timestamp.)
 func ProcessCommentQueue(q *CommentQueue) (err error) {
 	// 1. parse comments.
 	comments := dbcs.ParseComments(q.OwnerID, q.CommentDBCS, q.CommentDBCS)

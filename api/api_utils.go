@@ -3,7 +3,6 @@ package api
 import (
 	"encoding/json"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -110,7 +109,7 @@ func processCSRFContent(filename string, cacheControlMaxAge int, c *gin.Context)
 	defer file.Close()
 
 	reader := io.Reader(file)
-	contentBytes, err := ioutil.ReadAll(reader)
+	contentBytes, err := io.ReadAll(reader)
 	if err != nil {
 		processResult(c, nil, 500, ErrInvalidPath)
 	}

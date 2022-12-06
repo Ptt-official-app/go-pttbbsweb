@@ -390,9 +390,9 @@ func getArticleSummariesByRegexIsValidTitle(title string, keywordList []string, 
 	return true
 }
 
-//NewARticleSummary
+// NewARticleSummary
 //
-//no n_comments in bbs.ArticleSummary from backend.
+// no n_comments in bbs.ArticleSummary from backend.
 func NewArticleSummary(a_b *bbs.ArticleSummary, updateNanoTS types.NanoTS) *ArticleSummary {
 	return &ArticleSummary{
 		BBoardID:   a_b.BBoardID,

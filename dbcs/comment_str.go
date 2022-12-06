@@ -63,7 +63,7 @@ func ParseCommentsStr(ownerID bbs.UUserID, commentsDBCS string, allCommentsDBCS 
 					comments = append(comments, reply)
 				}
 
-				allCommentsDBCS = allCommentsDBCS[len(commentsDBCS):] // nolint // consistent with programming pattern
+				allCommentsDBCS = allCommentsDBCS[len(commentsDBCS):] //nolint // consistent with programming pattern
 				commentsDBCS = commentsDBCS[len(commentsDBCS):]
 			}
 			break
@@ -163,7 +163,8 @@ func parseCommentEditOwnerIDStr(commentDBCS string) (ownerID bbs.UUserID, newCom
 
 // parseCommentEditIPCreateTime
 //
-//      來自: 163.27.69.176        (10/03 14:42)
+// 來自: 163.27.69.176        (10/03 14:42)
+//
 // (58.152.169.221 臺灣), 03/07/2020 15:49:09
 func parseCommentEditIPCreateTimeStr(commentDBCS string) (ip string, host string, theDate string) {
 	if commentDBCS[0] != '(' { // old
@@ -213,7 +214,6 @@ func parseCommentEditIPCreateTimeStr(commentDBCS string) (ip string, host string
 // parseCommentForwardStr
 //
 // ※ \x1b[1;32mPttACT\x1b[0;32m:轉錄至看板 OriginalSong\x1b[m                                  01/26 17:19
-//
 func parseCommentForwardStr(commentDBCS string, origCommentDBCS string) (comment *schema.Comment) {
 	ownerID, commentDBCS := parseCommentForwardOwnerIDStr(commentDBCS)
 	contentDBCS, commentDBCS := parseCommentForwardContentStr(commentDBCS)
@@ -291,10 +291,10 @@ func parseCommentForwardIPCreateTimeStr(commentDBCS string) (ip string, dateStr 
 	return "", strings.TrimSpace(string(commentDBCS[theIdx:]))
 }
 
-//parseCommentDeletedStr
+// parseCommentDeletedStr
 //
-//(teemocogs 刪除 teemocogs 的推文: 誤植)
-//\x1b[1;30m(teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3)\x1b[m
+// (teemocogs 刪除 teemocogs 的推文: 誤植)
+// \x1b[1;30m(teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3)\x1b[m
 func parseCommentDeletedStr(commentDBCS string, origCommentDBCS string) (comment *schema.Comment) {
 	ownerID, commentDBCS := parseCommentDeletedOwnerIDStr(commentDBCS)
 	contentDBCS, _ := parseCommentDeletedContentStr(commentDBCS)
@@ -313,11 +313,10 @@ func parseCommentDeletedStr(commentDBCS string, origCommentDBCS string) (comment
 	return comment
 }
 
-//parseCommentDeletedOwnerIDStr
+// parseCommentDeletedOwnerIDStr
 //
-//teemocogs 刪除 teemocogs 的推文: 誤植)
-//teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3)\x1b[m
-
+// teemocogs 刪除 teemocogs 的推文: 誤植)
+// teemocogs \xa7R\xb0\xa3 teemocogs \xaa\xba\xb1\xc0\xa4\xe5: \xbb~\xb4\xd3)\x1b[m
 func parseCommentDeletedOwnerIDStr(commentDBCS string) (ownerID bbs.UUserID, newCommentDBCS string) {
 	origCommentDBCS := commentDBCS
 	startIdx := strings.Index(commentDBCS, MATCH_COMMENT_DELETED_INFIX0_STR)
@@ -335,9 +334,9 @@ func parseCommentDeletedOwnerIDStr(commentDBCS string) (ownerID bbs.UUserID, new
 	return ownerID, origCommentDBCS
 }
 
-//parseCommentDeletedContentStr
+// parseCommentDeletedContentStr
 //
-//teemocogs 刪除 teemocogs 的文章: 誤植)\x1b[m
+// teemocogs 刪除 teemocogs 的文章: 誤植)\x1b[m
 func parseCommentDeletedContentStr(commentDBCS string) (contentDBCS string, newCommentDBCS string) {
 	idx := strings.Index(commentDBCS, MATCH_COMMENT_DELETED_POSTFIX_STR)
 	if idx == -1 {
@@ -347,11 +346,11 @@ func parseCommentDeletedContentStr(commentDBCS string) (contentDBCS string, newC
 	return commentDBCS[:idx], commentDBCS[idx:]
 }
 
-//parseCommentDefaultStr
+// parseCommentDefaultStr
 //
-//fennyccc\x1b[m\x1b[33m: 讚                                    \x1b[m 115.82.149.161 01/28 12:34
+// fennyccc\x1b[m\x1b[33m: 讚                                    \x1b[m 115.82.149.161 01/28 12:34
 //
-//SYSOP\x1b[m\x1b[33m:推推                                                     \x1b[m 12/13 03:51
+// SYSOP\x1b[m\x1b[33m:推推                                                     \x1b[m 12/13 03:51
 func parseCommentDefaultStr(theType ptttype.CommentType, commentDBCS string, origCommentDBCS string) (comment *schema.Comment) {
 	ownerID, commentDBCS := parseCommentDefaultOwnerIDStr(commentDBCS)
 
@@ -398,10 +397,10 @@ func parseCommentDefaultOwnerIDStr(commentDBCS string) (ownerID bbs.UUserID, nex
 	return ownerID, nextCommentDBCS
 }
 
-//parseCommentContentStr
+// parseCommentContentStr
 //
-//: 讚                                    \x1b[m 115.82.149.161 01/28 12:34
-//:推推                                                     \x1b[m 12/13 03:51
+// : 讚                                    \x1b[m 115.82.149.161 01/28 12:34
+// :推推                                                     \x1b[m 12/13 03:51
 func parseCommentContentStr(commmentDBCS string) (contentDBCS string, nextCommentDBCS string) {
 	if len(commmentDBCS) == 0 {
 		return "", ""
@@ -432,14 +431,14 @@ func parseCommentContentStr(commmentDBCS string) (contentDBCS string, nextCommen
 	return contentDBCS, nextCommentDBCS
 }
 
-//parseCommentDefaultIPCreateTimeStr
+// parseCommentDefaultIPCreateTimeStr
 //
-//Already separate the data by color.
-//There are only ip/create-time information in p_commentDBCS.
-//\x1b[m                        推  140.112.28.31 11/19
-//\x1b[m                        推  				  11/19
-//\x1b[m 12/13
-//\x1b[m 118.160.112.18 03/20 09:44
+// Already separate the data by color.
+// There are only ip/create-time information in p_commentDBCS.
+// \x1b[m                        推  140.112.28.31 11/19
+// \x1b[m                        推  				  11/19
+// \x1b[m 12/13
+// \x1b[m 118.160.112.18 03/20 09:44
 func parseCommentDefaultIPCreateTimeStr(p_commentDBCS string) (ip string, dateStr string) {
 	if len(p_commentDBCS) == 0 {
 		return "", ""
@@ -476,9 +475,9 @@ func parseCommentDefaultIPCreateTimeStr(p_commentDBCS string) (ip string, dateSt
 	return ip, dateStr
 }
 
-//parseReply
+// parseReply
 //
-//只考慮parse
+// 只考慮parse
 func parseReplyStr(replyDBCS string, editDBCS string, ownerID bbs.UUserID) (reply *schema.Comment) {
 	if len(replyDBCS) == 0 {
 		return nil
@@ -523,13 +522,13 @@ func parseReplyStr(replyDBCS string, editDBCS string, ownerID bbs.UUserID) (repl
 	return reply
 }
 
-//parseReplyUserIPHost
-//※ 編輯: abcd (1.2.3.4 臺灣), 03/21/2021 03:04:47
+// parseReplyUserIPHost
+// ※ 編輯: abcd (1.2.3.4 臺灣), 03/21/2021 03:04:47
 //
-//1. 找到 EDIT_PREFIX
-//2. 找到 (, 設定 userID
-//3. 找到 ), 設定 ip/host
-//4. 設定時間.
+// 1. 找到 EDIT_PREFIX
+// 2. 找到 (, 設定 userID
+// 3. 找到 ), 設定 ip/host
+// 4. 設定時間.
 func parseReplyUserIPHostStr(editDBCS string) (editUserID bbs.UUserID, editNanoTS types.NanoTS, editDateTimeStr string, editIP string, editHost string) {
 	// 1.  get EDIT_PREFIX
 	p_editDBCS := editDBCS

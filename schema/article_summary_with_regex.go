@@ -49,9 +49,9 @@ var (
 	articleSummaryWithRegexFields    = getFields(EMPTY_ARTICLE, EMPTY_ARTICLE_SUMMARY_WITH_REGEX)
 )
 
-//NewArticleSummaryWithRegexFromPBArticle
+// NewArticleSummaryWithRegexFromPBArticle
 //
-//no n_comments in bbs.ArticleSummary from backend.
+// no n_comments in bbs.ArticleSummary from backend.
 func NewArticleSummaryWithRegexFromPBArticle(boardID bbs.BBoardID, a_b *boardd.Post, updateNanoTS types.NanoTS, isBottom bool) *ArticleSummaryWithRegex {
 	filename := &ptttype.Filename_t{}
 	copy(filename[:], []byte(a_b.Filename))
@@ -178,9 +178,9 @@ func parseTitle(realTitleWithClass string) (theClass string, title string) {
 	return "", realTitleWithClass
 }
 
-//NewArticleSummaryWithRegex
+// NewArticleSummaryWithRegex
 //
-//no n_comments in bbs.ArticleSummary from backend.
+// no n_comments in bbs.ArticleSummary from backend.
 func NewArticleSummaryWithRegex(a_b *bbs.ArticleSummary, updateNanoTS types.NanoTS) *ArticleSummaryWithRegex {
 	title := types.Big5ToUtf8(a_b.RealTitle)
 
@@ -212,8 +212,9 @@ func NewArticleSummaryWithRegex(a_b *bbs.ArticleSummary, updateNanoTS types.Nano
 // articleTitleToTitleRegex
 //
 // params:
-//    title:
-//    theClass: (with 4-byte length)
+//
+//	title:
+//	theClass: (with 4-byte length)
 func articleTitleToTitleRegex(title string) (titleRegex []string) {
 	titleRune := []rune(title)
 	nGramTitleRegex := TITLE_REGEX_N_GRAM

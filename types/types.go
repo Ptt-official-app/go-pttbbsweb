@@ -65,16 +65,18 @@ func ToContentID(nanoTS NanoTS, md5 string) ContentID {
 	return ContentID(nanoTS.Base64() + ":" + md5)
 }
 
-//CommentID
+// CommentID
 //
-//XXX currently it's very hard to maintain the comment-id.
-//if we do comment-id only based on MD5:
-//  got duplicated md5-id if the owner posts the same comments
-//  within 1 min.
+// XXX currently it's very hard to maintain the comment-id.
+// if we do comment-id only based on MD5:
 //
-//if we add the inferred CreateTime into the comment-id:
-//  the CreateTime may be changed if the author deletes
-//  some other comments within same minute.
+//	got duplicated md5-id if the owner posts the same comments
+//	within 1 min.
+//
+// if we add the inferred CreateTime into the comment-id:
+//
+//	the CreateTime may be changed if the author deletes
+//	some other comments within same minute.
 type CommentID string
 
 func ToCommentID(nanoTS NanoTS, md5 string) CommentID {
@@ -119,10 +121,10 @@ func (t NanoTS) ToTime() time.Time {
 	return time.Unix(int64(t/TS_TO_NANO_TS), int64(t%TS_TO_NANO_TS)).In(TIMEZONE)
 }
 
-//ToNanoTSByMin
+// ToNanoTSByMin
 //
-//nano-ts by minutes.
-//used in comment-time-slot.
+// nano-ts by minutes.
+// used in comment-time-slot.
 func (t NanoTS) ToNanoTSByMin() NanoTS {
 	return (t / MIN_TO_NANO_TS) * MIN_TO_NANO_TS
 }
@@ -152,14 +154,14 @@ func TimeToNanoTS(t time.Time) NanoTS {
 	return NanoTS(t.UnixNano())
 }
 
-//DateStrToTime
+// DateStrToTime
 //
-//(YYYY/)MM/DD
+// (YYYY/)MM/DD
 //
-//used in old-comment.
+// used in old-comment.
 //
-//golang requires year to parse TIMEZONE with CST.
-//https://github.com/golang/go/issues/34101
+// golang requires year to parse TIMEZONE with CST.
+// https://github.com/golang/go/issues/34101
 func DateStrToTime(dateStr string) (time.Time, error) {
 	layout := "2006/01/02"
 	t, err := time.ParseInLocation(layout, dateStr, TIMEZONE)
@@ -169,11 +171,11 @@ func DateStrToTime(dateStr string) (time.Time, error) {
 	return t.In(TIMEZONE), nil
 }
 
-//DateYearTimeStrToTime
+// DateYearTimeStrToTime
 //
-//MM/DD/YYYY hh:mm:ss
+// MM/DD/YYYY hh:mm:ss
 //
-//used in edit (編輯)
+// used in edit (編輯)
 func DateYearTimeStrToTime(dateYearTimeStr string) (time.Time, error) {
 	layout := "01/02/2006 15:04:05"
 	t, err := time.ParseInLocation(layout, dateYearTimeStr, TIMEZONE)
@@ -183,14 +185,14 @@ func DateYearTimeStrToTime(dateYearTimeStr string) (time.Time, error) {
 	return t.In(TIMEZONE), nil
 }
 
-//DateMinStrToTime
+// DateMinStrToTime
 //
-//(YYYY/)MM/DD hh:mm
+// (YYYY/)MM/DD hh:mm
 //
-//used in comment.
+// used in comment.
 //
-//golang requires year to parse TIMEZONE with CST.
-//https://github.com/golang/go/issues/34101
+// golang requires year to parse TIMEZONE with CST.
+// https://github.com/golang/go/issues/34101
 func DateMinStrToTime(dateTimeStr string) (time.Time, error) {
 	layout := "2006/01/02 15:04"
 	t, err := time.ParseInLocation(layout, dateTimeStr, TIMEZONE)

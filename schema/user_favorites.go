@@ -237,10 +237,10 @@ func UserFavoritesToFav(meta *FolderMeta, userFavorites []*UserFavorites, depth 
 	return f, nil
 }
 
-//userFavoritestoFavType
+// userFavoritestoFavType
 //
-//deal with only TheType, Attr, Id, Title.
-//do not deal with ThisFolder in this function.
+// deal with only TheType, Attr, Id, Title.
+// do not deal with ThisFolder in this function.
 func userFavoritesToFavType(userFavorites *UserFavorites) (ft *fav.FavType) {
 	ft = &fav.FavType{
 		TheType: userFavorites.TheType,

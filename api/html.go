@@ -71,7 +71,7 @@ func UserHTMLWrapper(c *gin.Context) {
 	processCSRFContent(filename, maxAge, c)
 }
 
-const USER_CHANGE_PASSWD_HTML_R = "/user/:user_id/resetpassword" // nolint // passwd as route
+const USER_CHANGE_PASSWD_HTML_R = "/user/:user_id/resetpassword" //nolint // passwd as route
 
 func UserChangePasswdHTMLWrapper(c *gin.Context) {
 	filename := filepath.Join(types.STATIC_DIR, "change-passwd.html")

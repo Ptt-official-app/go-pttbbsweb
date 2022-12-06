@@ -18,9 +18,9 @@ func Utf8ToDBCS(utf8 [][]*types.Rune) (dbcsBytes [][]byte) {
 	return dbcsBytes
 }
 
-//utf8ToDBCSByLine
+// utf8ToDBCSByLine
 //
-//We can directly concat the DBCS within line
+// We can directly concat the DBCS within line
 func utf8ToDBCSByLine(line []*types.Rune, color types.Color) (lineDBCS []byte, newColor types.Color) {
 	lineDBCS = make([]byte, 0, DEFAULT_LINE_BYTES)
 	newColor = color
@@ -34,20 +34,20 @@ func utf8ToDBCSByLine(line []*types.Rune, color types.Color) (lineDBCS []byte, n
 	return lineDBCS, newColor
 }
 
-//utf8ToDBCSByRune
+// utf8ToDBCSByRune
 //
-//1. check whether we've already have the DBCS (already parsed)
+// 1. check whether we've already have the DBCS (already parsed)
 func utf8ToDBCSByRune(theRune *types.Rune, origColor types.Color, isAddCR bool) (theDBCS []byte, newColor types.Color) {
 	theRune.Utf8ToDBCS(origColor, isAddCR)
 	return theRune.DBCS, theRune.Color1
 }
 
-//dbcsToBig5
+// dbcsToBig5
 //
-//dbcs: with '\n' ending.
+// dbcs: with '\n' ending.
 //
-//1. split by '\n'
-//2. parse dbcs to big5 per line.
+// 1. split by '\n'
+// 2. parse dbcs to big5 per line.
 func dbcsToBig5(dbcs []byte) (big5 [][]*types.Rune) {
 	if len(dbcs) == 0 {
 		return nil
@@ -78,43 +78,41 @@ func big5ToUtf8(a [][]*types.Rune) [][]*types.Rune {
 	return a
 }
 
-//dbcsToBig5PerLine
+// dbcsToBig5PerLine
 //
-//Assuming dbcs is within same line.
-//Goal: able to:
-//      1. separate big5 and color.
-//      2. big5 with same color belongs to same rune
+// Assuming dbcs is within same line.
+// Goal: able to:
+//  1. separate big5 and color.
+//  2. big5 with same color belongs to same rune
 //
-//Inspired from https://github.com/ptt/pttbbs/blob/master/mbbsd/pfterm.c#L838
-//(Setting dbcs-state)
+// Inspired from https://github.com/ptt/pttbbs/blob/master/mbbsd/pfterm.c#L838
+// (Setting dbcs-state)
 //
-//have startIdx and endIdx as the indicator of the start and end of the big5-bytes. (endIdx excluded.)
+// have startIdx and endIdx as the indicator of the start and end of the big5-bytes. (endIdx excluded.)
 //
-//The conditions:
-//if not encountered the color: assuming same color and put to same big5str (endIdx++)
-//if encountered the color(continuous-colors as parsed-1-color), we need to determine separator and the color:
+// The conditions:
+// if not encountered the color: assuming same color and put to same big5str (endIdx++)
+// if encountered the color(continuous-colors as parsed-1-color), we need to determine separator and the color:
 //
-//    if in DBCS_STAT_LEAD (the previous char is the 0th Big5):
-//       ended with previous-char,
-//       start a new rune with startIdx = previous-char, parse color as color1.
-//    if in DBCS_STAT_NONE (the previous char is not Big5, color is set as color0):
-//       ended with currentIdx, set previous color1 as color0,
-//       start a new rune with currentIdx.
-//    if in DBCS_STAT_TAIL (the previous char is the 1st Big5):
-//       if color1 is not set, set color1 as color0.
-//       ended with endIdx, start a new rune with currentIdx.
-//    if in DBCS_COLOR (the previous char is color):
-//       continue parse the color.
+//	if in DBCS_STAT_LEAD (the previous char is the 0th Big5):
+//	   ended with previous-char,
+//	   start a new rune with startIdx = previous-char, parse color as color1.
+//	if in DBCS_STAT_NONE (the previous char is not Big5, color is set as color0):
+//	   ended with currentIdx, set previous color1 as color0,
+//	   start a new rune with currentIdx.
+//	if in DBCS_STAT_TAIL (the previous char is the 1st Big5):
+//	   if color1 is not set, set color1 as color0.
+//	   ended with endIdx, start a new rune with currentIdx.
+//	if in DBCS_COLOR (the previous char is color):
+//	   continue parse the color.
 //
-//
-//
-//Implementation:
-//1. check isCarriage.
-//2. estimate len big5
-//3. for-loop
-//4. check the last rune.
-//5. defensive programming for the last rune.
-//6. add carriage back if isCarriage.
+// Implementation:
+// 1. check isCarriage.
+// 2. estimate len big5
+// 3. for-loop
+// 4. check the last rune.
+// 5. defensive programming for the last rune.
+// 6. add carriage back if isCarriage.
 func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Color) {
 	if len(dbcs) == 0 {
 		return []*types.Rune{}, color0
@@ -287,7 +285,7 @@ func dbcsToBig5PerLine(dbcs []byte, color0 types.Color) ([]*types.Rune, types.Co
 			DBCS:   eachDBCS,
 		}
 		big5 = append(big5, r)
-		startIdx = len(dbcs) // nolint // consistent with programming pattern
+		startIdx = len(dbcs) //nolint // consistent with programming pattern
 	}
 
 	if isCarriage {

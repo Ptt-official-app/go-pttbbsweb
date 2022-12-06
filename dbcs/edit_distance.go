@@ -67,13 +67,13 @@ type EDInfoMeta struct {
 	EndIdx int
 }
 
-//CalcEDBlocks
+// CalcEDBlocks
 //
-//Must already guarantee that:
-//1. articleCreateTime < all origComments.SortTime
-//2. articleMTime >= all origComments.SortTime
-//3. origComments are sorted by SortTime
-//4. newComments are sorted by the line-idx.
+// Must already guarantee that:
+// 1. articleCreateTime < all origComments.SortTime
+// 2. articleMTime >= all origComments.SortTime
+// 3. origComments are sorted by SortTime
+// 4. newComments are sorted by the line-idx.
 func CalcEDBlocks(newComments []*schema.Comment, origComments []*schema.CommentMD5, articleCreateTime types.NanoTS, articleMTime types.NanoTS) (edBlocks []*EDBlock, err error) {
 	if len(newComments) == 0 {
 		return nil, nil
@@ -105,17 +105,19 @@ func CalcEDBlocks(newComments []*schema.Comment, origComments []*schema.CommentM
 	return edBlocks, nil
 }
 
-//calcEditDistance
+// calcEditDistance
 //
-//input: abcde (new) ABCDE (orig)
-//scoreMat:  _ A B C D E
-//         _ 0
-//         a
-//         b
-//         c
-//         d
-//         e
-//scoreMat[i][j] = min(scoreMat[i-1][j]+1, scoreMat[i][j-1]+1, (if same MD5: scoreMat[i-1][j-1]))
+// input: abcde (new) ABCDE (orig)
+// scoreMat:  _ A B C D E
+//
+//	_ 0
+//	a
+//	b
+//	c
+//	d
+//	e
+//
+// scoreMat[i][j] = min(scoreMat[i-1][j]+1, scoreMat[i][j-1]+1, (if same MD5: scoreMat[i-1][j-1]))
 func calcEditDistance(comments []*schema.Comment, allCommentMD5s []*schema.CommentMD5) (scoreMat [][]int) {
 	lenNew := len(comments)
 	lenOrig := len(allCommentMD5s)
@@ -158,17 +160,17 @@ func calcEditDistance(comments []*schema.Comment, allCommentMD5s []*schema.Comme
 	return scoreMat
 }
 
-//calcEditDistanceBacktracking
+// calcEditDistanceBacktracking
 //
-//# params
+// # params
 //
-//* scoreMat: edit-distance score matrix. row: new comments, col: orig-comments
-//* comments: new comments sorted by line-idx
-//* allCommentMD5s: orig-comments sorted by SortTime
+// * scoreMat: edit-distance score matrix. row: new comments, col: orig-comments
+// * comments: new comments sorted by line-idx
+// * allCommentMD5s: orig-comments sorted by SortTime
 //
-//# return
+// # return
 //
-//* edInfos: The back-tracking result.
+// * edInfos: The back-tracking result.
 func calcEditDistanceBacktracking(scoreMat [][]int, comments []*schema.Comment, allCommentMD5s []*schema.CommentMD5) (edInfos []*EDInfo) {
 	currentNew := len(scoreMat) - 1
 	currentOrig := len(scoreMat[0]) - 1
@@ -221,10 +223,10 @@ func reverseEDInfos(edInfos []*EDInfo) []*EDInfo {
 	return edInfos
 }
 
-//calcEDInfoMetas
+// calcEDInfoMetas
 //
-//Given the edInfos list, we would like to construct the EDInfoMetas
-//by separating the list with EDIT_DISTANCE_OP_SAME
+// Given the edInfos list, we would like to construct the EDInfoMetas
+// by separating the list with EDIT_DISTANCE_OP_SAME
 func calcEDInfoMetas(edInfos []*EDInfo, startNanoTS types.NanoTS, endNanoTS types.NanoTS) (edInfoMetas []*EDInfoMeta) {
 	// compute number of op-same
 	nEDInfoMetas := 1 // we need at least 1 meta
@@ -260,10 +262,10 @@ func calcEDInfoMetas(edInfos []*EDInfo, startNanoTS types.NanoTS, endNanoTS type
 	return edInfoMetas
 }
 
-//ToEDBlock
+// ToEDBlock
 //
-//Given the list of edInfos, where NewComments are OrigComments are already separately sorted,
-//construct the corresponding ed-block.
+// Given the list of edInfos, where NewComments are OrigComments are already separately sorted,
+// construct the corresponding ed-block.
 func (meta *EDInfoMeta) ToEDBlock(edInfos []*EDInfo) (edBlock *EDBlock) {
 	theEDInfos := edInfos[meta.StartIdx:meta.EndIdx]
 
@@ -330,20 +332,22 @@ func InferTimestamp(edBlocks []*EDBlock, isForwardOnly bool, isLastAlignEndNanoT
 	return nBlock
 }
 
-//InferTimestamp
+// InferTimestamp
 //
-//1. OrigComments are sorted between ed.StartNanoTS and ed.EndNanoTS
-//2. It's possible that the newComments are with out-of-range time.
-//3. It's possible that multiple comments shares the same date-str,
-//   but we still need some way to make the timestamp unique.
-//4. The time from OrigComments should not be moved.
+//  1. OrigComments are sorted between ed.StartNanoTS and ed.EndNanoTS
+//  2. It's possible that the newComments are with out-of-range time.
+//  3. It's possible that multiple comments shares the same date-str,
+//     but we still need some way to make the timestamp unique.
+//  4. The time from OrigComments should not be moved.
 //
-//The possibilities that new-comments are in between original-comments:
-//XXX 1. delete (try to map the corresponding deleted messages)
-//    We don't do this to simplify mapping sequence.
-//2. reply (previous-appearing-message (currentNanoTS in same or newComments) + REPLY_STEP_NANO_TS)
-//3. new messages. (sort-time should be after the deleted-messages)
-//4. others (the owners accidentally edited something, sort-time should be after the deleted-messages)
+// The possibilities that new-comments are in between original-comments:
+// XXX 1. delete (try to map the corresponding deleted messages)
+//
+//	We don't do this to simplify mapping sequence.
+//
+// 2. reply (previous-appearing-message (currentNanoTS in same or newComments) + REPLY_STEP_NANO_TS)
+// 3. new messages. (sort-time should be after the deleted-messages)
+// 4. others (the owners accidentally edited something, sort-time should be after the deleted-messages)
 func (ed *EDBlock) InferTimestamp(articleCreateTime types.NanoTS, isForwardOnly bool, isLastAlignEndNanoTS bool) {
 	// no need to infer timestamp
 	if len(ed.NewComments) == 0 {
@@ -642,10 +646,10 @@ func backwardInferTSWithYear(theDate string, year int, endNanoTS types.NanoTS) (
 	return sortNanoTS, createNanoTS
 }
 
-//inferTSWithYear
+// inferTSWithYear
 //
-//theDate: possibly MM/DD or MM/DD hh:mm
-//alg: 1. add as YYYY/MM/DD or YYYY/MM/DD hh:mm
+// theDate: possibly MM/DD or MM/DD hh:mm
+// alg: 1. add as YYYY/MM/DD or YYYY/MM/DD hh:mm
 func inferTSWithYear(theDate string, year int) (nanoTS types.NanoTS, theType INFER_TIMESTAMP_TYPE) {
 	theDateWithYear := strconv.Itoa(year) + "/" + theDate
 
