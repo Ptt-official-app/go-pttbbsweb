@@ -42,6 +42,8 @@ github.com/Ptt-official-app/go-pttbbs v0.21.8 h1:E9n/YYh+UEYSj29sDZ87+m9rV24fSYI
 github.com/Ptt-official-app/go-pttbbs v0.21.8/go.mod h1:uSLTo4sDhL7lT5XMKnEAbO37hPCBRf1us6GptF0lLLw=
 github.com/Ptt-official-app/go-pttbbs v0.21.9 h1:il3hbEUow0uqe3kx5sQQ6PLJrSZtLRnQBVjQ/+NysR4=
 github.com/Ptt-official-app/go-pttbbs v0.21.9/go.mod h1:uSLTo4sDhL7lT5XMKnEAbO37hPCBRf1us6GptF0lLLw=
+github.com/Ptt-official-app/go-pttbbs v0.21.10 h1:HjYrfIWBr+QBlQWV92mMgliovnmxrMjErPjlNMlIZF8=
+github.com/Ptt-official-app/go-pttbbs v0.21.10/go.mod h1:uSLTo4sDhL7lT5XMKnEAbO37hPCBRf1us6GptF0lLLw=
 github.com/appleboy/graceful v0.0.4 h1:Q4LCeq4DFy59qiACLtuH+mSqDERtUzwkQbCWpRaWwvQ=
 github.com/appleboy/graceful v0.0.4/go.mod h1:Q2mVx0t+N0lCDZc5MJudbcpTm6cgGM/J2gZCZIqD9dc=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
