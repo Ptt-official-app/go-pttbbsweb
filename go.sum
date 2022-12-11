@@ -38,10 +38,8 @@ cloud.google.com/go/storage v1.14.0/go.mod h1:GrKmX003DSIwi9o29oFT7YDnHYwZoctc3f
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
-github.com/Ptt-official-app/go-pttbbs v0.21.10 h1:HjYrfIWBr+QBlQWV92mMgliovnmxrMjErPjlNMlIZF8=
-github.com/Ptt-official-app/go-pttbbs v0.21.10/go.mod h1:uSLTo4sDhL7lT5XMKnEAbO37hPCBRf1us6GptF0lLLw=
-github.com/Ptt-official-app/go-pttbbs v0.21.11 h1:cYSR/7qgk3mrECQ5uaUkTY/mBQkjVe7D/H6Nd58YNU0=
-github.com/Ptt-official-app/go-pttbbs v0.21.11/go.mod h1:uSLTo4sDhL7lT5XMKnEAbO37hPCBRf1us6GptF0lLLw=
+github.com/Ptt-official-app/go-pttbbs v0.21.13 h1:XuRBkW/dx7x9CraPt+rwSVUKVxCacbU9cWHhgYEDKNI=
+github.com/Ptt-official-app/go-pttbbs v0.21.13/go.mod h1:uSLTo4sDhL7lT5XMKnEAbO37hPCBRf1us6GptF0lLLw=
 github.com/appleboy/graceful v0.0.4 h1:Q4LCeq4DFy59qiACLtuH+mSqDERtUzwkQbCWpRaWwvQ=
 github.com/appleboy/graceful v0.0.4/go.mod h1:Q2mVx0t+N0lCDZc5MJudbcpTm6cgGM/J2gZCZIqD9dc=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=

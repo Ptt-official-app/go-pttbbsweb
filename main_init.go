@@ -14,7 +14,9 @@ import (
 	"github.com/spf13/viper"
 
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
+	"github.com/sirupsen/logrus"
 	log "github.com/sirupsen/logrus"
 	jww "github.com/spf13/jwalterweatherman"
 )
@@ -121,6 +123,8 @@ func initMain() error {
 	if err != nil {
 		return err
 	}
+
+	logrus.Infof("initMain: done: MAX_USERS: %v MAX_ACTIVE: %v MAX_BOARD: %v HOTBOARDCACHE: %v", ptttype.MAX_USERS, ptttype.MAX_ACTIVE, ptttype.MAX_BOARD, ptttype.HOTBOARDCACHE)
 
 	return nil
 }
