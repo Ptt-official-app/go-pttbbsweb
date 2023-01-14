@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 // ParseContent
@@ -37,7 +37,7 @@ func ParseContent(contentBytes []byte, origContentMD5 string) (content [][]*type
 }
 
 func parseContentPrefix(content [][]*types.Rune) (newContent [][]*types.Rune, prefix [][]*types.Rune) {
-	if len(content) < 3 {
+	if len(content) < 3 || len(content[0]) == 0 || len(content[1]) == 0 || len(content[2]) == 0 {
 		return content, nil
 	}
 
@@ -59,6 +59,7 @@ func parseContentPrefix(content [][]*types.Rune) (newContent [][]*types.Rune, pr
 		return content, nil
 	}
 
+	// possibly blank line, should be considered as part of the prefix.
 	idxContent := 3
 	if len(content) >= 4 && (len(content[3]) == 0 || len(content[3]) == 1 && content[3][0].Utf8 == "") {
 		idxContent = 4
@@ -102,7 +103,7 @@ func parseSignatureIPHostBBS(signatureUtf8 [][]*types.Rune) (ip string, host str
 	}
 	// expecting only 1 rune
 	if len(zerothLine) > 1 {
-		log.Warning("dbcs.parseIPHostBBS: multiple colors")
+		logrus.Warnf("dbcs.parseIPHostBBS: multiple colors: zerothLine: %v", zerothLine)
 	}
 	zerothRune := zerothLine[0].Utf8
 	prefix := "※ 發信站: "
@@ -138,7 +139,7 @@ func parseSignatureIPHostBBS(signatureUtf8 [][]*types.Rune) (ip string, host str
 		return "", "", bbs
 	}
 	if len(firstLine) > 1 {
-		log.Warning("dbcs.parseIPHostBBS: multiple colors")
+		logrus.Warnf("dbcs.parseIPHostBBS: multiple colors: firstLine: %v", firstLine)
 	}
 	firstRune := firstLine[0].Utf8
 	// 2.1.1. forward

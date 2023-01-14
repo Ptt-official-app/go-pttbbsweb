@@ -4,11 +4,11 @@ import (
 	"reflect"
 
 	"github.com/Ptt-official-app/go-pttbbs/api"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 func HTTPPost(url string, data interface{}, result interface{}) (statusCode int, err error) {
-	log.Infof("HTTPPost: url: %v", url)
+	logrus.Infof("HTTPPost: url: %v", url)
 	switch url {
 	case api.LOGIN_R:
 		return parseResult(Login(data.(*api.LoginParams)), result)

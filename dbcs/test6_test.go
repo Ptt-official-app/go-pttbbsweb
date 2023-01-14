@@ -48,7 +48,6 @@ func initTest6() {
 		},
 		{ // 2
 			{
-
 				Big5:   []byte("\xae\xc9\xb6\xa1: Thu Feb 13 01:46:44 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -64,7 +63,6 @@ func initTest6() {
 		},
 		{ // 4
 			{
-
 				Big5:   []byte("\xa1\xb0 [\xa5\xbb\xa4\xe5\xc2\xe0\xbf\xfd\xa6\xdb MLB \xac\xdd\xaaO #1UH3bcSy ]"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -80,7 +78,6 @@ func initTest6() {
 		},
 		{ // 6
 			{
-
 				Big5:   []byte("\xa7@\xaa\xcc: currykukuo (\xb3\xaf\xb5\xe2\xc0\xe3\xa6\xbd) \xac\xdd\xaaO: MLB"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -89,7 +86,6 @@ func initTest6() {
 		},
 		{ // 7
 			{
-
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb1\xa1\xb3\xf8] Chris Sale \xb1o\xaa\xcd\xaa\xa2"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -98,7 +94,6 @@ func initTest6() {
 		},
 		{ // 8
 			{
-
 				Big5:   []byte("\xae\xc9\xb6\xa1: Thu Feb 13 01:44:02 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -114,7 +109,6 @@ func initTest6() {
 		},
 		{ // 10
 			{
-
 				Big5:   []byte("https://twitter.com/BNightengale/status/1227634955699789824"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -130,7 +124,6 @@ func initTest6() {
 		},
 		{ // 12
 			{
-
 				Big5:   []byte("Chris Sale has flu that turned into pneumonia and expected in #Redsox camp"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -139,7 +132,6 @@ func initTest6() {
 		},
 		{ // 13
 			{
-
 				Big5:   []byte("Friday."),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -155,7 +147,6 @@ func initTest6() {
 		},
 		{ // 15
 			{
-
 				Big5:   []byte("Chris Sale \xad\xec\xa5\xbb\xb1o\xa8\xec\xaa\xba\xacy\xb7P\xb2{\xa6b\xa4w\xb8g\xc5\xdc\xa6\xa8\xaa\xcd\xaa\xa2\xa1C"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -178,7 +169,6 @@ func initTest6() {
 		},
 		{ // 18
 			{
-
 				Big5:   []byte("..\xa9\xc8"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -194,7 +184,6 @@ func initTest6() {
 		},
 		{ // 20
 			{
-
 				Big5:   []byte("--"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -203,28 +192,24 @@ func initTest6() {
 		},
 		{ // 21
 			{
-
 				Big5:   []byte(" "),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte(" "),
 			},
 			{
-
 				Big5:   []byte("\xa2\xa8"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("\x1b[32m\xa2\xa8"),
 			},
 			{
-
 				Big5:   []byte("      "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				DBCS:   []byte("\x1b[42m      "),
 			},
 			{
-
 				Big5:   []byte("\xa2\xa9"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
@@ -243,42 +228,36 @@ func initTest6() {
 				DBCS:   []byte("\x1b[32m"),
 			},
 			{
-
 				Big5:   []byte("\xa1\xb4"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				DBCS:   []byte("\xa1\x1b[42m\xb4"),
 			},
 			{
-
 				Big5:   []byte(" "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				DBCS:   []byte(" "),
 			},
 			{
-
 				Big5:   []byte(" "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_WHITE},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_WHITE},
 				DBCS:   []byte("\x1b[47m "),
 			},
 			{
-
 				Big5:   []byte("\xa2i"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\x1b[m\xa2i"),
 			},
 			{
-
 				Big5:   []byte("\xa1\xdd"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
 				DBCS:   []byte("\x1b[30;47m\xa1\xdd"),
 			},
 			{
-
 				Big5:   []byte("\xa2\xaa"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_WHITE},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_WHITE},
@@ -290,35 +269,30 @@ func initTest6() {
 				DBCS:   []byte("\x1b[42m"),
 			},
 			{
-
 				Big5:   []byte("\xa2\xa9"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("\xa2\x1b[40m\xa9"),
 			},
 			{
-
 				Big5:   []byte("  "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("  "),
 			},
 			{
-
 				Big5:   []byte("\xa2\xa8"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\x1b[m\xa2\xa8"),
 			},
 			{
-
 				Big5:   []byte("                    "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_WHITE},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_WHITE},
 				DBCS:   []byte("\x1b[47m                    "),
 			},
 			{
-
 				Big5:   []byte("\xa2\xa9"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -332,35 +306,30 @@ func initTest6() {
 				DBCS:   []byte("\x1b[32m"),
 			},
 			{
-
 				Big5:   []byte("\xa1j"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				DBCS:   []byte("\xa1\x1b[42mj"),
 			},
 			{
-
 				Big5:   []byte("  "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_WHITE},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_WHITE},
 				DBCS:   []byte("\x1b[47m  "),
 			},
 			{
-
 				Big5:   []byte("\xa1C"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				DBCS:   []byte("\x1b[1;37;40m\xa1C"),
 			},
 			{
-
 				Big5:   []byte(" \\"),
-				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
+				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
 				DBCS:   []byte("\x1b[;30;47m \\"),
 			},
 			{
-
 				Big5:   []byte("\xa1C"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
@@ -372,24 +341,21 @@ func initTest6() {
 				DBCS:   []byte("\x1b[32;42m"),
 			},
 			{
-
 				Big5:   []byte("\xa1i"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("\xa1\x1b[;32;40mi"),
 			},
 			{
-
 				Big5:   []byte("  "),
-				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
+				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("  "),
 			},
 			{
-
 				Big5:   []byte("     \xc1\xd9\xacO\xb0Q\xb9\xbd\xa4U\xabB\xa4\xd1     "),
-				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
+				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
 				DBCS:   []byte("\x1b[30;47m     \xc1\xd9\xacO\xb0Q\xb9\xbd\xa4U\xabB\xa4\xd1     "),
 			},
 			{
@@ -405,21 +371,18 @@ func initTest6() {
 				DBCS:   []byte("\x1b[32m"),
 			},
 			{
-
 				Big5:   []byte("\xa1\xb4"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				DBCS:   []byte("\xa1\x1b[42m\xb4"),
 			},
 			{
-
 				Big5:   []byte(" "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				DBCS:   []byte(" "),
 			},
 			{
-
 				Big5:   []byte(" //\xa1t\\\\"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
@@ -431,35 +394,30 @@ func initTest6() {
 				DBCS:   []byte("\x1b[32;42m"),
 			},
 			{
-
 				Big5:   []byte("\xa1\xb4"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("\xa1\x1b[40m\xb4"),
 			},
 			{
-
 				Big5:   []byte("  "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("  "),
 			},
 			{
-
 				Big5:   []byte("\xa2\xaa"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\x1b[m\xa2\xaa"),
 			},
 			{
-
 				Big5:   []byte("                    "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_WHITE},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_WHITE},
 				DBCS:   []byte("\x1b[47m                    "),
 			},
 			{
-
 				Big5:   []byte("\xa2\xab"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -473,47 +431,41 @@ func initTest6() {
 				DBCS:   []byte("\x1b[32m"),
 			},
 			{
-
 				Big5:   []byte("\xa1j"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				DBCS:   []byte("\xa1\x1b[42mj"),
 			},
 			{
-
 				Big5:   []byte(" "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				DBCS:   []byte(" "),
 			},
 			{
-
 				Big5:   []byte(" \xa2\xa2\xa2\xa4\xa2\xa3"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_RED, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_RED, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
 				DBCS:   []byte("\x1b[1;31;47m \xa2\xa2\xa2\xa4\xa2\xa3"),
 			},
 			{
-				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN, Highlight: true},
+				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				DBCS:   []byte("\x1b[;32;42m"),
 			},
 			{
-
 				Big5:   []byte("\xa1i"),
-				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
+				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("\xa1\x1b[40mi"),
 			},
 			{
-
 				Big5:   []byte("    "),
-				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
+				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("    "),
 			},
 			{
-
 				Big5:   []byte("\xa2\xab"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -522,42 +474,36 @@ func initTest6() {
 		},
 		{ // 26
 			{
-
 				Big5:   []byte("  "),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("  "),
 			},
 			{
-
 				Big5:   []byte("\xa2\xa8"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_MAGENTA, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_MAGENTA, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("\x1b[35m\xa2\xa8"),
 			},
 			{
-
 				Big5:   []byte("\xa2\xaa"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_BLUE, Background: types.COLOR_BACKGROUND_GREEN},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_BLUE, Background: types.COLOR_BACKGROUND_GREEN},
 				DBCS:   []byte("\x1b[34;42m\xa2\xaa"),
 			},
 			{
-
 				Big5:   []byte(" "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_MAGENTA, Background: types.COLOR_BACKGROUND_MAGENTA},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_MAGENTA, Background: types.COLOR_BACKGROUND_MAGENTA},
 				DBCS:   []byte("\x1b[35;45m "),
 			},
 			{
-
 				Big5:   []byte("\xa2\xab"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_BLUE, Background: types.COLOR_BACKGROUND_GREEN},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_BLUE, Background: types.COLOR_BACKGROUND_GREEN},
 				DBCS:   []byte("\x1b[34;42m\xa2\xab"),
 			},
 			{
-
 				Big5:   []byte("\xa2\xa9"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_MAGENTA, Background: types.COLOR_BACKGROUND_BLACK},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_MAGENTA, Background: types.COLOR_BACKGROUND_BLACK},
@@ -578,7 +524,6 @@ func initTest6() {
 		},
 		{ // 28
 			{
-
 				Big5:   []byte("--"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -587,7 +532,6 @@ func initTest6() {
 		},
 		{ // 29
 			{
-
 				Big5:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8: \xa7\xe5\xbd\xf0\xbd\xf0\xb9\xea\xb7~\xa7{(ptt.cc), \xa8\xd3\xa6\xdb: 110.50.185.154 (\xbbO\xc6W)"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -596,7 +540,6 @@ func initTest6() {
 		},
 		{ // 30
 			{
-
 				Big5:   []byte("\xa1\xb0 \xa4\xe5\xb3\xb9\xba\xf4\xa7}: https://www.ptt.cc/bbs/MLB/M.1581529446.A.73C.html"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -605,28 +548,24 @@ func initTest6() {
 		},
 		{ // 31
 			{
-
 				Big5:   []byte("\xb1\xc0 "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				DBCS:   []byte("\x1b[1;37m\xb1\xc0 "),
 			},
 			{
-
 				Big5:   []byte("ZaneTrout"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				DBCS:   []byte("\x1b[33mZaneTrout"),
 			},
 			{
-
 				Big5:   []byte(": \xa8\xd3\xa6\xdb\xaaZ\xba~\xaa\xba\xaa\xcd\xaa\xa2\xa1H                                    "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				DBCS:   []byte("\x1b[m\x1b[33m: \xa8\xd3\xa6\xdb\xaaZ\xba~\xaa\xba\xaa\xcd\xaa\xa2\xa1H                                    "),
 			},
 			{
-
 				Big5:   []byte(" 02/13 01:44"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
@@ -635,28 +574,24 @@ func initTest6() {
 		},
 		{ // 32
 			{
-
 				Big5:   []byte("\xb1\xc0 "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				DBCS:   []byte("\x1b[1;37m\xb1\xc0 "),
 			},
 			{
-
 				Big5:   []byte("ZaneTrout"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				DBCS:   []byte("\x1b[33mZaneTrout"),
 			},
 			{
-
 				Big5:   []byte(": \xa6\xad\xa4\xe9\xb1d\xb4_                                            "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				DBCS:   []byte("\x1b[m\x1b[33m: \xa6\xad\xa4\xe9\xb1d\xb4_                                            "),
 			},
 			{
-
 				Big5:   []byte(" 02/13 01:44"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
@@ -665,28 +600,24 @@ func initTest6() {
 		},
 		{ // 33
 			{
-
 				Big5:   []byte("\xb1\xc0 "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				DBCS:   []byte("\x1b[1;37m\xb1\xc0 "),
 			},
 			{
-
 				Big5:   []byte("ganhua"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				DBCS:   []byte("\x1b[33mganhua"),
 			},
 			{
-
 				Big5:   []byte(": \xabO\xad\xab...                                                "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				DBCS:   []byte("\x1b[m\x1b[33m: \xabO\xad\xab...                                                "),
 			},
 			{
-
 				Big5:   []byte(" 02/13 01:44"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
@@ -695,28 +626,24 @@ func initTest6() {
 		},
 		{ // 34
 			{
-
 				Big5:   []byte("\xa1\xf7 "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_RED, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_RED, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				DBCS:   []byte("\x1b[1;31m\xa1\xf7 "),
 			},
 			{
-
 				Big5:   []byte("x6073123"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
 				DBCS:   []byte("\x1b[33mx6073123"),
 			},
 			{
-
 				Big5:   []byte(": \xabz\xbea \xb3o\xae\xc9\xbe\xf7\xc2I...                                     "),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_YELLOW, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				DBCS:   []byte("\x1b[m\x1b[33m: \xabz\xbea \xb3o\xae\xc9\xbe\xf7\xc2I...                                     "),
 			},
 			{
-
 				Big5:   []byte(" 02/13 01:45"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
 				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK, Highlight: false},
@@ -1053,8 +980,8 @@ func initTest6() {
 			{
 				Utf8:   " \\",
 				Big5:   []byte(" \\"),
-				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
+				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
 				DBCS:   []byte("\x1b[;30;47m \\"),
 			},
 			{
@@ -1073,21 +1000,21 @@ func initTest6() {
 				Utf8:   "【",
 				Big5:   []byte("\xa1i"),
 				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("\xa1\x1b[;32;40mi"),
 			},
 			{
 				Utf8:   "  ",
 				Big5:   []byte("  "),
-				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
+				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("  "),
 			},
 			{
 				Utf8:   "     還是討厭下雨天     ",
 				Big5:   []byte("     \xc1\xd9\xacO\xb0Q\xb9\xbd\xa4U\xabB\xa4\xd1     "),
-				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
+				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
 				DBCS:   []byte("\x1b[30;47m     \xc1\xd9\xacO\xb0Q\xb9\xbd\xa4U\xabB\xa4\xd1     "),
 			},
 			{
@@ -1192,22 +1119,22 @@ func initTest6() {
 				DBCS:   []byte("\x1b[1;31;47m \xa2\xa2\xa2\xa4\xa2\xa3"),
 			},
 			{
-				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN, Highlight: true},
+				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
 				DBCS:   []byte("\x1b[;32;42m"),
 			},
 			{
 				Utf8:   "【",
 				Big5:   []byte("\xa1i"),
-				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
+				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_GREEN},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("\xa1\x1b[40mi"),
 			},
 			{
 				Utf8:   "    ",
 				Big5:   []byte("    "),
-				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
-				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
+				Color0: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
+				Color1: types.Color{Foreground: types.COLOR_FOREGROUND_GREEN, Background: types.COLOR_BACKGROUND_BLACK},
 				DBCS:   []byte("    "),
 			},
 			{

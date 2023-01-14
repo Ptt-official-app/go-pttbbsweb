@@ -34,6 +34,7 @@ func initTest() {
 	initTest18()
 	initTest19()
 	initTest20()
+	initTest21()
 	initTestUtf80()
 	initTestUtf81()
 	initTestUtf82()

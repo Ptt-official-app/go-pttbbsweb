@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -481,7 +481,7 @@ func TestCollection_Find(t *testing.T) {
 			if len(tt.args.ret) != len(tt.expectedRet) {
 				t.Errorf("collection.Find: ret1: %v ret: %v expected: %v", len(ret1), len(tt.args.ret), len(tt.expectedRet))
 			}
-			log.Infof("collection.Find: ret1: %v ret: %v expected: %v", len(ret1), len(tt.args.ret), len(tt.expectedRet))
+			logrus.Infof("collection.Find: ret1: %v ret: %v expected: %v", len(ret1), len(tt.args.ret), len(tt.expectedRet))
 
 			testutil.TDeepEqual(t, "ret", tt.args.ret, tt.expectedRet)
 		})

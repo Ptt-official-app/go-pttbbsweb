@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/sirupsen/logrus"
 )
 
 func Utf8ToDBCS(utf8 [][]*types.Rune) (dbcsBytes [][]byte) {
@@ -391,7 +392,14 @@ func dbcsParseColor(dbcs []byte) (color types.Color, nBytes int) {
 		}
 
 		colorCodeList := bytes.Split(p_dbcs[2:idxM], []byte{';'})
-		for _, each := range colorCodeList {
+		logrus.Infof("dbcsParseColor: p_dbcs: %v colorCodeList: %v", string(p_dbcs[2:idxM]), colorCodeList)
+		for idx, each := range colorCodeList {
+			if idx == 0 && len(each) == 0 { // reset
+				color = types.DefaultColor
+				color.IsReset = true
+				continue
+			}
+
 			intColor, err := strconv.Atoi(string(each))
 			if err != nil { // not numbers
 				continue

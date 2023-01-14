@@ -43,7 +43,6 @@ func QueueCommentDBCSStr(bboardID bbs.BBoardID, articleID bbs.ArticleID, ownerID
 func ProcessCommentQueueStr(q *CommentQueueStr) (err error) {
 	// 1. parse comments.
 	comments := dbcs.ParseCommentsStr(q.OwnerID, q.CommentDBCS, q.CommentDBCS)
-	// log.Infof("processCommentQueue: after parseComments: comments: %v", len(comments))
 	if len(comments) == 0 {
 		return nil
 	}

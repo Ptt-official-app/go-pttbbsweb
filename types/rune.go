@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 type Rune struct {
@@ -62,24 +62,24 @@ func initB2U() error {
 	for _, line := range lines {
 		lineList := strings.Split(line, " ")
 		if len(lineList) != 2 {
-			log.Warningf("initB2U: unable to split line: line: %v", line)
+			logrus.Warnf("initB2U: unable to split line: line: %v", line)
 			continue
 		}
 
 		big5, err := initToBig5(lineList[0][2:])
 		if err != nil {
-			log.Warnf("initB2U: unable to initToBig5: lineList: %v", lineList[0])
+			logrus.Warnf("initB2U: unable to initToBig5: lineList: %v", lineList[0])
 			continue
 		}
 		utf8, err := initToUtf8(lineList[1][2:])
 		if err != nil {
-			log.Warnf("initB2U: unable to initToUtf8: lineList: %v", lineList[1])
+			logrus.Warnf("initB2U: unable to initToUtf8: lineList: %v", lineList[1])
 			continue
 		}
 		big5ToUTF8[string(big5)] = utf8
 	}
 
-	log.Infof("initB2U: after map: big5ToUTF8: %v", len(big5ToUTF8))
+	logrus.Infof("initB2U: after map: big5ToUTF8: %v", len(big5ToUTF8))
 
 	return nil
 }
@@ -109,24 +109,24 @@ func initU2B() error {
 	for _, line := range lines {
 		lineList := strings.Split(line, " ")
 		if len(lineList) != 2 {
-			log.Warnf("initU2B: unable to split line: line: %v", line)
+			logrus.Warnf("initU2B: unable to split line: line: %v", line)
 			continue
 		}
 
 		big5, err := initToBig5(lineList[0][2:])
 		if err != nil {
-			log.Warnf("initU2B: unable to initToBig5: lineList: %v", lineList[0])
+			logrus.Warnf("initU2B: unable to initToBig5: lineList: %v", lineList[0])
 			continue
 		}
 		utf8, err := initToUtf8(lineList[1][2:])
 		if err != nil {
-			log.Warnf("initU2B: unable to initToUtf8: lineList: %v", lineList[1])
+			logrus.Warnf("initU2B: unable to initToUtf8: lineList: %v", lineList[1])
 			continue
 		}
 		utf8ToBig5[string(utf8)] = big5
 	}
 
-	log.Infof("initU2B: after map: utf8ToBig5: %v", len(utf8ToBig5))
+	logrus.Infof("initU2B: after map: utf8ToBig5: %v", len(utf8ToBig5))
 
 	return nil
 }
@@ -193,7 +193,7 @@ func Big5ToUtf8(big5 []byte) (utf8 string) {
 			p_big5 = p_big5[1:]
 		} else {
 			if len(p_big5) < 2 {
-				// log.Warningf("Big5ToUtf8: unable to parse big5: p_big5: %v", p_big5)
+				logrus.Warnf("Big5ToUtf8: unable to parse big5: big5: %v p_big5: %v", big5, p_big5)
 				break
 			}
 			eachUtf8 := big5ToUTF8[string(p_big5[:2])]

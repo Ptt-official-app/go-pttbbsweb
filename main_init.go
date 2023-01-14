@@ -17,7 +17,6 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
 	"github.com/sirupsen/logrus"
-	log "github.com/sirupsen/logrus"
 	jww "github.com/spf13/jwalterweatherman"
 )
 
@@ -45,7 +44,7 @@ func initAllConfig(filename string) error {
 		return err
 	}
 
-	log.Debugf("viper keys: %v", viper.AllKeys())
+	logrus.Debugf("viper keys: %v", viper.AllKeys())
 
 	err = types.InitConfig()
 	if err != nil {
@@ -98,7 +97,7 @@ func initAllConfig(filename string) error {
 func initMain() error {
 	jww.SetLogThreshold(jww.LevelDebug)
 	jww.SetStdoutThreshold(jww.LevelDebug)
-	log.SetLevel(log.InfoLevel)
+	logrus.SetLevel(logrus.InfoLevel)
 
 	filename := ""
 	flag.StringVar(&filename, "ini", "config.ini", "ini filename")
