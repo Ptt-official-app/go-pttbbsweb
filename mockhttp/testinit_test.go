@@ -1,9 +1,9 @@
 package mockhttp
 
-import log "github.com/sirupsen/logrus"
+import "github.com/sirupsen/logrus"
 
 func setupTest() {
-	log.SetLevel(log.DebugLevel)
+	logrus.SetLevel(logrus.DebugLevel)
 }
 
 func teardownTest() {

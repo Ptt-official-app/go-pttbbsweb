@@ -3,10 +3,10 @@ package utils
 import (
 	"crypto/rand"
 	"encoding/base64"
-	"log"
 	"math/big"
 
 	"github.com/google/uuid"
+	"github.com/sirupsen/logrus"
 )
 
 // avoid '-' and '_' in leading char.
@@ -27,7 +27,7 @@ func GenRandomString() string {
 func GenRandomInt64(max int64) int64 {
 	nBig, err := rand.Int(rand.Reader, big.NewInt(max))
 	if err != nil {
-		log.Println(err)
+		logrus.Warnf("GenRandomInt64: unable to rand: e: %v", err)
 	}
 	return nBig.Int64()
 }

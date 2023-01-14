@@ -13,7 +13,7 @@ import (
 
 	"github.com/appleboy/graceful"
 	"github.com/gin-gonic/gin"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 func withPrefix(path string) string {
@@ -124,17 +124,17 @@ func initGin() (*gin.Engine, error) {
 func main() {
 	err := initMain()
 	if err != nil {
-		log.Fatalf("unable to initMain: e: %v", err)
+		logrus.Fatalf("unable to initMain: e: %v", err)
 		return
 	}
 
 	if err := queue.Start(); err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 
 	r, err := initGin()
 	if err != nil {
-		log.Fatal(err)
+		logrus.Fatal(err)
 	}
 
 	s := &http.Server{

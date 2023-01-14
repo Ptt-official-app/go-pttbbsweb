@@ -355,7 +355,7 @@ func Close() (err error) {
 	/*
 		err = client.Close()
 		if err != nil {
-			log.Errorf("schema.Close: unable to close mongo: e: %v", err)
+			logrus.Errorf("schema.Close: unable to close mongo: e: %v", err)
 		}
 
 		client = nil

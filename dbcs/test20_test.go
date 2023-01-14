@@ -30,7 +30,6 @@ func initTest20() {
 	testContent20Big5 = [][]*types.Rune{
 		{ // 0
 			{
-
 				Big5:   []byte("\xa7@\xaa\xcc: PttACT (\xa7\xe5\xbd\xf0\xbd\xf0\xac\xa1\xb0\xca\xb3\xa1) \xac\xdd\xaaO: SYSOP"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -39,7 +38,6 @@ func initTest20() {
 		},
 		{ // 1
 			{
-
 				Big5:   []byte("\xbc\xd0\xc3D: Re: [\xb1\xa1\xb3\xf8] \xac\xcc\xb1\xa1\xab\xe1\xaa\xba\xa8\xe0\xb5\xa3\xb8`\xa1K (\xa4\xa4\xbc\xfa\xa6W\xb3\xe6)"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -48,7 +46,6 @@ func initTest20() {
 		},
 		{ // 2
 			{
-
 				Big5:   []byte("\xae\xc9\xb6\xa1: Thu May  6 12:50:37 2021"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
