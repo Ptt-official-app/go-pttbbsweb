@@ -1826,8 +1826,8 @@ func initTestUtf88() {
 			{
 				Utf8:    "╭",
 				DBCSStr: "\x1b[;30;40m\x1b[147m╭",
-				Color0:  types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true},
-				Color1:  types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
+				Color0:  types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_BLACK},
+				Color1:  types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
 			},
 			{
 				Utf8:    "◣",
@@ -1856,8 +1856,8 @@ func initTestUtf88() {
 			{
 				Utf8:    "ν",
 				DBCSStr: "\x1b[;30;47mν",
-				Color0:  types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
-				Color1:  types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE, Highlight: true},
+				Color0:  types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
+				Color1:  types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_WHITE},
 			},
 			{
 				Utf8:    "y",
@@ -2703,8 +2703,8 @@ func initTestUtf88() {
 			{
 				Utf8:    "0rz.net/b41dH",
 				DBCSStr: "\x1b[;5;30m0rz.net/b41dH",
-				Color0:  types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true, Blink: true},
-				Color1:  types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_BLACK, Highlight: true, Blink: true},
+				Color0:  types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_BLACK, Blink: true},
+				Color1:  types.Color{Foreground: types.COLOR_FOREGROUND_BLACK, Background: types.COLOR_BACKGROUND_BLACK, Blink: true},
 			},
 			{
 				Utf8:    "",

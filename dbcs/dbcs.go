@@ -5,7 +5,6 @@ import (
 	"strconv"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/sirupsen/logrus"
 )
 
 func Utf8ToDBCS(utf8 [][]*types.Rune) (dbcsBytes [][]byte) {
@@ -341,23 +340,23 @@ func dbcsToBig5PurifyColor(dbcs []byte) []byte {
 	return purified
 }
 
-func dbcsIntegrateColor(color0 types.Color, color1 types.Color) (color types.Color) {
-	if color1.IsReset {
-		color1.IsReset = false
-		return color1
+func dbcsIntegrateColor(origColor types.Color, newColor types.Color) (color types.Color) {
+	if newColor.IsReset {
+		newColor.IsReset = false
+		return newColor
 	}
 
-	color = color0
-	if color1.Foreground != types.COLOR_INVALID {
-		color.Foreground = color1.Foreground
+	color = origColor
+	if newColor.Foreground != types.COLOR_INVALID {
+		color.Foreground = newColor.Foreground
 	}
-	if color1.Background != types.COLOR_INVALID {
-		color.Background = color1.Background
+	if newColor.Background != types.COLOR_INVALID {
+		color.Background = newColor.Background
 	}
-	if color1.Highlight {
+	if newColor.Highlight {
 		color.Highlight = true
 	}
-	if color1.Blink {
+	if newColor.Blink {
 		color.Blink = true
 	}
 
@@ -392,7 +391,6 @@ func dbcsParseColor(dbcs []byte) (color types.Color, nBytes int) {
 		}
 
 		colorCodeList := bytes.Split(p_dbcs[2:idxM], []byte{';'})
-		logrus.Infof("dbcsParseColor: p_dbcs: %v colorCodeList: %v", string(p_dbcs[2:idxM]), colorCodeList)
 		for idx, each := range colorCodeList {
 			if idx == 0 && len(each) == 0 { // reset
 				color = types.DefaultColor

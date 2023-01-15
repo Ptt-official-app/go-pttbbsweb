@@ -188,6 +188,13 @@ func dbcsToUtf8PerLineParseColor(colorDBCS string, origColor types.Color) (color
 	theList := strings.Split(colorDBCS, ";")
 	isAlreadyForeground := false
 	for idx, each := range theList {
+		if idx == 0 && len(each) == 0 { // reset
+			// no need to do color.IsReset
+			// because dbcsIntegrateColor always set IsReset as false
+			color = types.DefaultColor
+			continue
+		}
+
 		eachNum, err := strconv.Atoi(each)
 		if err != nil {
 			continue
