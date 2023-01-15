@@ -124,6 +124,11 @@ func Test_dbcsToUtf8PerLineParseColor(t *testing.T) {
 			expectedColor: types.Color{Foreground: types.COLOR_FOREGROUND_RED, Background: types.COLOR_BACKGROUND_WHITE},
 		},
 		{
+			name:          "with \x1b[;m",
+			args:          args{colorDBCS: "\x1b[;31;47m", origColor: types.Color{Foreground: types.COLOR_FOREGROUND_BLUE, Background: types.COLOR_BACKGROUND_CYAN, Highlight: true, Blink: true}},
+			expectedColor: types.Color{Foreground: types.COLOR_FOREGROUND_RED, Background: types.COLOR_BACKGROUND_WHITE},
+		},
+		{
 			name:          "with \x1b[m",
 			args:          args{colorDBCS: "\x1b[m", origColor: types.Color{Foreground: types.COLOR_FOREGROUND_BLUE, Background: types.COLOR_BACKGROUND_CYAN, Highlight: true, Blink: true}},
 			expectedColor: types.Color{Foreground: types.COLOR_FOREGROUND_WHITE, Background: types.COLOR_BACKGROUND_BLACK},
