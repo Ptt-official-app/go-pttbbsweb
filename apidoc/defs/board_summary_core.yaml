@@ -44,3 +44,10 @@ level_idx:
 gid:
   type: number
   description: group-id in pttbbs
+pttbid:
+  type: number
+  description: bid in pttbbs
+
+idx:
+  type: string
+  description: index

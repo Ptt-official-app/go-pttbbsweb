@@ -143,6 +143,7 @@ func matchCommentForward(content []byte) (idx int) {
 		}
 
 		idx--
+		//nolint:revive
 		for ; idx >= 2 && content[idx] != ' '; idx-- {
 		}
 		if idx == 2 && content[idx-2] == '\xa1' && content[idx-1] == '\xb0' && content[idx] == ' ' {
@@ -168,6 +169,7 @@ func hasPrefixCommentForward(content []byte) (isForward bool, nextCommentDBCS []
 		return false, nil
 	}
 	idx--
+	//nolint:revive
 	for ; idx >= 2 && content[idx] != ' '; idx-- {
 	}
 	if idx == 2 && content[idx-2] == '\xa1' && content[idx-1] == '\xb0' && content[idx] == ' ' {
@@ -184,6 +186,7 @@ func matchCommentDeleted(content []byte) (idx int) {
 			return -1
 		}
 		startIdx := idx
+		//nolint:revive
 		for ; idx < len(content) && content[idx] != ' '; idx++ {
 		}
 		if !bytes.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX0) {
@@ -191,6 +194,7 @@ func matchCommentDeleted(content []byte) (idx int) {
 			continue
 		}
 		idx += len(MATCH_COMMENT_DELETED_INFIX0)
+		//nolint:revive
 		for ; idx < len(content) && content[idx] != ' '; idx++ {
 		}
 		if !bytes.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX1) {
@@ -209,12 +213,14 @@ func hasPrefixCommentDeleted(content []byte) (isDeleted bool, nextCommentDBCS []
 		return false, nil
 	}
 	idx := len(MATCH_COMMENT_DELETED_PREFIX)
+	//nolint:revive
 	for ; idx < len(content) && content[idx] != ' '; idx++ {
 	}
 	if !bytes.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX0) {
 		return false, nil
 	}
 	idx += len(MATCH_COMMENT_DELETED_INFIX0)
+	//nolint:revive
 	for ; idx < len(content) && content[idx] != ' '; idx++ {
 	}
 	if !bytes.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX1) {

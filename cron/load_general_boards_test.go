@@ -13,7 +13,7 @@ func Test_loadGeneralBoards(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	expected0 := []*schema.BoardSummary{
+	expected0 := []*schema.BoardDetail{
 		{
 			BBoardID:  "1_test1",
 			Brdname:   "test1",
@@ -24,6 +24,8 @@ func Test_loadGeneralBoards(t *testing.T) {
 			NUser:     100,
 			BMs:       []bbs.UUserID{"okcool", "teemo"},
 			Total:     123,
+
+			PostType: schema.DEFAULT_POST_TYPE,
 
 			LastPostTime: 1234567890000000000,
 			Gid:          3,
@@ -42,6 +44,8 @@ func Test_loadGeneralBoards(t *testing.T) {
 			BMs:       []bbs.UUserID{"okcool2", "teemo2"},
 			Total:     124,
 
+			PostType: []string{"測試", "◎"},
+
 			LastPostTime: 1300000000000000000,
 			Gid:          3,
 			Bid:          2,
@@ -53,16 +57,16 @@ func Test_loadGeneralBoards(t *testing.T) {
 		startIdx string
 	}
 	tests := []struct {
-		name                   string
-		args                   args
-		expectedBoardSummaries []*schema.BoardSummary
-		expectedNextIdx        string
-		wantErr                bool
+		name                 string
+		args                 args
+		expectedBoardDetails []*schema.BoardDetail
+		expectedNextIdx      string
+		wantErr              bool
 	}{
 		// TODO: Add test cases.
 		{
-			expectedBoardSummaries: expected0,
-			expectedNextIdx:        "test3",
+			expectedBoardDetails: expected0,
+			expectedNextIdx:      "test3",
 		},
 	}
 	var wg sync.WaitGroup
@@ -70,16 +74,16 @@ func Test_loadGeneralBoards(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotBoardSummaries, gotNextIdx, err := loadGeneralBoards(tt.args.startIdx)
+			gotBoardDetails, gotNextIdx, err := loadGeneralBoards(tt.args.startIdx)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("loadGeneralBoards() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 
-			for _, each := range gotBoardSummaries {
+			for _, each := range gotBoardDetails {
 				each.UpdateNanoTS = 0
 			}
-			testutil.TDeepEqual(t, "got", gotBoardSummaries, tt.expectedBoardSummaries)
+			testutil.TDeepEqual(t, "got", gotBoardDetails, tt.expectedBoardDetails)
 
 			if gotNextIdx != tt.expectedNextIdx {
 				t.Errorf("nextIdx = %v, want %v", gotNextIdx, tt.expectedNextIdx)

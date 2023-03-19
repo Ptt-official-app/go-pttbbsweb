@@ -120,6 +120,7 @@ func matchCommentForwardStr(content string) (idx int) {
 		}
 
 		idx--
+		//nolint:revive
 		for ; idx >= lenPrefix && content[idx] != ' '; idx-- {
 		}
 		if idx == lenPrefix && content[0:idx] == "※" && content[idx] == ' ' {
@@ -146,6 +147,7 @@ func hasPrefixCommentForwardStr(content string) (isForward bool, nextCommentDBCS
 		return false, ""
 	}
 	idx--
+	//nolint:revive
 	for ; idx >= lenPrefix && content[idx] != ' '; idx-- {
 	}
 	if idx == lenPrefix && content[0:idx] == "※" && content[idx] == ' ' {
@@ -162,6 +164,7 @@ func matchCommentDeletedStr(content string) (idx int) {
 			return -1
 		}
 		startIdx := idx
+		//nolint:revive
 		for ; idx < len(content) && content[idx] != ' '; idx++ {
 		}
 		if !strings.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX0_STR) {
@@ -169,6 +172,7 @@ func matchCommentDeletedStr(content string) (idx int) {
 			continue
 		}
 		idx += len(MATCH_COMMENT_DELETED_INFIX0_STR)
+		//nolint:revive
 		for ; idx < len(content) && content[idx] != ' '; idx++ {
 		}
 		if !strings.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX1_STR) {
@@ -187,12 +191,14 @@ func hasPrefixCommentDeletedStr(content string) (isDeleted bool, nextCommentDBCS
 		return false, ""
 	}
 	idx := len(MATCH_COMMENT_DELETED_PREFIX_STR)
+	//nolint:revive
 	for ; idx < len(content) && content[idx] != ' '; idx++ {
 	}
 	if !strings.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX0_STR) {
 		return false, ""
 	}
 	idx += len(MATCH_COMMENT_DELETED_INFIX0_STR)
+	//nolint:revive
 	for ; idx < len(content) && content[idx] != ' '; idx++ {
 	}
 	if !strings.HasPrefix(content[idx:], MATCH_COMMENT_DELETED_INFIX1_STR) {

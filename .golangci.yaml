@@ -42,5 +42,6 @@ issues:
     - 'indent-error-flow:'
     - 'if-return:'
     - 'exported:'
+    - 'unused-parameter: parameter'
   exclude-rules:
   exclude-use-default: true

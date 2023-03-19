@@ -23,7 +23,7 @@ type Board struct {
 
 	LastPostTime types.NanoTS `bson:"last_post_time_nano_ts"` /* 需要即時知道來做板的已讀 */
 
-	UpdateTime types.NanoTS `bson:"update_time_nano_ts"` /* XXX 不知 c-pttbbs 對於這個的定義 */
+	UpdateTime types.NanoTS `bson:"update_time_nano_ts"` /* show 進板畫面, 目前只有 INT_MAX - 1 或 0 */
 
 	VoteLimitLogins  int `bson:"vote_limit_logins"`
 	PostLimitLogins  int `bson:"post_limit_logins"`
@@ -32,14 +32,14 @@ type Board struct {
 
 	Parent bbs.BBoardID `bson:"parent"`
 
-	// NVote             int         `bson:"vote"` /* use db-count to get current #vote */
+	NVote           int          `bson:"vote"` /* use db-count to get current #vote */
 	VoteClosingTime types.NanoTS `bson:"vtime_nano_ts"`
 
 	Level              ptttype.PERM `bson:"perm"`
-	LastSetTime        types.NanoTS `bson:"last_set_time_nano_ts"`
-	PostExpire         int          `bson:"post_expire"`
+	LastSetTime        types.NanoTS `bson:"last_set_time_nano_ts"` /* perm-reload */
+	PostExpire         ptttype.Bid  `bson:"post_expire"`           /* 看板連結的 bid */
+	PostType           []string     `bson:"post_type"`
 	EndGambleNanoTS    types.NanoTS `bson:"end_gamble_nano_ts"`
-	PostType           string       `bson:"post_type"`
 	FastRecommendPause types.NanoTS `bson:"fast_recommend_pause_nano_ts"`
 
 	IsDeleted bool `bson:"deleted,omitempty"`
@@ -50,6 +50,8 @@ type Board struct {
 	Bid        ptttype.Bid `bson:"pttbid"`
 	IdxByName  string      `bson:"pttidxname"`
 	IdxByClass string      `bson:"pttidxclass"`
+
+	ChessCountry ptttype.ChessCode `bson:"chesscountry"`
 }
 
 var EMPTY_BOARD = &Board{}
@@ -74,7 +76,8 @@ var (
 
 	BOARD_PARENT_b = getBSONName(EMPTY_BOARD, "Parent")
 
-	VOTE_CLOSING_TIME_b = getBSONName(EMPTY_BOARD, "VoteClosingTime")
+	BOARD_NVOTE_b             = getBSONName(EMPTY_BOARD, "NVote")
+	BOARD_VOTE_CLOSING_TIME_b = getBSONName(EMPTY_BOARD, "VoteClosingTime")
 
 	BOARD_LEVEL_b                = getBSONName(EMPTY_BOARD, "Level")
 	BOARD_LAST_SET_TIME_b        = getBSONName(EMPTY_BOARD, "LastSetTime")
@@ -89,6 +92,8 @@ var (
 	BOARD_BID_b          = getBSONName(EMPTY_BOARD, "Bid")
 	BOARD_IDX_BY_NAME_b  = getBSONName(EMPTY_BOARD, "IdxByName")
 	BOARD_IDX_BY_CLASS_b = getBSONName(EMPTY_BOARD, "IdxByClass")
+
+	BOARD_CHESS_COUNTRY_b = getBSONName(EMPTY_BOARD, "ChessCountry")
 )
 
 func assertBoardFields() error {
@@ -97,6 +102,10 @@ func assertBoardFields() error {
 	}
 
 	if err := assertFields(EMPTY_BOARD, EMPTY_BOARD_SUMMARY); err != nil {
+		return err
+	}
+
+	if err := assertFields(EMPTY_BOARD, EMPTY_BOARD_DETAIL); err != nil {
 		return err
 	}
 

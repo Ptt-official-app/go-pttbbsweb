@@ -16,6 +16,8 @@ func HTTPPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(Register(data.(*api.RegisterParams)), result)
 	case api.LOAD_GENERAL_BOARDS_R:
 		return parseResult(LoadGeneralBoards(data.(*api.LoadGeneralBoardsParams)), result)
+	case api.LOAD_GENERAL_BOARD_DETAILS_R:
+		return parseResult(LoadGeneralBoardDetails(data.(*api.LoadGeneralBoardDetailsParams)), result)
 	case api.LOAD_AUTO_COMPLETE_BOARDS_R:
 		return parseResult(LoadAutoCompleteBoards(data.(*api.LoadAutoCompleteBoardsParams)), result)
 	case api.LOAD_GENERAL_BOARDS_BY_CLASS_R:
@@ -73,6 +75,8 @@ func HTTPPost(url string, data interface{}, result interface{}) (statusCode int,
 	case api.CHECK_EXISTS_USER_R:
 		return parseResult(CheckExistsUser(data.(*api.CheckExistsUserParams)), result)
 	case "/board/10_WhoAmI/isvalid":
+		return parseResult(IsBoardValidUser(), result)
+	case "/board/1_test1/isvalid":
 		return parseResult(IsBoardValidUser(), result)
 	case "/board/1_test1/summary":
 		return parseResult(GetBoardSummary(data.(*api.LoadBoardSummaryParams)), result)
