@@ -22,20 +22,28 @@ vtime:
   type: number
   description: 投票截止時間.
 
-perm:
+level:
   type: number
   description: 這個板的權限.
 last_set_time:
   type: number
   description: 最新設定時間.
-post_expire:
+link_pttbid:
   type: number
-  description: post-expire
+  description: 看板連結的 bid.
+post_type:
+  type: array
+  items:
+    type: string
+  description: post types.
 end_gamble:
   type: number
   description: 賭盤結束時間
-post_type:
-  type: string
 fast_recommend_pause:
   type: number
   description: 推文最短間隔時間
+
+chesscountry:
+  type: number
+  description: 棋國
+

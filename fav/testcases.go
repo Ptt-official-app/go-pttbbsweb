@@ -23,7 +23,9 @@ test0:
 */
 
 var (
-	testTitle0  = "新的目錄"
+	//nolint:unused
+	testTitle0 = "新的目錄"
+	//nolint:unused
 	testSubFav0 = &Fav{
 		FavNum:   1,
 		Depth:    1,
@@ -54,6 +56,7 @@ var (
 		},
 	}
 
+	//nolint:unused
 	testSubFav1 = &Fav{
 		FavNum:   1,
 		Depth:    1,
@@ -67,6 +70,7 @@ var (
 		},
 	}
 
+	//nolint:unused
 	testSubFav2 = &Fav{
 		FavNum:   1,
 		Depth:    1,

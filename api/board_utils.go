@@ -131,6 +131,31 @@ func deserializePBBoardsAndUpdateDB(boardSummaries_b []*boardd.Board, updateNano
 	return boardSummaries, userBoardInfoMap, err
 }
 
+// DeserializeBoards
+//
+// each_b.Reason happens only with invalid permission.
+func DeserializeBoardDetailsAndUpdateDB(boardDetails_b []*bbs.BoardDetail, updateNanoTS types.NanoTS) (boardDetails []*schema.BoardDetail, err error) {
+	boardDetails = make([]*schema.BoardDetail, 0, len(boardDetails_b))
+	for _, each_b := range boardDetails_b {
+		if each_b.Reason != 0 {
+			continue
+		}
+		each := schema.NewBoardDetail(each_b, updateNanoTS)
+
+		boardDetails = append(boardDetails, each)
+	}
+	if len(boardDetails) == 0 {
+		return nil, nil
+	}
+
+	err = schema.UpdateBoardDetails(boardDetails, updateNanoTS)
+	if err != nil {
+		return nil, err
+	}
+
+	return boardDetails, nil
+}
+
 func isBoardValidUser(boardID bbs.BBoardID, c *gin.Context) (isValid bool, statusCode int, err error) {
 	var result_b *pttbbsapi.IsBoardValidUserResult
 
@@ -149,7 +174,7 @@ func isBoardValidUser(boardID bbs.BBoardID, c *gin.Context) (isValid bool, statu
 	return true, 200, nil
 }
 
-//nolint
+//nolint:unused
 func isBoardSummariesValidUser(boardSummaries []*schema.BoardSummary, c *gin.Context) (validBoardSummaries []*schema.BoardSummary, err error) {
 	boardIDs := make([]bbs.BBoardID, len(boardSummaries))
 	for idx, each := range boardSummaries {

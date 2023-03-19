@@ -30,4 +30,6 @@ var (
 	client *db.Client
 
 	rdb *redis.Client
+
+	DEFAULT_POST_TYPE = []string{"問題", "建議", "討論", "心得", "閒聊", "請益", "情報", "公告"}
 )

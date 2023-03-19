@@ -1,10 +1,11 @@
 package api
 
 import (
+	"strings"
+
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,32 +19,7 @@ type GetBoardDetailPath struct {
 	FBoardID apitypes.FBoardID `uri:"bid"`
 }
 
-type GetBoardDetailResult struct {
-	*apitypes.BoardSummary
-
-	UpdateTimeTS types.Time8 `json:"update_time"`
-
-	VoteLimitLogins  int `json:"vote_limit_logins"`
-	PostLimitLogins  int `json:"post_limit_logins"`
-	VoteLimitBadpost int `json:"vote_limit_bad_post"`
-	PostLimitBadpost int `json:"post_limit_bad_post"`
-
-	NVote             int         `json:"vote"`
-	VoteClosingTimeTS types.Time8 `json:"vtime"`
-
-	Level                ptttype.PERM `json:"perm"`
-	LastSetTimeTS        types.Time8  `json:"last_set_time"`
-	PostExpire           int          `json:"post_expire"`
-	EndGambleTS          types.Time8  `json:"end_gamble"`
-	PostType             string       `json:"post_type"`
-	FastRecommendPauseTS types.Time8  `json:"fast_recommend_pause"`
-}
-
-type GetBoardDetailFailResult struct {
-	BBoard apitypes.FBoardID `json:"bid"`
-	BMs    []bbs.UUserID     `json:"moderators"`
-	Reason string            `json:"reason"`
-}
+type GetBoardDetailResult *apitypes.BoardDetail
 
 func GetBoardDetailWrapper(c *gin.Context) {
 	params := &GetBoardDetailParams{}
@@ -52,38 +28,50 @@ func GetBoardDetailWrapper(c *gin.Context) {
 }
 
 func GetBoardDetail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-	_, ok := path.(*GetBoardDetailPath)
+	theParams, ok := params.(*GetBoardDetailParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
 	}
 
-	result = &GetBoardDetailResult{
-		BoardSummary: &apitypes.BoardSummary{
-			FBoardID:  apitypes.FBoardID("WhoAmI"),
-			Brdname:   "WhoAmI",
-			Title:     "我～是～誰？～",
-			BrdAttr:   0,
-			BoardType: "◎",
-			Category:  "嘰哩",
-			NUser:     39,
-			BMs:       []bbs.UUserID{"okcool", "teemo"},
-
-			Read:  true,
-			Total: 134,
-		},
-
-		UpdateTimeTS: 1234567890,
-
-		VoteLimitLogins:  10,
-		PostLimitLogins:  10,
-		VoteLimitBadpost: 0,
-		PostLimitBadpost: 0,
-
-		NVote:                120,
-		VoteClosingTimeTS:    1712300000,
-		EndGambleTS:          1712300000,
-		FastRecommendPauseTS: 10,
+	thePath, ok := path.(*GetBoardDetailPath)
+	if !ok {
+		return nil, 400, ErrInvalidPath
 	}
+
+	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
+	if err != nil {
+		return nil, 400, err
+	}
+
+	// is board-valid-user
+	_, statusCode, err = isBoardValidUser(boardID, c)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	// fields
+	var fieldMap map[string]bool
+	if len(theParams.Fields) > 0 {
+		fields := strings.Split(theParams.Fields, ",")
+		fieldMap = make(map[string]bool)
+		for _, each := range fields {
+			each_db, ok := apitypes.BOARD_DETAIL_FIELD_MAP[each]
+			if !ok {
+				each_db = each
+			}
+			fieldMap[each_db] = true
+		}
+		fieldMap[schema.BOARD_BBOARD_ID_b] = true
+	}
+
+	boardDetail_db, err := schema.GetBoardDetail(boardID, fieldMap)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	boardDetail := apitypes.NewBoardDetail(boardDetail_db, "")
+
+	result = GetBoardDetailResult(boardDetail)
 
 	return result, 200, nil
 }

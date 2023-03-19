@@ -36,13 +36,13 @@ func LoadGeneralBoards() (err error) {
 	nextIdx := ""
 	count := 0
 	for {
-		boardSummaries, newNextIdx, err := loadGeneralBoards(nextIdx)
+		boardDetails, newNextIdx, err := loadGeneralBoards(nextIdx)
 		if err != nil {
 			logrus.Errorf("cron.LoadGeneralBoards: unable to loadGeneralBoards: nextIdx: %v e: %v", nextIdx, err)
 			return err
 		}
 
-		count += len(boardSummaries)
+		count += len(boardDetails)
 
 		if newNextIdx == "" {
 			logrus.Infof("cron.LoadGeneralBoards: load %v boards", count)
@@ -53,17 +53,17 @@ func LoadGeneralBoards() (err error) {
 	}
 }
 
-func loadGeneralBoards(startIdx string) (boardSummaries []*schema.BoardSummary, nextIdx string, err error) {
+func loadGeneralBoards(startIdx string) (boardDetails []*schema.BoardDetail, nextIdx string, err error) {
 	// backend load-general-baords
-	theParams_b := &pttbbsapi.LoadGeneralBoardsParams{
+	theParams_b := &pttbbsapi.LoadGeneralBoardDetailsParams{
 		StartIdx: startIdx,
 		NBoards:  N_BOARDS,
 		Asc:      true,
 		IsSystem: true,
 	}
-	var result_b *pttbbsapi.LoadGeneralBoardsResult
+	var result_b *pttbbsapi.LoadGeneralBoardDetailsResult
 
-	statusCode, err := utils.BackendGet(nil, pttbbsapi.LOAD_GENERAL_BOARDS_R, theParams_b, nil, &result_b)
+	statusCode, err := utils.BackendGet(nil, pttbbsapi.LOAD_GENERAL_BOARD_DETAILS_R, theParams_b, nil, &result_b)
 	if err != nil {
 		return nil, "", err
 	}
@@ -73,10 +73,10 @@ func loadGeneralBoards(startIdx string) (boardSummaries []*schema.BoardSummary, 
 
 	// update to db
 	updateNanoTS := types.NowNanoTS()
-	boardSummaries, err = api.DeserializeBoardsAndUpdateDB(result_b.Boards, updateNanoTS)
+	boardDetails, err = api.DeserializeBoardDetailsAndUpdateDB(result_b.Boards, updateNanoTS)
 	if err != nil {
 		return nil, "", err
 	}
 
-	return boardSummaries, result_b.NextIdx, nil
+	return boardDetails, result_b.NextIdx, nil
 }
