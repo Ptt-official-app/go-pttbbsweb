@@ -1,18 +1,14 @@
 package api
 
 import (
-	"context"
 	"sync"
 	"testing"
-	"time"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 )
 
 func TestLoadArticleComments(t *testing.T) {
@@ -22,25 +18,6 @@ func TestLoadArticleComments(t *testing.T) {
 	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
 	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
 
-	// load articles
-	ctx := context.Background()
-	brdname := &boardd.BoardRef_Name{Name: "WhoAmI"}
-	req := &boardd.ListRequest{
-		Ref:          &boardd.BoardRef{Ref: brdname},
-		IncludePosts: true,
-		Offset:       0,
-		Length:       100 + 1,
-	}
-	resp, _ := boardd.Cli.List(ctx, req)
-
-	posts := resp.Posts
-
-	logrus.Infof("TestLoadGeneralArticles: posts: %v", len(posts))
-
-	updateNanoTS := types.NowNanoTS()
-	_, _ = DeserializePBArticlesAndUpdateDB("10_WhoAmI", posts, updateNanoTS, false)
-
-	// get article detail
 	articleParams := &GetArticleDetailParams{}
 	articlePath := &GetArticleDetailPath{
 		FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -48,35 +25,83 @@ func TestLoadArticleComments(t *testing.T) {
 	}
 	_, _, _ = GetArticleDetail(testIP, "SYSOP", articleParams, articlePath, nil)
 
-	articleParams2 := &GetArticleDetailParams{}
-	articlePath2 := &GetArticleDetailPath{
-		FBoardID:   apitypes.FBoardID("WhoAmI"),
-		FArticleID: apitypes.FArticleID("M.1608388506.A.85D"),
+	comments := []*apitypes.Comment{
+		{
+			FBoardID:   "WhoAmI",
+			FArticleID: "M.1607937174.A.081",
+			CommentID:  "FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA",
+			TheType:    2,
+			CreateTime: 1608388624,
+			SortTime:   1608388624,
+			Owner:      "chhsiao123",
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "噓～",
+						Big5:   []byte("\xbcN\xa1\xe3                                                "),
+						Color0: types.Color{Foreground: 37, Background: 40},
+						Color1: types.Color{Foreground: 37, Background: 40},
+						DBCS:   []byte("\xbcN\xa1\xe3                                                "),
+					},
+				},
+			},
+			Idx: "1608388624000000000@FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA",
+		},
+		{
+			FBoardID:   "WhoAmI",
+			FArticleID: "M.1607937174.A.081",
+			CommentID:  "FlIk36uaIAA:FQaNH8WkdAbEGD7yp2Zkvg",
+			TheType:    1,
+			CreateTime: 1608388560,
+			SortTime:   1608388560,
+			Owner:      "chhsiao123",
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "推",
+						Big5:   []byte("\xb1\xc0                                                  "),
+						Color0: types.Color{Foreground: 37, Background: 40},
+						Color1: types.Color{Foreground: 37, Background: 40},
+						DBCS:   []byte("\xb1\xc0                                                  "),
+					},
+				},
+			},
+			Idx: "1608388560000000000@FlIk36uaIAA:FQaNH8WkdAbEGD7yp2Zkvg",
+		},
+		{
+			FBoardID:   "WhoAmI",
+			FArticleID: "M.1607937174.A.081",
+			CommentID:  "FlIk0bNSyAA:3dK46zmOe5zmna12AC1gnQ",
+			TheType:    3,
+			CreateTime: 1608388500,
+			SortTime:   1608388500,
+			Owner:      "SYSOP",
+			Content: [][]*types.Rune{
+				{
+					{
+						Utf8:   "推",
+						Big5:   []byte("\xb1\xc0                                                       "),
+						Color0: types.Color{Foreground: 37, Background: 40},
+						Color1: types.Color{Foreground: 37, Background: 40},
+						DBCS:   []byte("\xb1\xc0                                                       "),
+					},
+				},
+			},
+			Idx: "1608388500000000000@FlIk0bNSyAA:3dK46zmOe5zmna12AC1gnQ",
+		},
 	}
-	_, _, _ = GetArticleDetail(testIP, "SYSOP", articleParams2, articlePath2, nil)
-
-	articleParams3 := &GetArticleDetailParams{}
-	articlePath3 := &GetArticleDetailPath{
-		FBoardID:   apitypes.FBoardID("WhoAmI"),
-		FArticleID: apitypes.FArticleID("M.1584665022.A.ED0"),
-	}
-	_, _, _ = GetArticleDetail(testIP, "SYSOP", articleParams3, articlePath3, nil)
-
-	time.Sleep(3 * time.Second)
-
-	logrus.Infof("TestLoadArticleComments: get article detail: after sleep")
-
-	// params
-	comments := testUtf8FullAPIComments6
 
 	params0 := NewLoadArticleCommentsParams()
-	params0.Descending = false
 	path0 := &LoadArticleCommentsPath{
 		FBoardID:   "WhoAmI",
-		FArticleID: "M.1584665022.A.ED0",
+		FArticleID: "M.1607937174.A.081",
 	}
 	expected0 := &LoadArticleCommentsResult{
-		List: comments,
+		List: []*apitypes.Comment{
+			comments[0],
+			comments[1],
+			comments[2],
+		},
 	}
 
 	params1 := &LoadArticleCommentsParams{
@@ -85,47 +110,29 @@ func TestLoadArticleComments(t *testing.T) {
 	}
 	expected1 := &LoadArticleCommentsResult{
 		List: []*apitypes.Comment{
-			comments[20],
-			comments[19],
+			comments[0],
+			comments[1],
 		},
-		NextIdx: "1584671580000000000@Ff3iZ_OOmAA:LopnABllsd8x2w5MEenj3w",
+		NextIdx: "1608388500000000000@FlIk0bNSyAA:3dK46zmOe5zmna12AC1gnQ",
 	}
 
 	params2 := &LoadArticleCommentsParams{
-		StartIdx:   "1584668640000000000@Ff3fu23mwAA:M-lz7qoajllkXbuzxNL2Ww",
+		StartIdx:   "1608388500000000000@FlIk0bNSyAA:3dK46zmOe5zmna12AC1gnQ",
 		Descending: true,
 		Max:        2,
 	}
 	expected2 := &LoadArticleCommentsResult{
 		List: []*apitypes.Comment{
-			comments[0],
+			comments[2],
 		},
 	}
 
 	params3 := &LoadArticleCommentsParams{
-		Descending: true,
+		Descending: false,
 		Max:        200,
 	}
 	expected3 := &LoadArticleCommentsResult{
 		List: []*apitypes.Comment{
-			comments[20],
-			comments[19],
-			comments[18],
-			comments[17],
-			comments[16],
-			comments[15],
-			comments[14],
-			comments[13],
-			comments[12],
-			comments[11],
-			comments[10],
-			comments[9],
-			comments[8],
-			comments[7],
-			comments[6],
-			comments[5],
-			comments[4],
-			comments[3],
 			comments[2],
 			comments[1],
 			comments[0],
@@ -138,20 +145,20 @@ func TestLoadArticleComments(t *testing.T) {
 	}
 	expected4 := &LoadArticleCommentsResult{
 		List: []*apitypes.Comment{
-			comments[0],
+			comments[2],
 			comments[1],
 		},
-		NextIdx: "1584668700001000000@Ff3fyWY9WkA:8M52DhmjUJDOUbeiKRdKwg",
+		NextIdx: "1608388624000000000@FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA",
 	}
 
 	params5 := &LoadArticleCommentsParams{
-		StartIdx:   "1644506386000000000@FtJ12FhkNAA:4oMXnXegENBL9Dn6-SddrA",
+		StartIdx:   "1608388624000000000@FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA",
 		Descending: false,
 		Max:        2,
 	}
 	expected5 := &LoadArticleCommentsResult{
 		List: []*apitypes.Comment{
-			comments[20],
+			comments[0],
 		},
 	}
 

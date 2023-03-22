@@ -15,7 +15,6 @@ var (
 	testTheRestCommentsDBCS3 []byte
 	testContent3Big5         [][]*types.Rune
 	testContent3Utf8         [][]*types.Rune
-	testSignature3Utf8       [][]*types.Rune
 
 	testFirstComments3 []*schema.Comment
 
@@ -25,65 +24,95 @@ var (
 func initTest3() {
 	testContentAll3, testContent3, testSignature3, testComment3, testFirstCommentsDBCS3, testTheRestCommentsDBCS3 = loadTest(testFilename3)
 
-	testContent3Utf8 = [][]*types.Rune{
+	testContent3Big5 = [][]*types.Rune{
 		{
 			{
-				Utf8:    "作者: SYSOP () 看板: WhoAmI",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "作者: SYSOP () 看板: WhoAmI",
+				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 			},
 		},
 		{
 			{
-				Utf8:    "標題: [心得] 測試一下特殊字～",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "標題: [心得] 測試一下特殊字～",
+				Big5:   []byte("\xbc\xd0\xc3D: [\xa4\xdf\xb1o] \xb4\xfa\xb8\xd5\xa4@\xa4U\xafS\xae\xed\xa6r\xa1\xe3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xa4\xdf\xb1o] \xb4\xfa\xb8\xd5\xa4@\xa4U\xafS\xae\xed\xa6r\xa1\xe3"),
 			},
 		},
 		{
 			{
-				Utf8:    "時間: Sat Dec 19 21:57:58 2020",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "時間: Sat Dec 19 21:57:58 2020",
+				Big5:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 21:57:58 2020"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 21:57:58 2020"),
 			},
 		},
 		{},
 		{
 			{
-				Utf8:    "※這樣子有綠色嗎？～",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "※這樣子有綠色嗎？～",
+				Big5:   []byte("\xa1\xb0\xb3o\xbc\xcb\xa4l\xa6\xb3\xba\xf1\xa6\xe2\xb6\xdc\xa1H\xa1\xe3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa1\xb0\xb3o\xbc\xcb\xa4l\xa6\xb3\xba\xf1\xa6\xe2\xb6\xdc\xa1H\xa1\xe3"),
 			},
 		},
 		{
 			{
-				Utf8:    "※ 發信站",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "※ 發信站",
+				Big5:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8"),
 			},
 		},
 	}
-	testSignature3Utf8 = [][]*types.Rune{
-		{},
+
+	testContent3Utf8 = [][]*types.Rune{
 		{
 			{
-				Utf8:    "--",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "--",
+				Utf8:   "作者: SYSOP () 看板: WhoAmI",
+				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 			},
 		},
 		{
 			{
-				Utf8:    "※ 發信站: 批踢踢 docker(pttdocker.test), 來自: 172.22.0.1",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "※ 發信站: 批踢踢 docker(pttdocker.test), 來自: 172.22.0.1",
+				Utf8:   "標題: [心得] 測試一下特殊字～",
+				Big5:   []byte("\xbc\xd0\xc3D: [\xa4\xdf\xb1o] \xb4\xfa\xb8\xd5\xa4@\xa4U\xafS\xae\xed\xa6r\xa1\xe3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xa4\xdf\xb1o] \xb4\xfa\xb8\xd5\xa4@\xa4U\xafS\xae\xed\xa6r\xa1\xe3"),
+			},
+		},
+		{
+			{
+				Utf8:   "時間: Sat Dec 19 21:57:58 2020",
+				Big5:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 21:57:58 2020"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 21:57:58 2020"),
+			},
+		},
+		{},
+		{
+			{
+				Utf8:   "※這樣子有綠色嗎？～",
+				Big5:   []byte("\xa1\xb0\xb3o\xbc\xcb\xa4l\xa6\xb3\xba\xf1\xa6\xe2\xb6\xdc\xa1H\xa1\xe3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa1\xb0\xb3o\xbc\xcb\xa4l\xa6\xb3\xba\xf1\xa6\xe2\xb6\xdc\xa1H\xa1\xe3"),
+			},
+		},
+		{
+			{
+				Utf8:   "※ 發信站",
+				Big5:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa1\xb0 \xb5o\xabH\xaf\xb8"),
 			},
 		},
 	}

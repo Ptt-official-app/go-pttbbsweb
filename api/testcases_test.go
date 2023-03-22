@@ -149,6 +149,7 @@ func initTest() {
 	}
 
 	initTest3()
+	initTestUtf83()
 	initTest4()
 	initTest11()
 	initTestUtf85()
