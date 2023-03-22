@@ -39,6 +39,7 @@ type Board struct {
 	LastSetTime        types.NanoTS `bson:"last_set_time_nano_ts"` /* perm-reload */
 	PostExpire         ptttype.Bid  `bson:"post_expire"`           /* 看板連結的 bid */
 	PostType           []string     `bson:"post_type"`
+	PostTemplate       []bool       `bson:"post_tmpl"`
 	EndGambleNanoTS    types.NanoTS `bson:"end_gamble_nano_ts"`
 	FastRecommendPause types.NanoTS `bson:"fast_recommend_pause_nano_ts"`
 
@@ -84,6 +85,7 @@ var (
 	BOARD_POST_EXPIRE_b          = getBSONName(EMPTY_BOARD, "PostExpire")
 	BOARD_END_GAMBLE_NANO_TS_b   = getBSONName(EMPTY_BOARD, "EndGambleNanoTS")
 	BOARD_POST_TYPE_b            = getBSONName(EMPTY_BOARD, "PostType")
+	BOARD_POST_TEMPLATE_b        = getBSONName(EMPTY_BOARD, "PostTemplate")
 	BOARD_FAST_RECOMMEND_PAUSE_b = getBSONName(EMPTY_BOARD, "FastRecommendPause")
 	BOARD_IS_DELETED_b           = getBSONName(EMPTY_BOARD, "IsDeleted")
 	BOARD_UPDATE_NANO_TS_b       = getBSONName(EMPTY_BOARD, "UpdateNanoTS")

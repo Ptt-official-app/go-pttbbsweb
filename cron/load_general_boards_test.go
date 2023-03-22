@@ -44,7 +44,7 @@ func Test_loadGeneralBoards(t *testing.T) {
 			BMs:       []bbs.UUserID{"okcool2", "teemo2"},
 			Total:     124,
 
-			PostType: []string{"測試", "◎"},
+			PostType: []string{"測試", "◎", ""},
 
 			LastPostTime: 1300000000000000000,
 			Gid:          3,
