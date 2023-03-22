@@ -1,7 +1,7 @@
 version: '2.2'
 services:
   go-pttbbs:
-    image: pttofficialapps/go-pttbbs:v0.23.4
+    image: pttofficialapps/go-pttbbs:v0.23.5
     ports:
       - "127.0.0.1:8888:8888"
       - "127.0.0.1:48763:48763"
@@ -30,7 +30,7 @@ services:
       - ${POSTFIX_MASTER_CF}:/etc/postfix/master.cf
     restart: always
   openbbs-middleware:
-    image: pttofficialapps/go-openbbsmiddleware:v0.29.2
+    image: pttofficialapps/go-openbbsmiddleware:v0.29.3
     ports:
       - "127.0.0.1:3457:3457"
     volumes:
