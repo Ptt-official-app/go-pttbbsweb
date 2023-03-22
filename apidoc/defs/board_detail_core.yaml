@@ -36,6 +36,11 @@ post_type:
   items:
     type: string
   description: post types.
+post_type:
+  type: array
+  items:
+    type: string
+  description: post types.
 end_gamble:
   type: number
   description: 賭盤結束時間
