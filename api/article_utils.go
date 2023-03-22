@@ -27,8 +27,8 @@ func UpdateArticleContentInfo(
 	bbs string,
 	signatureMD5 string,
 	signatureDBCS []byte,
-	updateNanoTS types.NanoTS) (err error) {
-
+	updateNanoTS types.NanoTS,
+) (err error) {
 	if contentMD5 == "" {
 		return nil
 	}

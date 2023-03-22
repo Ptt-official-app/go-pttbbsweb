@@ -39,7 +39,7 @@ func LoadGeneralBoardDetails(params *api.LoadGeneralBoardDetailsParams) (ret *ap
 				NUser:        101,
 				Total:        124,
 
-				PostType: [][]byte{{0xb4, 0xfa, 0xb8, 0xd5}, {0xa1, 0xb7}},
+				PostType: [][]byte{{0xb4, 0xfa, 0xb8, 0xd5}, {0xa1, 0xb7}, {0x00, 0x00, 0x00, 0x00}},
 
 				Gid:        3,
 				Bid:        2,

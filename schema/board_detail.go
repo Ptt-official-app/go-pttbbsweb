@@ -41,6 +41,7 @@ type BoardDetail struct {
 	LastSetTime        types.NanoTS `bson:"last_set_time_nano_ts"` /* perm-reload */
 	PostExpire         ptttype.Bid  `bson:"post_expire"`           /* 看板連結的 bid */
 	PostType           []string     `bson:"post_type"`
+	PostTemplate       []bool       `bson:"post_tmpl"`
 	EndGambleNanoTS    types.NanoTS `bson:"end_gamble_nano_ts"`
 	FastRecommendPause types.NanoTS `bson:"fast_recommend_pause_nano_ts"`
 
@@ -64,10 +65,7 @@ var (
 func NewBoardDetail(b_b *bbs.BoardDetail, updateNanoTS types.NanoTS) *BoardDetail {
 	postType := make([]string, 0, len(b_b.PostType))
 	for _, each := range b_b.PostType {
-		eachPostType := strings.TrimSpace(types.Big5ToUtf8(each))
-		if eachPostType == "" {
-			continue
-		}
+		eachPostType := strings.TrimSpace(types.Big5ToUtf8(ptttypes.CstrToBytes(each)))
 		postType = append(postType, eachPostType)
 	}
 
@@ -102,6 +100,7 @@ func NewBoardDetail(b_b *bbs.BoardDetail, updateNanoTS types.NanoTS) *BoardDetai
 		LastSetTime:        types.Time4ToNanoTS(b_b.PermReload),
 		PostExpire:         b_b.PostExpire,
 		PostType:           postType,
+		PostTemplate:       b_b.PostTypeTemplate,
 		EndGambleNanoTS:    types.Time4ToNanoTS(b_b.EndGamble),
 		FastRecommendPause: types.Time4ToNanoTS(ptttypes.Time4(b_b.FastRecommendPause)),
 

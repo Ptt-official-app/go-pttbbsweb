@@ -3,7 +3,7 @@ module github.com/Ptt-official-app/go-openbbsmiddleware
 go 1.19
 
 require (
-	github.com/Ptt-official-app/go-pttbbs v0.23.2
+	github.com/Ptt-official-app/go-pttbbs v0.23.4
 	github.com/appleboy/graceful v0.0.4
 	github.com/gin-gonic/gin v1.9.0
 	github.com/go-redis/redis/v8 v8.11.5
@@ -17,7 +17,7 @@ require (
 	github.com/stretchr/testify v1.8.2
 	go.mongodb.org/mongo-driver v1.11.3
 	google.golang.org/grpc v1.53.0
-	google.golang.org/protobuf v1.28.1
+	google.golang.org/protobuf v1.30.0
 )
 
 require (
