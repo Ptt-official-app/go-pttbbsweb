@@ -36,10 +36,10 @@ post_type:
   items:
     type: string
   description: post types.
-post_type:
+post_tmpl:
   type: array
   items:
-    type: string
+    type: boolean
   description: post types.
 end_gamble:
   type: number

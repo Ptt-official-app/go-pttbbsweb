@@ -64,12 +64,16 @@ var (
 
 func NewBoardDetail(b_b *bbs.BoardDetail, updateNanoTS types.NanoTS) *BoardDetail {
 	postType := make([]string, 0, len(b_b.PostType))
+	nIsValid := 0
 	for _, each := range b_b.PostType {
 		eachPostType := strings.TrimSpace(types.Big5ToUtf8(ptttypes.CstrToBytes(each)))
+		if len(eachPostType) > 0 {
+			nIsValid++
+		}
 		postType = append(postType, eachPostType)
 	}
 
-	if len(postType) == 0 {
+	if nIsValid == 0 {
 		postType = DEFAULT_POST_TYPE
 	}
 

@@ -35,7 +35,7 @@ type BoardDetail struct {
 	LastSetTime        types.Time8  `json:"last_set_time"` /* perm-reload */
 	PostExpire         ptttype.Bid  `json:"link_pttbid"`   /* 看板連結的 bid */
 	PostType           []string     `json:"post_type"`
-	PostTemplate       []bool       `json:"post_template"`
+	PostTemplate       []bool       `json:"post_tmpl"`
 	EndGambleNanoTS    types.Time8  `json:"end_gamble"`
 	FastRecommendPause types.Time8  `json:"fast_recommend_pause"`
 
