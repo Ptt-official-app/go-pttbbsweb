@@ -43,9 +43,9 @@ func TestGetManArticleDetail(t *testing.T) {
 		FArticleID: apitypes.FArticleID("M.1608386280.A.BC9"),
 	}
 
-	testContentSignature0 := make([][]*types.Rune, 0, len(testContent3Utf8)+len(testSignature3Utf8))
-	testContentSignature0 = append(testContentSignature0, testContent3Utf8...)
-	testContentSignature0 = append(testContentSignature0, testSignature3Utf8...)
+	testContentSignature0 := make([][]*types.Rune, 0, len(testUtf8Content3Utf8)+len(testUtf8Signature3Utf8))
+	testContentSignature0 = append(testContentSignature0, testUtf8Content3Utf8...)
+	testContentSignature0 = append(testContentSignature0, testUtf8Signature3Utf8...)
 	expectedResult0 := &GetManArticleDetailResult{
 		BBoardID:   apitypes.FBoardID("WhoAmI"),
 		ArticleID:  apitypes.FArticleID("M.1608386280.A.BC9"),

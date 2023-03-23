@@ -25,46 +25,95 @@ var (
 func initTest4() {
 	testContentAll4, testContent4, testSignature4, testComment4, testFirstCommentsDBCS4, testTheRestCommentsDBCS4 = loadTest(testFilename4)
 
-	testContent4Utf8 = [][]*types.Rune{
+	testContent4Big5 = [][]*types.Rune{
 		{
 			{
-				Utf8:    "作者: SYSOP () 看板: WhoAmI",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "作者: SYSOP () 看板: WhoAmI",
+				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
 			},
 		},
 		{
 			{
-				Utf8:    "標題: [閒聊] 所以特殊字真的是有綠色的～",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "標題: [閒聊] 所以特殊字真的是有綠色的～",
+				Big5:   []byte("\xbc\xd0\xc3D: [\xb6\xa2\xb2\xe1] \xa9\xd2\xa5H\xafS\xae\xed\xa6r\xafu\xaa\xba\xacO\xa6\xb3\xba\xf1\xa6\xe2\xaa\xba\xa1\xe3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xb6\xa2\xb2\xe1] \xa9\xd2\xa5H\xafS\xae\xed\xa6r\xafu\xaa\xba\xacO\xa6\xb3\xba\xf1\xa6\xe2\xaa\xba\xa1\xe3"),
 			},
 		},
 		{
 			{
-				Utf8:    "時間: Sat Dec 19 22:35:04 2020",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "時間: Sat Dec 19 22:35:04 2020",
+				Big5:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 22:35:04 2020"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 22:35:04 2020"),
 			},
 		},
 		{},
 		{
 			{
-				Utf8:    "然後 \\n 不會在 big5 結尾. 可以放心直接用 \\n 斷行.",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "然後 \\n 不會在 big5 結尾. 可以放心直接用 \\n 斷行.",
+				Big5:   []byte("\xb5M\xab\xe1 \\n \xa4\xa3\xb7|\xa6b big5 \xb5\xb2\xa7\xc0. \xa5i\xa5H\xa9\xf1\xa4\xdf\xaa\xbd\xb1\xb5\xa5\xce \\n \xc2_\xa6\xe6."),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb5M\xab\xe1 \\n \xa4\xa3\xb7|\xa6b big5 \xb5\xb2\xa7\xc0. \xa5i\xa5H\xa9\xf1\xa4\xdf\xaa\xbd\xb1\xb5\xa5\xce \\n \xc2_\xa6\xe6."),
 			},
 		},
 		{
 			{
-				Utf8:    "我是許功蓋",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "我是許功蓋",
+				Big5:   []byte("\xa7\xda\xacO\xb3\\\xa5\\\xbb\\"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7\xda\xacO\xb3\\\xa5\\\xbb\\"),
+			},
+		},
+	}
+
+	testContent4Utf8 = [][]*types.Rune{
+		{
+			{
+				Utf8:   "作者: SYSOP () 看板: WhoAmI",
+				Big5:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: SYSOP () \xac\xdd\xaaO: WhoAmI"),
+			},
+		},
+		{
+			{
+				Utf8:   "標題: [閒聊] 所以特殊字真的是有綠色的～",
+				Big5:   []byte("\xbc\xd0\xc3D: [\xb6\xa2\xb2\xe1] \xa9\xd2\xa5H\xafS\xae\xed\xa6r\xafu\xaa\xba\xacO\xa6\xb3\xba\xf1\xa6\xe2\xaa\xba\xa1\xe3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xb6\xa2\xb2\xe1] \xa9\xd2\xa5H\xafS\xae\xed\xa6r\xafu\xaa\xba\xacO\xa6\xb3\xba\xf1\xa6\xe2\xaa\xba\xa1\xe3"),
+			},
+		},
+		{
+			{
+				Utf8:   "時間: Sat Dec 19 22:35:04 2020",
+				Big5:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 22:35:04 2020"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Sat Dec 19 22:35:04 2020"),
+			},
+		},
+		{},
+		{
+			{
+				Utf8:   "然後 \\n 不會在 big5 結尾. 可以放心直接用 \\n 斷行.",
+				Big5:   []byte("\xb5M\xab\xe1 \\n \xa4\xa3\xb7|\xa6b big5 \xb5\xb2\xa7\xc0. \xa5i\xa5H\xa9\xf1\xa4\xdf\xaa\xbd\xb1\xb5\xa5\xce \\n \xc2_\xa6\xe6."),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb5M\xab\xe1 \\n \xa4\xa3\xb7|\xa6b big5 \xb5\xb2\xa7\xc0. \xa5i\xa5H\xa9\xf1\xa4\xdf\xaa\xbd\xb1\xb5\xa5\xce \\n \xc2_\xa6\xe6."),
+			},
+		},
+		{
+			{
+				Utf8:   "我是許功蓋",
+				Big5:   []byte("\xa7\xda\xacO\xb3\\\xa5\\\xbb\\"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7\xda\xacO\xb3\\\xa5\\\xbb\\"),
 			},
 		},
 	}

@@ -1,13 +1,11 @@
 package api
 
 import (
-	"context"
 	"sort"
 	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -24,25 +22,6 @@ func TestGetArticleDetail(t *testing.T) {
 	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
 	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
 
-	// load articles
-	ctx := context.Background()
-	brdname := &boardd.BoardRef_Name{Name: "WhoAmI"}
-	req := &boardd.ListRequest{
-		Ref:          &boardd.BoardRef{Ref: brdname},
-		IncludePosts: true,
-		Offset:       0,
-		Length:       100 + 1,
-	}
-	resp, _ := boardd.Cli.List(ctx, req)
-
-	posts := resp.Posts
-
-	logrus.Infof("TestGetArticleDetail: posts: %v", len(posts))
-
-	updateNanoTS := types.NowNanoTS()
-	_, _ = DeserializePBArticlesAndUpdateDB("10_WhoAmI", posts, updateNanoTS, false)
-
-	// params
 	params := &GetArticleDetailParams{}
 	path0 := &GetArticleDetailPath{
 		FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -59,10 +38,10 @@ func TestGetArticleDetail(t *testing.T) {
 		URL:  "http://localhost:3457/bbs/board/WhoAmI/article/M.1608386280.A.BC9",
 		Read: true,
 
-		Title:         "測試一下特殊字～",
-		Money:         0,
-		Recommend:     9,
-		Class:         "心得",
+		Title:         "然後呢？～",
+		Money:         3,
+		Recommend:     8,
+		Class:         "問題",
 		Brdname:       "WhoAmI",
 		Content:       testContent3Utf8[4:],
 		ContentPrefix: testContent3Utf8[:4],
@@ -74,43 +53,41 @@ func TestGetArticleDetail(t *testing.T) {
 	expectedArticleDetailSummary0 := &schema.ArticleDetailSummary{
 		BBoardID:   bbs.BBoardID("10_WhoAmI"),
 		ArticleID:  bbs.ArticleID("1VtWRel9"),
-		ContentMD5: "MpnMgVtdAhQnf1f9wIH9EA",
+		ContentMD5: "L6QISYJFt-Y5g4Thl-roaw",
 		// ContentMTime:          types.NanoTS(1608386280000000000),
 		FirstCommentsLastTime: types.NanoTS(0),
 
 		CreateTime: types.NanoTS(1608386280000000000),
 		MTime:      types.NanoTS(1608386280000000000),
-		Recommend:  9,
+		Recommend:  8,
 		Owner:      "SYSOP",
-		Title:      "測試一下特殊字～",
-		Money:      0,
-		Class:      "心得",
+		Title:      "然後呢？～",
+		Money:      3,
+		Class:      "問題",
 
 		IP:  "172.22.0.1",
 		BBS: "批踢踢 docker(pttdocker.test)",
-
-		Idx: "1608386280@1VtWRel9",
+		Idx: "1234567890@1VtWRel9",
 	}
 
 	expectedArticleDetailSummary02 := &schema.ArticleDetailSummary{
 		BBoardID:   bbs.BBoardID("10_WhoAmI"),
 		ArticleID:  bbs.ArticleID("1VtWRel9"),
-		ContentMD5: "MpnMgVtdAhQnf1f9wIH9EA",
+		ContentMD5: "L6QISYJFt-Y5g4Thl-roaw",
 		// ContentMTime:          types.NanoTS(1608386300000000000),
 		FirstCommentsLastTime: types.NanoTS(0),
 
 		CreateTime: types.NanoTS(1608386280000000000),
 		MTime:      types.NanoTS(1608386280000000000),
-		Recommend:  9,
+		Recommend:  8,
 		Owner:      "SYSOP",
-		Title:      "測試一下特殊字～",
-		Money:      0,
-		Class:      "心得",
+		Title:      "然後呢？～",
+		Money:      3,
+		Class:      "問題",
 
 		IP:  "172.22.0.1",
 		BBS: "批踢踢 docker(pttdocker.test)",
-
-		Idx: "1608386280@1VtWRel9",
+		Idx: "1234567890@1VtWRel9",
 	}
 
 	path1 := &GetArticleDetailPath{
@@ -121,47 +98,45 @@ func TestGetArticleDetail(t *testing.T) {
 	expectedResult1 := &GetArticleDetailResult{
 		BBoardID:   apitypes.FBoardID("WhoAmI"),
 		ArticleID:  apitypes.FArticleID("M.1607937174.A.081"),
-		Owner:      bbs.UUserID("teemo"),
+		Owner:      bbs.UUserID("SYSOP"),
 		CreateTime: types.Time8(1607937174),
 		MTime:      types.Time8(1607937100),
 
 		URL:  "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.081",
 		Read: true,
 
-		Title:         "新書的情報",
-		Money:         0,
+		Title:         "再來呢？～",
+		Money:         12,
 		Recommend:     3,
-		Class:         "閒聊",
+		Class:         "問題",
 		Brdname:       "WhoAmI",
-		Content:       testUtf8Content5Utf8[4:],
-		ContentPrefix: testUtf8Content5Utf8[:4],
-		IP:            "123.193.200.197",
-		Host:          "臺灣",
-		BBS:           "批踢踢實業坊(ptt.cc)",
-		NComments:     1,
+		Content:       testContent4Utf8[4:],
+		ContentPrefix: testContent4Utf8[:4],
+		IP:            "172.22.0.1",
+		BBS:           "批踢踢 docker(pttdocker.test)",
+		NComments:     3,
 	}
 
 	expectedArticleDetailSummary1 := &schema.ArticleDetailSummary{
 		BBoardID:  bbs.BBoardID("10_WhoAmI"),
 		ArticleID: bbs.ArticleID("1VrooM21"),
 		// ContentMTime: types.NanoTS(1608388624000000000),
-		ContentMD5: "58yrYdHg3mX-I4WG3T4Ciw",
-		Owner:      "teemo",
+		ContentMD5: "riiRuKCZzG0gAGpQiq4GJA",
+		Owner:      "SYSOP",
 
-		FirstCommentsMD5: "07DlIdfGCqTbohb5L4Nf1w",
+		FirstCommentsMD5: "3fjMk__1yvzpuEgq8jfdmg",
 		NComments:        0,
 
 		CreateTime: types.NanoTS(1607937174000000000),
 		MTime:      types.NanoTS(1607937100000000000),
 
-		Title:     "新書的情報",
-		Money:     0,
+		Title:     "再來呢？～",
+		Money:     12,
 		Recommend: 3,
-		Class:     "閒聊",
+		Class:     "問題",
 
-		Host: "臺灣",
-		IP:   "123.193.200.197",
-		BBS:  "批踢踢實業坊(ptt.cc)",
+		IP:  "172.22.0.1",
+		BBS: "批踢踢 docker(pttdocker.test)",
 
 		Idx: "1607937174@1VrooM21",
 	}
@@ -245,7 +220,7 @@ func TestGetArticleDetail(t *testing.T) {
 				boardID:    "10_WhoAmI",
 				articleID:  "1VrooM21",
 			},
-			expectedFirstComments:        testUtf8FullFirstComments5,
+			expectedFirstComments:        testFullFirstComments4,
 			expectedResult:               expectedResult1,
 			expectedStatusCode:           200,
 			expectedArticleDetailSummary: expectedArticleDetailSummary1,
@@ -321,10 +296,10 @@ func TestGetArticleDetail(t *testing.T) {
 				gotArticleDetailSummary.CommentsUpdateNanoTS = 0
 				gotArticleDetailSummary.NComments = 0
 				gotArticleDetailSummary.UpdateNanoTS = 0
-
-				gotArticleDetailSummary.ContentID = ""
-				gotArticleDetailSummary.ContentMTime = 0
 			}
+
+			gotArticleDetailSummary.ContentID = ""
+			gotArticleDetailSummary.ContentMTime = 0
 			testutil.TDeepEqual(t, "article-detail-summary", gotArticleDetailSummary, tt.expectedArticleDetailSummary)
 		})
 		wg.Wait()

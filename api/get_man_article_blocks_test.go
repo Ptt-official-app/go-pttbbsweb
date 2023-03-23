@@ -43,9 +43,9 @@ func TestGetManArticleBlocks(t *testing.T) {
 		FArticleID: apitypes.FArticleID("M.1608386280.A.BC9"),
 	}
 
-	contentSignature3 := make([][]*types.Rune, 0, len(testContent3Utf8)+len(testSignature3Utf8))
-	contentSignature3 = append(contentSignature3, testContent3Utf8...)
-	contentSignature3 = append(contentSignature3, testSignature3Utf8...)
+	contentSignature3 := make([][]*types.Rune, 0, len(testUtf8Content3Utf8)+len(testUtf8Signature3Utf8))
+	contentSignature3 = append(contentSignature3, testUtf8Content3Utf8...)
+	contentSignature3 = append(contentSignature3, testUtf8Signature3Utf8...)
 	expected0 := &GetManArticleBlocksResult{
 		Content:    contentSignature3,
 		CreateTime: types.Time8(1608386280),

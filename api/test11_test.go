@@ -30,305 +30,917 @@ var (
 func initTest11() {
 	testContentAll11, testContent11, testSignature11, testComment11, testFirstCommentsDBCS11, testTheRestCommentsDBCS11 = loadTest(testFilename11)
 
-	testContent11Utf8 = [][]*types.Rune{
+	testContent11Big5 = [][]*types.Rune{
 		{ // 0
 			{
-				Utf8:    "作者: cheinshin (那就這樣吧) 看板: Gossiping",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "作者: cheinshin (那就這樣吧) 看板: Gossiping",
+
+				Big5:   []byte("\xa7@\xaa\xcc: cheinshin (\xa8\xba\xb4N\xb3o\xbc\xcb\xa7a) \xac\xdd\xaaO: Gossiping"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: cheinshin (\xa8\xba\xb4N\xb3o\xbc\xcb\xa7a) \xac\xdd\xaaO: Gossiping\r"),
 			},
 		},
 		{ // 1
 			{
-				Utf8:    "標題: [新聞] TVBS六都民調 侯奪冠、盧升第四、柯墊底",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "標題: [新聞] TVBS六都民調 侯奪冠、盧升第四、柯墊底",
+
+				Big5:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3\r"),
 			},
 		},
 		{ // 2
 			{
-				Utf8:    "時間: Mon Dec 21 19:45:20 2020",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "時間: Mon Dec 21 19:45:20 2020",
+
+				Big5:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 19:45:20 2020"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 19:45:20 2020\r"),
 			},
 		},
 		{ // 3
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 4
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 5
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 6
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 7
 			{
-				Utf8:    "1.媒體來源:",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "1.媒體來源:",
+
+				Big5:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:\r"),
 			},
 		},
 		{ // 8
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 9
 			{
-				Utf8:    "TVBS",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "TVBS",
+
+				Big5:   []byte("TVBS"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("TVBS\r"),
 			},
 		},
 		{ // 10
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 11
 			{
-				Utf8:    "2.記者署名:",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "2.記者署名:",
+
+				Big5:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:\r"),
 			},
 		},
 		{ // 12
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 13
 			{
-				Utf8:    "韋家齊",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "韋家齊",
+
+				Big5:   []byte("\xad\xb3\xaea\xbb\xf4"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xad\xb3\xaea\xbb\xf4\r"),
 			},
 		},
 		{ // 14
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 15
 			{
-				Utf8:    "3.完整新聞標題:",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "3.完整新聞標題:",
+
+				Big5:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:\r"),
 			},
 		},
 		{ // 16
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 17
 			{
-				Utf8:    "TVBS六都民調 侯奪冠、盧升第四、柯墊底",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "TVBS六都民調 侯奪冠、盧升第四、柯墊底",
+
+				Big5:   []byte("TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3\r"),
 			},
 		},
 		{ // 18
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 19
 			{
-				Utf8:    "4.完整新聞內文:",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "4.完整新聞內文:",
+
+				Big5:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:\r"),
 			},
 		},
 		{ // 20
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 21
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 22
 			{
-				Utf8:    "2022選戰即將開打，民眾也對六都市長的施政表現打了分數，根據TVBS最新民調顯示，台",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "2022選戰即將開打，民眾也對六都市長的施政表現打了分數，根據TVBS最新民調顯示，台",
+
+				Big5:   []byte("2022\xbf\xef\xbe\xd4\xa7Y\xb1N\xb6}\xa5\xb4\xa1A\xa5\xc1\xb2\xb3\xa4]\xb9\xef\xa4\xbb\xb3\xa3\xa5\xab\xaa\xf8\xaa\xba\xacI\xacF\xaa\xed\xb2{\xa5\xb4\xa4F\xa4\xc0\xbc\xc6\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xa5x"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("2022\xbf\xef\xbe\xd4\xa7Y\xb1N\xb6}\xa5\xb4\xa1A\xa5\xc1\xb2\xb3\xa4]\xb9\xef\xa4\xbb\xb3\xa3\xa5\xab\xaa\xf8\xaa\xba\xacI\xacF\xaa\xed\xb2{\xa5\xb4\xa4F\xa4\xc0\xbc\xc6\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xa5x\r"),
 			},
 		},
 		{ // 23
 			{
-				Utf8:    "中市長盧秀燕突襲AIT處長表達反萊豬立場後，人氣上升，六都排名第四，至於去年才補",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "中市長盧秀燕突襲AIT處長表達反萊豬立場後，人氣上升，六都排名第四，至於去年才補",
+
+				Big5:   []byte("\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xab\xe1\xa1A\xa4H\xae\xf0\xa4W\xa4\xc9\xa1A\xa4\xbb\xb3\xa3\xb1\xc6\xa6W\xb2\xc4\xa5|\xa1A\xa6\xdc\xa9\xf3\xa5h\xa6~\xa4~\xb8\xc9"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xab\xe1\xa1A\xa4H\xae\xf0\xa4W\xa4\xc9\xa1A\xa4\xbb\xb3\xa3\xb1\xc6\xa6W\xb2\xc4\xa5|\xa1A\xa6\xdc\xa9\xf3\xa5h\xa6~\xa4~\xb8\xc9\r"),
 			},
 		},
 		{ // 24
 			{
-				Utf8:    "選上的高雄市長陳其邁，只拿下第五名，只贏了墊底的台北市長柯文哲。",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "選上的高雄市長陳其邁，只拿下第五名，只贏了墊底的台北市長柯文哲。",
+
+				Big5:   []byte("\xbf\xef\xa4W\xaa\xba\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xa1A\xa5u\xae\xb3\xa4U\xb2\xc4\xa4\xad\xa6W\xa1A\xa5u\xc4\xb9\xa4F\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf5\xa1C"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbf\xef\xa4W\xaa\xba\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xa1A\xa5u\xae\xb3\xa4U\xb2\xc4\xa4\xad\xa6W\xa1A\xa5u\xc4\xb9\xa4F\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf5\xa1C\r"),
 			},
 		},
-		{  // 25
+		{ // 25
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		}, // 25
 		{ // 26
 			{
-				Utf8:    "台中市長盧秀燕：「不希望我們解禁有關於，含有萊克多巴胺，或瘦肉精的豬肉進口。」",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "台中市長盧秀燕：「不希望我們解禁有關於，含有萊克多巴胺，或瘦肉精的豬肉進口。」",
+
+				Big5:   []byte("\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa1G\xa1u\xa4\xa3\xa7\xc6\xb1\xe6\xa7\xda\xad\xcc\xb8\xd1\xb8T\xa6\xb3\xc3\xf6\xa9\xf3\xa1A\xa7t\xa6\xb3\xb5\xdc\xa7J\xa6h\xa4\xda\xd3i\xa1A\xa9\xce\xbdG\xa6\xd7\xba\xeb\xaa\xba\xbd\xde\xa6\xd7\xb6i\xa4f\xa1C\xa1v"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa1G\xa1u\xa4\xa3\xa7\xc6\xb1\xe6\xa7\xda\xad\xcc\xb8\xd1\xb8T\xa6\xb3\xc3\xf6\xa9\xf3\xa1A\xa7t\xa6\xb3\xb5\xdc\xa7J\xa6h\xa4\xda\xd3i\xa1A\xa9\xce\xbdG\xa6\xd7\xba\xeb\xaa\xba\xbd\xde\xa6\xd7\xb6i\xa4f\xa1C\xa1v\r"),
 			},
 		},
 		{ // 27
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 28
 			{
-				Utf8:    "就是這麼無預警突襲AIT處長，表達反萊豬立場，讓台中市長盧秀燕人氣飆升，也反應到",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "就是這麼無預警突襲AIT處長，表達反萊豬立場，讓台中市長盧秀燕人氣飆升，也反應到",
+
+				Big5:   []byte("\xb4N\xacO\xb3o\xbb\xf2\xb5L\xb9w\xc4\xb5\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xa1A\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xa1A\xc5\xfd\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa4H\xae\xf0\xf6t\xa4\xc9\xa1A\xa4]\xa4\xcf\xc0\xb3\xa8\xec"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb4N\xacO\xb3o\xbb\xf2\xb5L\xb9w\xc4\xb5\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xa1A\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xa1A\xc5\xfd\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa4H\xae\xf0\xf6t\xa4\xc9\xa1A\xa4]\xa4\xcf\xc0\xb3\xa8\xec\r"),
 			},
 		},
 		{ // 29
 			{
-				Utf8:    "她的民調上面，根據TVBS最新民調顯示，盧秀燕的施政滿意度飆到56%，位居六都第四名",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "她的民調上面，根據TVBS最新民調顯示，盧秀燕的施政滿意度飆到56%，位居六都第四名",
+
+				Big5:   []byte("\xa6o\xaa\xba\xa5\xc1\xbd\xd5\xa4W\xad\xb1\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xbfc\xa8q\xbfP\xaa\xba\xacI\xacF\xba\xa1\xb7N\xab\xd7\xf6t\xa8\xec56%\xa1A\xa6\xec\xa9~\xa4\xbb\xb3\xa3\xb2\xc4\xa5|\xa6W"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa6o\xaa\xba\xa5\xc1\xbd\xd5\xa4W\xad\xb1\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xbfc\xa8q\xbfP\xaa\xba\xacI\xacF\xba\xa1\xb7N\xab\xd7\xf6t\xa8\xec56%\xa1A\xa6\xec\xa9~\xa4\xbb\xb3\xa3\xb2\xc4\xa5|\xa6W\r"),
 			},
 		},
 		{ // 30
 			{
-				Utf8:    "，遠遠領先最後一名的，台北市長柯文哲35%的支持度，跟高雄市長陳其邁的44%，台南市",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "，遠遠領先最後一名的，台北市長柯文哲35%的支持度，跟高雄市長陳其邁的44%，台南市",
+
+				Big5:   []byte("\xa1A\xbb\xb7\xbb\xb7\xbb\xe2\xa5\xfd\xb3\xcc\xab\xe1\xa4@\xa6W\xaa\xba\xa1A\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf535%\xaa\xba\xa4\xe4\xab\xf9\xab\xd7\xa1A\xb8\xf2\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xaa\xba44%\xa1A\xa5x\xabn\xa5\xab"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa1A\xbb\xb7\xbb\xb7\xbb\xe2\xa5\xfd\xb3\xcc\xab\xe1\xa4@\xa6W\xaa\xba\xa1A\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf535%\xaa\xba\xa4\xe4\xab\xf9\xab\xd7\xa1A\xb8\xf2\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xaa\xba44%\xa1A\xa5x\xabn\xa5\xab\r"),
 			},
 		},
 		{ // 31
 			{
-				Utf8:    "長黃偉哲滿意度比去年，多了3個百分點來到58%，拿下第三名，第二名則是桃園市長鄭文",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "長黃偉哲滿意度比去年，多了3個百分點來到58%，拿下第三名，第二名則是桃園市長鄭文",
+
+				Big5:   []byte("\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xba\xa1\xb7N\xab\xd7\xa4\xf1\xa5h\xa6~\xa1A\xa6h\xa4F3\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa8\xd3\xa8\xec58%\xa1A\xae\xb3\xa4U\xb2\xc4\xa4T\xa6W\xa1A\xb2\xc4\xa4G\xa6W\xabh\xacO\xae\xe7\xb6\xe9\xa5\xab\xaa\xf8\xbeG\xa4\xe5"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xba\xa1\xb7N\xab\xd7\xa4\xf1\xa5h\xa6~\xa1A\xa6h\xa4F3\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa8\xd3\xa8\xec58%\xa1A\xae\xb3\xa4U\xb2\xc4\xa4T\xa6W\xa1A\xb2\xc4\xa4G\xa6W\xabh\xacO\xae\xe7\xb6\xe9\xa5\xab\xaa\xf8\xbeG\xa4\xe5\r"),
 			},
 		},
 		{ // 32
 			{
-				Utf8:    "燦，拿下七成的滿意度，冠軍則是由常勝軍的，新北市長侯友宜以77%再度蟬聯。",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "燦，拿下七成的滿意度，冠軍則是由常勝軍的，新北市長侯友宜以77%再度蟬聯。",
+
+				Big5:   []byte("\xc0\xe9\xa1A\xae\xb3\xa4U\xa4C\xa6\xa8\xaa\xba\xba\xa1\xb7N\xab\xd7\xa1A\xaba\xadx\xabh\xacO\xa5\xd1\xb1`\xb3\xd3\xadx\xaa\xba\xa1A\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa5H77%\xa6A\xab\xd7\xc2\xcd\xc1p\xa1C"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xc0\xe9\xa1A\xae\xb3\xa4U\xa4C\xa6\xa8\xaa\xba\xba\xa1\xb7N\xab\xd7\xa1A\xaba\xadx\xabh\xacO\xa5\xd1\xb1`\xb3\xd3\xadx\xaa\xba\xa1A\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa5H77%\xa6A\xab\xd7\xc2\xcd\xc1p\xa1C\r"),
 			},
 		},
 		{ // 33
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 34
 			{
-				Utf8:    "新北市長侯友宜：「我最在乎的是，我還有很多事沒有最好的部分，要更加把勁，把它做",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "新北市長侯友宜：「我最在乎的是，我還有很多事沒有最好的部分，要更加把勁，把它做",
+
+				Big5:   []byte("\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa1G\xa1u\xa7\xda\xb3\xcc\xa6b\xa5G\xaa\xba\xacO\xa1A\xa7\xda\xc1\xd9\xa6\xb3\xab\xdc\xa6h\xa8\xc6\xa8S\xa6\xb3\xb3\xcc\xa6n\xaa\xba\xb3\xa1\xa4\xc0\xa1A\xadn\xa7\xf3\xa5[\xa7\xe2\xabl\xa1A\xa7\xe2\xa5\xa6\xb0\xb5"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa1G\xa1u\xa7\xda\xb3\xcc\xa6b\xa5G\xaa\xba\xacO\xa1A\xa7\xda\xc1\xd9\xa6\xb3\xab\xdc\xa6h\xa8\xc6\xa8S\xa6\xb3\xb3\xcc\xa6n\xaa\xba\xb3\xa1\xa4\xc0\xa1A\xadn\xa7\xf3\xa5[\xa7\xe2\xabl\xa1A\xa7\xe2\xa5\xa6\xb0\xb5\r"),
 			},
 		},
 		{ // 35
 			{
-				Utf8:    "得更好，這才是市長的本責。」",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "得更好，這才是市長的本責。」",
+
+				Big5:   []byte("\xb1o\xa7\xf3\xa6n\xa1A\xb3o\xa4~\xacO\xa5\xab\xaa\xf8\xaa\xba\xa5\xbb\xb3d\xa1C\xa1v"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb1o\xa7\xf3\xa6n\xa1A\xb3o\xa4~\xacO\xa5\xab\xaa\xf8\xaa\xba\xa5\xbb\xb3d\xa1C\xa1v\r"),
 			},
 		},
 		{ // 36
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 37
 			{
-				Utf8:    "強調自己就是埋頭認真做，儘管城市光榮感部分，狠甩高雄跟墊底的台北，讓七成的新北",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "強調自己就是埋頭認真做，儘管城市光榮感部分，狠甩高雄跟墊底的台北，讓七成的新北",
+
+				Big5:   []byte("\xb1j\xbd\xd5\xa6\xdb\xa4v\xb4N\xacO\xaeI\xc0Y\xbb{\xafu\xb0\xb5\xa1A\xbe\xa8\xba\xde\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xa1\xa4\xc0\xa1A\xac\xbd\xa5\xcf\xb0\xaa\xb6\xaf\xb8\xf2\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa1A\xc5\xfd\xa4C\xa6\xa8\xaa\xba\xb7s\xa5_"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb1j\xbd\xd5\xa6\xdb\xa4v\xb4N\xacO\xaeI\xc0Y\xbb{\xafu\xb0\xb5\xa1A\xbe\xa8\xba\xde\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xa1\xa4\xc0\xa1A\xac\xbd\xa5\xcf\xb0\xaa\xb6\xaf\xb8\xf2\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa1A\xc5\xfd\xa4C\xa6\xa8\xaa\xba\xb7s\xa5_\r"),
 			},
 		},
 		{ // 38
 			{
-				Utf8:    "市民感到光榮，但桃園跟台南的市民，硬是多出了2個百分點，而有八成的台中市民認同",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "市民感到光榮，但桃園跟台南的市民，硬是多出了2個百分點，而有八成的台中市民認同",
+
+				Big5:   []byte("\xa5\xab\xa5\xc1\xb7P\xa8\xec\xa5\xfa\xbaa\xa1A\xa6\xfd\xae\xe7\xb6\xe9\xb8\xf2\xa5x\xabn\xaa\xba\xa5\xab\xa5\xc1\xa1A\xb5w\xacO\xa6h\xa5X\xa4F2\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa1A\xa6\xd3\xa6\xb3\xa4K\xa6\xa8\xaa\xba\xa5x\xa4\xa4\xa5\xab\xa5\xc1\xbb{\xa6P"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5\xab\xa5\xc1\xb7P\xa8\xec\xa5\xfa\xbaa\xa1A\xa6\xfd\xae\xe7\xb6\xe9\xb8\xf2\xa5x\xabn\xaa\xba\xa5\xab\xa5\xc1\xa1A\xb5w\xacO\xa6h\xa5X\xa4F2\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa1A\xa6\xd3\xa6\xb3\xa4K\xa6\xa8\xaa\xba\xa5x\xa4\xa4\xa5\xab\xa5\xc1\xbb{\xa6P\r"),
 			},
 		},
 		{ // 39
 			{
-				Utf8:    "台中，榮登六都城市光榮感最高。",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "台中，榮登六都城市光榮感最高。",
+
+				Big5:   []byte("\xa5x\xa4\xa4\xa1A\xbaa\xb5n\xa4\xbb\xb3\xa3\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xcc\xb0\xaa\xa1C"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5x\xa4\xa4\xa1A\xbaa\xb5n\xa4\xbb\xb3\xa3\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xcc\xb0\xaa\xa1C\r"),
 			},
 		},
 		{ // 40
-
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 41
 			{
-				Utf8:    "台南市長黃偉哲：「在需要檢討改進的地方，我們也會虛心地檢討以及改進，希望做得更",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "台南市長黃偉哲：「在需要檢討改進的地方，我們也會虛心地檢討以及改進，希望做得更",
+
+				Big5:   []byte("\xa5x\xabn\xa5\xab\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xa1G\xa1u\xa6b\xbb\xdd\xadn\xc0\xcb\xb0Q\xa7\xef\xb6i\xaa\xba\xa6a\xa4\xe8\xa1A\xa7\xda\xad\xcc\xa4]\xb7|\xb5\xea\xa4\xdf\xa6a\xc0\xcb\xb0Q\xa5H\xa4\xce\xa7\xef\xb6i\xa1A\xa7\xc6\xb1\xe6\xb0\xb5\xb1o\xa7\xf3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5x\xabn\xa5\xab\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xa1G\xa1u\xa6b\xbb\xdd\xadn\xc0\xcb\xb0Q\xa7\xef\xb6i\xaa\xba\xa6a\xa4\xe8\xa1A\xa7\xda\xad\xcc\xa4]\xb7|\xb5\xea\xa4\xdf\xa6a\xc0\xcb\xb0Q\xa5H\xa4\xce\xa7\xef\xb6i\xa1A\xa7\xc6\xb1\xe6\xb0\xb5\xb1o\xa7\xf3\r"),
 			},
 		},
 		{ // 42
 			{
-				Utf8:    "好，讓市民朋友們過得更好。」",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "好，讓市民朋友們過得更好。」",
+
+				Big5:   []byte("\xa6n\xa1A\xc5\xfd\xa5\xab\xa5\xc1\xaaB\xa4\xcd\xad\xcc\xb9L\xb1o\xa7\xf3\xa6n\xa1C\xa1v"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa6n\xa1A\xc5\xfd\xa5\xab\xa5\xc1\xaaB\xa4\xcd\xad\xcc\xb9L\xb1o\xa7\xf3\xa6n\xa1C\xa1v\r"),
 			},
 		},
-		{  // 43
+		{ // 43
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		}, // 43
-		{  // 44
+		{ // 44
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		}, // 44
 		{ // 45
 			{
-				Utf8:    "5.完整新聞連結 (或短網址):",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "5.完整新聞連結 (或短網址):",
+
+				Big5:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):\r"),
 			},
 		},
-		{  // 46
+		{ // 46
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		}, // 46
 		{ // 47
 			{
-				Utf8:    "https://reurl.cc/8nK7eo",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "https://reurl.cc/8nK7eo",
+
+				Big5:   []byte("https://reurl.cc/8nK7eo"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("https://reurl.cc/8nK7eo\r"),
 			},
 		},
 		{ // 48
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 49
 			{
-				Utf8:    "6.備註:",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "6.備註:",
+
+				Big5:   []byte("6.\xb3\xc6\xb5\xf9:"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("6.\xb3\xc6\xb5\xf9:\r"),
 			},
 		},
 		{ // 50
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 51
 			{
-				Utf8:    "1.侯 2.鄭 3.黃 4.盧 5.陳 6.柯",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "1.侯 2.鄭 3.黃 4.盧 5.陳 6.柯",
+
+				Big5:   []byte("1.\xabJ 2.\xbeG 3.\xb6\xc0 4.\xbfc 5.\xb3\xaf 6.\xac_"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("1.\xabJ 2.\xbeG 3.\xb6\xc0 4.\xbfc 5.\xb3\xaf 6.\xac_\r"),
 			},
 		},
 		{ // 52
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 53
 			{
-				Utf8:    "草包滾了 柯果然墊底",
-				Color0:  types.DefaultColor,
-				Color1:  types.DefaultColor,
-				DBCSStr: "草包滾了 柯果然墊底",
+
+				Big5:   []byte("\xaf\xf3\xa5]\xbau\xa4F \xac_\xaaG\xb5M\xb9\xd4\xa9\xb3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xaf\xf3\xa5]\xbau\xa4F \xac_\xaaG\xb5M\xb9\xd4\xa9\xb3\r"),
 			},
 		},
 		{ // 54
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 		{ // 55
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+	}
+
+	testContent11Utf8 = [][]*types.Rune{
+		{ // 0
+			{
+				Utf8:   "作者: cheinshin (那就這樣吧) 看板: Gossiping",
+				Big5:   []byte("\xa7@\xaa\xcc: cheinshin (\xa8\xba\xb4N\xb3o\xbc\xcb\xa7a) \xac\xdd\xaaO: Gossiping"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa7@\xaa\xcc: cheinshin (\xa8\xba\xb4N\xb3o\xbc\xcb\xa7a) \xac\xdd\xaaO: Gossiping\r"),
+			},
+		},
+		{ // 1
+			{
+				Utf8:   "標題: [新聞] TVBS六都民調 侯奪冠、盧升第四、柯墊底",
+				Big5:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3\r"),
+			},
+		},
+		{ // 2
+			{
+				Utf8:   "時間: Mon Dec 21 19:45:20 2020",
+				Big5:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 19:45:20 2020"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 19:45:20 2020\r"),
+			},
+		},
+		{ // 3
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 4
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 5
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 6
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 7
+			{
+				Utf8:   "1.媒體來源:",
+				Big5:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:\r"),
+			},
+		},
+		{ // 8
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 9
+			{
+				Utf8:   "TVBS",
+				Big5:   []byte("TVBS"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("TVBS\r"),
+			},
+		},
+		{ // 10
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 11
+			{
+				Utf8:   "2.記者署名:",
+				Big5:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:\r"),
+			},
+		},
+		{ // 12
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 13
+			{
+				Utf8:   "韋家齊",
+				Big5:   []byte("\xad\xb3\xaea\xbb\xf4"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xad\xb3\xaea\xbb\xf4\r"),
+			},
+		},
+		{ // 14
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 15
+			{
+				Utf8:   "3.完整新聞標題:",
+				Big5:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:\r"),
+			},
+		},
+		{ // 16
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 17
+			{
+				Utf8:   "TVBS六都民調 侯奪冠、盧升第四、柯墊底",
+				Big5:   []byte("TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("TVBS\xa4\xbb\xb3\xa3\xa5\xc1\xbd\xd5 \xabJ\xb9\xdc\xaba\xa1B\xbfc\xa4\xc9\xb2\xc4\xa5|\xa1B\xac_\xb9\xd4\xa9\xb3\r"),
+			},
+		},
+		{ // 18
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 19
+			{
+				Utf8:   "4.完整新聞內文:",
+				Big5:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:\r"),
+			},
+		},
+		{ // 20
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 21
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 22
+			{
+				Utf8:   "2022選戰即將開打，民眾也對六都市長的施政表現打了分數，根據TVBS最新民調顯示，台",
+				Big5:   []byte("2022\xbf\xef\xbe\xd4\xa7Y\xb1N\xb6}\xa5\xb4\xa1A\xa5\xc1\xb2\xb3\xa4]\xb9\xef\xa4\xbb\xb3\xa3\xa5\xab\xaa\xf8\xaa\xba\xacI\xacF\xaa\xed\xb2{\xa5\xb4\xa4F\xa4\xc0\xbc\xc6\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xa5x"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("2022\xbf\xef\xbe\xd4\xa7Y\xb1N\xb6}\xa5\xb4\xa1A\xa5\xc1\xb2\xb3\xa4]\xb9\xef\xa4\xbb\xb3\xa3\xa5\xab\xaa\xf8\xaa\xba\xacI\xacF\xaa\xed\xb2{\xa5\xb4\xa4F\xa4\xc0\xbc\xc6\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xa5x\r"),
+			},
+		},
+		{ // 23
+			{
+				Utf8:   "中市長盧秀燕突襲AIT處長表達反萊豬立場後，人氣上升，六都排名第四，至於去年才補",
+				Big5:   []byte("\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xab\xe1\xa1A\xa4H\xae\xf0\xa4W\xa4\xc9\xa1A\xa4\xbb\xb3\xa3\xb1\xc6\xa6W\xb2\xc4\xa5|\xa1A\xa6\xdc\xa9\xf3\xa5h\xa6~\xa4~\xb8\xc9"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xab\xe1\xa1A\xa4H\xae\xf0\xa4W\xa4\xc9\xa1A\xa4\xbb\xb3\xa3\xb1\xc6\xa6W\xb2\xc4\xa5|\xa1A\xa6\xdc\xa9\xf3\xa5h\xa6~\xa4~\xb8\xc9\r"),
+			},
+		},
+		{ // 24
+			{
+				Utf8:   "選上的高雄市長陳其邁，只拿下第五名，只贏了墊底的台北市長柯文哲。",
+				Big5:   []byte("\xbf\xef\xa4W\xaa\xba\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xa1A\xa5u\xae\xb3\xa4U\xb2\xc4\xa4\xad\xa6W\xa1A\xa5u\xc4\xb9\xa4F\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf5\xa1C"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xbf\xef\xa4W\xaa\xba\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xa1A\xa5u\xae\xb3\xa4U\xb2\xc4\xa4\xad\xa6W\xa1A\xa5u\xc4\xb9\xa4F\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf5\xa1C\r"),
+			},
+		},
+		{ // 25
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		}, // 25
+		{ // 26
+			{
+				Utf8:   "台中市長盧秀燕：「不希望我們解禁有關於，含有萊克多巴胺，或瘦肉精的豬肉進口。」",
+				Big5:   []byte("\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa1G\xa1u\xa4\xa3\xa7\xc6\xb1\xe6\xa7\xda\xad\xcc\xb8\xd1\xb8T\xa6\xb3\xc3\xf6\xa9\xf3\xa1A\xa7t\xa6\xb3\xb5\xdc\xa7J\xa6h\xa4\xda\xd3i\xa1A\xa9\xce\xbdG\xa6\xd7\xba\xeb\xaa\xba\xbd\xde\xa6\xd7\xb6i\xa4f\xa1C\xa1v"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa1G\xa1u\xa4\xa3\xa7\xc6\xb1\xe6\xa7\xda\xad\xcc\xb8\xd1\xb8T\xa6\xb3\xc3\xf6\xa9\xf3\xa1A\xa7t\xa6\xb3\xb5\xdc\xa7J\xa6h\xa4\xda\xd3i\xa1A\xa9\xce\xbdG\xa6\xd7\xba\xeb\xaa\xba\xbd\xde\xa6\xd7\xb6i\xa4f\xa1C\xa1v\r"),
+			},
+		},
+		{ // 27
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 28
+			{
+				Utf8:   "就是這麼無預警突襲AIT處長，表達反萊豬立場，讓台中市長盧秀燕人氣飆升，也反應到",
+				Big5:   []byte("\xb4N\xacO\xb3o\xbb\xf2\xb5L\xb9w\xc4\xb5\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xa1A\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xa1A\xc5\xfd\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa4H\xae\xf0\xf6t\xa4\xc9\xa1A\xa4]\xa4\xcf\xc0\xb3\xa8\xec"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb4N\xacO\xb3o\xbb\xf2\xb5L\xb9w\xc4\xb5\xac\xf0\xc5\xa7AIT\xb3B\xaa\xf8\xa1A\xaa\xed\xb9F\xa4\xcf\xb5\xdc\xbd\xde\xa5\xdf\xb3\xf5\xa1A\xc5\xfd\xa5x\xa4\xa4\xa5\xab\xaa\xf8\xbfc\xa8q\xbfP\xa4H\xae\xf0\xf6t\xa4\xc9\xa1A\xa4]\xa4\xcf\xc0\xb3\xa8\xec\r"),
+			},
+		},
+		{ // 29
+			{
+				Utf8:   "她的民調上面，根據TVBS最新民調顯示，盧秀燕的施政滿意度飆到56%，位居六都第四名",
+				Big5:   []byte("\xa6o\xaa\xba\xa5\xc1\xbd\xd5\xa4W\xad\xb1\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xbfc\xa8q\xbfP\xaa\xba\xacI\xacF\xba\xa1\xb7N\xab\xd7\xf6t\xa8\xec56%\xa1A\xa6\xec\xa9~\xa4\xbb\xb3\xa3\xb2\xc4\xa5|\xa6W"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa6o\xaa\xba\xa5\xc1\xbd\xd5\xa4W\xad\xb1\xa1A\xae\xda\xbe\xdaTVBS\xb3\xcc\xb7s\xa5\xc1\xbd\xd5\xc5\xe3\xa5\xdc\xa1A\xbfc\xa8q\xbfP\xaa\xba\xacI\xacF\xba\xa1\xb7N\xab\xd7\xf6t\xa8\xec56%\xa1A\xa6\xec\xa9~\xa4\xbb\xb3\xa3\xb2\xc4\xa5|\xa6W\r"),
+			},
+		},
+		{ // 30
+			{
+				Utf8:   "，遠遠領先最後一名的，台北市長柯文哲35%的支持度，跟高雄市長陳其邁的44%，台南市",
+				Big5:   []byte("\xa1A\xbb\xb7\xbb\xb7\xbb\xe2\xa5\xfd\xb3\xcc\xab\xe1\xa4@\xa6W\xaa\xba\xa1A\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf535%\xaa\xba\xa4\xe4\xab\xf9\xab\xd7\xa1A\xb8\xf2\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xaa\xba44%\xa1A\xa5x\xabn\xa5\xab"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa1A\xbb\xb7\xbb\xb7\xbb\xe2\xa5\xfd\xb3\xcc\xab\xe1\xa4@\xa6W\xaa\xba\xa1A\xa5x\xa5_\xa5\xab\xaa\xf8\xac_\xa4\xe5\xad\xf535%\xaa\xba\xa4\xe4\xab\xf9\xab\xd7\xa1A\xb8\xf2\xb0\xaa\xb6\xaf\xa5\xab\xaa\xf8\xb3\xaf\xa8\xe4\xc1\xda\xaa\xba44%\xa1A\xa5x\xabn\xa5\xab\r"),
+			},
+		},
+		{ // 31
+			{
+				Utf8:   "長黃偉哲滿意度比去年，多了3個百分點來到58%，拿下第三名，第二名則是桃園市長鄭文",
+				Big5:   []byte("\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xba\xa1\xb7N\xab\xd7\xa4\xf1\xa5h\xa6~\xa1A\xa6h\xa4F3\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa8\xd3\xa8\xec58%\xa1A\xae\xb3\xa4U\xb2\xc4\xa4T\xa6W\xa1A\xb2\xc4\xa4G\xa6W\xabh\xacO\xae\xe7\xb6\xe9\xa5\xab\xaa\xf8\xbeG\xa4\xe5"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xba\xa1\xb7N\xab\xd7\xa4\xf1\xa5h\xa6~\xa1A\xa6h\xa4F3\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa8\xd3\xa8\xec58%\xa1A\xae\xb3\xa4U\xb2\xc4\xa4T\xa6W\xa1A\xb2\xc4\xa4G\xa6W\xabh\xacO\xae\xe7\xb6\xe9\xa5\xab\xaa\xf8\xbeG\xa4\xe5\r"),
+			},
+		},
+		{ // 32
+			{
+				Utf8:   "燦，拿下七成的滿意度，冠軍則是由常勝軍的，新北市長侯友宜以77%再度蟬聯。",
+				Big5:   []byte("\xc0\xe9\xa1A\xae\xb3\xa4U\xa4C\xa6\xa8\xaa\xba\xba\xa1\xb7N\xab\xd7\xa1A\xaba\xadx\xabh\xacO\xa5\xd1\xb1`\xb3\xd3\xadx\xaa\xba\xa1A\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa5H77%\xa6A\xab\xd7\xc2\xcd\xc1p\xa1C"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xc0\xe9\xa1A\xae\xb3\xa4U\xa4C\xa6\xa8\xaa\xba\xba\xa1\xb7N\xab\xd7\xa1A\xaba\xadx\xabh\xacO\xa5\xd1\xb1`\xb3\xd3\xadx\xaa\xba\xa1A\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa5H77%\xa6A\xab\xd7\xc2\xcd\xc1p\xa1C\r"),
+			},
+		},
+		{ // 33
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 34
+			{
+				Utf8:   "新北市長侯友宜：「我最在乎的是，我還有很多事沒有最好的部分，要更加把勁，把它做",
+				Big5:   []byte("\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa1G\xa1u\xa7\xda\xb3\xcc\xa6b\xa5G\xaa\xba\xacO\xa1A\xa7\xda\xc1\xd9\xa6\xb3\xab\xdc\xa6h\xa8\xc6\xa8S\xa6\xb3\xb3\xcc\xa6n\xaa\xba\xb3\xa1\xa4\xc0\xa1A\xadn\xa7\xf3\xa5[\xa7\xe2\xabl\xa1A\xa7\xe2\xa5\xa6\xb0\xb5"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb7s\xa5_\xa5\xab\xaa\xf8\xabJ\xa4\xcd\xa9y\xa1G\xa1u\xa7\xda\xb3\xcc\xa6b\xa5G\xaa\xba\xacO\xa1A\xa7\xda\xc1\xd9\xa6\xb3\xab\xdc\xa6h\xa8\xc6\xa8S\xa6\xb3\xb3\xcc\xa6n\xaa\xba\xb3\xa1\xa4\xc0\xa1A\xadn\xa7\xf3\xa5[\xa7\xe2\xabl\xa1A\xa7\xe2\xa5\xa6\xb0\xb5\r"),
+			},
+		},
+		{ // 35
+			{
+				Utf8:   "得更好，這才是市長的本責。」",
+				Big5:   []byte("\xb1o\xa7\xf3\xa6n\xa1A\xb3o\xa4~\xacO\xa5\xab\xaa\xf8\xaa\xba\xa5\xbb\xb3d\xa1C\xa1v"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb1o\xa7\xf3\xa6n\xa1A\xb3o\xa4~\xacO\xa5\xab\xaa\xf8\xaa\xba\xa5\xbb\xb3d\xa1C\xa1v\r"),
+			},
+		},
+		{ // 36
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 37
+			{
+				Utf8:   "強調自己就是埋頭認真做，儘管城市光榮感部分，狠甩高雄跟墊底的台北，讓七成的新北",
+				Big5:   []byte("\xb1j\xbd\xd5\xa6\xdb\xa4v\xb4N\xacO\xaeI\xc0Y\xbb{\xafu\xb0\xb5\xa1A\xbe\xa8\xba\xde\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xa1\xa4\xc0\xa1A\xac\xbd\xa5\xcf\xb0\xaa\xb6\xaf\xb8\xf2\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa1A\xc5\xfd\xa4C\xa6\xa8\xaa\xba\xb7s\xa5_"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xb1j\xbd\xd5\xa6\xdb\xa4v\xb4N\xacO\xaeI\xc0Y\xbb{\xafu\xb0\xb5\xa1A\xbe\xa8\xba\xde\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xa1\xa4\xc0\xa1A\xac\xbd\xa5\xcf\xb0\xaa\xb6\xaf\xb8\xf2\xb9\xd4\xa9\xb3\xaa\xba\xa5x\xa5_\xa1A\xc5\xfd\xa4C\xa6\xa8\xaa\xba\xb7s\xa5_\r"),
+			},
+		},
+		{ // 38
+			{
+				Utf8:   "市民感到光榮，但桃園跟台南的市民，硬是多出了2個百分點，而有八成的台中市民認同",
+				Big5:   []byte("\xa5\xab\xa5\xc1\xb7P\xa8\xec\xa5\xfa\xbaa\xa1A\xa6\xfd\xae\xe7\xb6\xe9\xb8\xf2\xa5x\xabn\xaa\xba\xa5\xab\xa5\xc1\xa1A\xb5w\xacO\xa6h\xa5X\xa4F2\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa1A\xa6\xd3\xa6\xb3\xa4K\xa6\xa8\xaa\xba\xa5x\xa4\xa4\xa5\xab\xa5\xc1\xbb{\xa6P"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5\xab\xa5\xc1\xb7P\xa8\xec\xa5\xfa\xbaa\xa1A\xa6\xfd\xae\xe7\xb6\xe9\xb8\xf2\xa5x\xabn\xaa\xba\xa5\xab\xa5\xc1\xa1A\xb5w\xacO\xa6h\xa5X\xa4F2\xad\xd3\xa6\xca\xa4\xc0\xc2I\xa1A\xa6\xd3\xa6\xb3\xa4K\xa6\xa8\xaa\xba\xa5x\xa4\xa4\xa5\xab\xa5\xc1\xbb{\xa6P\r"),
+			},
+		},
+		{ // 39
+			{
+				Utf8:   "台中，榮登六都城市光榮感最高。",
+				Big5:   []byte("\xa5x\xa4\xa4\xa1A\xbaa\xb5n\xa4\xbb\xb3\xa3\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xcc\xb0\xaa\xa1C"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5x\xa4\xa4\xa1A\xbaa\xb5n\xa4\xbb\xb3\xa3\xab\xb0\xa5\xab\xa5\xfa\xbaa\xb7P\xb3\xcc\xb0\xaa\xa1C\r"),
+			},
+		},
+		{ // 40
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 41
+			{
+				Utf8:   "台南市長黃偉哲：「在需要檢討改進的地方，我們也會虛心地檢討以及改進，希望做得更",
+				Big5:   []byte("\xa5x\xabn\xa5\xab\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xa1G\xa1u\xa6b\xbb\xdd\xadn\xc0\xcb\xb0Q\xa7\xef\xb6i\xaa\xba\xa6a\xa4\xe8\xa1A\xa7\xda\xad\xcc\xa4]\xb7|\xb5\xea\xa4\xdf\xa6a\xc0\xcb\xb0Q\xa5H\xa4\xce\xa7\xef\xb6i\xa1A\xa7\xc6\xb1\xe6\xb0\xb5\xb1o\xa7\xf3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa5x\xabn\xa5\xab\xaa\xf8\xb6\xc0\xb0\xb6\xad\xf5\xa1G\xa1u\xa6b\xbb\xdd\xadn\xc0\xcb\xb0Q\xa7\xef\xb6i\xaa\xba\xa6a\xa4\xe8\xa1A\xa7\xda\xad\xcc\xa4]\xb7|\xb5\xea\xa4\xdf\xa6a\xc0\xcb\xb0Q\xa5H\xa4\xce\xa7\xef\xb6i\xa1A\xa7\xc6\xb1\xe6\xb0\xb5\xb1o\xa7\xf3\r"),
+			},
+		},
+		{ // 42
+			{
+				Utf8:   "好，讓市民朋友們過得更好。」",
+				Big5:   []byte("\xa6n\xa1A\xc5\xfd\xa5\xab\xa5\xc1\xaaB\xa4\xcd\xad\xcc\xb9L\xb1o\xa7\xf3\xa6n\xa1C\xa1v"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xa6n\xa1A\xc5\xfd\xa5\xab\xa5\xc1\xaaB\xa4\xcd\xad\xcc\xb9L\xb1o\xa7\xf3\xa6n\xa1C\xa1v\r"),
+			},
+		},
+		{ // 43
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		}, // 43
+		{ // 44
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		}, // 44
+		{ // 45
+			{
+				Utf8:   "5.完整新聞連結 (或短網址):",
+				Big5:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):\r"),
+			},
+		},
+		{ // 46
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		}, // 46
+		{ // 47
+			{
+				Utf8:   "https://reurl.cc/8nK7eo",
+				Big5:   []byte("https://reurl.cc/8nK7eo"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("https://reurl.cc/8nK7eo\r"),
+			},
+		},
+		{ // 48
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 49
+			{
+				Utf8:   "6.備註:",
+				Big5:   []byte("6.\xb3\xc6\xb5\xf9:"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("6.\xb3\xc6\xb5\xf9:\r"),
+			},
+		},
+		{ // 50
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 51
+			{
+				Utf8:   "1.侯 2.鄭 3.黃 4.盧 5.陳 6.柯",
+				Big5:   []byte("1.\xabJ 2.\xbeG 3.\xb6\xc0 4.\xbfc 5.\xb3\xaf 6.\xac_"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("1.\xabJ 2.\xbeG 3.\xb6\xc0 4.\xbfc 5.\xb3\xaf 6.\xac_\r"),
+			},
+		},
+		{ // 52
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 53
+			{
+				Utf8:   "草包滾了 柯果然墊底",
+				Big5:   []byte("\xaf\xf3\xa5]\xbau\xa4F \xac_\xaaG\xb5M\xb9\xd4\xa9\xb3"),
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\xaf\xf3\xa5]\xbau\xa4F \xac_\xaaG\xb5M\xb9\xd4\xa9\xb3\r"),
+			},
+		},
+		{ // 54
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
+		},
+		{ // 55
+			{
+				Color0: types.DefaultColor,
+				Color1: types.DefaultColor,
+				DBCS:   []byte("\r"),
+			},
 		},
 	}
 
