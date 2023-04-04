@@ -17,6 +17,9 @@ import (
 )
 
 func TestFavRaw_AddBoard(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
 	f0, _ := NewFav(nil, nil, 0)
 	logrus.Infof("TestAddBoard: f0: %v", f0)
 	ft0 := &FavType{0, pttbbsfav.FAVT_BOARD, 1, &FavBoard{1, 0, 0}}
@@ -86,6 +89,30 @@ func TestFavRaw_AddBoard(t *testing.T) {
 		},
 	}
 
+	filename3 := "./testcase/home1/t/testUser3/.fav"
+
+	theBytes3, _ := ioutil.ReadFile(filename3)
+
+	buf3 := bytes.NewReader(theBytes3)
+
+	filename4 := "./testcase/home1/t/testUser4/.fav"
+
+	theBytes4, _ := ioutil.ReadFile(filename4)
+
+	buf4 := bytes.NewReader(theBytes4)
+
+	// version
+	version := int16(0)
+	_ = binary.Read(buf3, binary.LittleEndian, &version)
+
+	_ = binary.Read(buf4, binary.LittleEndian, &version)
+
+	fav3, _ := ReadFavrec(buf3, nil, nil, 0)
+
+	fav3Ft10 := &FavType{10, pttbbsfav.FAVT_BOARD, 1, &FavBoard{23, 0, 0}}
+
+	fav3.AddBoard(21)
+
 	type args struct {
 		bid ptttype.Bid
 	}
@@ -131,6 +158,15 @@ func TestFavRaw_AddBoard(t *testing.T) {
 			cmp:             f3,
 			expected:        expected3,
 		},
+
+		{
+			name:            "add bid = 23 (after setting up sub-folder)",
+			f:               fav3,
+			args:            args{bid: 23},
+			expectedFavType: fav3Ft10,
+			cmp:             fav3,
+			expected:        testFav5,
+		},
 	}
 
 	var wg sync.WaitGroup
@@ -161,6 +197,9 @@ func TestFavRaw_AddBoard(t *testing.T) {
 }
 
 func TestFavRaw_AddLine(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
 	f0, _ := NewFav(nil, nil, 0)
 	ft0 := &FavType{0, pttbbsfav.FAVT_LINE, 1, &FavLine{1}}
 
@@ -238,6 +277,9 @@ func TestFavRaw_AddLine(t *testing.T) {
 }
 
 func TestFavRaw_AddFolder(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
 	f0, _ := NewFav(nil, nil, 0)
 
 	folder0, _ := NewFav(nil, nil, 1)
@@ -327,11 +369,27 @@ func TestReadFavrec(t *testing.T) {
 
 	buf1 := bytes.NewReader(theBytes1)
 
+	filename3 := "./testcase/home1/t/testUser3/.fav"
+
+	theBytes3, _ := ioutil.ReadFile(filename3)
+
+	buf3 := bytes.NewReader(theBytes3)
+
+	filename4 := "./testcase/home1/t/testUser4/.fav"
+
+	theBytes4, _ := ioutil.ReadFile(filename4)
+
+	buf4 := bytes.NewReader(theBytes4)
+
 	// version
 	version := int16(0)
 	_ = binary.Read(buf0, binary.LittleEndian, &version)
 
 	_ = binary.Read(buf1, binary.LittleEndian, &version)
+
+	_ = binary.Read(buf3, binary.LittleEndian, &version)
+
+	_ = binary.Read(buf4, binary.LittleEndian, &version)
 
 	type args struct {
 		file io.ReadSeeker
@@ -340,19 +398,24 @@ func TestReadFavrec(t *testing.T) {
 		name           string
 		args           args
 		expectedFavrec *Fav
-		expectedFavNum int
 		wantErr        bool
 	}{
 		// TODO: Add test cases.
 		{
 			args:           args{file: buf0},
 			expectedFavrec: testFav0,
-			expectedFavNum: 7,
 		},
 		{
 			args:           args{file: buf1},
 			expectedFavrec: testFav1,
-			expectedFavNum: 8,
+		},
+		{
+			args:           args{file: buf3},
+			expectedFavrec: testFav3,
+		},
+		{
+			args:           args{file: buf4},
+			expectedFavrec: testFav4,
 		},
 	}
 	for _, tt := range tests {
@@ -378,12 +441,9 @@ func TestFav_WriteFavrec(t *testing.T) {
 
 	theBytes0, _ := ioutil.ReadFile(filename)
 
-	theBytes0 = theBytes0[2:]
-
 	filename1 := "./testcase/home1/t/testUser2/.fav"
 
 	theBytes1, _ := ioutil.ReadFile(filename1)
-	theBytes1 = theBytes1[2:]
 
 	tests := []struct {
 		name         string

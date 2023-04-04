@@ -1,0 +1,23 @@
+加板至我的最愛
+---
+tags:
+  - user
+  - board
+parameters:
+  - '$ref': '#/definitions/ParamsAuthorization'
+  - name: 'user_id'
+    in: 'path'
+    required: true
+    type: string
+  - name: 'bid'
+    in: 'query'
+    required: false
+    type: string
+    default: ''
+    description: board-id
+responses:
+  200:
+    description:
+    schema:
+      '$id': https://json-schema.org/draft/2019-09/output/schema
+      '$ref': '#/definitions/BoardSummary'

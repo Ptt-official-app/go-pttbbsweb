@@ -95,6 +95,24 @@ var (
 		Bid:          8,
 	}
 
+	testBoardSummary10 = &apitypes.BoardSummary{
+		FBoardID:  "WhoAmI",
+		Brdname:   "WhoAmI",
+		Title:     "呵呵，猜猜我是誰！",
+		BrdAttr:   0,
+		BoardType: "◎",
+		Category:  "嘰哩",
+		NUser:     0,
+		BMs:       []bbs.UUserID{},
+		Total:     0,
+
+		LastPostTime: 0,
+		StatAttr:     ptttype.NBRD_FAV,
+		Idx:          "0",
+		Gid:          5,
+		Bid:          10,
+	}
+
 	testFavoriteBoards0 = []*apitypes.BoardSummary{
 		{StatAttr: ptttype.NBRD_LINE, Idx: "0"},
 		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":1", Idx: "1"},

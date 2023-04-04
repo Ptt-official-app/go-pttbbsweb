@@ -51,12 +51,19 @@ func (f *Fav) getDataNumber() int {
 	return int(f.NBoards) + int(f.NLines) + int(f.NFolders)
 }
 
-func (f *Fav) WriteFavrec(file io.Writer) error {
+func (f *Fav) WriteFavrec(file io.Writer) (err error) {
 	if f == nil {
 		return nil
 	}
 
-	err := binary.Write(file, binary.LittleEndian, &f.NBoards)
+	if f.Depth == 0 {
+		err = binary.Write(file, binary.LittleEndian, FAV_VERSION)
+		if err != nil {
+			return err
+		}
+	}
+
+	err = binary.Write(file, binary.LittleEndian, &f.NBoards)
 	if err != nil {
 		return err
 	}

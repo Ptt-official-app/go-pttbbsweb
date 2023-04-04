@@ -14,6 +14,7 @@ import (
 	pttbbsfav "github.com/Ptt-official-app/go-pttbbs/ptt/fav"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -24,12 +25,11 @@ func tryGetUserFavorites(
 	ascending bool,
 	limit int,
 	c *gin.Context) (
-
 	userFavorites []*schema.UserFavorites,
 	nextIdxStr string,
 	statusCode int,
-	err error) {
-
+	err error,
+) {
 	startIdx := 0
 	if len(startIdxStr) > 0 {
 		startIdx, err = strconv.Atoi(startIdxStr)
@@ -91,6 +91,30 @@ func tryGetUserFavorites(
 	}
 
 	return userFavorites, nextIdxStr, 200, nil
+}
+
+func getAllUserFavoritesFromDB(userID bbs.UUserID) (userFavoritesMeta *schema.UserFavoritesMeta, userFavorites []*schema.UserFavorites, err error) {
+	// user-favorites-meta
+	userFavoritesMeta, err = schema.GetUserFavoritesMeta(userID)
+	if err != nil {
+		return nil, nil, err
+	}
+	if userFavoritesMeta == nil {
+		userFavoritesMeta = &schema.UserFavoritesMeta{
+			UserID: userID,
+		}
+		return userFavoritesMeta, []*schema.UserFavorites{}, nil
+	}
+
+	logrus.Infof("getAllUserFavoritesFromDB: userFavoritesMeta: %v", userFavoritesMeta)
+
+	// get db
+	userFavorites, err = schema.GetAllUserFavorites(userID, userFavoritesMeta.DoubleBufferIdx, userFavoritesMeta.MTime)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return userFavoritesMeta, userFavorites, nil
 }
 
 func deserializeUserFavoritesAndUpdateDB(userID bbs.UUserID, mTime types.NanoTS, contentWithVersion []byte, updateNanoTS types.NanoTS, doubleBufferIdx int) (err error) {
@@ -167,4 +191,35 @@ func bidsInUserFavorites(userFavorites []*schema.UserFavorites) (bids []ptttype.
 	}
 
 	return bids
+}
+
+func tryWriteFav(theFav *fav.Fav, remoteAddr string, userID bbs.UUserID, c *gin.Context) (statusCode int, err error) {
+	theBytes := make([]byte, 0, MAX_USER_FAVORITES_BUF_SIZE)
+
+	buf := bytes.NewBuffer(theBytes)
+
+	err = theFav.WriteFavrec(buf)
+	if err != nil {
+		return 500, err
+	}
+
+	content := buf.Bytes()
+
+	// backend get user-favorites
+	theParams_b := &pttbbsapi.WriteFavoritesParams{
+		Content: content,
+	}
+	var result_b *pttbbsapi.WriteFavoritesResult
+
+	urlMap := map[string]string{
+		"uid": string(userID),
+	}
+	url := utils.MergeURL(urlMap, pttbbsapi.WRITE_FAV_R)
+
+	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
+	if err != nil {
+		return statusCode, err
+	}
+
+	return 200, nil
 }
