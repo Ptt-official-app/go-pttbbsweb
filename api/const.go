@@ -31,3 +31,7 @@ var (
 		".map":  "application/json",
 	}
 )
+
+const (
+	MAX_USER_FAVORITES_BUF_SIZE = 65535
+)

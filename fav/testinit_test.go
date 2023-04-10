@@ -1,6 +1,8 @@
 package fav
 
-import "github.com/Ptt-official-app/go-openbbsmiddleware/types"
+import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+)
 
 func setupTest() {
 	types.SetIsTest("fav")

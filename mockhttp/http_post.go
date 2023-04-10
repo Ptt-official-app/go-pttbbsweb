@@ -80,6 +80,8 @@ func HTTPPost(url string, data interface{}, result interface{}) (statusCode int,
 		return parseResult(GetEmailTokenInfo(data.(*api.GetEmailTokenInfoParams)), result)
 	case "/user/SYSOP/favorites":
 		return parseResult(GetFavorites(data.(*api.GetFavoritesParams)), result)
+	case "/user/SYSOP/favorites/post":
+		return parseResult(WriteFavorites(data.(*api.WriteFavoritesParams)), result)
 	case api.LOAD_BOARDS_BY_BIDS_R:
 		return parseResult(LoadBoardsByBids(data.(*api.LoadBoardsByBidsParams)), result)
 	case api.CHECK_EXISTS_USER_R:

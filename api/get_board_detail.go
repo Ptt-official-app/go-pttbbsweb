@@ -12,7 +12,7 @@ import (
 const GET_BOARD_DETAIL_R = "/board/:bid"
 
 type GetBoardDetailParams struct {
-	Fields string `json:"fields,omitempty" form:"fields,omitempty" url:"fields,omitempty"`
+	Fields string `json:"fields,omitempty" form:"fields,omitempty" uri:"fields,omitempty"`
 }
 
 type GetBoardDetailPath struct {

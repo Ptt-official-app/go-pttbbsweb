@@ -97,6 +97,14 @@ def _load_favorite_boards(user_id):
     """
     return ''
 
+@app.route(_with_app_prefix('/user/<user_id>/favorites/addboard'), methods=['POST'])
+def _add_favorite_board(user_id):
+    """
+    swagger_from_file: apidoc/add_favorite_board.yaml
+
+    """
+    return ''
+
 
 @app.route(_with_app_prefix('/boards'))
 def _load_general_boards():

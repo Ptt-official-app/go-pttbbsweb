@@ -86,6 +86,25 @@ func assertUserFavorites() error {
 	return nil
 }
 
+func GetAllUserFavorites(userID bbs.UUserID, doubleBufferIdx int, mTime types.NanoTS) (userFavorites []*UserFavorites, err error) {
+	query := bson.M{
+		USER_FAVORITES_USER_ID_b:           userID,
+		USER_FAVORITES_DOUBLE_BUFFER_IDX_b: doubleBufferIdx,
+		USER_FAVORITES_MTIME_b:             mTime,
+	}
+
+	sortOpts := bson.D{
+		{Key: USER_FAVORITES_FAV_IDX_b, Value: 1},
+	}
+
+	err = UserFavorites_c.Find(query, 0, &userFavorites, nil, sortOpts)
+	if err != nil {
+		return nil, err
+	}
+
+	return userFavorites, nil
+}
+
 func GetUserFavorites(userID bbs.UUserID, doubleBufferIdx int, levelIdx LevelIdx, startIdx int, ascending bool, limit int, mTime types.NanoTS) (userFavorites []*UserFavorites, err error) {
 	var queryIdx bson.M
 	var sortOpts bson.D

@@ -12,6 +12,24 @@ func LoadBoardsByBids(params *api.LoadBoardsByBidsParams) (ret *api.LoadBoardsBy
 	logrus.Infof("mockhttp.LoadBoardsByBids: params: %v", params)
 
 	boardsMap := map[ptttype.Bid]*bbs.BoardSummary{
+		10: {
+			Gid:      5,
+			Bid:      10,
+			BBoardID: bbs.BBoardID("10_WhoAmI"),
+			StatAttr: ptttype.NBRD_FAV,
+			Brdname:  "WhoAmI",
+			BoardClass: []byte{
+				0xbc, 0x54, 0xad, 0xf9,
+			},
+			RealTitle: []byte{
+				0xa8, 0xfe, 0xa8, 0xfe, 0xa1, 0x41, 0xb2, 0x71, 0xb2, 0x71,
+				0xa7, 0xda, 0xac, 0x4f, 0xbd, 0xd6, 0xa1, 0x49,
+			},
+			BoardType:  []byte{0xa1, 0xb7},
+			BM:         []bbs.UUserID{},
+			IdxByName:  "WhoAmI",
+			IdxByClass: "vFSt-Q@WhoAmI",
+		},
 		9: {
 			BBoardID:     "9_test9",
 			BrdAttr:      0,

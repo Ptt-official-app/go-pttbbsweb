@@ -19,6 +19,7 @@ func SetIsTest() {
 
 	logrus.Info("schema: SetIsTest")
 
+	MONGO_DBNAME = "devptt_test"
 	err := Init()
 	if err != nil {
 		logrus.Errorf("schema.Init: unable to init: e: %v", err)

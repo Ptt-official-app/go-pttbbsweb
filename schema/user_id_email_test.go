@@ -40,7 +40,7 @@ func TestCreateUserIDEmail(t *testing.T) {
 
 	errUnique := mongo.WriteException{
 		WriteErrors: mongo.WriteErrors([]mongo.WriteError{
-			{Code: 11000, Message: "E11000 duplicate key error collection: devptt.user_id_email index: idemail_1 dup key: { idemail: \"test@ptt2.test\" }"},
+			{Code: 11000, Message: "E11000 duplicate key error collection: devptt_test.user_id_email index: idemail_1 dup key: { idemail: \"test@ptt2.test\" }"},
 		}),
 	}
 	type args struct {
