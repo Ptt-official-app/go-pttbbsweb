@@ -9,12 +9,16 @@ parameters:
     in: 'path'
     required: true
     type: string
-  - name: 'bid'
-    in: 'query'
-    required: false
-    type: string
-    default: ''
-    description: board-id
+  - name: params
+    in: body
+    required: true
+    schema:
+      '$id': https://json-schema.org/draft/2019-09/output/schema
+      type: object
+      properties:
+        bid:
+          type: string
+          description: board-id
 responses:
   200:
     description:

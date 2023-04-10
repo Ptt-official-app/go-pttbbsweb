@@ -63,7 +63,7 @@ func TestFavRaw_AddBoard(t *testing.T) {
 	f2.Root = f1_2
 
 	f3, _ := NewFav(nil, nil, 0)
-	_, _ = f3.AddBoard(1)
+	_, _, _ = f3.AddBoard(1)
 	favType3, _ := f3.AddFolder()
 	favFolder3 := favType3.Fp.(*FavFolder)
 
@@ -109,6 +109,8 @@ func TestFavRaw_AddBoard(t *testing.T) {
 
 	fav3, _ := ReadFavrec(buf3, nil, nil, 0)
 
+	fav3Ft9 := &FavType{9, pttbbsfav.FAVT_BOARD, 1, &FavBoard{21, 0, 0}}
+
 	fav3Ft10 := &FavType{10, pttbbsfav.FAVT_BOARD, 1, &FavBoard{23, 0, 0}}
 
 	fav3.AddBoard(21)
@@ -123,6 +125,7 @@ func TestFavRaw_AddBoard(t *testing.T) {
 		expectedFavType *FavType
 		cmp             *Fav
 		expected        *Fav
+		expectedIdx     int
 		wantErr         bool
 	}{
 		// TODO: Add test cases.
@@ -149,6 +152,7 @@ func TestFavRaw_AddBoard(t *testing.T) {
 			expectedFavType: ft1,
 			cmp:             f1_2,
 			expected:        f2,
+			expectedIdx:     1,
 		},
 		{
 			name:            "add bid = 1 (sub-folder)",
@@ -166,6 +170,25 @@ func TestFavRaw_AddBoard(t *testing.T) {
 			expectedFavType: fav3Ft10,
 			cmp:             fav3,
 			expected:        testFav5,
+			expectedIdx:     10,
+		},
+		{
+			name:            "add bid = 23 (after setting up sub-folder) (again)",
+			f:               fav3,
+			args:            args{bid: 23},
+			expectedFavType: fav3Ft10,
+			cmp:             fav3,
+			expected:        testFav5,
+			expectedIdx:     10,
+		},
+		{
+			name:            "add bid = 21 (after setting up sub-folder) (again)",
+			f:               fav3,
+			args:            args{bid: 21},
+			expectedFavType: fav3Ft9,
+			cmp:             fav3,
+			expected:        testFav5,
+			expectedIdx:     9,
 		},
 	}
 
@@ -175,7 +198,7 @@ func TestFavRaw_AddBoard(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
 			f := tt.f
-			gotFavType, err := f.AddBoard(tt.args.bid)
+			gotIdx, gotFavType, err := f.AddBoard(tt.args.bid)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Fav.AddBoard() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -185,6 +208,10 @@ func TestFavRaw_AddBoard(t *testing.T) {
 
 			if !reflect.DeepEqual(gotFavType, tt.expectedFavType) {
 				t.Errorf("Fav.AddBoard() = %v, want %v", gotFavType, tt.expectedFavType)
+			}
+
+			if gotIdx != tt.expectedIdx {
+				t.Errorf("idx: got: %v expected: %v", gotIdx, tt.expectedIdx)
 			}
 
 			tt.cmp.CleanParentAndRoot()
