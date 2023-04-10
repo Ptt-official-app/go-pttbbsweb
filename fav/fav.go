@@ -282,34 +282,41 @@ func (f *Fav) DecreaseFavNum() {
 	}
 }
 
-func (f *Fav) AddBoard(bid ptttype.Bid) (favType *FavType, err error) {
+func (f *Fav) AddBoard(bid ptttype.Bid) (idx int, favType *FavType, err error) {
 	// check whether already added
-	favBoard, err := f.GetBoard(bid)
+	idx, favBoard, err := f.GetBoard(bid)
 	if err != nil {
-		return nil, err
+		return -1, nil, err
 	}
 
 	if favBoard != nil {
-		return favBoard, nil
+		return idx, favBoard, nil
 	}
 
 	if f.isMaxSize() {
-		return nil, ErrTooManyFavs
+		return -1, nil, ErrTooManyFavs
 	}
 
 	fp := &FavBoard{
 		Bid: bid,
 	}
 
-	return f.PreAppend(pttbbsfav.FAVT_BOARD, fp)
-}
-
-func (f *Fav) GetBoard(bid ptttype.Bid) (favType *FavType, err error) {
-	if !bid.IsValid() {
-		return nil, ptttype.ErrInvalidBid
+	favType, err = f.PreAppend(pttbbsfav.FAVT_BOARD, fp)
+	if err != nil {
+		return -1, nil, err
 	}
 
-	return f.GetFavItem(int(bid), pttbbsfav.FAVT_BOARD), nil
+	return len(f.Favh) - 1, favType, nil
+}
+
+func (f *Fav) GetBoard(bid ptttype.Bid) (idx int, favType *FavType, err error) {
+	if !bid.IsValid() {
+		return -1, nil, ptttype.ErrInvalidBid
+	}
+
+	idx, favType = f.GetFavItem(int(bid), pttbbsfav.FAVT_BOARD)
+
+	return idx, favType, nil
 }
 
 func (f *Fav) AddLine() (favType *FavType, err error) {
@@ -345,19 +352,19 @@ func (f *Fav) AddFolder() (favType *FavType, err error) {
 	return f.PreAppend(pttbbsfav.FAVT_FOLDER, fp)
 }
 
-func (f *Fav) GetFavItem(theID int, theType pttbbsfav.FavT) (favType *FavType) {
-	for _, each := range f.Favh {
+func (f *Fav) GetFavItem(theID int, theType pttbbsfav.FavT) (idx int, favType *FavType) {
+	for idx, each := range f.Favh {
 		if each.TheType != theType {
 			continue
 		}
 
 		eachID := each.GetID()
 		if eachID == theID {
-			return each
+			return idx, each
 		}
 	}
 
-	return nil
+	return -1, nil
 }
 
 // PreAppend

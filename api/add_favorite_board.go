@@ -24,8 +24,8 @@ type AddFavoriteBoardResult *apitypes.BoardSummary
 
 func AddFavoriteBoardWrapper(c *gin.Context) {
 	params := &AddFavoriteBoardParams{}
-	path := &LoadFavoriteBoardsPath{}
-	LoginRequiredPathQuery(AddFavoriteBoard, params, path, c)
+	path := &AddFavoriteBoardPath{}
+	LoginRequiredPathJSON(AddFavoriteBoard, params, path, c)
 }
 
 func AddFavoriteBoard(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
@@ -68,13 +68,12 @@ func AddFavoriteBoard(remoteAddr string, userID bbs.UUserID, params interface{},
 		return nil, 500, err
 	}
 
-	_, err = theFav.AddBoard(bid)
+	theIdx, _, err := theFav.AddBoard(bid)
 	if err != nil {
 		return nil, 500, err
 	}
 
-	startIdx := len(theFav.Favh) - 1
-	startIdxStr := strconv.Itoa(startIdx)
+	startIdxStr := strconv.Itoa(theIdx)
 
 	statusCode, err = tryWriteFav(theFav, remoteAddr, userID, c)
 	if err != nil {

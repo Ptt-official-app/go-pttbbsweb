@@ -216,7 +216,7 @@ func tryWriteFav(theFav *fav.Fav, remoteAddr string, userID bbs.UUserID, c *gin.
 	}
 	url := utils.MergeURL(urlMap, pttbbsapi.WRITE_FAV_R)
 
-	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
+	statusCode, err = utils.BackendPost(c, url, theParams_b, nil, &result_b)
 	if err != nil {
 		return statusCode, err
 	}
