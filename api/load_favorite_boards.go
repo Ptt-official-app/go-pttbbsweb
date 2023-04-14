@@ -75,6 +75,10 @@ func LoadFavoriteBoards(remoteAddr string, userID bbs.UUserID, params interface{
 		return nil, 500, err
 	}
 
+	for _, each := range userBoardInfoMap {
+		each.Fav = true
+	}
+
 	r := NewLoadFavoriteBoardsResult(userFavorites_db, boardSummaryMap_db, userBoardInfoMap, nextIdx)
 
 	return r, 200, nil

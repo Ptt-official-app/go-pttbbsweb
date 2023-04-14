@@ -49,5 +49,5 @@ func LoadAutoCompleteBoards(remoteAddr string, userID bbs.UUserID, params interf
 		return nil, statusCode, err
 	}
 
-	return postLoadBoards(userID, result_b, url)
+	return postLoadBoards(userID, result_b, url, c)
 }

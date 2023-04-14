@@ -83,6 +83,10 @@ func assertUserFavorites() error {
 		return err
 	}
 
+	if err := assertFields(EMPTY_USER_FAVORITES, EMPTY_USER_FAVORITE_ID); err != nil {
+		return err
+	}
+
 	return nil
 }
 

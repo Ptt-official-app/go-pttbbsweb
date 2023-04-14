@@ -21,6 +21,7 @@ type BoardSummary struct {
 	BMs          []bbs.UUserID   `json:"moderators"`
 	Reason       string          `json:"reason"`
 	Read         bool            `json:"read"`
+	Fav          bool            `json:"fav"`
 	Total        int             `json:"total"`
 	LastPostTime types.Time8     `json:"last_post_time"`
 
@@ -56,6 +57,7 @@ func NewBoardSummary(b_db *schema.BoardSummary, idx string, userBoardInfo *UserB
 
 		StatAttr: userBoardInfo.Stat,
 		Read:     userBoardInfo.Read,
+		Fav:      userBoardInfo.Fav,
 	}
 }
 

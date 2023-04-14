@@ -23,9 +23,6 @@ moderators:
 reason:
   type: string
   description: 不給看的原因.
-read:
-  type: boolean
-  description: 已知這個板的最新文章.
 total:
   type: number
   description: 文章總數.
