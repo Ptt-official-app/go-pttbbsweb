@@ -14,8 +14,6 @@ import (
 	pttbbsfav "github.com/Ptt-official-app/go-pttbbs/ptt/fav"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func tryGetUserFavorites(
@@ -38,14 +36,34 @@ func tryGetUserFavorites(
 		}
 	}
 
-	// user-favorites-meta
-	userFavoritesMeta, err := schema.GetUserFavoritesMeta(userID)
+	doubleBufferIdx, mtime, statusCode, err := tryGetUserFavoritesCore(userID, c)
+	if err != nil {
+		return nil, "", statusCode, err
+	}
+
+	// get db
+	userFavorites, nextIdx, err := getUserFavoritesFromDB(userID, doubleBufferIdx, mtime, levelIdx, startIdx, ascending, limit)
 	if err != nil {
 		return nil, "", 500, err
 	}
 
+	nextIdxStr = ""
+	if nextIdx >= 0 {
+		nextIdxStr = strconv.Itoa(nextIdx)
+	}
+
+	return userFavorites, nextIdxStr, 200, nil
+}
+
+func tryGetUserFavoritesCore(userID bbs.UUserID, c *gin.Context) (newDoubleBufferIdx int, newMTime types.NanoTS, statusCode int, err error) {
+	// user-favorites-meta
+	userFavoritesMeta, err := schema.GetUserFavoritesMeta(userID)
+	if err != nil {
+		return -1, 0, 500, err
+	}
+
 	dbMTime := types.NanoTS(0)
-	newDoubleBufferIdx := 0
+	newDoubleBufferIdx = 0
 	if userFavoritesMeta != nil {
 		dbMTime = userFavoritesMeta.MTime
 		newDoubleBufferIdx = (userFavoritesMeta.DoubleBufferIdx + 1) % schema.N_USER_FAVORITES_DOUBLE_BUFFER
@@ -64,33 +82,22 @@ func tryGetUserFavorites(
 
 	statusCode, err = utils.BackendGet(c, url, theParams_b, nil, &result_b)
 	if err != nil {
-		return nil, "", statusCode, err
+		return -1, 0, statusCode, err
 	}
 
 	// check mtime
-	updateNanoTS := types.NowNanoTS()
-
 	backendMTime := types.Time4ToNanoTS(result_b.MTime)
-	if backendMTime > dbMTime {
-		err = deserializeUserFavoritesAndUpdateDB(userID, backendMTime, result_b.Content, updateNanoTS, newDoubleBufferIdx)
-		if err != nil {
-			return nil, "", 500, err
-		}
-
+	if backendMTime <= dbMTime {
+		return userFavoritesMeta.DoubleBufferIdx, dbMTime, 200, nil
 	}
 
-	// get db
-	userFavorites, nextIdx, err := getUserFavoritesFromDB(userID, levelIdx, startIdx, ascending, limit)
+	updateNanoTS := types.NowNanoTS()
+	err = deserializeUserFavoritesAndUpdateDB(userID, backendMTime, result_b.Content, updateNanoTS, newDoubleBufferIdx)
 	if err != nil {
-		return nil, "", 500, err
+		return -1, 0, 500, err
 	}
 
-	nextIdxStr = ""
-	if nextIdx >= 0 {
-		nextIdxStr = strconv.Itoa(nextIdx)
-	}
-
-	return userFavorites, nextIdxStr, 200, nil
+	return newDoubleBufferIdx, backendMTime, 200, nil
 }
 
 func getAllUserFavoritesFromDB(userID bbs.UUserID) (userFavoritesMeta *schema.UserFavoritesMeta, userFavorites []*schema.UserFavorites, err error) {
@@ -105,8 +112,6 @@ func getAllUserFavoritesFromDB(userID bbs.UUserID) (userFavoritesMeta *schema.Us
 		}
 		return userFavoritesMeta, []*schema.UserFavorites{}, nil
 	}
-
-	logrus.Infof("getAllUserFavoritesFromDB: userFavoritesMeta: %v", userFavoritesMeta)
 
 	// get db
 	userFavorites, err = schema.GetAllUserFavorites(userID, userFavoritesMeta.DoubleBufferIdx, userFavoritesMeta.MTime)
@@ -149,16 +154,8 @@ func deserializeUserFavoritesAndUpdateDB(userID bbs.UUserID, mTime types.NanoTS,
 	return nil
 }
 
-func getUserFavoritesFromDB(userID bbs.UUserID, levelIdx schema.LevelIdx, startIdx int, ascending bool, limit int) (userFavorites []*schema.UserFavorites, nextIdx int, err error) {
-	metaSumamry, err := schema.GetUserFavoritesMetaSummary(userID)
-	if err == mongo.ErrNoDocuments {
-		return nil, -1, nil
-	}
-	if err != nil {
-		return nil, 0, err
-	}
-
-	userFavorites, err = schema.GetUserFavorites(userID, metaSumamry.DoubleBufferIdx, levelIdx, startIdx, ascending, limit+1, metaSumamry.MTime)
+func getUserFavoritesFromDB(userID bbs.UUserID, doubleBufferIdx int, mtime types.NanoTS, levelIdx schema.LevelIdx, startIdx int, ascending bool, limit int) (userFavorites []*schema.UserFavorites, nextIdx int, err error) {
+	userFavorites, err = schema.GetUserFavorites(userID, doubleBufferIdx, levelIdx, startIdx, ascending, limit+1, mtime)
 	if err != nil {
 		return nil, 0, err
 	}
@@ -222,4 +219,32 @@ func tryWriteFav(theFav *fav.Fav, remoteAddr string, userID bbs.UUserID, c *gin.
 	}
 
 	return 200, nil
+}
+
+func checkUserFavBoard(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, boardSummaries []*schema.BoardSummary, c *gin.Context) (newUserBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, err error) {
+	doubleBufferIdx, mtime, _, err := tryGetUserFavoritesCore(userID, c)
+	if err != nil {
+		return nil, err
+	}
+
+	pttbids := make([]ptttype.Bid, len(boardSummaries))
+	pttbidMap := make(map[ptttype.Bid]bbs.BBoardID)
+	for idx, each := range boardSummaries {
+		pttbids[idx] = each.Bid
+		pttbidMap[each.Bid] = each.BBoardID
+	}
+
+	userFavoriteIDs, err := schema.GetUserFavoriteIDsByPttbids(userID, doubleBufferIdx, pttbids, mtime)
+	if err != nil {
+		return nil, err
+	}
+	for _, each := range userFavoriteIDs {
+		bid, ok := pttbidMap[ptttype.Bid(each.TheID)]
+		if !ok {
+			continue
+		}
+		userBoardInfoMap[bid].Fav = true
+	}
+
+	return userBoardInfoMap, nil
 }

@@ -43,6 +43,8 @@ func TestLoadGeneralBoards(t *testing.T) {
 				Gid:          3,
 				Bid:          1,
 				Idx:          "test1",
+
+				Fav: true,
 			},
 			{
 				FBoardID:  "test2",

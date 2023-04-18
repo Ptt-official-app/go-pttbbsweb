@@ -62,10 +62,10 @@ func loadGeneralBoardsCore(remoteAddr string, userID bbs.UUserID, params interfa
 		return nil, statusCode, err
 	}
 
-	return postLoadBoards(userID, result_b, url)
+	return postLoadBoards(userID, result_b, url, c)
 }
 
-func postLoadBoards(userID bbs.UUserID, result_b *pttbbsapi.LoadGeneralBoardsResult, url string) (result *LoadGeneralBoardsResult, statusCode int, err error) {
+func postLoadBoards(userID bbs.UUserID, result_b *pttbbsapi.LoadGeneralBoardsResult, url string, c *gin.Context) (result *LoadGeneralBoardsResult, statusCode int, err error) {
 	// update to db
 	updateNanoTS := types.NowNanoTS()
 	boardSummaries_db, userBoardInfoMap, err := deserializeBoardsAndUpdateDB(userID, result_b.Boards, updateNanoTS)
@@ -75,6 +75,11 @@ func postLoadBoards(userID bbs.UUserID, result_b *pttbbsapi.LoadGeneralBoardsRes
 
 	// check isRead
 	userBoardInfoMap, err = checkUserReadBoard(userID, userBoardInfoMap, boardSummaries_db)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	userBoardInfoMap, err = checkUserFavBoard(userID, userBoardInfoMap, boardSummaries_db, c)
 	if err != nil {
 		return nil, 500, err
 	}

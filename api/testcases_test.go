@@ -75,6 +75,7 @@ var (
 		Idx:          "3",
 		Gid:          3,
 		Bid:          9,
+		Fav:          true,
 	}
 
 	testBoardSummary8 = &apitypes.BoardSummary{
@@ -93,6 +94,7 @@ var (
 		Idx:          "5",
 		Gid:          3,
 		Bid:          8,
+		Fav:          true,
 	}
 
 	testBoardSummary10 = &apitypes.BoardSummary{
@@ -108,7 +110,7 @@ var (
 
 		LastPostTime: 0,
 		StatAttr:     ptttype.NBRD_FAV,
-		Idx:          "0",
+		Idx:          "6",
 		Gid:          5,
 		Bid:          10,
 	}

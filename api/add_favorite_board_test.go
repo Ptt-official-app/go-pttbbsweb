@@ -39,7 +39,7 @@ func TestAddFavoriteBoard(t *testing.T) {
 	tests := []struct {
 		name           string
 		args           args
-		wantResult     interface{}
+		wantResult     AddFavoriteBoardResult
 		wantStatusCode int
 		wantErr        bool
 	}{
@@ -60,7 +60,8 @@ func TestAddFavoriteBoard(t *testing.T) {
 				t.Errorf("AddFavoriteBoard() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			testutil.TDeepEqual(t, "got", gotResult, tt.wantResult)
+			got, _ := gotResult.(AddFavoriteBoardResult)
+			testutil.TDeepEqual(t, "got", got, tt.wantResult)
 			if gotStatusCode != tt.wantStatusCode {
 				t.Errorf("AddFavoriteBoard() gotStatusCode = %v, want %v", gotStatusCode, tt.wantStatusCode)
 			}

@@ -43,6 +43,11 @@ func LoadPopularBoards(remoteAddr string, userID bbs.UUserID, params interface{}
 		return nil, 500, err
 	}
 
+	userBoardInfoMap, err = checkUserFavBoard(userID, userBoardInfoMap, boardSummaries_db, c)
+	if err != nil {
+		return nil, 500, err
+	}
+
 	r := NewLoadPopularBoardsResult(boardSummaries_db, userBoardInfoMap)
 
 	return r, 200, nil

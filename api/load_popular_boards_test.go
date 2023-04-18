@@ -62,6 +62,8 @@ func TestLoadPopularBoards(t *testing.T) {
 
 				Gid: 2,
 				Bid: 1,
+
+				Fav: true,
 			},
 			{
 				FBoardID:  "Note",
@@ -80,6 +82,7 @@ func TestLoadPopularBoards(t *testing.T) {
 
 				Gid: 5,
 				Bid: 8,
+				Fav: true,
 			},
 		},
 	}
