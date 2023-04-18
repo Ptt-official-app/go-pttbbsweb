@@ -4,7 +4,16 @@
 [![GoDoc](https://pkg.go.dev/badge/github.com/Ptt-official-app/go-openbbsmiddleware?status.svg)](https://pkg.go.dev/github.com/Ptt-official-app/go-openbbsmiddleware?tab=doc)
 [![codecov](https://codecov.io/gh/Ptt-official-app/go-openbbsmiddleware/branch/main/graph/badge.svg)](https://codecov.io/gh/Ptt-official-app/go-openbbsmiddleware)
 
+## README Translation
+
+* [English](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/README.en.md)
+* [正體中文](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/README.zh-TW.md)
+
+## Overview
+
 go implementation of [openbbs-middleware](https://hackmd.io/@twbbs/Root#%E6%9E%B6%E6%A7%8B%E5%9C%96).
+
+With [Ptt-official-app pttbbs](https://github.com/ptt-official-app/go-pttbbs), go-openbbsmiddleware intends to be the web-based bbs.
 
 ## Demo Site
 
