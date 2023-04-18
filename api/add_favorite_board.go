@@ -2,6 +2,7 @@ package api
 
 import (
 	"strconv"
+	"strings"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
@@ -13,6 +14,7 @@ import (
 const ADD_FAVORITE_BOARD_R = "/user/:user_id/favorites/addboard"
 
 type AddFavoriteBoardParams struct {
+	LevelIdx schema.LevelIdx   `json:"level_idx,omitempty" form:"level_idx,omitempty" url:"level_idx,omitempty"`
 	FBoardID apitypes.FBoardID `json:"bid" form:"bid" url:"bid"`
 }
 
@@ -63,7 +65,13 @@ func AddFavoriteBoard(remoteAddr string, userID bbs.UUserID, params interface{},
 		return nil, 500, err
 	}
 
-	theFav, err := schema.UserFavoritesToFav(&userFavoritesMeta.FolderMeta, userFavorites, 0)
+	rootFav, err := schema.UserFavoritesToFav(&userFavoritesMeta.FolderMeta, userFavorites, 0)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	levelIdxList := strings.Split(string(theParams.LevelIdx), ":")
+	theFav, err := rootFav.LocateFav(levelIdxList)
 	if err != nil {
 		return nil, 500, err
 	}
@@ -75,7 +83,7 @@ func AddFavoriteBoard(remoteAddr string, userID bbs.UUserID, params interface{},
 
 	startIdxStr := strconv.Itoa(theIdx)
 
-	statusCode, err = tryWriteFav(theFav, remoteAddr, userID, c)
+	statusCode, err = tryWriteFav(rootFav, remoteAddr, userID, c)
 	if err != nil {
 		return nil, statusCode, err
 	}

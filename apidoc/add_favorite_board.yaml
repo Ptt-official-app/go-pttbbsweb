@@ -16,6 +16,10 @@ parameters:
       '$id': https://json-schema.org/draft/2019-09/output/schema
       type: object
       properties:
+        level_idx:
+          type: string
+          default: ''
+          description: 從 folder 的 info 裡拿到的 level_idx
         bid:
           type: string
           description: board-id

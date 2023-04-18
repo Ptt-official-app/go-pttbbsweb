@@ -3,6 +3,7 @@ package fav
 import (
 	"encoding/binary"
 	"io"
+	"strconv"
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	pttbbsfav "github.com/Ptt-official-app/go-pttbbs/ptt/fav"
@@ -436,4 +437,36 @@ func (f *Fav) SetFavTypeFavIdx(startFavIdx int) (newFavIdx int) {
 	}
 
 	return newFavIdx
+}
+
+// LocateFav
+//
+// Locate the fav based on levelIdxList.
+// Requiring that all the fav / subFav are with Folder type.
+//
+// There will be 1 levelIdx in levelIdxList if referring to f itself.
+// Ex. if referring to f as root, then levelIdxList is []string{""}
+func (f *Fav) LocateFav(levelIdxList []string) (newFav *Fav, err error) {
+	if len(levelIdxList) < 2 {
+		return f, nil
+	}
+
+	nextIdxList := levelIdxList[1:]
+	nextIdx := nextIdxList[0]
+	theIdx := 0
+	if nextIdx != "" {
+		theIdx, err = strconv.Atoi(nextIdx)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	ftype := f.Favh[theIdx]
+	if ftype.TheType != pttbbsfav.FAVT_FOLDER {
+		return nil, ErrInvalidLevelIdx
+	}
+
+	newFav = ftype.CastFolder().ThisFolder
+
+	return newFav.LocateFav(nextIdxList)
 }

@@ -503,3 +503,69 @@ func TestFav_WriteFavrec(t *testing.T) {
 		})
 	}
 }
+
+func TestFav_LocateFav(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	filename0 := "./testcase/home1/t/testUser/.fav"
+
+	theBytes0, _ := ioutil.ReadFile(filename0)
+
+	buf0 := bytes.NewReader(theBytes0)
+
+	// version
+	version := int16(0)
+	_ = binary.Read(buf0, binary.LittleEndian, &version)
+
+	// fav
+	fav0, _ := ReadFavrec(buf0, nil, nil, 0)
+
+	subFav0 := fav0.Favh[2].CastFolder().ThisFolder
+
+	logrus.Infof("TestFav_LocateFav: fav0: %v", fav0)
+
+	type args struct {
+		levelIdxList []string
+	}
+	tests := []struct {
+		name       string
+		f          *Fav
+		args       args
+		wantNewFav *Fav
+		wantErr    bool
+	}{
+		// TODO: Add test cases.
+		{
+			f:          fav0,
+			args:       args{levelIdxList: []string{""}},
+			wantNewFav: fav0,
+		},
+		{
+			f:       fav0,
+			args:    args{levelIdxList: []string{"", "1"}},
+			wantErr: true,
+		},
+		{
+			f:          fav0,
+			args:       args{levelIdxList: []string{"", "2"}},
+			wantNewFav: subFav0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			f := tt.f
+			gotNewFav, err := f.LocateFav(tt.args.levelIdxList)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Fav.LocateFav() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			logrus.Infof("TestFav_LocateFav: to TDeepEqual")
+			if !reflect.DeepEqual(gotNewFav, tt.wantNewFav) {
+				t.Errorf("Fav.LocateFav: got: %v want: %v", gotNewFav, tt.wantNewFav)
+				return
+			}
+		})
+	}
+}

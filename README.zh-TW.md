@@ -4,7 +4,16 @@
 [![GoDoc](https://pkg.go.dev/badge/github.com/Ptt-official-app/go-openbbsmiddleware?status.svg)](https://pkg.go.dev/github.com/Ptt-official-app/go-openbbsmiddleware?tab=doc)
 [![codecov](https://codecov.io/gh/Ptt-official-app/go-openbbsmiddleware/branch/main/graph/badge.svg)](https://codecov.io/gh/Ptt-official-app/go-openbbsmiddleware)
 
+## README Translation
+
+* [English](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/README.en.md)
+* [正體中文](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/README.zh-TW.md)
+
+## 概觀
+
 這裡是使用 golang 來達成 [中介應用層](https://hackmd.io/@twbbs/Root#%E6%9E%B6%E6%A7%8B%E5%9C%96).
+
+與 [Ptt-official-app pttbbs](https://github.com/ptt-official-app/go-pttbbs) 一起成為 web-based BBS.
 
 ## Demo Site
 

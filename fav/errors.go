@@ -14,4 +14,6 @@ var (
 	ErrTooManyLines      = errors.New("too many lines")
 	ErrTooManyFolders    = errors.New("too many folders")
 	ErrTooMuchDepth      = errors.New("too much depth")
+
+	ErrInvalidLevelIdx = errors.New("invalid level-idx")
 )
