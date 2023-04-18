@@ -4,7 +4,9 @@ import (
 	"sync"
 	"testing"
 
+	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/gin-gonic/gin"
 )
@@ -27,7 +29,32 @@ func TestAddFavoriteBoard(t *testing.T) {
 		UserID: "SYSOP",
 	}
 
-	ret0 := AddFavoriteBoardResult(testBoardSummary10)
+	ret0 := AddFavoriteResult(testBoardSummary10)
+
+	params1 := &AddFavoriteBoardParams{
+		FBoardID: "WhoAmI",
+		LevelIdx: ":1",
+	}
+
+	ret1 := AddFavoriteResult(&apitypes.BoardSummary{
+		FBoardID:  "WhoAmI",
+		Brdname:   "WhoAmI",
+		Title:     "呵呵，猜猜我是誰！",
+		BrdAttr:   0,
+		BoardType: "◎",
+		Category:  "嘰哩",
+		NUser:     0,
+		BMs:       []bbs.UUserID{},
+		Total:     0,
+
+		LastPostTime: 0,
+		StatAttr:     ptttype.NBRD_FAV,
+		Idx:          "1",
+		Gid:          5,
+		Bid:          10,
+
+		URL: "/board/WhoAmI/articles",
+	})
 
 	type args struct {
 		remoteAddr string
@@ -39,7 +66,7 @@ func TestAddFavoriteBoard(t *testing.T) {
 	tests := []struct {
 		name           string
 		args           args
-		wantResult     AddFavoriteBoardResult
+		wantResult     AddFavoriteResult
 		wantStatusCode int
 		wantErr        bool
 	}{
@@ -47,6 +74,21 @@ func TestAddFavoriteBoard(t *testing.T) {
 		{
 			args:           args{params: params0, path: path0, userID: "SYSOP", remoteAddr: "localhost"},
 			wantResult:     ret0,
+			wantStatusCode: 200,
+		},
+		{
+			args:           args{params: params0, path: path0, userID: "SYSOP", remoteAddr: "localhost"},
+			wantResult:     ret0,
+			wantStatusCode: 200,
+		},
+		{
+			args:           args{params: params1, path: path0, userID: "SYSOP", remoteAddr: "localhost"},
+			wantResult:     ret1,
+			wantStatusCode: 200,
+		},
+		{
+			args:           args{params: params1, path: path0, userID: "SYSOP", remoteAddr: "localhost"},
+			wantResult:     ret1,
 			wantStatusCode: 200,
 		},
 	}
@@ -60,7 +102,7 @@ func TestAddFavoriteBoard(t *testing.T) {
 				t.Errorf("AddFavoriteBoard() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			got, _ := gotResult.(AddFavoriteBoardResult)
+			got, _ := gotResult.(AddFavoriteResult)
 			testutil.TDeepEqual(t, "got", got, tt.wantResult)
 			if gotStatusCode != tt.wantStatusCode {
 				t.Errorf("AddFavoriteBoard() gotStatusCode = %v, want %v", gotStatusCode, tt.wantStatusCode)

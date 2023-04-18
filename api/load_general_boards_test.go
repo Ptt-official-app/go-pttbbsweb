@@ -45,6 +45,7 @@ func TestLoadGeneralBoards(t *testing.T) {
 				Idx:          "test1",
 
 				Fav: true,
+				URL: "/board/test1/articles",
 			},
 			{
 				FBoardID:  "test2",
@@ -63,6 +64,8 @@ func TestLoadGeneralBoards(t *testing.T) {
 				Gid:          3,
 				Bid:          2,
 				Idx:          "test2",
+
+				URL: "/board/test2/articles",
 			},
 		},
 		NextIdx: "test3",

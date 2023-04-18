@@ -79,16 +79,16 @@ func LoadFavoriteBoards(remoteAddr string, userID bbs.UUserID, params interface{
 		each.Fav = true
 	}
 
-	r := NewLoadFavoriteBoardsResult(userFavorites_db, boardSummaryMap_db, userBoardInfoMap, nextIdx)
+	r := NewLoadFavoriteBoardsResult(userID, userFavorites_db, boardSummaryMap_db, userBoardInfoMap, nextIdx)
 
 	return r, 200, nil
 }
 
-func NewLoadFavoriteBoardsResult(userFavorites_db []*schema.UserFavorites, boardSummaryMap_db map[ptttype.Bid]*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, nextIdx string) (result *LoadFavoriteBoardsResult) {
+func NewLoadFavoriteBoardsResult(userID bbs.UUserID, userFavorites_db []*schema.UserFavorites, boardSummaryMap_db map[ptttype.Bid]*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, nextIdx string) (result *LoadFavoriteBoardsResult) {
 	theList := make([]*apitypes.BoardSummary, len(userFavorites_db))
 	for idx, each := range userFavorites_db {
 		if each.TheType != pttbbsfav.FAVT_BOARD {
-			theList[idx] = apitypes.NewBoardSummaryFromUserFavorites(each, nil, nil)
+			theList[idx] = apitypes.NewBoardSummaryFromUserFavorites(userID, each, nil, nil)
 			continue
 		}
 
@@ -101,7 +101,7 @@ func NewLoadFavoriteBoardsResult(userFavorites_db []*schema.UserFavorites, board
 		if !ok {
 			continue
 		}
-		theList[idx] = apitypes.NewBoardSummaryFromUserFavorites(each, boardSummary_db, userBoardInfo)
+		theList[idx] = apitypes.NewBoardSummaryFromUserFavorites(userID, each, boardSummary_db, userBoardInfo)
 	}
 
 	result = &LoadFavoriteBoardsResult{

@@ -320,37 +320,48 @@ func (f *Fav) GetBoard(bid ptttype.Bid) (idx int, favType *FavType, err error) {
 	return idx, favType, nil
 }
 
-func (f *Fav) AddLine() (favType *FavType, err error) {
+func (f *Fav) AddLine() (idx int, favType *FavType, err error) {
 	if f.isMaxSize() {
-		return nil, ErrTooManyFavs
+		return -1, nil, ErrTooManyFavs
 	}
 
 	if f.NLines >= MAX_LINE {
-		return nil, ErrTooManyLines
+		return -1, nil, ErrTooManyLines
 	}
 
 	fp := &FavLine{}
-	return f.PreAppend(pttbbsfav.FAVT_LINE, fp)
+	favType, err = f.PreAppend(pttbbsfav.FAVT_LINE, fp)
+	if err != nil {
+		return -1, nil, err
+	}
+
+	return len(f.Favh) - 1, favType, nil
 }
 
-func (f *Fav) AddFolder() (favType *FavType, err error) {
+func (f *Fav) AddFolder(title string) (idx int, favType *FavType, err error) {
 	if f.isMaxSize() {
-		return nil, ErrTooManyFavs
+		return -1, nil, ErrTooManyFavs
 	}
 
 	if f.NLines >= MAX_FOLDER {
-		return nil, ErrTooManyFolders
+		return -1, nil, ErrTooManyFolders
 	}
 
 	newFav, err := NewFav(f, f.Root, f.Depth+1)
 	if err != nil {
-		return nil, err
+		return -1, nil, err
 	}
 
 	fp := &FavFolder{
+		Title:      title,
 		ThisFolder: newFav,
 	}
-	return f.PreAppend(pttbbsfav.FAVT_FOLDER, fp)
+	favType, err = f.PreAppend(pttbbsfav.FAVT_FOLDER, fp)
+	if err != nil {
+		return -1, nil, err
+	}
+
+	return len(f.Favh) - 1, favType, nil
 }
 
 func (f *Fav) GetFavItem(theID int, theType pttbbsfav.FavT) (idx int, favType *FavType) {

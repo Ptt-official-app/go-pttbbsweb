@@ -44,6 +44,7 @@ func TestLoadPopularBoards(t *testing.T) {
 
 				Gid: 5,
 				Bid: 10,
+				URL: "/board/WhoAmI/articles",
 			},
 			{
 				FBoardID:  "SYSOP",
@@ -64,6 +65,7 @@ func TestLoadPopularBoards(t *testing.T) {
 				Bid: 1,
 
 				Fav: true,
+				URL: "/board/SYSOP/articles",
 			},
 			{
 				FBoardID:  "Note",
@@ -83,6 +85,7 @@ func TestLoadPopularBoards(t *testing.T) {
 				Gid: 5,
 				Bid: 8,
 				Fav: true,
+				URL: "/board/Note/articles",
 			},
 		},
 	}

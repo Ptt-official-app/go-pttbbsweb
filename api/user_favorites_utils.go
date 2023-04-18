@@ -100,6 +100,15 @@ func tryGetUserFavoritesCore(userID bbs.UUserID, c *gin.Context) (newDoubleBuffe
 	return newDoubleBufferIdx, backendMTime, 200, nil
 }
 
+func tryGetAllUserFavorites(userID bbs.UUserID, c *gin.Context) (userFavoritesMeta *schema.UserFavoritesMeta, userFavorites []*schema.UserFavorites, err error) {
+	_, _, _, err = tryGetUserFavoritesCore(userID, c)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return getAllUserFavoritesFromDB(userID)
+}
+
 func getAllUserFavoritesFromDB(userID bbs.UUserID) (userFavoritesMeta *schema.UserFavoritesMeta, userFavorites []*schema.UserFavorites, err error) {
 	// user-favorites-meta
 	userFavoritesMeta, err = schema.GetUserFavoritesMeta(userID)
@@ -247,4 +256,55 @@ func checkUserFavBoard(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*ap
 	}
 
 	return userBoardInfoMap, nil
+}
+
+func postAddFavorite(userID bbs.UUserID, rootFav *fav.Fav, remoteAddr string, levelIdx schema.LevelIdx, startIdx int, c *gin.Context, isBoard bool) (ret AddFavoriteResult, statusCode int, err error) {
+	statusCode, err = tryWriteFav(rootFav, remoteAddr, userID, c)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	startIdxStr := strconv.Itoa(startIdx)
+
+	newUserFavorites, _, statusCode, err := tryGetUserFavorites(userID, levelIdx, startIdxStr, true, 1, c)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	if len(newUserFavorites) != 1 {
+		return nil, 500, ErrInvalidFav
+	}
+
+	newUserFavorite := newUserFavorites[0]
+	if !isBoard {
+		summary := apitypes.NewBoardSummaryFromUserFavorites(userID, newUserFavorite, nil, nil)
+		return AddFavoriteResult(summary), 200, nil
+	}
+
+	boardSummaryMap_db, userBoardInfoMap, statusCode, err := tryGetBoardSummaryMapFromUserFavorites(userID, newUserFavorites, c)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	boardSummaries_db := make([]*schema.BoardSummary, 0, len(boardSummaryMap_db))
+	for _, each := range boardSummaryMap_db {
+		boardSummaries_db = append(boardSummaries_db, each)
+	}
+
+	userBoardInfoMap, err = checkUserReadBoard(userID, userBoardInfoMap, boardSummaries_db)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	boardSummary_db, ok := boardSummaryMap_db[ptttype.Bid(newUserFavorite.TheID)]
+	if !ok {
+		return nil, 500, ErrInvalidFav
+	}
+	userBoardInfo, ok := userBoardInfoMap[boardSummary_db.BBoardID]
+	if !ok {
+		return nil, 500, ErrInvalidFav
+	}
+
+	summary := apitypes.NewBoardSummaryFromUserFavorites(userID, newUserFavorite, boardSummary_db, userBoardInfo)
+	return AddFavoriteResult(summary), 200, nil
 }

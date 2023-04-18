@@ -48,3 +48,7 @@ pttbid:
 idx:
   type: string
   description: index
+
+url:
+  type: string
+  description: url
