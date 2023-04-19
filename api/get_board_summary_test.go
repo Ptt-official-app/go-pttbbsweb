@@ -40,6 +40,8 @@ func TestGetBoardSummary(t *testing.T) {
 
 		LastPostTime: 1234567890,
 		StatAttr:     ptttype.NBRD_BOARD,
+
+		URL: "/board/test1/articles",
 	})
 
 	type args struct {

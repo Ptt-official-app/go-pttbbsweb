@@ -80,6 +80,7 @@ func TestLoadClassBoards(t *testing.T) {
 				Bid: 1,
 
 				Idx: "test1",
+				URL: "/board/test1/articles",
 			},
 			{
 				FBoardID:  "test2",
@@ -99,6 +100,7 @@ func TestLoadClassBoards(t *testing.T) {
 				Gid: 3,
 				Bid: 2,
 				Idx: "test2",
+				URL: "/board/test2/articles",
 			},
 		},
 	}

@@ -76,6 +76,8 @@ var (
 		Gid:          3,
 		Bid:          9,
 		Fav:          true,
+
+		URL: "/board/test9/articles",
 	}
 
 	testBoardSummary8 = &apitypes.BoardSummary{
@@ -95,6 +97,8 @@ var (
 		Gid:          3,
 		Bid:          8,
 		Fav:          true,
+
+		URL: "/board/test8/articles",
 	}
 
 	testBoardSummary10 = &apitypes.BoardSummary{
@@ -113,14 +117,16 @@ var (
 		Idx:          "6",
 		Gid:          5,
 		Bid:          10,
+
+		URL: "/board/WhoAmI/articles",
 	}
 
 	testFavoriteBoards0 = []*apitypes.BoardSummary{
 		{StatAttr: ptttype.NBRD_LINE, Idx: "0"},
-		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":1", Idx: "1"},
+		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":1", Idx: "1", URL: "/user/SYSOP/favorites?level_idx=:1"},
 		{StatAttr: ptttype.NBRD_LINE, Idx: "2"},
 		testBoardSummary9,
-		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":4", Idx: "4"},
+		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":4", Idx: "4", URL: "/user/SYSOP/favorites?level_idx=:4"},
 		testBoardSummary8,
 	}
 

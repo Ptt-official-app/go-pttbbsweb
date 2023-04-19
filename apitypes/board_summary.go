@@ -26,7 +26,9 @@ type BoardSummary struct {
 	LastPostTime types.Time8     `json:"last_post_time"`
 
 	StatAttr ptttype.BoardStatAttr `json:"stat_attr,omitempty"`
-	LevelIdx schema.LevelIdx       `json:"level_idx,omitempty"`
+	LevelIdx schema.LevelIdx       `json:"level_idx,omitempty"` // sub-level-idx for folder, "" if type is line or board.
+
+	URL string `json:"url,omitempty"`
 
 	Gid ptttype.Bid `json:"gid"`
 	Bid ptttype.Bid `json:"pttbid"`
@@ -38,8 +40,20 @@ func NewBoardSummary(b_db *schema.BoardSummary, idx string, userBoardInfo *UserB
 	if b_db == nil {
 		return nil
 	}
+
+	fboardID := ToFBoardID(b_db.BBoardID)
+
+	url := ""
+	if b_db.BrdAttr.HasPerm(ptttype.BRD_GROUPBOARD) {
+		// XXX api.LOAD_CLASS_BOARDS_R
+		bidStr := strconv.Itoa(int(b_db.Bid))
+		url = "/cls/" + bidStr
+	} else {
+		// XXX api.LOAD_GENERAL_ARTICLES_R
+		url = "/board/" + string(fboardID) + "/articles"
+	}
 	return &BoardSummary{
-		FBoardID:     ToFBoardID(b_db.BBoardID),
+		FBoardID:     fboardID,
 		Brdname:      b_db.Brdname,
 		Title:        b_db.Title,
 		BrdAttr:      b_db.BrdAttr,
@@ -58,10 +72,12 @@ func NewBoardSummary(b_db *schema.BoardSummary, idx string, userBoardInfo *UserB
 		StatAttr: userBoardInfo.Stat,
 		Read:     userBoardInfo.Read,
 		Fav:      userBoardInfo.Fav,
+
+		URL: url,
 	}
 }
 
-func NewBoardSummaryFromUserFavorites(uf_db *schema.UserFavorites, b_db *schema.BoardSummary, userBoardInfo *UserBoardInfo) *BoardSummary {
+func NewBoardSummaryFromUserFavorites(userID bbs.UUserID, uf_db *schema.UserFavorites, b_db *schema.BoardSummary, userBoardInfo *UserBoardInfo) *BoardSummary {
 	idxStr := strconv.Itoa(uf_db.Idx)
 
 	switch uf_db.TheType {
@@ -71,12 +87,16 @@ func NewBoardSummaryFromUserFavorites(uf_db *schema.UserFavorites, b_db *schema.
 			Idx:      idxStr,
 		}
 	case pttbbsfav.FAVT_FOLDER:
+		// XXX api.LOAD_FAVORITE_BOARDS_R
+		subLevelIdx := schema.SetLevelIdx(uf_db.LevelIdx, uf_db.Idx)
+		url := "/user/" + string(userID) + "/favorites?level_idx=" + string(subLevelIdx)
 		return &BoardSummary{
 			Title: uf_db.FolderTitle,
 
 			StatAttr: ptttype.NBRD_FOLDER,
-			LevelIdx: schema.SetLevelIdx(uf_db.LevelIdx, uf_db.Idx),
+			LevelIdx: subLevelIdx,
 			Idx:      idxStr,
+			URL:      url,
 		}
 
 	case pttbbsfav.FAVT_BOARD:

@@ -35,3 +35,7 @@ var (
 const (
 	MAX_USER_FAVORITES_BUF_SIZE = 65535
 )
+
+const (
+	DEFAULT_FAV_TITLE = "新的目錄"
+)

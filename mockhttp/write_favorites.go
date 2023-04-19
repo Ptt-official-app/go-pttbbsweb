@@ -5,6 +5,7 @@ import (
 
 	"github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbs/types"
 	"github.com/sirupsen/logrus"
 )
 
@@ -14,9 +15,9 @@ func WriteFavorites(params *api.WriteFavoritesParams) (ret *api.WriteFavoritesRe
 
 	logrus.Infof("WriteFavorites: content: %v", params.Content)
 
-	FAVORITES_VERSION = 1
+	FAVORITES_VERSION++
 	ret = &api.WriteFavoritesResult{
-		MTime: 1234567892,
+		MTime: types.Time4(1234567892 + FAVORITES_VERSION),
 	}
 
 	return ret

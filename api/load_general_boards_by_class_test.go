@@ -42,6 +42,7 @@ func TestLoadGeneralBoardsByClass(t *testing.T) {
 
 				LastPostTime: 1234567890,
 				StatAttr:     ptttype.NBRD_BOARD,
+				URL:          "/board/test1/articles",
 			},
 			{
 				FBoardID:  "test2",
@@ -57,6 +58,7 @@ func TestLoadGeneralBoardsByClass(t *testing.T) {
 
 				LastPostTime: 1300000000,
 				StatAttr:     ptttype.NBRD_BOARD,
+				URL:          "/board/test2/articles",
 			},
 		},
 		NextIdx: "vFSt-Q@test3",

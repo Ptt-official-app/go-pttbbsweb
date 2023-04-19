@@ -38,6 +38,8 @@ func TestCreateBoard(t *testing.T) {
 		Idx:       "",
 		Read:      true,
 		Bid:       13,
+
+		URL: "/board/test3/articles",
 	}
 
 	type args struct {

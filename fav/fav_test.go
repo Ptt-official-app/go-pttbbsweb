@@ -64,7 +64,7 @@ func TestFavRaw_AddBoard(t *testing.T) {
 
 	f3, _ := NewFav(nil, nil, 0)
 	_, _, _ = f3.AddBoard(1)
-	favType3, _ := f3.AddFolder()
+	_, favType3, _ := f3.AddFolder("")
 	favFolder3 := favType3.Fp.(*FavFolder)
 
 	ft3 := &FavType{2, pttbbsfav.FAVT_BOARD, 1, &FavBoard{1, 0, 0}}
@@ -285,7 +285,7 @@ func TestFavRaw_AddLine(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := tt.f
-			gotFavType, err := f.AddLine()
+			_, gotFavType, err := f.AddLine()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("FavRaw.AddLine() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -321,7 +321,7 @@ func TestFavRaw_AddFolder(t *testing.T) {
 	}
 
 	f1, _ := NewFav(nil, nil, 0)
-	_, _ = f1.AddFolder()
+	_, _, _ = f1.AddFolder("")
 
 	folder1, _ := NewFav(nil, nil, 1)
 	ft1 := &FavType{1, pttbbsfav.FAVT_FOLDER, 1, &FavFolder{Fid: 2, ThisFolder: folder1}}
@@ -357,7 +357,7 @@ func TestFavRaw_AddFolder(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			f := tt.f
-			gotFavType, err := f.AddFolder()
+			_, gotFavType, err := f.AddFolder("")
 			if (err != nil) != tt.wantErr {
 				t.Errorf("FavRaw.AddFolder() error = %v, wantErr %v", err, tt.wantErr)
 				return
