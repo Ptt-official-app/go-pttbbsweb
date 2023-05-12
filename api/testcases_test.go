@@ -130,6 +130,56 @@ var (
 		testBoardSummary8,
 	}
 
+	testDeleteBoardSummary9 = &apitypes.BoardSummary{
+		FBoardID:  "test9",
+		Brdname:   "test9",
+		Title:     "測試9",
+		BrdAttr:   0,
+		BoardType: "◎",
+		Category:  "測試",
+		NUser:     100,
+		BMs:       []bbs.UUserID{"okcool", "teemo"},
+		Total:     123,
+
+		LastPostTime: 1234567890,
+		StatAttr:     ptttype.NBRD_BOARD,
+		Idx:          "2",
+		Gid:          3,
+		Bid:          9,
+		Fav:          true,
+
+		URL: "/board/test9/articles",
+	}
+
+	testDeleteBoardSummary8 = &apitypes.BoardSummary{
+		FBoardID:  "test8",
+		Brdname:   "test8",
+		Title:     "測試8",
+		BrdAttr:   0,
+		BoardType: "◎",
+		Category:  "測試",
+		NUser:     101,
+		BMs:       []bbs.UUserID{"okcool2", "teemo2"},
+		Total:     124,
+
+		LastPostTime: 1300000000,
+		StatAttr:     ptttype.NBRD_BOARD,
+		Idx:          "4",
+		Gid:          3,
+		Bid:          8,
+		Fav:          true,
+
+		URL: "/board/test8/articles",
+	}
+
+	testDeleteFavoriteBoards0 = []*apitypes.BoardSummary{
+		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":0", Idx: "0", URL: "/user/SYSOP/favorites?level_idx=:0"},
+		{StatAttr: ptttype.NBRD_LINE, Idx: "1"},
+		testDeleteBoardSummary9,
+		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":3", Idx: "3", URL: "/user/SYSOP/favorites?level_idx=:3"},
+		testDeleteBoardSummary8,
+	}
+
 	testBoardSummaryWhoAmI_b = &bbs.BoardSummary{
 		Gid:      5,
 		Bid:      10,
