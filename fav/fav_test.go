@@ -569,3 +569,122 @@ func TestFav_LocateFav(t *testing.T) {
 		})
 	}
 }
+
+func TestFav_DeleteIdx(t *testing.T) {
+	setupTest()
+	defer teardownTest()
+
+	filename0 := "./testcase/home1/t/testUser/.fav"
+
+	theBytes0, _ := ioutil.ReadFile(filename0)
+
+	// fav0
+	buf0 := bytes.NewReader(theBytes0)
+	version := int16(0)
+	_ = binary.Read(buf0, binary.LittleEndian, &version)
+	fav0, _ := ReadFavrec(buf0, nil, nil, 0)
+
+	logrus.Infof("fav0.Favh: (%v/%v)", fav0.Favh, len(fav0.Favh))
+	for idx, each := range fav0.Favh {
+		logrus.Infof("(%v/%v) %v", idx, len(fav0.Favh), each)
+	}
+
+	buf0 = bytes.NewReader(theBytes0)
+	_ = binary.Read(buf0, binary.LittleEndian, &version)
+	ret0, err := ReadFavrec(buf0, nil, nil, 0)
+
+	logrus.Infof("ret0.Favh (after read): e: %v ret0: (%v/%v)", err, ret0, len(ret0.Favh))
+
+	ret0.Favh = ret0.Favh[1:]
+	ret0.FavNum--
+	ret0.NBoards--
+	logrus.Infof("ret0.Favh (after 1:): (%v/%v)", ret0.Favh, len(ret0.Favh))
+
+	// fav1
+	buf1 := bytes.NewReader(theBytes0)
+	_ = binary.Read(buf1, binary.LittleEndian, &version)
+	fav1, _ := ReadFavrec(buf1, nil, nil, 0)
+
+	fav1Folder := fav1.Favh[2].CastFolder()
+	fav1Child := fav1Folder.ThisFolder
+
+	// ret1
+	buf1 = bytes.NewReader(theBytes0)
+	_ = binary.Read(buf1, binary.LittleEndian, &version)
+	ret1, _ := ReadFavrec(buf1, nil, nil, 0)
+	ret1.FavNum -= fav1Child.FavNum
+
+	ret1Folder := ret1.Favh[2].CastFolder()
+	ret1Folder.ThisFolder.FavNum--
+	ret1Folder.ThisFolder.NBoards--
+	ret1Folder.ThisFolder.Favh = []*FavType{}
+
+	// fav2
+	buf2 := bytes.NewReader(theBytes0)
+	_ = binary.Read(buf2, binary.LittleEndian, &version)
+	fav2, _ := ReadFavrec(buf2, nil, nil, 0)
+
+	// ret1
+	buf2 = bytes.NewReader(theBytes0)
+	_ = binary.Read(buf2, binary.LittleEndian, &version)
+	ret2, _ := ReadFavrec(buf2, nil, nil, 0)
+
+	logrus.Infof("ret2.Favh (after read): %v", ret2.Favh)
+
+	ret2Folder := ret2.Favh[2].CastFolder()
+	ret2.FavNum -= 1 + ret2Folder.ThisFolder.FavNum
+	ret2.NFolders--
+	ret2.Favh = append(ret2.Favh[:2], ret2.Favh[3:]...)
+
+	logrus.Infof("ret2 (after remove folder): %v", ret2.Favh)
+
+	type args struct {
+		idx int
+	}
+	tests := []struct {
+		name    string
+		f       *Fav
+		rootF   *Fav
+		args    args
+		wantF   *Fav
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+		{
+			name:  "remove a board",
+			f:     fav0,
+			rootF: fav0,
+			args:  args{idx: 0},
+			wantF: ret0,
+		},
+		{
+			name:  "remove board in a folder",
+			f:     fav1Child,
+			rootF: fav1,
+			args:  args{idx: 0},
+			wantF: ret1,
+		},
+		{
+			name:  "remove folder",
+			f:     fav2,
+			rootF: fav2,
+			args:  args{idx: 2},
+			wantF: ret2,
+		},
+	}
+	var wg sync.WaitGroup
+	for _, tt := range tests {
+		wg.Add(1)
+		t.Run(tt.name, func(t *testing.T) {
+			defer wg.Done()
+			f := tt.f
+			logrus.Infof("Fav.DeleteIdx: to DeleteIdx: f: (%v/%v)", f.Favh, len(f.Favh))
+			if err := f.DeleteIdx(tt.args.idx); (err != nil) != tt.wantErr {
+				t.Errorf("Fav.DeleteIdx() error = %v, wantErr %v", err, tt.wantErr)
+			}
+
+			assert.Equal(t, tt.wantF, tt.rootF, "rootF")
+		})
+		wg.Wait()
+	}
+}
