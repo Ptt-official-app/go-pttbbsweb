@@ -124,6 +124,15 @@ def _add_favorite_line(user_id):
     return ''
 
 
+@app.route(_with_app_prefix('/user/<user_id>/favorites/delete'), methods=['POST'])
+def _delete_favorite(user_id):
+    """
+    swagger_from_file: apidoc/delete_favorite.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/boards'))
 def _load_general_boards():
     """

@@ -481,3 +481,54 @@ func (f *Fav) LocateFav(levelIdxList []string) (newFav *Fav, err error) {
 
 	return newFav.LocateFav(nextIdxList)
 }
+
+func (f *Fav) DeleteIdx(idx int) (err error) {
+	if len(f.Favh) <= idx {
+		return ErrInvalidFavRecord
+	}
+
+	childFav := f.Favh[idx]
+
+	prefixFavs := f.Favh[:idx]
+	postFavs := f.Favh[idx+1:]
+
+	favNum := 1
+	switch childFav.TheType {
+	case pttbbsfav.FAVT_BOARD:
+		f.NBoards--
+	case pttbbsfav.FAVT_FOLDER:
+		childFavFolder := childFav.CastFolder()
+		f.NFolders--
+		favNum += childFavFolder.ThisFolder.FavNum
+		for _, each := range postFavs {
+			if each.TheType == pttbbsfav.FAVT_FOLDER {
+				eachFolder := each.CastFolder()
+				eachFolder.Fid--
+			}
+		}
+	case pttbbsfav.FAVT_LINE:
+		f.NLines--
+		for _, each := range postFavs {
+			if each.TheType == pttbbsfav.FAVT_LINE {
+				eachLine := each.CastLine()
+				eachLine.Lid--
+			}
+		}
+	}
+
+	f.Favh = append(prefixFavs, postFavs...)
+
+	f.FavNum -= favNum
+	if f.Parent != nil {
+		f.Parent.DeleteFavNum(favNum)
+	}
+
+	return nil
+}
+
+func (f *Fav) DeleteFavNum(favNum int) {
+	f.FavNum -= favNum
+	if f.Parent != nil {
+		f.Parent.DeleteFavNum(favNum)
+	}
+}

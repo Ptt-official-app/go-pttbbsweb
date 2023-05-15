@@ -81,6 +81,7 @@ func initGin() (*gin.Engine, error) {
 	router.POST(withPrefix(api.ADD_FAVORITE_BOARD_R), api.AddFavoriteBoardWrapper)
 	router.POST(withPrefix(api.ADD_FAVORITE_FOLDER_R), api.AddFavoriteFolderWrapper)
 	router.POST(withPrefix(api.ADD_FAVORITE_LINE_R), api.AddFavoriteLineWrapper)
+	router.POST(withPrefix(api.DELETE_FAVORITE_R), api.DeleteFavoriteWrapper)
 
 	// comments
 	router.GET(withPrefix(api.LOAD_ARTICLE_COMMENTS_R), api.LoadArticleCommentsWrapper)
