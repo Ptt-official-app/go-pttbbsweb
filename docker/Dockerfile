@@ -3,6 +3,8 @@ FROM golang:1.19-bullseye
 ENV GOROOT=/usr/local/go
 ENV PATH=${PATH}:/usr/local/go/bin
 
+ARG TAG=docker
+
 # go-pttbbs
 COPY . /srv/go-openbbsmiddleware
 
@@ -11,7 +13,8 @@ RUN mkdir -p /etc/go-openbbsmiddleware && cp docs/config/01-config.docker.ini /e
 
 WORKDIR /srv/go-openbbsmiddleware
 RUN go mod download
-RUN cp /srv/go-openbbsmiddleware/docs/config/00-config-production.go.template /go/pkg/mod/github.com/\!ptt-official-app/go-pttbbs*/ptttype/00-config-production.go && go build -tags production -ldflags "-X github.com/Ptt-official-app/go-openbbsmiddleware/types.GIT_VERSION=`git rev-parse --short HEAD` -X github.com/Ptt-official-app/go-openbbsmiddleware/types.VERSION=`git describe --tags`"
+RUN cp /srv/go-openbbsmiddleware/docs/config/00-config-production.go.template /go/pkg/mod/github.com/\!ptt-official-app/go-pttbbs*/ptttype/00-config-production.go
+RUN go build -ldflags "-X github.com/Ptt-official-app/go-openbbsmiddleware/types.GIT_VERSION=`git rev-parse --short HEAD` -X github.com/Ptt-official-app/go-openbbsmiddleware/types.VERSION=`git describe --tags`" -tags ${TAG}
 
 RUN mkdir -p /static
 

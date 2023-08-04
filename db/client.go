@@ -20,8 +20,7 @@ type Client struct {
 func NewClient(protocol string, host string, port int, dbname string) (*Client, error) {
 	uri := fmt.Sprintf("%v://%v:%v", protocol, host, port)
 
-	writeConcern := writeconcern.New(writeconcern.WMajority())
-	mongoClient, err := mongo.NewClient(options.Client().ApplyURI(uri), options.Client().SetWriteConcern(writeConcern))
+	mongoClient, err := mongo.Connect(context.Background(), options.Client().ApplyURI(uri), options.Client().SetWriteConcern(writeconcern.Majority()))
 	if err != nil {
 		return nil, err
 	}
@@ -30,11 +29,6 @@ func NewClient(protocol string, host string, port int, dbname string) (*Client, 
 		ctx:  context.Background(),
 		c:    mongoClient,
 		coll: make(map[string]*Collection),
-	}
-
-	err = mongoClient.Connect(client.ctx)
-	if err != nil {
-		return nil, err
 	}
 
 	err = client.Ping()
