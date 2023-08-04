@@ -3,7 +3,6 @@ package api
 import (
 	"fmt"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
@@ -27,9 +26,10 @@ func NewLoginParams() *LoginParams {
 }
 
 type LoginResult struct {
-	UserID      bbs.UUserID `json:"user_id"`
-	AccessToken string      `json:"access_token"`
-	TokenType   string      `json:"token_type"`
+	UserID       bbs.UUserID `json:"user_id"`
+	AccessToken  string      `json:"access_token"`
+	TokenType    string      `json:"token_type"`
+	RefreshToken string      `json:"refresh_token"`
 }
 
 // LoginLog record user login info, no matter success or not
@@ -41,7 +41,7 @@ type LoginLog struct {
 	IsSuccess bool
 }
 
-func (l LoginLog) String() string {
+func (l *LoginLog) String() string {
 	var success string
 	if l.IsSuccess {
 		success = "\033[97;42mSuccess\033[0m"
@@ -59,7 +59,7 @@ func LoginWrapper(c *gin.Context) {
 func Login(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoginParams)
 	// record user login
-	loginLog := LoginLog{
+	loginLog := &LoginLog{
 		ClientInfo: ClientInfo{
 			ClientID: theParams.ClientID,
 		},
@@ -102,25 +102,19 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 	// update: loginLog success login
 	loginLog.IsSuccess = true
 
-	// update db
-	updateNanoTS := types.NowNanoTS()
-	accessToken_db, err := deserializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt, updateNanoTS)
-	if err != nil {
-		return nil, 500, err
-	}
-
 	// result
-	result = NewLoginResult(accessToken_db)
+	result = NewLoginResult(result_b)
 
-	setTokenToCookie(c, accessToken_db.AccessToken)
+	setTokenToCookie(c, result_b.Jwt)
 
 	return result, 200, nil
 }
 
-func NewLoginResult(accessToken_db *schema.AccessToken) *LoginResult {
+func NewLoginResult(loginResult_b *pttbbsapi.LoginResult) *LoginResult {
 	return &LoginResult{
-		UserID:      accessToken_db.UserID,
-		AccessToken: accessToken_db.AccessToken,
-		TokenType:   "bearer",
+		UserID:       loginResult_b.UserID,
+		AccessToken:  loginResult_b.Jwt,
+		TokenType:    "bearer",
+		RefreshToken: loginResult_b.Refresh,
 	}
 }

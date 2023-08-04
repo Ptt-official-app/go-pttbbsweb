@@ -44,6 +44,15 @@ def _login():
     return ''
 
 
+@app.route(_with_app_prefix('/account/refresh'), methods=['POST'])
+def _login():
+    """
+    swagger_from_file: apidoc/refresh.yaml
+
+    """
+    return ''
+
+
 @app.route(_with_app_prefix('/account/logout'), methods=['POST'])
 def _logout():
     """
