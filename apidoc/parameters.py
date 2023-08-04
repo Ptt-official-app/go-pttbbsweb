@@ -19,26 +19,14 @@ with open(filename3, 'r') as f:
 paths2 = the_struct2.get('paths', {})
 paths3 = the_struct3.get('paths', {})
 
-
-def _is_not_authorization(x):
-    if '$ref' in x:
-        return x['$ref'] != '#/definitions/ParamsAuthorization'
-
-    return x['name'] != 'Authorization'
-
-
 # params
 for path, data_by_path in paths3.items():
     for method, data_by_method in data_by_path.items():
-        request_body = data_by_method.get('requestBody', None)
-        if request_body is not None:
-            continue
-
         params2 = paths2.get(path, {}).get(method, {}).get('parameters')
         if params2 is None:
             logging.warning('no params: path: %s', path)
             continue
-        params2 = list(filter(_is_not_authorization, params2))
+
         for each in params2:
             if '$ref' in each:
                 val = re.sub(r'#/definitions', '#/components/schemas', each['$ref'])

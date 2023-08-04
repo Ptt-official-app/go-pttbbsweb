@@ -25,7 +25,7 @@ func verifyJwt(c *gin.Context) (userID bbs.UUserID, err error) {
 		jwt = utils.GetCookie(c, types.ACCESS_TOKEN_NAME)
 	}
 
-	userID, clientInfoStr, err := pttbbsapi.VerifyJwt(jwt)
+	userID, _, clientInfoStr, err := pttbbsapi.VerifyJwt(jwt, true)
 	if err != nil {
 		return "", err
 	}

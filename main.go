@@ -39,6 +39,7 @@ func initGin() (*gin.Engine, error) {
 	router.POST(withPrefix(api.ATTEMPT_REGISTER_USER_R), api.AttemptRegisterUserWrapper)
 	router.POST(withPrefix(api.CHECK_EXISTS_USER_R), api.CheckExistsUserWrapper)
 	router.POST(withPrefix(api.LOGOUT_R), api.LogoutWrapper)
+	router.POST(withPrefix(api.REFRESH_R), api.RefreshWrapper)
 
 	// board
 	router.GET(withPrefix(api.LOAD_GENERAL_BOARDS_R), api.LoadGeneralBoardsWrapper)
