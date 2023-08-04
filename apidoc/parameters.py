@@ -31,6 +31,11 @@ for path, data_by_path in paths3.items():
             if '$ref' in each:
                 val = re.sub(r'#/definitions', '#/components/schemas', each['$ref'])
                 each['$ref'] = val
+            if 'schema' in each:
+                schema = each['schema']
+                if '$ref' in schema:
+                    val = re.sub(r'#/definitions', '#/components/schemas', schema['$ref'])
+                    schema['$ref'] = val
         data_by_method['parameters'] = params2
 
 # definitions
