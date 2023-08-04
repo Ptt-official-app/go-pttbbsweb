@@ -21,7 +21,7 @@ func Logout(remoteAddr string, params interface{}, c *gin.Context) (result inter
 		jwt = utils.GetCookie(c, types.ACCESS_TOKEN_NAME)
 	}
 
-	userID, _, err := pttbbsapi.VerifyJwt(jwt)
+	userID, _, _, err := pttbbsapi.VerifyJwt(jwt, true)
 	if err == nil {
 		userVisit := &schema.UserVisit{
 			UserID:       userID,
