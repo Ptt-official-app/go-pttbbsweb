@@ -18,7 +18,7 @@ type RefreshResult LoginResult
 
 func RefreshWrapper(c *gin.Context) {
 	params := &RefreshParams{}
-	FormJSON(Login, params, c)
+	FormJSON(Refresh, params, c)
 }
 
 func Refresh(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {

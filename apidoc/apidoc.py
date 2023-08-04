@@ -45,7 +45,7 @@ def _login():
 
 
 @app.route(_with_app_prefix('/account/refresh'), methods=['POST'])
-def _login():
+def _refresh():
     """
     swagger_from_file: apidoc/refresh.yaml
 
