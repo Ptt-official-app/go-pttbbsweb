@@ -7,3 +7,5 @@ AccessToken:
       type: string
     token_type:
       type: string
+    refresh_token:
+      type: string
