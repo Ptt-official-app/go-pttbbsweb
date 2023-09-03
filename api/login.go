@@ -26,10 +26,12 @@ func NewLoginParams() *LoginParams {
 }
 
 type LoginResult struct {
-	UserID       bbs.UUserID `json:"user_id"`
-	AccessToken  string      `json:"access_token"`
-	TokenType    string      `json:"token_type"`
-	RefreshToken string      `json:"refresh_token"`
+	UserID        bbs.UUserID `json:"user_id"`
+	AccessToken   string      `json:"access_token"`
+	TokenType     string      `json:"token_type"`
+	RefreshToken  string      `json:"refresh_token"`
+	AccessExpire  types.Time8 `json:"access_expire"`
+	RefreshExpire types.Time8 `json:"refresh_expire"`
 }
 
 // LoginLog record user login info, no matter success or not
@@ -110,11 +112,13 @@ func Login(remoteAddr string, params interface{}, c *gin.Context) (result interf
 	return result, 200, nil
 }
 
-func NewLoginResult(loginResult_b *pttbbsapi.LoginResult) *LoginResult {
+func NewLoginResult(result_b *pttbbsapi.LoginResult) *LoginResult {
 	return &LoginResult{
-		UserID:       loginResult_b.UserID,
-		AccessToken:  loginResult_b.Jwt,
-		TokenType:    "bearer",
-		RefreshToken: loginResult_b.Refresh,
+		UserID:        result_b.UserID,
+		AccessToken:   result_b.Jwt,
+		TokenType:     "bearer",
+		RefreshToken:  result_b.Refresh,
+		AccessExpire:  types.Time8(result_b.AccessExpire),
+		RefreshExpire: types.Time8(result_b.RefreshExpire),
 	}
 }

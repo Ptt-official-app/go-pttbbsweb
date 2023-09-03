@@ -1,7 +1,6 @@
 package api
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
@@ -24,11 +23,7 @@ type ChangePasswdPath struct {
 	UserID bbs.UUserID `uri:"user_id"`
 }
 
-type ChangePasswdResult struct {
-	UserID      bbs.UUserID `json:"user_id"`
-	AccessToken string      `json:"access_token"`
-	TokenType   string      `json:"token_type"`
-}
+type ChangePasswdResult LoginResult
 
 func ChangePasswdWrapper(c *gin.Context) {
 	params := &ChangePasswdParams{}
@@ -77,24 +72,21 @@ func ChangePasswd(remoteAddr string, userID bbs.UUserID, params interface{}, pat
 		return nil, statusCode, err
 	}
 
-	// update db
-	updateNanoTS := types.NowNanoTS()
-	accessToken_db, err := deserializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt, updateNanoTS)
-	if err != nil {
-		return nil, 500, err
-	}
 	// result
-	result = NewChangePasswdResult(accessToken_db)
+	result = NewChangePasswdResult(result_b)
 
-	setTokenToCookie(c, accessToken_db.AccessToken)
+	setTokenToCookie(c, result_b.Jwt)
 
 	return result, 200, nil
 }
 
-func NewChangePasswdResult(accessToken_db *schema.AccessToken) *ChangePasswdResult {
+func NewChangePasswdResult(result_b *pttbbsapi.ChangePasswdResult) *ChangePasswdResult {
 	return &ChangePasswdResult{
-		UserID:      accessToken_db.UserID,
-		AccessToken: accessToken_db.AccessToken,
-		TokenType:   "bearer",
+		UserID:        result_b.UserID,
+		AccessToken:   result_b.Jwt,
+		TokenType:     "bearer",
+		RefreshToken:  result_b.Refresh,
+		AccessExpire:  types.Time8(result_b.AccessExpire),
+		RefreshExpire: types.Time8(result_b.RefreshExpire),
 	}
 }

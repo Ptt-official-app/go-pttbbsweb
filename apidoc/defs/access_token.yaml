@@ -9,3 +9,9 @@ AccessToken:
       type: string
     refresh_token:
       type: string
+    access_expire:
+      type: number
+      description: expire time (in unix-time) of access token
+    refresh_expire:
+      type: number
+      description: expire time (in unix-time) of refresh token
