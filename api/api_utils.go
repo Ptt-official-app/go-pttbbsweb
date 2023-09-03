@@ -132,9 +132,10 @@ func processCSRFContent(filename string, cacheControlMaxAge int, c *gin.Context)
 }
 
 func setCookie(c *gin.Context, name string, value string, expireDuration time.Duration, isHTTPOnly bool) {
-	if c == nil {
+	if c == nil || IsTest {
 		return
 	}
+
 	setCookie := name + "=" + value + ";Domain=" + types.COOKIE_DOMAIN + ";Path=/;"
 	if expireDuration != 0 {
 		expires := time.Now().Add(expireDuration)

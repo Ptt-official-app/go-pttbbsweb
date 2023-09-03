@@ -38,8 +38,8 @@ cloud.google.com/go/storage v1.14.0/go.mod h1:GrKmX003DSIwi9o29oFT7YDnHYwZoctc3f
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
-github.com/Ptt-official-app/go-pttbbs v0.24.1 h1:sOsQ3WM3AQIPa0ISMk1BSjIpH2CDfd3OMKcd4u7KfCE=
-github.com/Ptt-official-app/go-pttbbs v0.24.1/go.mod h1:pDsPR7zOfQqnePpng50bkYsiKUkiKG+wZVd3MVtCCKo=
+github.com/Ptt-official-app/go-pttbbs v0.24.2 h1:pY4i41Lq41V3gYNod6tb0S5c+Y91Fm4bzBPFHShl1aM=
+github.com/Ptt-official-app/go-pttbbs v0.24.2/go.mod h1:YvNUk97K6m++Vmy0aSZ0sEE2T1BJdDq2L5zrpn5deoo=
 github.com/appleboy/graceful v0.0.4 h1:Q4LCeq4DFy59qiACLtuH+mSqDERtUzwkQbCWpRaWwvQ=
 github.com/appleboy/graceful v0.0.4/go.mod h1:Q2mVx0t+N0lCDZc5MJudbcpTm6cgGM/J2gZCZIqD9dc=
 github.com/bytedance/sonic v1.5.0/go.mod h1:ED5hyg4y6t3/9Ku1R6dU/4KyJ48DZ4jPhfY1O2AihPM=

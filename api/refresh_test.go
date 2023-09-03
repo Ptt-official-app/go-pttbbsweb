@@ -15,8 +15,8 @@ func TestRefresh(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	jwt, _ := pttbbsapi.CreateToken("SYSOP", "")
-	refreshJwt, _ := pttbbsapi.CreateRefreshToken("SYSOP", "")
+	jwt, _, _ := pttbbsapi.CreateToken("SYSOP", "")
+	refreshJwt, _, _ := pttbbsapi.CreateRefreshToken("SYSOP", "")
 
 	req, _ := http.NewRequest("POST", "http://localhost/refresh", nil)
 	req.Header = map[string][]string{
@@ -32,7 +32,7 @@ func TestRefresh(t *testing.T) {
 	}
 
 	expected0 := &RefreshResult{
-		UserID: "SYSOP",
+		UserID:    "SYSOP",
 		TokenType: "bearer",
 	}
 
@@ -68,6 +68,8 @@ func TestRefresh(t *testing.T) {
 			result, _ := gotResult.(*RefreshResult)
 			result.AccessToken = ""
 			result.RefreshToken = ""
+			result.AccessExpire = 0
+			result.RefreshExpire = 0
 			if !reflect.DeepEqual(gotResult, tt.wantResult) {
 				t.Errorf("Refresh() gotResult = %v, want %v", gotResult, tt.wantResult)
 			}

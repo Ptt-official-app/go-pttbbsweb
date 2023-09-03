@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/gin-gonic/gin"
 )
@@ -50,11 +51,15 @@ func Refresh(remoteAddr string, params interface{}, c *gin.Context) (result inte
 		return nil, 500, ErrInvalidBackendStatusCode
 	}
 
+	setTokenToCookie(c, result_b.Jwt)
+
 	result = &RefreshResult{
-		UserID:       result_b.UserID,
-		AccessToken:  result_b.Jwt,
-		TokenType:    result_b.TokenType,
-		RefreshToken: result_b.Refresh,
+		UserID:        result_b.UserID,
+		AccessToken:   result_b.Jwt,
+		TokenType:     result_b.TokenType,
+		RefreshToken:  result_b.Refresh,
+		AccessExpire:  types.Time8(result_b.AccessExpire),
+		RefreshExpire: types.Time8(result_b.RefreshExpire),
 	}
 
 	return result, 200, nil

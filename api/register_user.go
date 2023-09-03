@@ -33,11 +33,7 @@ func NewRegisterUserParams() *RegisterUserParams {
 	return &RegisterUserParams{}
 }
 
-type RegisterUserResult struct {
-	UserID      bbs.UUserID `json:"user_id"`
-	AccessToken string      `json:"access_token"`
-	TokenType   string      `json:"token_type"`
-}
+type RegisterUserResult LoginResult
 
 func RegisterUserWrapper(c *gin.Context) {
 	params := NewRegisterUserParams()
@@ -104,23 +100,21 @@ func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result
 		return nil, statusCode, err
 	}
 
-	accessToken_db, err := deserializeAccessTokenAndUpdateDB(result_b.UserID, result_b.Jwt, updateNanoTS)
-	if err != nil {
-		return nil, 500, err
-	}
-
 	// result
-	result = NewRegisterUserResult(accessToken_db)
+	result = NewRegisterUserResult(result_b)
 
-	setTokenToCookie(c, accessToken_db.AccessToken)
+	setTokenToCookie(c, result_b.Jwt)
 
 	return result, 200, nil
 }
 
-func NewRegisterUserResult(accessToken_db *schema.AccessToken) *RegisterUserResult {
+func NewRegisterUserResult(result_b *pttbbsapi.RegisterResult) *RegisterUserResult {
 	return &RegisterUserResult{
-		UserID:      accessToken_db.UserID,
-		AccessToken: accessToken_db.AccessToken,
-		TokenType:   "bearer",
+		UserID:        result_b.UserID,
+		AccessToken:   result_b.Jwt,
+		TokenType:     "bearer",
+		RefreshToken:  result_b.Refresh,
+		AccessExpire:  types.Time8(result_b.AccessExpire),
+		RefreshExpire: types.Time8(result_b.RefreshExpire),
 	}
 }
