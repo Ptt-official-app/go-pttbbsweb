@@ -466,3 +466,43 @@ func editArticleGetArticleContentInfo(userID bbs.UUserID, boardID bbs.BBoardID, 
 
 	return oldContent, oldContentPrefix, signatureDBCS, articleDetailSummary_db, sz, hash, statusCode, err
 }
+
+func simplifyContent(content [][]*types.Rune) (ret [][]*types.Rune) {
+	ret = make([][]*types.Rune, len(content))
+	for idx, eachRunes := range content {
+		eachNewRunes := simplifyEachRunes(eachRunes)
+		ret[idx] = eachNewRunes
+	}
+
+	return ret
+}
+
+func simplifyEachRunes(runes []*types.Rune) (ret []*types.Rune) {
+	if len(runes) <= 1 {
+		return runes
+	}
+
+	ret = make([]*types.Rune, 0, len(runes))
+
+	pre := runes[0]
+	ret = append(ret, pre)
+
+	iterRunes := runes[1:]
+	for _, each := range iterRunes {
+		if each.Color0 == pre.Color0 && each.Color1 == pre.Color1 {
+			pre.Utf8 += each.Utf8
+			if len(each.Big5) > 0 {
+				pre.Big5 = append(pre.Big5, each.Big5...)
+			}
+			if len(each.DBCS) > 0 {
+				pre.DBCS = append(pre.DBCS, each.DBCS...)
+			}
+			pre.DBCSStr += each.DBCSStr
+		} else {
+			pre = each
+			ret = append(ret, pre)
+		}
+	}
+
+	return ret
+}

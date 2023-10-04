@@ -6,10 +6,10 @@ ENV PATH=${PATH}:/usr/local/go/bin
 ARG GO_PTTBBS_VERSION
 ARG TAG=docker
 
-RUN echo "GO_PTTBBS_VERSION: ${GO_PTTBBS_VERSION} TAG: ${TAG}"
-
 # go-pttbbs
 COPY . /srv/go-openbbsmiddleware
+
+RUN echo "GO_PTTBBS_VERSION: ${GO_PTTBBS_VERSION} TAG: ${TAG}"
 
 WORKDIR /srv/go-openbbsmiddleware
 RUN mkdir -p /etc/go-openbbsmiddleware && cp docs/config/01-config.docker.ini /etc/go-openbbsmiddleware/production.ini
