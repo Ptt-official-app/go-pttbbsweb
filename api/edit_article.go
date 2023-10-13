@@ -32,6 +32,7 @@ type EditArticleResult struct {
 	ContentPrefix [][]*types.Rune `json:"prefix"`
 	Title         string          `json:"title"` //
 	Class         string          `json:"class"` // can be: R: 轉, [class]
+	TokenUser     bbs.UUserID     `json:"tokenuser"`
 }
 
 func EditArticleDetailWrapper(c *gin.Context) {
@@ -126,10 +127,11 @@ func EditArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}
 	}
 
 	result = &EditArticleResult{
-		MTime:   contentMTime.ToTime8(),
-		Content: theParams.Content,
-		Title:   articleEditSummary.Title,
-		Class:   articleEditSummary.Class,
+		MTime:     contentMTime.ToTime8(),
+		Content:   theParams.Content,
+		Title:     articleEditSummary.Title,
+		Class:     articleEditSummary.Class,
+		TokenUser: userID,
 	}
 	return result, 200, nil
 }

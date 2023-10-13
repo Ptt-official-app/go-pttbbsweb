@@ -84,7 +84,7 @@ func CreateComment(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 		return nil, 500, err
 	}
 
-	apiComment := apitypes.NewComment(dbComment)
+	apiComment := apitypes.NewComment(dbComment, userID)
 
 	return CreateCommentResult(apiComment), 200, nil
 }

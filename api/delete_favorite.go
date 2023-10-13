@@ -21,7 +21,8 @@ type DeleteFavoritePath struct {
 }
 
 type DeleteFavoriteResult struct {
-	Success bool `json:"success"`
+	Success   bool        `json:"success"`
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func DeleteFavoriteWrapper(c *gin.Context) {
@@ -81,5 +82,5 @@ func DeleteFavorite(remoteAddr string, userID bbs.UUserID, params interface{}, p
 		return nil, statusCode, err
 	}
 
-	return &DeleteFavoriteResult{Success: true}, 200, nil
+	return &DeleteFavoriteResult{Success: true, TokenUser: userID}, 200, nil
 }

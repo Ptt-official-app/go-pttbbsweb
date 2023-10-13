@@ -44,7 +44,8 @@ func TestDeleteArticles(t *testing.T) {
 	}
 
 	expected0 := &DeleteArticlesResult{
-		Success: true,
+		Success:   true,
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

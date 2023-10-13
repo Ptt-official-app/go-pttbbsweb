@@ -70,7 +70,7 @@ func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, 
 	}
 
 	boardSummary_db := boardSummaries_db[0]
-	boardSummary := apitypes.NewBoardSummary(boardSummary_db, "", userBoardInfo)
+	boardSummary := apitypes.NewBoardSummary(boardSummary_db, "", userBoardInfo, userID)
 
 	// result
 	result = GetBoardSummaryResult(boardSummary)

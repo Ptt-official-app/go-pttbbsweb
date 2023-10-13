@@ -105,6 +105,8 @@ func TestLoadManArticles(t *testing.T) {
 				Title:      "[問題]然後呢？～",
 			},
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

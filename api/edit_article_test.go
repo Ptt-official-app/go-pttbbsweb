@@ -92,6 +92,8 @@ func TestEditArticleDetail(t *testing.T) {
 		MTime:   1583511858,
 		Title:   "this is a test",
 		Class:   "測試",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

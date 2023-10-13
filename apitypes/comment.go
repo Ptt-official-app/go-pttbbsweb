@@ -25,9 +25,11 @@ type Comment struct {
 	IP         string              `json:"ip"`
 	Host       string              `json:"host"` // ip 的中文呈現, 外國則為國家.
 	Idx        string              `json:"idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
-func NewComment(comment_db *schema.Comment) (comment *Comment) {
+func NewComment(comment_db *schema.Comment, userID bbs.UUserID) (comment *Comment) {
 	var refID types.CommentID
 	if len(comment_db.RefIDs) > 0 {
 		refID = comment_db.RefIDs[0]
@@ -46,6 +48,8 @@ func NewComment(comment_db *schema.Comment) (comment *Comment) {
 		IP:         comment_db.IP,
 		Host:       comment_db.Host,
 		Idx:        SerializeCommentIdx(comment_db.SortTime, comment_db.CommentID),
+
+		TokenUser: userID,
 	}
 
 	return comment

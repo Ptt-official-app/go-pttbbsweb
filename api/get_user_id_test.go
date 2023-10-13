@@ -10,7 +10,7 @@ import (
 )
 
 func TestGetUserID(t *testing.T) {
-	expected0 := &GetUserIDResult{UserID: "SYSOP"}
+	expected0 := &GetUserIDResult{UserID: "SYSOP", TokenUser: "SYSOP"}
 	type args struct {
 		remoteAddr string
 		userID     bbs.UUserID

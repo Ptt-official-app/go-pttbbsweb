@@ -19,6 +19,8 @@ type LoadManArticlesPath struct {
 
 type LoadManArticlesResult struct {
 	List []*apitypes.ManArticleSummary `json:"list"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
 func LoadManArticlesWrapper(c *gin.Context) {
@@ -49,19 +51,20 @@ func LoadManArticles(remoteAddr string, userID bbs.UUserID, params interface{}, 
 		return nil, 500, err
 	}
 
-	r := NewLoadManArticlesResult(articleSummaries_db)
+	r := NewLoadManArticlesResult(articleSummaries_db, userID)
 
 	return r, 200, nil
 }
 
-func NewLoadManArticlesResult(articleSummaries_db []*schema.ManArticleSummary) (r *LoadManArticlesResult) {
+func NewLoadManArticlesResult(articleSummaries_db []*schema.ManArticleSummary, userID bbs.UUserID) (r *LoadManArticlesResult) {
 	articleSummaries := make([]*apitypes.ManArticleSummary, 0, len(articleSummaries_db))
 
 	for _, each_db := range articleSummaries_db {
-		each := apitypes.NewManArticleSummary(each_db)
+		each := apitypes.NewManArticleSummary(each_db, "")
 		articleSummaries = append(articleSummaries, each)
 	}
 	return &LoadManArticlesResult{
-		List: articleSummaries,
+		List:      articleSummaries,
+		TokenUser: userID,
 	}
 }

@@ -32,6 +32,8 @@ func TestSetIDEmail(t *testing.T) {
 
 	result0 := &SetIDEmailResult{
 		Email: "test@ptt.test",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

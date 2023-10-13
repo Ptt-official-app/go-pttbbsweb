@@ -32,6 +32,8 @@ type LoginResult struct {
 	RefreshToken  string      `json:"refresh_token"`
 	AccessExpire  types.Time8 `json:"access_expire"`
 	RefreshExpire types.Time8 `json:"refresh_expire"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 // LoginLog record user login info, no matter success or not
@@ -120,5 +122,6 @@ func NewLoginResult(result_b *pttbbsapi.LoginResult) *LoginResult {
 		RefreshToken:  result_b.Refresh,
 		AccessExpire:  types.Time8(result_b.AccessExpire),
 		RefreshExpire: types.Time8(result_b.RefreshExpire),
+		TokenUser:     result_b.UserID,
 	}
 }

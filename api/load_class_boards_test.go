@@ -103,6 +103,8 @@ func TestLoadClassBoards(t *testing.T) {
 				URL: "/board/test2/articles",
 			},
 		},
+
+		TokenUser: "SYSOP",
 	}
 	type args struct {
 		remoteAddr string

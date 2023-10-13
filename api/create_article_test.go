@@ -55,6 +55,8 @@ func TestCreateArticle(t *testing.T) {
 		Class:      "測試",
 		URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.082",
 		Read:       false,
+
+		TokenUser: "SYSOP",
 	})
 
 	type args struct {

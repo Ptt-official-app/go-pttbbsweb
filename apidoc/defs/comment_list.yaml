@@ -8,3 +8,6 @@ CommentList:
         '$ref': '#/definitions/Comment'
     next_idx:
       '$ref': '#/definitions/RespNextIdx'
+    tokenuser:
+      type: string
+      description: the user-id of the token.

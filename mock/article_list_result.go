@@ -3,11 +3,14 @@ package mock
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
 type ArticleListResult_t struct {
 	List    []*apitypes.ArticleSummary `json:"list"`
 	NextIdx string                     `json:"next_idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
 var ArticleListResult = &ArticleListResult_t{

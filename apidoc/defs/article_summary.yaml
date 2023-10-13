@@ -3,3 +3,4 @@ ArticleSummary:
   properties:
     !include aid_core.yaml
     !include article_summary_core.yaml
+    !include tokenuser.yaml

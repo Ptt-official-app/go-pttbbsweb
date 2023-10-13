@@ -76,7 +76,8 @@ func TestDeleteComments(t *testing.T) {
 	}
 
 	expected0 := &DeleteCommentsResult{
-		Success: true,
+		Success:   true,
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

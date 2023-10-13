@@ -3,3 +3,4 @@ ManArticleSummary:
   properties:
     !include aid_core.yaml
     !include man_article_summary_core.yaml
+    !include tokenuser.yaml

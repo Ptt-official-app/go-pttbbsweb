@@ -59,6 +59,8 @@ func TestCrossPost(t *testing.T) {
 				},
 			},
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

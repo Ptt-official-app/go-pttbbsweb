@@ -18,6 +18,8 @@ type LoadPopularArticlesParams struct {
 type LoadPopularArticlesResult struct {
 	List    []*apitypes.ArticleSummary `json:"list"`
 	NextIdx string                     `json:"next_idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
 func NewLoadPopularArticlesParams() *LoadPopularArticlesParams {

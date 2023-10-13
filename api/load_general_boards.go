@@ -23,6 +23,8 @@ type LoadGeneralBoardsParams struct {
 type LoadGeneralBoardsResult struct {
 	List    []*apitypes.BoardSummary `json:"list"`
 	NextIdx string                   `json:"next_idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
 func NewLoadGeneralBoardsParams() *LoadGeneralBoardsParams {
@@ -84,12 +86,12 @@ func postLoadBoards(userID bbs.UUserID, result_b *pttbbsapi.LoadGeneralBoardsRes
 		return nil, 500, err
 	}
 
-	r := NewLoadGeneralBoardsResult(boardSummaries_db, userBoardInfoMap, result_b.NextIdx, url)
+	r := NewLoadGeneralBoardsResult(boardSummaries_db, userBoardInfoMap, result_b.NextIdx, url, userID)
 
 	return r, 200, nil
 }
 
-func NewLoadGeneralBoardsResult(boardSummaries_db []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, nextIdx string, url string) *LoadGeneralBoardsResult {
+func NewLoadGeneralBoardsResult(boardSummaries_db []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, nextIdx string, url string, userID bbs.UUserID) *LoadGeneralBoardsResult {
 	theList := make([]*apitypes.BoardSummary, len(boardSummaries_db))
 
 	isByClass := url == pttbbsapi.LOAD_GENERAL_BOARDS_BY_CLASS_R
@@ -104,12 +106,14 @@ func NewLoadGeneralBoardsResult(boardSummaries_db []*schema.BoardSummary, userBo
 			continue
 		}
 
-		each := apitypes.NewBoardSummary(each_db, idx, userBoardInfo)
+		each := apitypes.NewBoardSummary(each_db, idx, userBoardInfo, "")
 		theList[i] = each
 	}
 
 	return &LoadGeneralBoardsResult{
 		List:    theList,
 		NextIdx: nextIdx,
+
+		TokenUser: userID,
 	}
 }

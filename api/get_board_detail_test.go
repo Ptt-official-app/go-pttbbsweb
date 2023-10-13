@@ -31,6 +31,8 @@ func TestGetBoardDetail(t *testing.T) {
 		Total:     123,
 
 		LastPostTime: 1234567890,
+
+		TokenUser: "SYSOP",
 	})
 
 	params1 := &GetBoardDetailParams{Fields: "bms,title"}
@@ -40,6 +42,8 @@ func TestGetBoardDetail(t *testing.T) {
 		FBoardID: "test1",
 		Title:    "測試1",
 		BMs:      []bbs.UUserID{"okcool", "teemo"},
+
+		TokenUser: "SYSOP",
 	})
 
 	type args struct {

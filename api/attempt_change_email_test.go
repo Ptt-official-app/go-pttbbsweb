@@ -28,6 +28,8 @@ func TestAttemptChangeEmail(t *testing.T) {
 	result0 := &AttemptChangeEmailResult{
 		UserID: "SYSOP",
 		Email:  "test@ptt.test",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

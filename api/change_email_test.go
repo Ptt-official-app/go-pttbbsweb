@@ -31,6 +31,8 @@ func TestChangeEmail(t *testing.T) {
 
 	result0 := &ChangeEmailResult{
 		Email: "test@ptt.test",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

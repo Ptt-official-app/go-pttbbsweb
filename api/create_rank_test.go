@@ -48,27 +48,27 @@ func TestCreateRank(t *testing.T) {
 		},
 		{
 			args:               args{remoteAddr: testIP, userID: "SYSOP", params: &CreateRankParams{Rank: 1}, path: path0},
-			expectedResult:     &CreateRankResult{Rank: 1},
+			expectedResult:     &CreateRankResult{Rank: 1, TokenUser: "SYSOP"},
 			expectedStatusCode: 200,
 		},
 		{
 			args:               args{remoteAddr: testIP, userID: "SYSOP", params: &CreateRankParams{Rank: -1}, path: path0},
-			expectedResult:     &CreateRankResult{Rank: -1},
+			expectedResult:     &CreateRankResult{Rank: -1, TokenUser: "SYSOP"},
 			expectedStatusCode: 200,
 		},
 		{
 			args:               args{remoteAddr: testIP, userID: "SYSOP1", params: &CreateRankParams{Rank: 1}, path: path0},
-			expectedResult:     &CreateRankResult{Rank: 0},
+			expectedResult:     &CreateRankResult{Rank: 0, TokenUser: "SYSOP1"},
 			expectedStatusCode: 200,
 		},
 		{
 			args:               args{remoteAddr: testIP, userID: "SYSOP2", params: &CreateRankParams{Rank: 1}, path: path0},
-			expectedResult:     &CreateRankResult{Rank: 1},
+			expectedResult:     &CreateRankResult{Rank: 1, TokenUser: "SYSOP2"},
 			expectedStatusCode: 200,
 		},
 		{
 			args:               args{remoteAddr: testIP, userID: "SYSOP3", params: &CreateRankParams{Rank: 1}, path: path0},
-			expectedResult:     &CreateRankResult{Rank: 2},
+			expectedResult:     &CreateRankResult{Rank: 2, TokenUser: "SYSOP3"},
 			expectedStatusCode: 200,
 		},
 	}

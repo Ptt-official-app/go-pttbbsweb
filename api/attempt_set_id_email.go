@@ -25,6 +25,8 @@ type AttemptSetIDEmailPath struct {
 type AttemptSetIDEmailResult struct {
 	UserID bbs.UUserID `json:"user_id"`
 	Email  string      `json:"email"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func AttemptSetIDEmailWrapper(c *gin.Context) {
@@ -85,6 +87,8 @@ func AttemptSetIDEmail(remoteAddr string, userID bbs.UUserID, params interface{}
 	result = &AttemptSetIDEmailResult{
 		UserID: thePath.UserID,
 		Email:  theParams.Email,
+
+		TokenUser: userID,
 	}
 
 	return result, 200, nil

@@ -64,6 +64,8 @@ func TestLoadAutoCompleteBoards(t *testing.T) {
 			},
 		},
 		NextIdx: "test3",
+
+		TokenUser: "SYSOP",
 	}
 	type args struct {
 		remoteAddr string

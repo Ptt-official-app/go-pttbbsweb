@@ -9,7 +9,7 @@ import (
 func RedirectPathQuery(theFunc RedirectPathAPIFunc, params interface{}, path interface{}, c *gin.Context) {
 	err := c.ShouldBindQuery(params)
 	if err != nil {
-		processResult(c, nil, 400, err)
+		processResult(c, nil, 400, err, "")
 		return
 	}
 
@@ -19,18 +19,18 @@ func RedirectPathQuery(theFunc RedirectPathAPIFunc, params interface{}, path int
 func redirectPathProcess(theFunc RedirectPathAPIFunc, params interface{}, path interface{}, c *gin.Context) {
 	err := c.ShouldBindUri(path)
 	if err != nil {
-		processResult(c, nil, 400, err)
+		processResult(c, nil, 400, err, "")
 		return
 	}
 
 	remoteAddr := strings.TrimSpace(c.ClientIP())
 	if !isValidRemoteAddr(remoteAddr) {
-		processResult(c, nil, 403, ErrInvalidRemoteAddr)
+		processResult(c, nil, 403, ErrInvalidRemoteAddr, "")
 		return
 	}
 
 	if !isValidOriginReferer(c) {
-		processResult(c, nil, 403, ErrInvalidOrigin)
+		processResult(c, nil, 403, ErrInvalidOrigin, "")
 		return
 	}
 

@@ -9,6 +9,8 @@ const GET_USER_ID_R = "/userid"
 
 type GetUserIDResult struct {
 	UserID bbs.UUserID `json:"user_id"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func GetUserIDWrapper(c *gin.Context) {
@@ -18,5 +20,7 @@ func GetUserIDWrapper(c *gin.Context) {
 func GetUserID(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	return &GetUserIDResult{
 		UserID: userID,
+
+		TokenUser: userID,
 	}, 200, nil
 }

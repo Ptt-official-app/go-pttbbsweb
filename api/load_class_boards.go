@@ -25,6 +25,8 @@ type LoadClassBoardsPath struct {
 type LoadClassBoardsResult struct {
 	List    []*apitypes.BoardSummary `json:"list"`
 	NextIdx string                   `json:"next_idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
 func NewLoadClassBoardsParams() *LoadClassBoardsParams {
@@ -67,7 +69,7 @@ func LoadClassBoards(remoteAddr string, userID bbs.UUserID, params interface{}, 
 		return nil, 500, err
 	}
 
-	r := NewLoadClassBoardsResult(boardSummaries_db, userBoardInfoMap, nextIdx, theParams.SortBy)
+	r := NewLoadClassBoardsResult(boardSummaries_db, userBoardInfoMap, nextIdx, theParams.SortBy, userID)
 
 	return r, 200, nil
 }
@@ -153,7 +155,7 @@ func loadClassBoards(userID bbs.UUserID, clsID ptttype.Bid, startIdx string, asc
 	return boardSummaries_db, userBoardInfoMap, nextIdx, nil
 }
 
-func NewLoadClassBoardsResult(boardSummaries_db []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, nextIdx string, sortBy ptttype.BSortBy) (ret *LoadClassBoardsResult) {
+func NewLoadClassBoardsResult(boardSummaries_db []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, nextIdx string, sortBy ptttype.BSortBy, userID bbs.UUserID) (ret *LoadClassBoardsResult) {
 	theList := make([]*apitypes.BoardSummary, len(boardSummaries_db))
 
 	isByClass := sortBy == ptttype.BSORT_BY_CLASS
@@ -168,12 +170,14 @@ func NewLoadClassBoardsResult(boardSummaries_db []*schema.BoardSummary, userBoar
 			continue
 		}
 
-		each := apitypes.NewBoardSummary(each_db, idx, userBoardInfo)
+		each := apitypes.NewBoardSummary(each_db, idx, userBoardInfo, "")
 		theList[i] = each
 	}
 
 	return &LoadClassBoardsResult{
 		List:    theList,
 		NextIdx: nextIdx,
+
+		TokenUser: userID,
 	}
 }

@@ -112,6 +112,8 @@ func TestLoadUserComments(t *testing.T) {
 				},
 			},
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

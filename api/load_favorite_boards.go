@@ -25,6 +25,8 @@ type LoadFavoriteBoardsPath struct {
 type LoadFavoriteBoardsResult struct {
 	List    []*apitypes.BoardSummary `json:"list"`
 	NextIdx string                   `json:"next_idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
 func NewLoadFavoriteBoardsParams() *LoadFavoriteBoardsParams {
@@ -89,6 +91,7 @@ func NewLoadFavoriteBoardsResult(userID bbs.UUserID, userFavorites_db []*schema.
 	for idx, each := range userFavorites_db {
 		if each.TheType != pttbbsfav.FAVT_BOARD {
 			theList[idx] = apitypes.NewBoardSummaryFromUserFavorites(userID, each, nil, nil)
+			theList[idx].TokenUser = ""
 			continue
 		}
 
@@ -102,11 +105,14 @@ func NewLoadFavoriteBoardsResult(userID bbs.UUserID, userFavorites_db []*schema.
 			continue
 		}
 		theList[idx] = apitypes.NewBoardSummaryFromUserFavorites(userID, each, boardSummary_db, userBoardInfo)
+		theList[idx].TokenUser = ""
 	}
 
 	result = &LoadFavoriteBoardsResult{
 		List:    theList,
 		NextIdx: nextIdx,
+
+		TokenUser: userID,
 	}
 
 	return result

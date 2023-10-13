@@ -23,6 +23,8 @@ type LoadArticleCommentsPath struct {
 type LoadArticleCommentsResult struct {
 	List    []*apitypes.Comment `json:"list"`
 	NextIdx string              `json:"next_idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
 func NewLoadArticleCommentsParams() *LoadArticleCommentsParams {
@@ -75,11 +77,11 @@ func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface
 		comments_db = comments_db[:theParams.Max]
 	}
 
-	result = NewLoadArticleCommentsResult(comments_db, nextComment)
+	result = NewLoadArticleCommentsResult(comments_db, nextComment, userID)
 	return result, 200, nil
 }
 
-func NewLoadArticleCommentsResult(comments_db []*schema.Comment, nextComment *schema.Comment) (result *LoadArticleCommentsResult) {
+func NewLoadArticleCommentsResult(comments_db []*schema.Comment, nextComment *schema.Comment, userID bbs.UUserID) (result *LoadArticleCommentsResult) {
 	nextIdx := ""
 	if nextComment != nil {
 		nextIdx = apitypes.SerializeCommentIdx(nextComment.SortTime, nextComment.CommentID)
@@ -87,12 +89,13 @@ func NewLoadArticleCommentsResult(comments_db []*schema.Comment, nextComment *sc
 
 	comments := make([]*apitypes.Comment, len(comments_db))
 	for idx, each := range comments_db {
-		comments[idx] = apitypes.NewComment(each)
+		comments[idx] = apitypes.NewComment(each, "")
 	}
 
 	result = &LoadArticleCommentsResult{
-		List:    comments,
-		NextIdx: nextIdx,
+		List:      comments,
+		NextIdx:   nextIdx,
+		TokenUser: userID,
 	}
 	return result
 }

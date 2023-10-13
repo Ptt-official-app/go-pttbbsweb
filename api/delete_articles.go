@@ -21,7 +21,8 @@ type DeleteArticlesPath struct {
 }
 
 type DeleteArticlesResult struct {
-	Success bool `json:"success"`
+	Success   bool        `json:"success"`
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func DeleteArticlesWrapper(c *gin.Context) {
@@ -90,7 +91,8 @@ func DeleteArticles(remoteAddr string, userID bbs.UUserID, params interface{}, p
 	}
 
 	result = &DeleteArticlesResult{
-		Success: true,
+		Success:   true,
+		TokenUser: userID,
 	}
 	return result, 200, nil
 }

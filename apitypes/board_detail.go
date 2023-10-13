@@ -47,6 +47,8 @@ type BoardDetail struct {
 	Bid ptttype.Bid `json:"pttbid"`
 
 	Idx string `json:"idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 var BOARD_DETAIL_FIELD_MAP = map[string]string{
@@ -62,7 +64,7 @@ var BOARD_DETAIL_FIELD_MAP = map[string]string{
 	"gid":                  schema.BOARD_GID_b,
 }
 
-func NewBoardDetail(b_db *schema.BoardDetail, idx string) *BoardDetail {
+func NewBoardDetail(b_db *schema.BoardDetail, idx string, userID bbs.UUserID) *BoardDetail {
 	if b_db == nil {
 		return nil
 	}
@@ -103,5 +105,7 @@ func NewBoardDetail(b_db *schema.BoardDetail, idx string) *BoardDetail {
 		Bid: b_db.Bid,
 
 		Idx: idx,
+
+		TokenUser: userID,
 	}
 }

@@ -306,5 +306,8 @@ func postAddFavorite(userID bbs.UUserID, rootFav *fav.Fav, remoteAddr string, le
 	}
 
 	summary := apitypes.NewBoardSummaryFromUserFavorites(userID, newUserFavorite, boardSummary_db, userBoardInfo)
+
+	summary.TokenUser = userID
+
 	return AddFavoriteResult(summary), 200, nil
 }

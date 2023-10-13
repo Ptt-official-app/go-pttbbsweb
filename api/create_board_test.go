@@ -40,6 +40,8 @@ func TestCreateBoard(t *testing.T) {
 		Bid:       13,
 
 		URL: "/board/test3/articles",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

@@ -102,6 +102,8 @@ func TestLoadArticleComments(t *testing.T) {
 			comments[1],
 			comments[2],
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	params1 := &LoadArticleCommentsParams{
@@ -114,6 +116,8 @@ func TestLoadArticleComments(t *testing.T) {
 			comments[1],
 		},
 		NextIdx: "1608388500000000000@FlIk0bNSyAA:3dK46zmOe5zmna12AC1gnQ",
+
+		TokenUser: "SYSOP",
 	}
 
 	params2 := &LoadArticleCommentsParams{
@@ -125,6 +129,8 @@ func TestLoadArticleComments(t *testing.T) {
 		List: []*apitypes.Comment{
 			comments[2],
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	params3 := &LoadArticleCommentsParams{
@@ -137,6 +143,8 @@ func TestLoadArticleComments(t *testing.T) {
 			comments[1],
 			comments[0],
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	params4 := &LoadArticleCommentsParams{
@@ -149,6 +157,8 @@ func TestLoadArticleComments(t *testing.T) {
 			comments[1],
 		},
 		NextIdx: "1608388624000000000@FlIk7pJMoAA:cLGi8fC4fapuiBkTXHU2OA",
+
+		TokenUser: "SYSOP",
 	}
 
 	params5 := &LoadArticleCommentsParams{
@@ -160,6 +170,8 @@ func TestLoadArticleComments(t *testing.T) {
 		List: []*apitypes.Comment{
 			comments[0],
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

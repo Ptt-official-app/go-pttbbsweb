@@ -48,6 +48,8 @@ func TestGetArticleDetail(t *testing.T) {
 		IP:            "172.22.0.1",
 		Host:          "",
 		BBS:           "批踢踢 docker(pttdocker.test)",
+
+		TokenUser: "chhsiao123",
 	}
 
 	expectedArticleDetailSummary0 := &schema.ArticleDetailSummary{
@@ -115,6 +117,8 @@ func TestGetArticleDetail(t *testing.T) {
 		IP:            "172.22.0.1",
 		BBS:           "批踢踢 docker(pttdocker.test)",
 		NComments:     3,
+
+		TokenUser: "chhsiao123",
 	}
 
 	expectedArticleDetailSummary1 := &schema.ArticleDetailSummary{

@@ -26,7 +26,8 @@ func TestDeleteFavorite(t *testing.T) {
 	}
 
 	ret0 := &DeleteFavoriteResult{
-		Success: true,
+		Success:   true,
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

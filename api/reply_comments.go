@@ -21,6 +21,8 @@ type ReplyCommentsPath struct {
 
 type ReplyCommentsResult struct {
 	Success bool `json:"success"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func ReplyCommentsWrapper(c *gin.Context) {
@@ -63,6 +65,8 @@ func ReplyComments(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 
 	result = &ReplyCommentsResult{
 		Success: true,
+
+		TokenUser: userID,
 	}
 	return result, 200, nil
 }

@@ -34,3 +34,4 @@ responses:
       properties:
         rank:
           type: number
+        !include def/tokenuser.yaml

@@ -23,8 +23,9 @@ type AttemptChangeEmailPath struct {
 }
 
 type AttemptChangeEmailResult struct {
-	UserID bbs.UUserID `json:"user_id"`
-	Email  string      `json:"email"`
+	UserID    bbs.UUserID `json:"user_id"`
+	Email     string      `json:"email"`
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func AttemptChangeEmailWrapper(c *gin.Context) {
@@ -84,6 +85,8 @@ func AttemptChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{
 	result = &AttemptChangeEmailResult{
 		UserID: thePath.UserID,
 		Email:  theParams.Email,
+
+		TokenUser: userID,
 	}
 
 	return result, 200, nil

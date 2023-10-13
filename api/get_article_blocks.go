@@ -43,6 +43,8 @@ type GetArticleBlocksResult struct {
 	Rank int `json:"rank,omitempty"` // 評價
 
 	NextIdx string `json:"next_idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func NewGetArticleBlocksParams() *GetArticleBlocksParams {
@@ -109,6 +111,8 @@ func GetArticleBlocks(remoteAddr string, userID bbs.UUserID, params interface{},
 	ret := &GetArticleBlocksResult{
 		Content: content,
 		NextIdx: nextIdx,
+
+		TokenUser: userID,
 	}
 	if articleDetailSummary != nil {
 		ret.IsDeleted = articleDetailSummary.IsDeleted

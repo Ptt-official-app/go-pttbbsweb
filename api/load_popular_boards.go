@@ -15,6 +15,8 @@ const LOAD_POPULAR_BOARDS_R = "/boards/popular"
 
 type LoadPopularBoardsResult struct {
 	List []*apitypes.BoardSummary `json:"list"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
 func LoadPopularBoardsWrapper(c *gin.Context) {
@@ -48,19 +50,20 @@ func LoadPopularBoards(remoteAddr string, userID bbs.UUserID, params interface{}
 		return nil, 500, err
 	}
 
-	r := NewLoadPopularBoardsResult(boardSummaries_db, userBoardInfoMap)
+	r := NewLoadPopularBoardsResult(boardSummaries_db, userBoardInfoMap, userID)
 
 	return r, 200, nil
 }
 
-func NewLoadPopularBoardsResult(boardSummaries_db []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo) *LoadPopularBoardsResult {
+func NewLoadPopularBoardsResult(boardSummaries_db []*schema.BoardSummary, userBoardInfoMap map[bbs.BBoardID]*apitypes.UserBoardInfo, userID bbs.UUserID) *LoadPopularBoardsResult {
 	theList := make([]*apitypes.BoardSummary, len(boardSummaries_db))
 	for i, each_db := range boardSummaries_db {
 		userBoardInfo := userBoardInfoMap[each_db.BBoardID]
-		theList[i] = apitypes.NewBoardSummary(each_db, "", userBoardInfo)
+		theList[i] = apitypes.NewBoardSummary(each_db, "", userBoardInfo, "")
 	}
 
 	return &LoadPopularBoardsResult{
-		List: theList,
+		List:      theList,
+		TokenUser: userID,
 	}
 }

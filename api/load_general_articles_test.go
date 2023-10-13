@@ -167,6 +167,8 @@ func TestLoadGeneralArticles(t *testing.T) {
 			},
 		},
 		NextIdx: "",
+
+		TokenUser: "SYSOP",
 	}
 
 	params1 := &LoadGeneralArticlesParams{
@@ -193,6 +195,8 @@ func TestLoadGeneralArticles(t *testing.T) {
 				Idx:        "1234567890@19bWBI4Z",
 			},
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	c := &gin.Context{}

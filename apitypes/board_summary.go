@@ -34,9 +34,11 @@ type BoardSummary struct {
 	Bid ptttype.Bid `json:"pttbid"`
 
 	Idx string `json:"idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
-func NewBoardSummary(b_db *schema.BoardSummary, idx string, userBoardInfo *UserBoardInfo) *BoardSummary {
+func NewBoardSummary(b_db *schema.BoardSummary, idx string, userBoardInfo *UserBoardInfo, userID bbs.UUserID) *BoardSummary {
 	if b_db == nil {
 		return nil
 	}
@@ -74,6 +76,8 @@ func NewBoardSummary(b_db *schema.BoardSummary, idx string, userBoardInfo *UserB
 		Fav:      userBoardInfo.Fav,
 
 		URL: url,
+
+		TokenUser: userID,
 	}
 }
 
@@ -85,6 +89,8 @@ func NewBoardSummaryFromUserFavorites(userID bbs.UUserID, uf_db *schema.UserFavo
 		return &BoardSummary{
 			StatAttr: ptttype.NBRD_LINE,
 			Idx:      idxStr,
+
+			TokenUser: userID,
 		}
 	case pttbbsfav.FAVT_FOLDER:
 		// XXX api.LOAD_FAVORITE_BOARDS_R
@@ -97,10 +103,12 @@ func NewBoardSummaryFromUserFavorites(userID bbs.UUserID, uf_db *schema.UserFavo
 			LevelIdx: subLevelIdx,
 			Idx:      idxStr,
 			URL:      url,
+
+			TokenUser: userID,
 		}
 
 	case pttbbsfav.FAVT_BOARD:
-		return NewBoardSummary(b_db, idxStr, userBoardInfo)
+		return NewBoardSummary(b_db, idxStr, userBoardInfo, userID)
 	}
 
 	return nil

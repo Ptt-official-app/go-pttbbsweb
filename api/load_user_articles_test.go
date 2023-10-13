@@ -121,6 +121,8 @@ func TestLoadUserArticles(t *testing.T) {
 				Idx:        "1234567892@19bWBK4Z",
 			},
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	params1 := NewUserArticlesParams()
@@ -147,6 +149,8 @@ func TestLoadUserArticles(t *testing.T) {
 				Idx:        "1234567890@19bWBI4Z",
 			},
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	params2 := NewUserArticlesParams()
@@ -155,6 +159,8 @@ func TestLoadUserArticles(t *testing.T) {
 	}
 	expectedResult2 := &LoadUserArticlesResult{
 		List: []*apitypes.ArticleSummary{},
+
+		TokenUser: "SYSOP",
 	}
 
 	params3 := &LoadUserArticlesParams{
@@ -200,6 +206,8 @@ func TestLoadUserArticles(t *testing.T) {
 				Idx:        "1234567892@19bWBK4Z",
 			},
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	params4 := &LoadUserArticlesParams{
@@ -230,6 +238,8 @@ func TestLoadUserArticles(t *testing.T) {
 				Idx:        "1234567892@19bWBK4Z",
 			},
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

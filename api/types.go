@@ -16,6 +16,8 @@ type RedirectPathAPIFunc func(remoteAddr string, params interface{}, path interf
 
 type errResult struct {
 	Msg string
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 type ClientInfo struct {

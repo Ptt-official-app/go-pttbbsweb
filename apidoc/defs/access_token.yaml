@@ -15,3 +15,6 @@ AccessToken:
     refresh_expire:
       type: number
       description: expire time (in unix-time) of refresh token
+    tokenuser:
+      type: string
+      description: the user-id of the token.

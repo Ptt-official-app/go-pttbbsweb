@@ -45,6 +45,8 @@ type ArticleComment struct {
 	CommentType       ptttype.CommentType `json:"ctype,omitempty"`
 	CommentCreateTime types.Time8         `json:"ctime,omitempty"`
 	Comment           [][]*types.Rune     `json:"comment,omitempty"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func NewArticleCommentFromArticle(a_db *schema.ArticleSummary) *ArticleComment {

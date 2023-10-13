@@ -24,6 +24,8 @@ type ChangeEmailPath struct {
 
 type ChangeEmailResult struct {
 	Email string `json:"email"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func ChangeEmailWrapper(c *gin.Context) {
@@ -99,5 +101,5 @@ func ChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path
 
 	// update user-info
 
-	return &ChangeEmailResult{Email: result_b.Email}, 200, nil
+	return &ChangeEmailResult{Email: result_b.Email, TokenUser: userID}, 200, nil
 }

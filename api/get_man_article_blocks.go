@@ -29,6 +29,8 @@ type GetManArticleBlocksResult struct {
 	Title      string      `json:"title,omitempty"`       //
 
 	NextIdx string `json:"next_idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func NewGetManArticleBlocksParams() *GetManArticleBlocksParams {
@@ -99,6 +101,8 @@ func GetManArticleBlocks(remoteAddr string, userID bbs.UUserID, params interface
 	ret := &GetManArticleBlocksResult{
 		Content: content,
 		NextIdx: nextIdx,
+
+		TokenUser: userID,
 	}
 	if articleDetailSummary != nil {
 		ret.IsDeleted = articleDetailSummary.IsDeleted

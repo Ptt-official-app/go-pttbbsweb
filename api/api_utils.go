@@ -97,13 +97,13 @@ func isValidCSRFToken(raw string) bool {
 
 func processCSRFContent(filename string, cacheControlMaxAge int, c *gin.Context) {
 	if !isValidOriginReferer(c) {
-		processResult(c, nil, 403, ErrInvalidOrigin)
+		processResult(c, nil, 403, ErrInvalidOrigin, "")
 		return
 	}
 
 	file, err := os.Open(filename)
 	if err != nil {
-		processResult(c, nil, 404, ErrFileNotFound)
+		processResult(c, nil, 404, ErrFileNotFound, "")
 		return
 	}
 	defer file.Close()
@@ -111,7 +111,7 @@ func processCSRFContent(filename string, cacheControlMaxAge int, c *gin.Context)
 	reader := io.Reader(file)
 	contentBytes, err := io.ReadAll(reader)
 	if err != nil {
-		processResult(c, nil, 500, ErrInvalidPath)
+		processResult(c, nil, 500, ErrInvalidPath, "")
 	}
 
 	ext := filepath.Ext(filename)

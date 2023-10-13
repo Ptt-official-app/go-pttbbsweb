@@ -5,3 +5,4 @@ UserSummary:
     !include username_core.yaml
     !include nickname_core.yaml
     !include user_summary_core.yaml
+    !include tokenuser.yaml
