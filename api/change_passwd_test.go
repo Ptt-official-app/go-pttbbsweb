@@ -29,6 +29,8 @@ func TestChangePasswd(t *testing.T) {
 	expected := &ChangePasswdResult{
 		UserID:    "SYSOP",
 		TokenType: "bearer",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

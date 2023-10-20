@@ -84,7 +84,7 @@ func CreateBoard(remoteAddr string, userID bbs.UUserID, params interface{}, path
 
 	boardSummary_db := boardSummaries_db[0]
 	userReadBoard := &apitypes.UserBoardInfo{Stat: ptttype.NBRD_BOARD, Read: true}
-	boardSummary := apitypes.NewBoardSummary(boardSummary_db, "", userReadBoard)
+	boardSummary := apitypes.NewBoardSummary(boardSummary_db, "", userReadBoard, userID)
 
 	// result
 	result = CreateBoardResult(boardSummary)

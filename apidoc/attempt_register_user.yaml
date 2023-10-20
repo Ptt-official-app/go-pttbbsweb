@@ -27,3 +27,4 @@ responses:
       properties:
         username:
           type: string
+        !include defs/tokenuser.yaml

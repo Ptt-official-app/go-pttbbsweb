@@ -26,7 +26,7 @@ func TestRegisterUser(t *testing.T) {
 		TwoFactorToken:  "123123",
 	}
 
-	expected0 := &RegisterUserResult{TokenType: "bearer", UserID: "testuserid1"}
+	expected0 := &RegisterUserResult{TokenType: "bearer", UserID: "testuserid1", TokenUser: "testuserid1"}
 	expectedDB0 := []*schema.AccessToken{{UserID: "testuserid1"}}
 
 	_ = schema.Set2FA("testuserid1", "test@ptt.test", "123123", time.Duration(1)*time.Second)

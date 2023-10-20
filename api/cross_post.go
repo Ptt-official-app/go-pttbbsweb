@@ -24,6 +24,8 @@ type CrossPostPath struct {
 type CrossPostResult struct {
 	Article *apitypes.ArticleSummary `json:"article"`
 	Comment *apitypes.Comment        `json:"comment"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func CrossPostWrapper(c *gin.Context) {
@@ -84,7 +86,7 @@ func CrossPost(remoteAddr string, userID bbs.UUserID, params interface{}, path i
 
 	setUserReadArticle(dummyContent, userID, articleSummary_db.ArticleID, updateNanoTS)
 
-	articleSummary := apitypes.NewArticleSummaryFromWithRegex(articleSummary_db)
+	articleSummary := apitypes.NewArticleSummaryFromWithRegex(articleSummary_db, "")
 
 	// comment
 	dbComments := dbcs.ParseComments(userID, result_b.Comment, result_b.Comment)
@@ -102,7 +104,7 @@ func CrossPost(remoteAddr string, userID bbs.UUserID, params interface{}, path i
 		return nil, 500, err
 	}
 
-	apiComment := apitypes.NewComment(dbComment)
+	apiComment := apitypes.NewComment(dbComment, "")
 
-	return &CrossPostResult{Article: articleSummary, Comment: apiComment}, 200, nil
+	return &CrossPostResult{Article: articleSummary, Comment: apiComment, TokenUser: userID}, 200, nil
 }

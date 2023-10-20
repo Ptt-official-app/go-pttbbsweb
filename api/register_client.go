@@ -16,6 +16,8 @@ type RegisterClientParams struct {
 
 type RegisterClientResult struct {
 	ClientSecret string `json:"client_secret"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
 func NewRegisterClientParams() *RegisterClientParams {
@@ -43,7 +45,7 @@ func RegisterClient(remoteAddr string, userID bbs.UUserID, params interface{}, c
 	}
 
 	// result
-	result = NewRegisterClientResult(client)
+	result = NewRegisterClientResult(client, userID)
 	return result, 200, nil
 }
 
@@ -58,9 +60,10 @@ func deserializeClientAndUpdateDB(registerClientParams *RegisterClientParams, re
 	return client, nil
 }
 
-func NewRegisterClientResult(client *schema.Client) *RegisterClientResult {
+func NewRegisterClientResult(client *schema.Client, userID bbs.UUserID) *RegisterClientResult {
 	return &RegisterClientResult{
 		ClientSecret: client.ClientSecret,
+		TokenUser:    userID,
 	}
 }
 

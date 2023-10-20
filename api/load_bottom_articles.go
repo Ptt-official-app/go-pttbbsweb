@@ -15,6 +15,8 @@ type LoadBottomArticlesPath struct {
 
 type LoadBottomArticlesResult struct {
 	List []*apitypes.ArticleSummary `json:"list"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
 func LoadBottomArticlesWrapper(c *gin.Context) {
@@ -44,15 +46,15 @@ func LoadBottomArticles(remoteAddr string, userID bbs.UUserID, params interface{
 		return nil, 500, err
 	}
 
-	r := NewLoadBottomArticlesResult(articleSummaries_db, userReadArticleMap)
+	r := NewLoadBottomArticlesResult(articleSummaries_db, userReadArticleMap, userID)
 
 	return r, 200, nil
 }
 
-func NewLoadBottomArticlesResult(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool) *LoadBottomArticlesResult {
+func NewLoadBottomArticlesResult(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool, userID bbs.UUserID) *LoadBottomArticlesResult {
 	theList := make([]*apitypes.ArticleSummary, len(a_db))
 	for i, each_db := range a_db {
-		theList[i] = apitypes.NewArticleSummary(each_db)
+		theList[i] = apitypes.NewArticleSummary(each_db, "")
 		articleID := each_db.ArticleID
 		isRead, ok := userReadArticleMap[articleID]
 		if ok && isRead {
@@ -60,5 +62,5 @@ func NewLoadBottomArticlesResult(a_db []*schema.ArticleSummary, userReadArticleM
 		}
 	}
 
-	return &LoadBottomArticlesResult{List: theList}
+	return &LoadBottomArticlesResult{List: theList, TokenUser: userID}
 }

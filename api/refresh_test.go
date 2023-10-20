@@ -34,6 +34,8 @@ func TestRefresh(t *testing.T) {
 	expected0 := &RefreshResult{
 		UserID:    "SYSOP",
 		TokenType: "bearer",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

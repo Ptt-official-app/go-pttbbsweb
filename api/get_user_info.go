@@ -100,6 +100,8 @@ type GetUserInfoResult struct {
 	IDEmail    string      `json:"idemail"`
 	IDEmailSet bool        `json:"idemail_set"`
 	IDEmailTS  types.Time8 `json:"idemail_ts"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func GetUserInfoWrapper(c *gin.Context) {
@@ -153,12 +155,12 @@ func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context)
 		return nil, 500, err
 	}
 
-	result = NewUserInfoResult(userDetail, userNewInfo, userIDEmail, userEmail)
+	result = NewUserInfoResult(userDetail, userNewInfo, userIDEmail, userEmail, userID)
 
 	return result, 200, nil
 }
 
-func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.UserNewInfo, userIDEmail_db *schema.UserIDEmail, userEmail_db *schema.UserEmail) (result *GetUserInfoResult) {
+func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.UserNewInfo, userIDEmail_db *schema.UserIDEmail, userEmail_db *schema.UserEmail, userID bbs.UUserID) (result *GetUserInfoResult) {
 	if userNewInfo_db == nil {
 		userNewInfo_db = &schema.UserNewInfo{}
 	}
@@ -247,6 +249,8 @@ func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.
 		IDEmail:    userIDEmail_db.IDEmail,
 		IDEmailTS:  userIDEmail_db.UpdateNanoTS.ToTime8(),
 		IDEmailSet: userIDEmail_db.IsSet,
+
+		TokenUser: userID,
 	}
 
 	return result

@@ -4,6 +4,7 @@ import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,6 +12,8 @@ const GET_USER_VISIT_COUNT_R = "/uservisitcount"
 
 type GetUserVisitCountResult struct {
 	Total int64 `json:"total"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func GetUserVisitCountWrapper(c *gin.Context) {

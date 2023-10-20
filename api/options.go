@@ -7,5 +7,5 @@ import (
 )
 
 func OptionsWrapper(c *gin.Context) {
-	processResult(c, struct{}{}, http.StatusOK, nil)
+	processResult(c, struct{}{}, http.StatusOK, nil, "")
 }

@@ -103,6 +103,8 @@ func TestLoadBottomArticles(t *testing.T) {
 			},
 		},
 		NextIdx: "",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

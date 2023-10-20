@@ -55,6 +55,8 @@ var (
 		MyAngel: "myangel",
 
 		ChessEloRating: 126,
+
+		TokenUser: "SYSOP",
 	}
 
 	testTitle0 = "新的目錄"
@@ -78,6 +80,8 @@ var (
 		Fav:          true,
 
 		URL: "/board/test9/articles",
+
+		TokenUser: "SYSOP",
 	}
 
 	testBoardSummary8 = &apitypes.BoardSummary{
@@ -99,6 +103,8 @@ var (
 		Fav:          true,
 
 		URL: "/board/test8/articles",
+
+		TokenUser: "SYSOP",
 	}
 
 	testBoardSummary10 = &apitypes.BoardSummary{
@@ -119,6 +125,8 @@ var (
 		Bid:          10,
 
 		URL: "/board/WhoAmI/articles",
+
+		TokenUser: "SYSOP",
 	}
 
 	testFavoriteBoards0 = []*apitypes.BoardSummary{
@@ -149,6 +157,8 @@ var (
 		Fav:          true,
 
 		URL: "/board/test9/articles",
+
+		TokenUser: "SYSOP",
 	}
 
 	testDeleteBoardSummary8 = &apitypes.BoardSummary{
@@ -170,6 +180,8 @@ var (
 		Fav:          true,
 
 		URL: "/board/test8/articles",
+
+		TokenUser: "SYSOP",
 	}
 
 	testDeleteFavoriteBoards0 = []*apitypes.BoardSummary{

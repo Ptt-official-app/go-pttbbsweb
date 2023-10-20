@@ -54,6 +54,8 @@ func TestGetManArticleDetail(t *testing.T) {
 
 		Title:   "[心得] 測試一下特殊字～",
 		Content: testContentSignature0,
+
+		TokenUser: "SYSOP",
 	}
 
 	expectedArticleDetailSummary0 := &schema.ManArticleDetailSummary{

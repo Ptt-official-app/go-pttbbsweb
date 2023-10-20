@@ -24,6 +24,8 @@ type LoadUserArticlesPath struct {
 type LoadUserArticlesResult struct {
 	List    []*apitypes.ArticleSummary `json:"list"`
 	NextIdx string                     `json:"next_idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
 func NewUserArticlesParams() *LoadUserArticlesParams {
@@ -60,7 +62,7 @@ func LoadUserArticles(remoteAddr string, userID bbs.UUserID, params interface{},
 		return nil, 500, err
 	}
 
-	r := NewLoadUserArticlesResult(articleSummaries_db, userReadArticleMap, nextIdx)
+	r := NewLoadUserArticlesResult(articleSummaries_db, userReadArticleMap, nextIdx, userID)
 	return r, 200, nil
 }
 
@@ -165,10 +167,10 @@ func checkReadUserArticles(userID bbs.UUserID, theList []*schema.ArticleSummary)
 	return userReadArticleMap, nil
 }
 
-func NewLoadUserArticlesResult(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool, nextIdx string) *LoadUserArticlesResult {
+func NewLoadUserArticlesResult(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool, nextIdx string, userID bbs.UUserID) *LoadUserArticlesResult {
 	theList := make([]*apitypes.ArticleSummary, len(a_db))
 	for i, each_db := range a_db {
-		theList[i] = apitypes.NewArticleSummary(each_db)
+		theList[i] = apitypes.NewArticleSummary(each_db, "")
 		articleID := each_db.ArticleID
 		isRead, ok := userReadArticleMap[articleID]
 		if ok && isRead {
@@ -179,5 +181,7 @@ func NewLoadUserArticlesResult(a_db []*schema.ArticleSummary, userReadArticleMap
 	return &LoadUserArticlesResult{
 		List:    theList,
 		NextIdx: nextIdx,
+
+		TokenUser: userID,
 	}
 }

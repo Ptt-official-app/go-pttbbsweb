@@ -88,6 +88,8 @@ func TestLoadPopularBoards(t *testing.T) {
 				URL: "/board/Note/articles",
 			},
 		},
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

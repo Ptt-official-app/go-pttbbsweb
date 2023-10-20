@@ -116,5 +116,7 @@ func NewRegisterUserResult(result_b *pttbbsapi.RegisterResult) *RegisterUserResu
 		RefreshToken:  result_b.Refresh,
 		AccessExpire:  types.Time8(result_b.AccessExpire),
 		RefreshExpire: types.Time8(result_b.RefreshExpire),
+
+		TokenUser: result_b.UserID,
 	}
 }

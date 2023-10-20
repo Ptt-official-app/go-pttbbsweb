@@ -25,6 +25,8 @@ type GetManArticleDetailResult struct {
 	IsDir      bool                `json:"is_dir"`
 
 	Content [][]*types.Rune `json:"content"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func GetManArticleDetailWrapper(c *gin.Context) {
@@ -72,6 +74,8 @@ func GetManArticleDetail(remoteAddr string, userID bbs.UUserID, params interface
 		IsDir:      articleDetailSummary.IsDir,
 
 		Content: content,
+
+		TokenUser: userID,
 	}
 
 	return result, 200, nil

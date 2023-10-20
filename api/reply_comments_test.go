@@ -93,6 +93,8 @@ func TestReplyComments(t *testing.T) {
 
 	result0 := &ReplyCommentsResult{
 		Success: true,
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

@@ -60,6 +60,8 @@ func Refresh(remoteAddr string, params interface{}, c *gin.Context) (result inte
 		RefreshToken:  result_b.Refresh,
 		AccessExpire:  types.Time8(result_b.AccessExpire),
 		RefreshExpire: types.Time8(result_b.RefreshExpire),
+
+		TokenUser: result_b.UserID,
 	}
 
 	return result, 200, nil

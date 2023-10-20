@@ -42,6 +42,8 @@ func TestGetBoardSummary(t *testing.T) {
 		StatAttr:     ptttype.NBRD_BOARD,
 
 		URL: "/board/test1/articles",
+
+		TokenUser: "SYSOP",
 	})
 
 	type args struct {

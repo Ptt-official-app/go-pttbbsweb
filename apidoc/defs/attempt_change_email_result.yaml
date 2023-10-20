@@ -5,3 +5,6 @@ AttemptChangeEmailResult:
       type: string
     email:
       type: string
+    tokenuser:
+      type: string
+      description: the user-id of the token.

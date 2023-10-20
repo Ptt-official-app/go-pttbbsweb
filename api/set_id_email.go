@@ -24,6 +24,8 @@ type SetIDEmailPath struct {
 
 type SetIDEmailResult struct {
 	Email string `json:"idemail"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func SetIDEmailWrapper(c *gin.Context) {
@@ -98,5 +100,5 @@ func SetIDEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path 
 		return nil, statusCode, err
 	}
 
-	return &SetIDEmailResult{Email: result_b.Email}, 200, nil
+	return &SetIDEmailResult{Email: result_b.Email, TokenUser: userID}, 200, nil
 }

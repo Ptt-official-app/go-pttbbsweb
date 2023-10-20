@@ -11,7 +11,7 @@ import (
 func JSON(theFunc APIFunc, params interface{}, c *gin.Context) {
 	err := c.ShouldBindJSON(params)
 	if err != nil {
-		processResult(c, nil, 400, err)
+		processResult(c, nil, 400, err, "")
 		return
 	}
 
@@ -21,7 +21,7 @@ func JSON(theFunc APIFunc, params interface{}, c *gin.Context) {
 func Form(theFunc APIFunc, params interface{}, c *gin.Context) {
 	err := c.ShouldBindWith(params, binding.Form)
 	if err != nil {
-		processResult(c, nil, 400, err)
+		processResult(c, nil, 400, err, "")
 		return
 	}
 
@@ -33,7 +33,7 @@ func FormJSON(theFunc APIFunc, params interface{}, c *gin.Context) {
 	if err != nil {
 		err = c.ShouldBindWith(params, binding.Form)
 		if err != nil {
-			processResult(c, nil, 400, err)
+			processResult(c, nil, 400, err, "")
 			return
 		}
 	}
@@ -48,7 +48,7 @@ func FormLogout(theFunc APIFunc, params interface{}, c *gin.Context) {
 func Query(theFunc APIFunc, params interface{}, c *gin.Context) {
 	err := c.ShouldBindQuery(params)
 	if err != nil {
-		processResult(c, nil, 400, err)
+		processResult(c, nil, 400, err, "")
 		return
 	}
 
@@ -58,28 +58,28 @@ func Query(theFunc APIFunc, params interface{}, c *gin.Context) {
 func process(theFunc APIFunc, params interface{}, c *gin.Context) {
 	remoteAddr := strings.TrimSpace(c.ClientIP())
 	if !isValidRemoteAddr(remoteAddr) {
-		processResult(c, nil, 400, ErrInvalidRemoteAddr)
+		processResult(c, nil, 400, ErrInvalidRemoteAddr, "")
 		return
 	}
 
 	if !isValidOriginReferer(c) {
-		processResult(c, nil, 403, ErrInvalidOrigin)
+		processResult(c, nil, 403, ErrInvalidOrigin, "")
 		return
 	}
 
 	result, statusCode, err := theFunc(remoteAddr, params, c)
-	processResult(c, result, statusCode, err)
+	processResult(c, result, statusCode, err, "")
 }
 
 func processLogout(theFunc APIFunc, params interface{}, c *gin.Context) {
 	remoteAddr := strings.TrimSpace(c.ClientIP())
 	if !isValidRemoteAddr(remoteAddr) {
-		processResult(c, nil, 400, ErrInvalidRemoteAddr)
+		processResult(c, nil, 400, ErrInvalidRemoteAddr, "")
 		return
 	}
 
 	if !isValidOriginReferer(c) {
-		processResult(c, nil, 403, ErrInvalidOrigin)
+		processResult(c, nil, 403, ErrInvalidOrigin, "")
 		return
 	}
 

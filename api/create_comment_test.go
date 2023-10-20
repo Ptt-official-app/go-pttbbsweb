@@ -46,6 +46,8 @@ func TestCreateComment(t *testing.T) {
 			},
 		},
 		Idx: "1622139048149857000@FofoE7wzVug:PlQBjivX5w0hPmg3SIsGjw",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

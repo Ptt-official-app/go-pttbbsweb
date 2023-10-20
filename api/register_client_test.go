@@ -23,7 +23,7 @@ func TestRegisterClient(t *testing.T) {
 		ClientID: "test_client_id",
 	}
 
-	expected := &RegisterClientResult{ClientSecret: "test_client_secret"}
+	expected := &RegisterClientResult{ClientSecret: "test_client_secret", TokenUser: "SYSOP"}
 
 	expectedDB := []*schema.Client{
 		{

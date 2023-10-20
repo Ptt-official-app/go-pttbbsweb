@@ -46,6 +46,8 @@ type GetArticleDetailResult struct {
 	BBS  string `json:"bbs"`
 
 	Rank int `json:"rank"` // 評價
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func GetArticleDetailWrapper(c *gin.Context) {
@@ -108,6 +110,8 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 		Host:          host,
 		BBS:           bbs,
 		Rank:          articleDetailSummary.Rank,
+
+		TokenUser: userID,
 	}
 
 	return result, 200, nil

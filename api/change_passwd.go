@@ -73,11 +73,12 @@ func ChangePasswd(remoteAddr string, userID bbs.UUserID, params interface{}, pat
 	}
 
 	// result
-	result = NewChangePasswdResult(result_b)
+	ret := NewChangePasswdResult(result_b)
+	ret.TokenUser = userID
 
 	setTokenToCookie(c, result_b.Jwt)
 
-	return result, 200, nil
+	return ret, 200, nil
 }
 
 func NewChangePasswdResult(result_b *pttbbsapi.ChangePasswdResult) *ChangePasswdResult {

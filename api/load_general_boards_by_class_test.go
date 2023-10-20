@@ -62,6 +62,8 @@ func TestLoadGeneralBoardsByClass(t *testing.T) {
 			},
 		},
 		NextIdx: "vFSt-Q@test3",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

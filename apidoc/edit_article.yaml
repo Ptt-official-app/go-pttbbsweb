@@ -46,3 +46,4 @@ responses:
           type: string
         class:
           type: string
+        !include defs/tokenuser.yaml

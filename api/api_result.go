@@ -2,16 +2,17 @@ package api
 
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
 
-func processResult(c *gin.Context, result interface{}, statusCode int, err error) {
+func processResult(c *gin.Context, result interface{}, statusCode int, err error, userID bbs.UUserID) {
 	setHeader(c)
 
 	if statusCode == 200 {
 		c.JSON(200, result)
 	} else {
-		c.JSON(statusCode, &errResult{err.Error()})
+		c.JSON(statusCode, &errResult{Msg: err.Error(), TokenUser: userID})
 	}
 }
 

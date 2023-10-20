@@ -69,7 +69,7 @@ func GetBoardDetail(remoteAddr string, userID bbs.UUserID, params interface{}, p
 		return nil, 500, err
 	}
 
-	boardDetail := apitypes.NewBoardDetail(boardDetail_db, "")
+	boardDetail := apitypes.NewBoardDetail(boardDetail_db, "", userID)
 
 	result = GetBoardDetailResult(boardDetail)
 

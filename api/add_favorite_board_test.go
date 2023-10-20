@@ -54,6 +54,8 @@ func TestAddFavoriteBoard(t *testing.T) {
 		Bid:          10,
 
 		URL: "/board/WhoAmI/articles",
+
+		TokenUser: "SYSOP",
 	})
 
 	type args struct {

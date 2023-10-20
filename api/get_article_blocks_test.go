@@ -59,6 +59,8 @@ func TestGetArticleBlocks(t *testing.T) {
 		IP:        "172.22.0.1",
 		Host:      "",
 		BBS:       "批踢踢 docker(pttdocker.test)",
+
+		TokenUser: "SYSOP",
 	}
 
 	params1 := NewGetArticleBlocksParams()
@@ -81,6 +83,8 @@ func TestGetArticleBlocks(t *testing.T) {
 		Host:      "臺灣",
 		BBS:       "批踢踢實業坊(ptt.cc)",
 		NextIdx:   "FsQhVG-oT3A:IKCj3KzpwP5pcJxOAPNDNQ^1",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

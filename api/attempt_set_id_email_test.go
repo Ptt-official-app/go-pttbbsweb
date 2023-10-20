@@ -31,6 +31,8 @@ func TestAttemptSetIDEmail(t *testing.T) {
 	result0 := &AttemptSetIDEmailResult{
 		UserID: "SYSOP",
 		Email:  "test@ptt.test",
+
+		TokenUser: "SYSOP",
 	}
 	type args struct {
 		remoteAddr string

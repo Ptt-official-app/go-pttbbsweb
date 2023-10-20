@@ -62,7 +62,7 @@ func LoadGeneralArticlesByKeyword(remoteAddr string, userID bbs.UUserID, params 
 		return nil, 500, err
 	}
 
-	return NewLoadGeneralArticlesResultByKeyword(articleSummaries_db, userReadArticleMap, nextIdx), 200, nil
+	return NewLoadGeneralArticlesResultByKeyword(articleSummaries_db, userReadArticleMap, nextIdx, userID), 200, nil
 }
 
 func getUserReadArticleMap(userID bbs.UUserID, boardID bbs.BBoardID, theList []*schema.ArticleSummary) (userReadArticleMap map[bbs.ArticleID]types.NanoTS, err error) {
@@ -84,10 +84,10 @@ func getUserReadArticleMap(userID bbs.UUserID, boardID bbs.BBoardID, theList []*
 	return userReadArticleMap, nil
 }
 
-func NewLoadGeneralArticlesResultByKeyword(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]types.NanoTS, nextIdx string) (result *LoadGeneralArticlesResult) {
+func NewLoadGeneralArticlesResultByKeyword(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]types.NanoTS, nextIdx string, userID bbs.UUserID) (result *LoadGeneralArticlesResult) {
 	theList := make([]*apitypes.ArticleSummary, len(a_db))
 	for i, each_db := range a_db {
-		theList[i] = apitypes.NewArticleSummary(each_db)
+		theList[i] = apitypes.NewArticleSummary(each_db, "")
 		readNanoTS, ok := userReadArticleMap[each_db.ArticleID]
 		if !ok {
 			continue
@@ -102,5 +102,7 @@ func NewLoadGeneralArticlesResultByKeyword(a_db []*schema.ArticleSummary, userRe
 	return &LoadGeneralArticlesResult{
 		List:    theList,
 		NextIdx: nextIdx,
+
+		TokenUser: userID,
 	}
 }

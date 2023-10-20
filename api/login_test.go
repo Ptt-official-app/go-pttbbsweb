@@ -23,7 +23,7 @@ func TestLogin(t *testing.T) {
 		Password:     "testpasswd",
 	}
 
-	expected0 := &LoginResult{TokenType: "bearer", UserID: "testuserid1"}
+	expected0 := &LoginResult{TokenType: "bearer", UserID: "testuserid1", TokenUser: "testuserid1"}
 	expectedDB0 := []*schema.AccessToken{{UserID: "testuserid1"}}
 
 	type args struct {

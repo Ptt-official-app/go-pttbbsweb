@@ -36,3 +36,4 @@ responses:
       properties:
         success:
           type: boolean
+        !include defs/tokenuser.yaml

@@ -23,6 +23,8 @@ type LoadUserCommentsPath struct {
 type LoadUserCommentsResult struct {
 	List    []*apitypes.ArticleComment `json:"list"`
 	NextIdx string                     `json:"next_idx"`
+
+	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 }
 
 func NewLoadUserCommentsParams() *LoadUserCommentsParams {
@@ -59,7 +61,7 @@ func LoadUserComments(remoteAddr string, userID bbs.UUserID, params interface{},
 		return nil, 500, err
 	}
 
-	r := NewLoadUserCommentsResult(commentSummaries_db, articleSummaryMap, userReadArticleMap, nextIdx)
+	r := NewLoadUserCommentsResult(commentSummaries_db, articleSummaryMap, userReadArticleMap, nextIdx, userID)
 
 	return r, 200, nil
 }
@@ -170,7 +172,9 @@ func NewLoadUserCommentsResult(
 	commentSummaries_db []*schema.CommentSummary,
 	articleSummaryMap map[bbs.ArticleID]*schema.ArticleSummary,
 	userReadArticleMap map[bbs.ArticleID]types.NanoTS,
-	nextIdx string) (result *LoadUserCommentsResult) {
+	nextIdx string,
+	userID bbs.UUserID,
+) (result *LoadUserCommentsResult) {
 	comments := make([]*apitypes.ArticleComment, len(commentSummaries_db))
 	for idx, each := range commentSummaries_db {
 		articleSummary, ok := articleSummaryMap[each.ArticleID]
@@ -201,6 +205,8 @@ func NewLoadUserCommentsResult(
 	result = &LoadUserCommentsResult{
 		List:    comments,
 		NextIdx: nextIdx,
+
+		TokenUser: userID,
 	}
 	return result
 }

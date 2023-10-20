@@ -21,6 +21,8 @@ type CreateRankPath struct {
 
 type CreateRankResult struct {
 	Rank int `json:"rank"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func CreateRankWrapper(c *gin.Context) {
@@ -78,5 +80,5 @@ func CreateRank(remoteAddr string, userID bbs.UUserID, params interface{}, path 
 		return nil, 500, err
 	}
 
-	return &CreateRankResult{Rank: newRank}, 200, nil
+	return &CreateRankResult{Rank: newRank, TokenUser: userID}, 200, nil
 }

@@ -16,3 +16,6 @@ ManArticleBlock:
       type: string
     next_idx:
       '$ref': '#/definitions/RespNextIdx'
+    tokenuser:
+      type: string
+      description: the user-id of the token.

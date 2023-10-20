@@ -3,6 +3,7 @@ package apitypes
 import (
 	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
 type ManArticleSummary struct {
@@ -15,9 +16,11 @@ type ManArticleSummary struct {
 	Title string `json:"title"` //
 
 	IsDir bool `json:"is_dir"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
-func NewManArticleSummary(articleSummary_db *schema.ManArticleSummary) (articleSummary *ManArticleSummary) {
+func NewManArticleSummary(articleSummary_db *schema.ManArticleSummary, userID bbs.UUserID) (articleSummary *ManArticleSummary) {
 	return &ManArticleSummary{
 		FBoardID:  ToFBoardID(articleSummary_db.BBoardID),
 		ArticleID: ToFArticleIDFromManArticleID(articleSummary_db.ArticleID),
@@ -29,5 +32,7 @@ func NewManArticleSummary(articleSummary_db *schema.ManArticleSummary) (articleS
 
 		Title: articleSummary_db.Title,
 		IsDir: articleSummary_db.IsDir,
+
+		TokenUser: userID,
 	}
 }

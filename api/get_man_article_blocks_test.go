@@ -52,6 +52,8 @@ func TestGetManArticleBlocks(t *testing.T) {
 		MTime:      types.Time8(1608386280),
 
 		Title: "[心得] 測試一下特殊字～",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

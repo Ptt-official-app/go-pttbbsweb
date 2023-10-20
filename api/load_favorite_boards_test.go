@@ -6,6 +6,7 @@ import (
 
 	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/gin-gonic/gin"
 )
@@ -19,9 +20,61 @@ func TestLoadFavoriteBoards(t *testing.T) {
 		UserID: "SYSOP",
 	}
 
+	testBoardSummary9_c := &apitypes.BoardSummary{
+		FBoardID:  "test9",
+		Brdname:   "test9",
+		Title:     "測試9",
+		BrdAttr:   0,
+		BoardType: "◎",
+		Category:  "測試",
+		NUser:     100,
+		BMs:       []bbs.UUserID{"okcool", "teemo"},
+		Total:     123,
+
+		LastPostTime: 1234567890,
+		StatAttr:     ptttype.NBRD_BOARD,
+		Idx:          "3",
+		Gid:          3,
+		Bid:          9,
+		Fav:          true,
+
+		URL: "/board/test9/articles",
+	}
+
+	testBoardSummary8_c := &apitypes.BoardSummary{
+		FBoardID:  "test8",
+		Brdname:   "test8",
+		Title:     "測試8",
+		BrdAttr:   0,
+		BoardType: "◎",
+		Category:  "測試",
+		NUser:     101,
+		BMs:       []bbs.UUserID{"okcool2", "teemo2"},
+		Total:     124,
+
+		LastPostTime: 1300000000,
+		StatAttr:     ptttype.NBRD_BOARD,
+		Idx:          "5",
+		Gid:          3,
+		Bid:          8,
+		Fav:          true,
+
+		URL: "/board/test8/articles",
+	}
+
+	testFavoriteBoards0_c := []*apitypes.BoardSummary{
+		{StatAttr: ptttype.NBRD_LINE, Idx: "0"},
+		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":1", Idx: "1", URL: "/user/SYSOP/favorites?level_idx=:1"},
+		{StatAttr: ptttype.NBRD_LINE, Idx: "2"},
+		testBoardSummary9_c,
+		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":4", Idx: "4", URL: "/user/SYSOP/favorites?level_idx=:4"},
+		testBoardSummary8_c,
+	}
 	result0 := &LoadFavoriteBoardsResult{
-		List:    testFavoriteBoards0,
+		List:    testFavoriteBoards0_c,
 		NextIdx: "",
+
+		TokenUser: "SYSOP",
 	}
 
 	params1 := &LoadFavoriteBoardsParams{
@@ -31,8 +84,10 @@ func TestLoadFavoriteBoards(t *testing.T) {
 	}
 
 	result1 := &LoadFavoriteBoardsResult{
-		List:    testFavoriteBoards0[2:4],
+		List:    testFavoriteBoards0_c[2:4],
 		NextIdx: "4",
+
+		TokenUser: "SYSOP",
 	}
 
 	params2 := &LoadFavoriteBoardsParams{
@@ -42,12 +97,14 @@ func TestLoadFavoriteBoards(t *testing.T) {
 	}
 
 	list2 := []*apitypes.BoardSummary{
-		testFavoriteBoards0[4],
-		testFavoriteBoards0[3],
+		testFavoriteBoards0_c[4],
+		testFavoriteBoards0_c[3],
 	}
 	result2 := &LoadFavoriteBoardsResult{
 		List:    list2,
 		NextIdx: "2",
+
+		TokenUser: "SYSOP",
 	}
 
 	type args struct {

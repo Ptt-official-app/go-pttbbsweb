@@ -20,7 +20,8 @@ type DeleteCommentsPath struct {
 }
 
 type DeleteCommentsResult struct {
-	Success bool `json:"success"`
+	Success   bool        `json:"success"`
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func DeleteCommentsWrapper(c *gin.Context) {
@@ -61,8 +62,9 @@ func DeleteComments(remoteAddr string, userID bbs.UUserID, params interface{}, p
 		return nil, statusCode, err
 	}
 
-	result = &ReplyCommentsResult{
-		Success: true,
+	result = &DeleteCommentsResult{
+		Success:   true,
+		TokenUser: userID,
 	}
 	return result, 200, nil
 }

@@ -24,6 +24,8 @@ func TestAddFavoriteLine(t *testing.T) {
 	ret0 := AddFavoriteResult(&apitypes.BoardSummary{
 		StatAttr: ptttype.NBRD_LINE,
 		Idx:      "6",
+
+		TokenUser: "SYSOP",
 	})
 	type args struct {
 		remoteAddr string

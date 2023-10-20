@@ -46,3 +46,6 @@ ArticleBlock:
       description: 發信站.
     next_idx:
       '$ref': '#/definitions/RespNextIdx'
+    tokenuser:
+      type: string
+      description: the user-id of the token.

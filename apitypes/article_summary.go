@@ -29,6 +29,8 @@ type ArticleSummary struct {
 	Rank int `json:"rank"`
 
 	SubjectType ptttype.SubjectType `json:"subject_type"`
+
+	TokenUser bbs.UUserID `json:"tokenuser"`
 }
 
 func ToFTitle(title string) string {
@@ -40,7 +42,7 @@ func ToFTitle(title string) string {
 	}
 }
 
-func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
+func NewArticleSummary(a_db *schema.ArticleSummary, userID bbs.UUserID) *ArticleSummary {
 	fboardID := ToFBoardID(a_db.BBoardID)
 	// if article is deleted, hide articleId
 	// https://github.com/Ptt-official-app/go-openbbsmiddleware/issues/253#issuecomment-971526173
@@ -77,10 +79,12 @@ func NewArticleSummary(a_db *schema.ArticleSummary) *ArticleSummary {
 		Rank: a_db.Rank,
 
 		SubjectType: a_db.SubjectType,
+
+		TokenUser: userID,
 	}
 }
 
-func NewArticleSummaryFromWithRegex(a_db *schema.ArticleSummaryWithRegex) *ArticleSummary {
+func NewArticleSummaryFromWithRegex(a_db *schema.ArticleSummaryWithRegex, userID bbs.UUserID) *ArticleSummary {
 	fboardID := ToFBoardID(a_db.BBoardID)
 	// if article is deleted, hide articleId
 	// https://github.com/Ptt-official-app/go-openbbsmiddleware/issues/253#issuecomment-971526173
@@ -117,5 +121,7 @@ func NewArticleSummaryFromWithRegex(a_db *schema.ArticleSummaryWithRegex) *Artic
 		Rank: a_db.Rank,
 
 		SubjectType: a_db.SubjectType,
+
+		TokenUser: userID,
 	}
 }

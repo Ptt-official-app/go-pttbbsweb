@@ -11,7 +11,7 @@ import (
 func LoginRequiredJSON(theFunc LoginRequiredAPIFunc, params interface{}, c *gin.Context) {
 	err := c.ShouldBindJSON(params)
 	if err != nil {
-		processResult(c, nil, 400, err)
+		processResult(c, nil, 400, err, "")
 		return
 	}
 
@@ -21,7 +21,7 @@ func LoginRequiredJSON(theFunc LoginRequiredAPIFunc, params interface{}, c *gin.
 func LoginRequiredQuery(theFunc LoginRequiredAPIFunc, params interface{}, c *gin.Context) {
 	err := c.ShouldBindQuery(params)
 	if err != nil {
-		processResult(c, nil, 400, err)
+		processResult(c, nil, 400, err, "")
 		return
 	}
 
@@ -31,12 +31,12 @@ func LoginRequiredQuery(theFunc LoginRequiredAPIFunc, params interface{}, c *gin
 func loginRequiredProcess(theFunc LoginRequiredAPIFunc, params interface{}, c *gin.Context) {
 	remoteAddr := strings.TrimSpace(c.ClientIP())
 	if !isValidRemoteAddr(remoteAddr) {
-		processResult(c, nil, 403, ErrInvalidRemoteAddr)
+		processResult(c, nil, 403, ErrInvalidRemoteAddr, "")
 		return
 	}
 
 	if !isValidOriginReferer(c) {
-		processResult(c, nil, 403, ErrInvalidOrigin)
+		processResult(c, nil, 403, ErrInvalidOrigin, "")
 		return
 	}
 
@@ -46,5 +46,5 @@ func loginRequiredProcess(theFunc LoginRequiredAPIFunc, params interface{}, c *g
 	}
 
 	result, statusCode, err := theFunc(remoteAddr, userID, params, c)
-	processResult(c, result, statusCode, err)
+	processResult(c, result, statusCode, err, userID)
 }
