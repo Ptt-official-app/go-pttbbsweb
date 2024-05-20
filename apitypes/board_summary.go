@@ -54,6 +54,11 @@ func NewBoardSummary(b_db *schema.BoardSummary, idx string, userBoardInfo *UserB
 		// XXX api.LOAD_GENERAL_ARTICLES_R
 		url = "/board/" + string(fboardID) + "/articles"
 	}
+
+	bms := b_db.BMs
+	if bms == nil {
+		bms = []bbs.UUserID{}
+	}
 	return &BoardSummary{
 		FBoardID:     fboardID,
 		Brdname:      b_db.Brdname,
@@ -61,7 +66,7 @@ func NewBoardSummary(b_db *schema.BoardSummary, idx string, userBoardInfo *UserB
 		BrdAttr:      b_db.BrdAttr,
 		BoardType:    b_db.BoardType,
 		Category:     b_db.Category,
-		BMs:          b_db.BMs,
+		BMs:          bms,
 		Total:        b_db.Total,
 		LastPostTime: b_db.LastPostTime.ToTime8(),
 		NUser:        b_db.NUser,
