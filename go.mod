@@ -4,19 +4,19 @@ go 1.19
 
 require (
 	github.com/Ptt-official-app/go-pttbbs v0.24.2
-	github.com/appleboy/graceful v0.0.4
+	github.com/appleboy/graceful v0.1.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/golang-queue/queue v0.1.3
 	github.com/google/go-querystring v1.1.0
-	github.com/google/uuid v1.4.0
+	github.com/google/uuid v1.5.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/jwalterweatherman v1.1.0
 	github.com/spf13/viper v1.18.2
 	github.com/stretchr/testify v1.8.4
-	go.mongodb.org/mongo-driver v1.12.1
-	google.golang.org/grpc v1.59.0
+	go.mongodb.org/mongo-driver v1.13.1
+	google.golang.org/grpc v1.60.1
 	google.golang.org/protobuf v1.31.0
 )
 
