@@ -27,6 +27,7 @@ func TestAddFavoriteFolder(t *testing.T) {
 		LevelIdx: ":6",
 		Idx:      "6",
 		URL:      "/user/SYSOP/favorites?level_idx=:6",
+		BMs:      []bbs.UUserID{},
 
 		TokenUser: "SYSOP",
 	})

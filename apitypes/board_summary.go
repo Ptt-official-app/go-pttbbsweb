@@ -94,6 +94,7 @@ func NewBoardSummaryFromUserFavorites(userID bbs.UUserID, uf_db *schema.UserFavo
 		return &BoardSummary{
 			StatAttr: ptttype.NBRD_LINE,
 			Idx:      idxStr,
+			BMs:      []bbs.UUserID{},
 
 			TokenUser: userID,
 		}
@@ -108,6 +109,7 @@ func NewBoardSummaryFromUserFavorites(userID bbs.UUserID, uf_db *schema.UserFavo
 			LevelIdx: subLevelIdx,
 			Idx:      idxStr,
 			URL:      url,
+			BMs:      []bbs.UUserID{},
 
 			TokenUser: userID,
 		}

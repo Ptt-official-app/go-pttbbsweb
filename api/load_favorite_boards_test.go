@@ -63,11 +63,11 @@ func TestLoadFavoriteBoards(t *testing.T) {
 	}
 
 	testFavoriteBoards0_c := []*apitypes.BoardSummary{
-		{StatAttr: ptttype.NBRD_LINE, Idx: "0"},
-		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":1", Idx: "1", URL: "/user/SYSOP/favorites?level_idx=:1"},
-		{StatAttr: ptttype.NBRD_LINE, Idx: "2"},
+		{StatAttr: ptttype.NBRD_LINE, Idx: "0", BMs: []bbs.UUserID{}},
+		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":1", Idx: "1", URL: "/user/SYSOP/favorites?level_idx=:1", BMs: []bbs.UUserID{}},
+		{StatAttr: ptttype.NBRD_LINE, Idx: "2", BMs: []bbs.UUserID{}},
 		testBoardSummary9_c,
-		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":4", Idx: "4", URL: "/user/SYSOP/favorites?level_idx=:4"},
+		{Title: testTitle0, StatAttr: ptttype.NBRD_FOLDER, LevelIdx: ":4", Idx: "4", URL: "/user/SYSOP/favorites?level_idx=:4", BMs: []bbs.UUserID{}},
 		testBoardSummary8_c,
 	}
 	result0 := &LoadFavoriteBoardsResult{

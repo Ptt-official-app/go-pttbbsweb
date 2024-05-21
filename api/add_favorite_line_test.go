@@ -24,6 +24,7 @@ func TestAddFavoriteLine(t *testing.T) {
 	ret0 := AddFavoriteResult(&apitypes.BoardSummary{
 		StatAttr: ptttype.NBRD_LINE,
 		Idx:      "6",
+		BMs:      []bbs.UUserID{},
 
 		TokenUser: "SYSOP",
 	})
