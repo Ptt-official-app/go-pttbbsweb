@@ -46,4 +46,5 @@ responses:
           type: string
         class:
           type: string
-        !include defs/tokenuser.yaml
+        tokenuser:
+          '$ref': '#/definitions/tokenuser'

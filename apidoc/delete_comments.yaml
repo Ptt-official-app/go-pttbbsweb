@@ -36,4 +36,5 @@ responses:
       properties:
         success:
           type: boolean
-        !include defs/tokenuser.yaml
+        tokenuser:
+          '$ref': '#/definitions/tokenuser'

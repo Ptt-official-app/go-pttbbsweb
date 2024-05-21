@@ -23,13 +23,13 @@ def include(self, node):
     result = {}
     for each in filename_list:
         with open(each, 'r') as f:
-            each_struct = yaml.load(f)
+            each_struct = yaml.full_load(f)
             result.update(each_struct)
     return result
 
     '''
     with open(filename, 'r') as f:
-        return yaml.load(f, Loader)
+        return yaml.full_load(f, Loader)
     '''
 
 
@@ -37,7 +37,7 @@ yaml.add_constructor('!include', include)
 
 
 with open(src, 'r') as f:
-    the_struct = yaml.load(f)
+    the_struct = yaml.full_load(f)
 
 with open(dst, 'w') as f:
     json.dump(the_struct, f, indent=4)

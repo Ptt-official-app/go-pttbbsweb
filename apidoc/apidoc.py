@@ -23,7 +23,7 @@ def _with_app_prefix(path):
 
 
 with open('apidoc/template.json', 'r') as f:
-    template = yaml.load(f)
+    template = yaml.full_load(f)
 
 
 @app.route('/')
@@ -105,6 +105,7 @@ def _load_favorite_boards(user_id):
 
     """
     return ''
+
 
 @app.route(_with_app_prefix('/user/<user_id>/favorites/addboard'), methods=['POST'])
 def _add_favorite_board(user_id):
@@ -466,6 +467,7 @@ def _get_verion():
 
     """
     return ''
+
 
 @app.route(_with_app_prefix('/uservisitcount'), methods=['GET'])
 def _get_user_visit_count():

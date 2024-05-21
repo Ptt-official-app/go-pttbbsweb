@@ -27,4 +27,5 @@ responses:
       properties:
         username:
           type: string
-        !include defs/tokenuser.yaml
+        tokenuser:
+          '$ref': '#/definitions/tokenuser'
