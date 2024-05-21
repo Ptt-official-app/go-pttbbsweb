@@ -34,4 +34,5 @@ responses:
         success:
           type: boolean
           description: 是否成功刪除.
-        !include defs/tokenuser.yaml
+        tokenuser:
+          '$ref': '#/definitions/tokenuser'

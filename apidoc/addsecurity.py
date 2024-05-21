@@ -9,7 +9,7 @@ import json
 filename = sys.argv[1]
 
 with open(filename, 'r') as f:
-    the_struct = yaml.load(f)
+    the_struct = yaml.full_load(f)
 
 components = the_struct.get('components', {})
 components['securitySchemes'] = {

@@ -53,3 +53,4 @@ definitions:
   !include defs/man_article_summary.yaml
   !include defs/man_article_list.yaml
   !include defs/man_article_block.yaml
+  !include defs/tokenuser.yaml
