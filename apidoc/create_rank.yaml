@@ -34,4 +34,5 @@ responses:
       properties:
         rank:
           type: number
-        !include def/tokenuser.yaml
+        tokenuser:
+          '$ref': '#/definitions/tokenuser'

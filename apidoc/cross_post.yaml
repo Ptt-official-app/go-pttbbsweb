@@ -36,4 +36,5 @@ responses:
           '$ref': '#/definitions/ArticleSummary'
         comment:
           '$ref': '#/definitions/Comment'
-        !include defs/tokenuser.yaml
+        tokenuser:
+          '$ref': '#/definitions/tokenuser'
