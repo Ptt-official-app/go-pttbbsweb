@@ -1,8 +1,8 @@
 package apitypes
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/utils"
 )
 
 func setupTest() {

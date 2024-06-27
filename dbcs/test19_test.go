@@ -1,10 +1,10 @@
 package dbcs
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 var (
@@ -30,7 +30,6 @@ func initTest19() {
 	testContent19Big5 = [][]*types.Rune{
 		{ // 0
 			{
-
 				Big5:   []byte("\xa7@\xaa\xcc: PttACT (PTT\xac\xa1\xb0\xca\xb3\xa1\xb1M\xa5\xce\xb1b\xb8\xb9) \xac\xdd\xaaO: SYSOP"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -39,7 +38,6 @@ func initTest19() {
 		},
 		{ // 1
 			{
-
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb1\xa1\xb3\xf8] PTT\xa6\xdb\xb3\xd0\xa6\xb1\xa4j\xc1\xc9 \xa8M\xbf\xef\xa7\xeb\xb2\xbc\xa9\xe2\xbc\xfa\xab~"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -48,7 +46,6 @@ func initTest19() {
 		},
 		{ // 2
 			{
-
 				Big5:   []byte("\xae\xc9\xb6\xa1: Fri Jan 26 17:18:22 2018"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -57,7 +54,6 @@ func initTest19() {
 		},
 		{ // 3
 			{
-
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
@@ -88,7 +84,6 @@ func initTest19() {
 		},
 		{ // 8
 			{
-
 				Big5:   []byte("\xb6R\xaa\xd1\xb2\xbc\xa6s\xaa\xd1\xbe\xde\xbdL"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -270,7 +265,6 @@ func initTest19() {
 		},
 		{ // 3
 			{
-
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),

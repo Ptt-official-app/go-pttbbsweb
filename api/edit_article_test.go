@@ -3,9 +3,9 @@ package api
 import (
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )

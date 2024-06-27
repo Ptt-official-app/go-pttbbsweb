@@ -3,9 +3,9 @@ package schema
 import (
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 func TestUpdateUserDetail(t *testing.T) {

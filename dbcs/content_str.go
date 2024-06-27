@@ -3,7 +3,7 @@ package dbcs
 import (
 	"strings"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 // ParseContentStr

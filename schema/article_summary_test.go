@@ -5,11 +5,11 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/mockhttp"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
+	"github.com/Ptt-official-app/go-pttbbsweb/mockhttp"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/bson"

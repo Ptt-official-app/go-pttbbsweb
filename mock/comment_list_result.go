@@ -1,8 +1,8 @@
 package mock
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/apitypes"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 type CommentListResult_t struct {

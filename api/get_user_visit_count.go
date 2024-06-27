@@ -1,10 +1,10 @@
 package api
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,7 +28,7 @@ func GetUserVisitCount(remoteAddr string, params interface{}, c *gin.Context) (r
 	if err != nil || statusCode != 200 {
 		return nil, 500, err
 	}
-	// get openbbsmiddleware user count
+	// get pttbbsweb user count
 	currentUserVisitCount := schema.GetUserVisitCount()
 	// total user
 	result = &GetUserVisitCountResult{Total: int64(result_b.Total) + currentUserVisitCount}

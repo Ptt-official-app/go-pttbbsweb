@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"github.com/sirupsen/logrus"
 )
 

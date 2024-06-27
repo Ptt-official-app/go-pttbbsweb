@@ -1,11 +1,11 @@
 package dbcs
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/configutil"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/configutil"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
-const configPrefix = "go-openbbsmiddleware:dbcs"
+const configPrefix = "go-pttbbsweb:dbcs"
 
 func InitConfig() (err error) {
 	config()

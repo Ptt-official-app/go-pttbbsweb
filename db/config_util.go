@@ -3,10 +3,10 @@ package db
 import (
 	"time"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/configutil"
+	"github.com/Ptt-official-app/go-pttbbsweb/configutil"
 )
 
-const configPrefix = "go-openbbsmiddleware:db"
+const configPrefix = "go-pttbbsweb:db"
 
 func InitConfig() error {
 	config()

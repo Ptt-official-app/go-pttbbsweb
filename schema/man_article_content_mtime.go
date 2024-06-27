@@ -1,8 +1,8 @@
 package schema
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -11,7 +11,6 @@ type ManArticleContentMTime struct {
 	ContentMTime types.NanoTS `bson:"content_mtime_nano_ts"`
 
 	IsDeleted bool `bson:"deleted,omitempty"` //
-
 }
 
 var EMPTY_MAN_ARTICLE_CONTENT_MTIME = &ManArticleContentMTime{}

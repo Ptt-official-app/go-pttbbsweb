@@ -3,11 +3,11 @@ package api
 import (
 	"context"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/dbcs"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/mand"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbsweb/dbcs"
+	"github.com/Ptt-official-app/go-pttbbsweb/mand"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
@@ -17,8 +17,8 @@ func UpdateManArticleContentInfo(
 	articleID types.ManArticleID,
 	content [][]*types.Rune,
 	contentMD5 string,
-	updateNanoTS types.NanoTS) (err error) {
-
+	updateNanoTS types.NanoTS,
+) (err error) {
 	if contentMD5 == "" {
 		return nil
 	}

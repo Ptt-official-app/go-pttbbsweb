@@ -11,5 +11,5 @@ ini_filename=$1
 
 echo "to build: tags: ${tags} ini: %{ini_filename}"
 go build -tags ${tags}
-echo "to run go-openbbsmiddleware"
-go-openbbsmiddleware -ini ${ini_filename}
+echo "to run go-pttbbsweb"
+go-pttbbsweb -ini ${ini_filename}

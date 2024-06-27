@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
+	"github.com/Ptt-official-app/go-pttbbsweb/db"
 	redis "github.com/go-redis/redis/v8"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"

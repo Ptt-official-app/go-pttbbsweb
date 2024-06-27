@@ -3,11 +3,11 @@ package apitypes
 import (
 	"bytes"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/dbcs"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbsweb/dbcs"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 type DeleteCommentParams struct {
