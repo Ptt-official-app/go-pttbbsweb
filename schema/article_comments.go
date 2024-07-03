@@ -1,8 +1,8 @@
 package schema
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -15,7 +15,6 @@ type ArticleComments struct {
 	CommentsUpdateNanoTS types.NanoTS `bson:"comments_update_nano_ts"`
 
 	IsDeleted bool `bson:"deleted,omitempty"` //
-
 }
 
 var (

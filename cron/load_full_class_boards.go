@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbsweb/api"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/utils"
 	"github.com/sirupsen/logrus"
 )
 

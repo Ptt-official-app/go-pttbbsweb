@@ -1,10 +1,10 @@
 package dbcs
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 var (
@@ -30,7 +30,6 @@ func initTest12() {
 	testContent12Big5 = [][]*types.Rune{
 		{ // 0
 			{
-
 				Big5:   []byte("\xa7@\xaa\xcc: thouloveme (\xbb\xae\xbb\xae) \xac\xdd\xaaO: Gossiping"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -39,7 +38,6 @@ func initTest12() {
 		},
 		{ // 1
 			{
-
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb7s\xbbD] \xb6\xa7\xa9\xfa\xa4s\xc0\xba\xa4\xd1\xb1^24\xc0Y\xa4\xfb\xbc\xc9\xc0\xc5\xa1@\xa6\xba\xa6]\xc3n\xa5\xfa"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -48,7 +46,6 @@ func initTest12() {
 		},
 		{ // 2
 			{
-
 				Big5:   []byte("\xae\xc9\xb6\xa1: Mon Dec 21 18:54:24 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -71,7 +68,6 @@ func initTest12() {
 		},
 		{ // 5
 			{
-
 				Big5:   []byte("1.\xb4C\xc5\xe9\xa8\xd3\xb7\xbd:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -87,7 +83,6 @@ func initTest12() {
 		},
 		{ // 7
 			{
-
 				Big5:   []byte("\xa4T\xa5\xdf\xb7s\xbbD"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -103,7 +98,6 @@ func initTest12() {
 		},
 		{ // 9
 			{
-
 				Big5:   []byte("2.\xb0O\xaa\xcc\xb8p\xa6W:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -119,7 +113,6 @@ func initTest12() {
 		},
 		{ // 11
 			{
-
 				Big5:   []byte("\xaaL\xa9_\xbe\xec\xb3\xf8\xbe\xc9"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -135,7 +128,6 @@ func initTest12() {
 		},
 		{ // 13
 			{
-
 				Big5:   []byte("2020/12/21 18:45:00"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -151,7 +143,6 @@ func initTest12() {
 		},
 		{ // 15
 			{
-
 				Big5:   []byte("3.\xa7\xb9\xbe\xe3\xb7s\xbbD\xbc\xd0\xc3D:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -167,7 +158,6 @@ func initTest12() {
 		},
 		{ // 17
 			{
-
 				Big5:   []byte("\xb6\xa7\xa9\xfa\xa4s\xc0\xba\xa4\xd1\xb1^24\xc0Y\xa4\xfb\xbc\xc9\xc0\xc5\xa1@\xa6\xba\xa6]\xc3n\xa5\xfa"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -183,7 +173,6 @@ func initTest12() {
 		},
 		{ // 19
 			{
-
 				Big5:   []byte("4.\xa7\xb9\xbe\xe3\xb7s\xbbD\xa4\xba\xa4\xe5:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -199,7 +188,6 @@ func initTest12() {
 		},
 		{ // 21
 			{
-
 				Big5:   []byte("\xa5\xcd\xac\xa1\xa4\xa4\xa4\xdf\xa1\xfe\xaaL\xa9_\xbe\xec\xb3\xf8\xbe\xc9"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -215,7 +203,6 @@ func initTest12() {
 		},
 		{ // 23
 			{
-
 				Big5:   []byte("\xaa\xf1\xa4\xe9\xc0W\xb6\xc7\xb6\xa7\xa9\xfa\xa4s\xb0\xea\xaea\xa4\xbd\xb6\xe9\xb3\xa5\xa9\xf1\xa4\xfb\xb0\xa6\xbc\xc9\xc0\xc5\xa8\xc6\xa5\xf3\xa1A\xa6\xdb\xa4\xb5\xa6~\xa5H\xa8\xd3\xa4w\xa6\xb324\xb0\xa6\xb3\xa5\xa9\xf1\xa4\xfb\xb0\xa6\xb3\xb0\xc4\xf2\xa6\xba\xa4`\xa1A\xb9\xef"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -224,7 +211,6 @@ func initTest12() {
 		},
 		{ // 24
 			{
-
 				Big5:   []byte("\xa6\xb9\xa5_\xa5\xab\xb0\xca\xabO\xb3B\xa4]\xbd\xd0\xa8\xd3\xb1M\xb7~\xc3~\xc2\xe5\xaev\xad\xe5\xc0\xcb\xb1\xc4\xbc\xcb\xa1A\xbe\xda\xb1\xc4\xc0\xcb\xb5\xb2\xaaG\xc5\xe3\xa5\xdc\xa1A\xa6\xba\xa4`\xad\xec\xa6]\xa5i\xaf\xe0\xa9M\xad\xb9\xaa\xab\xab~\xbd\xe8\xa4\xa3"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -233,7 +219,6 @@ func initTest12() {
 		},
 		{ // 25
 			{
-
 				Big5:   []byte("\xa8\xce\xa6\xb3\xc3\xf6\xa1A\xbe\xc9\xadP\xa4\xfb\xb0\xa6\xad\xcc\xaa\xf8\xb4\xc1\xc0\xe7\xbei\xc0\xf2\xa8\xfa\xa4\xa3\xa8\xac\xa1A\xa4]\xaa\xec\xa8B\xb1\xc6\xb0\xa3\xacO\xb0\xca\xaa\xab\xb6\xa1\xb6\xc7\xacV\xaff\xa9\xce\xacO\xa4H\xafb\xa6@\xb3q\xb6\xc7\xacV\xaff"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -242,7 +227,6 @@ func initTest12() {
 		},
 		{ // 26
 			{
-
 				Big5:   []byte("\xaa\xba\xa5i\xaf\xe0\xa9\xca"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -258,7 +242,6 @@ func initTest12() {
 		},
 		{ // 28
 			{
-
 				Big5:   []byte("https://attach.setn.com/newsimages/2020/12/08/2924507-PH.jpg"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -274,7 +257,6 @@ func initTest12() {
 		},
 		{ // 30
 			{
-
 				Big5:   []byte("5.\xa7\xb9\xbe\xe3\xb7s\xbbD\xb3s\xb5\xb2 (\xa9\xce\xb5u\xba\xf4\xa7}):"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -290,7 +272,6 @@ func initTest12() {
 		},
 		{ // 32
 			{
-
 				Big5:   []byte("https://www.setn.com/News.aspx?NewsID=869094"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -306,7 +287,6 @@ func initTest12() {
 		},
 		{ // 34
 			{
-
 				Big5:   []byte("6.\xb3\xc6\xb5\xf9:"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -329,7 +309,6 @@ func initTest12() {
 		},
 		{ // 37
 			{
-
 				Big5:   []byte("\xc0\xe7\xbei\xa4\xa3\xa8}?????????????????????"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -338,7 +317,6 @@ func initTest12() {
 		},
 		{ // 38
 			{
-
 				Big5:   []byte("\xb3o\xa6\xb3\xc2I\xa7\xe8..."),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,

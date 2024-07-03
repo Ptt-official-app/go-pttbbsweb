@@ -3,14 +3,14 @@ package api
 import (
 	"bytes"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/dbcs"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/cmsys"
+	"github.com/Ptt-official-app/go-pttbbsweb/dbcs"
+	"github.com/Ptt-official-app/go-pttbbsweb/queue"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,8 +19,8 @@ func tryUpdateFirstComments(
 	firstCommentsMD5 string,
 	firstCommentsUpdateNanoTS types.NanoTS,
 	articleDetailSummary *schema.ArticleDetailSummary) (
-
-	err error) {
+	err error,
+) {
 	if firstCommentsMD5 == articleDetailSummary.FirstCommentsMD5 {
 		return nil
 	}

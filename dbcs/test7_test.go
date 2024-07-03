@@ -1,10 +1,10 @@
 package dbcs
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 var (
@@ -28,7 +28,6 @@ func initTest7() {
 	testContent7Big5 = [][]*types.Rune{
 		{ // 0
 			{
-
 				Big5:   []byte("\xa7@\xaa\xcc: Psycap (\xb1a\xa4p\xaaB\xa4\xcd~~) \xac\xdd\xaaO: b885060xx"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -37,7 +36,6 @@ func initTest7() {
 		},
 		{ // 1
 			{
-
 				Big5:   []byte("\xbc\xd0\xc3D: \xae\xd1\xa8\xf7\xa5X\xc4l\xc5o^100%"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -46,7 +44,6 @@ func initTest7() {
 		},
 		{ // 2
 			{
-
 				Big5:   []byte("\xae\xc9\xb6\xa1: Mon Mar 31 14:29:44 2003"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -62,7 +59,6 @@ func initTest7() {
 		},
 		{ // 4
 			{
-
 				Big5:   []byte("\xa5\xbb\xafZ\xae\xd1\xa8\xf7\xa6W\xb3\xe6 :"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -78,7 +74,6 @@ func initTest7() {
 		},
 		{ // 6
 			{
-
 				Big5:   []byte("aaaaaaaa"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -87,7 +82,6 @@ func initTest7() {
 		},
 		{ // 7
 			{
-
 				Big5:   []byte("(\xa5\xfe\xb9p\xa5\xb4\xa4\xfd)"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -103,7 +97,6 @@ func initTest7() {
 		},
 		{ // 9
 			{
-
 				Big5:   []byte("--"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -119,7 +112,6 @@ func initTest7() {
 		},
 		{ // 11
 			{
-
 				Big5:   []byte("http://reg.aca.ntu.edu.tw/win911.htm"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,

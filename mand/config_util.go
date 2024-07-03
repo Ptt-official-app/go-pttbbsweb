@@ -1,8 +1,8 @@
 package mand
 
-import "github.com/Ptt-official-app/go-openbbsmiddleware/configutil"
+import "github.com/Ptt-official-app/go-pttbbsweb/configutil"
 
-const configPrefix = "go-openbbsmiddleware:mand"
+const configPrefix = "go-pttbbsweb:mand"
 
 func InitConfig() error {
 	config()

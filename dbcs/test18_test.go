@@ -1,10 +1,10 @@
 package dbcs
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 var (
@@ -30,7 +30,6 @@ func initTest18() {
 	testContent18Big5 = [][]*types.Rune{
 		{ // 0
 			{
-
 				Big5:   []byte("\xa7@\xaa\xcc: hellohiro (\x9d\xba\x9d\xba\x9d\xba\x9d\xbc) \xac\xdd\xaaO: Gossiping"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -39,7 +38,6 @@ func initTest18() {
 		},
 		{ // 1
 			{
-
 				Big5:   []byte("\xbc\xd0\xc3D: [\xb0\xdd\xa8\xf6] \xac\xb0\xa6\xf3\xa5\xb4\xb3\xc2\xb1N\xa5s\xbd\xe4\xb3\xd5\xa6\xfd\xb6R\xaa\xd1\xb2\xbc\xa5s\xa7\xeb\xb8\xea\xa1H"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -48,7 +46,6 @@ func initTest18() {
 		},
 		{ // 2
 			{
-
 				Big5:   []byte("\xae\xc9\xb6\xa1: Fri Mar 20 09:43:42 2020"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -57,7 +54,6 @@ func initTest18() {
 		},
 		{ // 3
 			{
-
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),
@@ -95,7 +91,6 @@ func initTest18() {
 		},
 		{ // 8
 			{
-
 				Big5:   []byte("\xb6R\xaa\xd1\xb2\xbc\xa6s\xaa\xd1\xbe\xde\xbdL"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -111,7 +106,6 @@ func initTest18() {
 		},
 		{ // 10
 			{
-
 				Big5:   []byte("-\xa5i\xaf\xe0\xbd\xdf\xbf\xfa\xa5i\xaf\xe0\xa6h\xc1\xc8"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -127,7 +121,6 @@ func initTest18() {
 		},
 		{ // 12
 			{
-
 				Big5:   []byte("\xa5\xd8\xabe\xac\xdd\xa8\xd3\xa5\xb4\xb3\xc2\xb1N\xbd\xdf\xaa\xba\xc1\xd9\xa4\xf1\xb6R\xaa\xd1\xa5\xab\xa4\xd6"),
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
@@ -196,7 +189,6 @@ func initTest18() {
 		},
 		{ // 3
 			{
-
 				Color0: types.DefaultColor,
 				Color1: types.DefaultColor,
 				DBCS:   []byte("\r"),

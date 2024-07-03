@@ -29,12 +29,12 @@ services:
       - ${POSTFIX_MAIN_CF}:/etc/postfix/main.cf
       - ${POSTFIX_MASTER_CF}:/etc/postfix/master.cf
     restart: always
-  openbbs-middleware:
-    image: pttofficialapps/go-openbbsmiddleware:v0.34.2
+  go-pttbbsweb:
+    image: pttofficialapps/go-pttbbsweb:v0.34.2
     ports:
       - "127.0.0.1:3457:3457"
     volumes:
       - ${STATIC_DIR}:/static
-      - ${ETC}:/etc/go-openbbsmiddleware
+      - ${ETC}:/etc/go-pttbbsweb
       - ${ETC}:/etc/go-pttbbs
     restart: always

@@ -5,10 +5,10 @@ import (
 	"runtime/debug"
 	"time"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbsweb/api"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"github.com/sirupsen/logrus"
 )
 

@@ -3,9 +3,9 @@ package dbcs
 import (
 	"strings"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 // ParseFirstComments
@@ -19,12 +19,11 @@ func ParseFirstCommentsStr(
 	articleMTime types.NanoTS,
 	commentsDBCS string,
 	origFirstCommentsMD5 string) (
-
 	firstComments []*schema.Comment,
 	firstCommentsMD5 string,
 	theRestCommentsDBCS string,
-	err error) {
-
+	err error,
+) {
 	firstCommentsDBCS, theRestCommentsDBCS := splitFirstCommentsStr(commentsDBCS)
 
 	// check md5

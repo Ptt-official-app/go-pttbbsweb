@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )

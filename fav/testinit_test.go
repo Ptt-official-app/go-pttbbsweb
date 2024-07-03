@@ -1,7 +1,7 @@
 package fav
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 func setupTest() {

@@ -1,14 +1,14 @@
 package cron
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/api"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbsweb/api"
+	"github.com/Ptt-official-app/go-pttbbsweb/boardd"
+	"github.com/Ptt-official-app/go-pttbbsweb/db"
+	"github.com/Ptt-official-app/go-pttbbsweb/queue"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/utils"
 )
 
 func setupTest() {

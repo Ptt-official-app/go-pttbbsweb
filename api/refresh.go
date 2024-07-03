@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"github.com/gin-gonic/gin"
 )
 

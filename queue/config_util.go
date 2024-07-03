@@ -1,10 +1,10 @@
 package queue
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/configutil"
+	"github.com/Ptt-official-app/go-pttbbsweb/configutil"
 )
 
-const configPrefix = "go-openbbsmiddleware:queue"
+const configPrefix = "go-pttbbsweb:queue"
 
 func InitConfig() error {
 	config()

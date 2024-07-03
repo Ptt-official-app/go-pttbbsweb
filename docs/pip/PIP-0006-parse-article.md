@@ -18,7 +18,7 @@ parse 文章被認為是 computationally intensive 的 task. 中介底層只提�
 6. 編輯時間
 7. 刪除
 
-根據以上規則. 有著以下的 [split 文章 algorithm](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/dbcs/split_article_signature_comments_dbcs.go)
+根據以上規則. 有著以下的 [split 文章 algorithm](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/dbcs/split_article_signature_comments_dbcs.go)
 
 1. 找到所有 match '\n--' 的部分為 match_list.
 2. 在 match-list 裡找到最後一個 valid match.
@@ -31,4 +31,4 @@ parse 文章被認為是 computationally intensive 的 task. 中介底層只提�
     * 如果沒有找到第一個推文: 全部都當成是本文.
     * 如果有找到第一個推文: 之前的是本文. 之後的是推文區.
 
-找到的具代表性的文章都放在 [dbcs/testcase/](https://github.com/Ptt-official-app/go-openbbsmiddleware/tree/main/dbcs/testcase) 裡.
+找到的具代表性的文章都放在 [dbcs/testcase/](https://github.com/Ptt-official-app/go-pttbbsweb/tree/main/dbcs/testcase) 裡.

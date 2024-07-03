@@ -3,7 +3,7 @@ package api
 import (
 	"io/ioutil"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 var (

@@ -5,10 +5,10 @@ import (
 	"io"
 	"strconv"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	pttbbsfav "github.com/Ptt-official-app/go-pttbbs/ptt/fav"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 // Fav

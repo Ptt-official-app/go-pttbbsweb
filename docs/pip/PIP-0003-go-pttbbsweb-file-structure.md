@@ -8,5 +8,5 @@
 * `queue/` 把要處理的 comments 丟到 queue 裡相關的 module.
 * `dbcs/` 處理 dbcs (double-byte-color-system) 相關的 module.
 * `db/` db 的基本 wrapping functions.
-* `mock/` go-openbbsmiddleware 給 frontend 的假資料.
+* `mock/` go-pttbbsweb 給 frontend 的假資料.
 * `mockhttp/` 測試時的 go-pttbbs 的假資料.

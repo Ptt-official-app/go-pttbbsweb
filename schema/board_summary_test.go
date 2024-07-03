@@ -4,12 +4,12 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/mockhttp"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
+	"github.com/Ptt-official-app/go-pttbbsweb/boardd"
+	"github.com/Ptt-official-app/go-pttbbsweb/mockhttp"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 func TestUpdateBoardSummaries(t *testing.T) {
