@@ -7,7 +7,7 @@ import (
 	"net/smtp"
 	"strings"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 // https://gist.github.com/andelf/5004821
@@ -41,7 +41,6 @@ func SendEmail(rcpts []string, title string, content string) (err error) {
 	message += "\n" + base64.StdEncoding.EncodeToString([]byte(content))
 
 	err = smtp.SendMail(types.EMAIL_SERVER, nil, from.Address, rcpts, []byte(message))
-
 	if err != nil {
 		return err
 	}

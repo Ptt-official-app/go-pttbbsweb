@@ -4,12 +4,12 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/fav"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	pttbbsfav "github.com/Ptt-official-app/go-pttbbs/ptt/fav"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbsweb/db"
+	"github.com/Ptt-official-app/go-pttbbsweb/fav"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"go.mongodb.org/mongo-driver/bson"
 )
 

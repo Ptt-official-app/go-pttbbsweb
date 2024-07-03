@@ -22,7 +22,7 @@ Ptt ([Web 版](https://term.ptt.cc/), [Publicly Accessible 版](https://www.ptt.
 
 根據系統架構:
 
-* [go-openbbsmiddleware](https://github.com/Ptt-official-app/go-openbbsmiddleware) implements [這張圖](https://github.com/Ptt-official-app/ptt_official_app_wanted#%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B) 的中介應用層.
+* [go-pttbbsweb](https://github.com/Ptt-official-app/go-pttbbsweb) implements [這張圖](https://github.com/Ptt-official-app/ptt_official_app_wanted#%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B) 的中介應用層.
 * [go-pttbbs](https://github.com/Ptt-official-app/go-pttbbs) implements [這張圖](https://github.com/Ptt-official-app/ptt_official_app_wanted#%E7%B3%BB%E7%B5%B1%E6%9E%B6%E6%A7%8B) 的中介底層.
 * 使用 [MongoDB](https://www.mongodb.com/) 為相對應的 DB.
-* [demo-pttbbs](https://github.com/Ptt-official-app/demo-pttbbs) 展示 [go-openbbsmiddleware](https://github.com/Ptt-official-app/go-openbbsmiddleware) 的使用範例.
+* [pttbbs-web](https://github.com/Ptt-official-app/pttbbs-web) 展示 [go-pttbbsweb](https://github.com/Ptt-official-app/go-pttbbsweb) 的使用範例.

@@ -1,16 +1,16 @@
 package api
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/dbcs"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/queue"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/cmsys"
 	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/boardd"
+	"github.com/Ptt-official-app/go-pttbbsweb/dbcs"
+	"github.com/Ptt-official-app/go-pttbbsweb/queue"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -302,7 +302,6 @@ func TryGetArticleContentInfo(userID bbs.UUserID, bboardID bbs.BBoardID, article
 	// only article-content is guaranteed.
 
 	err = UpdateArticleContentInfo(bboardID, articleID, content, contentPrefix, contentMD5, ip, host, bbs, signatureMD5, signatureDBCS, updateNanoTS)
-
 	if err != nil {
 		return nil, nil, "", "", "", "", "", nil, nil, 0, 0, 500, err
 	}

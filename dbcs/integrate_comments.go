@@ -1,9 +1,9 @@
 package dbcs
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 func IntegrateComments(boardID bbs.BBoardID, articleID bbs.ArticleID, comments []*schema.Comment, articleCreateTime types.NanoTS, articleMTime types.NanoTS, isForwardOnly bool, isLastAlignEndNanoTS bool) (newComments []*schema.Comment, toDeleteComments []*schema.CommentMD5, err error) {

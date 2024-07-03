@@ -1,6 +1,6 @@
 info:
   version: '0.34.2'
-  title: openbbs-middleware
+  title: go-pttbbsweb
 definitions:
   !include defs/access_token.yaml
   !include defs/account_login_params.yaml

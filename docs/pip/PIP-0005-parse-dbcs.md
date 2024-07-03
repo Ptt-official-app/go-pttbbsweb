@@ -23,7 +23,7 @@ MongoDB 有著每個 document 16MB 的上限. c-pttbbs 裡有可能會出現超�
 本文 (content) 包含著以 '\n' 或 '\r\n' 分開的數個行. \
 每行裡由一個或多個不同顏色屬性的 bytes 所組成.
 
-目前定義 [rune](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/types/rune.go) 如下:
+目前定義 [rune](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/types/rune.go) 如下:
 
 ```
 type Rune struct {
@@ -46,7 +46,7 @@ type Rune struct {
 所以每行就會是 \[\]\*Rune, 每個本文就會是 \[\]\[\]\*Rune
 
 
-## [DBCS => Big5](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/dbcs/dbcs.go#L148)
+## [DBCS => Big5](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/dbcs/dbcs.go#L148)
 
 對於每行的 DBCS => big5 大致如下:
 
@@ -77,12 +77,12 @@ type Rune struct {
 5. 處理 for-loop 結束後的 state.
 
 
-## [Big5 => utf8](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/dbcs/dbcs.go#L102)
+## [Big5 => utf8](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/dbcs/dbcs.go#L102)
 
 對於每個 Rune. 直接將 Big5 轉為 utf8.
 
 
-## [Utf8 => DBCS](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/dbcs/dbcs.go#L40)
+## [Utf8 => DBCS](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/dbcs/dbcs.go#L40)
 
 1. 如果已經存在 DBCS. 則直接 return DBCS.
 2. parse color0bytes, color1bytes, big5bytes. 將這 3 個組合起來成為 DBCS.

@@ -1,13 +1,13 @@
 package api
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/apitypes"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/dbcs"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/utils"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbsweb/apitypes"
+	"github.com/Ptt-official-app/go-pttbbsweb/dbcs"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/utils"
 	"github.com/gin-gonic/gin"
 )
 

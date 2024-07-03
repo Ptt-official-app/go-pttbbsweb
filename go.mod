@@ -1,4 +1,4 @@
-module github.com/Ptt-official-app/go-openbbsmiddleware
+module github.com/Ptt-official-app/go-pttbbsweb
 
 go 1.19
 

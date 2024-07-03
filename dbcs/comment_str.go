@@ -3,10 +3,10 @@ package dbcs
 import (
 	"strings"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 func ParseCommentsStr(ownerID bbs.UUserID, commentsDBCS string, allCommentsDBCS string) (comments []*schema.Comment) {

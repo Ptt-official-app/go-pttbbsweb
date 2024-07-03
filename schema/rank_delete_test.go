@@ -3,8 +3,8 @@ package schema
 import (
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 func TestDeleteRanks(t *testing.T) {

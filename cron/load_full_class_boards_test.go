@@ -5,10 +5,10 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
 )
 
 func TestLoadFullClassBoards(t *testing.T) {

@@ -3,7 +3,7 @@ package api
 import (
 	"path/filepath"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"github.com/gin-gonic/gin"
 )
 

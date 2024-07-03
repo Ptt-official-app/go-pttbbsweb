@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/mockhttp"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/mockhttp"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"github.com/gin-gonic/gin"
 	"github.com/google/go-querystring/query"
 )

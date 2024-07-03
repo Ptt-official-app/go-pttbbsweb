@@ -1,10 +1,10 @@
 package schema
 
 import (
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"go.mongodb.org/mongo-driver/bson"
 )
 

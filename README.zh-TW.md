@@ -1,13 +1,13 @@
-# go-openbbsmiddleware
+# go-pttbbsweb
 
-[![Go](https://github.com/Ptt-official-app/go-openbbsmiddleware/actions/workflows/go.yml/badge.svg)](https://github.com/Ptt-official-app/go-openbbsmiddleware/actions/workflows/go.yml)
-[![GoDoc](https://pkg.go.dev/badge/github.com/Ptt-official-app/go-openbbsmiddleware?status.svg)](https://pkg.go.dev/github.com/Ptt-official-app/go-openbbsmiddleware?tab=doc)
-[![codecov](https://codecov.io/gh/Ptt-official-app/go-openbbsmiddleware/branch/main/graph/badge.svg)](https://codecov.io/gh/Ptt-official-app/go-openbbsmiddleware)
+[![Go](https://github.com/Ptt-official-app/go-pttbbsweb/actions/workflows/go.yml/badge.svg)](https://github.com/Ptt-official-app/go-pttbbsweb/actions/workflows/go.yml)
+[![GoDoc](https://pkg.go.dev/badge/github.com/Ptt-official-app/go-pttbbsweb?status.svg)](https://pkg.go.dev/github.com/Ptt-official-app/go-pttbbsweb?tab=doc)
+[![codecov](https://codecov.io/gh/Ptt-official-app/go-pttbbsweb/branch/main/graph/badge.svg)](https://codecov.io/gh/Ptt-official-app/go-pttbbsweb)
 
 ## README Translation
 
-* [English](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/README.en.md)
-* [正體中文](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/README.zh-TW.md)
+* [English](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/README.en.md)
+* [正體中文](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/README.zh-TW.md)
 
 ## 概觀
 
@@ -50,8 +50,8 @@ MAX_BOARD = 8192 /* 最大開板個數 */
 
 您可以使用以下方式來使用 docker-compose:
 
-* 將 `docs/etc/` copy 到你自訂的 etc directory (ex: `/etc/go-openbbsmiddleware`).
-* 將 `docs/config/01-config.docker.ini` copy 到你自訂的 etc directory 為 production.ini (ex: `cp 01-config.docker.ini /etc/go-openbbsmiddleware/production.ini`).
+* 將 `docs/etc/` copy 到你自訂的 etc directory (ex: `/etc/go-pttbbsweb`).
+* 將 `docs/config/01-config.docker.ini` copy 到你自訂的 etc directory 為 production.ini (ex: `cp 01-config.docker.ini /etc/go-pttbbsweb/production.ini`).
 * 將 `docker/docker/docker_compose.env.template` copy 到 `docker/docker_compose.env` 並且更改相對應的設定.
 * `./scripts/docker_initbbs.sh [BBSHOME] pttofficialapps/go-pttbbs:latest`
 * `docker-compose --env-file docker/docker_compose.env -f docker/docker-compose.yaml up -d`
@@ -96,8 +96,9 @@ You can run swagger with:
 
 ## Schema definition
 
-* `https://github.com/Ptt-official-app/go-openbbsmiddleware/tree/main/schema`
+* `https://github.com/Ptt-official-app/go-pttbbsweb/tree/main/schema`
 
 ## Repository Naming
 
-這個 repo 之所以會被稱為 go-openbbsmiddleware, 是因為古早的 [.NET ASP](https://github.com/Ptt-official-app/AspCoreOpenBBSMiddleware) 的開發者希望 [中介應用層](https://hackmd.io/@twbbs/Root#%E6%9E%B6%E6%A7%8B%E5%9C%96) 可以擴及其他版本的 bbs (Maple/中山之島). 這個 repo 就 follow 當時的 naming convention 命名為 go-openbbsmiddleware.
+* 2024-06-26: 這個 repo 主要是以 pttbbs 的機制為主, 所以改成命名為 go-pttbbsweb.
+* 2022-12-16: 這個 repo 之所以會被稱為 go-openbbsmiddleware, 是因為古早的 [.NET ASP](https://github.com/Ptt-official-app/AspCoreOpenBBSMiddleware) 的開發者希望 [中介應用層](https://hackmd.io/@twbbs/Root#%E6%9E%B6%E6%A7%8B%E5%9C%96) 可以擴及其他版本的 bbs (Maple/中山之島). 這個 repo 就 follow 當時的 naming convention 命名為 go-openbbsmiddleware.

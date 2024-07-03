@@ -3,10 +3,10 @@ package schema
 import (
 	"time"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/configutil"
+	"github.com/Ptt-official-app/go-pttbbsweb/configutil"
 )
 
-const configPrefix = "go-openbbsmiddleware:schema"
+const configPrefix = "go-pttbbsweb:schema"
 
 func InitConfig() error {
 	config()

@@ -3,9 +3,9 @@ package schema
 import (
 	"time"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/db"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"github.com/Ptt-official-app/go-pttbbsweb/db"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"go.mongodb.org/mongo-driver/bson"
 )
 

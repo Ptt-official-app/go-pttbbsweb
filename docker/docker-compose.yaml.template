@@ -30,14 +30,14 @@ services:
     volumes:
       - ${POSTFIX_MAIN_CF}:/etc/postfix/main.cf
       - ${POSTFIX_MASTER_CF}:/etc/postfix/master.cf
-  openbbs-middleware:
-    image: pttofficialapps/go-openbbsmiddleware:v0.34.2
+  go-pttbbsweb:
+    image: pttofficialapps/go-pttbbsweb:v0.34.2
     ports:
       - "127.0.0.1:3457:3457"
       - "127.0.0.1:[local-port]:[docker-port]"
     volumes:
       - ${STATIC_DIR}:/static
-      - ${ETC}:/etc/go-openbbsmiddleware
+      - ${ETC}:/etc/go-pttbbsweb
       - ${ETC}:/etc/go-pttbbs
-      - [local absolute directory]:/home/[username]/go-openbbsmiddleware
+      - [local absolute directory]:/home/[username]/go-pttbbsweb
     restart: always

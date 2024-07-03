@@ -14,6 +14,7 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 /go-openbbsmiddleware
+/go-pttbbsweb
 /apidoc/template.json
 /static
 /docker/docker_compose.env

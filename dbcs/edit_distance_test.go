@@ -5,10 +5,10 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/schema"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
+	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 func Test_calcEditDistance(t *testing.T) {
@@ -961,7 +961,6 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 
 	expected1 := &EDBlock{
 		NewComments: []*EDInfo{
-
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
@@ -1055,7 +1054,6 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 
 	expected2 := &EDBlock{
 		NewComments: []*EDInfo{
-
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
@@ -1149,7 +1147,6 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 
 	expected3 := &EDBlock{
 		NewComments: []*EDInfo{
-
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
@@ -1247,7 +1244,6 @@ func TestEDBlock_ForwardInferTS(t *testing.T) {
 
 	expected4 := &EDBlock{
 		NewComments: []*EDInfo{
-
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{
@@ -2626,7 +2622,6 @@ func TestInferTimestamp(t *testing.T) {
 
 	edBlock3 := &EDBlock{
 		NewComments: []*EDInfo{
-
 			{
 				Op: ED_OP_ADD,
 				NewComment: &schema.Comment{

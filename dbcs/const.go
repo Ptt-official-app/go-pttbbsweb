@@ -3,7 +3,7 @@ package dbcs
 import (
 	"time"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 const (

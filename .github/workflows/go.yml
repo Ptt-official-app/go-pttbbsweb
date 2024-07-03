@@ -39,8 +39,8 @@ jobs:
     - name: golangci-lint
       uses: golangci/golangci-lint-action@v3
       with:
-        working-directory: /home/runner/work/go-openbbsmiddleware/go-openbbsmiddleware
-        args: --verbose --config /home/runner/work/go-openbbsmiddleware/go-openbbsmiddleware/.golangci.yaml
+        working-directory: /home/runner/work/go-pttbbsweb/go-pttbbsweb
+        args: --verbose --config /home/runner/work/go-pttbbsweb/go-pttbbsweb/.golangci.yaml
 
     - name: Build
       run: make

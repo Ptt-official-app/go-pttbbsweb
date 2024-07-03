@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/boardd"
+	"github.com/Ptt-official-app/go-pttbbsweb/boardd"
 	"github.com/sirupsen/logrus"
 )
 

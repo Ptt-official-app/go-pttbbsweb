@@ -4,10 +4,10 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Ptt-official-app/go-openbbsmiddleware/mand"
-	"github.com/Ptt-official-app/go-openbbsmiddleware/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
+	"github.com/Ptt-official-app/go-pttbbsweb/mand"
+	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
 
 func TestNewManArticleSummaryFromPB(t *testing.T) {

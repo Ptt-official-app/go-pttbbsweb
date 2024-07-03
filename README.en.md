@@ -1,19 +1,19 @@
-# go-openbbsmiddleware
+# go-pttbbsweb
 
-[![Go](https://github.com/Ptt-official-app/go-openbbsmiddleware/actions/workflows/go.yml/badge.svg)](https://github.com/Ptt-official-app/go-openbbsmiddleware/actions/workflows/go.yml)
-[![GoDoc](https://pkg.go.dev/badge/github.com/Ptt-official-app/go-openbbsmiddleware?status.svg)](https://pkg.go.dev/github.com/Ptt-official-app/go-openbbsmiddleware?tab=doc)
-[![codecov](https://codecov.io/gh/Ptt-official-app/go-openbbsmiddleware/branch/main/graph/badge.svg)](https://codecov.io/gh/Ptt-official-app/go-openbbsmiddleware)
+[![Go](https://github.com/Ptt-official-app/go-pttbbsweb/actions/workflows/go.yml/badge.svg)](https://github.com/Ptt-official-app/go-pttbbsweb/actions/workflows/go.yml)
+[![GoDoc](https://pkg.go.dev/badge/github.com/Ptt-official-app/go-pttbbsweb?status.svg)](https://pkg.go.dev/github.com/Ptt-official-app/go-pttbbsweb?tab=doc)
+[![codecov](https://codecov.io/gh/Ptt-official-app/go-pttbbsweb/branch/main/graph/badge.svg)](https://codecov.io/gh/Ptt-official-app/go-pttbbsweb)
 
 ## README Translation
 
-* [English](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/README.en.md)
-* [正體中文](https://github.com/Ptt-official-app/go-openbbsmiddleware/blob/main/README.zh-TW.md)
+* [English](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/README.en.md)
+* [正體中文](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/README.zh-TW.md)
 
 ## Overview
 
-go implementation of [openbbs-middleware](https://hackmd.io/@twbbs/Root#%E6%9E%B6%E6%A7%8B%E5%9C%96).
+go implementation of [middleware](https://hackmd.io/@twbbs/Root#%E6%9E%B6%E6%A7%8B%E5%9C%96).
 
-With [Ptt-official-app pttbbs](https://github.com/ptt-official-app/go-pttbbs), go-openbbsmiddleware intends to be the web-based bbs.
+With [Ptt-official-app pttbbs](https://github.com/ptt-official-app/go-pttbbs), go-pttbbsweb intends to be the web-based bbs.
 
 ## Demo Site
 
@@ -49,8 +49,8 @@ We use the following libraries for coding convention:
 
 You can do the following to start with docker-compose:
 
-* copy `docs/etc/` to some etc directory (ex: `/etc/go-openbbsmiddleware`).
-* copy `docs/config/01-config.docker.ini` to the etc directory as production.ini (ex: `cp 01-config.docker.ini /etc/go-openbbsmiddleware/production.ini`).
+* copy `docs/etc/` to some etc directory (ex: `/etc/go-pttbbsweb`).
+* copy `docs/config/01-config.docker.ini` to the etc directory as production.ini (ex: `cp 01-config.docker.ini /etc/go-pttbbsweb/production.ini`).
 * copy `docker/docker_compose.env.template` to `docker/docker_compose.env` and modify the settings.
 * `./scripts/docker_initbbs.sh [BBSHOME] pttofficialapps/go-pttbbs:latest`
 * `docker-compose --env-file docker/docker_compose.env -f docker/docker-compose.yaml up -d`
@@ -97,8 +97,9 @@ You can run swagger with:
 
 ## Schema definition
 
-* `https://github.com/Ptt-official-app/go-openbbsmiddleware/tree/main/schema`
+* `https://github.com/Ptt-official-app/go-pttbbsweb/tree/main/schema`
 
 ## Repository Naming
 
-The reason why this repo is called go-openbbsmiddleware is because previously the [.NET ASP](https://github.com/Ptt-official-app/AspCoreOpenBBSMiddleware) developers envisioned that the scope of this [middleware](https://hackmd.io/@twbbs/Root#%E6%9E%B6%E6%A7%8B%E5%9C%96) can include other versions of bbs (Maple/中山之島). The naming of this repo followed the naming convention at that time.
+* 2024-06-26: This repo is mainly based on pttbbs. We rename the repo as go-pttbbsweb.
+* 2022-12-16: The reason why this repo is called go-openbbsmiddleware is because previously the [.NET ASP](https://github.com/Ptt-official-app/AspCoreOpenBBSMiddleware) developers envisioned that the scope of this [middleware](https://hackmd.io/@twbbs/Root#%E6%9E%B6%E6%A7%8B%E5%9C%96) can include other versions of bbs (Maple/中山之島). The naming of this repo followed the naming convention at that time.
