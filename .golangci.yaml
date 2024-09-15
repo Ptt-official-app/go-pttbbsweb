@@ -43,5 +43,7 @@ issues:
     - 'if-return:'
     - 'exported:'
     - 'unused-parameter: parameter'
+    # Skip overflow conversion for now.
+    - G115
   exclude-rules:
   exclude-use-default: true

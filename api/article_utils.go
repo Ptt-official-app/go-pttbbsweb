@@ -12,6 +12,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"github.com/Ptt-official-app/go-pttbbsweb/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func UpdateArticleContentInfo(
@@ -115,9 +116,16 @@ func DeserializePBArticlesAndUpdateDB(boardID bbs.BBoardID, articleSummaries_b [
 	if len(articleSummaries_b) == 0 {
 		return nil, nil
 	}
-	articleSummaries = make([]*schema.ArticleSummaryWithRegex, len(articleSummaries_b))
+	articleSummaries = make([]*schema.ArticleSummaryWithRegex, 0, len(articleSummaries_b))
+	var each *schema.ArticleSummaryWithRegex
 	for idx, each_b := range articleSummaries_b {
-		articleSummaries[idx] = schema.NewArticleSummaryWithRegexFromPBArticle(boardID, each_b, updateNanoTS, isBottom)
+		each = schema.NewArticleSummaryWithRegexFromPBArticle(boardID, each_b, updateNanoTS, isBottom)
+		if each == nil {
+			logrus.Warnf("api.DeserializePBArticlesAndUpdateDB: (%v/%v) unable to NewArticleSummaryWithRegexFromPBArticle: each_b: %v", idx, len(articleSummaries_b), each_b)
+			continue
+		}
+
+		articleSummaries = append(articleSummaries, each)
 	}
 
 	err = schema.UpdateArticleSummaryWithRegexes(articleSummaries, updateNanoTS)
