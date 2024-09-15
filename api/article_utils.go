@@ -117,7 +117,7 @@ func DeserializePBArticlesAndUpdateDB(boardID bbs.BBoardID, articleSummaries_b [
 		return nil, nil
 	}
 	articleSummaries = make([]*schema.ArticleSummaryWithRegex, 0, len(articleSummaries_b))
-	var each *schema.ArticleSummaryWithRegex = nil
+	var each *schema.ArticleSummaryWithRegex
 	for idx, each_b := range articleSummaries_b {
 		each = schema.NewArticleSummaryWithRegexFromPBArticle(boardID, each_b, updateNanoTS, isBottom)
 		if each == nil {
