@@ -17,11 +17,14 @@ func TestGetBoardSummary(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
+	_, _ = deserializeUserDetailAndUpdateDB(testUserSYSOP_b, 123456890000000000)
+	_, _ = deserializeUserDetailAndUpdateDB(testUserChhsiao123_b, 123456891000000000)
+
 	LoadAutoCompleteBoards("", "SYSOP", NewLoadAutoCompleteBoardsParams(), nil)
 
-	update0 := &schema.UserReadBoard{UserID: "SYSOP", BBoardID: "1_test1", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
+	update0 := &schema.UserBoard{UserID: "SYSOP", BBoardID: "1_test1", ReadUpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
 
-	_, _ = schema.UserReadBoard_c.Update(update0, update0)
+	_, _ = schema.UserBoard_c.Update(update0, update0)
 
 	params0 := &GetBoardSummaryParams{}
 	path0 := &GetBoardSummaryPath{FBoardID: "test1"}

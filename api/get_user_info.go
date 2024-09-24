@@ -120,6 +120,14 @@ func GetUserInfo(remoteAddr string, userID bbs.UUserID, params interface{}, path
 }
 
 func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context) (result *GetUserInfoResult, statusCode int, err error) {
+	userPermInfo, err := schema.GetUserPermInfo(userID)
+	if err != nil {
+		return nil, 500, err
+	}
+	if userPermInfo == nil {
+		return nil, 500, ErrInvalidUser
+	}
+
 	updateNanoTS := types.NowNanoTS()
 
 	// get backend data
@@ -155,12 +163,12 @@ func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context)
 		return nil, 500, err
 	}
 
-	result = NewUserInfoResult(userDetail, userNewInfo, userIDEmail, userEmail, userID)
+	result = NewUserInfoResult(userDetail, userNewInfo, userIDEmail, userEmail, userPermInfo)
 
 	return result, 200, nil
 }
 
-func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.UserNewInfo, userIDEmail_db *schema.UserIDEmail, userEmail_db *schema.UserEmail, userID bbs.UUserID) (result *GetUserInfoResult) {
+func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.UserNewInfo, userIDEmail_db *schema.UserIDEmail, userEmail_db *schema.UserEmail, userPermInfo *schema.UserPermInfo) (result *GetUserInfoResult) {
 	if userNewInfo_db == nil {
 		userNewInfo_db = &schema.UserNewInfo{}
 	}
@@ -170,6 +178,37 @@ func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.
 	}
 	if userEmail_db == nil {
 		userEmail_db = &schema.UserEmail{}
+	}
+
+	isAllInfo := false
+	if userPermInfo.UserID == userDetail_db.UserID {
+		isAllInfo = true
+	}
+	if userPermInfo.Userlevel.HasUserPerm(ptttype.PERM_SYSOP | ptttype.PERM_ACCOUNTS | ptttype.PERM_ACCTREG) {
+		isAllInfo = true
+	}
+
+	if !isAllInfo {
+		userIDEmail_db = &schema.UserIDEmail{}
+		userEmail_db = &schema.UserEmail{}
+
+		userDetail_db.Uflag = 0
+		userDetail_db.PttEmail = ""
+
+		if userDetail_db.Justify != "" {
+			userDetail_db.Justify = "(通過認證)"
+		}
+
+		userDetail_db.PagerUIType = 0
+		userDetail_db.Pager = ptttype.PAGER_OFF
+
+		userDetail_db.LoginView = 0
+		userDetail_db.UaVersion = 0
+
+		userDetail_db.MyAngel = ""
+
+		userDetail_db.TimeRemoveBadPost = 0
+		userDetail_db.TimeViolateLaw = 0
 	}
 
 	result = &GetUserInfoResult{
@@ -250,7 +289,7 @@ func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.
 		IDEmailTS:  userIDEmail_db.UpdateNanoTS.ToTime8(),
 		IDEmailSet: userIDEmail_db.IsSet,
 
-		TokenUser: userID,
+		TokenUser: userPermInfo.UserID,
 	}
 
 	return result

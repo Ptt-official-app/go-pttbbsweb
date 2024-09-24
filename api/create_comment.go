@@ -48,6 +48,11 @@ func CreateComment(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
+	err = CheckUserBoardPermPostable(userID, boardID)
+	if err != nil {
+		return nil, 403, err
+	}
+
 	// content-dbcs
 	contentDBCS := types.Utf8ToBig5(theParams.Content)
 

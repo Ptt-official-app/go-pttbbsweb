@@ -1,12 +1,12 @@
 package api
 
 import (
-	"io"
-	"io/ioutil"
 	"os"
 
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
+	"github.com/Ptt-official-app/go-pttbbs/types"
 	"github.com/Ptt-official-app/go-pttbbsweb/apitypes"
 )
 
@@ -192,6 +192,50 @@ var (
 		testDeleteBoardSummary8,
 	}
 
+	testUserSYSOP_b = pttbbsapi.GetUserResult(&bbs.Userec{
+		Version:  4194,
+		UUserID:  bbs.UUserID("SYSOP"),
+		Username: "SYSOP",
+		Realname: []byte{ // CodingMan
+			0x43, 0x6f, 0x64, 0x69, 0x6e, 0x67, 0x4d, 0x61, 0x6e,
+		},
+		Nickname: []byte{0xaf, 0xab}, // 神
+
+		Uflag:        ptttype.UF_CURSOR_ASCII | ptttype.UF_DBCS_DROP_REPEAT | ptttype.UF_DBCS_AWARE | ptttype.UF_ADBANNER | ptttype.UF_BRDSORT,
+		Userlevel:    ptttype.PERM_SYSSUBOP | ptttype.PERM_BM | ptttype.PERM_BASIC | ptttype.PERM_CHAT | ptttype.PERM_PAGE | ptttype.PERM_POST | ptttype.PERM_LOGINOK | ptttype.PERM_SYSOP,
+		Numlogindays: 2,
+		Numposts:     0,
+		Firstlogin:   1600681288,
+		Lastlogin:    1600756094,
+		Lasthost:     "59.124.167.226",
+		/*
+			Address: []byte{ //新竹縣子虛鄉烏有村543號
+				0xb7, 0x73, 0xa6, 0xcb, 0xbf, 0xa4, 0xa4, 0x6c, 0xb5, 0xea,
+				0xb6, 0x6d, 0xaf, 0x51, 0xa6, 0xb3, 0xa7, 0xf8, 0x35, 0x34,
+				0x33, 0xb8, 0xb9,
+			},
+		*/
+		Over18:   true,
+		Pager:    ptttype.PAGER_ON,
+		Career:   []byte{0xa5, 0xfe, 0xb4, 0xba, 0xb3, 0x6e, 0xc5, 0xe9}, // 全景軟體
+		LastSeen: 1600681288,
+	})
+
+	testUserChhsiao123_b = pttbbsapi.GetUserResult(&bbs.Userec{
+		Version:      ptttype.PASSWD_VERSION,
+		UUserID:      bbs.UUserID("chhsiao123"),
+		Username:     "chhsiao123",
+		Lasthost:     "127.0.0.1",
+		Uflag:        ptttype.UF_CURSOR_ASCII | ptttype.UF_DBCS_DROP_REPEAT | ptttype.UF_DBCS_AWARE | ptttype.UF_ADBANNER | ptttype.UF_BRDSORT,
+		Userlevel:    ptttype.PERM_BASIC | ptttype.PERM_CHAT | ptttype.PERM_PAGE | ptttype.PERM_POST | ptttype.PERM_LOGINOK,
+		Firstlogin:   1600681290,
+		Lastlogin:    1600681290,
+		Numlogindays: 1,
+		Pager:        ptttype.PAGER_ON,
+		Over18:       true,
+		LastSeen:     1600681290,
+	})
+
 	testBoardSummaryWhoAmI_b = &bbs.BoardSummary{
 		Gid:      5,
 		Bid:      10,
@@ -229,6 +273,42 @@ var (
 		IdxByName:  "SYSOP",
 		IdxByClass: "vFSt-Q@SYSOP",
 	}
+
+	testArticleSummary1_b = &bbs.ArticleSummary{
+		BBoardID:   bbs.BBoardID("10_WhoAmI"),
+		ArticleID:  bbs.ArticleID("1VrooM21"),
+		IsDeleted:  false,
+		Filename:   "M.1607937174.A.081",
+		CreateTime: types.Time4(1607937174),
+		MTime:      types.Time4(1607937100),
+		Recommend:  3,
+		Owner:      bbs.UUserID("teemo"),
+		Class:      []byte{0xb0, 0xdd, 0xc3, 0x44},
+		FullTitle:  []byte{0x5b, 0xb0, 0xdd, 0xc3, 0x44, 0x5d, 0xa6, 0x41, 0xa8, 0xd3, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3}, //[問題]再來呢？～
+		Money:      12,
+		Filemode:   0,
+		Read:       false,
+		Idx:        "1607937174@1VrooM21",
+		RealTitle:  []byte{0xa6, 0x41, 0xa8, 0xd3, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3},
+	}
+
+	testArticleSummary2_b = &bbs.ArticleSummary{
+		BBoardID:   bbs.BBoardID("10_WhoAmI"),
+		ArticleID:  bbs.ArticleID("1VtWRel9"),
+		IsDeleted:  false,
+		Filename:   "M.1608386280.A.BC9",
+		CreateTime: types.Time4(1608386280),
+		MTime:      types.Time4(1608386280),
+		Recommend:  8,
+		Owner:      bbs.UUserID("SYSOP"),
+		Class:      []byte{0xb0, 0xdd, 0xc3, 0x44},
+		FullTitle:  []byte{0x5b, 0xb0, 0xdd, 0xc3, 0x44, 0x5d, 0xb5, 0x4d, 0xab, 0xe1, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3}, //[問題]然後呢？～
+		Money:      3,
+		Filemode:   0,
+		Read:       false,
+		Idx:        "1608386280@1VtWRel9",
+		RealTitle:  []byte{0xb5, 0x4d, 0xab, 0xe1, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3},
+	}
 )
 
 func initTest() {
@@ -248,25 +328,17 @@ func initTest() {
 func loadTest(filename string) (contentAll []byte, content []byte, signature []byte, recommend []byte, firstComments []byte, theRestComments []byte) {
 	// content-all
 	fullFilename := "testcase/" + filename
-	file0, err := os.Open(fullFilename)
+	contentAll, err := os.ReadFile(fullFilename)
 	if err != nil {
 		return nil, nil, nil, nil, nil, nil
 	}
-	defer file0.Close()
-
-	r := io.Reader(file0)
-	contentAll, _ = ioutil.ReadAll(r)
 
 	// content
 	fullFilename = "testcase/" + filename + ".content"
-	file1, err := os.Open(fullFilename)
+	content, err = os.ReadFile(fullFilename)
 	if err != nil {
 		return nil, nil, nil, nil, nil, nil
 	}
-	defer file1.Close()
-
-	r = io.Reader(file1)
-	content, _ = ioutil.ReadAll(r)
 
 	if len(content) == 0 {
 		content = nil
@@ -274,14 +346,10 @@ func loadTest(filename string) (contentAll []byte, content []byte, signature []b
 
 	// signature
 	fullFilename = "testcase/" + filename + ".signature"
-	file2, err := os.Open(fullFilename)
+	signature, err = os.ReadFile(fullFilename)
 	if err != nil {
 		return nil, nil, nil, nil, nil, nil
 	}
-	defer file2.Close()
-
-	r = io.Reader(file2)
-	signature, _ = ioutil.ReadAll(r)
 
 	if len(signature) == 0 {
 		signature = nil
@@ -289,14 +357,10 @@ func loadTest(filename string) (contentAll []byte, content []byte, signature []b
 
 	// recommend
 	fullFilename = "testcase/" + filename + ".recommend"
-	file3, err := os.Open(fullFilename)
+	recommend, err = os.ReadFile(fullFilename)
 	if err != nil {
 		return nil, nil, nil, nil, nil, nil
 	}
-	defer file3.Close()
-
-	r = io.Reader(file3)
-	recommend, _ = ioutil.ReadAll(r)
 
 	if len(recommend) == 0 {
 		recommend = nil
@@ -304,14 +368,10 @@ func loadTest(filename string) (contentAll []byte, content []byte, signature []b
 
 	// firstComments
 	fullFilename = "testcase/" + filename + ".firstComments"
-	file4, err := os.Open(fullFilename)
+	firstComments, err = os.ReadFile(fullFilename)
 	if err != nil {
 		return nil, nil, nil, nil, nil, nil
 	}
-	defer file4.Close()
-
-	r = io.Reader(file4)
-	firstComments, _ = ioutil.ReadAll(r)
 
 	if len(firstComments) == 0 {
 		firstComments = nil
@@ -319,14 +379,10 @@ func loadTest(filename string) (contentAll []byte, content []byte, signature []b
 
 	// theRestComments
 	fullFilename = "testcase/" + filename + ".theRestComments"
-	file5, err := os.Open(fullFilename)
+	theRestComments, err = os.ReadFile(fullFilename)
 	if err != nil {
 		return nil, nil, nil, nil, nil, nil
 	}
-	defer file5.Close()
-
-	r = io.Reader(file5)
-	theRestComments, _ = ioutil.ReadAll(r)
 
 	if len(theRestComments) == 0 {
 		theRestComments = nil

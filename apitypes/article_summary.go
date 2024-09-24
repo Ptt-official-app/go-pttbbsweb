@@ -31,6 +31,9 @@ type ArticleSummary struct {
 	SubjectType ptttype.SubjectType `json:"subject_type"`
 
 	TokenUser bbs.UUserID `json:"tokenuser"`
+
+	Editable  bool `json:"editable"`
+	Deletable bool `json:"deletable"`
 }
 
 func ToFTitle(title string) string {

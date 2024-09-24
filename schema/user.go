@@ -81,6 +81,12 @@ type User struct {
 	// NFriend int `bson:"n_friend"` /* 需要透過 db-count */
 	Avatar       []byte       `bson:"avatar"`
 	AvatarNanoTS types.NanoTS `bson:"avatar_nano_ts"`
+
+	CooldownNanoTS       types.NanoTS `bson:"cooldown_nano_ts"`
+	CooldownUpdateNanoTS types.NanoTS `bson:"cooldown_update_nano_ts"`
+
+	Posttime             int          `bson:"postitme"`
+	PosttimeUpdateNanoTS types.NanoTS `bson:"posttime_update_nano_ts"`
 }
 
 var EMPTY_USER = &User{}
@@ -156,6 +162,12 @@ var (
 
 	USER_TWO_FACTOR_ENABLED_b         = getBSONName(EMPTY_USER, "TwoFactorEnabled")
 	USER_TWO_FACTOR_ENABLED_NANO_TS_b = getBSONName(EMPTY_USER, "TwoFactorEnabledNanoTS")
+
+	USER_COOLDOWN_NANO_TS_b        = getBSONName(EMPTY_USER, "CooldownNanoTS")
+	USER_COOLDOWN_UPDATE_NANO_TS_b = getBSONName(EMPTY_USER, "CooldownUpdateNanoTS")
+
+	USER_POSTTIME_b                = getBSONName(EMPTY_USER, "Posttime")
+	USER_POSTTIME_UPDATE_NANO_TS_b = getBSONName(EMPTY_USER, "PosttimeUpdateNanoTS")
 )
 
 func assertUserFields() error {
@@ -176,6 +188,14 @@ func assertUserFields() error {
 	}
 
 	if err := assertFields(EMPTY_USER, EMPTY_USER_NICKNAME); err != nil {
+		return err
+	}
+
+	if err := assertFields(EMPTY_USER, EMPTY_USER_PERM_INFO); err != nil {
+		return err
+	}
+
+	if err := assertFields(EMPTY_USER, EMPTY_USER_POSTTIME); err != nil {
 		return err
 	}
 

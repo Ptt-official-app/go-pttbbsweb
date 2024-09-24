@@ -2,6 +2,7 @@ package schema
 
 import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -16,11 +17,11 @@ var (
 )
 
 func GetUserNickname(userID bbs.UUserID) (nickname string, err error) {
-	query := &UserQuery{
-		UserID: userID,
+	query := bson.M{
+		USER_USER_ID_b: userID,
 	}
 
-	result := &UserNickname{}
+	var result *UserNickname
 	err = User_c.FindOne(query, &result, userNicknameFields)
 	if err == mongo.ErrNoDocuments {
 		return "", nil

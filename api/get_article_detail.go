@@ -68,6 +68,12 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
+	// check permission
+	err = CheckUserArticlePermReadable(userID, boardID, articleID, true)
+	if err != nil {
+		return nil, 403, err
+	}
+
 	// validate user
 	_, statusCode, err = isBoardValidUser(boardID, c)
 	if err != nil {

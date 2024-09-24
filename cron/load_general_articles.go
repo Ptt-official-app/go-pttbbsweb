@@ -77,10 +77,10 @@ func loadGeneralArticles(boardID bbs.BBoardID) (err error) {
 		}
 		count += len(articleSummaries)
 
-		logrus.Infof("cron.LoadGeneralArticles: bid: %v count: %v", boardID, count)
+		// logrus.Infof("cron.LoadGeneralArticles: bid: %v count: %v", boardID, count)
 
 		if newNextIdx == INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX {
-			logrus.Infof("cron.LoadGeneralArticles: bid: %v load %v articles", boardID, count)
+			// logrus.Infof("cron.LoadGeneralArticles: bid: %v load %v articles", boardID, count)
 			break
 		}
 

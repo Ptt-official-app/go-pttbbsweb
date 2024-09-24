@@ -59,7 +59,7 @@ func LoadClassBoards(remoteAddr string, userID bbs.UUserID, params interface{}, 
 	}
 
 	// is board-valid-user
-	_, statusCode, err = isBoardValidUser(boardID, c)
+	_, err = CheckUserBoardPermReadable(userID, boardID)
 	if err != nil {
 		return nil, statusCode, err
 	}

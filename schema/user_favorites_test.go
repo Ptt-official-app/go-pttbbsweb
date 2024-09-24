@@ -17,7 +17,7 @@ func TestFavToUserFavorites(t *testing.T) {
 
 	/*
 		filename1 := "./testcase/home1/t/testUser2/.fav"
-		theBytes1, _ := ioutil.ReadFile(filename1)
+		theBytes1, _ := os.ReadFile(filename1)
 		buf := bytes.NewReader(theBytes1)
 		_ = binary.Read(buf, binary.LittleEndian, &version)
 		f1, _ := fav.ReadFavrec(buf, nil, nil, 0)

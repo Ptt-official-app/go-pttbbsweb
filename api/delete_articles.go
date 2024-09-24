@@ -49,9 +49,27 @@ func DeleteArticles(remoteAddr string, userID bbs.UUserID, params interface{}, p
 		return nil, 500, err
 	}
 
+	userBoardPermReadable, err := CheckUserBoardPermReadable(userID, boardID)
+	if err != nil {
+		return nil, 403, err
+	}
+
 	var articleIDs []bbs.ArticleID
 	for _, articleID := range theParams.ArticleIDs {
 		articleIDs = append(articleIDs, articleID.ToArticleID())
+	}
+
+	articlePermMap, err := CheckUserArticlesPermDeletable(userID, boardID, articleIDs, userBoardPermReadable)
+	if err != nil {
+		return nil, 500, err
+	}
+	articleIDs = make([]bbs.ArticleID, 0, len(articleIDs))
+	for articleID, eachErr := range articlePermMap {
+		if eachErr != nil {
+			continue
+		}
+
+		articleIDs = append(articleIDs, articleID)
 	}
 
 	// to go-pttbbs
@@ -85,11 +103,6 @@ func DeleteArticles(remoteAddr string, userID bbs.UUserID, params interface{}, p
 	if err != nil {
 		return nil, 500, err
 	}
-	err = schema.DeleteUserReadArticles(boardID, result_b.ArticleIDs, updateNanoTS)
-	if err != nil {
-		return nil, 500, err
-	}
-
 	result = &DeleteArticlesResult{
 		Success:   true,
 		TokenUser: userID,

@@ -16,31 +16,31 @@ func TestUpdateUserReadBoard(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer UserReadBoard_c.Drop()
+	defer UserBoard_c.Drop()
 
 	userReadBoard := &UserReadBoard{
-		UserID:       bbs.UUserID("testuser0"),
-		BBoardID:     bbs.BBoardID("testboard0"),
-		UpdateNanoTS: types.NanoTS(1234567890000000000),
+		UserID:           bbs.UUserID("testuser0"),
+		BBoardID:         bbs.BBoardID("testboard0"),
+		ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 	}
 
 	type args struct {
 		userReadBoard *UserReadBoard
 	}
 	tests := []struct {
-		name     string
-		args     args
-		expected *UserReadBoard
-		wantErr  bool
+		name    string
+		args    args
+		want    *UserReadBoard
+		wantErr bool
 	}{
 		// TODO: Add test cases.
 		{
-			args:     args{userReadBoard},
-			expected: userReadBoard,
+			args: args{userReadBoard},
+			want: userReadBoard,
 		},
 		{
-			args:     args{userReadBoard},
-			expected: userReadBoard,
+			args: args{userReadBoard},
+			want: userReadBoard,
 		},
 	}
 	for _, tt := range tests {
@@ -52,12 +52,12 @@ func TestUpdateUserReadBoard(t *testing.T) {
 			got := &UserReadBoard{}
 
 			query := bson.M{
-				USER_READ_BOARD_USER_ID_b:   tt.args.userReadBoard.UserID,
-				USER_READ_BOARD_BBOARD_ID_b: tt.args.userReadBoard.BBoardID,
+				USER_BOARD_USER_ID_b:   tt.args.userReadBoard.UserID,
+				USER_BOARD_BBOARD_ID_b: tt.args.userReadBoard.BBoardID,
 			}
 
-			_ = UserReadBoard_c.FindOne(query, got, nil)
-			testutil.TDeepEqual(t, "got", got, tt.expected)
+			_ = UserBoard_c.FindOne(query, got, nil)
+			testutil.TDeepEqual(t, "got", got, tt.want)
 		})
 	}
 }
@@ -66,35 +66,35 @@ func TestUpdateUserReadBoards(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer UserReadBoard_c.Drop()
+	defer UserBoard_c.Drop()
 
 	userReadBoards := []*UserReadBoard{
 		{
-			UserID:       bbs.UUserID("testuser0"),
-			BBoardID:     bbs.BBoardID("testboard0"),
-			UpdateNanoTS: types.NanoTS(1234567890000000000),
+			UserID:           bbs.UUserID("testuser0"),
+			BBoardID:         bbs.BBoardID("testboard0"),
+			ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 		},
 		{
-			UserID:       bbs.UUserID("testuser0"),
-			BBoardID:     bbs.BBoardID("testboard1"),
-			UpdateNanoTS: types.NanoTS(1234567890000000000),
+			UserID:           bbs.UUserID("testuser0"),
+			BBoardID:         bbs.BBoardID("testboard1"),
+			ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 		},
 		{
-			UserID:       bbs.UUserID("testuser0"),
-			BBoardID:     bbs.BBoardID("testboard2"),
-			UpdateNanoTS: types.NanoTS(1234567890000000000),
+			UserID:           bbs.UUserID("testuser0"),
+			BBoardID:         bbs.BBoardID("testboard2"),
+			ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 		},
 	}
 	userReadBoards1 := []*UserReadBoard{
 		{
-			UserID:       bbs.UUserID("testuser0"),
-			BBoardID:     bbs.BBoardID("testboard2"),
-			UpdateNanoTS: types.NanoTS(1234567890000000000),
+			UserID:           bbs.UUserID("testuser0"),
+			BBoardID:         bbs.BBoardID("testboard2"),
+			ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 		},
 		{
-			UserID:       bbs.UUserID("testuser0"),
-			BBoardID:     bbs.BBoardID("testboard3"),
-			UpdateNanoTS: types.NanoTS(1234567890000000000),
+			UserID:           bbs.UUserID("testuser0"),
+			BBoardID:         bbs.BBoardID("testboard3"),
+			ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 		},
 	}
 
@@ -107,7 +107,7 @@ func TestUpdateUserReadBoards(t *testing.T) {
 		args         args
 		findUserID   bbs.UUserID
 		findBoardIDs []bbs.BBoardID
-		expected     []*UserReadBoard
+		wnat         []*UserReadBoard
 		wantErr      bool
 	}{
 		// TODO: Add test cases.
@@ -115,19 +115,19 @@ func TestUpdateUserReadBoards(t *testing.T) {
 			args:         args{userReadBoards: userReadBoards, updateNanoTS: types.NanoTS(1234567890000000000)},
 			findUserID:   bbs.UUserID("testuser0"),
 			findBoardIDs: []bbs.BBoardID{"testboard0", "testboard1", "testboard2"},
-			expected:     userReadBoards,
+			wnat:         userReadBoards,
 		},
 		{
 			args:         args{userReadBoards: userReadBoards, updateNanoTS: types.NanoTS(1234567890000000000)},
 			findUserID:   bbs.UUserID("testuser0"),
 			findBoardIDs: []bbs.BBoardID{"testboard0", "testboard1", "testboard2"},
-			expected:     userReadBoards,
+			wnat:         userReadBoards,
 		},
 		{
 			args:         args{userReadBoards: userReadBoards1, updateNanoTS: types.NanoTS(1234567890000000000)},
 			findUserID:   bbs.UUserID("testuser0"),
 			findBoardIDs: []bbs.BBoardID{"testboard2", "testboard3"},
-			expected:     userReadBoards1,
+			wnat:         userReadBoards1,
 		},
 	}
 	for _, tt := range tests {
@@ -142,7 +142,7 @@ func TestUpdateUserReadBoards(t *testing.T) {
 				sort.SliceStable(got, func(i, j int) bool {
 					return strings.Compare(string(got[i].BBoardID), string(got[j].BBoardID)) <= 0
 				})
-				testutil.TDeepEqual(t, "got", got, tt.expected)
+				testutil.TDeepEqual(t, "got", got, tt.wnat)
 
 				t.Errorf("false")
 
@@ -155,23 +155,23 @@ func TestFindUserReadBoards(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer UserReadBoard_c.Drop()
+	defer UserBoard_c.Drop()
 
 	userReadBoards := []*UserReadBoard{
 		{
-			UserID:       bbs.UUserID("testuser0"),
-			BBoardID:     bbs.BBoardID("testboard0"),
-			UpdateNanoTS: types.NanoTS(1234567890000000000),
+			UserID:           bbs.UUserID("testuser0"),
+			BBoardID:         bbs.BBoardID("testboard0"),
+			ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 		},
 		{
-			UserID:       bbs.UUserID("testuser0"),
-			BBoardID:     bbs.BBoardID("testboard1"),
-			UpdateNanoTS: types.NanoTS(1234567890000000000),
+			UserID:           bbs.UUserID("testuser0"),
+			BBoardID:         bbs.BBoardID("testboard1"),
+			ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 		},
 		{
-			UserID:       bbs.UUserID("testuser0"),
-			BBoardID:     bbs.BBoardID("testboard2"),
-			UpdateNanoTS: types.NanoTS(1234567890000000000),
+			UserID:           bbs.UUserID("testuser0"),
+			BBoardID:         bbs.BBoardID("testboard2"),
+			ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 		},
 	}
 
@@ -182,10 +182,10 @@ func TestFindUserReadBoards(t *testing.T) {
 		boardIDs []bbs.BBoardID
 	}
 	tests := []struct {
-		name     string
-		args     args
-		expected []*UserReadBoard
-		wantErr  bool
+		name    string
+		args    args
+		want    []*UserReadBoard
+		wantErr bool
 	}{
 		// TODO: Add test cases.
 		{
@@ -193,7 +193,7 @@ func TestFindUserReadBoards(t *testing.T) {
 				userID:   bbs.UUserID("testuser0"),
 				boardIDs: []bbs.BBoardID{"testboard0", "testboard1", "testboard2"},
 			},
-			expected: userReadBoards,
+			want: userReadBoards,
 		},
 	}
 	for _, tt := range tests {
@@ -203,14 +203,14 @@ func TestFindUserReadBoards(t *testing.T) {
 				t.Errorf("FindUserReadBoards() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.expected) {
-				t.Errorf("FindUserReadBoards() = %v, want %v", got, tt.expected)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("FindUserReadBoards() = %v, want %v", got, tt.want)
 			}
 
 			sort.SliceStable(got, func(i, j int) bool {
 				return strings.Compare(string(got[i].BBoardID), string(got[j].BBoardID)) <= 0
 			})
-			testutil.TDeepEqual(t, "got", got, tt.expected)
+			testutil.TDeepEqual(t, "got", got, tt.want)
 		})
 	}
 }

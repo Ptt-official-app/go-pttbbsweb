@@ -30,8 +30,10 @@ func TestUpdateArticleSummaries(t *testing.T) {
 
 	query0 := &ArticleQuery{BBoardID: bbs.BBoardID("10_WhoAmI"), ArticleID: bbs.ArticleID("19bWBI4Z")}
 	articleSummary0 := &ArticleSummary{
-		BBoardID:   bbs.BBoardID("10_WhoAmI"),
-		ArticleID:  bbs.ArticleID("19bWBI4Z"),
+		BBoardID:       bbs.BBoardID("10_WhoAmI"),
+		ArticleID:      bbs.ArticleID("19bWBI4Z"),
+		BoardArticleID: types.BoardArticleID("10_WhoAmI:19bWBI4Z"),
+
 		IsDeleted:  false,
 		CreateTime: types.NanoTS(1234567890000000000),
 		MTime:      types.NanoTS(1234567889000000000),
@@ -48,8 +50,10 @@ func TestUpdateArticleSummaries(t *testing.T) {
 	}
 
 	articleSummary1 := &ArticleSummary{
-		BBoardID:   bbs.BBoardID("10_WhoAmI"),
-		ArticleID:  bbs.ArticleID("1VrooM21"),
+		BBoardID:       bbs.BBoardID("10_WhoAmI"),
+		ArticleID:      bbs.ArticleID("1VrooM21"),
+		BoardArticleID: types.BoardArticleID("10_WhoAmI:1VrooM21"),
+
 		IsDeleted:  false,
 		CreateTime: types.NanoTS(1607937174000000000),
 		MTime:      types.NanoTS(1607937100000000000),
@@ -68,8 +72,10 @@ func TestUpdateArticleSummaries(t *testing.T) {
 	updateNanoTS = types.NowNanoTS() - 100
 
 	articleSummary2 := &ArticleSummary{
-		BBoardID:   bbs.BBoardID("10_WhoAmI"),
-		ArticleID:  bbs.ArticleID("1VrooM21"),
+		BBoardID:       bbs.BBoardID("10_WhoAmI"),
+		ArticleID:      bbs.ArticleID("1VrooM21"),
+		BoardArticleID: types.BoardArticleID("10_WhoAmI:1VrooM21"),
+
 		IsDeleted:  false,
 		CreateTime: types.NanoTS(1607937174000000000),
 		MTime:      types.NanoTS(1607937100000000000),
@@ -88,8 +94,10 @@ func TestUpdateArticleSummaries(t *testing.T) {
 	updateNanoTS1 := types.NowNanoTS()
 
 	articleSummary3 := &ArticleSummary{
-		BBoardID:     bbs.BBoardID("10_WhoAmI"),
-		ArticleID:    bbs.ArticleID("1VrooM21"),
+		BBoardID:       bbs.BBoardID("10_WhoAmI"),
+		ArticleID:      bbs.ArticleID("1VrooM21"),
+		BoardArticleID: types.BoardArticleID("10_WhoAmI:1VrooM21"),
+
 		IsDeleted:    false,
 		CreateTime:   types.NanoTS(1607937174000000000),
 		MTime:        types.NanoTS(1607937100000000000),
@@ -364,8 +372,10 @@ func TestGetArticleSummariesByRegex(t *testing.T) {
 	title1 := "有沒有這一些事情的八卦呢？～"
 	class1 := "問題"
 	articleSummaryWithRegex1 := &ArticleSummaryWithRegex{
-		BBoardID:     "10_WhoAmI",
-		ArticleID:    "testAid0",
+		BBoardID:       "10_WhoAmI",
+		ArticleID:      "testAid0",
+		BoardArticleID: "10_WhoAmI:testAid0",
+
 		CreateTime:   1234567890000000000,
 		MTime:        1234567890000000000,
 		Title:        title1,
@@ -374,8 +384,10 @@ func TestGetArticleSummariesByRegex(t *testing.T) {
 		UpdateNanoTS: 1234567890000000000,
 	}
 	articleSummary1 := &ArticleSummary{
-		BBoardID:     "10_WhoAmI",
-		ArticleID:    "testAid0",
+		BBoardID:       "10_WhoAmI",
+		ArticleID:      "testAid0",
+		BoardArticleID: "10_WhoAmI:testAid0",
+
 		CreateTime:   1234567890000000000,
 		MTime:        1234567890000000000,
 		Title:        title1,
@@ -448,8 +460,10 @@ func TestGetBottomArticleSummaries(t *testing.T) {
 	defer teardownTest()
 
 	articleSummary0 := &ArticleSummaryWithRegex{
-		BBoardID:     "board0",
-		ArticleID:    "1VtW-QXT",
+		BBoardID:       "board0",
+		ArticleID:      "1VtW-QXT",
+		BoardArticleID: "board0:1VtW-QXT",
+
 		CreateTime:   1608388506000000000,
 		MTime:        1608388508000000000,
 		Recommend:    12,
@@ -465,8 +479,10 @@ func TestGetBottomArticleSummaries(t *testing.T) {
 	}
 
 	expected0 := &ArticleSummary{
-		BBoardID:     "board0",
-		ArticleID:    "1VtW-QXT",
+		BBoardID:       "board0",
+		ArticleID:      "1VtW-QXT",
+		BoardArticleID: "board0:1VtW-QXT",
+
 		CreateTime:   1608388506000000000,
 		MTime:        1608388508000000000,
 		Recommend:    12,
@@ -520,8 +536,10 @@ func TestGetArticleSummaries(t *testing.T) {
 	defer teardownTest()
 
 	articleSummary0 := &ArticleSummaryWithRegex{
-		BBoardID:     "board0",
-		ArticleID:    "1VtW-QXT",
+		BBoardID:       "board0",
+		ArticleID:      "1VtW-QXT",
+		BoardArticleID: "board0:1VtW-QXT",
+
 		CreateTime:   1608388506000000000,
 		MTime:        1608388508000000000,
 		Recommend:    12,
@@ -537,8 +555,10 @@ func TestGetArticleSummaries(t *testing.T) {
 	}
 
 	expected0 := &ArticleSummary{
-		BBoardID:     "board0",
-		ArticleID:    "1VtW-QXT",
+		BBoardID:       "board0",
+		ArticleID:      "1VtW-QXT",
+		BoardArticleID: "board0:1VtW-QXT",
+
 		CreateTime:   1608388506000000000,
 		MTime:        1608388508000000000,
 		Recommend:    12,

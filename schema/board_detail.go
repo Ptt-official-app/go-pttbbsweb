@@ -32,7 +32,7 @@ type BoardDetail struct {
 	VoteLimitBadpost int `bson:"vote_limit_bad_post"`
 	PostLimitBadpost int `bson:"post_limit_bad_post"`
 
-	Parent bbs.BBoardID `bson:"parent"`
+	ParentID bbs.BBoardID `bson:"parent"`
 
 	NVote           int          `bson:"vote"` /* use db-count to get current #vote */
 	VoteClosingTime types.NanoTS `bson:"vtime_nano_ts"`
@@ -77,6 +77,13 @@ func NewBoardDetail(b_b *bbs.BoardDetail, updateNanoTS types.NanoTS) *BoardDetai
 		postType = DEFAULT_POST_TYPE
 	}
 
+	var parentID bbs.BBoardID
+
+	// XXX hack for Gid == 1 (1 should be SYSOP)
+	if b_b.Gid != 1 {
+		parentID, _ = GetBoardIDByBid(b_b.Gid)
+	}
+
 	return &BoardDetail{
 		BBoardID:  b_b.BBoardID,
 		Brdname:   b_b.Brdname,
@@ -110,6 +117,7 @@ func NewBoardDetail(b_b *bbs.BoardDetail, updateNanoTS types.NanoTS) *BoardDetai
 
 		UpdateNanoTS: updateNanoTS,
 
+		ParentID:   parentID,
 		Gid:        b_b.Gid,
 		Bid:        b_b.Bid,
 		IdxByName:  b_b.IdxByName,

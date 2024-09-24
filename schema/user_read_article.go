@@ -7,33 +7,15 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-var UserReadArticle_c *db.Collection
-
 type UserReadArticle struct {
-	// 已讀文章紀錄
-
-	UserID       bbs.UUserID   `bson:"user_id"`
-	BoardID      bbs.BBoardID  `bson:"bid"`
-	ArticleID    bbs.ArticleID `bson:"aid"`
-	UpdateNanoTS types.NanoTS  `bson:"update_nano_ts"`
+	UserID           bbs.UUserID          `bson:"user_id"`
+	BoardID          bbs.BBoardID         `bson:"bid"`
+	ArticleID        bbs.ArticleID        `bson:"aid"`
+	BoardArticleID   types.BoardArticleID `bson:"baid"`
+	ReadUpdateNanoTS types.NanoTS         `bson:"update_nano_ts"`
 }
 
 var EMPTY_USER_READ_ARTICLE = &UserReadArticle{}
-
-var (
-	USER_READ_ARTICLE_USER_ID_b        = getBSONName(EMPTY_USER_READ_ARTICLE, "UserID")
-	USER_READ_ARTICLE_BOARD_ID_b       = getBSONName(EMPTY_USER_READ_ARTICLE, "BoardID")
-	USER_READ_ARTICLE_ARTICLE_ID_b     = getBSONName(EMPTY_USER_READ_ARTICLE, "ArticleID")
-	USER_READ_ARTICLE_UPDATE_NANO_TS_b = getBSONName(EMPTY_USER_READ_ARTICLE, "UpdateNanoTS")
-)
-
-func assertUserReadArticleFields() error {
-	if err := assertFields(EMPTY_USER_READ_ARTICLE, EMPTY_USER_READ_ARTICLE_QUERY); err != nil {
-		return err
-	}
-
-	return nil
-}
 
 type UserReadArticleQuery struct {
 	UserID    bbs.UUserID   `bson:"user_id"`
@@ -44,13 +26,16 @@ type UserReadArticleQuery struct {
 var EMPTY_USER_READ_ARTICLE_QUERY = &UserReadArticleQuery{}
 
 func UpdateUserReadArticle(userReadArticle *UserReadArticle) (err error) {
+	// ensure board-article-id
+	userReadArticle.BoardArticleID = types.ToBoardArticleID(userReadArticle.BoardID, userReadArticle.ArticleID)
+
 	query := bson.M{
-		USER_READ_ARTICLE_USER_ID_b:    userReadArticle.UserID,
-		USER_READ_ARTICLE_BOARD_ID_b:   userReadArticle.BoardID,
-		USER_READ_ARTICLE_ARTICLE_ID_b: userReadArticle.ArticleID,
+		USER_ARTICLE_USER_ID_b:    userReadArticle.UserID,
+		USER_ARTICLE_BOARD_ID_b:   userReadArticle.BoardID,
+		USER_ARTICLE_ARTICLE_ID_b: userReadArticle.ArticleID,
 	}
 
-	r, err := UserReadArticle_c.CreateOnly(query, userReadArticle)
+	r, err := UserArticle_c.CreateOnly(query, userReadArticle)
 	if err != nil {
 		return err
 	}
@@ -58,11 +43,11 @@ func UpdateUserReadArticle(userReadArticle *UserReadArticle) (err error) {
 		return nil
 	}
 
-	query[USER_READ_ARTICLE_UPDATE_NANO_TS_b] = bson.M{
-		"$lt": userReadArticle.UpdateNanoTS,
+	query[USER_ARTICLE_READ_UPDATE_NANO_TS_b] = bson.M{
+		"$lt": userReadArticle.ReadUpdateNanoTS,
 	}
 
-	_, err = UserReadArticle_c.UpdateOneOnly(query, userReadArticle)
+	_, err = UserArticle_c.UpdateOneOnly(query, userReadArticle)
 
 	return err
 }
@@ -70,6 +55,11 @@ func UpdateUserReadArticle(userReadArticle *UserReadArticle) (err error) {
 func UpdateUserReadArticles(userReadArticles []*UserReadArticle, updateNanoTS types.NanoTS) (err error) {
 	if len(userReadArticles) == 0 {
 		return nil
+	}
+
+	// ensure board-article-id
+	for _, each := range userReadArticles {
+		each.BoardArticleID = types.ToBoardArticleID(each.BoardID, each.ArticleID)
 	}
 
 	theList := make([]*db.UpdatePair, len(userReadArticles))
@@ -86,7 +76,7 @@ func UpdateUserReadArticles(userReadArticles []*UserReadArticle, updateNanoTS ty
 		}
 	}
 
-	r, err := UserReadArticle_c.BulkCreateOnly(theList)
+	r, err := UserArticle_c.BulkCreateOnly(theList)
 	if err != nil {
 		return err
 	}
@@ -104,9 +94,9 @@ func UpdateUserReadArticles(userReadArticles []*UserReadArticle, updateNanoTS ty
 
 		origFilter := each.Filter.(*UserReadArticleQuery)
 		filter := bson.M{
-			USER_READ_ARTICLE_USER_ID_b:    origFilter.UserID,
-			USER_READ_ARTICLE_ARTICLE_ID_b: origFilter.ArticleID,
-			USER_READ_ARTICLE_UPDATE_NANO_TS_b: bson.M{
+			USER_ARTICLE_USER_ID_b:    origFilter.UserID,
+			USER_ARTICLE_ARTICLE_ID_b: origFilter.ArticleID,
+			USER_ARTICLE_READ_UPDATE_NANO_TS_b: bson.M{
 				"$lt": updateNanoTS,
 			},
 		}
@@ -114,7 +104,7 @@ func UpdateUserReadArticles(userReadArticles []*UserReadArticle, updateNanoTS ty
 		updateUserReadArticles = append(updateUserReadArticles, each)
 	}
 
-	_, err = UserReadArticle_c.BulkUpdateOneOnly(updateUserReadArticles)
+	_, err = UserArticle_c.BulkUpdateOneOnly(updateUserReadArticles)
 
 	return err
 }
@@ -122,15 +112,15 @@ func UpdateUserReadArticles(userReadArticles []*UserReadArticle, updateNanoTS ty
 func FindUserReadArticles(userID bbs.UUserID, boardID bbs.BBoardID, articleIDs []bbs.ArticleID) ([]*UserReadArticle, error) {
 	// query
 	query := bson.M{
-		USER_READ_ARTICLE_USER_ID_b:  userID,
-		USER_READ_ARTICLE_BOARD_ID_b: boardID,
-		USER_READ_ARTICLE_ARTICLE_ID_b: bson.M{
+		USER_ARTICLE_USER_ID_b:  userID,
+		USER_ARTICLE_BOARD_ID_b: boardID,
+		USER_ARTICLE_ARTICLE_ID_b: bson.M{
 			"$in": articleIDs,
 		},
 	}
 
 	var dbResults []*UserReadArticle
-	err := UserReadArticle_c.Find(query, 0, &dbResults, nil, nil)
+	err := UserArticle_c.Find(query, 0, &dbResults, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -138,17 +128,18 @@ func FindUserReadArticles(userID bbs.UUserID, boardID bbs.BBoardID, articleIDs [
 	return dbResults, nil
 }
 
-func FindUserReadArticlesByArticleIDs(userID bbs.UUserID, articleIDs []bbs.ArticleID) ([]*UserReadArticle, error) {
+func FindUserReadArticlesByBoardArticleIDs(userID bbs.UUserID, boardArticleIDs []types.BoardArticleID) ([]*UserReadArticle, error) {
 	// query
+
 	query := bson.M{
-		USER_READ_ARTICLE_USER_ID_b: userID,
-		USER_READ_ARTICLE_ARTICLE_ID_b: bson.M{
-			"$in": articleIDs,
+		USER_ARTICLE_USER_ID_b: userID,
+		USER_ARTICLE_BOARD_ARTICLE_ID_b: bson.M{
+			"$in": boardArticleIDs,
 		},
 	}
 
 	var dbResults []*UserReadArticle
-	err := UserReadArticle_c.Find(query, 0, &dbResults, nil, nil)
+	err := UserArticle_c.Find(query, 0, &dbResults, nil, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -19,8 +19,14 @@ func TestGetArticleDetail(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
+	_, _ = deserializeUserDetailAndUpdateDB(testUserSYSOP_b, 123456890000000000)
+	_, _ = deserializeUserDetailAndUpdateDB(testUserChhsiao123_b, 123456891000000000)
+
 	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
 	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
+
+	articleSummaries_b := []*bbs.ArticleSummary{testArticleSummary1_b, testArticleSummary2_b}
+	_, _, _ = deserializeArticlesAndUpdateDB("SYSOP", "10_WhoAmI", articleSummaries_b, 123456892000000000)
 
 	params := &GetArticleDetailParams{}
 	path0 := &GetArticleDetailPath{
@@ -32,6 +38,7 @@ func TestGetArticleDetail(t *testing.T) {
 		BBoardID:   apitypes.FBoardID("WhoAmI"),
 		ArticleID:  apitypes.FArticleID("M.1608386280.A.BC9"),
 		Owner:      bbs.UUserID("SYSOP"),
+		Nickname:   "神",
 		CreateTime: types.Time8(1608386280),
 		MTime:      types.Time8(1608386280),
 
@@ -53,8 +60,10 @@ func TestGetArticleDetail(t *testing.T) {
 	}
 
 	expectedArticleDetailSummary0 := &schema.ArticleDetailSummary{
-		BBoardID:   bbs.BBoardID("10_WhoAmI"),
-		ArticleID:  bbs.ArticleID("1VtWRel9"),
+		BBoardID:       bbs.BBoardID("10_WhoAmI"),
+		ArticleID:      bbs.ArticleID("1VtWRel9"),
+		BoardArticleID: "10_WhoAmI:1VtWRel9",
+
 		ContentMD5: "L6QISYJFt-Y5g4Thl-roaw",
 		// ContentMTime:          types.NanoTS(1608386280000000000),
 		FirstCommentsLastTime: types.NanoTS(0),
@@ -69,12 +78,14 @@ func TestGetArticleDetail(t *testing.T) {
 
 		IP:  "172.22.0.1",
 		BBS: "批踢踢 docker(pttdocker.test)",
-		Idx: "1234567890@1VtWRel9",
+		Idx: "1608386280@1VtWRel9",
 	}
 
 	expectedArticleDetailSummary02 := &schema.ArticleDetailSummary{
-		BBoardID:   bbs.BBoardID("10_WhoAmI"),
-		ArticleID:  bbs.ArticleID("1VtWRel9"),
+		BBoardID:       bbs.BBoardID("10_WhoAmI"),
+		ArticleID:      bbs.ArticleID("1VtWRel9"),
+		BoardArticleID: "10_WhoAmI:1VtWRel9",
+
 		ContentMD5: "L6QISYJFt-Y5g4Thl-roaw",
 		// ContentMTime:          types.NanoTS(1608386300000000000),
 		FirstCommentsLastTime: types.NanoTS(0),
@@ -89,7 +100,7 @@ func TestGetArticleDetail(t *testing.T) {
 
 		IP:  "172.22.0.1",
 		BBS: "批踢踢 docker(pttdocker.test)",
-		Idx: "1234567890@1VtWRel9",
+		Idx: "1608386280@1VtWRel9",
 	}
 
 	path1 := &GetArticleDetailPath{
@@ -100,7 +111,8 @@ func TestGetArticleDetail(t *testing.T) {
 	expectedResult1 := &GetArticleDetailResult{
 		BBoardID:   apitypes.FBoardID("WhoAmI"),
 		ArticleID:  apitypes.FArticleID("M.1607937174.A.081"),
-		Owner:      bbs.UUserID("SYSOP"),
+		Owner:      bbs.UUserID("teemo"),
+		Nickname:   "",
 		CreateTime: types.Time8(1607937174),
 		MTime:      types.Time8(1607937100),
 
@@ -122,11 +134,13 @@ func TestGetArticleDetail(t *testing.T) {
 	}
 
 	expectedArticleDetailSummary1 := &schema.ArticleDetailSummary{
-		BBoardID:  bbs.BBoardID("10_WhoAmI"),
-		ArticleID: bbs.ArticleID("1VrooM21"),
+		BBoardID:       bbs.BBoardID("10_WhoAmI"),
+		ArticleID:      bbs.ArticleID("1VrooM21"),
+		BoardArticleID: "10_WhoAmI:1VrooM21",
+
 		// ContentMTime: types.NanoTS(1608388624000000000),
 		ContentMD5: "riiRuKCZzG0gAGpQiq4GJA",
-		Owner:      "SYSOP",
+		Owner:      "teemo",
 
 		FirstCommentsMD5: "3fjMk__1yvzpuEgq8jfdmg",
 		NComments:        0,

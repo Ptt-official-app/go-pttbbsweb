@@ -9,17 +9,28 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
 	"github.com/Ptt-official-app/go-pttbbsweb/apitypes"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func TestAddFavoriteBoard(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
+	_, _ = deserializeUserDetailAndUpdateDB(testUserSYSOP_b, 123456890000000000)
+
+	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
+	_, _, err := deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
+	if err != nil {
+		logrus.Errorf("TestAddFavoriteBoard: unable to deserializeBoardsAndUpdateDB: e: %v", err)
+	}
+
 	paramsLoad0 := &LoadGeneralBoardsParams{
 		StartIdx: "vFSt-Q@WhoAmI",
 	}
 
-	_, _, _ = LoadGeneralBoardsByClass("localhost", "SYSOP", paramsLoad0, nil)
+	result_i, _, err := LoadGeneralBoardsByClass("localhost", "SYSOP", paramsLoad0, nil)
+	result, _ := result_i.(*LoadGeneralBoardsResult)
+	logrus.Infof("TestAddFavoriteBoard: after LoadGeneralBoardsByClass: result: %v", result.List[0])
 
 	params0 := &AddFavoriteBoardParams{
 		FBoardID: "WhoAmI",

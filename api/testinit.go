@@ -1,7 +1,7 @@
 package api
 
 import (
-	"io/ioutil"
+	"os"
 
 	"github.com/Ptt-official-app/go-pttbbsweb/types"
 )
@@ -21,7 +21,7 @@ func UnsetIsTest() {
 	types.STATIC_DIR = origStaticDir
 	IsTest = false
 
-	data, _ := ioutil.ReadFile("./testcase/home2/t/testUser2/.fav.orig")
+	data, _ := os.ReadFile("./testcase/home2/t/testUser2/.fav.orig")
 
-	_ = ioutil.WriteFile("./testcase/home2/t/testUser2/.fav", data, 0o644)
+	_ = os.WriteFile("./testcase/home2/t/testUser2/.fav", data, 0o644)
 }

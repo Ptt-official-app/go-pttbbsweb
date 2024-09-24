@@ -72,13 +72,13 @@ func LoadManArticles() (err error) {
 }
 
 func loadManArticles(boardID bbs.BBoardID) (err error) {
-	count, err := loadManArticlesCore(boardID, "")
+	_, err = loadManArticlesCore(boardID, "")
 	if err != nil {
 		logrus.Errorf("cron.loadManArticles: unable to loadManArticles: e: %v", err)
 		return err
 	}
 
-	logrus.Infof("cron.loadManArticles: bid: %v count: %v", boardID, count)
+	// logrus.Infof("cron.loadManArticles: bid: %v count: %v", boardID, count)
 
 	return nil
 }

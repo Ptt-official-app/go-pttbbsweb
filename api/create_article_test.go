@@ -16,8 +16,13 @@ func TestCreateArticle(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
+	_, _ = deserializeUserDetailAndUpdateDB(testUserSYSOP_b, 123456890000000000)
+
 	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
-	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
+	_, _, err := deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
+	if err != nil {
+		logrus.Errorf("TestCreateArticle: unable to deserializeBoardsAndUpdateDB: e: %v", err)
+	}
 
 	path0 := &CreateArticlePath{
 		FBoardID: "WhoAmI",

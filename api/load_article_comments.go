@@ -57,8 +57,8 @@ func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
-	// is board-valid-user
-	_, statusCode, err = isBoardValidUser(boardID, c)
+	// check permission
+	err = CheckUserArticlePermReadable(userID, boardID, articleID, true)
 	if err != nil {
 		return nil, statusCode, err
 	}

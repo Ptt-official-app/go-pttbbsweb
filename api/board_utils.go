@@ -70,9 +70,9 @@ func deserializeBoardsAndUpdateDB(userID bbs.UUserID, boardSummaries_b []*bbs.Bo
 
 		if each_b.Read {
 			each_db := &schema.UserReadBoard{
-				UserID:       userID,
-				BBoardID:     each_b.BBoardID,
-				UpdateNanoTS: updateNanoTS,
+				UserID:           userID,
+				BBoardID:         each_b.BBoardID,
+				ReadUpdateNanoTS: updateNanoTS,
 			}
 			userReadBoards = append(userReadBoards, each_db)
 		}
@@ -274,7 +274,7 @@ func checkUserReadBoard(userID bbs.UUserID, userBoardInfoMap map[bbs.BBoardID]*a
 	// the Read flag is set based on the existing db.UpdateNanoTS
 	for _, each := range dbResults {
 		eachBoardID := each.BBoardID
-		eachReadNanoTS := each.UpdateNanoTS
+		eachReadNanoTS := each.ReadUpdateNanoTS
 
 		eachBoardInfo, ok := userBoardInfoMap[eachBoardID]
 		if !ok {

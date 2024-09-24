@@ -22,11 +22,11 @@ func TestLoadUserArticles(t *testing.T) {
 	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b, testBoardSummarySYSOP_b}
 	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
 
-	update0 := &schema.UserReadArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "19bWBI4Z", UpdateNanoTS: types.Time8(1534567891).ToNanoTS()}
-	update1 := &schema.UserReadArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "1VrooM21", UpdateNanoTS: types.Time8(1234567800).ToNanoTS()}
+	update0 := &schema.UserArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "19bWBI4Z", BoardArticleID: "10_WhoAmI:19bWBI4Z", ReadUpdateNanoTS: types.Time8(1534567891).ToNanoTS()}
+	update1 := &schema.UserArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "1VrooM21", BoardArticleID: "10_WhoAmI:1VrooM21", ReadUpdateNanoTS: types.Time8(1234567800).ToNanoTS()}
 
-	_, _ = schema.UserReadArticle_c.Update(update0, update0)
-	_, _ = schema.UserReadArticle_c.Update(update1, update1)
+	_, _ = schema.UserArticle_c.Update(update0, update0)
+	_, _ = schema.UserArticle_c.Update(update1, update1)
 
 	// load articles
 	ctx := context.Background()

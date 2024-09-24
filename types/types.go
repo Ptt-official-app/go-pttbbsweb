@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
 	"github.com/sirupsen/logrus"
 )
@@ -59,6 +60,9 @@ func (m ManArticleID) ToCreateTime() (createTime NanoTS) {
 }
 
 // ContentID
+//
+// ContentID is always queried / updated with ArticleID, ManArticleID.
+// No need to add boardID and articleID inside ContentID.
 type ContentID string
 
 func ToContentID(nanoTS NanoTS, md5 string) ContentID {
@@ -66,6 +70,8 @@ func ToContentID(nanoTS NanoTS, md5 string) ContentID {
 }
 
 // CommentID
+//
+// owner-id is embedded in md5
 //
 // XXX currently it's very hard to maintain the comment-id.
 // if we do comment-id only based on MD5:
@@ -96,6 +102,21 @@ const (
 	MIN_TO_NANO_TS = NanoTS(60) * TS_TO_NANO_TS
 	YEAR_NANO_TS   = NanoTS(365*86400) * TS_TO_NANO_TS
 )
+
+type BoardArticleID string
+
+func ToBoardArticleID(boardID bbs.BBoardID, articleID bbs.ArticleID) BoardArticleID {
+	return BoardArticleID(string(boardID) + ":" + string(articleID))
+}
+
+func (b BoardArticleID) Deserialize() (boardID bbs.BBoardID, articleID bbs.ArticleID, err error) {
+	theList := strings.Split(string(b), ":")
+	if len(theList) != 2 {
+		return "", "", bbs.ErrInvalidBBoardID
+	}
+
+	return bbs.BBoardID(theList[0]), bbs.ArticleID(theList[1]), nil
+}
 
 type NanoTS int64
 

@@ -7,46 +7,32 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-var UserReadBoard_c *db.Collection
-
 type UserReadBoard struct {
-	// 已讀板紀錄
-
-	UserID       bbs.UUserID  `bson:"user_id"`
-	BBoardID     bbs.BBoardID `bson:"bid"`
-	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
+	UserID           bbs.UUserID  `bson:"user_id"`
+	BBoardID         bbs.BBoardID `bson:"bid"`
+	ReadUpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
 
 var EMPTY_USER_READ_BOARD = &UserReadBoard{}
-
-var (
-	USER_READ_BOARD_USER_ID_b        = getBSONName(EMPTY_USER_READ_BOARD, "UserID")
-	USER_READ_BOARD_BBOARD_ID_b      = getBSONName(EMPTY_USER_READ_BOARD, "BBoardID")
-	USER_READ_BOARD_UPDATE_NANO_TS_b = getBSONName(EMPTY_USER_READ_BOARD, "UpdateNanoTS")
-)
-
-func assertUserReadBoardFields() error {
-	if err := assertFields(EMPTY_USER_READ_BOARD, EMPTY_USER_READ_BOARD_QUERY); err != nil {
-		return err
-	}
-
-	return nil
-}
 
 type UserReadBoardQuery struct {
 	UserID   bbs.UUserID  `bson:"user_id"`
 	BBoardID bbs.BBoardID `bson:"bid"`
 }
 
-var EMPTY_USER_READ_BOARD_QUERY = &UserReadBoardQuery{}
+var (
+	EMPTY_USER_READ_BOARD_QUERY = &UserReadBoardQuery{}
+
+	userReadBoardFields = getFields(EMPTY_USER_BOARD, EMPTY_USER_READ_BOARD)
+)
 
 func UpdateUserReadBoard(userReadBoard *UserReadBoard) (err error) {
 	query := bson.M{
-		USER_READ_BOARD_USER_ID_b:   userReadBoard.UserID,
-		USER_READ_BOARD_BBOARD_ID_b: userReadBoard.BBoardID,
+		USER_BOARD_USER_ID_b:   userReadBoard.UserID,
+		USER_BOARD_BBOARD_ID_b: userReadBoard.BBoardID,
 	}
 
-	r, err := UserReadBoard_c.CreateOnly(query, userReadBoard)
+	r, err := UserBoard_c.CreateOnly(query, userReadBoard)
 	if err != nil {
 		return err
 	}
@@ -54,11 +40,11 @@ func UpdateUserReadBoard(userReadBoard *UserReadBoard) (err error) {
 		return nil
 	}
 
-	query[USER_READ_BOARD_UPDATE_NANO_TS_b] = bson.M{
-		"$lt": userReadBoard.UpdateNanoTS,
+	query[USER_BOARD_READ_UPDATE_NANO_TS_b] = bson.M{
+		"$lt": userReadBoard.ReadUpdateNanoTS,
 	}
 
-	_, err = UserReadBoard_c.UpdateOneOnly(query, userReadBoard)
+	_, err = UserBoard_c.UpdateOneOnly(query, userReadBoard)
 
 	return err
 }
@@ -78,7 +64,7 @@ func UpdateUserReadBoards(userReadBoards []*UserReadBoard, updateNanoTS types.Na
 		}
 	}
 
-	r, err := UserReadBoard_c.BulkCreateOnly(theList)
+	r, err := UserBoard_c.BulkCreateOnly(theList)
 	if err != nil {
 		return err
 	}
@@ -96,9 +82,9 @@ func UpdateUserReadBoards(userReadBoards []*UserReadBoard, updateNanoTS types.Na
 
 		origFilter := each.Filter.(*UserReadBoardQuery)
 		filter := bson.M{
-			USER_READ_BOARD_USER_ID_b:   origFilter.UserID,
-			USER_READ_BOARD_BBOARD_ID_b: origFilter.BBoardID,
-			USER_READ_BOARD_UPDATE_NANO_TS_b: bson.M{
+			USER_BOARD_USER_ID_b:   origFilter.UserID,
+			USER_BOARD_BBOARD_ID_b: origFilter.BBoardID,
+			USER_BOARD_READ_UPDATE_NANO_TS_b: bson.M{
 				"$lt": updateNanoTS,
 			},
 		}
@@ -106,7 +92,7 @@ func UpdateUserReadBoards(userReadBoards []*UserReadBoard, updateNanoTS types.Na
 		updateUserReadBoards = append(updateUserReadBoards, each)
 	}
 
-	_, err = UserReadBoard_c.BulkUpdateOneOnly(updateUserReadBoards)
+	_, err = UserBoard_c.BulkUpdateOneOnly(updateUserReadBoards)
 
 	return err
 }
@@ -114,14 +100,14 @@ func UpdateUserReadBoards(userReadBoards []*UserReadBoard, updateNanoTS types.Na
 func FindUserReadBoards(userID bbs.UUserID, boardIDs []bbs.BBoardID) ([]*UserReadBoard, error) {
 	// query
 	query := bson.M{
-		USER_READ_BOARD_USER_ID_b: userID,
-		USER_READ_BOARD_BBOARD_ID_b: bson.M{
+		USER_BOARD_USER_ID_b: userID,
+		USER_BOARD_BBOARD_ID_b: bson.M{
 			"$in": boardIDs,
 		},
 	}
 
 	var dbResults []*UserReadBoard
-	err := UserReadBoard_c.Find(query, 0, &dbResults, nil, nil)
+	err := UserBoard_c.Find(query, 0, &dbResults, userReadBoardFields, nil)
 	if err != nil {
 		return nil, err
 	}

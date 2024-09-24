@@ -3,6 +3,7 @@ package schema
 import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -19,8 +20,8 @@ var (
 )
 
 func GetUserNewInfo(userID bbs.UUserID) (result *UserNewInfo, err error) {
-	query := &UserQuery{
-		UserID: userID,
+	query := bson.M{
+		USER_USER_ID_b: userID,
 	}
 
 	err = User_c.FindOne(query, &result, userNewInfoFields)

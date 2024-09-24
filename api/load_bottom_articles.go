@@ -35,7 +35,22 @@ func LoadBottomArticles(remoteAddr string, userID bbs.UUserID, params interface{
 		return nil, 500, err
 	}
 
+	userBoardPerm, err := CheckUserBoardPermReadable(userID, boardID)
+	if err != nil {
+		return nil, 403, err
+	}
+
 	articleSummaries_db, err := schema.GetBottomArticleSummaries(boardID)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	articleIDs := make([]bbs.ArticleID, len(articleSummaries_db))
+	for idx, each := range articleSummaries_db {
+		articleIDs[idx] = each.ArticleID
+	}
+
+	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(userID, boardID, articleIDs, userBoardPerm)
 	if err != nil {
 		return nil, 500, err
 	}
@@ -46,19 +61,30 @@ func LoadBottomArticles(remoteAddr string, userID bbs.UUserID, params interface{
 		return nil, 500, err
 	}
 
-	r := NewLoadBottomArticlesResult(articleSummaries_db, userReadArticleMap, userID)
+	r := NewLoadBottomArticlesResult(articleSummaries_db, userReadArticleMap, articlePermEditableMap, articlePermDeletableMap, userID)
 
 	return r, 200, nil
 }
 
-func NewLoadBottomArticlesResult(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool, userID bbs.UUserID) *LoadBottomArticlesResult {
+func NewLoadBottomArticlesResult(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool, articlePermEditableMap map[bbs.ArticleID]error, articlePermDeletableMap map[bbs.ArticleID]error, userID bbs.UUserID) *LoadBottomArticlesResult {
 	theList := make([]*apitypes.ArticleSummary, len(a_db))
 	for i, each_db := range a_db {
 		theList[i] = apitypes.NewArticleSummary(each_db, "")
 		articleID := each_db.ArticleID
+
 		isRead, ok := userReadArticleMap[articleID]
 		if ok && isRead {
 			theList[i].Read = true
+		}
+
+		err, ok := articlePermEditableMap[articleID]
+		if ok && err == nil {
+			theList[i].Editable = true
+		}
+
+		err, ok = articlePermDeletableMap[articleID]
+		if ok && err == nil {
+			theList[i].Deletable = true
 		}
 	}
 

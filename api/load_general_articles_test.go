@@ -2,8 +2,6 @@ package api
 
 import (
 	"context"
-	"net/http"
-	"net/url"
 	"sync"
 	"testing"
 
@@ -21,14 +19,17 @@ func TestLoadGeneralArticles(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
+	_, _ = deserializeUserDetailAndUpdateDB(testUserSYSOP_b, 123456890000000000)
+	_, _ = deserializeUserDetailAndUpdateDB(testUserChhsiao123_b, 123456891000000000)
+
 	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
 	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
 
-	update0 := &schema.UserReadArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "1VtWRel9", UpdateNanoTS: types.Time8(1608386300).ToNanoTS()}
-	update1 := &schema.UserReadArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "19bWBI4Z", UpdateNanoTS: types.Time8(1234567990).ToNanoTS()}
+	update0 := &schema.UserArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "1VtWRel9", ReadUpdateNanoTS: types.Time8(1608386300).ToNanoTS()}
+	update1 := &schema.UserArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "19bWBI4Z", ReadUpdateNanoTS: types.Time8(1234567990).ToNanoTS()}
 
-	_, _ = schema.UserReadArticle_c.Update(update0, update0)
-	_, _ = schema.UserReadArticle_c.Update(update1, update1)
+	_, _ = schema.UserArticle_c.Update(update0, update0)
+	_, _ = schema.UserArticle_c.Update(update1, update1)
 
 	// load articles
 	ctx := context.Background()
@@ -68,6 +69,10 @@ func TestLoadGeneralArticles(t *testing.T) {
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1608388506.A.85D",
 				Read:       false,
 				Idx:        "1608388506@1VtW-QXT",
+
+				TokenUser: "SYSOP",
+				Editable:  true,
+				Deletable: true,
 			},
 			{
 				FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -84,6 +89,10 @@ func TestLoadGeneralArticles(t *testing.T) {
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1608386280.A.BC9",
 				Read:       true,
 				Idx:        "1608386280@1VtWRel9",
+
+				TokenUser: "SYSOP",
+				Editable:  true,
+				Deletable: true,
 			},
 			{
 				FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -100,6 +109,10 @@ func TestLoadGeneralArticles(t *testing.T) {
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.081",
 				Read:       false,
 				Idx:        "1607937174@1VrooM21",
+
+				TokenUser: "SYSOP",
+				Editable:  false,
+				Deletable: true,
 			},
 			{
 				FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -116,6 +129,10 @@ func TestLoadGeneralArticles(t *testing.T) {
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1607202240.A.30D",
 				Read:       false,
 				Idx:        "1607202240@1Vo_N0CD",
+
+				TokenUser: "SYSOP",
+				Editable:  false,
+				Deletable: true,
 			},
 			{
 				FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -132,6 +149,10 @@ func TestLoadGeneralArticles(t *testing.T) {
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1584665022.A.ED0",
 				Read:       false,
 				Idx:        "1584665022@1UT16-xG",
+
+				TokenUser: "SYSOP",
+				Editable:  false,
+				Deletable: true,
 			},
 			{
 				FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -148,6 +169,10 @@ func TestLoadGeneralArticles(t *testing.T) {
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1234567890.A.123",
 				Read:       true,
 				Idx:        "1234567890@19bWBI4Z",
+
+				TokenUser: "SYSOP",
+				Editable:  false,
+				Deletable: true,
 			},
 			{
 				FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -164,6 +189,10 @@ func TestLoadGeneralArticles(t *testing.T) {
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1234560000.A.081",
 				Read:       false,
 				Idx:        "1234560000@19bUG021",
+
+				TokenUser: "SYSOP",
+				Editable:  true,
+				Deletable: true,
 			},
 		},
 		NextIdx: "",
@@ -193,14 +222,15 @@ func TestLoadGeneralArticles(t *testing.T) {
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1234567890.A.123",
 				Read:       true,
 				Idx:        "1234567890@19bWBI4Z",
+
+				TokenUser: "SYSOP",
+				Deletable: true,
 			},
 		},
 
 		TokenUser: "SYSOP",
 	}
 
-	c := &gin.Context{}
-	c.Request = &http.Request{URL: &url.URL{Path: "/api/board/test1/articles"}}
 	type args struct {
 		remoteAddr string
 		userID     bbs.UUserID

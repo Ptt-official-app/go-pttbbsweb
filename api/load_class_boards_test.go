@@ -18,6 +18,9 @@ func TestLoadClassBoards(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
+	_, _ = deserializeUserDetailAndUpdateDB(testUserSYSOP_b, 123456890000000000)
+	_, _ = deserializeUserDetailAndUpdateDB(testUserChhsiao123_b, 123456891000000000)
+
 	ret := mockhttp.LoadGeneralBoards(nil)
 	updateNanoTS := types.NowNanoTS()
 
@@ -26,11 +29,11 @@ func TestLoadClassBoards(t *testing.T) {
 		boardSummaries0[idx] = schema.NewBoardSummary(each_b, updateNanoTS)
 	}
 
-	update0 := &schema.UserReadBoard{UserID: "SYSOP", BBoardID: "1_test1", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
-	update1 := &schema.UserReadBoard{UserID: "SYSOP", BBoardID: "2_test2", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
+	update0 := &schema.UserBoard{UserID: "SYSOP", BBoardID: "1_test1", ReadUpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
+	update1 := &schema.UserBoard{UserID: "SYSOP", BBoardID: "2_test2", ReadUpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
 
-	_, _ = schema.UserReadBoard_c.Update(update0, update0)
-	_, _ = schema.UserReadBoard_c.Update(update1, update1)
+	_, _ = schema.UserBoard_c.Update(update0, update0)
+	_, _ = schema.UserBoard_c.Update(update1, update1)
 
 	_ = schema.UpdateBoardSummaries(boardSummaries0, updateNanoTS)
 

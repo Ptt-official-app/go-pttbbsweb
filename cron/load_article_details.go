@@ -56,7 +56,6 @@ func LoadArticleDetails() (err error) {
 		if newNextBrdname == "" {
 			logrus.Infof("cron.LoadArticleDetails: load %v boards", count)
 			return nil
-
 		}
 
 		nextBrdname = newNextBrdname
@@ -80,7 +79,6 @@ func loadArticleDetails(boardID bbs.BBoardID) (err error) {
 			articleDetailSummaries = articleDetailSummaries[:N_ARTICLE_DETAILS]
 		}
 
-		origCount := count
 		for _, each := range articleDetailSummaries {
 			if each.MTime <= each.ContentMTime && each.MTime < each.ContentUpdateNanoTS {
 				continue
@@ -92,12 +90,14 @@ func loadArticleDetails(boardID bbs.BBoardID) (err error) {
 			}
 		}
 
-		if origCount != count {
-			logrus.Infof("cron.loadArticleDetails: bid: %v count: %v", boardID, count)
-		}
+		/*
+			if origCount != count {
+				logrus.Infof("cron.loadArticleDetails: bid: %v count: %v", boardID, count)
+			}
+		*/
 
 		if newNextIdx == "" {
-			logrus.Infof("cron.loadArticleDetails: bid: %v load %v articles", boardID, count)
+			// logrus.Infof("cron.loadArticleDetails: bid: %v load %v articles", boardID, count)
 			return nil
 		}
 

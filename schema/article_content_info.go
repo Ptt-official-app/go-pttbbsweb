@@ -76,10 +76,13 @@ func contentBlocksToContent(contentBlocks []*ContentBlock) (content [][]*types.R
 	return content
 }
 
-func UpdateArticleContentInfo(bboardID bbs.BBoardID, articleID bbs.ArticleID, contentInfo *ArticleContentInfo) (err error) {
+func UpdateArticleContentInfo(boardID bbs.BBoardID, articleID bbs.ArticleID, contentInfo *ArticleContentInfo) (err error) {
+	boardArticleID := types.ToBoardArticleID(boardID, articleID)
+
 	query := bson.M{
-		ARTICLE_BBOARD_ID_b:  bboardID,
-		ARTICLE_ARTICLE_ID_b: articleID,
+		ARTICLE_BBOARD_ID_b:        boardID,
+		ARTICLE_ARTICLE_ID_b:       articleID,
+		ARTICLE_BOARD_ARTICLE_ID_b: boardArticleID,
 	}
 
 	r, err := Article_c.CreateOnly(query, contentInfo)
@@ -93,7 +96,7 @@ func UpdateArticleContentInfo(bboardID bbs.BBoardID, articleID bbs.ArticleID, co
 	query = bson.M{
 		"$or": bson.A{
 			bson.M{
-				ARTICLE_BBOARD_ID_b:  bboardID,
+				ARTICLE_BBOARD_ID_b:  boardID,
 				ARTICLE_ARTICLE_ID_b: articleID,
 				ARTICLE_CONTENT_UPDATE_NANO_TS_b: bson.M{
 					"$exists": false,
@@ -102,7 +105,7 @@ func UpdateArticleContentInfo(bboardID bbs.BBoardID, articleID bbs.ArticleID, co
 				ARTICLE_IS_DELETED_b: bson.M{"$exists": false},
 			},
 			bson.M{
-				ARTICLE_BBOARD_ID_b:  bboardID,
+				ARTICLE_BBOARD_ID_b:  boardID,
 				ARTICLE_ARTICLE_ID_b: articleID,
 				ARTICLE_CONTENT_UPDATE_NANO_TS_b: bson.M{
 					"$lt": contentInfo.ContentUpdateNanoTS,

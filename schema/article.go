@@ -11,9 +11,11 @@ import (
 var Article_c *db.Collection
 
 type Article struct {
-	Version    int              `bson:"version"`
-	BBoardID   bbs.BBoardID     `bson:"bid"`                 //
-	ArticleID  bbs.ArticleID    `bson:"aid"`                 //
+	Version        int                  `bson:"version"`
+	BBoardID       bbs.BBoardID         `bson:"bid"` //
+	ArticleID      bbs.ArticleID        `bson:"aid"` //
+	BoardArticleID types.BoardArticleID `bson:"baid"`
+
 	IsDeleted  bool             `bson:"deleted,omitempty"`   //
 	Filename   string           `bson:"filename"`            //
 	CreateTime types.NanoTS     `bson:"create_time_nano_ts"` //
@@ -65,8 +67,10 @@ type Article struct {
 var EMPTY_ARTICLE = &Article{}
 
 var ( // bson-name
-	ARTICLE_BBOARD_ID_b   = getBSONName(EMPTY_ARTICLE, "BBoardID")
-	ARTICLE_ARTICLE_ID_b  = getBSONName(EMPTY_ARTICLE, "ArticleID")
+	ARTICLE_BBOARD_ID_b        = getBSONName(EMPTY_ARTICLE, "BBoardID")
+	ARTICLE_ARTICLE_ID_b       = getBSONName(EMPTY_ARTICLE, "ArticleID")
+	ARTICLE_BOARD_ARTICLE_ID_b = getBSONName(EMPTY_ARTICLE, "BoardArticleID")
+
 	ARTICLE_IS_DELETED_b  = getBSONName(EMPTY_ARTICLE, "IsDeleted")
 	ARTICLE_FILENAME_b    = getBSONName(EMPTY_ARTICLE, "Filename")
 	ARTICLE_CREATE_TIME_b = getBSONName(EMPTY_ARTICLE, "CreateTime")
@@ -157,6 +161,11 @@ func assertArticleFields() error {
 
 	// article-rank
 
+	// article-perm-info
+	if err := assertFields(EMPTY_ARTICLE, EMPTY_ARTICLE_PERM_INFO); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -167,6 +176,16 @@ type ArticleQuery struct {
 }
 
 var EMPTY_ARTICLE_QUERY = &ArticleQuery{}
+
+type ArticleCreateQuery struct {
+	BBoardID       bbs.BBoardID         `bson:"bid"`
+	ArticleID      bbs.ArticleID        `bson:"aid"`
+	BoardArticleID types.BoardArticleID `bson:"baid"`
+
+	IsDeleted interface{} `bson:"deleted,omitempty"` //
+}
+
+var EMPTY_ARTICLE_CREATE_QUERY = &ArticleCreateQuery{}
 
 func ResetArticleIsBottom(boardID bbs.BBoardID) (err error) {
 	query := bson.M{

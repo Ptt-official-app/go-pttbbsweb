@@ -3,7 +3,6 @@ package api
 import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	ptttypes "github.com/Ptt-official-app/go-pttbbs/types"
-	"github.com/Ptt-official-app/go-pttbbsweb/apitypes"
 	"github.com/Ptt-official-app/go-pttbbsweb/schema"
 	"github.com/Ptt-official-app/go-pttbbsweb/types"
 	"github.com/gin-gonic/gin"
@@ -25,10 +24,10 @@ func LoadGeneralArticlesByKeyword(remoteAddr string, userID bbs.UUserID, params 
 		return nil, 500, err
 	}
 
-	// is board-valid-user
-	_, statusCode, err = isBoardValidUser(boardID, c)
+	// check board permission
+	userBoardPerm, err := CheckUserBoardPermReadable(userID, boardID)
 	if err != nil {
-		return nil, statusCode, err
+		return nil, 403, err
 	}
 
 	// get article-summaries
@@ -50,6 +49,17 @@ func LoadGeneralArticlesByKeyword(remoteAddr string, userID bbs.UUserID, params 
 		return nil, 500, err
 	}
 
+	articleIDs := make([]bbs.ArticleID, len(articleSummaries_db))
+	for idx, each := range articleSummaries_db {
+		articleIDs[idx] = each.ArticleID
+	}
+
+	// check article permission
+	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(userID, boardID, articleIDs, userBoardPerm)
+	if err != nil {
+		return nil, 500, err
+	}
+
 	// nextIdx
 	var nextIdx string
 	if len(articleSummaries_db) > theParams.Max {
@@ -57,52 +67,11 @@ func LoadGeneralArticlesByKeyword(remoteAddr string, userID bbs.UUserID, params 
 		articleSummaries_db = articleSummaries_db[:theParams.Max]
 	}
 
-	userReadArticleMap, err := getUserReadArticleMap(userID, boardID, articleSummaries_db)
+	userReadArticleMap := make(map[bbs.ArticleID]bool)
+	userReadArticleMap, err = checkReadArticles(userID, boardID, userReadArticleMap, articleSummaries_db)
 	if err != nil {
 		return nil, 500, err
 	}
 
-	return NewLoadGeneralArticlesResultByKeyword(articleSummaries_db, userReadArticleMap, nextIdx, userID), 200, nil
-}
-
-func getUserReadArticleMap(userID bbs.UUserID, boardID bbs.BBoardID, theList []*schema.ArticleSummary) (userReadArticleMap map[bbs.ArticleID]types.NanoTS, err error) {
-	queryArticleIDs := make([]bbs.ArticleID, len(theList))
-	for idx, each := range theList {
-		queryArticleIDs[idx] = each.ArticleID
-	}
-
-	dbResults, err := schema.FindUserReadArticles(userID, boardID, queryArticleIDs)
-	if err != nil {
-		return nil, err
-	}
-
-	userReadArticleMap = make(map[bbs.ArticleID]types.NanoTS)
-	for _, each := range dbResults {
-		userReadArticleMap[each.ArticleID] = each.UpdateNanoTS
-	}
-
-	return userReadArticleMap, nil
-}
-
-func NewLoadGeneralArticlesResultByKeyword(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]types.NanoTS, nextIdx string, userID bbs.UUserID) (result *LoadGeneralArticlesResult) {
-	theList := make([]*apitypes.ArticleSummary, len(a_db))
-	for i, each_db := range a_db {
-		theList[i] = apitypes.NewArticleSummary(each_db, "")
-		readNanoTS, ok := userReadArticleMap[each_db.ArticleID]
-		if !ok {
-			continue
-		}
-		if readNanoTS > each_db.MTime {
-			theList[i].Read = true
-		} else if readNanoTS > each_db.CreateTime {
-			theList[i].Read = true
-		}
-	}
-
-	return &LoadGeneralArticlesResult{
-		List:    theList,
-		NextIdx: nextIdx,
-
-		TokenUser: userID,
-	}
+	return NewLoadGeneralArticlesResult(articleSummaries_db, userReadArticleMap, articlePermEditableMap, articlePermDeletableMap, nextIdx, userID), 200, nil
 }

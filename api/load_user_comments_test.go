@@ -17,16 +17,22 @@ func TestLoadUserComments(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
+	_, _ = deserializeUserDetailAndUpdateDB(testUserSYSOP_b, 123456890000000000)
+	_, _ = deserializeUserDetailAndUpdateDB(testUserChhsiao123_b, 123456891000000000)
+
 	// board
 	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b, testBoardSummarySYSOP_b}
 	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
 
-	// articles
-	update0 := &schema.UserReadArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "19bWBI4Z", UpdateNanoTS: types.Time8(1534567891).ToNanoTS()}
-	update1 := &schema.UserReadArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "1VrooM21", UpdateNanoTS: types.Time8(1234567800).ToNanoTS()}
+	articleSummaries_b := []*bbs.ArticleSummary{testArticleSummary1_b, testArticleSummary2_b}
+	_, _, _ = deserializeArticlesAndUpdateDB("SYSOP", "10_WhoAmI", articleSummaries_b, 123456892000000000)
 
-	_, _ = schema.UserReadArticle_c.Update(update0, update0)
-	_, _ = schema.UserReadArticle_c.Update(update1, update1)
+	// articles
+	update0 := &schema.UserArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "19bWBI4Z", BoardArticleID: "10_WhoAmI:19bWBI4Z", ReadUpdateNanoTS: types.Time8(1608388624).ToNanoTS()}
+	update1 := &schema.UserArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "1VrooM21", BoardArticleID: "10_WhoAmI:1VrooM21", ReadUpdateNanoTS: types.Time8(1608388624).ToNanoTS()}
+
+	_, _ = schema.UserArticle_c.Update(update0, update0)
+	_, _ = schema.UserArticle_c.Update(update1, update1)
 
 	paramsLoadGeneralArticles := NewLoadGeneralArticlesParams()
 	pathLoadGeneralArticles := &LoadGeneralArticlesPath{FBoardID: "WhoAmI"}
@@ -58,7 +64,7 @@ func TestLoadUserComments(t *testing.T) {
 				MTime:             1607937100,
 				Recommend:         3,
 				NComments:         3,
-				Owner:             "SYSOP",
+				Owner:             "teemo",
 				Title:             "再來呢？～",
 				Money:             12,
 				Class:             "問題",
@@ -88,7 +94,7 @@ func TestLoadUserComments(t *testing.T) {
 				MTime:             1607937100,
 				Recommend:         3,
 				NComments:         3,
-				Owner:             "SYSOP",
+				Owner:             "teemo",
 				Title:             "再來呢？～",
 				Money:             12,
 				Class:             "問題",

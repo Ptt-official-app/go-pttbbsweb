@@ -9,4 +9,6 @@ var (
 	ErrNoCreate             = errors.New("no create")
 	ErrInvalidUserFavorites = errors.New("invalid user favorites")
 	Err2FAAlreadyExists     = errors.New("2fa already exists")
+
+	ErrNotFound = errors.New("not found")
 )
