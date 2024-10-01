@@ -10,11 +10,13 @@ import (
 
 // ArticleDetailSummary
 type ArticleDetailSummary struct {
-	BBoardID   bbs.BBoardID  `bson:"bid"`
-	ArticleID  bbs.ArticleID `bson:"aid"`
-	IsDeleted  bool          `bson:"deleted,omitempty"`
-	CreateTime types.NanoTS  `bson:"create_time_nano_ts"`
-	MTime      types.NanoTS  `bson:"mtime_nano_ts"`
+	BBoardID       bbs.BBoardID         `bson:"bid"`
+	ArticleID      bbs.ArticleID        `bson:"aid"`
+	BoardArticleID types.BoardArticleID `bson:"baid"`
+
+	IsDeleted  bool         `bson:"deleted,omitempty"`
+	CreateTime types.NanoTS `bson:"create_time_nano_ts"`
+	MTime      types.NanoTS `bson:"mtime_nano_ts"`
 
 	Recommend int              `bson:"recommend"`
 	Owner     bbs.UUserID      `bson:"owner"`

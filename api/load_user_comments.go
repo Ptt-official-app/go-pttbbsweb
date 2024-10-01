@@ -56,12 +56,12 @@ func LoadUserComments(remoteAddr string, userID bbs.UUserID, params interface{},
 		return nil, 500, err
 	}
 
-	articleSummaryMap, userReadArticleMap, err := getArticleMapFromCommentSummaries(userID, commentSummaries_db)
+	articleSummaryMap, userReadBoardArticleMap, err := getArticleSummaryMapFromCommentSummaries(userID, commentSummaries_db)
 	if err != nil {
 		return nil, 500, err
 	}
 
-	r := NewLoadUserCommentsResult(commentSummaries_db, articleSummaryMap, userReadArticleMap, nextIdx, userID)
+	r := NewLoadUserCommentsResult(commentSummaries_db, articleSummaryMap, userReadBoardArticleMap, nextIdx, userID)
 
 	return r, 200, nil
 }
@@ -130,74 +130,82 @@ func isValidCommentSummaries(commentSummaries_db []*schema.CommentSummary) ([]*s
 	return commentSummaries_db, nil
 }
 
-func getArticleMapFromCommentSummaries(userID bbs.UUserID, commentSummaries_db []*schema.CommentSummary) (articleSummaryMap map[bbs.ArticleID]*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]types.NanoTS, err error) {
-	articleIDs := make([]bbs.ArticleID, 0, len(commentSummaries_db))
-	articleIDMap := make(map[bbs.ArticleID]bool)
+func getArticleSummaryMapFromCommentSummaries(userID bbs.UUserID, commentSummaries_db []*schema.CommentSummary) (articleSummaryMap map[types.BoardArticleID]*schema.ArticleSummary, userReadBoardArticleMap map[types.BoardArticleID]types.NanoTS, err error) {
+	boardArticleIDs := make([]types.BoardArticleID, 0, len(commentSummaries_db))
+	boardArticleIDMap := make(map[types.BoardArticleID]bool)
+
+	var eachBoardArticleID types.BoardArticleID
 	for _, each := range commentSummaries_db {
-		_, ok := articleIDMap[each.ArticleID]
+		eachBoardArticleID = types.ToBoardArticleID(each.BBoardID, each.ArticleID)
+		_, ok := boardArticleIDMap[eachBoardArticleID]
 		if ok {
 			continue
 		}
 
-		articleIDMap[each.ArticleID] = true
-		articleIDs = append(articleIDs, each.ArticleID)
+		boardArticleIDMap[eachBoardArticleID] = true
+		boardArticleIDs = append(boardArticleIDs, eachBoardArticleID)
 	}
 
 	// article summaries
-	articleSummaries, err := schema.GetArticleSummariesByArticleIDs(articleIDs)
+	articleSummaries, err := schema.GetArticleSummariesByBoardArticleIDs(boardArticleIDs)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	articleSummaryMap = make(map[bbs.ArticleID]*schema.ArticleSummary)
+	articleSummaryMap = make(map[types.BoardArticleID]*schema.ArticleSummary)
 	for _, each := range articleSummaries {
-		articleSummaryMap[each.ArticleID] = each
+		articleSummaryMap[each.BoardArticleID] = each
 	}
 
 	// user read articles
-	userReadArticles, err := schema.FindUserReadArticlesByArticleIDs(userID, articleIDs)
+	userReadArticles, err := schema.FindUserReadArticlesByBoardArticleIDs(userID, boardArticleIDs)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	userReadArticleMap = make(map[bbs.ArticleID]types.NanoTS)
+	userReadBoardArticleMap = make(map[types.BoardArticleID]types.NanoTS)
 	for _, each := range userReadArticles {
-		userReadArticleMap[each.ArticleID] = each.UpdateNanoTS
+		userReadBoardArticleMap[each.BoardArticleID] = each.ReadUpdateNanoTS
 	}
 
-	return articleSummaryMap, userReadArticleMap, nil
+	return articleSummaryMap, userReadBoardArticleMap, nil
 }
 
 func NewLoadUserCommentsResult(
 	commentSummaries_db []*schema.CommentSummary,
-	articleSummaryMap map[bbs.ArticleID]*schema.ArticleSummary,
-	userReadArticleMap map[bbs.ArticleID]types.NanoTS,
+	articleSummaryMap map[types.BoardArticleID]*schema.ArticleSummary,
+	userReadBoardArticleMap map[types.BoardArticleID]types.NanoTS,
 	nextIdx string,
 	userID bbs.UUserID,
 ) (result *LoadUserCommentsResult) {
-	comments := make([]*apitypes.ArticleComment, len(commentSummaries_db))
-	for idx, each := range commentSummaries_db {
-		articleSummary, ok := articleSummaryMap[each.ArticleID]
+	comments := make([]*apitypes.ArticleComment, 0, len(commentSummaries_db))
+	for _, each := range commentSummaries_db {
+		boardArticleID := types.ToBoardArticleID(each.BBoardID, each.ArticleID)
+		articleSummary, ok := articleSummaryMap[boardArticleID]
 		if !ok {
 			continue
 		}
-		comments[idx] = apitypes.NewArticleCommentFromComment(articleSummary, each)
+
+		eachComment := apitypes.NewArticleCommentFromComment(articleSummary, each)
 
 		// read
-		readNanoTS, ok := userReadArticleMap[each.ArticleID]
+		readNanoTS, ok := userReadBoardArticleMap[boardArticleID]
 		if !ok {
+			comments = append(comments, eachComment)
 			continue
 		}
 
 		if readNanoTS > articleSummary.MTime {
-			comments[idx].Read = types.READ_STATUS_MTIME
+			eachComment.Read = types.READ_STATUS_MTIME
 		} else if readNanoTS > each.SortTime {
-			comments[idx].Read = types.READ_STATUS_COMMENT_TIME
+			eachComment.Read = types.READ_STATUS_COMMENT_TIME
 		} else if readNanoTS > each.CreateTime {
-			comments[idx].Read = types.READ_STATUS_CREATE_TIME
+			eachComment.Read = types.READ_STATUS_CREATE_TIME
 		} else {
-			comments[idx].Read = types.READ_STATUS_UNREAD
+			eachComment.Read = types.READ_STATUS_UNREAD
 		}
+
+		comments = append(comments, eachComment)
 	}
 
 	nextIdx = apitypes.SerializeArticleCommentIdx(apitypes.ARTICLE_COMMENT_TYPE_COMMENT, nextIdx)

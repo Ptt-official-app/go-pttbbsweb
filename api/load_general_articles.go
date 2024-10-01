@@ -61,8 +61,25 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 		return nil, 500, err
 	}
 
+	// check board permission
+	userBoardPerm, err := CheckUserBoardPermReadable(userID, boardID)
+	if err != nil {
+		return nil, 403, err
+	}
+
 	// backend load-general-articles
 	articleSummaries_db, err := schema.GetArticleSummaries(boardID, theParams.StartIdx, theParams.Descending, theParams.Max+1)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	articleIDs := make([]bbs.ArticleID, len(articleSummaries_db))
+	for idx, each := range articleSummaries_db {
+		articleIDs[idx] = each.ArticleID
+	}
+
+	// check article permission
+	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(userID, boardID, articleIDs, userBoardPerm)
 	if err != nil {
 		return nil, 500, err
 	}
@@ -81,7 +98,7 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 		return nil, 500, err
 	}
 
-	r := NewLoadGeneralArticlesResult(articleSummaries_db, userReadArticleMap, nextIdx, userID)
+	r := NewLoadGeneralArticlesResult(articleSummaries_db, userReadArticleMap, articlePermEditableMap, articlePermDeletableMap, nextIdx, userID)
 
 	// update user_read_board if is-newest
 	if theParams.Descending && theParams.StartIdx == "" || !theParams.Descending && nextIdx == "" {
@@ -120,7 +137,7 @@ func checkReadArticles(userID bbs.UUserID, boardID bbs.BBoardID, userReadArticle
 	// the Read flag is set based on the existing db.UpdateNanoTS
 	for _, each := range dbResults {
 		eachArticleID := each.ArticleID
-		eachReadNanoTS := each.UpdateNanoTS
+		eachReadNanoTS := each.ReadUpdateNanoTS
 
 		listIdx, ok := checkArticleIDMap[eachArticleID]
 		if !ok {
@@ -137,7 +154,7 @@ func checkReadArticles(userID bbs.UUserID, boardID bbs.BBoardID, userReadArticle
 }
 
 func updateUserReadBoard(userID bbs.UUserID, boardID bbs.BBoardID, updateNanoTS types.NanoTS) (err error) {
-	userReadBoard := &schema.UserReadBoard{UserID: userID, BBoardID: boardID, UpdateNanoTS: updateNanoTS}
+	userReadBoard := &schema.UserReadBoard{UserID: userID, BBoardID: boardID, ReadUpdateNanoTS: updateNanoTS}
 
 	err = schema.UpdateUserReadBoard(userReadBoard)
 	if err != nil {
@@ -147,14 +164,25 @@ func updateUserReadBoard(userID bbs.UUserID, boardID bbs.BBoardID, updateNanoTS 
 	return nil
 }
 
-func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool, nextIdx string, userID bbs.UUserID) *LoadGeneralArticlesResult {
+func NewLoadGeneralArticlesResult(a_db []*schema.ArticleSummary, userReadArticleMap map[bbs.ArticleID]bool, articlePermEditableMap map[bbs.ArticleID]error, articlePermDeletableMap map[bbs.ArticleID]error, nextIdx string, userID bbs.UUserID) *LoadGeneralArticlesResult {
 	theList := make([]*apitypes.ArticleSummary, len(a_db))
 	for i, each_db := range a_db {
-		theList[i] = apitypes.NewArticleSummary(each_db, "")
+		theList[i] = apitypes.NewArticleSummary(each_db, userID)
 		articleID := each_db.ArticleID
+
 		isRead, ok := userReadArticleMap[articleID]
 		if ok && isRead {
 			theList[i].Read = true
+		}
+
+		err, ok := articlePermEditableMap[articleID]
+		if ok && err == nil {
+			theList[i].Editable = true
+		}
+
+		err, ok = articlePermDeletableMap[articleID]
+		if ok && err == nil {
+			theList[i].Deletable = true
 		}
 	}
 

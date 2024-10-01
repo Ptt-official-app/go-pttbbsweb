@@ -303,8 +303,10 @@ func TestNewArticleSummaryWithRegexFromPBArticle(t *testing.T) {
 		Owner:         "SYSOP",
 	}
 	expected0 := &ArticleSummaryWithRegex{
-		BBoardID:     "board0",
-		ArticleID:    "1VtW-QXT",
+		BBoardID:       "board0",
+		ArticleID:      "1VtW-QXT",
+		BoardArticleID: "board0:1VtW-QXT",
+
 		CreateTime:   1608388506000000000,
 		MTime:        1608388508000000000,
 		Recommend:    12,

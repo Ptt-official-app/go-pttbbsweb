@@ -30,6 +30,8 @@ type BoardSummary struct {
 
 	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 
+	ParentID bbs.BBoardID `bson:"parent"`
+
 	Gid        ptttype.Bid `bson:"pttgid"`
 	Bid        ptttype.Bid `bson:"pttbid"`
 	IdxByName  string      `bson:"pttidxname"`
@@ -42,6 +44,8 @@ var (
 )
 
 func NewBoardSummary(b_b *bbs.BoardSummary, updateNanoTS types.NanoTS) *BoardSummary {
+	parentID, _ := GetBoardIDByBid(b_b.Bid)
+
 	return &BoardSummary{
 		BBoardID:  b_b.BBoardID,
 		Brdname:   b_b.Brdname,
@@ -56,6 +60,8 @@ func NewBoardSummary(b_b *bbs.BoardSummary, updateNanoTS types.NanoTS) *BoardSum
 		LastPostTime: types.Time4ToNanoTS(b_b.LastPostTime),
 
 		UpdateNanoTS: updateNanoTS,
+
+		ParentID: parentID,
 
 		Gid:        b_b.Gid,
 		Bid:        b_b.Bid,

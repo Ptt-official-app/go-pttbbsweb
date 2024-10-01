@@ -30,7 +30,7 @@ type Board struct {
 	VoteLimitBadpost int `bson:"vote_limit_bad_post"`
 	PostLimitBadpost int `bson:"post_limit_bad_post"`
 
-	Parent bbs.BBoardID `bson:"parent"`
+	ParentID bbs.BBoardID `bson:"parent"`
 
 	NVote           int          `bson:"vote"` /* use db-count to get current #vote */
 	VoteClosingTime types.NanoTS `bson:"vtime_nano_ts"`
@@ -116,6 +116,10 @@ func assertBoardFields() error {
 	}
 
 	if err := assertFields(EMPTY_BOARD, EMPTY_BOARD_BID); err != nil {
+		return err
+	}
+
+	if err := assertFields(EMPTY_BOARD, EMPTY_BOARD_PERM_INFO); err != nil {
 		return err
 	}
 

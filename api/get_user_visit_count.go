@@ -28,6 +28,7 @@ func GetUserVisitCount(remoteAddr string, params interface{}, c *gin.Context) (r
 	if err != nil || statusCode != 200 {
 		return nil, 500, err
 	}
+
 	// get pttbbsweb user count
 	currentUserVisitCount := schema.GetUserVisitCount()
 	// total user

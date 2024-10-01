@@ -15,8 +15,10 @@ func TestGetArticleDetailSummary(t *testing.T) {
 
 	updateNanoTS := types.NanoTS(1234567890000000000)
 	articleSummary0 := &ArticleSummary{
-		BBoardID:   bbs.BBoardID("board0"),
-		ArticleID:  bbs.ArticleID("article0"),
+		BBoardID:       bbs.BBoardID("board0"),
+		ArticleID:      bbs.ArticleID("article0"),
+		BoardArticleID: "board0:article0",
+
 		IsDeleted:  false,
 		CreateTime: types.NanoTS(1234567890000000000),
 		MTime:      types.NanoTS(1234567889000000000),
@@ -43,8 +45,10 @@ func TestGetArticleDetailSummary(t *testing.T) {
 	_ = UpdateArticleContentInfo(bbs.BBoardID("board0"), bbs.ArticleID("article0"), articleContent)
 
 	expected0 := &ArticleDetailSummary{
-		BBoardID:   bbs.BBoardID("board0"),
-		ArticleID:  bbs.ArticleID("article0"),
+		BBoardID:       bbs.BBoardID("board0"),
+		ArticleID:      bbs.ArticleID("article0"),
+		BoardArticleID: "board0:article0",
+
 		IsDeleted:  false,
 		CreateTime: types.NanoTS(1234567890000000000),
 		MTime:      types.NanoTS(1234567889000000000),
@@ -109,8 +113,10 @@ func TestGetArticleDetailSummaries(t *testing.T) {
 
 	updateNanoTS := types.NanoTS(1234567890000000000)
 	articleSummary0 := &ArticleSummary{
-		BBoardID:   bbs.BBoardID("board0"),
-		ArticleID:  bbs.ArticleID("article0"),
+		BBoardID:       bbs.BBoardID("board0"),
+		ArticleID:      bbs.ArticleID("article0"),
+		BoardArticleID: "board0:article0",
+
 		IsDeleted:  false,
 		CreateTime: types.NanoTS(1234567890000000000),
 		MTime:      types.NanoTS(1234567889000000000),
@@ -138,8 +144,10 @@ func TestGetArticleDetailSummaries(t *testing.T) {
 	_ = UpdateArticleContentInfo(bbs.BBoardID("board0"), bbs.ArticleID("article0"), articleContent0)
 
 	articleSummary1 := &ArticleSummary{
-		BBoardID:   bbs.BBoardID("board0"),
-		ArticleID:  bbs.ArticleID("article1"),
+		BBoardID:       bbs.BBoardID("board0"),
+		ArticleID:      bbs.ArticleID("article1"),
+		BoardArticleID: "board0:article1",
+
 		IsDeleted:  false,
 		CreateTime: types.NanoTS(1234567891000000000),
 		MTime:      types.NanoTS(1234567892000000000),
@@ -167,8 +175,10 @@ func TestGetArticleDetailSummaries(t *testing.T) {
 	_ = UpdateArticleContentInfo(bbs.BBoardID("board0"), bbs.ArticleID("article1"), articleContent1)
 
 	expected0 := &ArticleDetailSummary{
-		BBoardID:   bbs.BBoardID("board0"),
-		ArticleID:  bbs.ArticleID("article0"),
+		BBoardID:       bbs.BBoardID("board0"),
+		ArticleID:      bbs.ArticleID("article0"),
+		BoardArticleID: "board0:article0",
+
 		IsDeleted:  false,
 		CreateTime: types.NanoTS(1234567890000000000),
 		MTime:      types.NanoTS(1234567889000000000),
@@ -191,8 +201,10 @@ func TestGetArticleDetailSummaries(t *testing.T) {
 	}
 
 	expected1 := &ArticleDetailSummary{
-		BBoardID:   bbs.BBoardID("board0"),
-		ArticleID:  bbs.ArticleID("article1"),
+		BBoardID:       bbs.BBoardID("board0"),
+		ArticleID:      bbs.ArticleID("article1"),
+		BoardArticleID: "board0:article1",
+
 		IsDeleted:  false,
 		CreateTime: types.NanoTS(1234567891000000000),
 		MTime:      types.NanoTS(1234567892000000000),

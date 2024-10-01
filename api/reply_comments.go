@@ -48,6 +48,12 @@ func ReplyComments(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
+	// check permission
+	err = CheckUserArticlePermReadable(userID, boardID, articleID, true)
+	if err != nil {
+		return nil, 403, err
+	}
+
 	oldContent, oldContentPrefix, oldSignatureDBCS, articleDetailSummary_db, oldSZ, oldsum, statusCode, err := editArticleGetArticleContentInfo(userID, boardID, articleID, c, true)
 	if err != nil {
 		return nil, statusCode, err

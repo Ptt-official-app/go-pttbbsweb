@@ -15,11 +15,13 @@ import (
 // ArticleSummaryWithRegex
 type ArticleSummaryWithRegex struct {
 	// ArticleSummary
-	BBoardID   bbs.BBoardID  `bson:"bid"`
-	ArticleID  bbs.ArticleID `bson:"aid"`
-	IsDeleted  bool          `bson:"deleted,omitempty"`
-	CreateTime types.NanoTS  `bson:"create_time_nano_ts"`
-	MTime      types.NanoTS  `bson:"mtime_nano_ts"`
+	BBoardID       bbs.BBoardID         `bson:"bid"`
+	ArticleID      bbs.ArticleID        `bson:"aid"`
+	BoardArticleID types.BoardArticleID `bson:"baid"`
+
+	IsDeleted  bool         `bson:"deleted,omitempty"`
+	CreateTime types.NanoTS `bson:"create_time_nano_ts"`
+	MTime      types.NanoTS `bson:"mtime_nano_ts"`
 
 	Recommend int              `bson:"recommend"`
 	Owner     bbs.UUserID      `bson:"owner"`
@@ -72,8 +74,10 @@ func NewArticleSummaryWithRegexFromPBArticle(boardID bbs.BBoardID, a_b *boardd.P
 
 	titleRegex := articleTitleToTitleRegex(title)
 	return &ArticleSummaryWithRegex{
-		BBoardID:   boardID,
-		ArticleID:  articleID,
+		BBoardID:       boardID,
+		ArticleID:      articleID,
+		BoardArticleID: types.ToBoardArticleID(boardID, articleID),
+
 		IsDeleted:  false,
 		CreateTime: types.Time4ToNanoTS(createTime),
 		MTime:      types.NanoTS(a_b.ModifiedNsec),
@@ -186,8 +190,10 @@ func NewArticleSummaryWithRegex(a_b *bbs.ArticleSummary, updateNanoTS types.Nano
 
 	titleRegex := articleTitleToTitleRegex(title)
 	return &ArticleSummaryWithRegex{
-		BBoardID:   a_b.BBoardID,
-		ArticleID:  a_b.ArticleID,
+		BBoardID:       a_b.BBoardID,
+		ArticleID:      a_b.ArticleID,
+		BoardArticleID: types.ToBoardArticleID(a_b.BBoardID, a_b.ArticleID),
+
 		IsDeleted:  a_b.IsDeleted,
 		CreateTime: types.Time4ToNanoTS(a_b.CreateTime),
 		MTime:      types.Time4ToNanoTS(a_b.MTime),
@@ -249,9 +255,10 @@ func UpdateArticleSummaryWithRegexes(articleSummaryWithRegexes []*ArticleSummary
 	// create items which do not exists yet.
 	theList := make([]*db.UpdatePair, len(articleSummaryWithRegexes))
 	for idx, each := range articleSummaryWithRegexes {
-		query := &ArticleQuery{
-			BBoardID:  each.BBoardID,
-			ArticleID: each.ArticleID,
+		query := &ArticleCreateQuery{
+			BBoardID:       each.BBoardID,
+			ArticleID:      each.ArticleID,
+			BoardArticleID: types.ToBoardArticleID(each.BBoardID, each.ArticleID),
 		}
 
 		theList[idx] = &db.UpdatePair{
@@ -276,7 +283,7 @@ func UpdateArticleSummaryWithRegexes(articleSummaryWithRegexes []*ArticleSummary
 			continue
 		}
 
-		origFilter := each.Filter.(*ArticleQuery)
+		origFilter := each.Filter.(*ArticleCreateQuery)
 		filter := bson.M{
 			"$or": bson.A{
 				bson.M{

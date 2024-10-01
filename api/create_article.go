@@ -48,6 +48,11 @@ func CreateArticle(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 		return nil, 500, err
 	}
 
+	err = CheckUserBoardPermPostable(userID, boardID)
+	if err != nil {
+		return nil, 403, err
+	}
+
 	theType := types.Utf8ToBig5(theParams.PostType)
 	theTitle := types.Utf8ToBig5(theParams.Title)
 	content := simplifyContent(theParams.Content)

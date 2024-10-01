@@ -91,9 +91,9 @@ func deserializeArticlesAndUpdateDB(userID bbs.UUserID, bboardID bbs.BBoardID, a
 	for _, each_b := range articleSummaries_b {
 		if each_b.Read {
 			each_db := &schema.UserReadArticle{
-				UserID:       userID,
-				ArticleID:    each_b.ArticleID,
-				UpdateNanoTS: updateNanoTS,
+				UserID:           userID,
+				ArticleID:        each_b.ArticleID,
+				ReadUpdateNanoTS: updateNanoTS,
 			}
 			userReadArticles = append(userReadArticles, each_db)
 
@@ -461,9 +461,9 @@ func setUserReadArticle(content [][]*types.Rune, userID bbs.UUserID, articleID b
 
 	// user read article
 	userReadArticle := &schema.UserReadArticle{
-		UserID:       userID,
-		ArticleID:    articleID,
-		UpdateNanoTS: updateNanoTS,
+		UserID:           userID,
+		ArticleID:        articleID,
+		ReadUpdateNanoTS: updateNanoTS,
 	}
 	_ = schema.UpdateUserReadArticle(userReadArticle)
 }

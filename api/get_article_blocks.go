@@ -76,10 +76,10 @@ func GetArticleBlocks(remoteAddr string, userID bbs.UUserID, params interface{},
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
-	// validate user
-	_, statusCode, err = isBoardValidUser(boardID, c)
+	// check permission
+	err = CheckUserArticlePermReadable(userID, boardID, articleID, true)
 	if err != nil {
-		return nil, statusCode, err
+		return nil, 403, err
 	}
 
 	if theParams.StartIdx == "" {

@@ -49,6 +49,11 @@ func CreateBoard(remoteAddr string, userID bbs.UUserID, params interface{}, path
 		return nil, 400, ErrInvalidPath
 	}
 
+	err = CheckUserBoardPermCreatable(userID)
+	if err != nil {
+		return nil, 403, err
+	}
+
 	theClass := types.Utf8ToBig5(theParams.BrdClass)
 	theTitle := types.Utf8ToBig5(theParams.BrdTitle)
 

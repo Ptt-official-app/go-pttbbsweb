@@ -15,4 +15,6 @@ var (
 	COLOR_RESET_BYTES   = []byte("\x1b[m")
 
 	DEFAULT_LEN_COLOR_BYTES = 20 //\x1b[0;1;5;37;40m
+
+	POSTTIME_REJECT = 15
 )

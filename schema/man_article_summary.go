@@ -5,7 +5,6 @@ import (
 	"github.com/Ptt-official-app/go-pttbbsweb/db"
 	"github.com/Ptt-official-app/go-pttbbsweb/mand"
 	"github.com/Ptt-official-app/go-pttbbsweb/types"
-	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -76,7 +75,6 @@ func UpdateManArticleSummaries(articleSummaries []*ManArticleSummary, updateNano
 	if err != nil {
 		return err
 	}
-	logrus.Infof("UpdateManArticleSummaries: after BulkCreateaOnly: count: %v, theList: %v", r.UpsertedCount, theList)
 	if r.UpsertedCount == int64(len(articleSummaries)) { // all are created
 		return nil
 	}

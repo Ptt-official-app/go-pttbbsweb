@@ -19,14 +19,17 @@ func TestLoadBottomArticles(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
+	_, _ = deserializeUserDetailAndUpdateDB(testUserSYSOP_b, 123456890000000000)
+	_, _ = deserializeUserDetailAndUpdateDB(testUserChhsiao123_b, 123456891000000000)
+
 	boardSummaries_b := []*bbs.BoardSummary{testBoardSummaryWhoAmI_b}
 	_, _, _ = deserializeBoardsAndUpdateDB("SYSOP", boardSummaries_b, 123456890000000000)
 
-	update0 := &schema.UserReadArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "19bWBI4Z", UpdateNanoTS: types.Time8(1534567891).ToNanoTS()}
-	update1 := &schema.UserReadArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "1VrooM21", UpdateNanoTS: types.Time8(1234567800).ToNanoTS()}
+	update0 := &schema.UserArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "19bWBI4Z", ReadUpdateNanoTS: types.Time8(1534567891).ToNanoTS()}
+	update1 := &schema.UserArticle{UserID: "SYSOP", BoardID: "10_WhoAmI", ArticleID: "1VrooM21", ReadUpdateNanoTS: types.Time8(1234567800).ToNanoTS()}
 
-	_, _ = schema.UserReadArticle_c.Update(update0, update0)
-	_, _ = schema.UserReadArticle_c.Update(update1, update1)
+	_, _ = schema.UserArticle_c.Update(update0, update0)
+	_, _ = schema.UserArticle_c.Update(update1, update1)
 
 	// load articles
 	ctx := context.Background()
@@ -66,6 +69,9 @@ func TestLoadBottomArticles(t *testing.T) {
 				Read:       false,
 
 				Idx: "1234560000@19bUG021",
+
+				Editable:  true,
+				Deletable: true,
 			},
 			{
 				FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -82,7 +88,8 @@ func TestLoadBottomArticles(t *testing.T) {
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1234567890.A.123",
 				Read:       true,
 
-				Idx: "1234567890@19bWBI4Z",
+				Idx:       "1234567890@19bWBI4Z",
+				Deletable: true,
 			},
 			{
 				FBoardID:   apitypes.FBoardID("WhoAmI"),
@@ -99,7 +106,8 @@ func TestLoadBottomArticles(t *testing.T) {
 				URL:        "http://localhost:3457/bbs/board/WhoAmI/article/M.1607937174.A.081",
 				Read:       false,
 
-				Idx: "1607937174@1VrooM21",
+				Idx:       "1607937174@1VrooM21",
+				Deletable: true,
 			},
 		},
 		NextIdx: "",

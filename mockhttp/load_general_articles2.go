@@ -38,7 +38,7 @@ func LoadGeneralArticles2(params *api.LoadGeneralArticlesParams) (ret *api.LoadG
 			BBoardID:   bbs.BBoardID("10_WhoAmI"),
 			ArticleID:  bbs.ArticleID("1VtWRel9"),
 			IsDeleted:  false,
-			Filename:   "M.1234567890.A.123",
+			Filename:   "M.1608386280.A.BC9",
 			CreateTime: types.Time4(1608386280),
 			MTime:      types.Time4(1608386280),
 			Recommend:  8,
@@ -48,7 +48,7 @@ func LoadGeneralArticles2(params *api.LoadGeneralArticlesParams) (ret *api.LoadG
 			Money:      3,
 			Filemode:   0,
 			Read:       false,
-			Idx:        "1234567890@1VtWRel9",
+			Idx:        "1608386280@1VtWRel9",
 			RealTitle:  []byte{0xb5, 0x4d, 0xab, 0xe1, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3},
 		}
 	} else if params.StartIdx == "1607202240@1Vo_N0CD" {

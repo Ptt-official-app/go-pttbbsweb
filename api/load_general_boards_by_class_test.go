@@ -17,13 +17,13 @@ func TestLoadGeneralBoardsByClass(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer schema.UserReadBoard_c.Drop()
+	defer schema.UserBoard_c.Drop()
 
-	update0 := &schema.UserReadBoard{UserID: "SYSOP", BBoardID: "1_test1", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
-	update1 := &schema.UserReadBoard{UserID: "SYSOP", BBoardID: "2_test2", UpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
+	update0 := &schema.UserBoard{UserID: "SYSOP", BBoardID: "1_test1", ReadUpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
+	update1 := &schema.UserBoard{UserID: "SYSOP", BBoardID: "2_test2", ReadUpdateNanoTS: types.Time8(1234567891).ToNanoTS()}
 
-	_, _ = schema.UserReadBoard_c.Update(update0, update0)
-	_, _ = schema.UserReadBoard_c.Update(update1, update1)
+	_, _ = schema.UserBoard_c.Update(update0, update0)
+	_, _ = schema.UserBoard_c.Update(update1, update1)
 
 	params := &LoadGeneralBoardsParams{}
 	expectedResult := &LoadGeneralBoardsResult{

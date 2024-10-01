@@ -15,26 +15,26 @@ func TestUpdateUserReadArticles(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer UserReadArticle_c.Drop()
+	defer UserArticle_c.Drop()
 
 	userReadArticles := []*UserReadArticle{
 		{
-			UserID:       bbs.UUserID("testuser0"),
-			BoardID:      bbs.BBoardID("10_WhoAmI"),
-			ArticleID:    bbs.ArticleID("testarticle0"),
-			UpdateNanoTS: types.NanoTS(1234567890000000000),
+			UserID:           bbs.UUserID("testuser0"),
+			BoardID:          bbs.BBoardID("10_WhoAmI"),
+			ArticleID:        bbs.ArticleID("testarticle0"),
+			ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 		},
 		{
-			UserID:       bbs.UUserID("testuser0"),
-			BoardID:      bbs.BBoardID("10_WhoAmI"),
-			ArticleID:    bbs.ArticleID("testarticle1"),
-			UpdateNanoTS: types.NanoTS(1234567890000000000),
+			UserID:           bbs.UUserID("testuser0"),
+			BoardID:          bbs.BBoardID("10_WhoAmI"),
+			ArticleID:        bbs.ArticleID("testarticle1"),
+			ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 		},
 		{
-			UserID:       bbs.UUserID("testuser0"),
-			BoardID:      bbs.BBoardID("10_WhoAmI"),
-			ArticleID:    bbs.ArticleID("testarticle2"),
-			UpdateNanoTS: types.NanoTS(1234567890000000000),
+			UserID:           bbs.UUserID("testuser0"),
+			BoardID:          bbs.BBoardID("10_WhoAmI"),
+			ArticleID:        bbs.ArticleID("testarticle2"),
+			ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 		},
 	}
 
@@ -49,7 +49,7 @@ func TestUpdateUserReadArticles(t *testing.T) {
 		findUserID     bbs.UUserID
 		findBoardID    bbs.BBoardID
 		findArticleIDs []bbs.ArticleID
-		expected       []*UserReadArticle
+		want           []*UserReadArticle
 	}{
 		// TODO: Add test cases.
 		{
@@ -57,14 +57,14 @@ func TestUpdateUserReadArticles(t *testing.T) {
 			findUserID:     bbs.UUserID("testuser0"),
 			findBoardID:    bbs.BBoardID("10_WhoAmI"),
 			findArticleIDs: []bbs.ArticleID{"testarticle0", "testarticle1", "testarticle2"},
-			expected:       userReadArticles,
+			want:           userReadArticles,
 		},
 		{
 			args:           args{userReadArticles: userReadArticles, updateNanoTS: types.NanoTS(1234567890000000000)},
 			findUserID:     bbs.UUserID("testuser0"),
 			findBoardID:    bbs.BBoardID("10_WhoAmI"),
 			findArticleIDs: []bbs.ArticleID{"testarticle0", "testarticle1", "testarticle2"},
-			expected:       userReadArticles,
+			want:           userReadArticles,
 		},
 	}
 	for _, tt := range tests {
@@ -81,7 +81,7 @@ func TestUpdateUserReadArticles(t *testing.T) {
 			sort.SliceStable(got, func(i, j int) bool {
 				return strings.Compare(string(got[i].ArticleID), string(got[j].ArticleID)) <= 0
 			})
-			testutil.TDeepEqual(t, "got", got, tt.expected)
+			testutil.TDeepEqual(t, "got", got, tt.want)
 		})
 	}
 }
@@ -90,13 +90,13 @@ func TestUpdateUserReadArticle(t *testing.T) {
 	setupTest()
 	defer teardownTest()
 
-	defer UserReadArticle_c.Drop()
+	defer UserArticle_c.Drop()
 
 	userReadArticle := &UserReadArticle{
-		UserID:       bbs.UUserID("testuser0"),
-		BoardID:      bbs.BBoardID("10_WhoAmI"),
-		ArticleID:    bbs.ArticleID("testarticle0"),
-		UpdateNanoTS: types.NanoTS(1234567890000000000),
+		UserID:           bbs.UUserID("testuser0"),
+		BoardID:          bbs.BBoardID("10_WhoAmI"),
+		ArticleID:        bbs.ArticleID("testarticle0"),
+		ReadUpdateNanoTS: types.NanoTS(1234567890000000000),
 	}
 	type args struct {
 		userReadArticle *UserReadArticle
@@ -126,11 +126,11 @@ func TestUpdateUserReadArticle(t *testing.T) {
 			got := &UserReadArticle{}
 
 			query := bson.M{
-				USER_READ_ARTICLE_USER_ID_b:    tt.args.userReadArticle.UserID,
-				USER_READ_ARTICLE_BOARD_ID_b:   tt.args.userReadArticle.BoardID,
-				USER_READ_ARTICLE_ARTICLE_ID_b: tt.args.userReadArticle.ArticleID,
+				USER_ARTICLE_USER_ID_b:    tt.args.userReadArticle.UserID,
+				USER_ARTICLE_BOARD_ID_b:   tt.args.userReadArticle.BoardID,
+				USER_ARTICLE_ARTICLE_ID_b: tt.args.userReadArticle.ArticleID,
 			}
-			_ = UserReadArticle_c.FindOne(query, got, nil)
+			_ = UserArticle_c.FindOne(query, got, nil)
 
 			testutil.TDeepEqual(t, "got", got, tt.expected)
 		})

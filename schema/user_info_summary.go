@@ -3,6 +3,7 @@ package schema
 import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -18,11 +19,10 @@ var (
 )
 
 func GetUserInfoSummary(userID bbs.UUserID) (result *UserInfoSummary, err error) {
-	query := &UserQuery{
-		UserID: userID,
+	query := bson.M{
+		USER_USER_ID_b: userID,
 	}
 
-	result = &UserInfoSummary{}
 	err = User_c.FindOne(query, &result, userInfoSummaryFields)
 	if err == mongo.ErrNoDocuments {
 		return nil, nil

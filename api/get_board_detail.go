@@ -44,9 +44,9 @@ func GetBoardDetail(remoteAddr string, userID bbs.UUserID, params interface{}, p
 	}
 
 	// is board-valid-user
-	_, statusCode, err = isBoardValidUser(boardID, c)
+	_, err = CheckUserBoardPermReadable(userID, boardID)
 	if err != nil {
-		return nil, statusCode, err
+		return nil, 403, err
 	}
 
 	// fields

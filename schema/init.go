@@ -264,21 +264,21 @@ func Init() (err error) {
 	UserFriend_c = client.Collection("user_friend")
 
 	// UserReadArticle
-	UserReadArticle_c = client.Collection("user_read_article")
+	UserArticle_c = client.Collection("user_read_article")
 	keys = &bson.D{
-		{Key: USER_READ_ARTICLE_USER_ID_b, Value: 1},
+		{Key: USER_ARTICLE_USER_ID_b, Value: 1},
 	}
-	err = UserReadArticle_c.CreateIndex(keys, nil)
+	err = UserArticle_c.CreateIndex(keys, nil)
 	if err != nil {
 		return err
 	}
 
 	// UserReadBoard
-	UserReadBoard_c = client.Collection("user_read_board")
+	UserBoard_c = client.Collection("user_read_board")
 	keys = &bson.D{
-		{Key: USER_READ_BOARD_USER_ID_b, Value: 1},
+		{Key: USER_BOARD_USER_ID_b, Value: 1},
 	}
-	err = UserReadBoard_c.CreateIndex(keys, nil)
+	err = UserBoard_c.CreateIndex(keys, nil)
 	if err != nil {
 		return err
 	}
@@ -289,7 +289,7 @@ func Init() (err error) {
 	//  UserVisit
 	UserVisit_c = client.Collection("user_visit")
 	keys = &bson.D{
-		{Key: USER_READ_BOARD_USER_ID_b, Value: 1},
+		{Key: USER_BOARD_USER_ID_b, Value: 1},
 	}
 	err = UserVisit_c.CreateIndex(keys, nil)
 	if err != nil {
@@ -428,11 +428,11 @@ func assertAllFields() error {
 		return err
 	}
 
-	if err := assertUserReadArticleFields(); err != nil {
+	if err := assertUserArticleFields(); err != nil {
 		return err
 	}
 
-	if err := assertUserReadBoardFields(); err != nil {
+	if err := assertUserBoardFields(); err != nil {
 		return err
 	}
 

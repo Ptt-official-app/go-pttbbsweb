@@ -14,11 +14,13 @@ import (
 // ArticleSummary
 type ArticleSummary struct {
 	// ArticleSummary
-	BBoardID   bbs.BBoardID  `bson:"bid"`
-	ArticleID  bbs.ArticleID `bson:"aid"`
-	IsDeleted  bool          `bson:"deleted,omitempty"`
-	CreateTime types.NanoTS  `bson:"create_time_nano_ts"`
-	MTime      types.NanoTS  `bson:"mtime_nano_ts"`
+	BBoardID       bbs.BBoardID         `bson:"bid"`
+	ArticleID      bbs.ArticleID        `bson:"aid"`
+	BoardArticleID types.BoardArticleID `bson:"baid"`
+
+	IsDeleted  bool         `bson:"deleted,omitempty"`
+	CreateTime types.NanoTS `bson:"create_time_nano_ts"`
+	MTime      types.NanoTS `bson:"mtime_nano_ts"`
 
 	Recommend int              `bson:"recommend"`
 	Owner     bbs.UUserID      `bson:"owner"`
@@ -64,10 +66,10 @@ func GetArticleSummary(bboardID bbs.BBoardID, articleID bbs.ArticleID) (result *
 	return result, nil
 }
 
-func GetArticleSummariesByArticleIDs(articleIDs []bbs.ArticleID) (result []*ArticleSummary, err error) {
+func GetArticleSummariesByBoardArticleIDs(boardArticleIDs []types.BoardArticleID) (result []*ArticleSummary, err error) {
 	query := bson.M{
-		ARTICLE_ARTICLE_ID_b: bson.M{
-			"$in": articleIDs,
+		ARTICLE_BOARD_ARTICLE_ID_b: bson.M{
+			"$in": boardArticleIDs,
 		},
 	}
 
@@ -395,8 +397,10 @@ func getArticleSummariesByRegexIsValidTitle(title string, keywordList []string, 
 // no n_comments in bbs.ArticleSummary from backend.
 func NewArticleSummary(a_b *bbs.ArticleSummary, updateNanoTS types.NanoTS) *ArticleSummary {
 	return &ArticleSummary{
-		BBoardID:   a_b.BBoardID,
-		ArticleID:  a_b.ArticleID,
+		BBoardID:       a_b.BBoardID,
+		ArticleID:      a_b.ArticleID,
+		BoardArticleID: types.ToBoardArticleID(a_b.BBoardID, a_b.ArticleID),
+
 		IsDeleted:  a_b.IsDeleted,
 		CreateTime: types.Time4ToNanoTS(a_b.CreateTime),
 		MTime:      types.Time4ToNanoTS(a_b.MTime),

@@ -36,6 +36,11 @@ func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, 
 		return nil, 400, err
 	}
 
+	_, err = CheckUserBoardPermReadable(userID, boardID)
+	if err != nil {
+		return nil, 403, err
+	}
+
 	// backend get-board-summary
 	theParams_b := &pttbbsapi.LoadBoardSummaryParams{}
 

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"io"
-	"io/ioutil"
+	"os"
 	"reflect"
 	"sync"
 	"testing"
@@ -91,13 +91,13 @@ func TestFavRaw_AddBoard(t *testing.T) {
 
 	filename3 := "./testcase/home1/t/testUser3/.fav"
 
-	theBytes3, _ := ioutil.ReadFile(filename3)
+	theBytes3, _ := os.ReadFile(filename3)
 
 	buf3 := bytes.NewReader(theBytes3)
 
 	filename4 := "./testcase/home1/t/testUser4/.fav"
 
-	theBytes4, _ := ioutil.ReadFile(filename4)
+	theBytes4, _ := os.ReadFile(filename4)
 
 	buf4 := bytes.NewReader(theBytes4)
 
@@ -386,25 +386,25 @@ func TestReadFavrec(t *testing.T) {
 
 	filename0 := "./testcase/home1/t/testUser/.fav"
 
-	theBytes0, _ := ioutil.ReadFile(filename0)
+	theBytes0, _ := os.ReadFile(filename0)
 
 	buf0 := bytes.NewReader(theBytes0)
 
 	filename1 := "./testcase/home1/t/testUser2/.fav"
 
-	theBytes1, _ := ioutil.ReadFile(filename1)
+	theBytes1, _ := os.ReadFile(filename1)
 
 	buf1 := bytes.NewReader(theBytes1)
 
 	filename3 := "./testcase/home1/t/testUser3/.fav"
 
-	theBytes3, _ := ioutil.ReadFile(filename3)
+	theBytes3, _ := os.ReadFile(filename3)
 
 	buf3 := bytes.NewReader(theBytes3)
 
 	filename4 := "./testcase/home1/t/testUser4/.fav"
 
-	theBytes4, _ := ioutil.ReadFile(filename4)
+	theBytes4, _ := os.ReadFile(filename4)
 
 	buf4 := bytes.NewReader(theBytes4)
 
@@ -466,11 +466,11 @@ func TestFav_WriteFavrec(t *testing.T) {
 
 	filename := "./testcase/home1/t/testUser/.fav"
 
-	theBytes0, _ := ioutil.ReadFile(filename)
+	theBytes0, _ := os.ReadFile(filename)
 
 	filename1 := "./testcase/home1/t/testUser2/.fav"
 
-	theBytes1, _ := ioutil.ReadFile(filename1)
+	theBytes1, _ := os.ReadFile(filename1)
 
 	tests := []struct {
 		name         string
@@ -510,7 +510,7 @@ func TestFav_LocateFav(t *testing.T) {
 
 	filename0 := "./testcase/home1/t/testUser/.fav"
 
-	theBytes0, _ := ioutil.ReadFile(filename0)
+	theBytes0, _ := os.ReadFile(filename0)
 
 	buf0 := bytes.NewReader(theBytes0)
 
@@ -576,7 +576,7 @@ func TestFav_DeleteIdx(t *testing.T) {
 
 	filename0 := "./testcase/home1/t/testUser/.fav"
 
-	theBytes0, _ := ioutil.ReadFile(filename0)
+	theBytes0, _ := os.ReadFile(filename0)
 
 	// fav0
 	buf0 := bytes.NewReader(theBytes0)
