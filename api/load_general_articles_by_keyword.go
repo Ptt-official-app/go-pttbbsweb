@@ -25,7 +25,7 @@ func LoadGeneralArticlesByKeyword(remoteAddr string, userID bbs.UUserID, params 
 	}
 
 	// check board permission
-	userBoardPerm, err := CheckUserBoardPermReadable(userID, boardID)
+	userBoardPerm, err := CheckUserBoardPermReadable(userID, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}
@@ -55,7 +55,7 @@ func LoadGeneralArticlesByKeyword(remoteAddr string, userID bbs.UUserID, params 
 	}
 
 	// check article permission
-	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(userID, boardID, articleIDs, userBoardPerm)
+	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(userID, boardID, articleIDs, userBoardPerm, c)
 	if err != nil {
 		return nil, 500, err
 	}

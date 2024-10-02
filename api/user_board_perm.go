@@ -5,6 +5,7 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbsweb/schema"
 	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/gin-gonic/gin"
 )
 
 type UserBoardPermReadable struct {
@@ -30,8 +31,8 @@ var COOLDOWN_LIMIT = []*CooldownLimit{
 }
 
 // CheckUserBoardPermCreatable
-func CheckUserBoardPermCreatable(userID bbs.UUserID) (err error) {
-	userPermInfo, err := schema.GetUserPermInfo(userID)
+func CheckUserBoardPermCreatable(userID bbs.UUserID, c *gin.Context) (err error) {
+	userPermInfo, err := getUserPermInfo(userID, c)
 	if err != nil {
 		return err
 	}
@@ -57,8 +58,8 @@ func checkUserBoardPermCreatableCore(userPermInfo *schema.UserPermInfo) (err err
 // CheckUserBoardPermReadable
 //
 // https://github.com/ptt/pttbbs/blob/master/mbbsd/board.c#L185
-func CheckUserBoardPermReadable(userID bbs.UUserID, boardID bbs.BBoardID) (userBoardPerm *UserBoardPermReadable, err error) {
-	userPermInfo, err := schema.GetUserPermInfo(userID)
+func CheckUserBoardPermReadable(userID bbs.UUserID, boardID bbs.BBoardID, c *gin.Context) (userBoardPerm *UserBoardPermReadable, err error) {
+	userPermInfo, err := getUserPermInfo(userID, c)
 	if err != nil {
 		return nil, err
 	}
@@ -148,8 +149,8 @@ func checkUserBoardPermReadableCore(userID bbs.UUserID, boardID bbs.BBoardID, us
 // CheckUserBoardPermPostable
 //
 // https://github.com/ptt/pttbbs/blob/master/mbbsd/cache.c#L209
-func CheckUserBoardPermPostable(userID bbs.UUserID, boardID bbs.BBoardID) (err error) {
-	userPermInfo, err := schema.GetUserPermInfo(userID)
+func CheckUserBoardPermPostable(userID bbs.UUserID, boardID bbs.BBoardID, c *gin.Context) (err error) {
+	userPermInfo, err := getUserPermInfo(userID, c)
 	if err != nil {
 		return err
 	}
@@ -260,8 +261,8 @@ func checkUserBoardPermPostableCore(userID bbs.UUserID, boardID bbs.BBoardID, us
 }
 
 // CheckUserBoardPermEditable
-func CheckUserBoardPermEditable(userID bbs.UUserID, boardID bbs.BBoardID) (err error) {
-	userPermInfo, err := schema.GetUserPermInfo(userID)
+func CheckUserBoardPermEditable(userID bbs.UUserID, boardID bbs.BBoardID, c *gin.Context) (err error) {
+	userPermInfo, err := getUserPermInfo(userID, c)
 	if err != nil {
 		return err
 	}

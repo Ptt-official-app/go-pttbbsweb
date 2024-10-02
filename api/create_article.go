@@ -48,7 +48,7 @@ func CreateArticle(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 		return nil, 500, err
 	}
 
-	err = CheckUserBoardPermPostable(userID, boardID)
+	err = CheckUserBoardPermPostable(userID, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}

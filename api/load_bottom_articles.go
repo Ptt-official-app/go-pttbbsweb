@@ -35,7 +35,7 @@ func LoadBottomArticles(remoteAddr string, userID bbs.UUserID, params interface{
 		return nil, 500, err
 	}
 
-	userBoardPerm, err := CheckUserBoardPermReadable(userID, boardID)
+	userBoardPerm, err := CheckUserBoardPermReadable(userID, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}
@@ -50,7 +50,7 @@ func LoadBottomArticles(remoteAddr string, userID bbs.UUserID, params interface{
 		articleIDs[idx] = each.ArticleID
 	}
 
-	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(userID, boardID, articleIDs, userBoardPerm)
+	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(userID, boardID, articleIDs, userBoardPerm, c)
 	if err != nil {
 		return nil, 500, err
 	}

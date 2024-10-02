@@ -116,11 +116,7 @@ func GetUserInfo(remoteAddr string, userID bbs.UUserID, params interface{}, path
 		return nil, 400, ErrInvalidPath
 	}
 
-	return tryGetUserInfo(userID, thePath.UserID, c)
-}
-
-func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context) (result *GetUserInfoResult, statusCode int, err error) {
-	userPermInfo, err := schema.GetUserPermInfo(userID)
+	userPermInfo, err := getUserPermInfo(userID, c)
 	if err != nil {
 		return nil, 500, err
 	}
@@ -130,23 +126,12 @@ func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context)
 
 	updateNanoTS := types.NowNanoTS()
 
-	// get backend data
-	var result_b pttbbsapi.GetUserResult
-
-	urlMap := map[string]string{
-		"uid": string(queryUserID),
-	}
-	url := utils.MergeURL(urlMap, pttbbsapi.GET_USER_R)
-
-	statusCode, err = utils.BackendGet(c, url, nil, nil, &result_b)
+	userDetail, statusCode, err := tryGetUserInfo(userID, thePath.UserID, updateNanoTS, c)
 	if err != nil {
 		return nil, statusCode, err
 	}
 
-	userDetail, err := deserializeUserDetailAndUpdateDB(result_b, updateNanoTS)
-	if err != nil {
-		return nil, 500, err
-	}
+	queryUserID := thePath.UserID
 
 	userNewInfo, err := schema.GetUserNewInfo(queryUserID)
 	if err != nil {
@@ -166,6 +151,28 @@ func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, c *gin.Context)
 	result = NewUserInfoResult(userDetail, userNewInfo, userIDEmail, userEmail, userPermInfo)
 
 	return result, 200, nil
+}
+
+func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, updateNanoTS types.NanoTS, c *gin.Context) (userDetail *schema.UserDetail, statusCode int, err error) {
+	// get backend data
+	var result_b pttbbsapi.GetUserResult
+
+	urlMap := map[string]string{
+		"uid": string(queryUserID),
+	}
+	url := utils.MergeURL(urlMap, pttbbsapi.GET_USER_R)
+
+	statusCode, err = utils.BackendGet(c, url, nil, nil, &result_b)
+	if err != nil {
+		return nil, statusCode, err
+	}
+
+	userDetail, err = deserializeUserDetailAndUpdateDB(result_b, updateNanoTS)
+	if err != nil {
+		return nil, 500, err
+	}
+
+	return userDetail, 0, nil
 }
 
 func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.UserNewInfo, userIDEmail_db *schema.UserIDEmail, userEmail_db *schema.UserEmail, userPermInfo *schema.UserPermInfo) (result *GetUserInfoResult) {

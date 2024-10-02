@@ -49,7 +49,7 @@ func DeleteArticles(remoteAddr string, userID bbs.UUserID, params interface{}, p
 		return nil, 500, err
 	}
 
-	userBoardPermReadable, err := CheckUserBoardPermReadable(userID, boardID)
+	userBoardPermReadable, err := CheckUserBoardPermReadable(userID, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}
@@ -59,7 +59,7 @@ func DeleteArticles(remoteAddr string, userID bbs.UUserID, params interface{}, p
 		articleIDs = append(articleIDs, articleID.ToArticleID())
 	}
 
-	articlePermMap, err := CheckUserArticlesPermDeletable(userID, boardID, articleIDs, userBoardPermReadable)
+	articlePermMap, err := CheckUserArticlesPermDeletable(userID, boardID, articleIDs, userBoardPermReadable, c)
 	if err != nil {
 		return nil, 500, err
 	}

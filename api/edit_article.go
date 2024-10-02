@@ -59,7 +59,7 @@ func EditArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}
 	articleID := thePath.FArticleID.ToArticleID()
 
 	// check permission
-	err = CheckUserArticlePermEditable(userID, boardID, articleID, true)
+	err = CheckUserArticlePermEditable(userID, boardID, articleID, true, c)
 	if err != nil {
 		return nil, 403, err
 	}

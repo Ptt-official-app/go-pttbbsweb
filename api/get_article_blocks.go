@@ -77,7 +77,7 @@ func GetArticleBlocks(remoteAddr string, userID bbs.UUserID, params interface{},
 	articleID := thePath.FArticleID.ToArticleID()
 
 	// check permission
-	err = CheckUserArticlePermReadable(userID, boardID, articleID, true)
+	err = CheckUserArticlePermReadable(userID, boardID, articleID, true, c)
 	if err != nil {
 		return nil, 403, err
 	}

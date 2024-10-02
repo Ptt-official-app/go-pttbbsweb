@@ -49,7 +49,7 @@ func CreateBoard(remoteAddr string, userID bbs.UUserID, params interface{}, path
 		return nil, 400, ErrInvalidPath
 	}
 
-	err = CheckUserBoardPermCreatable(userID)
+	err = CheckUserBoardPermCreatable(userID, c)
 	if err != nil {
 		return nil, 403, err
 	}
