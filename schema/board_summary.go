@@ -44,7 +44,7 @@ var (
 )
 
 func NewBoardSummary(b_b *bbs.BoardSummary, updateNanoTS types.NanoTS) *BoardSummary {
-	parentID, _ := GetBoardIDByBid(b_b.Bid)
+	parentID, _ := GetBoardIDByBid(b_b.Gid)
 
 	return &BoardSummary{
 		BBoardID:  b_b.BBoardID,
@@ -95,6 +95,8 @@ func NewBoardSummaryFromPBBoard(b_b *boardd.Board, updateNanoTS types.NanoTS) *B
 		boardType = "Σ"
 	}
 
+	parentID, _ := GetBoardIDByBid(ptttype.Bid(b_b.Parent))
+
 	return &BoardSummary{
 		BBoardID: bboardID,
 		Brdname:  b_b.Name,
@@ -107,6 +109,7 @@ func NewBoardSummaryFromPBBoard(b_b *boardd.Board, updateNanoTS types.NanoTS) *B
 
 		UpdateNanoTS: updateNanoTS,
 
+		ParentID:   parentID,
 		Gid:        ptttype.Bid(b_b.Parent),
 		Bid:        ptttype.Bid(b_b.Bid),
 		IdxByName:  idxByName,
