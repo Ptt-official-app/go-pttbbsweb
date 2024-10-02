@@ -320,6 +320,8 @@ func TestNewBoardSummaryFromPBBoard(t *testing.T) {
 		Total:    234,
 		NUser:    12345,
 
+		ParentID: "1_test1",
+
 		Gid:          1,
 		Bid:          7,
 		IdxByName:    "test",
