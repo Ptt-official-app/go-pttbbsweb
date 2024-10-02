@@ -1,6 +1,7 @@
 package schema
 
 import (
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbsweb/types"
@@ -29,6 +30,15 @@ var (
 )
 
 func GetUserPermInfo(userID bbs.UUserID) (userPermInfo *UserPermInfo, err error) {
+	// XXX for guest
+	if userID == bbs.UUserID(pttbbsapi.GUEST) {
+		return &UserPermInfo{
+			UserID: userID,
+
+			Over18: true,
+		}, nil
+	}
+
 	query := bson.M{
 		USER_USER_ID_b: userID,
 	}
