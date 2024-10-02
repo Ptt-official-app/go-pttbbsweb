@@ -1,4 +1,4 @@
-FROM golang:1.19-bullseye
+FROM golang:1.22-bullseye
 
 ENV GOROOT=/usr/local/go
 ENV PATH=${PATH}:/usr/local/go/bin

@@ -1,8 +1,6 @@
 module github.com/Ptt-official-app/go-pttbbsweb
 
-go 1.21
-
-toolchain go1.22.2
+go 1.22
 
 require (
 	github.com/Ptt-official-app/go-pttbbs v0.24.2
