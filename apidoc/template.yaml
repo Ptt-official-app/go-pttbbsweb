@@ -1,5 +1,5 @@
 info:
-  version: '0.36.1'
+  version: '0.36.2'
   title: go-pttbbsweb
 definitions:
   !include defs/access_token.yaml
