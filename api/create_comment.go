@@ -48,7 +48,7 @@ func CreateComment(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
-	err = CheckUserBoardPermPostable(userID, boardID)
+	err = CheckUserBoardPermPostable(userID, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}

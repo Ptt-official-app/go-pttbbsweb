@@ -22,6 +22,8 @@ type UserPermInfo struct {
 
 	CooldownNanoTS types.NanoTS `bson:"cooldown_nano_ts"`
 	Posttime       int          `bson:"postitme"`
+
+	UpdateNanoTS types.NanoTS `bson:"update_nano_ts"`
 }
 
 var (
