@@ -1,5 +1,5 @@
-github.com/Ptt-official-app/go-pttbbs v0.24.2 h1:pY4i41Lq41V3gYNod6tb0S5c+Y91Fm4bzBPFHShl1aM=
-github.com/Ptt-official-app/go-pttbbs v0.24.2/go.mod h1:YvNUk97K6m++Vmy0aSZ0sEE2T1BJdDq2L5zrpn5deoo=
+github.com/Ptt-official-app/go-pttbbs v0.25.0 h1:6YYJXMF6BV4ROfYY/0UDa5K9URJm0fflVj3GxRZfnjQ=
+github.com/Ptt-official-app/go-pttbbs v0.25.0/go.mod h1:9Xjv/zF6flS5k4u+uO++uRf3HYPjyryFXp1FGc8muDE=
 github.com/appleboy/graceful v1.1.1 h1:vYqfpBdyEFztXofmw9iL8aohnxbcE+2Nq2j67SCoMBo=
 github.com/appleboy/graceful v1.1.1/go.mod h1:gjCrWFsKhOX2N6jNY0QyQhK+WE8Z3TFSen4fExHg3wk=
 github.com/bytedance/sonic v1.11.6 h1:oUp34TzMlL+OY1OUWxHqsdkgC/Zfc85zGqw9siXjrc0=

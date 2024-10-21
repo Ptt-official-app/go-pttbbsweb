@@ -3,7 +3,7 @@ module github.com/Ptt-official-app/go-pttbbsweb
 go 1.22
 
 require (
-	github.com/Ptt-official-app/go-pttbbs v0.24.2
+	github.com/Ptt-official-app/go-pttbbs v0.25.0
 	github.com/appleboy/graceful v1.1.1
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-redis/redis/v8 v8.11.5
