@@ -7,7 +7,7 @@ require (
 	github.com/appleboy/graceful v1.1.1
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-redis/redis/v8 v8.11.5
-	github.com/golang-jwt/jwt/v4 v4.5.0
+	github.com/golang-jwt/jwt/v4 v4.5.1
 	github.com/golang-queue/queue v0.1.3
 	github.com/google/go-querystring v1.1.0
 	github.com/google/uuid v1.6.0
