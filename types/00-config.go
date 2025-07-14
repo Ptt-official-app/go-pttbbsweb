@@ -21,7 +21,7 @@ var (
 	BBSENAME = "PTT2" /* 英文站名 */
 
 	// web
-	STATIC_DIR           = "static"
+	STATIC_DIR           = "docs/examples"
 	ALLOW_ORIGINS        = []string{}
 	ALLOW_ORIGINS_MAP    = map[string]bool{}
 	BLOCKED_REFERERS     = []string{}
@@ -50,9 +50,9 @@ var (
 	IDEMAILTOKEN_TITLE          = "更換 " + BBSNAME + " 的認證信箱 (Updating " + BBSENAME + " Identity Email)"
 	ATTEMPT_REGISTER_USER_TITLE = "註冊 " + BBSNAME + " 的確認碼 (Registering " + BBSENAME + " Confirmation Code)"
 
-	EMAILTOKEN_TEMPLATE                    = "/etc/go-pttbbsweb/emailtoken.template"
-	IDEMAILTOKEN_TEMPLATE                  = "/etc/go-pttbbsweb/idemailtoken.template"
-	ATTEMPT_REGISTER_USER_TEMPLATE         = "/etc/go-pttbbsweb/attemptregister.template"
+	EMAILTOKEN_TEMPLATE                    = "docs/etc/emailtoken.template"
+	IDEMAILTOKEN_TEMPLATE                  = "docs/etc/idemailtoken.template"
+	ATTEMPT_REGISTER_USER_TEMPLATE         = "docs/etc/attemptregister.template"
 	ATTEMPT_REGISTER_USER_TEMPLATE_CONTENT = "__USER__, __TOKEN__"
 
 	EMAILTOKEN_TEMPLATE_CONTENT   = "__EMAIL__, __USER__, __URL__"
@@ -81,4 +81,16 @@ var (
 
 	// carriage-return
 	IS_CARRIAGE_RETURN = true
+
+	// is-all-guest
+	IS_ALL_GUEST = true
+
+	// pttweb-hotboard-url
+	PTTWEB_HOTBOARD_URL = "http://localhost:3457/static/ptt_cc_websites/HotBoards.html"
+
+	// expire-http-request-ts
+	EXPIRE_HTTP_REQUEST_TS = 10
+
+	// max-popular-boards
+	MAX_POPULAR_BOARDS = 128
 )

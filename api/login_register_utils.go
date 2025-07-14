@@ -27,10 +27,10 @@ func gen2FATokenAndSendEmail(userID bbs.UUserID, email string, title string, tem
 		return err
 	}
 
-	content := strings.Replace(
-		strings.Replace(
-			template, "__USER__", string(userID), -1,
-		), "__TOKEN__", token, -1,
+	content := strings.ReplaceAll(
+		strings.ReplaceAll(
+			template, "__USER__", string(userID),
+		), "__TOKEN__", token,
 	)
 
 	return utils.SendEmail([]string{email}, title, content)

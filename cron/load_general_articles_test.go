@@ -165,7 +165,7 @@ func Test_loadGeneralArticles(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotArticleSummaries, gotNextIdx, err := loadGeneralArticlesCore(tt.args.boardID, tt.args.startIdx)
+			gotArticleSummaries, gotNextIdx, err := loadGeneralArticlesCoreBoardd(tt.args.boardID, tt.args.startIdx)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("loadGeneralArticles() error = %v, wantErr %v", err, tt.wantErr)
 				return

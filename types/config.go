@@ -66,4 +66,13 @@ func config() {
 
 	// carriage-return
 	IS_CARRIAGE_RETURN = setBoolConfig("IS_CARRIAGE_RETURN", IS_CARRIAGE_RETURN)
+
+	// is-all-guest
+	IS_ALL_GUEST = setBoolConfig("IS_ALL_GUEST", IS_ALL_GUEST)
+
+	// pttweb-hotboard-url
+	PTTWEB_HOTBOARD_URL = setStringConfig("PTTWEB_HOTBOARD_URL", PTTWEB_HOTBOARD_URL)
+
+	// expire-http-request-ts
+	EXPIRE_HTTP_REQUEST_TS = setIntConfig("EXPIRE_HTTP_REQUEST_TS", EXPIRE_HTTP_REQUEST_TS)
 }

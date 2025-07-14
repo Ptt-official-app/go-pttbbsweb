@@ -36,6 +36,8 @@ type BoardSummary struct {
 	Bid        ptttype.Bid `bson:"pttbid"`
 	IdxByName  string      `bson:"pttidxname"`
 	IdxByClass string      `bson:"pttidxclass"`
+
+	IsPopular bool `bson:"is_popular"`
 }
 
 var (

@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+/* Copyright (c) 2015 ptt.cc */
+/* Licensed under The MIT License. */
+
+@keyframes new-push-animation {
+    0%, 80% { background-color: #333; }
+    100% { background-color: transparent; }
+}
+@-webkit-keyframes new-push-animation {
+    0%, 80% { background-color: #333; }
+    100% { background-color: transparent; }
+}
+@-moz-keyframes new-push-animation {
+    0%, 80% { background-color: #333; }
+    100% { background-color: transparent; }
+}
+
+.new-push {
+    animation: new-push-animation 2.5s;
+    -webkit-animation: new-push-animation 2.5s;
+    -moz-animation: new-push-animation 2.5s;
+}
+
+#article-polling {
+    background-color: #222;
+    color: #999;
+    cursor: pointer;
+    /* bbs-screen */
+	margin: 10px auto;
+    padding: 0;
+    width: 100%;
+}
+
+#article-polling.fatal-error {
+    background-color: #a22 !important;
+    color: #fff !important;
+    cursor: auto !important;
+}
+
+.push-stream-info {
+    background-color: #00b;
+    color: #888;
+}

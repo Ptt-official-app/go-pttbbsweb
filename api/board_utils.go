@@ -157,6 +157,10 @@ func DeserializeBoardDetailsAndUpdateDB(boardDetails_b []*bbs.BoardDetail, updat
 }
 
 func isBoardValidUser(boardID bbs.BBoardID, c *gin.Context) (isValid bool, statusCode int, err error) {
+	if types.IS_ALL_GUEST {
+		return true, 200, nil
+	}
+
 	var result_b *pttbbsapi.IsBoardValidUserResult
 
 	urlMap := map[string]string{

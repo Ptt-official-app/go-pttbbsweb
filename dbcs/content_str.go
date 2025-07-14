@@ -15,7 +15,7 @@ import (
 // 4. assuming no more than 60000 comments  (60 x 1000) in 1 minute.
 func ParseContentStr(contentStr string, origContentMD5 string, isSplit bool) (content [][]*types.Rune, contentPrefix [][]*types.Rune, contentMD5 string, ip string, host string, bbs string, signatureMD5 string, signatureDBCS string, commentsDBCS string) {
 	// remove \r
-	contentStr = strings.Replace(contentStr, "\r\n", "\n", -1)
+	contentStr = strings.ReplaceAll(contentStr, "\r\n", "\n")
 
 	var contentDBCS string
 	if isSplit {
