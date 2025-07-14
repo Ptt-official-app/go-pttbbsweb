@@ -47,11 +47,7 @@ func dbcsToUtf8PerLine(contentDBCS string, color0 types.Color) (line []*types.Ru
 	color1 := color0
 
 	// 3. for-loop
-	for {
-		if escIdx >= len(contentDBCS) {
-			break
-		}
-
+	for escIdx < len(contentDBCS) {
 		idx := strings.Index(contentDBCS[escIdx:], "\x1b[")
 		if idx == -1 {
 			break

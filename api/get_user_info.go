@@ -190,8 +190,7 @@ func NewUserInfoResult(userDetail_db *schema.UserDetail, userNewInfo_db *schema.
 	isAllInfo := false
 	if userPermInfo.UserID == userDetail_db.UserID {
 		isAllInfo = true
-	}
-	if userPermInfo.Userlevel.HasUserPerm(ptttype.PERM_SYSOP | ptttype.PERM_ACCOUNTS | ptttype.PERM_ACCTREG) {
+	} else if userPermInfo.Userlevel.HasUserPerm(ptttype.PERM_SYSOP | ptttype.PERM_ACCOUNTS | ptttype.PERM_ACCTREG) {
 		isAllInfo = true
 	}
 

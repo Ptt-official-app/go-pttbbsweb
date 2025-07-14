@@ -1,0 +1,179 @@
+@charset "UTF-8";
+
+/* Copyright (c) 2015 ptt.cc */
+/* Licensed under The MIT License. */
+
+/* Desktop */
+@media screen and (min-width: 800px) {
+    .bbs-screen, #topbar, #navigation, .action-bar, #article-polling {
+        min-width: 600px;
+        max-width: 1200px;
+    }
+
+    .bbs-content, #article-polling {
+        font-size: 24px;
+    }
+
+    .b-ent .board {
+        font-size: 20px;
+    }
+    .b-ent .board > * {
+        box-sizing: border-box;
+    }
+    .b-ent .board > :first-child {
+        padding: 0 0 0 1ex;
+    }
+    .board-name {
+        width: 20ex;
+    }
+    .board-nuser {
+        width: 9ex;
+        text-align: right;
+        padding: 0;
+        padding-right: 1ex;
+    }
+    .board-class {
+        width: 6ex;
+    }
+
+	.search-bar {
+		font-size: 20px;
+	}
+
+    .r-ent {
+        margin: 1ex 0;
+        padding: 0.5ex 0;
+        background-color: #111;
+    }
+    .r-ent > * {
+        font-size: 20px;
+    }
+    .r-ent .title {
+        margin: 0 5ex;
+    }
+    .r-ent .meta {
+        margin: 0 0 0 5ex;
+    }
+
+    .m-ent {
+        padding: 0.5em;
+    }
+    .m-ent > * {
+        font-size: 20px;
+    }
+
+    .action-bar {
+        text-align: left;
+    }
+    .btn-group-paging {
+        float: right;
+    }
+    .btn {
+        padding: 0 2ex;
+        font-size: initial;
+    }
+    .btn.wide {
+        padding: 0 3ex;
+    }
+
+    div.over18-notice {
+        margin: 20px;
+    }
+    .over18-button-container {
+        display: inline-block;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 799px) {
+    .b-ent {
+        border-bottom: 1px #aaa solid;
+    }
+    .b-ent .board {
+        line-height: 120%;
+    }
+    .b-ent .board > * {
+        box-sizing: border-box;
+        clear: both;
+    }
+    .board-name {
+        width: 100%;
+        padding: 0 1ex;
+    }
+    .board-nuser {
+        position: absolute;
+        float: right;
+        top: 0;
+        right: 0;
+        padding: 0.5ex 1ex;
+    }
+    .board-class {
+        min-width: 7ex;
+        padding: 0 0 0 1ex;
+        font-size: small;
+    }
+    .board-title {
+        padding: 0 1ex 0 0;
+        font-size: small;
+    }
+
+    .r-ent {
+        border-bottom: 1px solid #444;
+    }
+    .r-ent .title, .r-ent .meta {
+        margin-left: 5ex;
+        margin-right: 2ex;
+    }
+    .r-ent .date, .r-ent .mark {
+    }
+
+    .m-ent:first-child {
+        border-top: 1px #aaa solid;
+    }
+    .m-ent {
+        padding: 0;
+        border-bottom: 1px #aaa solid;
+    }
+    .m-ent .title a {
+        display: block;
+        box-sizing: border-box;
+        padding: 0 1ex;
+        line-height: 200%;
+        text-decoration: none;
+    }
+
+    .action-bar {
+        /* If the screen is too small, we want buttons to overflow. */
+        white-space: nowrap;
+    }
+    .btn-group-dir {
+        width: 33%;
+    }
+    .btn-group-paging {
+        width: 66%;
+    }
+    .btn-group-dir > .btn {
+        width: 50%;
+    }
+    .btn-group-paging > .btn {
+        width: 25%;
+    }
+    .btn-group-cls {
+        width: 100%;
+    }
+    .btn-group-cls > .btn {
+        width: 50%;
+    }
+
+    div.over18-notice {
+        padding: 0 1ex;
+    }
+    .over18-button-container {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 1ex;
+    }
+    .over18-button-container button {
+        width: 80%;
+    }
+}

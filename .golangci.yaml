@@ -1,49 +1,72 @@
+version: "2"
 run:
-  timeout: 30m
   tests: false
-  skip-files:
-    - testinit.go
-    - cmsys/fnv_hash.go
-    - 00-config.go
-linters-settings:
-
-  misspell:
-    locale: US
-    ignore-words:
-      - visable
-  gofmt:
-  goimports:
-  nolintlint:
-    allow-unused: true
 linters:
   enable:
     - gosec
     - misspell
+    - nolintlint
+    - revive
+  settings:
+    misspell:
+      locale: US
+      ignore-rules:
+        - visable
+    nolintlint:
+      allow-unused: true
+    revive:
+      rules:
+      - name: var-naming
+        disabled: true
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - path: (.+)\.go$
+        text: don't use underscores
+      - path: (.+)\.go$
+        text: don't use ALL_CAPS
+      - path: (.+)\.go$
+        text: S1008
+      - path: (.+)\.go$
+        text: SA4009
+      - path: (.+)\.go$
+        text: G404
+      - path: (.+)\.go$
+        text: G401
+      - path: (.+)\.go$
+        text: G501
+      - path: (.+)\.go$
+        text: 'indent-error-flow:'
+      - path: (.+)\.go$
+        text: 'if-return:'
+      - path: (.+)\.go$
+        text: 'exported:'
+      - path: (.+)\.go$
+        text: 'unused-parameter: parameter'
+      - path: (.+)\.go$
+        text: G115
+    paths:
+      - testinit.go
+      - cmsys/fnv_hash.go
+      - 00-config.go
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  enable:
     - gofmt
     - goimports
-    - revive
-    - nolintlint
-    - unused
-    - typecheck
-issues:
-  exclude:
-    # we use underscores only for _postfix
-    - don't use underscores
-    # we use ALL_CAPS for constants
-    - don't use ALL_CAPS
-    # Simplify returning boolean expression (https://staticcheck.io/docs/checks#S1008)
-    - S1008
-    # A function argument is overwritten before its first use (https://staticcheck.io/docs/checks#SA4009)
-    - SA4009
-    # Skip weak rnd for now.
-    - G404
-    - G401
-    - G501
-    - 'indent-error-flow:'
-    - 'if-return:'
-    - 'exported:'
-    - 'unused-parameter: parameter'
-    # Skip overflow conversion for now.
-    - G115
-  exclude-rules:
-  exclude-use-default: true
+  exclusions:
+    generated: lax
+    paths:
+      - testinit.go
+      - cmsys/fnv_hash.go
+      - 00-config.go
+      - third_party$
+      - builtin$
+      - examples$

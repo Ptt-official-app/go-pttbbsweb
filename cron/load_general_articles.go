@@ -4,15 +4,20 @@ import (
 	"context"
 	"time"
 
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbsweb/api"
 	"github.com/Ptt-official-app/go-pttbbsweb/boardd"
 	"github.com/Ptt-official-app/go-pttbbsweb/schema"
 	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/go-pttbbsweb/utils"
 	"github.com/sirupsen/logrus"
 )
 
 func RetryLoadGeneralArticles(ctx context.Context) error {
+	time.Sleep(10 * time.Second)
+
 	for {
 		select {
 		case <-ctx.Done():
@@ -24,8 +29,8 @@ func RetryLoadGeneralArticles(ctx context.Context) error {
 			case <-ctx.Done():
 				return nil
 			default:
-				logrus.Infof("RetryLoadGeneralArticles: to sleep 1 min")
-				time.Sleep(1 * time.Minute)
+				logrus.Infof("RetryLoadGeneralArticles: to sleep 10 min")
+				time.Sleep(10 * time.Minute)
 			}
 		}
 	}
@@ -49,7 +54,11 @@ func LoadGeneralArticles() (err error) {
 		}
 
 		for _, each := range boardIDs {
-			err = loadGeneralArticles(each.BBoardID)
+			if !types.IS_ALL_GUEST {
+				err = loadGeneralArticlesBoardd(each.BBoardID)
+			} else {
+				err = loadGeneralArticlesPtt(each.BBoardID)
+			}
 			if err == nil {
 				count++
 			}
@@ -65,12 +74,12 @@ func LoadGeneralArticles() (err error) {
 	}
 }
 
-func loadGeneralArticles(boardID bbs.BBoardID) (err error) {
+func loadGeneralArticlesBoardd(boardID bbs.BBoardID) (err error) {
 	nextIdx := int32(0)
 	count := 0
 
 	for {
-		articleSummaries, newNextIdx, err := loadGeneralArticlesCore(boardID, nextIdx)
+		articleSummaries, newNextIdx, err := loadGeneralArticlesCoreBoardd(boardID, nextIdx)
 		if err != nil {
 			logrus.Errorf("cron.LoadGeneralArticles: unable to loadGeneralArticles: nextIdx: %v e: %v", nextIdx, err)
 			return err
@@ -79,7 +88,7 @@ func loadGeneralArticles(boardID bbs.BBoardID) (err error) {
 
 		// logrus.Infof("cron.LoadGeneralArticles: bid: %v count: %v", boardID, count)
 
-		if newNextIdx == INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX {
+		if newNextIdx == INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX_BOARDD {
 			// logrus.Infof("cron.LoadGeneralArticles: bid: %v load %v articles", boardID, count)
 			break
 		}
@@ -87,7 +96,7 @@ func loadGeneralArticles(boardID bbs.BBoardID) (err error) {
 		nextIdx = newNextIdx
 	}
 
-	err = loadBottomArticles(boardID)
+	err = loadBottomArticlesBoardd(boardID)
 	if err != nil {
 		logrus.Errorf("loadGeneralArticles: unable to loadBottomArticles: e: %v", err)
 		return err
@@ -96,8 +105,8 @@ func loadGeneralArticles(boardID bbs.BBoardID) (err error) {
 	return nil
 }
 
-func loadGeneralArticlesCore(boardID bbs.BBoardID, startIdx int32) (articleSummaries []*schema.ArticleSummaryWithRegex, nextIdx int32, err error) {
-	nextIdx = INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX
+func loadGeneralArticlesCoreBoardd(boardID bbs.BBoardID, startIdx int32) (articleSummaries []*schema.ArticleSummaryWithRegex, nextIdx int32, err error) {
+	nextIdx = INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX_BOARDD
 	brdnameStr := boardID.ToBrdname()
 	// backend load-general-articles
 	ctx := context.Background()
@@ -110,7 +119,7 @@ func loadGeneralArticlesCore(boardID bbs.BBoardID, startIdx int32) (articleSumma
 	}
 	resp, err := boardd.Cli.List(ctx, req)
 	if err != nil {
-		return nil, INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX, err
+		return nil, INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX_BOARDD, err
 	}
 
 	posts := resp.Posts
@@ -123,15 +132,16 @@ func loadGeneralArticlesCore(boardID bbs.BBoardID, startIdx int32) (articleSumma
 	updateNanoTS := types.NowNanoTS()
 	articleSummaries, err = api.DeserializePBArticlesAndUpdateDB(boardID, posts, updateNanoTS, false)
 	if err != nil {
-		return nil, INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX, err
+		return nil, INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX_BOARDD, err
 	}
 
 	return articleSummaries, nextIdx, nil
 }
 
-func loadBottomArticles(boardID bbs.BBoardID) (err error) {
+func loadBottomArticlesBoardd(boardID bbs.BBoardID) (err error) {
 	brdnameStr := boardID.ToBrdname()
 	// backend load-general-articles
+
 	ctx := context.Background()
 	brdname := &boardd.BoardRef_Name{Name: brdnameStr}
 	req := &boardd.ListRequest{
@@ -152,6 +162,87 @@ func loadBottomArticles(boardID bbs.BBoardID) (err error) {
 
 	updateNanoTS := types.NowNanoTS()
 	_, err = api.DeserializePBArticlesAndUpdateDB(boardID, resp.Bottoms, updateNanoTS, true)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func loadGeneralArticlesPtt(boardID bbs.BBoardID) (err error) {
+	nextIdx := ""
+	count := 0
+
+	for {
+		articleSummaries, newNextIdx, err := loadGeneralArticlesCorePtt(boardID, nextIdx)
+		if err != nil {
+			logrus.Errorf("cron.loadGeneralArticlesPtt: unable to loadGeneralArticlesCorePtt: nextIdx: %v e: %v", nextIdx, err)
+			return err
+		}
+		count += len(articleSummaries)
+
+		// logrus.Infof("cron.LoadGeneralArticles: bid: %v count: %v", boardID, count)
+
+		if newNextIdx == INVALID_LOAD_GENERAL_ARTICLES_NEXT_IDX_PTT {
+			// logrus.Infof("cron.LoadGeneralArticles: bid: %v load %v articles", boardID, count)
+			break
+		}
+
+		nextIdx = newNextIdx
+	}
+
+	err = loadBottomArticlesPtt(boardID)
+	if err != nil {
+		logrus.Errorf("loadGeneralArticlesPtt: unable to loadBottomArticles: e: %v", err)
+		return err
+	}
+
+	return nil
+}
+
+func loadGeneralArticlesCorePtt(boardID bbs.BBoardID, startIdx string) (articleSummaries []*schema.ArticleSummaryWithRegex, nextIdx string, err error) {
+	// backend load-general-articles
+	theParams_b := &pttbbsapi.LoadGeneralArticlesParams{
+		StartIdx:  startIdx,
+		NArticles: N_ARTICLES,
+		Desc:      true,
+		IsSystem:  true,
+	}
+	var result_b *pttbbsapi.LoadGeneralArticlesResult
+
+	urlMap := map[string]string{
+		"bid": string(boardID),
+	}
+	url := utils.MergeURL(urlMap, pttbbsapi.LOAD_GENERAL_ARTICLES_R)
+	statusCode, err := utils.BackendGet(nil, url, theParams_b, nil, &result_b)
+	if err != nil || statusCode != 200 {
+		return nil, "", err
+	}
+
+	updateNanoTS := types.NowNanoTS()
+	articleSummaries, err = api.DeserializeArticlesAndUpdateDB(result_b.Articles, updateNanoTS)
+	if err != nil {
+		return nil, "", err
+	}
+
+	return articleSummaries, result_b.NextIdx, nil
+}
+
+func loadBottomArticlesPtt(boardID bbs.BBoardID) (err error) {
+	// backend load-general-articles
+	var result_b *pttbbsapi.LoadGeneralArticlesResult
+
+	urlMap := map[string]string{
+		"bid": string(boardID),
+	}
+	url := utils.MergeURL(urlMap, pttbbsapi.LOAD_BOTTOM_ARTICLES_R)
+	statusCode, err := utils.BackendGet(nil, url, nil, nil, &result_b)
+	if err != nil || statusCode != 200 {
+		return err
+	}
+
+	updateNanoTS := types.NowNanoTS()
+	_, err = api.DeserializeArticlesAndUpdateDB(result_b.Articles, updateNanoTS)
 	if err != nil {
 		return err
 	}

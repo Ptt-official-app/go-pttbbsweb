@@ -66,8 +66,8 @@ func LoadUserComments(remoteAddr string, userID bbs.UUserID, params interface{},
 	return r, 200, nil
 }
 
-func loadUserComments(ownerID bbs.UUserID, startIdx string, descending bool, max int) (commentSummaries_db []*schema.CommentSummary, nextIdx string, err error) {
-	commentSummaries_db = make([]*schema.CommentSummary, 0, max+1)
+func loadUserComments(ownerID bbs.UUserID, startIdx string, descending bool, theMax int) (commentSummaries_db []*schema.CommentSummary, nextIdx string, err error) {
+	commentSummaries_db = make([]*schema.CommentSummary, 0, theMax+1)
 
 	var nextSortTime types.NanoTS
 	if startIdx != "" {
@@ -79,15 +79,15 @@ func loadUserComments(ownerID bbs.UUserID, startIdx string, descending bool, max
 	}
 
 	isEndLoop := false
-	remaining := max
+	remaining := theMax
 	for !isEndLoop && remaining > 0 {
-		eachCommentSummaries_db, err := schema.GetBasicCommentSummariesByOwnerID(ownerID, nextSortTime, descending, max+1)
+		eachCommentSummaries_db, err := schema.GetBasicCommentSummariesByOwnerID(ownerID, nextSortTime, descending, theMax+1)
 		if err != nil {
 			return nil, "", err
 		}
 
 		// check is-last query
-		if len(eachCommentSummaries_db) < max+1 {
+		if len(eachCommentSummaries_db) < theMax+1 {
 			isEndLoop = true
 			nextSortTime = 0
 		} else {

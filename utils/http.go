@@ -2,11 +2,13 @@ package utils
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"io"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/Ptt-official-app/go-pttbbsweb/mockhttp"
 	"github.com/Ptt-official-app/go-pttbbsweb/types"
@@ -112,6 +114,11 @@ func httpProcess(req *http.Request, headers map[string]string, result interface{
 	for k, v := range headers {
 		req.Header.Add(k, v)
 	}
+
+	ctx, cancel := context.WithTimeout(req.Context(), time.Duration(types.EXPIRE_HTTP_REQUEST_TS)*time.Second)
+	defer cancel()
+
+	req = req.WithContext(ctx)
 
 	// send http
 	resp, err := httpClient.Do(req)

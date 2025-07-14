@@ -55,7 +55,8 @@ func LoadGeneralArticles3(params *api.LoadGeneralArticlesParams) (ret *api.LoadG
 
 	var articleSummary *bbs.ArticleSummary
 
-	if params.StartIdx == "1607937174@1VrooM21" {
+	switch params.StartIdx {
+	case "1607937174@1VrooM21":
 		articleSummary = &bbs.ArticleSummary{
 			BBoardID:   bbs.BBoardID("1_SYSOP"),
 			ArticleID:  bbs.ArticleID("1VrooM21"),
@@ -73,7 +74,7 @@ func LoadGeneralArticles3(params *api.LoadGeneralArticlesParams) (ret *api.LoadG
 			Idx:        "1607937174@1VrooM21",
 			RealTitle:  []byte{0xa6, 0x41, 0xa8, 0xd3, 0xa9, 0x4f, 0xa1, 0x48, 0xa1, 0xe3},
 		}
-	} else if params.StartIdx == "1608386280@1VtWRel9" {
+	case "1608386280@1VtWRel9":
 		articleSummary = &bbs.ArticleSummary{
 			BBoardID:   bbs.BBoardID("1_SYSOP"),
 			ArticleID:  bbs.ArticleID("1VtWRel9"),

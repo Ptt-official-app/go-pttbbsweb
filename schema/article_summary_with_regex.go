@@ -104,11 +104,7 @@ func parseSubjectEx(fullTitle string) (subjectType ptttype.SubjectType, realTitl
 	fullTitle = strings.TrimSpace(fullTitle)
 
 	isSet := false
-	for {
-		if len(fullTitle) == 0 {
-			break
-		}
-
+	for len(fullTitle) > 0 {
 		prefixLower := strings.ToLower(fullTitle[:len(STR_REPLY)])
 		if strings.HasPrefix(prefixLower, STR_REPLY_LOWER) {
 			if !isSet {

@@ -166,10 +166,10 @@ func setEmailTokenTemplate(emailTokenTemplate string) (origEmailTokenTemplate st
 		return "", err
 	}
 
-	EMAILTOKEN_TEMPLATE_CONTENT = strings.Replace(
-		strings.Replace(
-			string(contentBytes), "__BBSNAME__", BBSNAME, -1,
-		), "__BBSENAME__", BBSENAME, -1,
+	EMAILTOKEN_TEMPLATE_CONTENT = strings.ReplaceAll(
+		strings.ReplaceAll(
+			string(contentBytes), "__BBSNAME__", BBSNAME,
+		), "__BBSENAME__", BBSENAME,
 	)
 
 	return origEmailTokenTemplate, nil
@@ -184,10 +184,10 @@ func setIDEmailTokenTemplate(idEmailTokenTemplate string) (origIDEmailTokenTempl
 		return "", err
 	}
 
-	IDEMAILTOKEN_TEMPLATE_CONTENT = strings.Replace(
-		strings.Replace(
-			string(contentBytes), "__BBSNAME__", BBSNAME, -1,
-		), "__BBSENAME__", BBSENAME, -1,
+	IDEMAILTOKEN_TEMPLATE_CONTENT = strings.ReplaceAll(
+		strings.ReplaceAll(
+			string(contentBytes), "__BBSNAME__", BBSNAME,
+		), "__BBSENAME__", BBSENAME,
 	)
 
 	return origIDEmailTokenTemplate, nil
@@ -202,10 +202,10 @@ func setAttemptRegisterUserTemplate(attemptRegisterUserTemplate string) (origAtt
 		return "", err
 	}
 
-	ATTEMPT_REGISTER_USER_TEMPLATE_CONTENT = strings.Replace(
-		strings.Replace(
-			string(contentBytes), "__BBSNAME__", BBSNAME, -1,
-		), "__BBSENAME__", BBSENAME, -1,
+	ATTEMPT_REGISTER_USER_TEMPLATE_CONTENT = strings.ReplaceAll(
+		strings.ReplaceAll(
+			string(contentBytes), "__BBSNAME__", BBSNAME,
+		), "__BBSENAME__", BBSENAME,
 	)
 
 	return origAttemptRegisterUserTemplate, nil
