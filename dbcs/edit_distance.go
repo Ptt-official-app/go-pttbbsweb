@@ -274,9 +274,10 @@ func (meta *EDInfoMeta) ToEDBlock(edInfos []*EDInfo) (edBlock *EDBlock) {
 	nOrigComments := 0
 	for _, each := range theEDInfos {
 		op := each.Op
-		if op == ED_OP_ADD {
+		switch op {
+		case ED_OP_ADD:
 			nNewComments++
-		} else if op == ED_OP_DELETE {
+		case ED_OP_DELETE:
 			nOrigComments++
 		}
 	}
@@ -291,9 +292,10 @@ func (meta *EDInfoMeta) ToEDBlock(edInfos []*EDInfo) (edBlock *EDBlock) {
 
 	for _, each := range theEDInfos {
 		op := each.Op
-		if op == ED_OP_ADD {
+		switch op {
+		case ED_OP_ADD:
 			edBlock.NewComments = append(edBlock.NewComments, each)
-		} else if op == ED_OP_DELETE {
+		case ED_OP_DELETE:
 			edBlock.OrigComments = append(edBlock.OrigComments, each)
 		}
 	}

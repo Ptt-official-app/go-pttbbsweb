@@ -24,8 +24,8 @@ func GenRandomString() string {
 
 // GenRandomInt64
 // https://stackoverflow.com/questions/32349807/how-can-i-generate-a-random-int-using-the-crypto-rand-package/32350135
-func GenRandomInt64(max int64) int64 {
-	nBig, err := rand.Int(rand.Reader, big.NewInt(max))
+func GenRandomInt64(theMax int64) int64 {
+	nBig, err := rand.Int(rand.Reader, big.NewInt(theMax))
 	if err != nil {
 		logrus.Warnf("GenRandomInt64: unable to rand: e: %v", err)
 	}
