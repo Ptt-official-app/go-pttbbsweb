@@ -8,6 +8,8 @@ import (
 
 type APIFunc func(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error)
 
+type PathAPIFunc func(remoteAddr string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error)
+
 type LoginRequiredAPIFunc func(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error)
 
 type LoginRequiredPathAPIFunc func(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error)

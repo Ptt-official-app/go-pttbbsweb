@@ -21,6 +21,63 @@ func withPrefix(path string) string {
 }
 
 func initGin() (*gin.Engine, error) {
+	if types.IS_ALL_GUEST {
+		return initGitAllGuest()
+	}
+
+	return initGinCore()
+}
+
+func initGitAllGuest() (*gin.Engine, error) {
+	router := gin.Default()
+
+	// options
+	router.OPTIONS("/*path", api.OptionsWrapper)
+
+	// index
+	router.GET(withPrefix(api.INDEX_R), api.IndexWrapper)
+
+	router.GET(withPrefix(api.GET_VERSION_R), api.GetVersionWrapper)
+
+	// board
+	router.GET(withPrefix(api.LOAD_POPULAR_BOARDS_R), api.LoadPopularBoardsAllGuestWrapper)
+	router.GET(withPrefix(api.GET_BOARD_DETAIL_R), api.GetBoardDetailAllGuestWrapper)
+	router.GET(withPrefix(api.GET_BOARD_SUMMARY_R), api.GetBoardSummaryAllGuestWrapper)
+
+	// article
+	router.GET(withPrefix(api.LOAD_GENERAL_ARTICLES_R), api.LoadGeneralArticlesAllGuestWrapper)
+	router.GET(withPrefix(api.LOAD_BOTTOM_ARTICLES_R), api.LoadBottomArticlesAllGuestWrapper)
+	router.GET(withPrefix(api.GET_ARTICLE_R), api.GetArticleDetailAllGuestWrapper)
+	router.GET(withPrefix(api.GET_ARTICLE_BLOCKS_R), api.GetArticleBlocksAllGuestWrapper)
+
+	// comments
+	router.GET(withPrefix(api.LOAD_ARTICLE_COMMENTS_R), api.LoadArticleCommentsAllGuestWrapper)
+
+	// html
+	router.GET(api.ROOT_HTML_R, api.IndexHTMLWrapper)
+	router.GET(api.INDEX_HTML_R, api.IndexHTMLWrapper)
+
+	router.Static("/static", filepath.Join(types.STATIC_DIR, "static"))
+
+	staticFiles := []string{
+		"asset-manifest.json",
+		"favicon.ico",
+		"logo192.png",
+		"logo512.png",
+		"manifest.json",
+		"robots.txt",
+	}
+
+	for _, each := range staticFiles {
+		router.StaticFile("/"+each, filepath.Join(types.STATIC_DIR, each))
+	}
+
+	router.NoRoute(api.AllHTMLWrapper)
+
+	return router, nil
+}
+
+func initGinCore() (*gin.Engine, error) {
 	router := gin.Default()
 
 	// options
@@ -155,23 +212,28 @@ func main() {
 		return nil
 	})
 
-	// retry load general boards
-	g.AddRunningJob(cron.RetryLoadGeneralBoards)
+	if !types.IS_ALL_GUEST {
+		// retry load general boards
+		g.AddRunningJob(cron.RetryLoadGeneralBoards)
+		// retry to calculate user visit count
+		g.AddRunningJob(cron.RetryCalculateUserVisit)
+
+		// retry load man articles
+		g.AddRunningJob(cron.RetryLoadManArticles)
+
+		// retry load man article details
+		g.AddRunningJob(cron.RetryLoadManArticleDetails)
+
+	} else {
+		// retry load popular boards
+		g.AddRunningJob(cron.RetryLoadPopularBoards)
+	}
 
 	// retry load general articles
 	g.AddRunningJob(cron.RetryLoadGeneralArticles)
 
 	// retry load article details
 	g.AddRunningJob(cron.RetryLoadArticleDetails)
-
-	// retry to calculate user visit count
-	g.AddRunningJob(cron.RetryCalculateUserVisit)
-
-	// retry load man articles
-	g.AddRunningJob(cron.RetryLoadManArticles)
-
-	// retry load man article details
-	g.AddRunningJob(cron.RetryLoadManArticleDetails)
 
 	g.AddRunningJob(func(ctx context.Context) error {
 		<-ctx.Done()

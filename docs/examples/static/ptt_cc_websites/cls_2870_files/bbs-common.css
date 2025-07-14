@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+/* Copyright (c) 2015 ptt.cc */
+/* Licensed under The MIT License. */
+
+.center {
+    text-align: center;
+}
+
+.btn-big {
+    font-size: 16px;
+    padding: 10px;
+    margin: 0 10px;
+}
+
+.clear {
+    clear: both;
+}

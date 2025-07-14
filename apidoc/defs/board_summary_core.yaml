@@ -52,3 +52,7 @@ idx:
 url:
   type: string
   description: url
+
+is_popular:
+  type: boolean
+  description: 是否是熱門看板

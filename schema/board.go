@@ -53,6 +53,8 @@ type Board struct {
 	IdxByClass string      `bson:"pttidxclass"`
 
 	ChessCountry ptttype.ChessCode `bson:"chesscountry"`
+
+	IsPopular bool `bson:"is_popular"`
 }
 
 var EMPTY_BOARD = &Board{}
@@ -96,6 +98,8 @@ var (
 	BOARD_IDX_BY_CLASS_b = getBSONName(EMPTY_BOARD, "IdxByClass")
 
 	BOARD_CHESS_COUNTRY_b = getBSONName(EMPTY_BOARD, "ChessCountry")
+
+	BOARD_IS_POPULAR_b = getBSONName(EMPTY_BOARD, "IsPopular")
 )
 
 func assertBoardFields() error {
@@ -120,6 +124,10 @@ func assertBoardFields() error {
 	}
 
 	if err := assertFields(EMPTY_BOARD, EMPTY_BOARD_PERM_INFO); err != nil {
+		return err
+	}
+
+	if err := assertFields(EMPTY_BOARD, EMPTY_BOARD_IS_POPULAR); err != nil {
 		return err
 	}
 

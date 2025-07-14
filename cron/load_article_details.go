@@ -11,6 +11,8 @@ import (
 )
 
 func RetryLoadArticleDetails(ctx context.Context) error {
+	time.Sleep(20 * time.Second)
+
 	for {
 		select {
 		case <-ctx.Done():
@@ -22,8 +24,8 @@ func RetryLoadArticleDetails(ctx context.Context) error {
 			case <-ctx.Done():
 				return nil
 			default:
-				logrus.Infof("RetryLoadArticleDetails: to sleep 1 min")
-				time.Sleep(1 * time.Minute)
+				logrus.Infof("RetryLoadArticleDetails: to sleep 10 min")
+				time.Sleep(10 * time.Minute)
 			}
 		}
 	}
@@ -85,19 +87,13 @@ func loadArticleDetails(boardID bbs.BBoardID) (err error) {
 			}
 
 			_, _, _, _, _, _, _, _, _, _, _, _, err = api.TryGetArticleContentInfo("SYSOP", each.BBoardID, each.ArticleID, nil, true, false, false)
+
 			if err == nil {
 				count++
 			}
 		}
 
-		/*
-			if origCount != count {
-				logrus.Infof("cron.loadArticleDetails: bid: %v count: %v", boardID, count)
-			}
-		*/
-
 		if newNextIdx == "" {
-			// logrus.Infof("cron.loadArticleDetails: bid: %v load %v articles", boardID, count)
 			return nil
 		}
 
