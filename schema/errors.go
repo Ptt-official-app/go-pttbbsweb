@@ -11,4 +11,6 @@ var (
 	Err2FAAlreadyExists     = errors.New("2fa already exists")
 
 	ErrNotFound = errors.New("not found")
+
+	ErrInvalidPTTBID = errors.New("invalid bid")
 )
