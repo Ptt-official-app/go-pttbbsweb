@@ -41,7 +41,7 @@ func TestGetBoardIDByBid(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotBoardID, err := GetBoardIDByBid(tt.args.bid)
+			gotBoardID, err := GetBoardIDByPttbid(tt.args.bid)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetBoardIDByBid() error = %v, wantErr %v", err, tt.wantErr)
 				return

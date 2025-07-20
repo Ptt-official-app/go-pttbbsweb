@@ -32,7 +32,11 @@ func GetBoardID(brdname string) (boardID bbs.BBoardID, err error) {
 	return result.BBoardID, nil
 }
 
-func GetBoardIDByBid(bid ptttype.Bid) (boardID bbs.BBoardID, err error) {
+func GetBoardIDByPttbid(bid ptttype.Bid) (boardID bbs.BBoardID, err error) {
+	if bid == 0 {
+		return "", ErrInvalidPTTBID
+	}
+
 	query := bson.M{
 		BOARD_BID_b: bid,
 	}

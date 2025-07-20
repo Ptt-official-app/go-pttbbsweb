@@ -18,7 +18,7 @@ func toBoardID(fboardID apitypes.FBoardID, remoteAddr string, userID bbs.UUserID
 }
 
 func bidToBoardID(bid ptttype.Bid) (boardID bbs.BBoardID, err error) {
-	return schema.GetBoardIDByBid(bid)
+	return schema.GetBoardIDByPttbid(bid)
 }
 
 // DeserializeBoards

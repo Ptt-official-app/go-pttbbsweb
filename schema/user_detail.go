@@ -81,6 +81,22 @@ var (
 	userDetailFields  = getFields(EMPTY_USER, EMPTY_USER_DETAIL) //nolint // consistent with programming pattern
 )
 
+func NewUserDetailGuest(updateNanoTS types.NanoTS) (user *UserDetail) {
+	return &UserDetail{
+		UserID:   bbs.UUserID(pttbbsapi.GUEST),
+		Username: pttbbsapi.GUEST,
+		Realname: pttbbsapi.GUEST,
+		Nickname: pttbbsapi.GUEST,
+
+		Userlevel: ptttype.PERM_BASIC,
+
+		Justify: pttbbsapi.GUEST,
+		Over18:  true,
+
+		UpdateNanoTS: updateNanoTS,
+	}
+}
+
 func NewUserDetail(user_b pttbbsapi.GetUserResult, updateNanoTS types.NanoTS) (user *UserDetail) {
 	return &UserDetail{
 		UserID:   user_b.UUserID,

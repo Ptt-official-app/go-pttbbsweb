@@ -12,6 +12,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func deserializeUserDetailAndUpdateDBGuest(updateNanoTS types.NanoTS) (userDetail *schema.UserDetail, err error) {
+	userDetail = schema.NewUserDetailGuest(updateNanoTS)
+
+	err = schema.UpdateUserDetail(userDetail)
+	if err != nil {
+		return nil, err
+	}
+
+	return userDetail, nil
+}
+
 func deserializeUserDetailAndUpdateDB(user_b pttbbsapi.GetUserResult, updateNanoTS types.NanoTS) (userDetail *schema.UserDetail, err error) {
 	userDetail = schema.NewUserDetail(user_b, updateNanoTS)
 

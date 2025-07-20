@@ -81,7 +81,7 @@ func NewBoardDetail(b_b *bbs.BoardDetail, updateNanoTS types.NanoTS) *BoardDetai
 
 	// XXX hack for Gid == 1 (1 should be SYSOP)
 	if b_b.Gid != 1 {
-		parentID, _ = GetBoardIDByBid(b_b.Gid)
+		parentID, _ = GetBoardIDByPttbid(b_b.Gid)
 	}
 
 	return &BoardDetail{

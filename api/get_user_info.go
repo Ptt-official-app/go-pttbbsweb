@@ -154,6 +154,16 @@ func GetUserInfo(remoteAddr string, userID bbs.UUserID, params interface{}, path
 }
 
 func tryGetUserInfo(userID bbs.UUserID, queryUserID bbs.UUserID, updateNanoTS types.NanoTS, c *gin.Context) (userDetail *schema.UserDetail, statusCode int, err error) {
+	// special treatment to pttbbsapi.GUEST
+	if userID == bbs.UUserID(pttbbsapi.GUEST) {
+		userDetail, err = deserializeUserDetailAndUpdateDBGuest(updateNanoTS)
+		if err != nil {
+			return nil, 500, err
+		}
+
+		return userDetail, 0, nil
+	}
+
 	// get backend data
 	var result_b pttbbsapi.GetUserResult
 
