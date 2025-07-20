@@ -30,7 +30,7 @@ services:
       - ${POSTFIX_MASTER_CF}:/etc/postfix/master.cf
     restart: always
   go-pttbbsweb:
-    image: pttofficialapps/go-pttbbsweb:v0.37.1
+    image: pttofficialapps/go-pttbbsweb:v0.37.2
     ports:
       - "127.0.0.1:3457:3457"
     volumes:
