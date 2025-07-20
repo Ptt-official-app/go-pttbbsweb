@@ -53,6 +53,9 @@ func initGitAllGuest() (*gin.Engine, error) {
 	// comments
 	router.GET(withPrefix(api.LOAD_ARTICLE_COMMENTS_R), api.LoadArticleCommentsAllGuestWrapper)
 
+	// user
+	router.GET(withPrefix(api.GET_USER_ID_R), api.GetUserIDAllGuestWrapper)
+
 	// html
 	router.GET(api.ROOT_HTML_R, api.IndexHTMLWrapper)
 	router.GET(api.INDEX_HTML_R, api.IndexHTMLWrapper)
