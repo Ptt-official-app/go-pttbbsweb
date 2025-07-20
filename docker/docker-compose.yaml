@@ -11,7 +11,7 @@ services:
       - ${BBSHOME}:/home/bbs
       - ${ETC}:/etc/go-pttbbs
   mongo:
-    image: mongo:4.4.18
+    image: mongo:8.0.11
     restart: always
     volumes:
       - ${MONGO}:/data
