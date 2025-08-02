@@ -36,6 +36,31 @@ type BoardSummary struct {
 	Idx string `json:"idx"`
 
 	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
+
+	IsPopular bool `json:"is_popular,omitempty"` // 熱門板
+	IsOver18  bool `json:"is_over_18,omitempty"` // 18歲板
+
+	IsNoStats             bool `json:"is_no_stats,omitempty"`               // 不列入統計
+	IsGroupBoard          bool `json:"is_group_board,omitempty"`            // 群組板
+	IsHide                bool `json:"is_hide,omitempty"`                   // 隱板
+	IsPostMask            bool `json:"is_post_mask,omitempty"`              // 限制發表或是閱讀
+	IsAnonymous           bool `json:"is_anony,omitempty"`                  // 匿名板
+	IsDefaultAnonymous    bool `json:"is_default_anony,omitempty"`          // 預設匿名板
+	IsNoCredit            bool `json:"is_no_credit,omitempty"`              // 發文無獎勵板
+	IsVoteBoard           bool `json:"is_vote_board,omitempty"`             // 連署機看板
+	IsWarnEOL             bool `json:"is_warn_eol,omitempty"`               // 已警告要廢除
+	IsNoComment           bool `json:"is_no_comment,omitempty"`             // 不可推文
+	IsAngelAnonymous      bool `json:"is_angel_anony,omitempty"`            // 小天使可匿名
+	IsSymLink             bool `json:"is_sym_link,omitempty"`               // 文章是 sym-link (AllPost/HiddenAllPost)
+	IsNoBoo               bool `json:"is_no_boo,omitempty"`                 // 不可噓文
+	IsBoardMemberOnlyPost bool `json:"is_board_member_only_post,omitempty"` // 板友才可以發文
+	IsGuestPost           bool `json:"is_guest_post,omitempty"`             // guest 可發文
+	IsCooldown            bool `json:"is_cooldown,omitempty"`               // 靜
+	IsIPLogComment        bool `json:"is_ip_log_comment,omitempty"`         // 推文記錄 IP
+	IsNoReply             bool `json:"is_no_reply,omitempty"`               // 不可回文
+	IsAlignedComment      bool `json:"is_aligned_comment,omitempty"`        // 對齊式推文
+	IsNoSelfDelPost       bool `json:"is_no_self_del_post,omitempty"`       // 不可以自己刪文
+	IsBMMaskContent       bool `json:"is_bm_mask_content,omitempty"`        // 允許板主刪除特定文字
 }
 
 func NewBoardSummary(b_db *schema.BoardSummary, idx string, userBoardInfo *UserBoardInfo, userID bbs.UUserID) *BoardSummary {
@@ -83,6 +108,31 @@ func NewBoardSummary(b_db *schema.BoardSummary, idx string, userBoardInfo *UserB
 		URL: url,
 
 		TokenUser: userID,
+
+		IsPopular: b_db.IsPopular,
+		IsOver18:  b_db.IsOver18,
+
+		IsNoStats:             b_db.IsNoStats,
+		IsGroupBoard:          b_db.IsGroupBoard,
+		IsHide:                b_db.IsHide,
+		IsPostMask:            b_db.IsPostMask,
+		IsAnonymous:           b_db.IsAnonymous,
+		IsDefaultAnonymous:    b_db.IsDefaultAnonymous,
+		IsNoCredit:            b_db.IsNoCredit,
+		IsVoteBoard:           b_db.IsVoteBoard,
+		IsWarnEOL:             b_db.IsWarnEOL,
+		IsNoComment:           b_db.IsNoComment,
+		IsAngelAnonymous:      b_db.IsAngelAnonymous,
+		IsSymLink:             b_db.IsSymLink,
+		IsNoBoo:               b_db.IsNoBoo,
+		IsBoardMemberOnlyPost: b_db.IsBoardMemberOnlyPost,
+		IsGuestPost:           b_db.IsGuestPost,
+		IsCooldown:            b_db.IsCooldown,
+		IsIPLogComment:        b_db.IsIPLogComment,
+		IsNoReply:             b_db.IsNoReply,
+		IsAlignedComment:      b_db.IsAlignedComment,
+		IsNoSelfDelPost:       b_db.IsNoSelfDelPost,
+		IsBMMaskContent:       b_db.IsBMMaskContent,
 	}
 }
 

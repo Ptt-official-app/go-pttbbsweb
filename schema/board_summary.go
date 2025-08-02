@@ -38,6 +38,29 @@ type BoardSummary struct {
 	IdxByClass string      `bson:"pttidxclass"`
 
 	IsPopular bool `bson:"is_popular"`
+	IsOver18  bool `bson:"is_over_18"` // 18歲板
+
+	IsNoStats             bool `bson:"is_no_stats"`               // 不列入統計
+	IsGroupBoard          bool `bson:"is_group_board"`            // 群組板
+	IsHide                bool `bson:"is_hide"`                   // 隱板
+	IsPostMask            bool `bson:"is_post_mask"`              // 限制發表或是閱讀
+	IsAnonymous           bool `bson:"is_anony"`                  // 匿名板
+	IsDefaultAnonymous    bool `bson:"is_default_anony"`          // 預設匿名板
+	IsNoCredit            bool `bson:"is_no_credit"`              // 發文無獎勵板
+	IsVoteBoard           bool `bson:"is_vote_board"`             // 連署機看板
+	IsWarnEOL             bool `bson:"is_warn_eol"`               // 已警告要廢除
+	IsNoComment           bool `bson:"is_no_comment"`             // 不可推文
+	IsAngelAnonymous      bool `bson:"is_angel_anony"`            // 小天使可匿名
+	IsSymLink             bool `bson:"is_sym_link"`               // 文章是 sym-link (AllPost/HiddenAllPost)
+	IsNoBoo               bool `bson:"is_no_boo"`                 // 不可噓文
+	IsBoardMemberOnlyPost bool `bson:"is_board_member_only_post"` // 板友才可以發文
+	IsGuestPost           bool `bson:"is_guest_post"`             // guest 可發文
+	IsCooldown            bool `bson:"is_cooldown"`               // 靜
+	IsIPLogComment        bool `bson:"is_ip_log_comment"`         // 推文記錄 IP
+	IsNoReply             bool `bson:"is_no_reply"`               // 不可回文
+	IsAlignedComment      bool `bson:"is_aligned_comment"`        // 對齊式推文
+	IsNoSelfDelPost       bool `bson:"is_no_self_del_post"`       // 不可以自己刪文
+	IsBMMaskContent       bool `bson:"is_bm_mask_content"`        // 允許板主刪除特定文字
 }
 
 var (
@@ -69,6 +92,31 @@ func NewBoardSummary(b_b *bbs.BoardSummary, updateNanoTS types.NanoTS) *BoardSum
 		Bid:        b_b.Bid,
 		IdxByName:  b_b.IdxByName,
 		IdxByClass: b_b.IdxByClass,
+
+		// IsPopular: b_b.BrdAttr.HasPerm(ptttype.BRD_TOP),
+		// IsOver18:  b_b.BrdAttr.HasPerm(ptttype.BRD_OVER18),
+
+		IsNoStats:             b_b.BrdAttr.HasPerm(ptttype.BRD_NOCOUNT),
+		IsGroupBoard:          b_b.BrdAttr.HasPerm(ptttype.BRD_GROUPBOARD),
+		IsHide:                b_b.BrdAttr.HasPerm(ptttype.BRD_HIDE),
+		IsPostMask:            b_b.BrdAttr.HasPerm(ptttype.BRD_POSTMASK),
+		IsAnonymous:           b_b.BrdAttr.HasPerm(ptttype.BRD_ANONYMOUS),
+		IsDefaultAnonymous:    b_b.BrdAttr.HasPerm(ptttype.BRD_DEFAULTANONYMOUS),
+		IsNoCredit:            b_b.BrdAttr.HasPerm(ptttype.BRD_NOCREDIT),
+		IsVoteBoard:           b_b.BrdAttr.HasPerm(ptttype.BRD_VOTEBOARD),
+		IsWarnEOL:             b_b.BrdAttr.HasPerm(ptttype.BRD_WARNEL),
+		IsNoComment:           b_b.BrdAttr.HasPerm(ptttype.BRD_NORECOMMEND),
+		IsAngelAnonymous:      b_b.BrdAttr.HasPerm(ptttype.BRD_ANGELANONYMOUS),
+		IsSymLink:             b_b.BrdAttr.HasPerm(ptttype.BRD_SYMBOLIC),
+		IsNoBoo:               b_b.BrdAttr.HasPerm(ptttype.BRD_NOBOO),
+		IsBoardMemberOnlyPost: b_b.BrdAttr.HasPerm(ptttype.BRD_RESTRICTEDPOST),
+		IsGuestPost:           b_b.BrdAttr.HasPerm(ptttype.BRD_GUESTPOST),
+		IsCooldown:            b_b.BrdAttr.HasPerm(ptttype.BRD_COOLDOWN),
+		IsIPLogComment:        b_b.BrdAttr.HasPerm(ptttype.BRD_IPLOGRECMD),
+		IsNoReply:             b_b.BrdAttr.HasPerm(ptttype.BRD_NOREPLY),
+		IsAlignedComment:      b_b.BrdAttr.HasPerm(ptttype.BRD_ALIGNEDCMT),
+		IsNoSelfDelPost:       b_b.BrdAttr.HasPerm(ptttype.BRD_NOSELFDELPOST),
+		IsBMMaskContent:       b_b.BrdAttr.HasPerm(ptttype.BRD_BM_MASK_CONTENT),
 	}
 }
 

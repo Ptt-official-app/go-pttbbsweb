@@ -21,6 +21,7 @@ var (
 	ErrNoBoard                  = errors.New("no board")
 	ErrNoArticle                = errors.New("no article")
 	ErrNoUserBoard              = errors.New("no user board")
+	ErrInvalidBoardname         = errors.New("invalid boardname")
 
 	ErrAlreadyDeleted = errors.New("already deleted")
 	ErrFileNotFound   = errors.New("file not found")

@@ -55,6 +55,29 @@ type Board struct {
 	ChessCountry ptttype.ChessCode `bson:"chesscountry"`
 
 	IsPopular bool `bson:"is_popular"`
+	IsOver18  bool `bson:"is_over_18"` // 18歲板
+
+	IsNoStats             bool `bson:"is_no_stats"`               // 不列入統計
+	IsGroupBoard          bool `bson:"is_group_board"`            // 群組板
+	IsHide                bool `bson:"is_hide"`                   // 隱板
+	IsPostMask            bool `bson:"is_post_mask"`              // 限制發表或是閱讀
+	IsAnonymous           bool `bson:"is_anony"`                  // 匿名板
+	IsDefaultAnonymous    bool `bson:"is_default_anony"`          // 預設匿名板
+	IsNoCredit            bool `bson:"is_no_credit"`              // 發文無獎勵板
+	IsVoteBoard           bool `bson:"is_vote_board"`             // 連署機看板
+	IsWarnEOL             bool `bson:"is_warn_eol"`               // 已警告要廢除
+	IsNoComment           bool `bson:"is_no_comment"`             // 不可推文
+	IsAngelAnonymous      bool `bson:"is_angel_anony"`            // 小天使可匿名
+	IsSymLink             bool `bson:"is_sym_link"`               // 文章是 sym-link (AllPost/HiddenAllPost)
+	IsNoBoo               bool `bson:"is_no_boo"`                 // 不可噓文
+	IsBoardMemberOnlyPost bool `bson:"is_board_member_only_post"` // 板友才可以發文
+	IsGuestPost           bool `bson:"is_guest_post"`             // guest 可發文
+	IsCooldown            bool `bson:"is_cooldown"`               // 靜
+	IsIPLogComment        bool `bson:"is_ip_log_comment"`         // 推文記錄 IP
+	IsNoReply             bool `bson:"is_no_reply"`               // 不可回文
+	IsAlignedComment      bool `bson:"is_aligned_comment"`        // 對齊式推文
+	IsNoSelfDelPost       bool `bson:"is_no_self_del_post"`       // 不可以自己刪文
+	IsBMMaskContent       bool `bson:"is_bm_mask_content"`        // 允許板主刪除特定文字
 }
 
 var EMPTY_BOARD = &Board{}
@@ -100,6 +123,29 @@ var (
 	BOARD_CHESS_COUNTRY_b = getBSONName(EMPTY_BOARD, "ChessCountry")
 
 	BOARD_IS_POPULAR_b = getBSONName(EMPTY_BOARD, "IsPopular")
+	BOARD_IS_OVER18_b  = getBSONName(EMPTY_BOARD, "IsOver18")
+
+	BOARD_IS_NO_STATS_b               = getBSONName(EMPTY_BOARD, "IsNoStats")
+	BOARD_IS_GROUP_BOARD_b            = getBSONName(EMPTY_BOARD, "IsGroupBoard")
+	BOARD_IS_HIDE_b                   = getBSONName(EMPTY_BOARD, "IsHide")
+	BOARD_IS_POST_MASK_b              = getBSONName(EMPTY_BOARD, "IsPostMask")
+	BOARD_IS_ANONYMOUS_b              = getBSONName(EMPTY_BOARD, "IsAnonymous")
+	BOARD_IS_DEFAULT_ANONYMOUS_b      = getBSONName(EMPTY_BOARD, "IsDefaultAnonymous")
+	BOARD_IS_NO_CREDIT_b              = getBSONName(EMPTY_BOARD, "IsNoCredit")
+	BOARD_IS_VOTE_BOARD_b             = getBSONName(EMPTY_BOARD, "IsVoteBoard")
+	BOARD_IS_WARN_EOL_b               = getBSONName(EMPTY_BOARD, "IsWarnEOL")
+	BOARD_IS_NO_COMMENT_b             = getBSONName(EMPTY_BOARD, "IsNoComment")
+	BOARD_IS_ANGEL_ANONYMOUS_b        = getBSONName(EMPTY_BOARD, "IsAngelAnonymous")
+	BOARD_IS_SYM_LINK_b               = getBSONName(EMPTY_BOARD, "IsSymLink")
+	BOARD_IS_NO_BOO_b                 = getBSONName(EMPTY_BOARD, "IsNoBoo")
+	BOARD_IS_BOARD_MEMBER_ONLY_POST_b = getBSONName(EMPTY_BOARD, "IsBoardMemberOnlyPost")
+	BOARD_IS_GUEST_POST_b             = getBSONName(EMPTY_BOARD, "IsGuestPost")
+	BOARD_IS_COOLDOWN_b               = getBSONName(EMPTY_BOARD, "IsCooldown")
+	BOARD_IS_IP_LOG_COMMENT_b         = getBSONName(EMPTY_BOARD, "IsIPLogComment")
+	BOARD_IS_NO_REPLY_b               = getBSONName(EMPTY_BOARD, "IsNoReply")
+	BOARD_IS_ALIGNED_COMMENT_b        = getBSONName(EMPTY_BOARD, "IsAlignedComment")
+	BOARD_IS_NO_SELF_DEL_POST_b       = getBSONName(EMPTY_BOARD, "IsNoSelfDelPost")
+	BOARD_IS_BM_MASK_CONTENT_b        = getBSONName(EMPTY_BOARD, "IsBMMaskContent")
 )
 
 func assertBoardFields() error {

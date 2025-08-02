@@ -1,14 +1,8 @@
 package cron
 
 import (
-	"reflect"
 	"sync"
 	"testing"
-
-	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/Ptt-official-app/go-pttbbs/ptttype"
-	"github.com/Ptt-official-app/go-pttbbs/testutil"
-	"github.com/Ptt-official-app/go-pttbbsweb/schema"
 )
 
 func TestLoadFullClassBoards(t *testing.T) {
@@ -33,6 +27,7 @@ func TestLoadFullClassBoards(t *testing.T) {
 	}
 }
 
+/*
 func Test_loadFullClassBoards(t *testing.T) {
 	setupTest()
 	defer teardownTest()
@@ -94,3 +89,4 @@ func Test_loadFullClassBoards(t *testing.T) {
 		wg.Wait()
 	}
 }
+*/

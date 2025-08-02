@@ -39,3 +39,7 @@ const (
 const (
 	DEFAULT_FAV_TITLE = "新的目錄"
 )
+
+const (
+	IS_OVER_18_SUBSTRING = "document.cookie.indexOf('over18=1') === -1)"
+)
