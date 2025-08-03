@@ -73,6 +73,9 @@ func config() {
 	// pttweb-hotboard-url
 	PTTWEB_HOTBOARD_URL = setStringConfig("PTTWEB_HOTBOARD_URL", PTTWEB_HOTBOARD_URL)
 
+	// pttweb-hotboard-url
+	PTTWEB_BASE_URL = setStringConfig("PTTWEB_BASE_URL", PTTWEB_BASE_URL)
+
 	// expire-http-request-ts
 	EXPIRE_HTTP_REQUEST_TS = setIntConfig("EXPIRE_HTTP_REQUEST_TS", EXPIRE_HTTP_REQUEST_TS)
 }

@@ -88,6 +88,9 @@ var (
 	// pttweb-hotboard-url
 	PTTWEB_HOTBOARD_URL = "http://localhost:3457/static/ptt_cc_websites/HotBoards.html"
 
+	// pttweb-base-url
+	PTTWEB_BASE_URL = "http://localhost:3457/static/ptt_cc_websites"
+
 	// expire-http-request-ts
 	EXPIRE_HTTP_REQUEST_TS = 10
 

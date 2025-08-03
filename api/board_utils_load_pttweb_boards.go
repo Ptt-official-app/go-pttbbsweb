@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
@@ -51,7 +52,7 @@ func TryLoadPttWebPopularBoards(c *gin.Context) (boards []*schema.BoardSummary, 
 				continue
 			}
 			if theClass.Val == "b-ent" {
-				board := loadPttWebPopularBoardsParseBoard(node, c)
+				board, _ := loadPttWebBoardsParseBoard(node, c)
 				if board == nil {
 					continue
 				}
@@ -83,14 +84,13 @@ func attrsToMap(attrs []html.Attribute) (ret map[string]html.Attribute) {
 	return ret
 }
 
-func loadPttWebPopularBoardsParseBoard(node *html.Node, c *gin.Context) (board *schema.BoardSummary) {
+func loadPttWebBoardsParseBoard(node *html.Node, c *gin.Context) (board *schema.BoardSummary, err error) {
 	boardName := ""
 	nUser := 0
 	boardClass := ""
 	boardTitle := ""
 	boardType := ""
 
-	var err error
 	for childNode := range node.Descendants() {
 		attrMap := attrsToMap(childNode.Attr)
 		theClass, ok := attrMap["class"]
@@ -122,12 +122,18 @@ func loadPttWebPopularBoardsParseBoard(node *html.Node, c *gin.Context) (board *
 	}
 
 	if boardName == "" {
-		return nil
+		return nil, ErrInvalidBoardname
 	}
 
-	total, lastPostTime, err := loadPttWebPopularBoardsGetBoardInfo(boardName, c)
+	total, lastPostTime, err := loadPttWebBoardsGetBoardInfo(boardName, c)
 	if err != nil {
 		logrus.Warnf("unable to get total/lastPosTime from go-pttbbs: boardName: %v e: %v", boardName, err)
+	}
+
+	isOver18, err := loadPttWebBoardsGetIsOver18(boardName, c)
+	if err != nil {
+		logrus.Warnf("unable to get isOver18 from pttweb: boardName: %v e: %v", boardName, err)
+		return nil, err
 	}
 
 	board = &schema.BoardSummary{
@@ -142,12 +148,13 @@ func loadPttWebPopularBoardsParseBoard(node *html.Node, c *gin.Context) (board *
 		LastPostTime: lastPostTime,
 
 		IsPopular: true,
+		IsOver18:  isOver18,
 	}
 
-	return board
+	return board, nil
 }
 
-func loadPttWebPopularBoardsGetBoardInfo(boardName string, c *gin.Context) (total int, lastPostTime types.NanoTS, err error) {
+func loadPttWebBoardsGetBoardInfo(boardName string, c *gin.Context) (total int, lastPostTime types.NanoTS, err error) {
 	theParams_b := &pttbbsapi.LoadBoardSummaryParams{}
 	urlMap := map[string]string{
 		"bid": boardName,
@@ -164,4 +171,51 @@ func loadPttWebPopularBoardsGetBoardInfo(boardName string, c *gin.Context) (tota
 	lastPostTime = types.Time4ToNanoTS(result_b.LastPostTime)
 
 	return total, lastPostTime, nil
+}
+
+func loadPttWebBoardsGetIsOver18(boardName string, c *gin.Context) (isOver18 bool, err error) {
+	url := types.PTTWEB_BASE_URL + "/" + boardName + "/index.html"
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		logrus.Errorf("unable to NewRequest: e: %v", err)
+		return false, err
+	}
+
+	ctx, cancel := context.WithTimeout(req.Context(), time.Duration(types.EXPIRE_HTTP_REQUEST_TS)*time.Second)
+	defer cancel()
+
+	req = req.WithContext(ctx)
+
+	client := http.DefaultClient
+	res, err := client.Do(req)
+	if err != nil {
+		logrus.Errorf("unable to client.Do: e: %v", err)
+		return false, err
+	}
+
+	doc, err := html.Parse(res.Body)
+	if err != nil {
+		logrus.Errorf("unable to Parse body: e: %v", err)
+		return false, err
+	}
+
+	for node := range doc.Descendants() {
+		if node.DataAtom != atom.Script {
+			continue
+		}
+
+		childNode := node.FirstChild
+		if childNode == nil {
+			continue
+		}
+
+		if !strings.Contains(childNode.Data, IS_OVER_18_SUBSTRING) {
+			continue
+		}
+
+		return true, nil
+	}
+
+	return false, nil
 }
