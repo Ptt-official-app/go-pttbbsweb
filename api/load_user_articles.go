@@ -41,7 +41,7 @@ func LoadUserArticlesWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(LoadUserArticles, params, path, c)
 }
 
-func LoadUserArticles(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadUserArticles(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoadUserArticlesParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -57,6 +57,7 @@ func LoadUserArticles(remoteAddr string, userID bbs.UUserID, params interface{},
 		return nil, 500, err
 	}
 
+	userID := user.UserID
 	userReadArticleMap, err := checkReadUserBoardArticles(userID, articleSummaries_db)
 	if err != nil {
 		return nil, 500, err

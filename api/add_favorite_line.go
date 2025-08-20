@@ -24,7 +24,7 @@ func AddFavoriteLineWrapper(c *gin.Context) {
 	LoginRequiredPathJSON(AddFavoriteLine, params, path, c)
 }
 
-func AddFavoriteLine(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func AddFavoriteLine(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*AddFavoriteLineParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -34,6 +34,8 @@ func AddFavoriteLine(remoteAddr string, userID bbs.UUserID, params interface{}, 
 	if !ok {
 		return nil, 400, ErrInvalidPath
 	}
+
+	userID := user.UserID
 
 	if userID != thePath.UserID {
 		return nil, 403, ErrInvalidUser

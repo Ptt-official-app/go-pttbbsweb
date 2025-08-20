@@ -15,7 +15,8 @@ func TestDeleteFavorite(t *testing.T) {
 
 	paramsLoad0 := &LoadGeneralBoardsParams{}
 
-	_, _, _ = LoadGeneralBoardsByClass("localhost", "SYSOP", paramsLoad0, nil)
+	user := &UserInfo{UserID: "SYSOP", IsOver18: true}
+	_, _, _ = LoadGeneralBoardsByClass("localhost", user, paramsLoad0, nil)
 
 	params0 := &DeleteFavoriteParams{
 		Idx: "0",
@@ -57,7 +58,9 @@ func TestDeleteFavorite(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := DeleteFavorite(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := DeleteFavorite(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("DeleteFavorite() error = %v, wantErr %v", err, tt.wantErr)
 				return

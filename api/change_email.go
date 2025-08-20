@@ -35,7 +35,7 @@ func ChangeEmailWrapper(c *gin.Context) {
 	LoginRequiredPathJSON(ChangeEmail, params, path, c)
 }
 
-func ChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func ChangeEmail(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*ChangeEmailParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -101,5 +101,5 @@ func ChangeEmail(remoteAddr string, userID bbs.UUserID, params interface{}, path
 
 	// update user-info
 
-	return &ChangeEmailResult{Email: result_b.Email, TokenUser: userID}, 200, nil
+	return &ChangeEmailResult{Email: result_b.Email, TokenUser: user.UserID}, 200, nil
 }

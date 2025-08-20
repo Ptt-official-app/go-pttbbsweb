@@ -34,7 +34,7 @@ func DeleteArticlesWrapper(c *gin.Context) {
 // DeleteArticles provides function from api /board/:bid/deletearticles
 // it will call backend api (go-pttbbs) and deleting all components like:
 // comments, ranks, user_read_records about this articles
-func DeleteArticles(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func DeleteArticles(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*DeleteArticlesParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -44,12 +44,14 @@ func DeleteArticles(remoteAddr string, userID bbs.UUserID, params interface{}, p
 	if !ok {
 		return nil, 400, ErrInvalidParams
 	}
+
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err
 	}
 
-	userBoardPermReadable, err := CheckUserBoardPermReadable(userID, boardID, c)
+	userBoardPermReadable, err := CheckUserBoardPermReadable(user, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}
@@ -59,7 +61,7 @@ func DeleteArticles(remoteAddr string, userID bbs.UUserID, params interface{}, p
 		articleIDs = append(articleIDs, articleID.ToArticleID())
 	}
 
-	articlePermMap, err := CheckUserArticlesPermDeletable(userID, boardID, articleIDs, userBoardPermReadable, c)
+	articlePermMap, err := CheckUserArticlesPermDeletable(user, boardID, articleIDs, userBoardPermReadable, c)
 	if err != nil {
 		return nil, 500, err
 	}

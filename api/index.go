@@ -23,7 +23,7 @@ func IndexWrapper(c *gin.Context) {
 	Query(Index, params, c)
 }
 
-func Index(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func Index(remoteAddr string, user *UserInfo, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	result = &IndexResult{Data: params}
 	return result, 200, nil
 }

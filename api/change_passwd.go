@@ -31,7 +31,7 @@ func ChangePasswdWrapper(c *gin.Context) {
 	LoginRequiredPathJSON(ChangePasswd, params, path, c)
 }
 
-func ChangePasswd(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func ChangePasswd(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*ChangePasswdParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -74,7 +74,7 @@ func ChangePasswd(remoteAddr string, userID bbs.UUserID, params interface{}, pat
 
 	// result
 	ret := NewChangePasswdResult(result_b)
-	ret.TokenUser = userID
+	ret.TokenUser = user.UserID
 
 	setTokenToCookie(c, result_b.Jwt)
 

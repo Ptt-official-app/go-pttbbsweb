@@ -38,7 +38,7 @@ func CreateBoardWrapper(c *gin.Context) {
 	LoginRequiredPathJSON(CreateBoard, params, path, c)
 }
 
-func CreateBoard(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func CreateBoard(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*CreateBoardParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -49,7 +49,7 @@ func CreateBoard(remoteAddr string, userID bbs.UUserID, params interface{}, path
 		return nil, 400, ErrInvalidPath
 	}
 
-	err = CheckUserBoardPermCreatable(userID, c)
+	err = CheckUserBoardPermCreatable(user, c)
 	if err != nil {
 		return nil, 403, err
 	}
@@ -79,6 +79,7 @@ func CreateBoard(remoteAddr string, userID bbs.UUserID, params interface{}, path
 		return nil, statusCode, err
 	}
 
+	userID := user.UserID
 	// update to db
 	theList_b := []*bbs.BoardSummary{(*bbs.BoardSummary)(result_b)}
 	updateNanoTS := types.NowNanoTS()

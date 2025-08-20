@@ -40,7 +40,7 @@ func RegisterUserWrapper(c *gin.Context) {
 	FormJSON(RegisterUser, params, c)
 }
 
-func RegisterUser(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func RegisterUser(remoteAddr string, user *UserInfo, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*RegisterUserParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams

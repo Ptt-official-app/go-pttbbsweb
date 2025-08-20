@@ -45,7 +45,7 @@ func GetManArticleBlocksWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(GetManArticleBlocks, params, path, c)
 }
 
-func GetManArticleBlocks(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func GetManArticleBlocks(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*GetManArticleBlocksParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -56,6 +56,7 @@ func GetManArticleBlocks(remoteAddr string, userID bbs.UUserID, params interface
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err

@@ -78,7 +78,9 @@ func TestCreateRank(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := CreateRank(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := CreateRank(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CreateRank() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -95,7 +97,7 @@ func TestCreateRank(t *testing.T) {
 			}
 
 			path0 := &GetArticleDetailPath{FBoardID: tt.args.path.FBoardID, FArticleID: tt.args.path.FArticleID}
-			r0, _, _ := GetArticleDetail(tt.args.remoteAddr, tt.args.userID, nil, path0, nil)
+			r0, _, _ := GetArticleDetail(tt.args.remoteAddr, user, nil, path0, nil)
 			if r0 != nil {
 				ret0 := r0.(*GetArticleDetailResult)
 				expectedResult := tt.expectedResult.(*CreateRankResult)

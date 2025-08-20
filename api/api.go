@@ -3,6 +3,8 @@ package api
 import (
 	"strings"
 
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/pttbbs-backend/types"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -67,7 +69,11 @@ func process(theFunc APIFunc, params interface{}, c *gin.Context) {
 		return
 	}
 
-	result, statusCode, err := theFunc(remoteAddr, params, c)
+	isOver18 := verifyIsOver18(c)
+
+	user := &UserInfo{IsOver18: isOver18, UserID: bbs.UUserID(pttbbsapi.GUEST)}
+
+	result, statusCode, err := theFunc(remoteAddr, user, params, c)
 	processResult(c, result, statusCode, err, "")
 }
 
@@ -83,7 +89,11 @@ func processLogout(theFunc APIFunc, params interface{}, c *gin.Context) {
 		return
 	}
 
-	_, _, _ = theFunc(remoteAddr, params, c)
+	isOver18 := verifyIsOver18(c)
+
+	user := &UserInfo{IsOver18: isOver18, UserID: bbs.UUserID(pttbbsapi.GUEST)}
+
+	_, _, _ = theFunc(remoteAddr, user, params, c)
 
 	c.Redirect(303, types.FRONTEND_PREFIX)
 }

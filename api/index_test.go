@@ -4,6 +4,9 @@ import (
 	"reflect"
 	"sync"
 	"testing"
+
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 )
 
 func TestIndex(t *testing.T) {
@@ -33,7 +36,8 @@ func TestIndex(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
 
-			got, _, err := Index(testIP, tt.args.params, nil)
+			user := &UserInfo{UserID: bbs.UUserID(pttbbsapi.GUEST), IsOver18: true}
+			got, _, err := Index(testIP, user, tt.args.params, nil)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Index() error = %v, wantErr %v", err, tt.wantErr)
 				return

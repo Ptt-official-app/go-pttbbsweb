@@ -3,7 +3,6 @@ package api
 import (
 	"strings"
 
-	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/pttbbs-backend/apitypes"
 	"github.com/Ptt-official-app/pttbbs-backend/schema"
 	"github.com/gin-gonic/gin"
@@ -27,7 +26,7 @@ func GetBoardDetailWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(GetBoardDetail, params, path, c)
 }
 
-func GetBoardDetail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func GetBoardDetail(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*GetBoardDetailParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -38,13 +37,14 @@ func GetBoardDetail(remoteAddr string, userID bbs.UUserID, params interface{}, p
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 400, err
 	}
 
 	// is board-valid-user
-	_, err = CheckUserBoardPermReadable(userID, boardID, c)
+	_, err = CheckUserBoardPermReadable(user, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}

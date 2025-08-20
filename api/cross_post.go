@@ -34,7 +34,7 @@ func CrossPostWrapper(c *gin.Context) {
 	LoginRequiredPathJSON(CrossPost, params, path, c)
 }
 
-func CrossPost(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func CrossPost(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*CrossPostParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -45,6 +45,7 @@ func CrossPost(remoteAddr string, userID bbs.UUserID, params interface{}, path i
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err

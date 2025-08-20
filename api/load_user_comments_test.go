@@ -36,18 +36,20 @@ func TestLoadUserComments(t *testing.T) {
 
 	paramsLoadGeneralArticles := NewLoadGeneralArticlesParams()
 	pathLoadGeneralArticles := &LoadGeneralArticlesPath{FBoardID: "WhoAmI"}
-	LoadGeneralArticles("localhost", "SYSOP", paramsLoadGeneralArticles, pathLoadGeneralArticles, &gin.Context{})
+
+	user := &UserInfo{UserID: "SYSOP", IsOver18: true}
+	LoadGeneralArticles("localhost", user, paramsLoadGeneralArticles, pathLoadGeneralArticles, &gin.Context{})
 
 	paramsLoadGeneralArticles = NewLoadGeneralArticlesParams()
 	pathLoadGeneralArticles = &LoadGeneralArticlesPath{FBoardID: "SYSOP"}
-	LoadGeneralArticles("localhost", "SYSOP", paramsLoadGeneralArticles, pathLoadGeneralArticles, &gin.Context{})
+	LoadGeneralArticles("localhost", user, paramsLoadGeneralArticles, pathLoadGeneralArticles, &gin.Context{})
 
 	articleParams := &GetArticleDetailParams{}
 	articlePath := &GetArticleDetailPath{
 		FBoardID:   apitypes.FBoardID("WhoAmI"),
 		FArticleID: apitypes.FArticleID("M.1607937174.A.081"),
 	}
-	_, _, _ = GetArticleDetail(testIP, "SYSOP", articleParams, articlePath, nil)
+	_, _, _ = GetArticleDetail(testIP, user, articleParams, articlePath, nil)
 
 	// tests
 	params0 := NewLoadUserCommentsParams()
@@ -148,7 +150,9 @@ func TestLoadUserComments(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := LoadUserComments(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := LoadUserComments(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("LoadUserComments() error = %v, wantErr %v", err, tt.wantErr)
 				return

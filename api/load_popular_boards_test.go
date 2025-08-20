@@ -117,7 +117,9 @@ func TestLoadPopularBoards(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := LoadPopularBoards(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.c)
+
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := LoadPopularBoards(tt.args.remoteAddr, user, tt.args.params, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("LoadPopularBoards() error = %v, wantErr %v", err, tt.wantErr)
 				return

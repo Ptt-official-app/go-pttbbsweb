@@ -40,7 +40,7 @@ func LoadUserCommentsWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(LoadUserComments, params, path, c)
 }
 
-func LoadUserComments(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadUserComments(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoadUserCommentsParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -56,6 +56,7 @@ func LoadUserComments(remoteAddr string, userID bbs.UUserID, params interface{},
 		return nil, 500, err
 	}
 
+	userID := user.UserID
 	articleSummaryMap, userReadBoardArticleMap, err := getArticleSummaryMapFromCommentSummaries(userID, commentSummaries_db)
 	if err != nil {
 		return nil, 500, err

@@ -4,10 +4,10 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Ptt-official-app/pttbbs-backend/apitypes"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
+	"github.com/Ptt-official-app/pttbbs-backend/apitypes"
 	"github.com/gin-gonic/gin"
 )
 
@@ -143,7 +143,9 @@ func TestLoadFavoriteBoards(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := LoadFavoriteBoards(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := LoadFavoriteBoards(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("LoadFavoriteBoards() error = %v, wantErr %v", err, tt.wantErr)
 				return

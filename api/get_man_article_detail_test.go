@@ -104,7 +104,9 @@ func TestGetManArticleDetail(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := GetManArticleDetail(tt.args.remoteAddr, tt.args.userID, nil, tt.args.path, tt.args.c)
+
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := GetManArticleDetail(tt.args.remoteAddr, user, nil, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetManArticleDetail() error = %v, wantErr %v", err, tt.wantErr)
 				return

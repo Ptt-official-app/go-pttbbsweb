@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 
 	"github.com/gin-gonic/gin"
 )
@@ -62,7 +63,9 @@ func TestRefresh(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := Refresh(tt.args.remoteAddr, tt.args.params, tt.args.c)
+
+			user := &UserInfo{UserID: bbs.UUserID(pttbbsapi.GUEST), IsOver18: true}
+			gotResult, gotStatusCode, err := Refresh(tt.args.remoteAddr, user, tt.args.params, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Refresh() error = %v, wantErr %v", err, tt.wantErr)
 				return

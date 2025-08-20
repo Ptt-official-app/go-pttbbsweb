@@ -17,7 +17,8 @@ func GetUserIDWrapper(c *gin.Context) {
 	LoginRequiredQuery(GetUserID, nil, c)
 }
 
-func GetUserID(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func GetUserID(remoteAddr string, user *UserInfo, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+	userID := user.UserID
 	return &GetUserIDResult{
 		UserID: userID,
 

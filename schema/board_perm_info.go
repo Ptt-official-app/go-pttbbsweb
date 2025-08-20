@@ -29,6 +29,8 @@ type BoardPermInfo struct {
 	PostLimitLogins  int `bson:"post_limit_logins"`
 	PostLimitBadpost int `bson:"post_limit_bad_post"`
 
+	IsOver18 bool `bson:"is_over_18"` // 18歲板
+
 	NUser int `bson:"nuser"` /* use aggregate to periodically get the data */
 }
 

@@ -31,7 +31,7 @@ func DeleteFavoriteWrapper(c *gin.Context) {
 	LoginRequiredPathJSON(DeleteFavorite, params, path, c)
 }
 
-func DeleteFavorite(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func DeleteFavorite(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*DeleteFavoriteParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -41,6 +41,8 @@ func DeleteFavorite(remoteAddr string, userID bbs.UUserID, params interface{}, p
 	if !ok {
 		return nil, 400, ErrInvalidPath
 	}
+
+	userID := user.UserID
 
 	if userID != thePath.UserID {
 		return nil, 403, ErrInvalidUser

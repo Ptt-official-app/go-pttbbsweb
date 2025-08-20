@@ -66,11 +66,13 @@ func TestLoadUserArticles(t *testing.T) {
 	// params
 	paramsLoadGeneralArticles := NewLoadGeneralArticlesParams()
 	pathLoadGeneralArticles := &LoadGeneralArticlesPath{FBoardID: "WhoAmI"}
-	LoadGeneralArticles("localhost", "SYSOP", paramsLoadGeneralArticles, pathLoadGeneralArticles, &gin.Context{})
+
+	user := &UserInfo{UserID: "SYSOP", IsOver18: true}
+	LoadGeneralArticles("localhost", user, paramsLoadGeneralArticles, pathLoadGeneralArticles, &gin.Context{})
 
 	paramsLoadGeneralArticles = NewLoadGeneralArticlesParams()
 	pathLoadGeneralArticles = &LoadGeneralArticlesPath{FBoardID: "SYSOP"}
-	LoadGeneralArticles("localhost", "SYSOP", paramsLoadGeneralArticles, pathLoadGeneralArticles, &gin.Context{})
+	LoadGeneralArticles("localhost", user, paramsLoadGeneralArticles, pathLoadGeneralArticles, &gin.Context{})
 
 	articleSummary, _ := schema.GetArticleSummary("10_WhoAmI", "19bWBI4Z")
 	logrus.Infof("TestLoadUserATestLoadUserArticles: articleSummary: %v", articleSummary)
@@ -315,7 +317,9 @@ func TestLoadUserArticles(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := LoadUserArticles(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := LoadUserArticles(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("LoadUserArticles() error = %v, wantErr %v", err, tt.wantErr)
 				return

@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func LoadGeneralArticlesByKeyword(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadGeneralArticlesByKeyword(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoadGeneralArticlesParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -19,13 +19,14 @@ func LoadGeneralArticlesByKeyword(remoteAddr string, userID bbs.UUserID, params 
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err
 	}
 
 	// check board permission
-	userBoardPerm, err := CheckUserBoardPermReadable(userID, boardID, c)
+	userBoardPerm, err := CheckUserBoardPermReadable(user, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}
@@ -55,7 +56,7 @@ func LoadGeneralArticlesByKeyword(remoteAddr string, userID bbs.UUserID, params 
 	}
 
 	// check article permission
-	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(userID, boardID, articleIDs, userBoardPerm, c)
+	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(user, boardID, articleIDs, userBoardPerm, c)
 	if err != nil {
 		return nil, 500, err
 	}

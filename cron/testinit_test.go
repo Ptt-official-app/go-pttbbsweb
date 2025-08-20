@@ -1,7 +1,6 @@
 package cron
 
 import (
-	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/pttbbs-backend/api"
 	"github.com/Ptt-official-app/pttbbs-backend/boardd"
 	"github.com/Ptt-official-app/pttbbs-backend/db"
@@ -29,7 +28,9 @@ func setupTest() {
 	SetIsTest()
 
 	params := &api.RegisterClientParams{ClientID: "default_client_id", ClientType: types.CLIENT_TYPE_APP}
-	_, _, _ = api.RegisterClient("localhost", bbs.UUserID("SYSOP"), params, nil)
+
+	user := &api.UserInfo{UserID: "SYSOP", IsOver18: true}
+	_, _, _ = api.RegisterClient("localhost", user, params, nil)
 	// logrus.Infof("api.setupTest: after RegisterClient: status: %v e: %v", statusCode, err)
 }
 

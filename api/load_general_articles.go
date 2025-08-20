@@ -41,7 +41,7 @@ func LoadGeneralArticlesWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(LoadGeneralArticles, params, path, c)
 }
 
-func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadGeneralArticles(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoadGeneralArticlesParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -53,16 +53,17 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 	}
 
 	if theParams.Keyword != "" {
-		return LoadGeneralArticlesByKeyword(remoteAddr, userID, params, path, c)
+		return LoadGeneralArticlesByKeyword(remoteAddr, user, params, path, c)
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err
 	}
 
 	// check board permission
-	userBoardPerm, err := CheckUserBoardPermReadable(userID, boardID, c)
+	userBoardPerm, err := CheckUserBoardPermReadable(user, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}
@@ -79,7 +80,7 @@ func LoadGeneralArticles(remoteAddr string, userID bbs.UUserID, params interface
 	}
 
 	// check article permission
-	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(userID, boardID, articleIDs, userBoardPerm, c)
+	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(user, boardID, articleIDs, userBoardPerm, c)
 	if err != nil {
 		return nil, 500, err
 	}

@@ -25,18 +25,19 @@ func GetBoardSummaryWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(GetBoardSummary, params, path, c)
 }
 
-func GetBoardSummary(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func GetBoardSummary(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	thePath, ok := path.(*GetBoardSummaryPath)
 	if !ok {
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 400, err
 	}
 
-	_, err = CheckUserBoardPermReadable(userID, boardID, c)
+	_, err = CheckUserBoardPermReadable(user, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}

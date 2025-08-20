@@ -8,6 +8,8 @@ import (
 	"sync"
 	"testing"
 
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )
@@ -54,7 +56,8 @@ func TestLogout(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
 
-			gotResult, gotStatusCode, err := Logout(tt.args.remoteAddr, tt.args.params, tt.args.c)
+			user := &UserInfo{UserID: bbs.UUserID(pttbbsapi.GUEST), IsOver18: true}
+			gotResult, gotStatusCode, err := Logout(tt.args.remoteAddr, user, tt.args.params, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Logout() error = %v, wantErr %v", err, tt.wantErr)
 				return

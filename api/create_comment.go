@@ -2,7 +2,6 @@ package api
 
 import (
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
-	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/pttbbs-backend/apitypes"
 	"github.com/Ptt-official-app/pttbbs-backend/dbcs"
@@ -31,7 +30,7 @@ func CreateCommentWrapper(c *gin.Context) {
 	LoginRequiredPathJSON(CreateComment, params, path, c)
 }
 
-func CreateComment(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func CreateComment(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*CreateCommentParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -42,13 +41,14 @@ func CreateComment(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err
 	}
 	articleID := thePath.FArticleID.ToArticleID()
 
-	err = CheckUserBoardPermPostable(userID, boardID, c)
+	err = CheckUserBoardPermPostable(user, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}

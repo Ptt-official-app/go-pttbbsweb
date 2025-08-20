@@ -1,6 +1,7 @@
 package api
 
 import (
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
@@ -11,8 +12,8 @@ func GetArticleDetailAllGuestWrapper(c *gin.Context) {
 	PathQuery(GetArticleDetailAllGuest, params, path, c)
 }
 
-func GetArticleDetailAllGuest(remoteAddr string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-	userID := bbs.UUserID("guest")
+func GetArticleDetailAllGuest(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+	user.UserID = bbs.UUserID(pttbbsapi.GUEST)
 
-	return GetArticleDetail(remoteAddr, userID, params, path, c)
+	return GetArticleDetail(remoteAddr, user, params, path, c)
 }
