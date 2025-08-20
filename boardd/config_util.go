@@ -1,8 +1,8 @@
 package boardd
 
-import "github.com/Ptt-official-app/go-pttbbsweb/configutil"
+import "github.com/Ptt-official-app/pttbbs-backend/configutil"
 
-const configPrefix = "go-pttbbsweb:boardd"
+const configPrefix = "pttbbs-backend:boardd"
 
 func InitConfig() error {
 	config()

@@ -3,7 +3,7 @@ package api
 import (
 	"time"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 )
 
 const (

@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 )
 
 func Test_dbcsToUtf8PerLineIndexM(t *testing.T) {

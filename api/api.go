@@ -3,7 +3,7 @@ package api
 import (
 	"strings"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 )

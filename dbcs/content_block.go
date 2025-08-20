@@ -2,8 +2,8 @@ package dbcs
 
 import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/Ptt-official-app/go-pttbbsweb/schema"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/schema"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 )
 
 func ParseContentBlocks(boardID bbs.BBoardID, articleID bbs.ArticleID, content [][]*types.Rune, contentMD5 string, updateNanoTS types.NanoTS) (contentID types.ContentID, contentBlocks []*schema.ContentBlock) {

@@ -7,9 +7,9 @@ import (
 
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
-	"github.com/Ptt-official-app/go-pttbbsweb/apitypes"
-	"github.com/Ptt-official-app/go-pttbbsweb/mand"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/apitypes"
+	"github.com/Ptt-official-app/pttbbs-backend/mand"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )

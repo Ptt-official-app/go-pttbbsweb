@@ -30,14 +30,14 @@ services:
     volumes:
       - ${POSTFIX_MAIN_CF}:/etc/postfix/main.cf
       - ${POSTFIX_MASTER_CF}:/etc/postfix/master.cf
-  go-pttbbsweb:
-    image: pttofficialapps/go-pttbbsweb:v0.38.0
+  pttbbs-backend:
+    image: pttofficialapps/pttbbs-backend:v0.38.0
     ports:
       - "127.0.0.1:3457:3457"
       - "127.0.0.1:[local-port]:[docker-port]"
     volumes:
       - ${STATIC_DIR}:/static
-      - ${ETC}:/etc/go-pttbbsweb
+      - ${ETC}:/etc/pttbbs-backend
       - ${ETC}:/etc/go-pttbbs
-      - [local absolute directory]:/home/[username]/go-pttbbsweb
+      - [local absolute directory]:/home/[username]/pttbbs-backend
     restart: always

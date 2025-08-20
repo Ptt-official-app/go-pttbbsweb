@@ -3,7 +3,7 @@ package mock
 import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
-	"github.com/Ptt-official-app/go-pttbbsweb/apitypes"
+	"github.com/Ptt-official-app/pttbbs-backend/apitypes"
 )
 
 type BoardListResult_t struct {

@@ -1,4 +1,4 @@
-module github.com/Ptt-official-app/go-pttbbsweb
+module github.com/Ptt-official-app/pttbbs-backend
 
 go 1.24
 

@@ -1,11 +1,11 @@
 package dbcs
 
 import (
-	"github.com/Ptt-official-app/go-pttbbsweb/configutil"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/configutil"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 )
 
-const configPrefix = "go-pttbbsweb:dbcs"
+const configPrefix = "pttbbs-backend:dbcs"
 
 func InitConfig() (err error) {
 	config()

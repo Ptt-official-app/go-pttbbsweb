@@ -39,8 +39,8 @@ jobs:
     - name: golangci-lint
       uses: golangci/golangci-lint-action@v8
       with:
-        working-directory: /home/runner/work/go-pttbbsweb/go-pttbbsweb
-        args: --verbose --config /home/runner/work/go-pttbbsweb/go-pttbbsweb/.golangci.yaml
+        working-directory: /home/runner/work/pttbbs-backend/pttbbs-backend
+        args: --verbose --config /home/runner/work/pttbbs-backend/pttbbs-backend/.golangci.yaml
 
     - name: Build
       run: make

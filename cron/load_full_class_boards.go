@@ -7,10 +7,10 @@ import (
 
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
-	"github.com/Ptt-official-app/go-pttbbsweb/api"
-	"github.com/Ptt-official-app/go-pttbbsweb/schema"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
-	"github.com/Ptt-official-app/go-pttbbsweb/utils"
+	"github.com/Ptt-official-app/pttbbs-backend/api"
+	"github.com/Ptt-official-app/pttbbs-backend/schema"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
+	"github.com/Ptt-official-app/pttbbs-backend/utils"
 	"github.com/sirupsen/logrus"
 )
 

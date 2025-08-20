@@ -4,8 +4,8 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	pttbbsfav "github.com/Ptt-official-app/go-pttbbs/ptt/fav"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
-	"github.com/Ptt-official-app/go-pttbbsweb/fav"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/fav"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 )
 
 var (

@@ -8,7 +8,7 @@ import (
 	pttbbsfav "github.com/Ptt-official-app/go-pttbbs/ptt/fav"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	pttbbstypes "github.com/Ptt-official-app/go-pttbbs/types"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 )
 
 // Fav

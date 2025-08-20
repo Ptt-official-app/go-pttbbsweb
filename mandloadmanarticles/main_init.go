@@ -4,8 +4,8 @@ import (
 	"flag"
 	"strings"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/mand"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/mand"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 
@@ -29,7 +29,7 @@ func initAllConfig(filename string) error {
 	filenamePostfix := filenameList[len(filenameList)-1]
 	viper.SetConfigName(filenamePrefix)
 	viper.SetConfigType(filenamePostfix)
-	viper.AddConfigPath("/etc/go-pttbbsweb")
+	viper.AddConfigPath("/etc/pttbbs-backend")
 	viper.AddConfigPath(".")
 	err := viper.ReadInConfig()
 	if err != nil {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/mand"
+	"github.com/Ptt-official-app/pttbbs-backend/mand"
 	"github.com/sirupsen/logrus"
 )
 

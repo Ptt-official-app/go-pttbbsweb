@@ -8,9 +8,9 @@ import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/go-pttbbs/testutil"
-	"github.com/Ptt-official-app/go-pttbbsweb/boardd"
-	"github.com/Ptt-official-app/go-pttbbsweb/mockhttp"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/boardd"
+	"github.com/Ptt-official-app/pttbbs-backend/mockhttp"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 )
 
 func Test_articleTitleToTitleRegexCore(t *testing.T) {
