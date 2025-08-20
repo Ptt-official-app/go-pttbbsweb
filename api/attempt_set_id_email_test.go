@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/pttbbs-backend/schema"
 	"github.com/gin-gonic/gin"
 )
 

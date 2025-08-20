@@ -2,13 +2,13 @@ package cron
 
 import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/Ptt-official-app/go-pttbbsweb/api"
-	"github.com/Ptt-official-app/go-pttbbsweb/boardd"
-	"github.com/Ptt-official-app/go-pttbbsweb/db"
-	"github.com/Ptt-official-app/go-pttbbsweb/queue"
-	"github.com/Ptt-official-app/go-pttbbsweb/schema"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
-	"github.com/Ptt-official-app/go-pttbbsweb/utils"
+	"github.com/Ptt-official-app/pttbbs-backend/api"
+	"github.com/Ptt-official-app/pttbbs-backend/boardd"
+	"github.com/Ptt-official-app/pttbbs-backend/db"
+	"github.com/Ptt-official-app/pttbbs-backend/queue"
+	"github.com/Ptt-official-app/pttbbs-backend/schema"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
+	"github.com/Ptt-official-app/pttbbs-backend/utils"
 )
 
 func setupTest() {

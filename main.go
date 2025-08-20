@@ -6,10 +6,10 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/api"
-	"github.com/Ptt-official-app/go-pttbbsweb/cron"
-	"github.com/Ptt-official-app/go-pttbbsweb/queue"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/api"
+	"github.com/Ptt-official-app/pttbbs-backend/cron"
+	"github.com/Ptt-official-app/pttbbs-backend/queue"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 
 	"github.com/appleboy/graceful"
 	"github.com/gin-gonic/gin"

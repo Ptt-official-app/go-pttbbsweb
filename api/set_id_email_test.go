@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	pttbbsai "github.com/Ptt-official-app/go-pttbbs/api"
-	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/pttbbs-backend/schema"
 
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"

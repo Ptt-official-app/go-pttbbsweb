@@ -4,7 +4,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 )
 
 func TestToFTitle(t *testing.T) {

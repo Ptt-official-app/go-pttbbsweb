@@ -2,7 +2,7 @@ package apitypes
 
 import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/pttbbs-backend/schema"
 )
 
 // FBoardID as board-id for frontend.

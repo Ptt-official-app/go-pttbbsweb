@@ -1,4 +1,4 @@
-SERVICE ?= go-pttbbsweb
+SERVICE ?= pttbbs-backend
 GOFMT ?= gofumpt -l -s
 GO ?= go
 BUILD_DATE ?= $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")

@@ -3,8 +3,8 @@ package apitypes
 import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
-	"github.com/Ptt-official-app/go-pttbbsweb/schema"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/schema"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 )
 
 type ArticleSummary struct {
@@ -48,7 +48,7 @@ func ToFTitle(title string) string {
 func NewArticleSummary(a_db *schema.ArticleSummary, userID bbs.UUserID) *ArticleSummary {
 	fboardID := ToFBoardID(a_db.BBoardID)
 	// if article is deleted, hide articleId
-	// https://github.com/Ptt-official-app/go-pttbbsweb/issues/253#issuecomment-971526173
+	// https://github.com/Ptt-official-app/pttbbs-backend/issues/253#issuecomment-971526173
 	var fTitle string
 	var farticleID FArticleID
 	if a_db.IsDeleted {
@@ -90,7 +90,7 @@ func NewArticleSummary(a_db *schema.ArticleSummary, userID bbs.UUserID) *Article
 func NewArticleSummaryFromWithRegex(a_db *schema.ArticleSummaryWithRegex, userID bbs.UUserID) *ArticleSummary {
 	fboardID := ToFBoardID(a_db.BBoardID)
 	// if article is deleted, hide articleId
-	// https://github.com/Ptt-official-app/go-pttbbsweb/issues/253#issuecomment-971526173
+	// https://github.com/Ptt-official-app/pttbbs-backend/issues/253#issuecomment-971526173
 	var fTitle string
 	var farticleID FArticleID
 	if a_db.IsDeleted {

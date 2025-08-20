@@ -5,10 +5,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/configutil"
+	"github.com/Ptt-official-app/pttbbs-backend/configutil"
 )
 
-const configPrefix = "go-pttbbsweb:types"
+const configPrefix = "pttbbs-backend:types"
 
 func InitConfig() (err error) {
 	config()

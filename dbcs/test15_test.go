@@ -1,8 +1,8 @@
 package dbcs
 
 import (
-	"github.com/Ptt-official-app/go-pttbbsweb/schema"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/schema"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/sirupsen/logrus"

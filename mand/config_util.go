@@ -1,8 +1,8 @@
 package mand
 
-import "github.com/Ptt-official-app/go-pttbbsweb/configutil"
+import "github.com/Ptt-official-app/pttbbs-backend/configutil"
 
-const configPrefix = "go-pttbbsweb:mand"
+const configPrefix = "pttbbs-backend:mand"
 
 func InitConfig() error {
 	config()

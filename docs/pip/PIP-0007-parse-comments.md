@@ -16,17 +16,17 @@ c-pttbbs 的推文只有 mm/dd HH:MM. 並沒有年份和秒/sub-seconds.
 
 comments 有可能會因為作者的 edit 而有所增減.
 並且 comments 有可能會很多 (> 10k) 而無法在短時間內 parse 全部.
-目前使用的 [strategy](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/api/get_article_detail.go#L250) 是會先 parse 前面一部分的 comments.
+目前使用的 [strategy](https://github.com/Ptt-official-app/pttbbs-backend/blob/main/api/get_article_detail.go#L250) 是會先 parse 前面一部分的 comments.
 然後把所有的 comments 丟進 queue 裡重新 parse.
 
-comments 另外有[舊版](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/dbcs/testcase/temp8) comments 需要考慮
+comments 另外有[舊版](https://github.com/Ptt-official-app/pttbbs-backend/blob/main/dbcs/testcase/temp8) comments 需要考慮
 
-Parse comments 分成[兩個階段](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/queue/comment_queue.go#L77)
+Parse comments 分成[兩個階段](https://github.com/Ptt-official-app/pttbbs-backend/blob/main/queue/comment_queue.go#L77)
 1. 根據 commentDBCS parse 成 comments.
 2. 將 parse 的 comments 和既有的 comments integrate.
 
 
-## [根據 commentDBCS parse 成 comments](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/dbcs/comment.go#L34)
+## [根據 commentDBCS parse 成 comments](https://github.com/Ptt-official-app/pttbbs-backend/blob/main/dbcs/comment.go#L34)
 
 1. 估計可能會有多少個 comments.
 2. 特別處理推噓文之前的 reply.
@@ -37,7 +37,7 @@ Parse comments 分成[兩個階段](https://github.com/Ptt-official-app/go-pttbb
     * 找下一個推/噓/->/轉/編輯/刪除
 
 
-## [Integrate comments](https://github.com/Ptt-official-app/go-pttbbsweb/blob/main/dbcs/integrate_comments.go)
+## [Integrate comments](https://github.com/Ptt-official-app/pttbbs-backend/blob/main/dbcs/integrate_comments.go)
 
 1. 拿到所有的既有的 comments 的 MD5
 2. 根據 edit-distance 找到相同 MD5 的 comments 和相應的 chunkts

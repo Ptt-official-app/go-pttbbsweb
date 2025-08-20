@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/schema"
+	"github.com/Ptt-official-app/pttbbs-backend/schema"
 )
 
 func checkClient(clientID string, clientSecret string) (isValid bool, client *schema.Client) {

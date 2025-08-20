@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/api"
+	"github.com/Ptt-official-app/pttbbs-backend/api"
 	"github.com/sirupsen/logrus"
 )
 

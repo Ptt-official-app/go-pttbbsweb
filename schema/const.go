@@ -3,7 +3,7 @@ package schema
 import (
 	"time"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/db"
+	"github.com/Ptt-official-app/pttbbs-backend/db"
 	redis "github.com/go-redis/redis/v8"
 )
 

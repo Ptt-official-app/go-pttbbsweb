@@ -3,7 +3,7 @@ package apitypes
 import (
 	"testing"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 )
 
 func TestToURL(t *testing.T) {

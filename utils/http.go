@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/mockhttp"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/mockhttp"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 	"github.com/gin-gonic/gin"
 	"github.com/google/go-querystring/query"
 	"github.com/sirupsen/logrus"

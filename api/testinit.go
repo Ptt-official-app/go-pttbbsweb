@@ -3,7 +3,7 @@ package api
 import (
 	"os"
 
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 )
 
 var (

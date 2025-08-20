@@ -3,9 +3,9 @@ package api
 import (
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
-	"github.com/Ptt-official-app/go-pttbbsweb/apitypes"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
-	"github.com/Ptt-official-app/go-pttbbsweb/utils"
+	"github.com/Ptt-official-app/pttbbs-backend/apitypes"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
+	"github.com/Ptt-official-app/pttbbs-backend/utils"
 	"github.com/gin-gonic/gin"
 )
 

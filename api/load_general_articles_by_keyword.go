@@ -3,8 +3,8 @@ package api
 import (
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	ptttypes "github.com/Ptt-official-app/go-pttbbs/types"
-	"github.com/Ptt-official-app/go-pttbbsweb/schema"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/schema"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 	"github.com/gin-gonic/gin"
 )
 

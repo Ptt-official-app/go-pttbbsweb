@@ -1,6 +1,6 @@
 info:
   version: '0.38.0'
-  title: go-pttbbsweb
+  title: pttbbs-backend
 definitions:
   !include defs/access_token.yaml
   !include defs/account_login_params.yaml

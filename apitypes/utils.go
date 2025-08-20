@@ -1,7 +1,7 @@
 package apitypes
 
 import (
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 )
 
 func ToURL(fbboardID FBoardID, farticleID FArticleID) string {

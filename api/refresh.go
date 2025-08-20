@@ -2,7 +2,7 @@ package api
 
 import (
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
-	"github.com/Ptt-official-app/go-pttbbsweb/types"
+	"github.com/Ptt-official-app/pttbbs-backend/types"
 	"github.com/gin-gonic/gin"
 )
 
