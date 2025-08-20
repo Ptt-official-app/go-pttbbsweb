@@ -53,13 +53,20 @@ func loginRequiredPathProcess(theFunc LoginRequiredPathAPIFunc, params interface
 	if err != nil {
 		userID = bbs.UUserID(pttbbsapi.GUEST)
 	}
-	userVisit := &schema.UserVisit{
-		UserID:       userID,
-		Action:       c.Request.Method + ":" + c.Request.URL.Path,
-		UpdateNanoTS: types.NowNanoTS(),
-	}
-	_ = schema.UpdateUserVisit(userVisit)
 
-	result, statusCode, err := theFunc(remoteAddr, userID, params, path, c)
+	isOver18 := verifyIsOver18(c)
+
+	if userID != bbs.UUserID(pttbbsapi.GUEST) {
+		userVisit := &schema.UserVisit{
+			UserID:       userID,
+			Action:       c.Request.Method + ":" + c.Request.URL.Path,
+			UpdateNanoTS: types.NowNanoTS(),
+		}
+		_ = schema.UpdateUserVisit(userVisit)
+	}
+
+	user := &UserInfo{IsOver18: isOver18, UserID: bbs.UUserID(pttbbsapi.GUEST)}
+
+	result, statusCode, err := theFunc(remoteAddr, user, params, path, c)
 	processResult(c, result, statusCode, err, userID)
 }

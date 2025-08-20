@@ -277,7 +277,8 @@ func TestGetArticleDetail(t *testing.T) {
 				GET_ARTICLE_CONTENT_INFO_TOO_SOON_NANO_TS = tt.toSoonNanoTS
 			}
 
-			gotResult, gotStatusCode, err := GetArticleDetail(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := GetArticleDetail(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetArticleDetail() error = %v, wantErr %v", err, tt.wantErr)
 				return

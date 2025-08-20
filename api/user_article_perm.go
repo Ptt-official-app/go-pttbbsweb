@@ -9,9 +9,9 @@ import (
 // CheckUserArticlePermReadable
 //
 // Readable
-func CheckUserArticlePermReadable(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, isCheckBoard bool, c *gin.Context) (err error) {
+func CheckUserArticlePermReadable(user *UserInfo, boardID bbs.BBoardID, articleID bbs.ArticleID, isCheckBoard bool, c *gin.Context) (err error) {
 	if isCheckBoard {
-		_, err = CheckUserBoardPermReadable(userID, boardID, c)
+		_, err = CheckUserBoardPermReadable(user, boardID, c)
 		if err != nil {
 			return err
 		}
@@ -36,9 +36,9 @@ func CheckUserArticlePermReadable(userID bbs.UUserID, boardID bbs.BBoardID, arti
 // CheckUserArticlePermEditable
 //
 // Editable
-func CheckUserArticlePermEditable(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, isCheckBoard bool, c *gin.Context) (err error) {
+func CheckUserArticlePermEditable(user *UserInfo, boardID bbs.BBoardID, articleID bbs.ArticleID, isCheckBoard bool, c *gin.Context) (err error) {
 	if isCheckBoard {
-		_, err = CheckUserBoardPermReadable(userID, boardID, c)
+		_, err = CheckUserBoardPermReadable(user, boardID, c)
 		if err != nil {
 			return err
 		}
@@ -52,7 +52,7 @@ func CheckUserArticlePermEditable(userID bbs.UUserID, boardID bbs.BBoardID, arti
 		return ErrNoArticle
 	}
 
-	return checkUserArticlePermEditableCore(userID, boardID, articleID, articlePermInfo)
+	return checkUserArticlePermEditableCore(user.UserID, boardID, articleID, articlePermInfo)
 }
 
 func checkUserArticlePermEditableCore(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, articlePermInfo *schema.ArticlePermInfo) (err error) {
@@ -70,9 +70,9 @@ func checkUserArticlePermEditableCore(userID bbs.UUserID, boardID bbs.BBoardID, 
 //	CheckUserArticlesPermEditable
 //
 // articles Editable
-func CheckUserArticlesPermEditable(userID bbs.UUserID, boardID bbs.BBoardID, articleIDs []bbs.ArticleID, userBoardPerm *UserBoardPermReadable, c *gin.Context) (articlePermMap map[bbs.ArticleID]error, err error) {
+func CheckUserArticlesPermEditable(user *UserInfo, boardID bbs.BBoardID, articleIDs []bbs.ArticleID, userBoardPerm *UserBoardPermReadable, c *gin.Context) (articlePermMap map[bbs.ArticleID]error, err error) {
 	if userBoardPerm == nil {
-		userBoardPerm, err = CheckUserBoardPermReadable(userID, boardID, c)
+		userBoardPerm, err = CheckUserBoardPermReadable(user, boardID, c)
 		if err != nil {
 			return nil, err
 		}
@@ -90,7 +90,7 @@ func CheckUserArticlesPermEditable(userID bbs.UUserID, boardID bbs.BBoardID, art
 		return nil, ErrNoArticle
 	}
 
-	return checkUserArticlesPermEditableCore(userID, articlesPermInfo, userBoardPerm), nil
+	return checkUserArticlesPermEditableCore(user.UserID, articlesPermInfo, userBoardPerm), nil
 }
 
 func checkUserArticlesPermEditableCore(userID bbs.UUserID, articlesPermInfo []*schema.ArticlePermInfo, userBoardPerm *UserBoardPermReadable) (articlePermMap map[bbs.ArticleID]error) {
@@ -114,8 +114,8 @@ func checkUserArticlesPermEditableCore(userID bbs.UUserID, articlesPermInfo []*s
 // CheckUserArticlePermDeletable
 //
 // Deletable
-func CheckUserArticlePermDeletable(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context) (err error) {
-	userBoardPermReadable, err := CheckUserBoardPermReadable(userID, boardID, c)
+func CheckUserArticlePermDeletable(user *UserInfo, boardID bbs.BBoardID, articleID bbs.ArticleID, c *gin.Context) (err error) {
+	userBoardPermReadable, err := CheckUserBoardPermReadable(user, boardID, c)
 	if err != nil {
 		return err
 	}
@@ -128,7 +128,7 @@ func CheckUserArticlePermDeletable(userID bbs.UUserID, boardID bbs.BBoardID, art
 		return ErrNoArticle
 	}
 
-	return checkUserArticlePermDeletableCore(userID, boardID, articleID, articlePermInfo, userBoardPermReadable)
+	return checkUserArticlePermDeletableCore(user.UserID, boardID, articleID, articlePermInfo, userBoardPermReadable)
 }
 
 func checkUserArticlePermDeletableCore(userID bbs.UUserID, boardID bbs.BBoardID, articleID bbs.ArticleID, articlePermInfo *schema.ArticlePermInfo, userBoardPerm *UserBoardPermReadable) (err error) {
@@ -154,9 +154,9 @@ func checkUserArticlePermDeletableCore(userID bbs.UUserID, boardID bbs.BBoardID,
 // CheckUserArticlePermDeletable
 //
 // Deletable
-func CheckUserArticlesPermDeletable(userID bbs.UUserID, boardID bbs.BBoardID, articleIDs []bbs.ArticleID, userBoardPermReadable *UserBoardPermReadable, c *gin.Context) (articlePermMap map[bbs.ArticleID]error, err error) {
+func CheckUserArticlesPermDeletable(user *UserInfo, boardID bbs.BBoardID, articleIDs []bbs.ArticleID, userBoardPermReadable *UserBoardPermReadable, c *gin.Context) (articlePermMap map[bbs.ArticleID]error, err error) {
 	if userBoardPermReadable == nil {
-		userBoardPermReadable, err = CheckUserBoardPermReadable(userID, boardID, c)
+		userBoardPermReadable, err = CheckUserBoardPermReadable(user, boardID, c)
 		if err != nil {
 			return nil, err
 		}
@@ -174,7 +174,7 @@ func CheckUserArticlesPermDeletable(userID bbs.UUserID, boardID bbs.BBoardID, ar
 		return nil, ErrNoArticle
 	}
 
-	return checkUserArticlesPermDeletableCore(userID, articlesPermInfo, userBoardPermReadable), nil
+	return checkUserArticlesPermDeletableCore(user.UserID, articlesPermInfo, userBoardPermReadable), nil
 }
 
 func checkUserArticlesPermDeletableCore(userID bbs.UUserID, articlesPermInfo []*schema.ArticlePermInfo, userBoardPerm *UserBoardPermReadable) (articlePermMap map[bbs.ArticleID]error) {
@@ -201,9 +201,9 @@ func checkUserArticlesPermDeletableCore(userID bbs.UUserID, articlesPermInfo []*
 //	CheckUserArticlesPermEditable
 //
 // articles Editable
-func CheckUserArticlesPermEditableDeletable(userID bbs.UUserID, boardID bbs.BBoardID, articleIDs []bbs.ArticleID, userBoardPerm *UserBoardPermReadable, c *gin.Context) (articlePermEditableMap map[bbs.ArticleID]error, articlePermDeletableMap map[bbs.ArticleID]error, err error) {
+func CheckUserArticlesPermEditableDeletable(user *UserInfo, boardID bbs.BBoardID, articleIDs []bbs.ArticleID, userBoardPerm *UserBoardPermReadable, c *gin.Context) (articlePermEditableMap map[bbs.ArticleID]error, articlePermDeletableMap map[bbs.ArticleID]error, err error) {
 	if userBoardPerm == nil {
-		userBoardPerm, err = CheckUserBoardPermReadable(userID, boardID, c)
+		userBoardPerm, err = CheckUserBoardPermReadable(user, boardID, c)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -221,5 +221,5 @@ func CheckUserArticlesPermEditableDeletable(userID bbs.UUserID, boardID bbs.BBoa
 		return nil, nil, ErrNoArticle
 	}
 
-	return checkUserArticlesPermEditableCore(userID, articlesPermInfo, userBoardPerm), checkUserArticlesPermDeletableCore(userID, articlesPermInfo, userBoardPerm), nil
+	return checkUserArticlesPermEditableCore(user.UserID, articlesPermInfo, userBoardPerm), checkUserArticlesPermDeletableCore(user.UserID, articlesPermInfo, userBoardPerm), nil
 }

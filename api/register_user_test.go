@@ -6,6 +6,8 @@ import (
 	"testing"
 	"time"
 
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/pttbbs-backend/schema"
 	"github.com/gin-gonic/gin"
 )
@@ -57,7 +59,9 @@ func TestRegisterUser(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := RegisterUser(tt.args.remoteAddr, tt.args.params, tt.args.c)
+
+			user := &UserInfo{UserID: bbs.UUserID(pttbbsapi.GUEST)}
+			gotResult, gotStatusCode, err := RegisterUser(tt.args.remoteAddr, user, tt.args.params, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("RegisterUser() error = %v, wantErr %v", err, tt.wantErr)
 				return

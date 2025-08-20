@@ -28,7 +28,8 @@ func TestAddFavoriteBoard(t *testing.T) {
 		StartIdx: "vFSt-Q@WhoAmI",
 	}
 
-	result_i, _, err := LoadGeneralBoardsByClass("localhost", "SYSOP", paramsLoad0, nil)
+	user := &UserInfo{UserID: "SYSOP", IsOver18: true}
+	result_i, _, err := LoadGeneralBoardsByClass("localhost", user, paramsLoad0, nil)
 	result, _ := result_i.(*LoadGeneralBoardsResult)
 	logrus.Infof("TestAddFavoriteBoard: after LoadGeneralBoardsByClass: result: %v", result.List[0])
 
@@ -110,7 +111,8 @@ func TestAddFavoriteBoard(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := AddFavoriteBoard(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := AddFavoriteBoard(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("AddFavoriteBoard() error = %v, wantErr %v", err, tt.wantErr)
 				return

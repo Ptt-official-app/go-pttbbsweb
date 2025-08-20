@@ -21,7 +21,7 @@ func GetVersionWrapper(c *gin.Context) {
 	Query(GetVersion, nil, c)
 }
 
-func GetVersion(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func GetVersion(remoteAddr string, user *UserInfo, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	url := pttbbsapi.GET_VERSION_R
 
 	var result_b *pttbbsapi.GetVersionResult

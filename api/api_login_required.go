@@ -45,6 +45,10 @@ func loginRequiredProcess(theFunc LoginRequiredAPIFunc, params interface{}, c *g
 		userID = bbs.UUserID(pttbbsapi.GUEST)
 	}
 
-	result, statusCode, err := theFunc(remoteAddr, userID, params, c)
+	isOver18 := verifyIsOver18(c)
+
+	user := &UserInfo{IsOver18: isOver18, UserID: userID}
+
+	result, statusCode, err := theFunc(remoteAddr, user, params, c)
 	processResult(c, result, statusCode, err, userID)
 }

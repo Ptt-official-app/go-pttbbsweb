@@ -31,7 +31,7 @@ func CreateArticleWrapper(c *gin.Context) {
 	LoginRequiredPathJSON(CreateArticle, params, path, c)
 }
 
-func CreateArticle(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func CreateArticle(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*CreateArticleParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -42,13 +42,14 @@ func CreateArticle(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		logrus.Errorf("CreateArticle: unable to find boardID: boardID: %v e: %v", thePath.FBoardID, err)
 		return nil, 500, err
 	}
 
-	err = CheckUserBoardPermPostable(userID, boardID, c)
+	err = CheckUserBoardPermPostable(user, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}

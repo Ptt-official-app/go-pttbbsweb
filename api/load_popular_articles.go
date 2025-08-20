@@ -34,7 +34,7 @@ func LoadPopularArticlesWrapper(c *gin.Context) {
 	LoginRequiredQuery(LoadPopularArticles, params, c)
 }
 
-func LoadPopularArticles(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadPopularArticles(remoteAddr string, user *UserInfo, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	result = mock.ArticleListResult
 	return result, 200, nil
 }

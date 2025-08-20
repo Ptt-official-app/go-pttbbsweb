@@ -39,11 +39,11 @@ func LoadGeneralBoardsWrapper(c *gin.Context) {
 	LoginRequiredQuery(LoadGeneralBoards, params, c)
 }
 
-func LoadGeneralBoards(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-	return loadGeneralBoardsCore(remoteAddr, userID, params, c, pttbbsapi.LOAD_GENERAL_BOARDS_R)
+func LoadGeneralBoards(remoteAddr string, user *UserInfo, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+	return loadGeneralBoardsCore(remoteAddr, user, params, c, pttbbsapi.LOAD_GENERAL_BOARDS_R)
 }
 
-func loadGeneralBoardsCore(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context, url string) (result interface{}, statusCode int, err error) {
+func loadGeneralBoardsCore(remoteAddr string, user *UserInfo, params interface{}, c *gin.Context, url string) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoadGeneralBoardsParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -64,7 +64,7 @@ func loadGeneralBoardsCore(remoteAddr string, userID bbs.UUserID, params interfa
 		return nil, statusCode, err
 	}
 
-	return postLoadBoards(userID, result_b, url, c)
+	return postLoadBoards(user.UserID, result_b, url, c)
 }
 
 func postLoadBoards(userID bbs.UUserID, result_b *pttbbsapi.LoadGeneralBoardsResult, url string, c *gin.Context) (result *LoadGeneralBoardsResult, statusCode int, err error) {

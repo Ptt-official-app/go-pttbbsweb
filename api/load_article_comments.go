@@ -40,7 +40,7 @@ func LoadArticleCommentsWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(LoadArticleComments, params, path, c)
 }
 
-func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadArticleComments(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoadArticleCommentsParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -51,6 +51,7 @@ func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err
@@ -58,7 +59,7 @@ func LoadArticleComments(remoteAddr string, userID bbs.UUserID, params interface
 	articleID := thePath.FArticleID.ToArticleID()
 
 	// check permission
-	err = CheckUserArticlePermReadable(userID, boardID, articleID, true, c)
+	err = CheckUserArticlePermReadable(user, boardID, articleID, true, c)
 	if err != nil {
 		return nil, statusCode, err
 	}

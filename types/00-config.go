@@ -40,6 +40,9 @@ var (
 	ACCESS_TOKEN_EXPIRE_TS          = 86400
 	ACCESS_TOKEN_EXPIRE_TS_DURATION = time.Duration(ACCESS_TOKEN_EXPIRE_TS) * time.Second
 
+	IS_OVER_18_NAME  = "over18"
+	IS_OVER_18_VALUE = "1"
+
 	// email
 	EMAIL_TOKEN_NAME = "token" // email-token in email-url
 

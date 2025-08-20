@@ -22,10 +22,10 @@ type AddFavoriteFolderPath struct {
 func AddFavoriteFolderWrapper(c *gin.Context) {
 	params := &AddFavoriteFolderParams{}
 	path := &AddFavoriteFolderPath{}
-	LoginRequiredPathJSON(AddFavoriteLine, params, path, c)
+	LoginRequiredPathJSON(AddFavoriteFolder, params, path, c)
 }
 
-func AddFavoriteFolder(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func AddFavoriteFolder(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*AddFavoriteFolderParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -35,6 +35,8 @@ func AddFavoriteFolder(remoteAddr string, userID bbs.UUserID, params interface{}
 	if !ok {
 		return nil, 400, ErrInvalidPath
 	}
+
+	userID := user.UserID
 
 	if userID != thePath.UserID {
 		return nil, 403, ErrInvalidUser

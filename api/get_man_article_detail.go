@@ -34,12 +34,13 @@ func GetManArticleDetailWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(GetManArticleDetail, nil, path, c)
 }
 
-func GetManArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func GetManArticleDetail(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	thePath, ok := path.(*GetManArticleDetailPath)
 	if !ok {
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err

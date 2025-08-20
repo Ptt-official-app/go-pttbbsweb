@@ -24,18 +24,19 @@ func LoadBottomArticlesWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(LoadBottomArticles, nil, path, c)
 }
 
-func LoadBottomArticles(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadBottomArticles(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	thePath, ok := path.(*LoadBottomArticlesPath)
 	if !ok {
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err
 	}
 
-	userBoardPerm, err := CheckUserBoardPermReadable(userID, boardID, c)
+	userBoardPerm, err := CheckUserBoardPermReadable(user, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}
@@ -50,7 +51,7 @@ func LoadBottomArticles(remoteAddr string, userID bbs.UUserID, params interface{
 		articleIDs[idx] = each.ArticleID
 	}
 
-	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(userID, boardID, articleIDs, userBoardPerm, c)
+	articlePermEditableMap, articlePermDeletableMap, err := CheckUserArticlesPermEditableDeletable(user, boardID, articleIDs, userBoardPerm, c)
 	if err != nil {
 		return nil, 500, err
 	}

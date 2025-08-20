@@ -29,7 +29,8 @@ func TestLoadArticleComments(t *testing.T) {
 		FBoardID:   apitypes.FBoardID("WhoAmI"),
 		FArticleID: apitypes.FArticleID("M.1607937174.A.081"),
 	}
-	_, _, _ = GetArticleDetail(testIP, "SYSOP", articleParams, articlePath, nil)
+	user := &UserInfo{UserID: "SYSOP", IsOver18: true}
+	_, _, _ = GetArticleDetail(testIP, user, articleParams, articlePath, nil)
 
 	comments := []*apitypes.Comment{
 		{
@@ -231,7 +232,9 @@ func TestLoadArticleComments(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := LoadArticleComments(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := LoadArticleComments(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("LoadArticleComments() error = %v, wantErr %v", err, tt.wantErr)
 				return

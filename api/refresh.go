@@ -22,7 +22,7 @@ func RefreshWrapper(c *gin.Context) {
 	FormJSON(Refresh, params, c)
 }
 
-func Refresh(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func Refresh(remoteAddr string, user *UserInfo, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*RefreshParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams

@@ -2,7 +2,6 @@ package api
 
 import (
 	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
-	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/pttbbs-backend/utils"
 	"github.com/gin-gonic/gin"
 )
@@ -28,7 +27,7 @@ func LoadAutoCompleteBoardsWrapper(c *gin.Context) {
 	LoginRequiredQuery(LoadAutoCompleteBoards, params, c)
 }
 
-func LoadAutoCompleteBoards(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadAutoCompleteBoards(remoteAddr string, user *UserInfo, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoadAutoCompleteBoardsParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -49,5 +48,5 @@ func LoadAutoCompleteBoards(remoteAddr string, userID bbs.UUserID, params interf
 		return nil, statusCode, err
 	}
 
-	return postLoadBoards(userID, result_b, url, c)
+	return postLoadBoards(user.UserID, result_b, url, c)
 }

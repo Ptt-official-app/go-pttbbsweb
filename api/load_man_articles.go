@@ -29,7 +29,7 @@ func LoadManArticlesWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(LoadManArticles, params, path, c)
 }
 
-func LoadManArticles(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadManArticles(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoadManArticlesParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -40,9 +40,16 @@ func LoadManArticles(remoteAddr string, userID bbs.UUserID, params interface{}, 
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err
+	}
+
+	// check board permission
+	_, err = CheckUserBoardPermReadable(user, boardID, c)
+	if err != nil {
+		return nil, 403, err
 	}
 
 	level := theParams.LevelIdx.ToManArticleID()

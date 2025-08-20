@@ -43,7 +43,8 @@ func TestEditArticleDetail(t *testing.T) {
 		},
 	}
 
-	got0, _, _ := CreateArticle(testIP, "SYSOP", createParams0, createPath0, nil)
+	user := &UserInfo{UserID: "SYSOP", IsOver18: true}
+	got0, _, _ := CreateArticle(testIP, user, createParams0, createPath0, nil)
 	gotCreateArticle0, _ := got0.(CreateArticleResult)
 
 	content0 := [][]*types.Rune{
@@ -121,7 +122,8 @@ func TestEditArticleDetail(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotResult, gotStatusCode, err := EditArticleDetail(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := EditArticleDetail(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 			logrus.Infof("TestEditArticleDetail: got: %v statusCode: %v e: %v", gotResult, gotStatusCode, err)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("EditArticleDetail() error = %v, wantErr %v", err, tt.wantErr)

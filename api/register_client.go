@@ -29,7 +29,7 @@ func RegisterClientWrapper(c *gin.Context) {
 	LoginRequiredJSON(RegisterClient, params, c)
 }
 
-func RegisterClient(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func RegisterClient(remoteAddr string, user *UserInfo, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	registerClientParams, ok := params.(*RegisterClientParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -45,6 +45,7 @@ func RegisterClient(remoteAddr string, userID bbs.UUserID, params interface{}, c
 	}
 
 	// result
+	userID := user.UserID
 	result = NewRegisterClientResult(client, userID)
 	return result, 200, nil
 }

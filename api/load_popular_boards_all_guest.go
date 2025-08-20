@@ -1,6 +1,7 @@
 package api
 
 import (
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/pttbbs-backend/apitypes"
@@ -12,7 +13,7 @@ func LoadPopularBoardsAllGuestWrapper(c *gin.Context) {
 	Query(LoadPopularBoardsAllGuest, nil, c)
 }
 
-func LoadPopularBoardsAllGuest(remoteAddr string, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadPopularBoardsAllGuest(remoteAddr string, user *UserInfo, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	boardSummaries_db, err := schema.GetPopularBoardSummaries()
 	if err != nil {
 		return nil, 500, err
@@ -25,7 +26,9 @@ func LoadPopularBoardsAllGuest(remoteAddr string, params interface{}, c *gin.Con
 		}
 	}
 
-	result = NewLoadPopularBoardsResult(boardSummaries_db, userBoardInfoMap, "guest")
+	user.UserID = bbs.UUserID(pttbbsapi.GUEST)
+
+	result = NewLoadPopularBoardsResult(boardSummaries_db, userBoardInfoMap, user.UserID)
 
 	return result, 200, nil
 }

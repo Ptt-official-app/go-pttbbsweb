@@ -1,6 +1,7 @@
 package api
 
 import (
+	"sync"
 	"testing"
 
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
@@ -36,7 +37,8 @@ func TestDeleteArticles(t *testing.T) {
 			{createRune0},
 		},
 	}
-	got0, _, _ := CreateArticle(testIP, "SYSOP", createParams0, createpath0, nil)
+	user := &UserInfo{UserID: "SYSOP", IsOver18: true}
+	got0, _, _ := CreateArticle(testIP, user, createParams0, createpath0, nil)
 	gotCreateArticle0, _ := got0.(CreateArticleResult)
 	path0 := &DeleteArticlesPath{
 		FBoardID: "WhoAmI",
@@ -73,9 +75,14 @@ func TestDeleteArticles(t *testing.T) {
 			wantErr:        false,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
-			gotResult, gotStatusCode, err := DeleteArticles(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+			defer wg.Done()
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+
+			gotResult, gotStatusCode, err := DeleteArticles(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 			logrus.Infof("TestDeleteArticles: got: %v statusCode: %v e: %v", gotResult, gotStatusCode, err)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("DeleteArticles() error = %v, wantErr %v", err, tt.wantErr)

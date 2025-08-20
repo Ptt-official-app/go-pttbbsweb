@@ -41,7 +41,7 @@ func EditArticleDetailWrapper(c *gin.Context) {
 	LoginRequiredPathJSON(EditArticleDetail, params, path, c)
 }
 
-func EditArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func EditArticleDetail(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*EditArticleParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -52,6 +52,7 @@ func EditArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err
@@ -59,7 +60,7 @@ func EditArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}
 	articleID := thePath.FArticleID.ToArticleID()
 
 	// check permission
-	err = CheckUserArticlePermEditable(userID, boardID, articleID, true, c)
+	err = CheckUserArticlePermEditable(user, boardID, articleID, true, c)
 	if err != nil {
 		return nil, 403, err
 	}

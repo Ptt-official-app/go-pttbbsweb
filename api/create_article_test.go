@@ -90,7 +90,8 @@ func TestCreateArticle(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := CreateArticle(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := CreateArticle(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 
 			logrus.Infof("TestCreateArticle: got: %v statusCode: %v e: %v", gotResult, gotStatusCode, err)
 

@@ -110,12 +110,13 @@ func GetUserInfoWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(GetUserInfo, params, path, c)
 }
 
-func GetUserInfo(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func GetUserInfo(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	thePath, ok := path.(*GetUserInfoPath)
 	if !ok {
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	userPermInfo, err := getUserPermInfo(userID, c)
 	if err != nil {
 		return nil, 500, err

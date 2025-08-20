@@ -50,7 +50,8 @@ func TestReplyComments(t *testing.T) {
 		},
 	}
 
-	gotCreateArticleResult0, _, _ := CreateArticle(testIP, "SYSOP", createArticleParams0, createArticlePath0, nil)
+	user := &UserInfo{UserID: "SYSOP", IsOver18: true}
+	gotCreateArticleResult0, _, _ := CreateArticle(testIP, user, createArticleParams0, createArticlePath0, nil)
 	gotCreateArticle0, _ := gotCreateArticleResult0.(CreateArticleResult)
 
 	createCommentParams0 := &CreateCommentParams{
@@ -62,7 +63,7 @@ func TestReplyComments(t *testing.T) {
 		FArticleID: gotCreateArticle0.ArticleID,
 	}
 
-	gotCreateCommentResult0, _, err := CreateComment(testIP, "SYSOP", createCommentParams0, createCommentPath0, nil)
+	gotCreateCommentResult0, _, err := CreateComment(testIP, user, createCommentParams0, createCommentPath0, nil)
 	createCommentResult0, _ := gotCreateCommentResult0.(CreateCommentResult)
 	logrus.Infof("createCommentResult: %v gotCreateCommentResult0: %v e: %v", createCommentResult0, gotCreateCommentResult0, err)
 
@@ -129,7 +130,9 @@ func TestReplyComments(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := ReplyComments(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := ReplyComments(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("ReplyComments() error = %v, wantErr %v", err, tt.wantErr)
 				return

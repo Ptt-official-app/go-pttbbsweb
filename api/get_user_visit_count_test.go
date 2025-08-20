@@ -2,8 +2,11 @@ package api
 
 import (
 	"reflect"
+	"sync"
 	"testing"
 
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
 
@@ -31,9 +34,13 @@ func TestGetUserVisitCount(t *testing.T) {
 			wantErr:        false,
 		},
 	}
+	var wg sync.WaitGroup
 	for _, tt := range tests {
+		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
-			gotResult, gotStatusCode, err := GetUserVisitCount(tt.args.remoteAddr, tt.args.params, tt.args.c)
+			defer wg.Done()
+			user := &UserInfo{UserID: bbs.UUserID(pttbbsapi.GUEST)}
+			gotResult, gotStatusCode, err := GetUserVisitCount(tt.args.remoteAddr, user, tt.args.params, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetUserVisitCount() error = %v, wantErr %v", err, tt.wantErr)
 				return

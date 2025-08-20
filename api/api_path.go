@@ -3,6 +3,8 @@ package api
 import (
 	"strings"
 
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
+	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/gin-gonic/gin"
 )
 
@@ -34,6 +36,10 @@ func pathProcess(theFunc PathAPIFunc, params interface{}, path interface{}, c *g
 		return
 	}
 
-	result, statusCode, err := theFunc(remoteAddr, params, path, c)
+	isOver18 := verifyIsOver18(c)
+
+	user := &UserInfo{IsOver18: isOver18, UserID: bbs.UUserID(pttbbsapi.GUEST)}
+
+	result, statusCode, err := theFunc(remoteAddr, user, params, path, c)
 	processResult(c, result, statusCode, err, "")
 }

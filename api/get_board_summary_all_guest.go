@@ -1,6 +1,7 @@
 package api
 
 import (
+	pttbbsapi "github.com/Ptt-official-app/go-pttbbs/api"
 	"github.com/Ptt-official-app/go-pttbbs/bbs"
 	"github.com/Ptt-official-app/go-pttbbs/ptttype"
 	"github.com/Ptt-official-app/pttbbs-backend/apitypes"
@@ -15,20 +16,21 @@ func GetBoardSummaryAllGuestWrapper(c *gin.Context) {
 	PathQuery(GetBoardSummaryAllGuest, params, path, c)
 }
 
-func GetBoardSummaryAllGuest(remoteAddr string, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
-	userID := bbs.UUserID("guest")
+func GetBoardSummaryAllGuest(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+	user.UserID = bbs.UUserID(pttbbsapi.GUEST)
 
 	thePath, ok := path.(*GetBoardSummaryPath)
 	if !ok {
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 400, err
 	}
 
-	_, err = CheckUserBoardPermReadable(userID, boardID, c)
+	_, err = CheckUserBoardPermReadable(user, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}

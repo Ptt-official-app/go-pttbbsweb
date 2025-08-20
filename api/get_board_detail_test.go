@@ -17,7 +17,8 @@ func TestGetBoardDetail(t *testing.T) {
 	_, _ = deserializeUserDetailAndUpdateDB(testUserSYSOP_b, 123456890000000000)
 	_, _ = deserializeUserDetailAndUpdateDB(testUserChhsiao123_b, 123456891000000000)
 
-	LoadAutoCompleteBoards("", "SYSOP", NewLoadAutoCompleteBoardsParams(), nil)
+	user := &UserInfo{UserID: "SYSOP", IsOver18: true}
+	LoadAutoCompleteBoards("", user, NewLoadAutoCompleteBoardsParams(), nil)
 
 	params0 := &GetBoardDetailParams{}
 	path0 := &GetBoardDetailPath{FBoardID: "test1"}
@@ -80,7 +81,8 @@ func TestGetBoardDetail(t *testing.T) {
 		wg.Add(1)
 		t.Run(tt.name, func(t *testing.T) {
 			defer wg.Done()
-			gotResult, gotStatusCode, err := GetBoardDetail(tt.args.remoteAddr, tt.args.userID, tt.args.params, tt.args.path, tt.args.c)
+			user := &UserInfo{UserID: tt.args.userID, IsOver18: true}
+			gotResult, gotStatusCode, err := GetBoardDetail(tt.args.remoteAddr, user, tt.args.params, tt.args.path, tt.args.c)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetBoardDetail() error = %v, wantErr %v", err, tt.wantErr)
 				return

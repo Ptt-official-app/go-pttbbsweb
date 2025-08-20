@@ -56,12 +56,13 @@ func GetArticleDetailWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(GetArticleDetail, params, path, c)
 }
 
-func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func GetArticleDetail(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	thePath, ok := path.(*GetArticleDetailPath)
 	if !ok {
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err
@@ -69,7 +70,7 @@ func GetArticleDetail(remoteAddr string, userID bbs.UUserID, params interface{},
 	articleID := thePath.FArticleID.ToArticleID()
 
 	// check permission
-	err = CheckUserArticlePermReadable(userID, boardID, articleID, true, c)
+	err = CheckUserArticlePermReadable(user, boardID, articleID, true, c)
 	if err != nil {
 		return nil, 403, err
 	}

@@ -28,7 +28,7 @@ func AddFavoriteBoardWrapper(c *gin.Context) {
 	LoginRequiredPathJSON(AddFavoriteBoard, params, path, c)
 }
 
-func AddFavoriteBoard(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func AddFavoriteBoard(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*AddFavoriteBoardParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -39,6 +39,8 @@ func AddFavoriteBoard(remoteAddr string, userID bbs.UUserID, params interface{},
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
+
 	if userID != thePath.UserID {
 		return nil, 403, ErrInvalidUser
 	}
@@ -48,7 +50,7 @@ func AddFavoriteBoard(remoteAddr string, userID bbs.UUserID, params interface{},
 		return nil, 500, err
 	}
 
-	_, err = CheckUserBoardPermReadable(userID, boardID, c)
+	_, err = CheckUserBoardPermReadable(user, boardID, c)
 	if err != nil {
 		return nil, 403, err
 	}

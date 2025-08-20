@@ -18,6 +18,10 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
+func verifyIsOver18(c *gin.Context) bool {
+	return utils.GetCookie(c, types.IS_OVER_18_NAME) == types.IS_OVER_18_VALUE
+}
+
 func verifyJwt(c *gin.Context) (userID bbs.UUserID, err error) {
 	jwt := pttbbsapi.GetJwt(c) // get jwt from access-token
 

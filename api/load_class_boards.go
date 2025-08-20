@@ -42,7 +42,7 @@ func LoadClassBoardsWrapper(c *gin.Context) {
 	LoginRequiredPathQuery(LoadClassBoards, params, path, c)
 }
 
-func LoadClassBoards(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadClassBoards(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*LoadClassBoardsParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -59,11 +59,12 @@ func LoadClassBoards(remoteAddr string, userID bbs.UUserID, params interface{}, 
 	}
 
 	// is board-valid-user
-	_, err = CheckUserBoardPermReadable(userID, boardID, c)
+	_, err = CheckUserBoardPermReadable(user, boardID, c)
 	if err != nil {
 		return nil, statusCode, err
 	}
 
+	userID := user.UserID
 	boardSummaries_db, userBoardInfoMap, nextIdx, err := loadClassBoards(userID, thePath.ClsID, theParams.StartIdx, theParams.Ascending, theParams.Max, theParams.SortBy, c)
 	if err != nil {
 		return nil, 500, err

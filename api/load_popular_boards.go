@@ -23,7 +23,7 @@ func LoadPopularBoardsWrapper(c *gin.Context) {
 	LoginRequiredQuery(LoadPopularBoards, nil, c)
 }
 
-func LoadPopularBoards(remoteAddr string, userID bbs.UUserID, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func LoadPopularBoards(remoteAddr string, user *UserInfo, params interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	// get data
 	ctx := context.Background()
 	req := &boardd.HotboardRequest{}
@@ -39,6 +39,7 @@ func LoadPopularBoards(remoteAddr string, userID bbs.UUserID, params interface{}
 		return nil, 500, err
 	}
 
+	userID := user.UserID
 	// check isRead
 	userBoardInfoMap, err = checkUserReadBoard(userID, userBoardInfoMap, boardSummaries_db)
 	if err != nil {

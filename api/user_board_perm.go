@@ -31,14 +31,16 @@ var COOLDOWN_LIMIT = []*CooldownLimit{
 }
 
 // CheckUserBoardPermCreatable
-func CheckUserBoardPermCreatable(userID bbs.UUserID, c *gin.Context) (err error) {
-	userPermInfo, err := getUserPermInfo(userID, c)
+func CheckUserBoardPermCreatable(user *UserInfo, c *gin.Context) (err error) {
+	userPermInfo, err := getUserPermInfo(user.UserID, c)
 	if err != nil {
 		return err
 	}
 	if userPermInfo == nil {
 		return ErrInvalidUser
 	}
+
+	userPermInfo.Over18 = userPermInfo.Over18 && user.IsOver18
 
 	return checkUserBoardPermCreatableCore(userPermInfo)
 }
@@ -58,7 +60,8 @@ func checkUserBoardPermCreatableCore(userPermInfo *schema.UserPermInfo) (err err
 // CheckUserBoardPermReadable
 //
 // https://github.com/ptt/pttbbs/blob/master/mbbsd/board.c#L185
-func CheckUserBoardPermReadable(userID bbs.UUserID, boardID bbs.BBoardID, c *gin.Context) (userBoardPerm *UserBoardPermReadable, err error) {
+func CheckUserBoardPermReadable(user *UserInfo, boardID bbs.BBoardID, c *gin.Context) (userBoardPerm *UserBoardPermReadable, err error) {
+	userID := user.UserID
 	userPermInfo, err := getUserPermInfo(userID, c)
 	if err != nil {
 		return nil, err
@@ -66,6 +69,8 @@ func CheckUserBoardPermReadable(userID bbs.UUserID, boardID bbs.BBoardID, c *gin
 	if userPermInfo == nil {
 		return nil, ErrNoUser
 	}
+
+	userPermInfo.Over18 = userPermInfo.Over18 && user.IsOver18
 
 	boardPermInfo, err := schema.GetBoardPermInfo(boardID)
 	if err != nil {
@@ -149,7 +154,8 @@ func checkUserBoardPermReadableCore(userID bbs.UUserID, boardID bbs.BBoardID, us
 // CheckUserBoardPermPostable
 //
 // https://github.com/ptt/pttbbs/blob/master/mbbsd/cache.c#L209
-func CheckUserBoardPermPostable(userID bbs.UUserID, boardID bbs.BBoardID, c *gin.Context) (err error) {
+func CheckUserBoardPermPostable(user *UserInfo, boardID bbs.BBoardID, c *gin.Context) (err error) {
+	userID := user.UserID
 	userPermInfo, err := getUserPermInfo(userID, c)
 	if err != nil {
 		return err
@@ -157,6 +163,8 @@ func CheckUserBoardPermPostable(userID bbs.UUserID, boardID bbs.BBoardID, c *gin
 	if userPermInfo == nil {
 		return ErrInvalidUser
 	}
+
+	userPermInfo.Over18 = userPermInfo.Over18 && user.IsOver18
 
 	boardPermInfo, err := schema.GetBoardPermInfo(boardID)
 	if err != nil {
@@ -261,7 +269,8 @@ func checkUserBoardPermPostableCore(userID bbs.UUserID, boardID bbs.BBoardID, us
 }
 
 // CheckUserBoardPermEditable
-func CheckUserBoardPermEditable(userID bbs.UUserID, boardID bbs.BBoardID, c *gin.Context) (err error) {
+func CheckUserBoardPermEditable(user *UserInfo, boardID bbs.BBoardID, c *gin.Context) (err error) {
+	userID := user.UserID
 	userPermInfo, err := getUserPermInfo(userID, c)
 	if err != nil {
 		return err
@@ -269,6 +278,8 @@ func CheckUserBoardPermEditable(userID bbs.UUserID, boardID bbs.BBoardID, c *gin
 	if userPermInfo == nil {
 		return ErrInvalidUser
 	}
+
+	userPermInfo.Over18 = userPermInfo.Over18 && user.IsOver18
 
 	boardPermInfo, err := schema.GetBoardPermInfo(boardID)
 	if err != nil {

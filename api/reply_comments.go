@@ -31,7 +31,7 @@ func ReplyCommentsWrapper(c *gin.Context) {
 	LoginRequiredPathJSON(ReplyComments, params, path, c)
 }
 
-func ReplyComments(remoteAddr string, userID bbs.UUserID, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
+func ReplyComments(remoteAddr string, user *UserInfo, params interface{}, path interface{}, c *gin.Context) (result interface{}, statusCode int, err error) {
 	theParams, ok := params.(*ReplyCommentsParams)
 	if !ok {
 		return nil, 400, ErrInvalidParams
@@ -42,6 +42,7 @@ func ReplyComments(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 		return nil, 400, ErrInvalidPath
 	}
 
+	userID := user.UserID
 	boardID, err := toBoardID(thePath.FBoardID, remoteAddr, userID, c)
 	if err != nil {
 		return nil, 500, err
@@ -49,7 +50,7 @@ func ReplyComments(remoteAddr string, userID bbs.UUserID, params interface{}, pa
 	articleID := thePath.FArticleID.ToArticleID()
 
 	// check permission
-	err = CheckUserArticlePermReadable(userID, boardID, articleID, true, c)
+	err = CheckUserArticlePermReadable(user, boardID, articleID, true, c)
 	if err != nil {
 		return nil, 403, err
 	}
