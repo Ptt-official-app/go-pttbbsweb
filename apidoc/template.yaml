@@ -8,6 +8,7 @@ definitions:
   !include defs/board_list.yaml
   !include defs/board_summary.yaml
   !include defs/params_authorization.yaml
+  !include defs/params_over18.yaml
   !include defs/params_max.yaml
   !include defs/params_start_idx.yaml
   !include defs/resp_next_idx.yaml

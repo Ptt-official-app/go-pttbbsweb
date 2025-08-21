@@ -5,6 +5,7 @@ tags:
   - board
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
+  - '$ref': '#/definitions/ParamsOver18'
   - name: 'user_id'
     in: 'path'
     required: true

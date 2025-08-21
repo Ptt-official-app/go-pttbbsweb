@@ -7,6 +7,7 @@ tags:
 description: 讀取板裡的精華區文章列表, 按照 index 排列.
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
+  - '$ref': '#/definitions/ParamsOver18'
   - name: 'bid'
     in: 'path'
     required: true

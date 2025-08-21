@@ -30,3 +30,4 @@ coverage.txt
 /docker/docker-compose.yaml.me
 /docker/docker_compose.env.me
 /docs/config/00-config-production.go.template.me
+/apidoc/build

@@ -1,0 +1,7 @@
+ParamsOver18:
+  name: 'over18'
+  in: 'header'
+  required: false
+  description: "if true: 1"
+  type: string
+  default: ''
