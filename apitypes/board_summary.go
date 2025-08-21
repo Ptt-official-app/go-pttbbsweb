@@ -38,7 +38,7 @@ type BoardSummary struct {
 	TokenUser bbs.UUserID `json:"tokenuser,omitempty"`
 
 	IsPopular bool `json:"is_popular,omitempty"` // 熱門板
-	IsOver18  bool `json:"is_over_18,omitempty"` // 18歲板
+	IsOver18  bool `json:"is_over_18"`           // 18歲板
 
 	IsNoStats             bool `json:"is_no_stats,omitempty"`               // 不列入統計
 	IsGroupBoard          bool `json:"is_group_board,omitempty"`            // 群組板
