@@ -6,6 +6,7 @@ tags:
 description: 讀取板裡的文章列表, 呈現時舊的排前面.
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
+  - '$ref': '#/definitions/ParamsOver18'
   - name: 'bid'
     in: 'path'
     required: true

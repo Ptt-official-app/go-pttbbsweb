@@ -6,6 +6,7 @@ tags:
 description: 讀取分類看板的 list
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
+  - '$ref': '#/definitions/ParamsOver18'
   - name: 'clsid'
     in: 'path'
     required: true

@@ -5,6 +5,7 @@ tags:
 description: 列出所有板 (可用英文板名搜尋)
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
+  - '$ref': '#/definitions/ParamsOver18'
   - '$ref': '#/definitions/ParamsTitle'
   - '$ref': '#/definitions/ParamsKeyword'
   - '$ref': '#/definitions/ParamsStartIdx'

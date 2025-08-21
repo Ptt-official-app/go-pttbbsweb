@@ -6,6 +6,7 @@ tags:
   - comment
 parameters:
   - '$ref': '#/definitions/ParamsAuthorization'
+  - '$ref': '#/definitions/ParamsOver18'
   - name: 'bid'
     in: 'path'
     required: true
