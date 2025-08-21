@@ -1,7 +1,7 @@
 ParamsOver18:
-  name: 'over18'
+  name: 'cookie'
   in: 'header'
   required: false
-  description: "if true: 1"
+  description: "if over18 is true: over18=1"
   type: string
   default: ''
