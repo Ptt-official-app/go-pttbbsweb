@@ -138,7 +138,7 @@ func checkUserBoardPermReadableCore(userID bbs.UUserID, boardID bbs.BBoardID, us
 	}
 
 	// 5. require age over 18
-	if boardPermInfo.BrdAttr.HasPerm(ptttype.BRD_OVER18) && !userPermInfo.Over18 {
+	if boardPermInfo.IsOver18 && !userPermInfo.Over18 {
 		return nil, ErrPermBoardReadNotOver18
 	}
 
